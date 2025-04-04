@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:validators/validators.dart';
 
 import '../blocs/signin/signin_cubit.dart';
-import '../utils/error_dialog.dart';
+import '../core/utils/error_dialog.dart';
 import 'signup_page.dart';
 
 class SigninPage extends StatefulWidget {

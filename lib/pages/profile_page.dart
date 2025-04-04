@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/auth/auth_bloc.dart';
 import '../blocs/profile/profile_cubit.dart';
-import '../utils/error_dialog.dart';
+import '../core/utils/error_dialog.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

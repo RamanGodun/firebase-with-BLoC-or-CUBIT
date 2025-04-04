@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:validators/validators.dart';
 
 import '../blocs/signup/signup_cubit.dart';
-import '../utils/error_dialog.dart';
+import '../core/utils/error_dialog.dart';
 
 class SignupPage extends StatefulWidget {
   static const String routeName = '/signup';
