@@ -1,86 +1,71 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'blocs/auth/auth_bloc.dart';
-import 'blocs/profile/profile_cubit.dart';
-import 'blocs/signin/signin_cubit.dart';
-import 'blocs/signup/signup_cubit.dart';
-import 'firebase_options.dart';
-import 'pages/home_page.dart';
-import 'pages/signin_page.dart';
-import 'pages/signup_page.dart';
-import 'pages/splash_page.dart';
-import 'repositories/auth_repository.dart';
-import 'repositories/profile_repository.dart';
+import 'core/di/bootstrap.dart';
+import 'core/di/injection.dart';
+import 'core/navigation/router.dart';
+import 'features/auth/auth_bloc/auth_bloc.dart';
+import 'features/profile/profile_bloc/profile_cubit.dart';
+import 'features/sign_in/sign_in_bloc/signin_cubit.dart';
+import 'features/sign_up/signup_bloc/signup_cubit.dart';
+import 'core/constants/app_strings.dart';
+import 'features/theme/app_theme.dart';
+import 'features/theme/theme_cubit/theme_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(const MyApp());
+
+  /// 🔧 Initialize Firebase + HydratedStorage + BLoC observer
+  await bootstrapApp();
+
+  /// 🧩 Register all dependencies via GetIt
+  await initDependencies();
+
+  /// 🏁 **Launch the app**
+  runApp(const AppBlocProviders());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+/// * 🧱 Root BLoC provider wrapper.
+/// Registers all BLoC/Cubit instances using GetIt ([appSingleton]).
+class AppBlocProviders extends StatelessWidget {
+  const AppBlocProviders({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
+    return MultiBlocProvider(
       providers: [
-        RepositoryProvider<AuthRepository>(
-          create: (context) => AuthRepository(
-            firebaseFirestore: FirebaseFirestore.instance,
-            firebaseAuth: FirebaseAuth.instance,
-          ),
-        ),
-        RepositoryProvider<ProfileRepository>(
-          create: (context) => ProfileRepository(
-            firebaseFirestore: FirebaseFirestore.instance,
-          ),
-        ),
+        BlocProvider(create: (_) => appSingleton<AuthBloc>()),
+        BlocProvider(create: (_) => appSingleton<SigninCubit>()),
+        BlocProvider(create: (_) => appSingleton<SignupCubit>()),
+        BlocProvider(create: (_) => appSingleton<ProfileCubit>()),
+        BlocProvider(create: (_) => appSingleton<AppThemeCubit>()),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<AuthBloc>(
-            create: (context) => AuthBloc(
-              authRepository: context.read<AuthRepository>(),
-            ),
-          ),
-          BlocProvider<SigninCubit>(
-            create: (context) => SigninCubit(
-              authRepository: context.read<AuthRepository>(),
-            ),
-          ),
-          BlocProvider<SignupCubit>(
-            create: (context) => SignupCubit(
-              authRepository: context.read<AuthRepository>(),
-            ),
-          ),
-          BlocProvider<ProfileCubit>(
-            create: (context) => ProfileCubit(
-              profileRepository: context.read<ProfileRepository>(),
-            ),
-          ),
-        ],
-        child: MaterialApp(
-          title: 'Firebase Auth',
+      child: const AppView(),
+    );
+  }
+}
+
+/// * 🎨 [AppView] - builds the main [MaterialApp] structure.
+/// - lListens for theme changes via **AppSettingsCubit**.
+class AppView extends StatelessWidget {
+  const AppView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AppThemeCubit, AppThemeState>(
+      builder: (context, state) {
+        return MaterialApp.router(
+          title: AppStrings.appTitle,
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
-          home: const SplashPage(),
-          routes: {
-            SignupPage.routeName: (context) => const SignupPage(),
-            SigninPage.routeName: (context) => const SigninPage(),
-            HomePage.routeName: (context) => const HomePage(),
-          },
-        ),
-      ),
+          theme: AppThemes.getLightTheme(),
+          darkTheme: AppThemes.getDarkTheme(),
+          themeMode: state.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
+
+          ///
+          routerDelegate: goRouter.routerDelegate,
+          routeInformationParser: goRouter.routeInformationParser,
+          routeInformationProvider: goRouter.routeInformationProvider,
+        );
+      },
     );
   }
 }
