@@ -33,11 +33,13 @@ class AppBlocProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => appSingleton<AuthBloc>()),
+        // 🔄 AuthBloc —  singleton (because of reactive navigation)
+        BlocProvider.value(value: appSingleton<AuthBloc>()),
         BlocProvider(create: (_) => appSingleton<SigninCubit>()),
         BlocProvider(create: (_) => appSingleton<SignupCubit>()),
-        BlocProvider(create: (_) => appSingleton<ProfileCubit>()),
-        BlocProvider(create: (_) => appSingleton<AppThemeCubit>()),
+        // 🧑‍💼 ProfileCubit + AppThemeCubit — singletons, because used globally
+        BlocProvider.value(value: appSingleton<ProfileCubit>()),
+        BlocProvider.value(value: appSingleton<AppThemeCubit>()),
       ],
       child: const AppView(),
     );
@@ -56,11 +58,13 @@ class AppView extends StatelessWidget {
         return MaterialApp.router(
           title: AppStrings.appTitle,
           debugShowCheckedModeBanner: false,
+
+          /// Theme settings
           theme: AppThemes.getLightTheme(),
           darkTheme: AppThemes.getDarkTheme(),
           themeMode: state.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
 
-          ///
+          /// Navigation settings
           routerDelegate: goRouter.routerDelegate,
           routeInformationParser: goRouter.routeInformationParser,
           routeInformationProvider: goRouter.routeInformationProvider,

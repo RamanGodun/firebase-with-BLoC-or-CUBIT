@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/auth/auth_bloc/auth_bloc.dart';
 import '../../features/sign_in/signin_page.dart';
@@ -11,43 +13,58 @@ import '../../presentation/pages/verify_email_page.dart';
 import '../di/injection.dart';
 import 'route_names.dart';
 
+/// 🧭 App Router — handles navigation & redirection logic
 final GoRouter goRouter = GoRouter(
   initialLocation: '/splash',
+  debugLogDiagnostics: true,
 
-  /// 🔁 Handles redirection based on auth status and email verification
+  /// 🔁 Triggers rebuild when `AuthBloc` state changes
+  refreshListenable: GoRouterRefreshBloc(appSingleton<AuthBloc>().stream),
+
+  /// 🚦 Redirect logic based on AuthState
   redirect: (context, state) {
     final authState = appSingleton<AuthBloc>().state;
 
-    final isAuthUnknown = authState.authStatus == AuthStatus.unknown;
     final isAuthenticated = authState.authStatus == AuthStatus.authenticated;
-    final isVerified = authState.user?.emailVerified ?? false;
+    final isUnauthenticated =
+        authState.authStatus == AuthStatus.unauthenticated;
+    final isUnknown = authState.authStatus == AuthStatus.unknown;
 
-    final isOnAuthScreen = [
+    final isOnSplash = state.matchedLocation == '/${RouteNames.splash}';
+    final isOnAuthPage = [
       '/${RouteNames.signin}',
       '/${RouteNames.signup}',
       '/${RouteNames.resetPassword}',
     ].contains(state.matchedLocation);
 
-    if (isAuthUnknown) return '/${RouteNames.splash}';
-    if (!isAuthenticated) {
-      return isOnAuthScreen ? null : '/${RouteNames.signin}';
+    // 🟡 Still loading: don't redirect yet
+    if (isUnknown) return isOnSplash ? null : '/${RouteNames.splash}';
+
+    // 🔴 Not logged in — redirect to SignIn
+    if (isUnauthenticated) {
+      return isOnAuthPage ? null : '/${RouteNames.signin}';
     }
-    if (!isVerified) return '/${RouteNames.verifyEmail}';
 
-    final isOnSplash = state.matchedLocation == '/${RouteNames.splash}';
-    final isOnVerify = state.matchedLocation == '/${RouteNames.verifyEmail}';
+    // ✅ Authenticated — redirect away from Auth pages
+    if (isAuthenticated && (isOnSplash || isOnAuthPage)) {
+      return '/${RouteNames.home}';
+    }
 
-    return (isOnSplash || isOnVerify || isOnAuthScreen)
-        ? '/${RouteNames.home}'
-        : null;
+    // ✅ Allow navigation
+    return null;
   },
 
-  /// 📌 Route Definitions
+  /// 🗺️ Route Definitions
   routes: [
     GoRoute(
       path: '/${RouteNames.splash}',
       name: RouteNames.splash,
       builder: (_, __) => const SplashPage(),
+    ),
+    GoRoute(
+      path: '/${RouteNames.home}',
+      name: RouteNames.home,
+      builder: (_, __) => const HomePage(),
     ),
     GoRoute(
       path: '/${RouteNames.signin}',
@@ -70,19 +87,28 @@ final GoRouter goRouter = GoRouter(
       builder: (_, __) => const VerifyEmailPage(),
     ),
     GoRoute(
-      path: '/${RouteNames.home}',
-      name: RouteNames.home,
-      builder: (_, __) => const HomePage(),
-      routes: const [],
-    ),
-    GoRoute(
-      path: RouteNames.changePassword,
+      path: '/${RouteNames.changePassword}',
       name: RouteNames.changePassword,
       builder: (_, __) => const ChangePasswordPage(),
     ),
   ],
 
-  /// 🚫 Error Handling
+  /// ❌ Fallback for unknown routes
   errorBuilder:
       (_, state) => PageNotFound(errorMessage: state.error.toString()),
 );
+
+/// 👀 Wrapper to listen to BLoC streams
+class GoRouterRefreshBloc extends ChangeNotifier {
+  GoRouterRefreshBloc(Stream stream) {
+    _subscription = stream.listen((_) => notifyListeners());
+  }
+
+  late final StreamSubscription _subscription;
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
+  }
+}

@@ -31,7 +31,9 @@ Future<void> initDependencies() async {
   );
 
   // Cubits / BLoCs
-  appSingleton.registerFactory(() => AuthBloc(authRepository: appSingleton()));
+  appSingleton.registerLazySingleton<AuthBloc>(
+    () => AuthBloc(authRepository: appSingleton()),
+  );
   appSingleton.registerFactory(
     () => SigninCubit(authRepository: appSingleton()),
   );

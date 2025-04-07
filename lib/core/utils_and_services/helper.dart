@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../presentation/widgets/text_widget.dart';
+import '../navigation/route_names.dart';
 
 /*
 ! separate to different utils and name them accordingly 
@@ -22,7 +24,7 @@ class Helpers {
   }
 
   static void goToResetPassword(BuildContext context) {
-    // GoRouter.of(context).goNamed(RouteNames.resetPassword);
+    GoRouter.of(context).goNamed(RouteNames.resetPassword);
   }
 
   /// Navigates to a named route with optional parameters
@@ -33,14 +35,14 @@ class Helpers {
     Map<String, dynamic> queryParameters = const <String, dynamic>{},
   }) {
     try {
-      // GoRouter.of(context).goNamed(
-      //   routeName,
-      //   pathParameters: pathParameters,
-      //   queryParameters: queryParameters,
-      // );
+      GoRouter.of(context).goNamed(
+        routeName,
+        pathParameters: pathParameters,
+        queryParameters: queryParameters,
+      );
     } catch (e) {
       // Redirect to error page if route is not found
-      // GoRouter.of(context).go('/unknown');
+      GoRouter.of(context).go('/unknown');
     }
   }
 

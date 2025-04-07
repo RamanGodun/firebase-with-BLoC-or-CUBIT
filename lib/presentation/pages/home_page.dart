@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../core/utils_and_services/helper.dart';
 import '../../features/auth/auth_bloc/auth_bloc.dart';
-import '../../core/utils_and_services/helper.dart' show Helpers;
 import '../../features/profile/profile_page.dart';
+import '../widgets/custom_app_bar.dart';
+import '../widgets/text_widget.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   static const String routeName = '/home';
   const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final imageWidth = MediaQuery.of(context).size.width * 0.8;
@@ -20,20 +17,15 @@ class _HomePageState extends State<HomePage> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: const Text('Home'),
-          actions: [
-            IconButton(
-              onPressed: () => Helpers.pushTo(context, const ProfilePage()),
-              icon: const Icon(Icons.account_circle),
-            ),
-            IconButton(
-              onPressed:
-                  () => context.read<AuthBloc>().add(SignoutRequestedEvent()),
-              icon: const Icon(Icons.exit_to_app),
-            ),
+        appBar: CustomAppBar(
+          title: 'Home',
+          isCenteredTitle: false,
+          actionIcons: const [Icons.account_circle, Icons.exit_to_app],
+          actionCallbacks: [
+            () => Helpers.pushTo(context, const ProfilePage()),
+            () => context.read<AuthBloc>().add(SignoutRequestedEvent()),
           ],
+          isNeedPaddingAfterActionIcon: true,
         ),
         body: Center(
           child: Column(
@@ -43,11 +35,14 @@ class _HomePageState extends State<HomePage> {
                 'assets/images/bloc_logo_full.png',
                 width: imageWidth,
               ),
-              const SizedBox(height: 20.0),
-              const Text(
-                'Bloc is an awesome\nstate management library\nfor flutter!',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 24.0),
+              const SizedBox(height: 24.0),
+              const TextWidget(
+                'Bloc is an awesome\nstate management library\nfor Flutter!',
+                TextType.titleMedium,
+                alignment: TextAlign.center,
+                fontWeight: FontWeight.w500,
+                height: 1.4,
+                enableShadow: false,
               ),
             ],
           ),
