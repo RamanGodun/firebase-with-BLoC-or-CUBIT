@@ -59,12 +59,26 @@ class AuthRepository {
   }
 
   /// 🔐 Signs in the user with email/password credentials.
-  Future<void> signin({required String email, required String password}) async {
+  // Future<void> signin({required String email, required String password}) async {
+  //   try {
+  //     await firebaseAuth.signInWithEmailAndPassword(
+  //       email: email,
+  //       password: password,
+  //     );
+  //   } catch (e) {
+  //     throw handleException(e);
+  //   }
+  // }
+  Future<fb_auth.UserCredential> signin({
+    required String email,
+    required String password,
+  }) async {
     try {
-      await firebaseAuth.signInWithEmailAndPassword(
+      final credential = await firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+      return credential;
     } catch (e) {
       throw handleException(e);
     }

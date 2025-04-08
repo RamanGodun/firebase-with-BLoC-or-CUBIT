@@ -1,26 +1,36 @@
+import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:formz/formz.dart';
+
 import '../../../../core/utils_and_services/errors_handling/custom_error.dart';
 import '../../../../core/utils_and_services/errors_handling/handle_exception.dart';
+import '../../../core/utils_and_services/debouncer.dart';
 import '../../../core/utils_and_services/form_fields_input/email_input.dart';
 import '../../../core/utils_and_services/form_fields_input/passwords_input.dart';
 import '../../auth/auth_repository.dart';
 
-part 'signin_form_state.dart';
+part 'sign_in_page_state.dart';
 
-class SigninFormCubit extends Cubit<SigninFormState> {
+class SigninPageCubit extends Cubit<SignInPageState> {
   final AuthRepository authRepository;
-  SigninFormCubit({required this.authRepository})
-    : super(const SigninFormState());
+  SigninPageCubit({required this.authRepository})
+    : super(const SignInPageState()) {
+    print('🟢 onCreate -- SigninFormCubit');
+    resetForm();
+  }
+
+  final _debouncer = Debouncer(const Duration(milliseconds: 300));
 
   void emailChanged(String value) {
-    final email = EmailInput.dirty(value);
-    emit(
-      state.copyWith(
-        email: email,
-        isValid: Formz.validate([email, state.password]),
-      ),
-    );
+    _debouncer.run(() {
+      final email = EmailInput.dirty(value);
+      emit(
+        state.copyWith(
+          email: email,
+          isValid: Formz.validate([email, state.password]),
+        ),
+      );
+    });
   }
 
   void passwordChanged(String value) {
@@ -40,12 +50,18 @@ class SigninFormCubit extends Cubit<SigninFormState> {
 
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
-      await authRepository.signin(
+      final credential = await authRepository.signin(
         email: state.email.value,
         password: state.password.value,
       );
+
+      final user = credential.user!;
+      await authRepository.ensureUserProfileCreated(user);
+
+      if (isClosed) return;
       emit(state.copyWith(status: FormzSubmissionStatus.success));
     } catch (e) {
+      if (isClosed) return;
       emit(
         state.copyWith(
           status: FormzSubmissionStatus.failure,
@@ -55,10 +71,17 @@ class SigninFormCubit extends Cubit<SigninFormState> {
     }
   }
 
-  ///
   void resetStatus() {
     emit(state.copyWith(status: FormzSubmissionStatus.initial));
   }
 
-  ///
+  void resetForm() {
+    emit(const SignInPageState());
+  }
+
+  @override
+  Future<void> close() {
+    print('🔴 onClose -- SigninFormCubit');
+    return super.close();
+  }
 }

@@ -9,9 +9,9 @@ import '../../core/utils_and_services/form_fields_input/forms_status_extension.d
 import '../../core/utils_and_services/helper.dart';
 import '../../presentation/widgets/buttons/button_for_forms.dart';
 import '../../presentation/widgets/buttons/text_button.dart';
-import 'sign_in_page_cubit/signin_form_cubit.dart';
-
-part 'sign_in_fields.dart';
+import '../../presentation/widgets/input_fields.dart/email_input_field.dart';
+import '../../presentation/widgets/input_fields.dart/password_input_field.dart';
+import 'sign_in_page_cubit/sign_in_page_cubit.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
@@ -19,15 +19,15 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => SigninFormCubit(authRepository: appSingleton()),
-      child: BlocListener<SigninFormCubit, SigninFormState>(
+      create: (_) => SigninPageCubit(authRepository: appSingleton()),
+      child: BlocListener<SigninPageCubit, SignInPageState>(
         listenWhen:
             (prev, current) =>
                 prev.status != current.status &&
                 current.status.isSubmissionFailure,
         listener: (context, state) {
           AppDialogs.showErrorDialog(context, state.error);
-          context.read<SigninFormCubit>().resetStatus();
+          context.read<SigninPageCubit>().resetStatus();
         },
         child: const SigninPageView(),
       ),
@@ -44,18 +44,10 @@ class SigninPageView extends HookWidget {
     final emailFocusNode = useFocusNode();
     final passwordFocusNode = useFocusNode();
 
-    // 📌 Clean up FocusNodes when the widget is disposed
-    useEffect(() {
-      return () {
-        emailFocusNode.dispose();
-        passwordFocusNode.dispose();
-      };
-    }, const []);
-
-    return BlocBuilder<SigninFormCubit, SigninFormState>(
+    return BlocBuilder<SigninPageCubit, SignInPageState>(
       builder: (context, state) {
         return GestureDetector(
-          onTap: () => _unfocusFields(context),
+          onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             body: Center(
               child: Padding(
@@ -64,19 +56,38 @@ class SigninPageView extends HookWidget {
                   child: ListView(
                     shrinkWrap: true,
                     children: [
+                      /// Build image
                       Image.asset('assets/images/flutter_logo.png', width: 250),
+                      const SizedBox(height: 20),
 
                       /// Build the textfields
+                      EmailInputField(
+                        focusNode: emailFocusNode,
+                        errorText: state.email.displayError,
+                        onChanged:
+                            (value) => context
+                                .read<SigninPageCubit>()
+                                .emailChanged(value),
+                        onSubmitted: () => FocusScope.of(context).nextFocus(),
+                      ),
                       const SizedBox(height: 20),
-                      _EmailField(focusNode: emailFocusNode),
-                      const SizedBox(height: 20),
-                      _PasswordField(focusNode: passwordFocusNode),
+
+                      PasswordInputField(
+                        focusNode: passwordFocusNode,
+                        errorText: state.password.displayError,
+                        onChanged:
+                            (value) => context
+                                .read<SigninPageCubit>()
+                                .passwordChanged(value),
+                        onSubmitted:
+                            () => context.read<SigninPageCubit>().submit(),
+                      ),
                       const SizedBox(height: 20),
 
                       /// Build the submit button (universal reusable button with loading state)
                       ReusableFormSubmitButton<
-                        SigninFormCubit,
-                        SigninFormState
+                        SigninPageCubit,
+                        SignInPageState
                       >(
                         text: 'Sign In',
                         onSubmit: _submit,
@@ -113,7 +124,7 @@ class SigninPageView extends HookWidget {
   /// Submit sign-in form through the form cubit
   void _submit(BuildContext context) {
     _unfocusFields(context);
-    context.read<SigninFormCubit>().submit();
+    context.read<SigninPageCubit>().submit();
   }
 
   ///

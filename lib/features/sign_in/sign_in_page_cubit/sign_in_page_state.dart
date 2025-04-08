@@ -1,14 +1,14 @@
 // 📄 signin_form_state.dart
-part of 'signin_form_cubit.dart';
+part of 'sign_in_page_cubit.dart';
 
-class SigninFormState {
+class SignInPageState {
   final EmailInput email;
   final PasswordInput password;
   final FormzSubmissionStatus status;
   final bool isValid;
   final CustomError error;
 
-  const SigninFormState({
+  const SignInPageState({
     this.email = const EmailInput.pure(),
     this.password = const PasswordInput.pure(),
     this.status = FormzSubmissionStatus.initial,
@@ -16,14 +16,14 @@ class SigninFormState {
     this.error = const CustomError(),
   });
 
-  SigninFormState copyWith({
+  SignInPageState copyWith({
     EmailInput? email,
     PasswordInput? password,
     FormzSubmissionStatus? status,
     bool? isValid,
     CustomError? error,
   }) {
-    return SigninFormState(
+    return SignInPageState(
       email: email ?? this.email,
       password: password ?? this.password,
       status: status ?? this.status,

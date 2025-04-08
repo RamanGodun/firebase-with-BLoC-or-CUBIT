@@ -5,7 +5,6 @@ import 'core/di/injection.dart';
 import 'core/navigation/router.dart';
 import 'features/auth/auth_bloc/auth_bloc.dart';
 import 'features/profile/profile_bloc/profile_cubit.dart';
-import 'features/sign_in/sign_in_bloc/signin_cubit.dart';
 import 'features/sign_up/signup_bloc/signup_cubit.dart';
 import 'core/constants/app_strings.dart';
 import 'features/theme/app_theme.dart';
@@ -33,12 +32,13 @@ class AppBlocProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        // 🔄 AuthBloc —  singleton (because of reactive navigation)
+        /// 🔄 AuthBloc —  singleton (because of reactive navigation)
         // BlocProvider(create: (_) => AuthBloc()),
         BlocProvider.value(value: appSingleton<AuthBloc>()),
-        BlocProvider(create: (_) => appSingleton<SigninCubit>()),
+
         BlocProvider(create: (_) => appSingleton<SignupCubit>()),
-        // 🧑‍💼 ProfileCubit + AppThemeCubit — singletons, because used globally
+
+        /// 🧑‍💼 ProfileCubit + AppThemeCubit — singletons, because used globally
         BlocProvider.value(value: appSingleton<ProfileCubit>()),
         BlocProvider.value(value: appSingleton<AppThemeCubit>()),
       ],
