@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../core/constants/app_strings.dart' show AppStrings;
 import '../../core/utils_and_services/helper.dart';
-import '../../features/auth/auth_bloc/auth_bloc.dart';
+import '../../features/auth_bloc/auth_bloc.dart';
 import '../../features/profile/profile_page.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/text_widget.dart';
@@ -18,8 +19,7 @@ class HomePage extends StatelessWidget {
       canPop: false,
       child: Scaffold(
         appBar: CustomAppBar(
-          title: 'Home',
-          isCenteredTitle: false,
+          title: AppStrings.homePageTitle,
           actionIcons: const [Icons.account_circle, Icons.exit_to_app],
           actionCallbacks: [
             () => Helpers.pushTo(context, const ProfilePage()),

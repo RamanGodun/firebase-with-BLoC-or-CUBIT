@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../features/auth/auth_bloc/auth_bloc.dart';
+import '../../features/auth_bloc/auth_bloc.dart';
 import '../../features/sign_in/sign_in_page.dart';
 import '../../features/sign_up/signup_page.dart';
 import '../../presentation/pages/change_password_page.dart';

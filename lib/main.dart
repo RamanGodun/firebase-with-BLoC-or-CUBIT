@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/di/bootstrap.dart';
 import 'core/di/injection.dart';
 import 'core/navigation/router.dart';
-import 'features/auth/auth_bloc/auth_bloc.dart';
-import 'features/profile/profile_cubit/profile_cubit.dart';
+import 'features/auth_bloc/auth_bloc.dart';
 import 'core/constants/app_strings.dart';
 import 'features/theme/app_theme.dart';
 import 'features/theme/theme_cubit/theme_cubit.dart';
@@ -36,7 +35,6 @@ class AppBlocProviders extends StatelessWidget {
         BlocProvider.value(value: appSingleton<AuthBloc>()),
 
         /// 🧑‍💼 ProfileCubit + AppThemeCubit — singletons, because used globally
-        BlocProvider.value(value: appSingleton<ProfileCubit>()),
         BlocProvider.value(value: appSingleton<AppThemeCubit>()),
       ],
       child: const AppView(),

@@ -1,3 +1,4 @@
+import 'package:firebase_with_bloc_or_cubit/presentation/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import '../../core/navigation/route_names.dart';
 import '../widgets/buttons/button_for_go_router.dart';
@@ -5,8 +6,6 @@ import '../widgets/text_widget.dart';
 
 /// **Page Not Found**
 /// - Displays an error message if the page is not found.
-/// - Provides a button to navigate back to the home page.
-
 class PageNotFound extends StatelessWidget {
   final String errorMessage;
 
@@ -15,9 +14,7 @@ class PageNotFound extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const TextWidget('Page Not Found', TextType.titleMedium),
-      ),
+      appBar: const CustomAppBar(title: 'Page Not Found'),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(30),
