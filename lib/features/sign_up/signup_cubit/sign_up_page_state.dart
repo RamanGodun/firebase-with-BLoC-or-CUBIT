@@ -1,6 +1,6 @@
 part of 'sign_up_page_cubit.dart';
 
-class SignupPageState {
+class SignUpState {
   final NameInput name;
   final EmailInput email;
   final PasswordInput password;
@@ -9,7 +9,7 @@ class SignupPageState {
   final bool isValid;
   final CustomError error;
 
-  const SignupPageState({
+  const SignUpState({
     this.name = const NameInput.pure(),
     this.email = const EmailInput.pure(),
     this.password = const PasswordInput.pure(),
@@ -19,7 +19,7 @@ class SignupPageState {
     this.error = const CustomError(),
   });
 
-  SignupPageState copyWith({
+  SignUpState copyWith({
     NameInput? name,
     EmailInput? email,
     PasswordInput? password,
@@ -28,7 +28,7 @@ class SignupPageState {
     bool? isValid,
     CustomError? error,
   }) {
-    return SignupPageState(
+    return SignUpState(
       name: name ?? this.name,
       email: email ?? this.email,
       password: password ?? this.password,
@@ -39,5 +39,3 @@ class SignupPageState {
     );
   }
 }
-
-enum SignupStatus { initial, submitting, success, error }

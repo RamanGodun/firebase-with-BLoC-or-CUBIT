@@ -1,4 +1,3 @@
-import 'package:formz/formz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -18,14 +17,11 @@ class NameInputField extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(
-      '📦 NameInputField built (focusNode.hasFocus: ${focusNode.hasFocus})',
-    );
-
     ///
     return TextField(
+      key: const ValueKey('signup_name_field'),
       focusNode: focusNode,
-      autofocus: true,
+      // autofocus: true,
       keyboardType: TextInputType.name,
       textCapitalization: TextCapitalization.words,
       autofillHints: null,
@@ -40,29 +36,5 @@ class NameInputField extends HookWidget {
       onChanged: onChanged,
       onSubmitted: (_) => onSubmitted?.call(),
     );
-  }
-}
-
-enum NameValidationError { empty, tooShort }
-
-class NameInput extends FormzInput<String, NameValidationError> {
-  const NameInput.pure() : super.pure('');
-  const NameInput.dirty([super.value = '']) : super.dirty();
-
-  @override
-  NameValidationError? validator(String value) {
-    if (value.trim().isEmpty) return NameValidationError.empty;
-    if (value.trim().length < 2) return NameValidationError.tooShort;
-    return null;
-  }
-
-  /// ✅ Це кастомний геттер для UI, а не override
-  String? get errorText {
-    if (isPure || isValid) return null;
-    return switch (error) {
-      NameValidationError.empty => 'Name is required',
-      NameValidationError.tooShort => 'Name must be at least 2 characters',
-      _ => null,
-    };
   }
 }

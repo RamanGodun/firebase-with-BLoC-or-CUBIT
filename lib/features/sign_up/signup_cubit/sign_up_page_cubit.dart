@@ -1,108 +1,79 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:firebase_with_bloc_or_cubit/core/utils_and_services/form_fields_input/forms_status_extension.dart';
 import 'package:formz/formz.dart';
 import '../../../../core/utils_and_services/debouncer.dart';
 import '../../../../core/utils_and_services/errors_handling/custom_error.dart';
 import '../../../../core/utils_and_services/errors_handling/handle_exception.dart';
 import '../../../../core/utils_and_services/form_fields_input/email_input.dart';
 import '../../../../core/utils_and_services/form_fields_input/passwords_input.dart';
-import '../../../presentation/widgets/input_fields.dart/name_input_field.dart'
-    show NameInput;
-import '../../../presentation/widgets/input_fields.dart/password_confirmation_input_filed.dart'
-    show ConfirmPasswordInput;
 import '../../auth/auth_repository.dart';
+import '../../../core/utils_and_services/errors_handling/custom_validation_of_input_fields/validation_for_name_input.dart';
+import '../../../core/utils_and_services/errors_handling/custom_validation_of_input_fields/validation_for_password_confirmation.dart';
 
 part 'sign_up_page_state.dart';
 
-class SignupPageCubit extends Cubit<SignupPageState> {
+class SignUpCubit extends Cubit<SignUpState> {
   final AuthRepository authRepository;
-  SignupPageCubit({required this.authRepository})
-    : super(const SignupPageState()) {
-    print('🟢 onCreate -- SignupPageCubit');
-    resetForm();
-  }
-
   final _debouncer = Debouncer(const Duration(milliseconds: 300));
 
-  void nameChanged(String value) {
+  SignUpCubit({required this.authRepository}) : super(const SignUpState()) {
+    print('🟢 onCreate -- SignUpCubit');
+    resetState();
+  }
+
+  /// Handle name field change
+  void onNameChanged(String value) {
     _debouncer.run(() {
       final name = NameInput.dirty(value);
-      emit(
-        state.copyWith(
-          name: name,
-          isValid: Formz.validate([
-            name,
-            state.email,
-            state.password,
-            state.confirmPassword,
-          ]),
-        ),
-      );
+      emit(state.copyWith(name: name, isValid: _validateForm(name: name)));
     });
   }
 
-  void emailChanged(String value) {
+  /// Handle email field change
+  void onEmailChanged(String value) {
     _debouncer.run(() {
       final email = EmailInput.dirty(value);
-      emit(
-        state.copyWith(
-          email: email,
-          isValid: Formz.validate([
-            state.name,
-            email,
-            state.password,
-            state.confirmPassword,
-          ]),
-        ),
-      );
+      emit(state.copyWith(isValid: _validateForm(email: email)));
     });
   }
 
-  void passwordChanged(String value) {
+  /// Handle password field change
+  void onPasswordChanged(String value) {
     final password = PasswordInput.dirty(value);
-    final confirmPassword = ConfirmPasswordInput.dirty(
+    final confirm = ConfirmPasswordInput.dirty(
       password: password.value,
       value: state.confirmPassword.value,
     );
-
     emit(
       state.copyWith(
         password: password,
-        confirmPassword: confirmPassword,
-        isValid: Formz.validate([
-          state.name,
-          state.email,
-          password,
-          confirmPassword,
-        ]),
+        confirmPassword: confirm,
+        isValid: _validateForm(password: password, confirmPassword: confirm),
       ),
     );
   }
 
-  void confirmPasswordChanged(String value) {
-    final confirmPassword = ConfirmPasswordInput.dirty(
+  /// Handle confirm password change
+  void onConfirmPasswordChanged(String value) {
+    final confirm = ConfirmPasswordInput.dirty(
       password: state.password.value,
       value: value,
     );
     emit(
       state.copyWith(
-        confirmPassword: confirmPassword,
-        isValid: Formz.validate([
-          state.name,
-          state.email,
-          state.password,
-          confirmPassword,
-        ]),
+        confirmPassword: confirm,
+        isValid: _validateForm(confirmPassword: confirm),
       ),
     );
   }
 
-  Future<void> submit() async {
-    if (!state.isValid || state.status == FormzSubmissionStatus.inProgress) {
-      return;
-    }
+  /// Submit sign-up form
+  Future<void> submitForm() async {
+    if (!state.isValid || state.status.isSubmissionInProgress) return;
 
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+
     try {
       await authRepository.signup(
         name: state.name.value,
@@ -123,18 +94,34 @@ class SignupPageCubit extends Cubit<SignupPageState> {
     }
   }
 
+  /// Reset only submission status
   void resetStatus() {
     emit(state.copyWith(status: FormzSubmissionStatus.initial));
   }
 
-  void resetForm() {
-    print('🧼 SignupPageCubit -> resetForm() called');
-    emit(const SignupPageState());
+  /// Reset whole form state
+  void resetState() {
+    print('🧼 SignUpCubit → resetState()');
+    emit(const SignUpState());
+  }
+
+  bool _validateForm({
+    NameInput? name,
+    EmailInput? email,
+    PasswordInput? password,
+    ConfirmPasswordInput? confirmPassword,
+  }) {
+    return Formz.validate([
+      name ?? state.name,
+      email ?? state.email,
+      password ?? state.password,
+      confirmPassword ?? state.confirmPassword,
+    ]);
   }
 
   @override
   Future<void> close() {
-    print('🔴 onClose -- SignupPageCubit');
+    print('🔴 onClose -- SignUpCubit');
     return super.close();
   }
 }

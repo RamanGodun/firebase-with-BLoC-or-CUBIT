@@ -74,7 +74,7 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: '/${RouteNames.signup}',
       name: RouteNames.signup,
-      builder: (_, __) => const SignupPage(),
+      builder: (_, __) => const SignUpPage(),
     ),
     GoRoute(
       path: '/${RouteNames.resetPassword}',

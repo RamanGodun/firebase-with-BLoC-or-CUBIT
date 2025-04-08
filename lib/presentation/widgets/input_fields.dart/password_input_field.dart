@@ -18,7 +18,9 @@ class PasswordInputField extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    ///
     return TextField(
+      key: const ValueKey('signup_password_field'),
       focusNode: focusNode,
       obscureText: true,
       autofillHints: null,

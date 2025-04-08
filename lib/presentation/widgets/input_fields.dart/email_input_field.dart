@@ -18,7 +18,9 @@ class EmailInputField extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    ///
     return TextField(
+      key: const ValueKey('signup_email_field'),
       focusNode: focusNode,
       keyboardType: TextInputType.emailAddress,
       autocorrect: false,

@@ -1,4 +1,3 @@
-import 'package:formz/formz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -18,7 +17,9 @@ class ConfirmPasswordInputField extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    ///
     return TextField(
+      key: const ValueKey('signup_confirm_password_field'),
       focusNode: focusNode,
       obscureText: true,
       autofillHints: null,
@@ -34,36 +35,4 @@ class ConfirmPasswordInputField extends HookWidget {
       onSubmitted: (_) => onSubmitted?.call(),
     );
   }
-}
-
-enum ConfirmPasswordValidationError { empty, mismatch }
-
-class ConfirmPasswordInput
-    extends FormzInput<String, ConfirmPasswordValidationError> {
-  final String password;
-
-  const ConfirmPasswordInput.pure({this.password = ''}) : super.pure('');
-  const ConfirmPasswordInput.dirty({required this.password, String value = ''})
-    : super.dirty(value);
-
-  @override
-  ConfirmPasswordValidationError? validator(String value) {
-    if (value.trim().isEmpty) return ConfirmPasswordValidationError.empty;
-    if (value != password) return ConfirmPasswordValidationError.mismatch;
-    return null;
-  }
-
-  /// ✅ Кастомний геттер, не override
-  String? get errorText {
-    if (isPure || isValid) return null;
-    return switch (error) {
-      ConfirmPasswordValidationError.empty => 'Confirmation required',
-      ConfirmPasswordValidationError.mismatch => 'Passwords do not match',
-      _ => null,
-    };
-  }
-
-  /// ✅ Метод для оновлення пароля
-  ConfirmPasswordInput updatePassword(String newPassword) =>
-      ConfirmPasswordInput.dirty(password: newPassword, value: value);
 }
