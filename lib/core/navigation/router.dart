@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/auth/auth_bloc/auth_bloc.dart';
-import '../../features/sign_in/signin_page.dart';
+import '../../features/sign_in/sign_in_page.dart';
 import '../../features/sign_up/signup_page.dart';
 import '../../presentation/pages/change_password_page.dart';
 import '../../presentation/pages/home_page.dart';
@@ -69,7 +69,7 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: '/${RouteNames.signin}',
       name: RouteNames.signin,
-      builder: (_, __) => const SigninPage(),
+      builder: (_, __) => const SignInPage(),
     ),
     GoRoute(
       path: '/${RouteNames.signup}',
