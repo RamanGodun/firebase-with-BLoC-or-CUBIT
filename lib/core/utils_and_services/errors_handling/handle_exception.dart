@@ -11,33 +11,27 @@ import 'custom_error.dart';
 /// - [FirebaseException] - Handles general Firebase-related errors.
 /// - [Exception] - Catches any other unknown errors and provides a generic response.
 ///
-/// Returns a [CustomError] containing the error details.
-CustomError handleException(e) {
+/// ✅ Usage: Use inside catch blocks to avoid duplication and ensure consistent error format.
+CustomError handleException(dynamic e) {
   try {
     throw e;
-  }
-  // Handle authentication-specific errors
-  on FirebaseAuthException catch (e) {
+  } on FirebaseAuthException catch (e) {
     return CustomError(
       code: e.code,
       message: e.message ?? 'Invalid credential',
       plugin: e.plugin,
     );
-  }
-  // Handle other Firebase-related exceptions
-  on FirebaseException catch (e) {
+  } on FirebaseException catch (e) {
     return CustomError(
       code: e.code,
       message: e.message ?? 'Firebase Error',
       plugin: e.plugin,
     );
-  }
-  // Handle any other unexpected errors
-  catch (e) {
+  } catch (e) {
     return CustomError(
       code: 'Exception',
       message: e.toString(),
-      plugin: 'Unknown error',
+      plugin: 'flutter_error/server_error',
     );
   }
 }

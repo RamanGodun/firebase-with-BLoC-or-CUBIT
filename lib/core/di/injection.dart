@@ -13,21 +13,20 @@ final appSingleton = GetIt.instance;
 
 Future<void> initDependencies() async {
   // Firebase Core dependencies
-  appSingleton.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
-  appSingleton.registerLazySingleton<FirebaseFirestore>(
-    () => FirebaseFirestore.instance,
-  );
+  appSingleton.registerLazySingleton(() => FirebaseAuth.instance);
+  appSingleton.registerLazySingleton(() => FirebaseFirestore.instance);
+  // appSingleton.registerLazySingleton<FirebaseFirestore>(
+  //   () => FirebaseFirestore.instance,
+  // );
 
-  // Repositories
+  /// Repositories
   appSingleton.registerLazySingleton<AuthRepository>(
-    () => AuthRepository(
-      firebaseFirestore: appSingleton(),
-      firebaseAuth: appSingleton(),
-    ),
+    () =>
+        AuthRepository(firestore: appSingleton(), firebaseAuth: appSingleton()),
   );
 
   appSingleton.registerLazySingleton<ProfileRepository>(
-    () => ProfileRepository(firebaseFirestore: appSingleton()),
+    () => ProfileRepository(firestore: appSingleton()),
   );
 
   // Cubits / BLoCs

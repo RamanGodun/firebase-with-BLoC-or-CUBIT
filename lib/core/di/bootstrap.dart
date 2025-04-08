@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:path_provider/path_provider.dart';
-import '../../data/sources/remote/firebase_options.dart'
+import '../../data/sources/remote_firebase/firebase_options.dart'
     show DefaultFirebaseOptions;
 import '../config/observer/app_bloc_observer.dart';
 

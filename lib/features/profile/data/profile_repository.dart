@@ -1,31 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../../core/utils_and_services/errors_handling/custom_error.dart';
+import '../../../core/utils_and_services/errors_handling/handle_exception.dart';
 import '../../../core/models/user_model.dart';
-import '../../../data/sources/remote/firebase_constants.dart'
-    show usersCollection;
 
 class ProfileRepository {
-  final FirebaseFirestore firebaseFirestore;
-  const ProfileRepository({required this.firebaseFirestore});
+  final FirebaseFirestore firestore;
+  const ProfileRepository({required this.firestore});
 
   Future<User> getProfile({required String uid}) async {
     try {
-      final DocumentSnapshot userDoc = await usersCollection.doc(uid).get();
+      final doc = await firestore.collection('users').doc(uid).get();
 
-      if (userDoc.exists) {
-        final currentUser = User.fromDoc(userDoc);
-        return currentUser;
+      if (!doc.exists) {
+        throw FirebaseException(
+          plugin: 'cloud_firestore',
+          code: 'not-found',
+          message: 'User document not found in Firestore',
+        );
       }
 
-      throw 'User not found';
-    } on FirebaseException catch (e) {
-      throw CustomError(code: e.code, message: e.message!, plugin: e.plugin);
+      return User.fromDoc(doc);
     } catch (e) {
-      throw CustomError(
-        code: 'Exception',
-        message: e.toString(),
-        plugin: 'flutter_error/server_error',
-      );
+      throw handleException(e);
     }
   }
 }
