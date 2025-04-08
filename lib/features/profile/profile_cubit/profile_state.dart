@@ -15,7 +15,7 @@ final class ProfileState extends Equatable {
   factory ProfileState.initial() {
     return ProfileState(
       profileStatus: ProfileStatus.initial,
-      user: User.initialUser(),
+      user: User.initial(),
       error: const CustomError(),
     );
   }

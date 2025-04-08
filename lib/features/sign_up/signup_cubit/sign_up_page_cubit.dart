@@ -8,7 +8,7 @@ import '../../../../core/utils_and_services/errors_handling/custom_error.dart';
 import '../../../../core/utils_and_services/errors_handling/handle_exception.dart';
 import '../../../../core/utils_and_services/form_fields_input/email_input.dart';
 import '../../../../core/utils_and_services/form_fields_input/passwords_input.dart';
-import '../../auth/auth_repository.dart';
+import '../../../data/repositories/auth_repository.dart';
 import '../../../core/utils_and_services/errors_handling/custom_validation_of_input_fields/validation_for_name_input.dart';
 import '../../../core/utils_and_services/errors_handling/custom_validation_of_input_fields/validation_for_password_confirmation.dart';
 
@@ -35,7 +35,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   void onEmailChanged(String value) {
     _debouncer.run(() {
       final email = EmailInput.dirty(value);
-      emit(state.copyWith(isValid: _validateForm(email: email)));
+      emit(state.copyWith(email: email, isValid: _validateForm(email: email)));
     });
   }
 

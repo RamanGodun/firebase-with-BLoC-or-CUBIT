@@ -5,8 +5,8 @@ import '../../presentation/widgets/text_widget.dart';
 import '../navigation/route_names.dart';
 
 /*
-! separate to different utils and name them accordingly 
- */
+? maybe separate to different utils and name them accordingly */
+
 class Helpers {
   /// ================================
   /// * 🎨 NAVIGATION HELPERS
@@ -96,7 +96,6 @@ class Helpers {
     }
   }
 
-  // ============ TIMER HELPERS ============== //
-  // ============== SPECIFIC METHODS ===================== //
+  /// ============== SPECIFIC METHODS ===================== //
   ///
 }

@@ -8,7 +8,7 @@ import '../../../../core/utils_and_services/errors_handling/handle_exception.dar
 import '../../../core/utils_and_services/debouncer.dart';
 import '../../../core/utils_and_services/form_fields_input/email_input.dart';
 import '../../../core/utils_and_services/form_fields_input/passwords_input.dart';
-import '../../auth/auth_repository.dart';
+import '../../../data/repositories/auth_repository.dart';
 
 part 'sign_in_page_state.dart';
 

@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 
-import '../auth_repository.dart';
+import '../../../data/repositories/auth_repository.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

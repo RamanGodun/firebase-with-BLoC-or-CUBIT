@@ -4,7 +4,7 @@ import 'core/di/bootstrap.dart';
 import 'core/di/injection.dart';
 import 'core/navigation/router.dart';
 import 'features/auth/auth_bloc/auth_bloc.dart';
-import 'features/profile/profile_bloc/profile_cubit.dart';
+import 'features/profile/profile_cubit/profile_cubit.dart';
 import 'core/constants/app_strings.dart';
 import 'features/theme/app_theme.dart';
 import 'features/theme/theme_cubit/theme_cubit.dart';

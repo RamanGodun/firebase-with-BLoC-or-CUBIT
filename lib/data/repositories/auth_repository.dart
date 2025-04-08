@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../core/utils_and_services/errors_handling/handle_exception.dart';
+import '../data_transfer_objects/user_dto.dart';
+import '../sources/remote_firebase/firebase_constants.dart';
 
 /// **Repository for Authentication-related logic**
 ///
@@ -26,14 +28,11 @@ class AuthRepository {
         email: email,
         password: password,
       );
+
       final user = credential.user!;
-      await firestore.collection('users').doc(user.uid).set({
-        'name': name,
-        'email': email,
-        'profileImage': 'https://picsum.photos/300',
-        'point': 0,
-        'rank': 'bronze',
-      });
+      final userDto = UserDto.newUser(id: user.uid, name: name, email: email);
+
+      await usersCollection.doc(user.uid).set(userDto.toMap());
     } catch (e) {
       throw handleException(e);
     }
@@ -42,16 +41,15 @@ class AuthRepository {
   ///
   Future<void> ensureUserProfileCreated(fb_auth.User user) async {
     try {
-      final doc = await firestore.collection('users').doc(user.uid).get();
+      final doc = await usersCollection.doc(user.uid).get();
 
       if (!doc.exists) {
-        await firestore.collection('users').doc(user.uid).set({
-          'name': user.displayName ?? '',
-          'email': user.email ?? '',
-          'profileImage': 'https://picsum.photos/300',
-          'point': 0,
-          'rank': 'bronze',
-        });
+        final userDto = UserDto.newUser(
+          id: user.uid,
+          name: user.displayName ?? '',
+          email: user.email ?? '',
+        );
+        await usersCollection.doc(user.uid).set(userDto.toMap());
       }
     } catch (e) {
       throw handleException(e);
@@ -59,16 +57,6 @@ class AuthRepository {
   }
 
   /// 🔐 Signs in the user with email/password credentials.
-  // Future<void> signin({required String email, required String password}) async {
-  //   try {
-  //     await firebaseAuth.signInWithEmailAndPassword(
-  //       email: email,
-  //       password: password,
-  //     );
-  //   } catch (e) {
-  //     throw handleException(e);
-  //   }
-  // }
   Future<fb_auth.UserCredential> signin({
     required String email,
     required String password,

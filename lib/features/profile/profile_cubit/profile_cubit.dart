@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../../../core/models/user_model.dart';
+import '../../../core/entities/user_model.dart';
 import '../../../core/utils_and_services/errors_handling/custom_error.dart';
-import '../data/profile_repository.dart';
+import '../../../data/repositories/profile_repository.dart';
 
 part 'profile_state.dart';
 

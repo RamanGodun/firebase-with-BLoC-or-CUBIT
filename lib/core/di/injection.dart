@@ -2,9 +2,9 @@ import 'package:get_it/get_it.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../features/auth/auth_bloc/auth_bloc.dart';
-import '../../features/profile/profile_bloc/profile_cubit.dart';
-import '../../features/auth/auth_repository.dart';
-import '../../features/profile/data/profile_repository.dart';
+import '../../features/profile/profile_cubit/profile_cubit.dart';
+import '../../data/repositories/auth_repository.dart';
+import '../../data/repositories/profile_repository.dart';
 import '../../features/theme/theme_cubit/theme_cubit.dart';
 
 final appSingleton = GetIt.instance;
