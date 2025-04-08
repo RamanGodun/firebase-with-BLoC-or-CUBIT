@@ -22,7 +22,6 @@ void main() async {
 }
 
 /// * 🧱 Root BLoC provider wrapper.
-/// Registers all BLoC/Cubit instances using GetIt ([appSingleton]).
 class AppBlocProviders extends StatelessWidget {
   const AppBlocProviders({super.key});
 
@@ -30,11 +29,9 @@ class AppBlocProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        /// 🔄 AuthBloc —  singleton (because of reactive navigation)
-        // BlocProvider(create: (_) => AuthBloc()),
+        /// *  Registers all BLoC/Cubit instances using GetIt ([appSingleton]).
+        /// 🧑‍💼 AuthBloc and  🎨 AppThemeCubit (singletons,  used globally)
         BlocProvider.value(value: appSingleton<AuthBloc>()),
-
-        /// 🧑‍💼 ProfileCubit + AppThemeCubit — singletons, because used globally
         BlocProvider.value(value: appSingleton<AppThemeCubit>()),
       ],
       child: const AppView(),
@@ -42,8 +39,8 @@ class AppBlocProviders extends StatelessWidget {
   }
 }
 
-/// * 🎨 [AppView] - builds the main [MaterialApp] structure.
-/// - lListens for theme changes via **AppSettingsCubit**.
+/// * 🗾 [AppView] - builds the main [MaterialApp] structure.
+///   Listens for theme changes via **AppSettingsCubit**.
 class AppView extends StatelessWidget {
   const AppView({super.key});
 
@@ -55,12 +52,12 @@ class AppView extends StatelessWidget {
           title: AppStrings.appTitle,
           debugShowCheckedModeBanner: false,
 
-          /// Theme settings
+          /// 🎨 Theme settings
           theme: AppThemes.getLightTheme(),
           darkTheme: AppThemes.getDarkTheme(),
           themeMode: state.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
 
-          /// Navigation settings
+          /// 🌐 Navigation settings
           routerDelegate: goRouter.routerDelegate,
           routeInformationParser: goRouter.routeInformationParser,
           routeInformationProvider: goRouter.routeInformationProvider,

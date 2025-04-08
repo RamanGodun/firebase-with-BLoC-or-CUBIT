@@ -1,16 +1,26 @@
-/*
-!app_config.dart – Глобальні параметри додатку
-!У цьому файлі можуть бути:
-	•	Назва додатку
-	•	Версія додатку
-	•	Вимоги до minSdk
-	•	Глобальні таймаути
- */
+/// 🌐 Global application configuration
+///
+/// Contains:
+/// - App metadata (name, version, SDK constraints)
+/// - Default timeouts or global constants
+/// - Any other app-wide static config
+library;
 
-class AppConfig {
-  static const String appName = "Firebase with BLoC/Cubit";
-  static const String version = "1.0.0";
+final class AppConfig {
+  /// 🧾 Application name shown in various places
+  static const String appName = 'Firebase with BLoC/Cubit';
+
+  /// 🧾 App version (manual sync with pubspec.yaml)
+  static const String version = "0.1.0";
+
+  /// 📱 Minimum supported Android SDK version
   static const int minSdkVersion = 24;
 
+  /// ⏱️ Default request timeout for network operations
   static const Duration requestTimeout = Duration(seconds: 10);
+
+  /// 🧪 Whether the app is in debug/testing mode
+  static const bool isDebugMode = bool.fromEnvironment('dart.vm.product');
+
+  ///
 }

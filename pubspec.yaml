@@ -16,6 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.0
+  flutter_dotenv: ^5.2.1
   flutter_hooks: ^0.21.2
   formz: ^0.8.0
   freezed_annotation: ^3.0.0
@@ -38,6 +39,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - .env.dev
+    - .env
 
   fonts:
     - family: SFProText
