@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:validators/validators.dart';
 
 import '../../core/navigation/route_names.dart';
-import '../../core/utils_and_services/error_dialog.dart';
+import '../../core/utils_and_services/errors_handling/error_dialog.dart';
 import '../../core/utils_and_services/helper.dart';
 import 'signup_bloc/signup_cubit.dart';
 

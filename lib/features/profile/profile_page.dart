@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../core/utils_and_services/error_dialog.dart';
+import '../../core/utils_and_services/errors_handling/error_dialog.dart';
 import '../auth/auth_bloc/auth_bloc.dart';
 import 'profile_bloc/profile_cubit.dart';
 import '../theme/theme_toggle_icon.dart' show ThemeToggleIcon;
