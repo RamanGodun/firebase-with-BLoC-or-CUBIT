@@ -1,7 +1,6 @@
-// 📄 signin_form_state.dart
 part of 'sign_in_page_cubit.dart';
 
-class SignInPageState {
+class SignInPageState extends Equatable {
   final EmailInput email;
   final PasswordInput password;
   final FormzSubmissionStatus status;
@@ -16,6 +15,7 @@ class SignInPageState {
     this.error = const CustomError(),
   });
 
+  /// Creates a copy of the current state with optional overrides
   SignInPageState copyWith({
     EmailInput? email,
     PasswordInput? password,
@@ -31,4 +31,8 @@ class SignInPageState {
       error: error ?? this.error,
     );
   }
+
+  /// Needed for state comparison and BlocBuilder optimizations
+  @override
+  List<Object?> get props => [email, password, status, isValid, error];
 }

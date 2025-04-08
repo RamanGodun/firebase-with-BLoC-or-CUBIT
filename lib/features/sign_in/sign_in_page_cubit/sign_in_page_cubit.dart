@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart' show Equatable;
 import 'package:formz/formz.dart';
 
 import '../../../../core/utils_and_services/errors_handling/custom_error.dart';
@@ -11,15 +12,14 @@ import '../../auth/auth_repository.dart';
 
 part 'sign_in_page_state.dart';
 
-class SigninPageCubit extends Cubit<SignInPageState> {
+class SignInCubit extends Cubit<SignInPageState> {
   final AuthRepository authRepository;
-  SigninPageCubit({required this.authRepository})
-    : super(const SignInPageState()) {
-    print('🟢 onCreate -- SigninFormCubit');
+  final _debouncer = Debouncer(const Duration(milliseconds: 300));
+
+  SignInCubit({required this.authRepository}) : super(const SignInPageState()) {
+    print('🟢 onCreate -- SignInCubit');
     resetForm();
   }
-
-  final _debouncer = Debouncer(const Duration(milliseconds: 300));
 
   void emailChanged(String value) {
     _debouncer.run(() {

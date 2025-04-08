@@ -1,6 +1,6 @@
 part of 'sign_up_page_cubit.dart';
 
-class SignUpState {
+class SignUpState extends Equatable {
   final NameInput name;
   final EmailInput email;
   final PasswordInput password;
@@ -38,4 +38,16 @@ class SignUpState {
       error: error ?? this.error,
     );
   }
+
+  /// ✅ Needed for BlocBuilder/Selector comparison
+  @override
+  List<Object?> get props => [
+    name,
+    email,
+    password,
+    confirmPassword,
+    status,
+    isValid,
+    error,
+  ];
 }

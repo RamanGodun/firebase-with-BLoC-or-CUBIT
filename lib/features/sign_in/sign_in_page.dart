@@ -19,15 +19,15 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => SigninPageCubit(authRepository: appSingleton()),
-      child: BlocListener<SigninPageCubit, SignInPageState>(
+      create: (_) => SignInCubit(authRepository: appSingleton()),
+      child: BlocListener<SignInCubit, SignInPageState>(
         listenWhen:
             (prev, current) =>
                 prev.status != current.status &&
                 current.status.isSubmissionFailure,
         listener: (context, state) {
           AppDialogs.showErrorDialog(context, state.error);
-          context.read<SigninPageCubit>().resetStatus();
+          context.read<SignInCubit>().resetStatus();
         },
         child: const SigninPageView(),
       ),
@@ -44,7 +44,7 @@ class SigninPageView extends HookWidget {
     final emailFocusNode = useFocusNode();
     final passwordFocusNode = useFocusNode();
 
-    return BlocBuilder<SigninPageCubit, SignInPageState>(
+    return BlocBuilder<SignInCubit, SignInPageState>(
       builder: (context, state) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -65,9 +65,8 @@ class SigninPageView extends HookWidget {
                         focusNode: emailFocusNode,
                         errorText: state.email.displayError,
                         onChanged:
-                            (value) => context
-                                .read<SigninPageCubit>()
-                                .emailChanged(value),
+                            (value) =>
+                                context.read<SignInCubit>().emailChanged(value),
                         onSubmitted: () => FocusScope.of(context).nextFocus(),
                       ),
                       const SizedBox(height: 20),
@@ -77,18 +76,14 @@ class SigninPageView extends HookWidget {
                         errorText: state.password.displayError,
                         onChanged:
                             (value) => context
-                                .read<SigninPageCubit>()
+                                .read<SignInCubit>()
                                 .passwordChanged(value),
-                        onSubmitted:
-                            () => context.read<SigninPageCubit>().submit(),
+                        onSubmitted: () => context.read<SignInCubit>().submit(),
                       ),
                       const SizedBox(height: 20),
 
                       /// Build the submit button (universal reusable button with loading state)
-                      ReusableFormSubmitButton<
-                        SigninPageCubit,
-                        SignInPageState
-                      >(
+                      ReusableFormSubmitButton<SignInCubit, SignInPageState>(
                         text: 'Sign In',
                         onSubmit: _submit,
                         statusSelector: (state) => state.status,
@@ -124,7 +119,7 @@ class SigninPageView extends HookWidget {
   /// Submit sign-in form through the form cubit
   void _submit(BuildContext context) {
     _unfocusFields(context);
-    context.read<SigninPageCubit>().submit();
+    context.read<SignInCubit>().submit();
   }
 
   ///

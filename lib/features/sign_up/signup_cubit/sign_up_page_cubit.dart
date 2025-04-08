@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_and_services/form_fields_input/forms_status_extension.dart';
 import 'package:formz/formz.dart';
 import '../../../../core/utils_and_services/debouncer.dart';
