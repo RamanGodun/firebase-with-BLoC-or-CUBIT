@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../features/auth/auth_bloc/auth_bloc.dart';
 import '../../features/profile/profile_bloc/profile_cubit.dart';
-import '../../features/sign_up/signup_bloc/signup_cubit.dart';
 import '../../features/auth/auth_repository.dart';
 import '../../features/profile/data/profile_repository.dart';
 import '../../features/theme/theme_cubit/theme_cubit.dart';
@@ -28,10 +27,6 @@ Future<void> initDependencies() async {
   /// Cubits / BLoCs
   appSingleton.registerLazySingleton<AuthBloc>(
     () => AuthBloc(authRepository: appSingleton()),
-  );
-
-  appSingleton.registerFactory(
-    () => SignupCubit(authRepository: appSingleton()),
   );
 
   appSingleton.registerFactory(

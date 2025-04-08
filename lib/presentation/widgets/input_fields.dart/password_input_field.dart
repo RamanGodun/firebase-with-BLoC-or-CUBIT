@@ -21,7 +21,8 @@ class PasswordInputField extends HookWidget {
     return TextField(
       focusNode: focusNode,
       obscureText: true,
-      autofillHints: const [AutofillHints.password],
+      autofillHints: null,
+      // autofillHints: const [AutofillHints.password],
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
         filled: true,

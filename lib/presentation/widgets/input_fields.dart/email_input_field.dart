@@ -22,7 +22,8 @@ class EmailInputField extends HookWidget {
       focusNode: focusNode,
       keyboardType: TextInputType.emailAddress,
       autocorrect: false,
-      autofillHints: const [AutofillHints.email],
+      autofillHints: null,
+      // autofillHints: const [AutofillHints.email],
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
         filled: true,
