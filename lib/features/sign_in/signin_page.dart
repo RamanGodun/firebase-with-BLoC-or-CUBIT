@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:validators/validators.dart';
-
+import '../../core/navigation/route_names.dart';
+import '../../core/utils_and_services/error_dialog.dart';
+import '../../core/utils_and_services/helper.dart';
 import 'sign_in_bloc/signin_cubit.dart';
-import '../../core/utils_and_services/errors_managing/error_dialog.dart';
-import '../sign_up/signup_page.dart';
+
 
 class SigninPage extends StatefulWidget {
   static const String routeName = '/signin';
@@ -44,7 +45,7 @@ class _SigninPageState extends State<SigninPage> {
         child: BlocConsumer<SigninCubit, SigninState>(
           listener: (context, state) {
             if (state.signinStatus == SigninStatus.error) {
-              errorDialog(context, state.error);
+              AppDialogs.showErrorDialog(context, state.error);
             }
           },
           builder: (context, state) {
@@ -110,7 +111,10 @@ class _SigninPageState extends State<SigninPage> {
                         ),
                         const SizedBox(height: 20.0),
                         ElevatedButton(
-                          onPressed: state.signinStatus == SigninStatus.submitting ? null : _submit,
+                          onPressed:
+                              state.signinStatus == SigninStatus.submitting
+                                  ? null
+                                  : _submit,
                           style: ElevatedButton.styleFrom(
                             textStyle: const TextStyle(
                               fontSize: 20.0,
@@ -118,17 +122,19 @@ class _SigninPageState extends State<SigninPage> {
                             ),
                             padding: const EdgeInsets.symmetric(vertical: 10.0),
                           ),
-                          child: Text(state.signinStatus == SigninStatus.submitting
-                              ? 'Loading...'
-                              : 'Sign In'),
+                          child: Text(
+                            state.signinStatus == SigninStatus.submitting
+                                ? 'Loading...'
+                                : 'Sign In',
+                          ),
                         ),
                         const SizedBox(height: 10.0),
                         TextButton(
-                          onPressed: state.signinStatus == SigninStatus.submitting
-                              ? null
-                              : () {
-                                  Navigator.pushNamed(context, SignupPage.routeName);
-                                },
+                          onPressed:
+                              state.signinStatus == SigninStatus.submitting
+                                  ? null
+                                  : () =>
+                                      Helpers.goTo(context, RouteNames.signup),
                           style: TextButton.styleFrom(
                             textStyle: const TextStyle(
                               fontSize: 20.0,

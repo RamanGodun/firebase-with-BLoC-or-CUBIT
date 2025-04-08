@@ -25,9 +25,11 @@ dependencies:
   validators: ^3.0.0
 
 dev_dependencies:
+  build_runner: ^2.4.15
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
+  freezed: ^3.0.6
 
 flutter:
   uses-material-design: true

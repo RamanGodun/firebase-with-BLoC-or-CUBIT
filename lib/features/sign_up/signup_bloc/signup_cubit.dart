@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
-import '../../../core/models/custom_error.dart';
+import '../../../core/utils_and_services/errors_handling/custom_error.dart';
 import '../../auth/auth_repository.dart';
 
 part 'signup_state.dart';
@@ -9,9 +8,7 @@ part 'signup_state.dart';
 class SignupCubit extends Cubit<SignupState> {
   final AuthRepository authRepository;
 
-  SignupCubit({
-    required this.authRepository,
-  }) : super(SignupState.initial());
+  SignupCubit({required this.authRepository}) : super(SignupState.initial());
 
   Future<void> signup({
     required String name,
@@ -21,11 +18,7 @@ class SignupCubit extends Cubit<SignupState> {
     emit(state.copyWith(signupStatus: SignupStatus.submitting));
 
     try {
-      await authRepository.signup(
-        name: name,
-        email: email,
-        password: password,
-      );
+      await authRepository.signup(name: name, email: email, password: password);
       emit(state.copyWith(signupStatus: SignupStatus.success));
     } on CustomError catch (e) {
       emit(state.copyWith(signupStatus: SignupStatus.error, error: e));

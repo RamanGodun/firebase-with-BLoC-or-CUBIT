@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../core/models/custom_error.dart';
+import '../../core/utils_and_services/errors_handling/custom_error.dart';
 import '../../data/sources/remote/firebase_constants.dart' show usersCollection;
 
 class AuthRepository {

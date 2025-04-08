@@ -1,42 +1,43 @@
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../models/custom_error.dart';
+import 'package:flutter/cupertino.dart';
+import 'errors_handling/custom_error.dart';
+import 'helper.dart' show Helpers;
 
-void errorDialog(BuildContext context, CustomError e) {
-  print('code: ${e.code}\nmessage: ${e.message}\nplugin: ${e.plugin}\n');
+class AppDialogs {
+  static void showErrorDialog(BuildContext context, CustomError e) {
+    final isIOS =
+        defaultTargetPlatform == TargetPlatform.iOS ||
+        defaultTargetPlatform == TargetPlatform.macOS;
 
-  if (Platform.isIOS) {
-    showCupertinoDialog(
-      context: context,
-      builder: (context) {
-        return CupertinoAlertDialog(
-          title: Text(e.code),
-          content: Text('${e.plugin}\n${e.message}'),
-          actions: [
-            CupertinoDialogAction(
-              child: const Text('OK'),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ],
+    isIOS
+        ? showCupertinoDialog(
+          context: context,
+          builder:
+              (context) => CupertinoAlertDialog(
+                title: Text(e.code),
+                content: Text('plugin: ${e.plugin}\n\n${e.message}'),
+                actions: [
+                  CupertinoDialogAction(
+                    child: const Text('OK'),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+              ),
+        )
+        : showDialog(
+          context: context,
+          builder:
+              (context) => AlertDialog(
+                title: Text(e.code),
+                content: Text('plugin: ${e.plugin}\n\n${e.message}'),
+                actions: [
+                  TextButton(
+                    child: const Text('OK'),
+                    onPressed: () => Helpers.pop(context),
+                  ),
+                ],
+              ),
         );
-      },
-    );
-  } else {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(e.code),
-          content: Text('${e.plugin}\n${e.message}'),
-          actions: [
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ],
-        );
-      },
-    );
   }
 }

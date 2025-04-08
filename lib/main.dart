@@ -34,6 +34,7 @@ class AppBlocProviders extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         // 🔄 AuthBloc —  singleton (because of reactive navigation)
+        // BlocProvider(create: (_) => AuthBloc()),
         BlocProvider.value(value: appSingleton<AuthBloc>()),
         BlocProvider(create: (_) => appSingleton<SigninCubit>()),
         BlocProvider(create: (_) => appSingleton<SignupCubit>()),

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../../core/models/custom_error.dart';
+import '../../../core/utils_and_services/errors_handling/custom_error.dart';
 import '../../../core/models/user_model.dart';
 import '../../../data/sources/remote/firebase_constants.dart'
     show usersCollection;

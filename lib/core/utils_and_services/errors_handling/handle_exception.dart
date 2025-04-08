@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../models/models_with_code_gen_from_other/custom_error.dart';
+import 'custom_error.dart';
 
 /// Handles exceptions and converts them into a structured [CustomError].
 ///
