@@ -1,11 +1,6 @@
 part of 'profile_cubit.dart';
 
-enum ProfileStatus {
-  initial,
-  loading,
-  loaded,
-  error,
-}
+enum ProfileStatus { initial, loading, loaded, error }
 
 final class ProfileState extends Equatable {
   final ProfileStatus profileStatus;
@@ -29,7 +24,8 @@ final class ProfileState extends Equatable {
   List<Object> get props => [profileStatus, user, error];
 
   @override
-  String toString() => 'ProfileState(profileStatus: $profileStatus, user: $user, error: $error)';
+  String toString() =>
+      'ProfileState(profileStatus: $profileStatus, user: $user, error: $error)';
 
   ProfileState copyWith({
     ProfileStatus? profileStatus,

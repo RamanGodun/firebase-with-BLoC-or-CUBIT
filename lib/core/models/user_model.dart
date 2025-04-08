@@ -43,14 +43,7 @@ class User extends Equatable {
 
   @override
   List<Object> get props {
-    return [
-      id,
-      name,
-      email,
-      profileImage,
-      point,
-      rank,
-    ];
+    return [id, name, email, profileImage, point, rank];
   }
 
   @override
@@ -58,3 +51,55 @@ class User extends Equatable {
     return 'User(id: $id, name: $name, email: $email, profileImage: $profileImage, point: $point, rank: $rank)';
   }
 }
+
+
+/*
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'user_model.freezed.dart';
+part 'user_model.g.dart';
+
+@freezed
+class AppUser with _$AppUser {
+  const factory AppUser({
+    required String id,
+    required String name,
+    required String email,
+    required String profileImage,
+    required int point,
+    required String rank,
+  }) = _AppUser;
+
+  factory AppUser.fromJson(Map<String, dynamic> json) =>
+      _$AppUserFromJson(json);
+
+  factory AppUser.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+    final data = doc.data()!;
+    return AppUser(
+      id: doc.id,
+      name: data['name'] ?? '',
+      email: data['email'] ?? '',
+      profileImage: data['profileImage'] ?? '',
+      point: data['point'] ?? 0,
+      rank: data['rank'] ?? '',
+    );
+  }
+
+  /// Initial empty user
+  static const AppUser initial = AppUser(
+    id: '',
+    name: '',
+    email: '',
+    profileImage: '',
+    point: -1,
+    rank: '',
+  );
+}
+
+
+extension AppUserX on AppUser {
+  static AppUser initialUser() => const AppUser();
+}
+
+ */
