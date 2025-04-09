@@ -1,6 +1,6 @@
 part of 'overlay_service.dart';
 
-/// 🎭 **_AnimatedOverlayWidget** - Beautiful animated notification widget.
+/// 🎭 [_AnimatedOverlayWidget] — fades and scales in a styled message
 class _AnimatedOverlayWidget extends HookWidget {
   final String message;
   final IconData icon;
@@ -24,27 +24,25 @@ class _AnimatedOverlayWidget extends HookWidget {
       ).chain(CurveTween(curve: Curves.elasticOut)),
     );
 
-    // 🎨 **Get theme-aware colors dynamically**
     final colorScheme = Helpers.getColorScheme(context);
-    final isDarkMode = colorScheme.brightness == Brightness.dark;
+    final isDark = colorScheme.brightness == Brightness.dark;
+
     final backgroundColor =
-        isDarkMode
+        isDark
             ? AppConstants.overlayDarkBackground
             : AppConstants.overlayLightBackground;
     final textColor =
-        isDarkMode
+        isDark
             ? AppConstants.overlayDarkTextColor
             : AppConstants.overlayLightTextColor;
     final borderColor =
-        isDarkMode
+        isDark
             ? AppConstants.overlayDarkBorder
             : AppConstants.overlayLightBorder;
-    final shadowColor = Colors.black.withOpacity(0.3);
 
     return Stack(
       children: [
         Positioned(
-          // 🔽 Centers the overlay message on the screen
           top: MediaQuery.of(context).size.height * 0.4,
           left: MediaQuery.of(context).size.width * 0.1,
           right: MediaQuery.of(context).size.width * 0.1,
@@ -65,7 +63,7 @@ class _AnimatedOverlayWidget extends HookWidget {
                     border: Border.all(color: borderColor, width: 1.5),
                     boxShadow: [
                       BoxShadow(
-                        color: shadowColor,
+                        color: Colors.black.withOpacity(0.3),
                         blurRadius: 12,
                         spreadRadius: 1,
                         offset: const Offset(0, 4),
@@ -78,7 +76,11 @@ class _AnimatedOverlayWidget extends HookWidget {
                       Icon(icon, color: textColor, size: 24),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: TextWidget(message, TextType.titleMedium),
+                        child: TextWidget(
+                          message,
+                          TextType.titleMedium,
+                          color: textColor,
+                        ),
                       ),
                     ],
                   ),

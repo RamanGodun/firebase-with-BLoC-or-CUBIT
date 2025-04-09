@@ -1,6 +1,6 @@
-// 📄 password_input.dart
 import 'package:formz/formz.dart';
 
+/// 🔒 [PasswordInput] — Formz input with basic password validation
 class PasswordInput extends FormzInput<String, String> {
   const PasswordInput.pure() : super.pure('');
   const PasswordInput.dirty([super.value = '']) : super.dirty();

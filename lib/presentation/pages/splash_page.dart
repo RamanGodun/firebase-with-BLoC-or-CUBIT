@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../core/utils_and_services/helper.dart';
+import '../../core/utils_and_services/helpers.dart';
 
 /// ⏳ Initial splash screen shown during app startup.
 class SplashPage extends StatelessWidget {

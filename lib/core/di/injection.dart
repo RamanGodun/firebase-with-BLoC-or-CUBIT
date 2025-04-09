@@ -1,29 +1,52 @@
+/// 🧩 [injection.dart] — Dependency Injection (DI) configuration
+///
+/// Registers all singletons/lazy singletons for:
+///   - Firebase core services
+///   - Repositories (Data Layer)
+///   - BLoC / Cubit state managers (Presentation Layer)
+///
+/// Use `appSingleton<T>()` to resolve dependencies anywhere in the app.
+library;
+
 import 'package:get_it/get_it.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import '../../features/auth_bloc/auth_bloc.dart';
+import '../../features/theme/theme_cubit/theme_cubit.dart';
 import '../../data/repositories/auth_repository.dart';
 import '../../data/repositories/profile_repository.dart';
-import '../../features/theme/theme_cubit/theme_cubit.dart';
 
 final appSingleton = GetIt.instance;
 
+/// * 🧱 Initializes and registers all app dependencies
 Future<void> initDependencies() async {
-  // Firebase Core dependencies
-  appSingleton.registerLazySingleton(() => FirebaseAuth.instance);
-  appSingleton.registerLazySingleton(() => FirebaseFirestore.instance);
+  ///
+  // ────────────────────────────────────────────────────────────────
+  // 🔗 Firebase Core Services
+  // ────────────────────────────────────────────────────────────────
+  appSingleton.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
+  appSingleton.registerLazySingleton<FirebaseFirestore>(
+    () => FirebaseFirestore.instance,
+  );
 
-  /// Repositories
+  /// ────────────────────────────────────────────────────────────────
+  /// 📦 Repositories (Data Layer)
+  // ────────────────────────────────────────────────────────────────
   appSingleton.registerLazySingleton<AuthRepository>(
-    () =>
-        AuthRepository(firestore: appSingleton(), firebaseAuth: appSingleton()),
+    () => AuthRepository(
+      firestore: appSingleton<FirebaseFirestore>(),
+      firebaseAuth: appSingleton<FirebaseAuth>(),
+    ),
   );
 
   appSingleton.registerLazySingleton<ProfileRepository>(
-    () => ProfileRepository(firestore: appSingleton()),
+    () => ProfileRepository(firestore: appSingleton<FirebaseFirestore>()),
   );
 
-  /// Cubits / BLoCs
+  /// ────────────────────────────────────────────────────────────────
+  /// 📊 BLoC / Cubit (Presentation Layer)
+  // ────────────────────────────────────────────────────────────────
   appSingleton.registerLazySingleton<AuthBloc>(
     () => AuthBloc(authRepository: appSingleton()),
   );

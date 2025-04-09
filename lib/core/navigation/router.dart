@@ -1,8 +1,7 @@
-import 'dart:async';
-import 'package:firebase_with_bloc_or_cubit/features/profile/profile_page.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../core/di/injection.dart';
 import '../../features/auth_bloc/auth_bloc.dart';
+import '../../features/profile/profile_page.dart';
 import '../../features/sign_in/sign_in_page.dart';
 import '../../features/sign_up/signup_page.dart';
 import '../../presentation/pages/change_password_page.dart';
@@ -11,18 +10,19 @@ import '../../presentation/pages/page_not_found.dart';
 import '../../presentation/pages/password_reset_page.dart';
 import '../../presentation/pages/splash_page.dart';
 import '../../presentation/pages/verify_email_page.dart';
-import '../di/injection.dart';
-import 'route_names.dart';
+import 'router_refresh_bloc.dart' show GoRouterRefreshBloc;
 
-/// 🧭 App Router — handles navigation & redirection logic
+part 'route_names.dart';
+
+/// 🧭 [goRouter] — App-level navigation handler with auth-aware redirection.
 final GoRouter goRouter = GoRouter(
-  initialLocation: '/splash',
+  initialLocation: '/${RouteNames.splash}',
   debugLogDiagnostics: true,
 
-  /// 🔁 Triggers rebuild when `AuthBloc` state changes
+  /// 🔁 Rebuilds routes when `AuthBloc` emits new state
   refreshListenable: GoRouterRefreshBloc(appSingleton<AuthBloc>().stream),
 
-  /// 🚦 Redirect logic based on AuthState
+  /// 🚦 Redirects based on current auth state
   redirect: (context, state) {
     final authState = appSingleton<AuthBloc>().state;
 
@@ -31,12 +31,14 @@ final GoRouter goRouter = GoRouter(
         authState.authStatus == AuthStatus.unauthenticated;
     final isUnknown = authState.authStatus == AuthStatus.unknown;
 
-    final isOnSplash = state.matchedLocation == '/${RouteNames.splash}';
+    final currentPath = state.matchedLocation;
+
+    final isOnSplash = currentPath == '/${RouteNames.splash}';
     final isOnAuthPage = [
       '/${RouteNames.signIn}',
       '/${RouteNames.signUp}',
       '/${RouteNames.resetPassword}',
-    ].contains(state.matchedLocation);
+    ].contains(currentPath);
 
     if (isUnknown) return isOnSplash ? null : '/${RouteNames.splash}';
     if (isUnauthenticated) return isOnAuthPage ? null : '/${RouteNames.signIn}';
@@ -47,19 +49,17 @@ final GoRouter goRouter = GoRouter(
     return null;
   },
 
-  /// 🗺️ Route Definitions
+  /// 🗺️ Route definitions
   routes: [
     GoRoute(
       path: '/${RouteNames.splash}',
       name: RouteNames.splash,
       builder: (_, __) => const SplashPage(),
     ),
-
     GoRoute(
       path: '/${RouteNames.home}',
       name: RouteNames.home,
       builder: (_, __) => const HomePage(),
-
       routes: [
         GoRoute(
           path: RouteNames.profile,
@@ -68,7 +68,6 @@ final GoRouter goRouter = GoRouter(
         ),
       ],
     ),
-
     GoRoute(
       path: '/${RouteNames.signIn}',
       name: RouteNames.signIn,
@@ -95,7 +94,7 @@ final GoRouter goRouter = GoRouter(
       builder: (_, __) => const ChangePasswordPage(),
     ),
 
-    /// 🔴 fallback test route (optional)
+    /// 🧪 Dev/Test fallback page
     GoRoute(
       path: '/${RouteNames.pageNotFound}',
       name: RouteNames.pageNotFound,
@@ -103,22 +102,9 @@ final GoRouter goRouter = GoRouter(
     ),
   ],
 
-  /// ❌ Fallback for unknown routes
+  /// ❌ Fallback for unmatched routes
   errorBuilder:
-      (_, state) => PageNotFound(errorMessage: state.error.toString()),
+      (_, state) => PageNotFound(
+        errorMessage: state.error?.toString() ?? 'Unknown error',
+      ),
 );
-
-/// 👀 Wrapper to listen to BLoC streams
-class GoRouterRefreshBloc extends ChangeNotifier {
-  GoRouterRefreshBloc(Stream stream) {
-    _subscription = stream.listen((_) => notifyListeners());
-  }
-
-  late final StreamSubscription _subscription;
-
-  @override
-  void dispose() {
-    _subscription.cancel();
-    super.dispose();
-  }
-}

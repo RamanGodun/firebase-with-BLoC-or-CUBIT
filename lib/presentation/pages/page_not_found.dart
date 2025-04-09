@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_with_bloc_or_cubit/core/constants/app_constants.dart';
 import 'package:firebase_with_bloc_or_cubit/core/constants/app_strings.dart';
-import 'package:firebase_with_bloc_or_cubit/core/navigation/route_names.dart';
 import 'package:firebase_with_bloc_or_cubit/presentation/widgets/buttons/button_for_go_router.dart';
 import 'package:firebase_with_bloc_or_cubit/presentation/widgets/custom_app_bar.dart';
 import 'package:firebase_with_bloc_or_cubit/presentation/widgets/text_widget.dart';
+
+import '../../core/navigation/router.dart' show RouteNames;
 
 /// ❌ Page shown when route is not found.
 class PageNotFound extends StatelessWidget {

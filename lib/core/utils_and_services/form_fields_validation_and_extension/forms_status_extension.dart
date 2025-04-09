@@ -1,5 +1,6 @@
 import 'package:formz/formz.dart';
 
+/// 🔁 Extension for more readable Formz status checks
 extension FormzStatusX on FormzSubmissionStatus {
   bool get isInitial => this == FormzSubmissionStatus.initial;
   bool get isInProgress => this == FormzSubmissionStatus.inProgress;
@@ -10,5 +11,5 @@ extension FormzStatusX on FormzSubmissionStatus {
   bool get isSubmissionFailure => isFailure;
   bool get isSubmissionSuccess => isSuccess;
 
-  bool get isValidated => this == FormzSubmissionStatus.initial;
+  bool get isValidated => isInitial;
 }

@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 
-/// Standard error format used across the app.
+/// *🧩[CustomError] — unified error model used across the app, contains:
+///       - [code]: Firestore/Auth error code
+///       - [message]: Human-readable error message
+///       - [plugin]: Source of the error (e.g. `firebase_auth`, `cloud_firestore`)
 @immutable
 class CustomError {
   final String code;
@@ -9,10 +12,7 @@ class CustomError {
 
   const CustomError({this.code = '', this.message = '', this.plugin = ''});
 
-  @override
-  String toString() =>
-      'CustomError(code: $code, message: $message, plugin: $plugin)';
-
+  /// 🔁 Creates a modified copy of the current error
   CustomError copyWith({String? code, String? message, String? plugin}) {
     return CustomError(
       code: code ?? this.code,
@@ -20,6 +20,10 @@ class CustomError {
       plugin: plugin ?? this.plugin,
     );
   }
+
+  @override
+  String toString() =>
+      'CustomError(code: $code, message: $message, plugin: $plugin)';
 
   @override
   bool operator ==(Object other) =>
@@ -31,5 +35,5 @@ class CustomError {
           plugin == other.plugin;
 
   @override
-  int get hashCode => code.hashCode ^ message.hashCode ^ plugin.hashCode;
+  int get hashCode => Object.hash(code, message, plugin);
 }

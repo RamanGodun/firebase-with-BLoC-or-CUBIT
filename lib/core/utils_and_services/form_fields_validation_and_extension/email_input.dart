@@ -1,7 +1,7 @@
-// 📄 email_input.dart
 import 'package:formz/formz.dart';
 import 'package:validators/validators.dart';
 
+/// 📧 [EmailInput] — Formz input with basic email validation
 class EmailInput extends FormzInput<String, String> {
   const EmailInput.pure() : super.pure('');
   const EmailInput.dirty([super.value = '']) : super.dirty();

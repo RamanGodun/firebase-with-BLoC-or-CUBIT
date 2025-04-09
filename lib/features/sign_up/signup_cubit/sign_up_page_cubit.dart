@@ -7,11 +7,11 @@ import 'package:formz/formz.dart';
 import '../../../../core/utils_and_services/debouncer.dart';
 import '../../../../core/utils_and_services/errors_handling/custom_error.dart';
 import '../../../../core/utils_and_services/errors_handling/handle_exception.dart';
-import '../../../../core/utils_and_services/form_fields_validation/forms_status_extension.dart';
-import '../../../../core/utils_and_services/form_fields_validation/email_input.dart';
-import '../../../../core/utils_and_services/form_fields_validation/passwords_input.dart';
-import '../../../../core/utils_and_services/errors_handling/custom_validation_of_input_fields/validation_for_name_input.dart';
-import '../../../../core/utils_and_services/errors_handling/custom_validation_of_input_fields/validation_for_password_confirmation.dart';
+import '../../../core/utils_and_services/form_fields_validation_and_extension/forms_status_extension.dart';
+import '../../../core/utils_and_services/form_fields_validation_and_extension/email_input.dart';
+import '../../../core/utils_and_services/form_fields_validation_and_extension/passwords_input.dart';
+import '../../../core/utils_and_services/form_fields_validation_and_extension/validation_for_name_input.dart';
+import '../../../core/utils_and_services/form_fields_validation_and_extension/validation_for_password_confirmation.dart';
 import '../../../../data/repositories/auth_repository.dart';
 
 part 'sign_up_page_state.dart';

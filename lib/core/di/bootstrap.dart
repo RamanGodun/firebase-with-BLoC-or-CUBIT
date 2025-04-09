@@ -20,7 +20,7 @@ Future<void> bootstrapApp() async {
   debugPrint('✅ Loaded env file: $envFile');
 
   /// 👁️ Setup global observer for BLoC events/transitions
-  Bloc.observer = AppBlocObserver();
+  Bloc.observer = const AppBlocObserver();
 
   /// 🔥 Initialize Firebase
   await Firebase.initializeApp();
