@@ -35,7 +35,6 @@ class ProfileView extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBar(
         title: 'Profile',
-        isUseActionWidget: true,
         actionWidgets: [ThemeToggleIcon()],
       ),
 

@@ -9,7 +9,7 @@ class VerifyEmailPage extends StatelessWidget {
     return const Scaffold(
       body: Center(
         child: TextWidget(
-          'This is page for email  verification',
+          'This is page for email verification',
           TextType.titleMedium,
         ),
       ),

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import '../../../core/utils_and_services/helper.dart';
 import '../text_widget.dart';
 
-/// 🪟🌍 Custom button widget that handles navigation via GoRouter or executes callback.
+/// 🪟🌍 Custom button that navigates via GoRouter or executes a callback.
 class CustomButtonForGoRouter extends StatelessWidget {
   final String title;
   final String? routeName;
@@ -28,25 +28,30 @@ class CustomButtonForGoRouter extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: CupertinoButton(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-          borderRadius: BorderRadius.circular(12),
-          color: colorScheme.primary.withOpacity(0.65),
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          borderRadius: BorderRadius.circular(14),
+          color: colorScheme.primary.withOpacity(0.85),
+          disabledColor: colorScheme.primary.withOpacity(0.3),
           onPressed: () => _handleButtonPress(context),
           child: TextWidget(
             title,
             TextType.titleMedium,
             color: colorScheme.onPrimary,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
     );
   }
 
-  /// 🚀 Handles button press: executes callback or navigates to route.
+  /// 🚀 Either performs navigation or runs callback
   void _handleButtonPress(BuildContext context) {
     if (onPressedCallback != null) {
       onPressedCallback!();
-    } else if (routeName != null && routeName!.isNotEmpty) {
+      return;
+    }
+
+    if (routeName?.isNotEmpty ?? false) {
       Helpers.goTo(
         context,
         routeName!,
@@ -54,23 +59,9 @@ class CustomButtonForGoRouter extends StatelessWidget {
         queryParameters: queryParameters ?? const {},
       );
     } else {
-      debugPrint('⚠️ Error: routeName is null or empty.');
+      debugPrint(
+        '⚠️ [CustomButtonForGoRouter] No routeName or callback provided',
+      );
     }
   }
 }
-
-/*
-?alternative way:
- if (voidCallBack != null) {
-      voidCallBack!();
-    } else if (routeName != null && routeName!.isNotEmpty) {
-      Helpers.goTo(
-        context,
-        routeName!,
-        pathParameters: pathParameters ?? const {},
-        queryParameters: queryParameters ?? const {},
-      );
-    } else {
-      debugPrint('Error: routeName is null or empty.');
-    }
- */

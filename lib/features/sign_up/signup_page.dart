@@ -117,7 +117,7 @@ class SignUpView extends HookWidget {
                     const SizedBox(height: 50),
 
                     /// Submit button
-                    ReusableFormSubmitButton<SignUpCubit, SignUpState>(
+                    FormSubmitButton<SignUpCubit, SignUpState>(
                       text: 'Sign Up',
                       onSubmit: _onSubmit,
                       statusSelector: (state) => state.status,

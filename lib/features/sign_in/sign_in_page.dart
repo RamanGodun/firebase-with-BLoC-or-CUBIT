@@ -83,7 +83,7 @@ class SigninPageView extends HookWidget {
                       const SizedBox(height: 20),
 
                       /// Build the submit button (universal reusable button with loading state)
-                      ReusableFormSubmitButton<SignInCubit, SignInPageState>(
+                      FormSubmitButton<SignInCubit, SignInPageState>(
                         text: 'Sign In',
                         onSubmit: _submit,
                         statusSelector: (state) => state.status,

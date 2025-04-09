@@ -1,14 +1,20 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:path_provider/path_provider.dart';
+import '../config/env.dart';
 import '../config/observer/app_bloc_observer.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> bootstrapApp() async {
-  /// 🔐 Load environment variables from `.env` (✅ FIRST)
-  await dotenv.load(fileName: ".env");
-  print('✅ Env loaded: ${dotenv.env}');
+  /// 🔐 Load environment variables from `.env`
+  final envFile = switch (EnvConfig.currentEnv) {
+    Environment.dev => '.env.dev',
+    Environment.staging => '.env.staging',
+    Environment.prod => '.env',
+  };
+  await dotenv.load(fileName: envFile);
+  print('✅ Loaded env file: $envFile');
 
   /// 🛠️ Set up a global BLoC observer
   Bloc.observer = AppBlocObserver();
@@ -31,23 +37,25 @@ Future<void> bootstrapApp() async {
 
 /*
 ! can use next (then delete ❌ GoogleService-Info.plist google-services.json)
+await Firebase.initializeApp(options: EnvFirebaseOptions.currentPlatform);
+
+
+
+! then, also use this: 
+
 Future<void> safeFirebaseInit() async {
   if (Firebase.apps.isNotEmpty) {
     debugPrint('⚠️ Firebase already initialized');
     return;
   }
 
-  // 🔁 Only for Web (або якщо прибрано plist/json)
-  if (kIsWeb) {
+   if (kIsWeb) {
     await Firebase.initializeApp(options: EnvFirebaseOptions.currentPlatform);
   } else {
-    await Firebase.initializeApp(); // нативна ініціалізація
+    await Firebase.initializeApp(); 
   }
 
   debugPrint('✅ Firebase initialized');
 }
-
-! then  will be used like this: 
-await Firebase.initializeApp(options: EnvFirebaseOptions.currentPlatform);
 
  */

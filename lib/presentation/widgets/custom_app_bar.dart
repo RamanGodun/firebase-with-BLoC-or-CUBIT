@@ -8,13 +8,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onLeadingPressed;
   final List<IconData>? actionIcons;
   final List<VoidCallback>? actionCallbacks;
-  final bool? isCenteredTitle;
-  final bool? isNeedPaddingAfterActionIcon;
-
-  /// 👉 Use this when you want to pass custom widgets instead of icon+callback
-  final bool? isUseActionWidget;
+  final bool isCenteredTitle;
+  final bool isNeedPaddingAfterActionIcon;
   final List<Widget>? actionWidgets;
 
+  /// ✅ All parameters in single `const` constructor
   const CustomAppBar({
     super.key,
     required this.title,
@@ -22,46 +20,45 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.onLeadingPressed,
     this.actionIcons,
     this.actionCallbacks,
-    this.isCenteredTitle,
-    this.isNeedPaddingAfterActionIcon,
-    this.isUseActionWidget,
     this.actionWidgets,
+    this.isCenteredTitle = false,
+    this.isNeedPaddingAfterActionIcon = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (isUseActionWidget != true &&
-        (actionIcons?.length ?? 0) != (actionCallbacks?.length ?? 0)) {
-      throw ArgumentError(
-        'Icons and callbacks must be the same length if using actionIcons!',
+    // 🔐 Runtime validation
+    if (actionWidgets == null &&
+        (actionIcons?.length != actionCallbacks?.length)) {
+      throw FlutterError(
+        '❗️actionIcons and actionCallbacks must be the same length when using icon-based actions.',
       );
     }
 
     return AppBar(
-      centerTitle: isCenteredTitle ?? false,
+      centerTitle: isCenteredTitle,
       title: TextWidget(
         title,
-        TextType.bodyLarge,
-        alignment: isCenteredTitle == true ? TextAlign.center : TextAlign.start,
+        TextType.titleSmall,
+        alignment: isCenteredTitle ? TextAlign.center : TextAlign.start,
       ),
       leading:
           leadingIcon != null
               ? IconButton(icon: Icon(leadingIcon), onPressed: onLeadingPressed)
               : null,
       actions:
-          isUseActionWidget == true
-              ? actionWidgets
-              : [
-                if (actionIcons != null && actionCallbacks != null)
-                  for (int i = 0; i < actionIcons!.length; i++)
-                    IconButton(
-                      icon: Icon(actionIcons![i]),
-                      onPressed: actionCallbacks![i],
-                    ),
-                if ((actionIcons?.isNotEmpty ?? false) &&
-                    isNeedPaddingAfterActionIcon == true)
-                  const SizedBox(width: 16),
-              ],
+          actionWidgets ??
+          [
+            if (actionIcons != null && actionCallbacks != null)
+              for (int i = 0; i < actionIcons!.length; i++)
+                IconButton(
+                  icon: Icon(actionIcons![i]),
+                  onPressed: actionCallbacks![i],
+                ),
+            if ((actionIcons?.isNotEmpty ?? false) &&
+                isNeedPaddingAfterActionIcon)
+              const SizedBox(width: 16),
+          ],
     );
   }
 
