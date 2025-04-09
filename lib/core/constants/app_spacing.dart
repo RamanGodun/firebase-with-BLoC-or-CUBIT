@@ -1,3 +1,5 @@
+part of 'app_constants.dart';
+
 class AppSpacing {
   static const double xs = 5.0;
   static const double s = 10.0;

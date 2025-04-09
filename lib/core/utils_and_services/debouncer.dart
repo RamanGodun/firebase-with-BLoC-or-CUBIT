@@ -1,6 +1,6 @@
 import 'dart:async';
 
-/// 🔁 Власний клас Debouncer
+///
 class Debouncer {
   final Duration duration;
   Timer? _timer;

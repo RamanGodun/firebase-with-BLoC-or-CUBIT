@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_with_bloc_or_cubit/features/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/auth_bloc/auth_bloc.dart';
@@ -32,25 +33,17 @@ final GoRouter goRouter = GoRouter(
 
     final isOnSplash = state.matchedLocation == '/${RouteNames.splash}';
     final isOnAuthPage = [
-      '/${RouteNames.signin}',
-      '/${RouteNames.signup}',
+      '/${RouteNames.signIn}',
+      '/${RouteNames.signUp}',
       '/${RouteNames.resetPassword}',
     ].contains(state.matchedLocation);
 
-    // 🟡 Still loading: don't redirect yet
     if (isUnknown) return isOnSplash ? null : '/${RouteNames.splash}';
-
-    // 🔴 Not logged in — redirect to SignIn
-    if (isUnauthenticated) {
-      return isOnAuthPage ? null : '/${RouteNames.signin}';
-    }
-
-    // ✅ Authenticated — redirect away from Auth pages
+    if (isUnauthenticated) return isOnAuthPage ? null : '/${RouteNames.signIn}';
     if (isAuthenticated && (isOnSplash || isOnAuthPage)) {
       return '/${RouteNames.home}';
     }
 
-    // ✅ Allow navigation
     return null;
   },
 
@@ -61,19 +54,29 @@ final GoRouter goRouter = GoRouter(
       name: RouteNames.splash,
       builder: (_, __) => const SplashPage(),
     ),
+
     GoRoute(
       path: '/${RouteNames.home}',
       name: RouteNames.home,
       builder: (_, __) => const HomePage(),
+
+      routes: [
+        GoRoute(
+          path: RouteNames.profile,
+          name: RouteNames.profile,
+          builder: (_, __) => const ProfilePage(),
+        ),
+      ],
     ),
+
     GoRoute(
-      path: '/${RouteNames.signin}',
-      name: RouteNames.signin,
+      path: '/${RouteNames.signIn}',
+      name: RouteNames.signIn,
       builder: (_, __) => const SignInPage(),
     ),
     GoRoute(
-      path: '/${RouteNames.signup}',
-      name: RouteNames.signup,
+      path: '/${RouteNames.signUp}',
+      name: RouteNames.signUp,
       builder: (_, __) => const SignUpPage(),
     ),
     GoRoute(
@@ -90,6 +93,13 @@ final GoRouter goRouter = GoRouter(
       path: '/${RouteNames.changePassword}',
       name: RouteNames.changePassword,
       builder: (_, __) => const ChangePasswordPage(),
+    ),
+
+    /// 🔴 fallback test route (optional)
+    GoRoute(
+      path: '/${RouteNames.pageNotFound}',
+      name: RouteNames.pageNotFound,
+      builder: (_, __) => const PageNotFound(errorMessage: 'Test'),
     ),
   ],
 

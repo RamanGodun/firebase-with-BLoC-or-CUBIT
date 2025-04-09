@@ -1,13 +1,12 @@
-import 'package:firebase_with_bloc_or_cubit/core/constants/app_spacing.dart';
+import 'package:firebase_with_bloc_or_cubit/core/navigation/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../core/constants/app_constants.dart';
 import '../../core/constants/app_strings.dart' show AppStrings;
 import '../../core/utils_and_services/helper.dart';
 import '../../features/auth_bloc/auth_bloc.dart';
-import '../../features/profile/profile_page.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/text_widget.dart';
-import 'page_not_found.dart';
 
 class HomePage extends StatelessWidget {
   static const String routeName = '/home';
@@ -24,10 +23,7 @@ class HomePage extends StatelessWidget {
           title: AppStrings.homePageTitle,
           actionIcons: const [Icons.account_circle, Icons.exit_to_app],
           actionCallbacks: [
-            () => Helpers.pushTo(
-              context,
-              const PageNotFound(errorMessage: 'TEST'),
-            ),
+            () => Helpers.pushToNamed(context, RouteNames.profile),
             () => context.read<AuthBloc>().add(SignoutRequestedEvent()),
           ],
           isNeedPaddingAfterActionIcon: true,

@@ -4,10 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../core/di/injection.dart';
-import '../../core/navigation/route_names.dart';
 import '../../core/utils_and_services/errors_handling/error_dialog.dart';
 import '../../core/utils_and_services/helper.dart';
-import '../../core/utils_and_services/form_fields_input/forms_status_extension.dart';
+import '../../core/utils_and_services/form_fields_validation/forms_status_extension.dart';
 import '../../presentation/widgets/buttons/button_for_forms.dart';
 import '../../presentation/widgets/buttons/text_button.dart';
 import '../../presentation/widgets/input_fields.dart/email_input_field.dart';
@@ -59,7 +58,13 @@ class SignUpView extends HookWidget {
                 child: ListView(
                   shrinkWrap: true,
                   children: [
-                    Image.asset('assets/images/flutter_logo.png', height: 150),
+                    Hero(
+                      tag: 'Logo',
+                      child: Image.asset(
+                        'assets/images/flutter_logo.png',
+                        height: 150,
+                      ),
+                    ),
                     const SizedBox(height: 20),
 
                     /// Full name field
@@ -129,7 +134,8 @@ class SignUpView extends HookWidget {
                     RedirectTextButton(
                       label: 'Already a member? Sign In!',
                       isDisabled: state.status.isSubmissionInProgress,
-                      onPressed: () => Helpers.goTo(context, RouteNames.signin),
+                      onPressed: () => Helpers.pop(context),
+                      //Helpers.goTo(context, RouteNames.signIn),
                     ),
                   ],
                 ),

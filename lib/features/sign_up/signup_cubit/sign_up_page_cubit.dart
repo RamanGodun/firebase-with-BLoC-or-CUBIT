@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_with_bloc_or_cubit/core/utils_and_services/form_fields_input/forms_status_extension.dart';
+import 'package:firebase_with_bloc_or_cubit/core/utils_and_services/form_fields_validation/forms_status_extension.dart';
 import 'package:formz/formz.dart';
 import '../../../../core/utils_and_services/debouncer.dart';
 import '../../../../core/utils_and_services/errors_handling/custom_error.dart';
 import '../../../../core/utils_and_services/errors_handling/handle_exception.dart';
-import '../../../../core/utils_and_services/form_fields_input/email_input.dart';
-import '../../../../core/utils_and_services/form_fields_input/passwords_input.dart';
+import '../../../core/utils_and_services/form_fields_validation/email_input.dart';
+import '../../../core/utils_and_services/form_fields_validation/passwords_input.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../../core/utils_and_services/errors_handling/custom_validation_of_input_fields/validation_for_name_input.dart';
 import '../../../core/utils_and_services/errors_handling/custom_validation_of_input_fields/validation_for_password_confirmation.dart';

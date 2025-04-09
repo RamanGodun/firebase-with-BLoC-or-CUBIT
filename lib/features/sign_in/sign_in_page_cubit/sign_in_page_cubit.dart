@@ -6,8 +6,8 @@ import 'package:formz/formz.dart';
 import '../../../../core/utils_and_services/errors_handling/custom_error.dart';
 import '../../../../core/utils_and_services/errors_handling/handle_exception.dart';
 import '../../../core/utils_and_services/debouncer.dart';
-import '../../../core/utils_and_services/form_fields_input/email_input.dart';
-import '../../../core/utils_and_services/form_fields_input/passwords_input.dart';
+import '../../../core/utils_and_services/form_fields_validation/email_input.dart';
+import '../../../core/utils_and_services/form_fields_validation/passwords_input.dart';
 import '../../../data/repositories/auth_repository.dart';
 
 part 'sign_in_page_state.dart';

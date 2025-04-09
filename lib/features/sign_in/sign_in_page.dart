@@ -5,7 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import '../../core/di/injection.dart';
 import '../../core/navigation/route_names.dart';
 import '../../core/utils_and_services/errors_handling/error_dialog.dart';
-import '../../core/utils_and_services/form_fields_input/forms_status_extension.dart';
+import '../../core/utils_and_services/form_fields_validation/forms_status_extension.dart';
 import '../../core/utils_and_services/helper.dart';
 import '../../presentation/widgets/buttons/button_for_forms.dart';
 import '../../presentation/widgets/buttons/text_button.dart';
@@ -57,7 +57,13 @@ class SigninPageView extends HookWidget {
                     shrinkWrap: true,
                     children: [
                       /// Build image
-                      Image.asset('assets/images/flutter_logo.png', width: 250),
+                      Hero(
+                        tag: 'Logo',
+                        child: Image.asset(
+                          'assets/images/flutter_logo.png',
+                          width: 250,
+                        ),
+                      ),
                       const SizedBox(height: 20),
 
                       /// Build the textfields
@@ -96,7 +102,8 @@ class SigninPageView extends HookWidget {
                         label: 'Not a member? Sign Up!',
                         isDisabled: state.status.isSubmissionInProgress,
                         onPressed:
-                            () => Helpers.goTo(context, RouteNames.signup),
+                            () =>
+                                Helpers.pushToNamed(context, RouteNames.signUp),
                       ),
                     ],
                   ),

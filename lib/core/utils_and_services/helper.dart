@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../presentation/widgets/text_widget.dart';
 import '../navigation/route_names.dart';
 
 /*
@@ -11,21 +9,6 @@ class Helpers {
   /// ================================
   /// * 🎨 NAVIGATION HELPERS
   /// ================================
-
-  /// Pushes a new page onto the stack
-  static Future<T?> pushTo<T>(BuildContext context, Widget child) {
-    return Navigator.of(
-      context,
-    ).push<T>(MaterialPageRoute(builder: (_) => child));
-  }
-
-  static pop(BuildContext context) {
-    return Navigator.pop(context);
-  }
-
-  static void goToResetPassword(BuildContext context) {
-    GoRouter.of(context).goNamed(RouteNames.resetPassword);
-  }
 
   /// Navigates to a named route with optional parameters
   static void goTo(
@@ -42,8 +25,38 @@ class Helpers {
       );
     } catch (e) {
       // Redirect to error page if route is not found
-      GoRouter.of(context).go('/unknown');
+      GoRouter.of(context).go(RouteNames.pageNotFound);
     }
+  }
+
+  ///
+  static void pushToNamed(
+    BuildContext context,
+    String routeName, {
+    Map<String, String> pathParameters = const <String, String>{},
+    Map<String, dynamic> queryParameters = const <String, dynamic>{},
+  }) {
+    try {
+      GoRouter.of(context).pushNamed(
+        routeName,
+        pathParameters: pathParameters,
+        queryParameters: queryParameters,
+      );
+    } catch (e) {
+      GoRouter.of(context).go(RouteNames.pageNotFound);
+    }
+  }
+
+  ///
+  static pop(BuildContext context) {
+    return Navigator.pop(context);
+  }
+
+  ///
+  static Future<T?> pushTo<T>(BuildContext context, Widget child) {
+    return Navigator.of(
+      context,
+    ).push<T>(MaterialPageRoute(builder: (_) => child));
   }
 
   /// ================================
@@ -51,9 +64,8 @@ class Helpers {
   /// ================================
 
   /// 🌗 Checks if current theme is dark mode.
-  static bool isDarkMode(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark;
-  }
+  static bool isDarkMode(BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark;
 
   /// 🎨 **Retrieves the current theme** from the [BuildContext].
   static ThemeData getTheme(BuildContext context) => Theme.of(context);
@@ -66,36 +78,11 @@ class Helpers {
   static ColorScheme getColorScheme(BuildContext context) =>
       Theme.of(context).colorScheme;
 
-  static void unfocus(BuildContext context) {
-    FocusScope.of(context).unfocus();
-  }
+  static void unfocus(BuildContext context) => FocusScope.of(context).unfocus();
 
   /// ================================
-  /// * 🎨 SNACKBARs
+  /// * 🎨 SPECIFIC METHODS
   /// ================================
 
-  /// Shows a snackbar message
-  static void showSnackbar(
-    ScaffoldMessengerState scaffoldMessenger,
-    String message,
-  ) {
-    scaffoldMessenger.showSnackBar(
-      SnackBar(content: TextWidget(message, TextType.bodyMedium)),
-    );
-  }
-
-  // ================ Controllers helpers =================== //
-  static List<TextEditingController> createControllers(int count) {
-    return List.generate(count, (index) => TextEditingController());
-  }
-
-  /// Disposes all controllers in the list
-  static void disposeControllers(List<TextEditingController> controllers) {
-    for (final controller in controllers) {
-      controller.dispose();
-    }
-  }
-
-  /// ============== SPECIFIC METHODS ===================== //
   ///
 }
