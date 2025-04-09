@@ -1,14 +1,17 @@
 # 📦 Firebase with BLoC/Cubit
 
-A test-task project showcasing a production-grade Firebase integration in Flutter, built with Clean Architecture and BLoC/Cubit state management
+A test-task project showcasing a Firebase integration in Flutter,
+built with Clean Architecture and BLoC/Cubit state management.
 
 ---
 
 ## ✨ Overview
 
-This app demonstrates a robust authentication flow using **Firebase Auth** + **Cloud Firestore**, structured using **Clean Architecture**, scalable **BLoC/Cubit** state management, and **GoRouter** for declarative navigation.
+This app demonstrates a robust authentication flow using **Firebase Auth** + **Cloud Firestore**, structured using
+**Clean Architecture**, scalable **BLoC/Cubit** state management, and **GoRouter** for declarative navigation.
 
-The codebase simulates a real-world setup to validate **mid-to-senior Flutter engineering skills** through modularity, maintainability, and production-level conventions.
+The codebase simulates a real-world setup to validate **Flutter engineering skills**
+through modularity, maintainability, and production-level conventions.
 
 ---
 
@@ -22,6 +25,8 @@ The codebase simulates a real-world setup to validate **mid-to-senior Flutter en
 - 🧭 GoRouter navigation with auth-aware redirection
 - 💡 Centralized validation, error handling, overlays
 - 📁 Modular file structure with dependency injection
+- 🧪 Firebase initialized via `.env` + `flutter_dotenv`
+- 🧰 macOS M1/M2/M3 ready (prebuilt Firestore SDK optional)
 
 ---
 
@@ -51,19 +56,19 @@ lib/
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/<your-username>/firebase_with_bloc_or_cubit
-cd firebase_with_bloc_or_cubit
+git clone https://github.com/RamanGodun/firebase-with-BLoC-or-CUBIT
+cd firebase-with-BLoC-or-CUBIT
 ```
 
 ### 2. Set Up Firebase
 
-- Create a Firebase project
-- Add Android/iOS apps
-- Download and place:
-  - `google-services.json` for Android
-  - `GoogleService-Info.plist` for iOS
+- Create a Firebase project in [Firebase Console](https://console.firebase.google.com)
+- Add Android and iOS apps
+- Download and place platform configs:
+  - `google-services.json` for Android → `android/app/`
+  - `GoogleService-Info.plist` for iOS → `ios/Runner/`
 
-### 3. Configure .env
+### 3. Configure `.env`
 
 Create an `.env` file with your Firebase credentials:
 
@@ -77,10 +82,21 @@ FIREBASE_AUTH_DOMAIN=...
 FIREBASE_IOS_BUNDLE_ID=...
 ```
 
-### 4. Run the App
+### 4. Run Firebase Configure
 
 ```bash
 flutter pub get
+flutterfire configure --project=firebase-with-bloc-or-cubit
+```
+
+This generates `lib/firebase_options.dart`
+
+> 💡 To improve iOS build speed (optional):
+> Use [Invertase Firestore iOS SDK](https://github.com/invertase/firestore-ios-sdk-frameworks) via Podfile override.
+
+### 5. Run the App
+
+```bash
 flutter run
 ```
 
@@ -97,6 +113,7 @@ flutter run
 | Theming    | `ThemeCubit`, `SF Pro Text`         |
 | Validation | `formz`, custom validators          |
 | UI/UX      | Cupertino-style, Hero, OverlayEntry |
+| Env Config | `flutter_dotenv`, `.env` loader     |
 
 ---
 
@@ -123,4 +140,4 @@ While automated tests were not required for the test task, the structure is read
 
 ## ⚖️ License
 
-MIT License © 2025 [Roman Godun](mailto:4l.roman.godun@gmail.com)
+[MIT License](./LICENSE) © 2025 [Roman Godun](mailto:4l.roman.godun@gmail.com)
