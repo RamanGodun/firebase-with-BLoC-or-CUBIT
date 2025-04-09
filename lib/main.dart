@@ -66,6 +66,3 @@ class AppView extends StatelessWidget {
     );
   }
 }
-
-
-/// ! ADR та архітектурну документацію
