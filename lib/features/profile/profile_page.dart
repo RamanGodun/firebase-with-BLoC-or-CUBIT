@@ -1,14 +1,18 @@
-import 'package:firebase_with_bloc_or_cubit/presentation/widgets/custom_app_bar.dart';
-import 'package:firebase_with_bloc_or_cubit/presentation/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../core/constants/app_constants.dart' show AppSpacing;
+import '../../core/constants/app_strings.dart';
 import '../../core/di/injection.dart';
 import '../../core/entities/user_model.dart';
 import '../../core/utils_and_services/errors_handling/error_dialog.dart';
+import '../../presentation/widgets/custom_app_bar.dart';
+import '../../presentation/widgets/text_widget.dart';
 import '../auth_bloc/auth_bloc.dart';
-import 'profile_cubit/profile_cubit.dart';
 import '../theme/theme_toggle_icon.dart';
+import 'profile_cubit/profile_cubit.dart';
 
+/// 👤 [ProfilePage] — shows user profile details fetched from backend.
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
@@ -27,6 +31,7 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
+/// 📄 [ProfileView] — Handles state for loading, error, and loaded profile states.
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
 
@@ -34,11 +39,10 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(
-        title: 'Profile',
+        title: AppStrings.profilePageTitle,
         actionWidgets: [ThemeToggleIcon()],
+        isNeedPaddingAfterActionIcon: true,
       ),
-
-      ///
       body: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
           if (state.profileStatus == ProfileStatus.error) {
@@ -48,7 +52,7 @@ class ProfileView extends StatelessWidget {
         builder: (context, state) {
           switch (state.profileStatus) {
             case ProfileStatus.loading:
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator.adaptive());
 
             case ProfileStatus.error:
               return const _ErrorContent();
@@ -65,7 +69,7 @@ class ProfileView extends StatelessWidget {
   }
 }
 
-/// 🔻 User UI
+/// 🧾 [_UserProfileCard] — Displays user information after successful fetch.
 class _UserProfileCard extends StatelessWidget {
   final User user;
   const _UserProfileCard({required this.user});
@@ -73,7 +77,7 @@ class _UserProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(20),
+      margin: const EdgeInsets.all(AppSpacing.l),
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 4,
@@ -88,19 +92,34 @@ class _UserProfileCard extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(AppSpacing.xs),
             child: DefaultTextStyle(
               style: const TextStyle(fontSize: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextWidget('👤 Name: ${user.name}', TextType.titleMedium),
-                  const SizedBox(height: 5),
-                  TextWidget('🆔 ID: ${user.id}', TextType.titleSmall),
-                  TextWidget('📧 Email: ${user.email}', TextType.titleSmall),
-                  const SizedBox(height: 16),
-                  TextWidget('📊 Points: ${user.point}', TextType.bodyMedium),
-                  TextWidget('🏆 Rank: ${user.rank}', TextType.bodyMedium),
+                  TextWidget(
+                    '${AppStrings.profileNameLabel} ${user.name}',
+                    TextType.titleMedium,
+                  ),
+                  const SizedBox(height: AppSpacing.xs),
+                  TextWidget(
+                    '${AppStrings.profileIdLabel} ${user.id}',
+                    TextType.titleSmall,
+                  ),
+                  TextWidget(
+                    '${AppStrings.profileEmailLabel} ${user.email}',
+                    TextType.titleSmall,
+                  ),
+                  const SizedBox(height: AppSpacing.m),
+                  TextWidget(
+                    '${AppStrings.profilePointsLabel} ${user.point}',
+                    TextType.bodyMedium,
+                  ),
+                  TextWidget(
+                    '${AppStrings.profileRankLabel} ${user.rank}',
+                    TextType.bodyMedium,
+                  ),
                 ],
               ),
             ),
@@ -111,19 +130,19 @@ class _UserProfileCard extends StatelessWidget {
   }
 }
 
-/// 🔻 Error State UI
+/// ⚠️ [_ErrorContent] — Shown when profile loading fails.
 class _ErrorContent extends StatelessWidget {
   const _ErrorContent();
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset('assets/images/error.png', width: 75),
-          const SizedBox(height: 12),
-          const TextWidget('Oops!\nSomething went wrong.', TextType.error),
+          Image(image: AssetImage('assets/images/error.png'), width: 75),
+          SizedBox(height: AppSpacing.s),
+          TextWidget(AppStrings.profileErrorMessage, TextType.error),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 part of 'sign_up_page_cubit.dart';
 
+/// 🧾 [SignUpState] — Holds all field values and form status for SignUpCubit.
 class SignUpState extends Equatable {
   final NameInput name;
   final EmailInput email;
@@ -19,6 +20,7 @@ class SignUpState extends Equatable {
     this.error = const CustomError(),
   });
 
+  /// Clones current state with optional overrides
   SignUpState copyWith({
     NameInput? name,
     EmailInput? email,
@@ -39,7 +41,6 @@ class SignUpState extends Equatable {
     );
   }
 
-  /// ✅ Needed for BlocBuilder/Selector comparison
   @override
   List<Object?> get props => [
     name,

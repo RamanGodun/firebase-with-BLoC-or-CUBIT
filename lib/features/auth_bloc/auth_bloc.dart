@@ -2,11 +2,13 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
+
 import '../../data/repositories/auth_repository.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
+/// 🔐 [AuthBloc] — Handles authentication state and Firebase auth stream.
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
   late final StreamSubscription<fb_auth.User?> _authSubscription;
@@ -20,7 +22,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignoutRequestedEvent>(_onSignoutRequested);
   }
 
-  /// 🔄 Handle Firebase user state change
+  /// 🔁 Reacts to user login/logout from Firebase
   void _onAuthStateChanged(
     AuthStateChangedEvent event,
     Emitter<AuthState> emit,
@@ -34,7 +36,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  /// 🚪 Sign out the user
+  /// 🚪 Handles user sign-out
   Future<void> _onSignoutRequested(
     SignoutRequestedEvent event,
     Emitter<AuthState> emit,
@@ -42,7 +44,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     await authRepository.signout();
   }
 
-  /// 🧹 Dispose stream when bloc is closed
+  /// 🧼 Dispose the subscription
   @override
   Future<void> close() {
     _authSubscription.cancel();

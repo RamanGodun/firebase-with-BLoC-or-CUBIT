@@ -35,6 +35,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       );
     }
 
+
     return AppBar(
       centerTitle: isCenteredTitle,
       title: TextWidget(
@@ -57,7 +58,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
             if ((actionIcons?.isNotEmpty ?? false) &&
                 isNeedPaddingAfterActionIcon)
-              const SizedBox(width: 16),
+              const SizedBox(width: 18),
           ],
     );
   }

@@ -1,19 +1,21 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_with_bloc_or_cubit/core/utils_and_services/form_fields_validation/forms_status_extension.dart';
 import 'package:formz/formz.dart';
+
 import '../../../../core/utils_and_services/debouncer.dart';
 import '../../../../core/utils_and_services/errors_handling/custom_error.dart';
 import '../../../../core/utils_and_services/errors_handling/handle_exception.dart';
-import '../../../core/utils_and_services/form_fields_validation/email_input.dart';
-import '../../../core/utils_and_services/form_fields_validation/passwords_input.dart';
-import '../../../data/repositories/auth_repository.dart';
-import '../../../core/utils_and_services/errors_handling/custom_validation_of_input_fields/validation_for_name_input.dart';
-import '../../../core/utils_and_services/errors_handling/custom_validation_of_input_fields/validation_for_password_confirmation.dart';
+import '../../../../core/utils_and_services/form_fields_validation/forms_status_extension.dart';
+import '../../../../core/utils_and_services/form_fields_validation/email_input.dart';
+import '../../../../core/utils_and_services/form_fields_validation/passwords_input.dart';
+import '../../../../core/utils_and_services/errors_handling/custom_validation_of_input_fields/validation_for_name_input.dart';
+import '../../../../core/utils_and_services/errors_handling/custom_validation_of_input_fields/validation_for_password_confirmation.dart';
+import '../../../../data/repositories/auth_repository.dart';
 
 part 'sign_up_page_state.dart';
 
+/// 🧠 [SignUpCubit] — Handles logic for sign-up form: validation, debouncing, and submission.
 class SignUpCubit extends Cubit<SignUpState> {
   final AuthRepository authRepository;
   final _debouncer = Debouncer(const Duration(milliseconds: 300));
@@ -23,7 +25,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     resetState();
   }
 
-  /// Handle name field change
+  /// Handles name field change with debounce
   void onNameChanged(String value) {
     _debouncer.run(() {
       final name = NameInput.dirty(value);
@@ -31,7 +33,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     });
   }
 
-  /// Handle email field change
+  /// Handles email field change with debounce
   void onEmailChanged(String value) {
     _debouncer.run(() {
       final email = EmailInput.dirty(value);
@@ -39,7 +41,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     });
   }
 
-  /// Handle password field change
+  /// Handles password field change and updates confirm password
   void onPasswordChanged(String value) {
     final password = PasswordInput.dirty(value);
     final confirm = ConfirmPasswordInput.dirty(
@@ -55,7 +57,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
-  /// Handle confirm password change
+  /// Handles confirm password change
   void onConfirmPasswordChanged(String value) {
     final confirm = ConfirmPasswordInput.dirty(
       password: state.password.value,
@@ -69,7 +71,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
-  /// Submit sign-up form
+  /// Submits sign-up form and emits appropriate state
   Future<void> submitForm() async {
     if (!state.isValid || state.status.isSubmissionInProgress) return;
 
@@ -81,7 +83,6 @@ class SignUpCubit extends Cubit<SignUpState> {
         email: state.email.value,
         password: state.password.value,
       );
-
       if (isClosed) return;
       emit(state.copyWith(status: FormzSubmissionStatus.success));
     } catch (e) {
@@ -95,17 +96,18 @@ class SignUpCubit extends Cubit<SignUpState> {
     }
   }
 
-  /// Reset only submission status
+  /// Resets only submission status (e.g. after error popup)
   void resetStatus() {
     emit(state.copyWith(status: FormzSubmissionStatus.initial));
   }
 
-  /// Reset whole form state
+  /// Fully resets sign-up form to initial state
   void resetState() {
     print('🧼 SignUpCubit → resetState()');
     emit(const SignUpState());
   }
 
+  /// Local validation method
   bool _validateForm({
     NameInput? name,
     EmailInput? email,

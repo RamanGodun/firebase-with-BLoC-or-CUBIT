@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-
+import '../../core/constants/app_constants.dart' show AppSpacing;
+import '../../core/constants/app_strings.dart';
 import '../../core/di/injection.dart';
 import '../../core/navigation/route_names.dart';
 import '../../core/utils_and_services/errors_handling/error_dialog.dart';
@@ -13,6 +14,7 @@ import '../../presentation/widgets/input_fields.dart/email_input_field.dart';
 import '../../presentation/widgets/input_fields.dart/password_input_field.dart';
 import 'sign_in_page_cubit/sign_in_page_cubit.dart';
 
+/// 🔐 [SignInPage] - Auth screen for existing users
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
 
@@ -29,18 +31,18 @@ class SignInPage extends StatelessWidget {
           AppDialogs.showErrorDialog(context, state.error);
           context.read<SignInCubit>().resetStatus();
         },
-        child: const SigninPageView(),
+        child: const SignInPageView(),
       ),
     );
   }
 }
 
-class SigninPageView extends HookWidget {
-  const SigninPageView({super.key});
+/// 🔐 [SignInPageView] - Full sign-in form UI with reactive logic
+class SignInPageView extends HookWidget {
+  const SignInPageView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // 📌 FocusNodes for keyboard navigation and form UX
     final emailFocusNode = useFocusNode();
     final passwordFocusNode = useFocusNode();
 
@@ -51,32 +53,36 @@ class SigninPageView extends HookWidget {
           child: Scaffold(
             body: Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
                 child: AutofillGroup(
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      /// Build image
-                      Hero(
+                      /// 🖼️ Logo with Hero animation
+                      const Hero(
                         tag: 'Logo',
-                        child: Image.asset(
-                          'assets/images/flutter_logo.png',
+                        child: Image(
+                          image: AssetImage('assets/images/flutter_logo.png'),
                           width: 250,
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: AppSpacing.l),
 
-                      /// Build the textfields
+                      /// 📧 Email
                       EmailInputField(
                         focusNode: emailFocusNode,
                         errorText: state.email.displayError,
                         onChanged:
                             (value) =>
                                 context.read<SignInCubit>().emailChanged(value),
-                        onSubmitted: () => FocusScope.of(context).nextFocus(),
+                        onSubmitted:
+                            () => FocusScope.of(
+                              context,
+                            ).requestFocus(passwordFocusNode),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: AppSpacing.l),
 
+                      /// 🔒 Password
                       PasswordInputField(
                         focusNode: passwordFocusNode,
                         errorText: state.password.displayError,
@@ -84,22 +90,22 @@ class SigninPageView extends HookWidget {
                             (value) => context
                                 .read<SignInCubit>()
                                 .passwordChanged(value),
-                        onSubmitted: () => context.read<SignInCubit>().submit(),
+                        onSubmitted: () => _submit(context),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: AppSpacing.xl),
 
-                      /// Build the submit button (universal reusable button with loading state)
+                      /// 🚀 Sign In Button
                       FormSubmitButton<SignInCubit, SignInPageState>(
-                        text: 'Sign In',
+                        text: AppStrings.signInButton,
                         onSubmit: _submit,
                         statusSelector: (state) => state.status,
                         isValidatedSelector: (state) => state.isValid,
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: AppSpacing.s),
 
-                      ///Build sign-up redirection text button
+                      /// 🔁 Sign Up Redirect
                       RedirectTextButton(
-                        label: 'Not a member? Sign Up!',
+                        label: AppStrings.redirectToSignUp,
                         isDisabled: state.status.isSubmissionInProgress,
                         onPressed:
                             () =>
@@ -116,18 +122,9 @@ class SigninPageView extends HookWidget {
     );
   }
 
-  // ======================= 🔻 PRIVATE METHODS 🔻 ======================= //
-
-  /// Unfocus all input fields (used when tapping outside the keyboard)
-  void _unfocusFields(BuildContext context) {
-    FocusScope.of(context).unfocus();
-  }
-
-  /// Submit sign-in form through the form cubit
+  /// 🔄 Submit the form
   void _submit(BuildContext context) {
-    _unfocusFields(context);
+    FocusScope.of(context).unfocus();
     context.read<SignInCubit>().submit();
   }
-
-  ///
 }

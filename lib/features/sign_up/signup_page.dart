@@ -1,8 +1,9 @@
-// ✅ SignupPage (refactored to match SigninPage structure)
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../../core/constants/app_constants.dart' show AppSpacing;
+import '../../core/constants/app_strings.dart';
 import '../../core/di/injection.dart';
 import '../../core/utils_and_services/errors_handling/error_dialog.dart';
 import '../../core/utils_and_services/helper.dart';
@@ -10,11 +11,12 @@ import '../../core/utils_and_services/form_fields_validation/forms_status_extens
 import '../../presentation/widgets/buttons/button_for_forms.dart';
 import '../../presentation/widgets/buttons/text_button.dart';
 import '../../presentation/widgets/input_fields.dart/email_input_field.dart';
-import '../../presentation/widgets/input_fields.dart/password_confirmation_input_filed.dart';
-import '../../presentation/widgets/input_fields.dart/password_input_field.dart';
 import '../../presentation/widgets/input_fields.dart/name_input_field.dart';
+import '../../presentation/widgets/input_fields.dart/password_input_field.dart';
+import '../../presentation/widgets/input_fields.dart/password_confirmation_input_filed.dart';
 import 'signup_cubit/sign_up_page_cubit.dart';
 
+/// 🧾 [SignUpPage] - Entry point with BLoC provider and listener
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
 
@@ -36,11 +38,13 @@ class SignUpPage extends StatelessWidget {
   }
 }
 
+/// 🧾 [SignUpView] - Contains full form UI and field logic
 class SignUpView extends HookWidget {
   const SignUpView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // 🔤 Focus management
     final nameFocus = useFocusNode();
     final emailFocus = useFocusNode();
     final passwordFocus = useFocusNode();
@@ -54,20 +58,21 @@ class SignUpView extends HookWidget {
           child: Scaffold(
             body: Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
                 child: ListView(
                   shrinkWrap: true,
                   children: [
-                    Hero(
+                    /// 🔰 App Logo with Hero animation
+                    const Hero(
                       tag: 'Logo',
-                      child: Image.asset(
-                        'assets/images/flutter_logo.png',
+                      child: Image(
+                        image: AssetImage('assets/images/flutter_logo.png'),
                         height: 150,
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: AppSpacing.l),
 
-                    /// Full name field
+                    /// 👤 Full Name
                     NameInputField(
                       focusNode: nameFocus,
                       errorText: state.name.errorText,
@@ -77,9 +82,9 @@ class SignUpView extends HookWidget {
                       onSubmitted:
                           () => FocusScope.of(context).requestFocus(emailFocus),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: AppSpacing.l),
 
-                    /// Email field
+                    /// 📧 Email
                     EmailInputField(
                       focusNode: emailFocus,
                       errorText: state.email.displayError,
@@ -91,9 +96,9 @@ class SignUpView extends HookWidget {
                             context,
                           ).requestFocus(passwordFocus),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: AppSpacing.l),
 
-                    /// Password field
+                    /// 🔒 Password
                     PasswordInputField(
                       focusNode: passwordFocus,
                       errorText: state.password.displayError,
@@ -106,9 +111,9 @@ class SignUpView extends HookWidget {
                             context,
                           ).requestFocus(confirmPasswordFocus),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: AppSpacing.l),
 
-                    /// Confirm password field
+                    /// 🔐 Confirm Password
                     ConfirmPasswordInputField(
                       focusNode: confirmPasswordFocus,
                       errorText: state.confirmPassword.errorText,
@@ -119,23 +124,22 @@ class SignUpView extends HookWidget {
                       onSubmitted:
                           () => context.read<SignUpCubit>().submitForm(),
                     ),
-                    const SizedBox(height: 50),
+                    const SizedBox(height: AppSpacing.xxxl),
 
-                    /// Submit button
+                    /// 🚀 Submit Button with animation
                     FormSubmitButton<SignUpCubit, SignUpState>(
-                      text: 'Sign Up',
+                      text: AppStrings.signUpButton,
                       onSubmit: _onSubmit,
                       statusSelector: (state) => state.status,
                       isValidatedSelector: (state) => state.isValid,
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: AppSpacing.s),
 
-                    /// Redirect to Sign In
+                    /// 🔁 Redirect to Sign In
                     RedirectTextButton(
-                      label: 'Already a member? Sign In!',
+                      label: AppStrings.redirectToSignIn,
                       isDisabled: state.status.isSubmissionInProgress,
                       onPressed: () => Helpers.pop(context),
-                      //Helpers.goTo(context, RouteNames.signIn),
                     ),
                   ],
                 ),
@@ -147,6 +151,7 @@ class SignUpView extends HookWidget {
     );
   }
 
+  /// 🔽 Handles form submission logic
   void _onSubmit(BuildContext context) {
     FocusScope.of(context).unfocus();
     context.read<SignUpCubit>().submitForm();
