@@ -40,7 +40,7 @@ class AppBlocProviders extends StatelessWidget {
   }
 }
 
-/// 🗺️ Root app view — listens for theme changes and builds [MaterialApp]
+/// 🗺️ [AppView] - root app view, listens for theme changes and builds [MaterialApp]
 class AppView extends StatelessWidget {
   const AppView({super.key});
 
