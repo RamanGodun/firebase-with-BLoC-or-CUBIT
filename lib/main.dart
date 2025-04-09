@@ -40,7 +40,7 @@ class AppBlocProviders extends StatelessWidget {
 }
 
 /// * 🗾 [AppView] - builds the main [MaterialApp] structure.
-///   Listens for theme changes via **AppSettingsCubit**.
+///   Listens for theme changes via [AppSettingsCubit].
 class AppView extends StatelessWidget {
   const AppView({super.key});
 

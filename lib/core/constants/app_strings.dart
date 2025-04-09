@@ -5,6 +5,9 @@ abstract class AppStrings {
   /// * 🏠 App Titles
   // ===============================
   static const String appTitle = 'Firebase with BLoC/Cubit';
+  static const String changePasswordPageTitle = 'Change Password';
+  static const String resetPasswordPageTitle = 'Reset Password';
+  static const String verifyEmailPageTitle = 'Verify Email';
 
   /// ────────────────────────────────────────────────────────────────────
   /// * 🏠 Titles
