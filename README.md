@@ -1,6 +1,6 @@
 # 📦 Firebase with BLoC/Cubit
 
-A test-task project showcasing a production-grade Firebase integration in Flutter, built with Clean Architecture and BLoC/Cubit state management.
+A test-task project showcasing a production-grade Firebase integration in Flutter, built with Clean Architecture and BLoC/Cubit state management
 
 ---
 
