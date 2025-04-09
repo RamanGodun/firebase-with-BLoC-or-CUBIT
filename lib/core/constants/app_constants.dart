@@ -60,6 +60,13 @@ abstract class AppConstants {
   static const IconData syncIcon = Icons.sync;
   static const IconData changeCircleIcon = Icons.change_circle;
 
+  static const IconData profileIcon = Icons.account_circle;
+  static const IconData logoutIcon = Icons.exit_to_app;
+  static const IconData emailIcon = Icons.email;
+  static const IconData nameIcon = Icons.account_box;
+  static const IconData passwordIcon = Icons.lock;
+  static const IconData confirmPasswordIcon = Icons.lock_outline;
+
   /// ────────────────────────────────────────────────────────────────────
   /// * 🔥 OTHER
   // ────────────────────────────────────────────────────────────────────

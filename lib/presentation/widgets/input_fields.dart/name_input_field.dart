@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../../../core/constants/app_constants.dart' show AppConstants;
+import '../../../core/constants/app_strings.dart' show AppStrings;
+
+/// 👤 [NameInputField] input formfield for user name
 class NameInputField extends HookWidget {
   final FocusNode focusNode;
   final String? errorText;
@@ -21,16 +25,14 @@ class NameInputField extends HookWidget {
     return TextField(
       key: const ValueKey('signup_name_field'),
       focusNode: focusNode,
-      // autofocus: true,
       keyboardType: TextInputType.name,
       textCapitalization: TextCapitalization.words,
-      autofillHints: null,
       // autofillHints: const [AutofillHints.name],
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
         filled: true,
-        labelText: 'Name',
-        prefixIcon: const Icon(Icons.account_box),
+        labelText: AppStrings.name,
+        prefixIcon: const Icon(AppConstants.nameIcon),
         errorText: errorText,
       ),
       onChanged: onChanged,

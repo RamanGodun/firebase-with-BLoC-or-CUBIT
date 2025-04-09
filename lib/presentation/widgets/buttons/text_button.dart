@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../widgets/text_widget.dart';
+import '../text_widget.dart';
 
-/// 🔁 A reusable redirect-style text button with optional disabled state.
+/// 🔁🌐 [RedirectTextButton] a reusable text button, used for navigation or redirects.
 class RedirectTextButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final String label;
