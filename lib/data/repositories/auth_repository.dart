@@ -1,23 +1,26 @@
-import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
+import '../../core/constants/app_constants.dart' show AppConstants;
 import '../../core/utils_and_services/errors_handling/handle_exception.dart';
 import '../data_transfer_objects/user_dto.dart';
-import '../sources/remote_firebase/firebase_constants.dart';
 
-/// **Repository for Authentication-related logic**
-///
-/// Provides `signup`, `signin`, `signout` and `user` stream access.
-/// Delegates error handling to [handleException] for consistency.
+/// 🧩 [AuthRepository]
+/// Handles all authentication-related logic:
+///    - 🔐 Sign in / sign up
+///    - 🧾 User stream
+///    - ☁️ Firestore profile initialization
+///    - 🚪 Sign out
+
 class AuthRepository {
   final FirebaseFirestore firestore;
   final fb_auth.FirebaseAuth firebaseAuth;
 
   const AuthRepository({required this.firestore, required this.firebaseAuth});
 
-  /// 🔁 Returns a stream of the currently authenticated [fb_auth.User]
+  /// 🔁 Emits current [fb_auth.User] changes
   Stream<fb_auth.User?> get user => firebaseAuth.userChanges();
 
-  /// 👤 Creates a new user account and initializes Firestore profile.
+  /// 👤 Registers new user and stores Firestore profile
   Future<void> signup({
     required String name,
     required String email,
@@ -32,16 +35,23 @@ class AuthRepository {
       final user = credential.user!;
       final userDto = UserDto.newUser(id: user.uid, name: name, email: email);
 
-      await usersCollection.doc(user.uid).set(userDto.toMap());
+      await firestore
+          .collection(AppConstants.usersCollection)
+          .doc(user.uid)
+          .set(userDto.toMap());
     } catch (e) {
       throw handleException(e);
     }
   }
 
-  ///
+  /// ☁️ Ensures user profile exists in Firestore after login/signup
   Future<void> ensureUserProfileCreated(fb_auth.User user) async {
     try {
-      final doc = await usersCollection.doc(user.uid).get();
+      final doc =
+          await firestore
+              .collection(AppConstants.usersCollection)
+              .doc(user.uid)
+              .get();
 
       if (!doc.exists) {
         final userDto = UserDto.newUser(
@@ -49,30 +59,32 @@ class AuthRepository {
           name: user.displayName ?? '',
           email: user.email ?? '',
         );
-        await usersCollection.doc(user.uid).set(userDto.toMap());
+        await firestore
+            .collection(AppConstants.usersCollection)
+            .doc(user.uid)
+            .set(userDto.toMap());
       }
     } catch (e) {
       throw handleException(e);
     }
   }
 
-  /// 🔐 Signs in the user with email/password credentials.
+  /// 🔐 Sign in with email/password
   Future<fb_auth.UserCredential> signin({
     required String email,
     required String password,
   }) async {
     try {
-      final credential = await firebaseAuth.signInWithEmailAndPassword(
+      return await firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      return credential;
     } catch (e) {
       throw handleException(e);
     }
   }
 
-  /// 🚪 Signs out the currently authenticated user.
+  /// 🚪 Sign out user from FirebaseAuth
   Future<void> signout() async {
     await firebaseAuth.signOut();
   }

@@ -11,17 +11,17 @@ import 'features/theme/theme_cubit/theme_cubit.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  /// 🔧 Initialize Firebase + HydratedStorage + BLoC observer
+  /// 🧱 Initialize Firebase, HydratedStorage & BLoC Observer
   await bootstrapApp();
 
-  /// 🧩 Register all dependencies via GetIt
+  /// 🔌 Register global services & singletons via GetIt
   await initDependencies();
 
-  /// 🏁 **Launch the app**
+  /// 🚀 Launch the root app
   runApp(const AppBlocProviders());
 }
 
-/// * 🧱 Root BLoC provider wrapper.
+/// 🧩 [AppBlocProviders] wraps global BLoC/Cubit providers (from DI)
 class AppBlocProviders extends StatelessWidget {
   const AppBlocProviders({super.key});
 
@@ -29,9 +29,10 @@ class AppBlocProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        /// *  Registers all BLoC/Cubit instances using GetIt ([appSingleton]).
-        /// 🧑‍💼 AuthBloc and  🎨 AppThemeCubit (singletons,  used globally)
+        /// 🔐 Auth state management (stream from FirebaseAuth)
         BlocProvider.value(value: appSingleton<AuthBloc>()),
+
+        /// 🎨 Theme switcher with Hydrated persistence
         BlocProvider.value(value: appSingleton<AppThemeCubit>()),
       ],
       child: const AppView(),
@@ -39,8 +40,7 @@ class AppBlocProviders extends StatelessWidget {
   }
 }
 
-/// * 🗾 [AppView] - builds the main [MaterialApp] structure.
-///   Listens for theme changes via [AppSettingsCubit].
+/// 🗺️ Root app view — listens for theme changes and builds [MaterialApp]
 class AppView extends StatelessWidget {
   const AppView({super.key});
 
@@ -52,12 +52,12 @@ class AppView extends StatelessWidget {
           title: AppStrings.appTitle,
           debugShowCheckedModeBanner: false,
 
-          /// 🎨 Theme settings
+          /// 🎨 Light/Dark theme configuration
           theme: AppThemes.getLightTheme(),
           darkTheme: AppThemes.getDarkTheme(),
           themeMode: state.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
 
-          /// 🌐 Navigation settings
+          /// 🔁 GoRouter configuration
           routerDelegate: goRouter.routerDelegate,
           routeInformationParser: goRouter.routeInformationParser,
           routeInformationProvider: goRouter.routeInformationProvider,

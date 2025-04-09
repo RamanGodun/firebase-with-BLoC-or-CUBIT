@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:formz/formz.dart';
 
 import '../../../../core/utils_and_services/debouncer.dart';
@@ -21,7 +22,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   final _debouncer = Debouncer(const Duration(milliseconds: 300));
 
   SignUpCubit({required this.authRepository}) : super(const SignUpState()) {
-    print('🟢 onCreate -- SignUpCubit');
+    debugPrint('🟢 onCreate -- SignUpCubit');
     resetState();
   }
 
@@ -103,7 +104,7 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   /// Fully resets sign-up form to initial state
   void resetState() {
-    print('🧼 SignUpCubit → resetState()');
+    debugPrint('🧼 SignUpCubit → resetState()');
     emit(const SignUpState());
   }
 
@@ -124,7 +125,7 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   @override
   Future<void> close() {
-    print('🔴 onClose -- SignUpCubit');
+    debugPrint('🔴 onClose -- SignUpCubit');
     return super.close();
   }
 }

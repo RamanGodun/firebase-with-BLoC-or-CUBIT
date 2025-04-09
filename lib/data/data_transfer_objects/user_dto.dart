@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../core/entities/user_model.dart';
 
-/// DTO (Data Transfer Object) for serializing/deserializing [User]
+/// 📦 [UserDto] — Data Transfer Object for [User] entity.
+/// Used for serialization/deserialization between Firestore and domain layer.
 class UserDto {
   final String id;
   final String name;
@@ -19,9 +20,14 @@ class UserDto {
     required this.rank,
   });
 
-  /// Deserialize from Firestore document
+  // ────────────────────────────────────────────────────────────────────
+  // 🔄 FROM FIRESTORE
+  // ────────────────────────────────────────────────────────────────────
+
+  /// 🧩 Creates a [UserDto] from Firestore document
   factory UserDto.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data();
+
     if (data == null) {
       throw FirebaseException(
         plugin: 'cloud_firestore',
@@ -40,43 +46,48 @@ class UserDto {
     );
   }
 
-  /// Serialize to Firestore-compatible map
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'email': email,
-      'profileImage': profileImage,
-      'point': point,
-      'rank': rank,
-    };
-  }
+  // ────────────────────────────────────────────────────────────────────
+  // 🔁 TO FIRESTORE
+  // ────────────────────────────────────────────────────────────────────
 
-  /// Convert DTO to domain [User]
-  User toDomain() {
-    return User(
-      id: id,
-      name: name,
-      email: email,
-      profileImage: profileImage,
-      point: point,
-      rank: rank,
-    );
-  }
+  /// 🔁 Converts this [UserDto] to Firestore-compatible map
+  Map<String, dynamic> toMap() => {
+    'name': name,
+    'email': email,
+    'profileImage': profileImage,
+    'point': point,
+    'rank': rank,
+  };
 
-  /// Convert domain [User] to DTO
-  static UserDto fromDomain(User user) {
-    return UserDto(
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      profileImage: user.profileImage,
-      point: user.point,
-      rank: user.rank,
-    );
-  }
+  // ────────────────────────────────────────────────────────────────────
+  // 🔄 DOMAIN ↔ DTO MAPPINGS
+  // ────────────────────────────────────────────────────────────────────
 
-  ///
-  // user_dto.dart
+  /// 🔁 Converts [UserDto] to domain [User]
+  User toDomain() => User(
+    id: id,
+    name: name,
+    email: email,
+    profileImage: profileImage,
+    point: point,
+    rank: rank,
+  );
+
+  /// 🔁 Converts domain [User] to [UserDto]
+  static UserDto fromDomain(User user) => UserDto(
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    profileImage: user.profileImage,
+    point: user.point,
+    rank: user.rank,
+  );
+
+  // ────────────────────────────────────────────────────────────────────
+  // 🆕 FACTORY
+  // ────────────────────────────────────────────────────────────────────
+
+  /// 🆕 Creates a new default [UserDto] with basic values
   factory UserDto.newUser({
     required String id,
     required String name,
