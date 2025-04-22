@@ -1,10 +1,11 @@
+import 'package:firebase_with_bloc_or_cubit/core/utils_and_services/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import '../../core/constants/app_constants.dart' show AppSpacing;
 import '../../core/constants/app_strings.dart';
 import '../../core/di/injection.dart';
-import '../../core/navigation/router.dart' show RouteNames;
+import '../../core/navigation/router.dart' show RoutesNames;
 import '../../core/utils_and_services/errors_handling/error_dialog.dart';
 import '../../core/utils_and_services/form_fields_validation_and_extension/forms_status_extension.dart';
 import '../../core/utils_and_services/helpers.dart';
@@ -48,12 +49,11 @@ class SignInPageView extends HookWidget {
 
     return BlocBuilder<SignInCubit, SignInPageState>(
       builder: (context, state) {
-        return GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Scaffold(
-            body: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
+        return Scaffold(
+          body: SafeArea(
+            child: GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: Center(
                 child: AutofillGroup(
                   child: ListView(
                     shrinkWrap: true,
@@ -108,11 +108,13 @@ class SignInPageView extends HookWidget {
                         label: AppStrings.redirectToSignUp,
                         isDisabled: state.status.isSubmissionInProgress,
                         onPressed:
-                            () =>
-                                Helpers.pushToNamed(context, RouteNames.signUp),
+                            () => Helpers.pushToNamed(
+                              context,
+                              RoutesNames.signUp,
+                            ),
                       ),
                     ],
-                  ),
+                  ).withPaddingHorizontal(AppSpacing.xl),
                 ),
               ),
             ),
@@ -128,3 +130,12 @@ class SignInPageView extends HookWidget {
     context.read<SignInCubit>().submit();
   }
 }
+
+
+/*
+SafeArea(
+        child: GestureDetector(
+          onTap: context.unfocusKeyboard,
+          child: FocusTraversalGroup(
+            child: ListView(
+ */

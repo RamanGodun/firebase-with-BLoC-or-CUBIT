@@ -1,7 +1,7 @@
 part of 'router.dart';
 
-/// 🏷️[RouteNames], centralized route names used across the app
-final class RouteNames {
+/// 🏷️[RoutesNames], centralized route names used across the app
+final class RoutesNames {
   static const home = 'home';
   static const profile = 'profile';
   static const signIn = 'signin';

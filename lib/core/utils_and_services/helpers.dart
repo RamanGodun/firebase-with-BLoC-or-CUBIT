@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../navigation/router.dart' show RouteNames;
+import '../navigation/router.dart' show RoutesNames;
 
 /*
 ? maybe should separate to different utils and name them accordingly? */
@@ -29,7 +29,7 @@ class Helpers {
         queryParameters: queryParameters,
       );
     } catch (_) {
-      GoRouter.of(context).go(RouteNames.pageNotFound);
+      GoRouter.of(context).go(RoutesNames.pageNotFound);
     }
   }
 
@@ -47,7 +47,7 @@ class Helpers {
         queryParameters: queryParameters,
       );
     } catch (_) {
-      GoRouter.of(context).go(RouteNames.pageNotFound);
+      GoRouter.of(context).go(RoutesNames.pageNotFound);
     }
   }
 

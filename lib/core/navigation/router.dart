@@ -16,7 +16,7 @@ part 'route_names.dart';
 
 /// 🧭 [goRouter] — App-level navigation handler with auth-aware redirection.
 final GoRouter goRouter = GoRouter(
-  initialLocation: '/${RouteNames.splash}',
+  initialLocation: '/${RoutesNames.splash}',
   debugLogDiagnostics: true,
 
   /// 🔁 Rebuilds routes when `AuthBloc` emits new state
@@ -33,17 +33,18 @@ final GoRouter goRouter = GoRouter(
 
     final currentPath = state.matchedLocation;
 
-    final isOnSplash = currentPath == '/${RouteNames.splash}';
+    final isOnSplash = currentPath == '/${RoutesNames.splash}';
     final isOnAuthPage = [
-      '/${RouteNames.signIn}',
-      '/${RouteNames.signUp}',
-      '/${RouteNames.resetPassword}',
+      '/${RoutesNames.signIn}',
+      '/${RoutesNames.signUp}',
+      '/${RoutesNames.resetPassword}',
     ].contains(currentPath);
 
-    if (isUnknown) return isOnSplash ? null : '/${RouteNames.splash}';
-    if (isUnauthenticated) return isOnAuthPage ? null : '/${RouteNames.signIn}';
+    if (isUnknown) return isOnSplash ? null : '/${RoutesNames.splash}';
+    if (isUnauthenticated)
+      return isOnAuthPage ? null : '/${RoutesNames.signIn}';
     if (isAuthenticated && (isOnSplash || isOnAuthPage)) {
-      return '/${RouteNames.home}';
+      return '/${RoutesNames.home}';
     }
 
     return null;
@@ -52,52 +53,52 @@ final GoRouter goRouter = GoRouter(
   /// 🗺️ Route definitions
   routes: [
     GoRoute(
-      path: '/${RouteNames.splash}',
-      name: RouteNames.splash,
+      path: '/${RoutesNames.splash}',
+      name: RoutesNames.splash,
       builder: (_, __) => const SplashPage(),
     ),
     GoRoute(
-      path: '/${RouteNames.home}',
-      name: RouteNames.home,
+      path: '/${RoutesNames.home}',
+      name: RoutesNames.home,
       builder: (_, __) => const HomePage(),
       routes: [
         GoRoute(
-          path: RouteNames.profile,
-          name: RouteNames.profile,
+          path: RoutesNames.profile,
+          name: RoutesNames.profile,
           builder: (_, __) => const ProfilePage(),
         ),
       ],
     ),
     GoRoute(
-      path: '/${RouteNames.signIn}',
-      name: RouteNames.signIn,
+      path: '/${RoutesNames.signIn}',
+      name: RoutesNames.signIn,
       builder: (_, __) => const SignInPage(),
     ),
     GoRoute(
-      path: '/${RouteNames.signUp}',
-      name: RouteNames.signUp,
+      path: '/${RoutesNames.signUp}',
+      name: RoutesNames.signUp,
       builder: (_, __) => const SignUpPage(),
     ),
     GoRoute(
-      path: '/${RouteNames.resetPassword}',
-      name: RouteNames.resetPassword,
+      path: '/${RoutesNames.resetPassword}',
+      name: RoutesNames.resetPassword,
       builder: (_, __) => const ResetPasswordPage(),
     ),
     GoRoute(
-      path: '/${RouteNames.verifyEmail}',
-      name: RouteNames.verifyEmail,
+      path: '/${RoutesNames.verifyEmail}',
+      name: RoutesNames.verifyEmail,
       builder: (_, __) => const VerifyEmailPage(),
     ),
     GoRoute(
-      path: '/${RouteNames.changePassword}',
-      name: RouteNames.changePassword,
+      path: '/${RoutesNames.changePassword}',
+      name: RoutesNames.changePassword,
       builder: (_, __) => const ChangePasswordPage(),
     ),
 
     /// 🧪 Dev/Test fallback page
     GoRoute(
-      path: '/${RouteNames.pageNotFound}',
-      name: RouteNames.pageNotFound,
+      path: '/${RoutesNames.pageNotFound}',
+      name: RoutesNames.pageNotFound,
       builder: (_, __) => const PageNotFound(errorMessage: 'Test'),
     ),
   ],

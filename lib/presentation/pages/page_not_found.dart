@@ -5,7 +5,7 @@ import 'package:firebase_with_bloc_or_cubit/presentation/widgets/buttons/button_
 import 'package:firebase_with_bloc_or_cubit/presentation/widgets/custom_app_bar.dart';
 import 'package:firebase_with_bloc_or_cubit/presentation/widgets/text_widget.dart';
 
-import '../../core/navigation/router.dart' show RouteNames;
+import '../../core/navigation/router.dart' show RoutesNames;
 
 /// ❌ Page shown when route is not found.
 class PageNotFound extends StatelessWidget {
@@ -33,7 +33,7 @@ class PageNotFound extends StatelessWidget {
               const SizedBox(height: AppSpacing.m),
               const CustomButtonForGoRouter(
                 title: AppStrings.goToHomeButton,
-                routeName: RouteNames.home,
+                routeName: RoutesNames.home,
               ),
             ],
           ),

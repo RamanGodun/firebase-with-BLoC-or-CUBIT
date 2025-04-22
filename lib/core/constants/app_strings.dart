@@ -14,6 +14,7 @@ abstract class AppStrings {
   // ────────────────────────────────────────────────────────────────────
   static const String homePageTitle = '     Home Page';
   static const String profilePageTitle = 'Profile';
+  static const String errorDialogTitle = 'Error occurs';
 
   /// ────────────────────────────────────────────────────────────────────
   /// * 🆗 Buttons texts
@@ -61,8 +62,6 @@ abstract class AppStrings {
   static const String profilePointsLabel = '📊 Points:';
   static const String profileRankLabel = '🏆 Rank:';
   static const String profileErrorMessage = 'Oops!\nSomething went wrong.';
-
-
 
   /// ────────────────────────────────────────────────────────────────────
   /// * 🔍 OTHERS
