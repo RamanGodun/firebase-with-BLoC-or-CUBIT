@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'theme_enums.dart';
+
 /// 🎨 [TextStyles4ThisAppThemes] — Uses Enhanced Enum for ThemeMode
 /// 🧼 Clean access: TextStyles4ThisAppThemes.getTheme(AppThemeMode.dark)
 abstract class TextStyles4ThisAppThemes {
-  static TextTheme getTheme(AppThemeMode mode) => mode._builder.build();
+  static TextTheme getTheme(AppThemeMode mode, {FontFamilyType? font}) =>
+      mode.builder.build(font);
 
-  /// 🍏 Cupertino fallback (unchanged)
   static CupertinoTextThemeData getCupertinoTextStyle(BuildContext context) {
     return const CupertinoTextThemeData(
       primaryColor: CupertinoColors.label,
@@ -20,44 +22,62 @@ abstract class TextStyles4ThisAppThemes {
   }
 }
 
-/// 🌗 [AppThemeMode] — Enhanced enum to select between dark/light theme
-enum AppThemeMode {
-  light(_TextStyleFactory._light),
-  dark(_TextStyleFactory._dark);
-
-  final _TextStyleFactory _builder;
-  const AppThemeMode(this._builder);
-}
-
-/// 🏭 [_TextStyleFactory] — Factory for TextTheme based on brightness
-class _TextStyleFactory {
+/// 🏭 [TextStyleFactory] — Factory for TextTheme based on brightness
+class TextStyleFactory {
   final Color color;
+  const TextStyleFactory._(this.color);
 
-  const _TextStyleFactory._(this.color);
+  static const light = TextStyleFactory._(Colors.black);
+  static const dark = TextStyleFactory._(Colors.white);
 
-  static const _light = _TextStyleFactory._(Colors.black);
-  static const _dark = _TextStyleFactory._(Colors.white);
-
-  TextTheme build() {
+  TextTheme build([FontFamilyType? font]) {
     return TextTheme(
-      titleLarge: _style(FontWeight.w600, 22),
-      titleMedium: _style(FontWeight.w500, 19),
-      titleSmall: _style(FontWeight.w400, 16),
-      bodyLarge: _style(FontWeight.w400, 17),
-      bodyMedium: _style(FontWeight.w400, 15),
-      bodySmall: _style(FontWeight.w400, 13),
-      labelLarge: _style(FontWeight.w500, 15),
-      labelMedium: _style(FontWeight.w400, 13),
-      labelSmall: _style(FontWeight.w400, 11),
+      titleLarge: _style(FontWeight.w600, 22, font),
+      titleMedium: _style(FontWeight.w500, 19, font),
+      titleSmall: _style(FontWeight.w400, 16, font),
+      bodyLarge: _style(FontWeight.w400, 17, font),
+      bodyMedium: _style(FontWeight.w400, 15, font),
+      bodySmall: _style(FontWeight.w400, 13, font),
+      labelLarge: _style(FontWeight.w500, 15, font),
+      labelMedium: _style(FontWeight.w400, 13, font),
+      labelSmall: _style(FontWeight.w400, 11, font),
     );
   }
 
-  TextStyle _style(FontWeight weight, double size) {
+  TextStyle _style(FontWeight weight, double size, FontFamilyType? font) {
+    return TypographyFactory.get(
+      weight: weight,
+      size: size,
+      color: color,
+      font: font,
+    );
+  }
+}
+
+///
+class TypographyFactory {
+  static const _defaultFont = 'SFProText';
+
+  static TextStyle get({
+    required FontWeight weight,
+    required double size,
+    required Color color,
+    FontFamilyType? font,
+  }) {
+    final family = switch (font) {
+      FontFamilyType.sfPro => 'SFProText',
+      FontFamilyType.aeonik => 'Aeonik',
+      FontFamilyType.poppins => 'Poppins',
+      null => _defaultFont, // ✅ fallback
+    };
+
     return TextStyle(
-      fontFamily: 'SFProText',
+      fontFamily: family,
       fontWeight: weight,
       fontSize: size,
       color: color,
     );
   }
+
+  //
 }

@@ -53,9 +53,9 @@ class AppView extends StatelessWidget {
           debugShowCheckedModeBanner: false,
 
           /// 🎨 Light/Dark theme configuration
-          theme: AppThemes.getLightTheme(),
-          darkTheme: AppThemes.getDarkTheme(),
-          themeMode: state.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
+          theme: AppThemes.resolve(AppThemeVariant.light),
+          darkTheme: AppThemes.resolve(AppThemeVariant.amoled),
+          themeMode: ThemeMode.system,
 
           /// 🔁 GoRouter configuration
           routerDelegate: goRouter.routerDelegate,
