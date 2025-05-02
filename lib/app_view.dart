@@ -5,9 +5,9 @@ import 'core/navigation/router_config.dart';
 import 'features/theme/app_material_theme.dart';
 import 'features/theme/theme_cubit/theme_cubit.dart';
 
-/// 📦 [RootAppView] — Root UI widget. Delegates logic to [AppThemeBuilder].
-class RootAppView extends StatelessWidget {
-  const RootAppView({super.key});
+/// 📦 [AppRootView] — Root UI widget. Delegates logic to [AppThemeBuilder].
+class AppRootView extends StatelessWidget {
+  const AppRootView({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -11,13 +11,13 @@ import '../config/observer/app_bloc_observer.dart';
 
 Future<void> bootstrapApp() async {
   /// 📦 Load .env config file depending on current environment
-  final envFile = switch (EnvConfig.currentEnv) {
+  final envFileName = switch (EnvConfig.currentEnv) {
     Environment.dev => '.env.dev',
     Environment.staging => '.env.staging',
     Environment.prod => '.env',
   };
-  await dotenv.load(fileName: envFile);
-  debugPrint('✅ Loaded env file: $envFile');
+  await dotenv.load(fileName: envFileName);
+  debugPrint('✅ Loaded env file: $envFileName');
 
   /// 👁️ Setup global observer for BLoC events/transitions
   Bloc.observer = const AppBlocObserver();
@@ -26,7 +26,7 @@ Future<void> bootstrapApp() async {
   await Firebase.initializeApp();
 
   /// 💾 Initialize HydratedBloc storage for state persistence
-  final storage = await HydratedStorage.build(
+  final hydratedStorage = await HydratedStorage.build(
     storageDirectory:
         kIsWeb
             ? HydratedStorageDirectory.web
@@ -34,7 +34,7 @@ Future<void> bootstrapApp() async {
               (await getApplicationDocumentsDirectory()).path,
             ),
   );
-  HydratedBloc.storage = storage;
+  HydratedBloc.storage = hydratedStorage;
 }
 
 /*

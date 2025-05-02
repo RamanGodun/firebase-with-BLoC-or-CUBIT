@@ -25,7 +25,7 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => SignUpCubit(authRepository: appSingleton()),
+      create: (_) => SignUpCubit(authRepository: di()),
       child: BlocListener<SignUpCubit, SignUpState>(
         listenWhen:
             (prev, curr) =>

@@ -13,27 +13,27 @@ void main() async {
   await bootstrapApp();
 
   /// 🔌 Register global services & singletons via GetIt
-  await initDependencies();
+  await initDIContainer();
 
   /// 🚀 Launch the root app
-  runApp(const AppBlocProviders());
+  runApp(const RootProviders());
 }
 
-/// 🧩 [AppBlocProviders] wraps global BLoC/Cubit providers (from DI)
-class AppBlocProviders extends StatelessWidget {
-  const AppBlocProviders({super.key});
+/// 🧩 [RootProviders] wraps global BLoC/Cubit providers (from DI)
+class RootProviders extends StatelessWidget {
+  const RootProviders({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         /// 🔐 Auth state management (stream from FirebaseAuth)
-        BlocProvider.value(value: appSingleton<AuthBloc>()),
+        BlocProvider.value(value: di<AuthBloc>()),
 
         /// 🎨 Theme switcher with Hydrated persistence
-        BlocProvider.value(value: appSingleton<AppThemeCubit>()),
+        BlocProvider.value(value: di<AppThemeCubit>()),
       ],
-      child: const RootAppView(),
+      child: const AppRootView(),
     );
   }
 }

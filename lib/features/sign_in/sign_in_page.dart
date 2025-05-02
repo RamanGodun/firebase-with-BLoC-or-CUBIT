@@ -23,7 +23,7 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => SignInCubit(authRepository: appSingleton()),
+      create: (_) => SignInCubit(authRepository: di()),
       child: BlocListener<SignInCubit, SignInPageState>(
         listenWhen:
             (prev, current) =>

@@ -23,9 +23,7 @@ class ProfilePage extends StatelessWidget {
 
     return BlocProvider(
       create:
-          (_) =>
-              ProfileCubit(profileRepository: appSingleton())
-                ..getProfile(uid: uid),
+          (_) => ProfileCubit(profileRepository: di())..getProfile(uid: uid),
       child: const ProfileView(),
     );
   }

@@ -3,12 +3,12 @@ part of './_imports_for_router.dart';
 final GoRouter goRouter = GoRouter(
   initialLocation: '/${RoutesNames.splash}',
   debugLogDiagnostics: true,
-  refreshListenable: GoRouterRefresher(appSingleton<AuthBloc>().stream),
+  refreshListenable: GoRouterRefresher(di<AuthBloc>().stream),
 
   /// 🧭 Refactored redirect logic
   redirect:
       (context, state) => handleAuthRedirect(
-        authBloc: appSingleton<AuthBloc>(),
+        authBloc: di<AuthBloc>(),
         currentPath: state.matchedLocation,
       ),
 
