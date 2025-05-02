@@ -18,20 +18,25 @@ class ThemeToggleIcon extends StatelessWidget {
       (cubit) => cubit.state.isDarkTheme,
     );
 
-    final themeIcon =
+    final icon =
         isDarkMode ? AppConstants.darkModeIcon : AppConstants.lightModeIcon;
+
     final iconColor = Helpers.getColorScheme(context).primary;
 
     return Padding(
       padding: const EdgeInsets.only(right: 20),
       child: IconButton(
-        icon: Icon(themeIcon, color: iconColor),
+        icon: Icon(icon, color: iconColor),
         onPressed: () => _toggleTheme(context, isDarkMode),
+        tooltip:
+            isDarkMode
+                ? AppStrings.lightModeEnabled
+                : AppStrings.darkModeEnabled,
       ),
     );
   }
 
-  /// 🕹️ Toggles the theme between light and dark mode.w
+  /// 🕹️ Toggles the theme between light and dark mode.
   void _toggleTheme(BuildContext context, bool isDarkMode) {
     context.read<AppThemeCubit>().toggle();
 

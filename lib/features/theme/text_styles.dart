@@ -9,11 +9,14 @@ abstract class TextStyles4ThisAppThemes {
   static TextTheme getTheme(AppThemeMode mode, {FontFamilyType? font}) =>
       mode.builder.build(font);
 
-  static CupertinoTextThemeData getCupertinoTextStyle(BuildContext context) {
-    return const CupertinoTextThemeData(
+  static CupertinoTextThemeData getCupertinoTextStyle(
+    BuildContext context, {
+    FontFamilyType font = FontFamilyType.sfPro,
+  }) {
+    return CupertinoTextThemeData(
       primaryColor: CupertinoColors.label,
       textStyle: TextStyle(
-        fontFamily: 'SFProText',
+        fontFamily: font.value,
         fontSize: 17,
         fontWeight: FontWeight.w400,
         color: CupertinoColors.label,
@@ -54,9 +57,10 @@ class TextStyleFactory {
   }
 }
 
-///
+/// 🏭 [TypographyFactory] — returns single text style from params
 class TypographyFactory {
-  static const _defaultFont = 'SFProText';
+  //
+  static const _defaultFont = FontFamilyType.sfPro;
 
   static TextStyle get({
     required FontWeight weight,
@@ -64,20 +68,11 @@ class TypographyFactory {
     required Color color,
     FontFamilyType? font,
   }) {
-    final family = switch (font) {
-      FontFamilyType.sfPro => 'SFProText',
-      FontFamilyType.aeonik => 'Aeonik',
-      FontFamilyType.poppins => 'Poppins',
-      null => _defaultFont, // ✅ fallback
-    };
-
     return TextStyle(
-      fontFamily: family,
+      fontFamily: (font ?? _defaultFont).value,
       fontWeight: weight,
       fontSize: size,
       color: color,
     );
   }
-
-  //
 }

@@ -7,6 +7,7 @@ import 'features/auth_bloc/auth_bloc.dart';
 import 'core/constants/app_strings.dart';
 import 'features/theme/app_theme.dart';
 import 'features/theme/theme_cubit/theme_cubit.dart';
+import 'features/theme/theme_enums.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,7 +56,7 @@ class AppView extends StatelessWidget {
           /// 🎨 Light/Dark theme configuration
           theme: AppThemes.resolve(AppThemeVariant.light),
           darkTheme: AppThemes.resolve(AppThemeVariant.amoled),
-          themeMode: ThemeMode.system,
+          themeMode: state.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
 
           /// 🔁 GoRouter configuration
           routerDelegate: goRouter.routerDelegate,
