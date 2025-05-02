@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../core/constants/app_constants.dart';
+import '../../core/utils_and_services/extensions/context_extensions/_context_extensions.dart';
 
-/// 📄 Flexible text widget with theme integration & extended customization.
+/// 📝 [TextWidget] — Custom Text widget with dynamic styling options.
+/// Supports all native typography variants + additional decorations.
 class TextWidget extends StatelessWidget {
-  final String? text;
+  ///
+  final String text;
   final TextType? textType;
   final Color? color;
   final TextAlign? alignment;
@@ -36,27 +39,38 @@ class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final textTheme = context.textTheme;
+    final colorScheme = context.colorScheme;
+    final isMultiLine = isTextOnFewStrings ?? false;
+    final overflowMode =
+        isMultiLine
+            ? TextOverflow.visible
+            : (overflow ?? TextOverflow.ellipsis);
 
-    /// 🛠 Builds styled Text widget.
+    /// 🛠️ Builds the styled [Text] widget based on provided [TextStyle].
     Text buildText(TextStyle? baseStyle) {
+      final effectiveStyle = baseStyle ?? const TextStyle();
+
       return Text(
-        text ?? 'No text provided',
+        text,
         textAlign: alignment ?? TextAlign.center,
-        maxLines: isTextOnFewStrings == true ? null : maxLines,
-        softWrap: isTextOnFewStrings == true ? true : null,
-        overflow:
-            isTextOnFewStrings == true
-                ? TextOverflow.visible
-                : (overflow ?? TextOverflow.ellipsis),
-        style: baseStyle?.copyWith(
-          color: color ?? Theme.of(context).colorScheme.onSurface,
-          fontWeight: fontWeight ?? baseStyle.fontWeight,
-          fontSize: fontSize ?? baseStyle.fontSize,
-          letterSpacing: letterSpacing ?? baseStyle.letterSpacing,
-          height: height ?? baseStyle.height,
-          decoration: (isUnderlined == true) ? TextDecoration.underline : null,
-          fontFamily: 'SFProText',
+        maxLines: isMultiLine ? null : maxLines,
+        softWrap: isMultiLine,
+        overflow: overflowMode,
+        style: effectiveStyle.copyWith(
+          color: color ?? colorScheme.onSurface,
+          fontWeight: fontWeight ?? effectiveStyle.fontWeight,
+          fontSize: fontSize ?? effectiveStyle.fontSize,
+          letterSpacing: letterSpacing ?? effectiveStyle.letterSpacing,
+          height: height ?? effectiveStyle.height,
+          // fontFamily: 'SFProText',
+          decoration: switch (isUnderlined) {
+            true => TextDecoration.underline,
+            false => TextDecoration.none,
+            null => null,
+          },
+          decorationColor: color ?? colorScheme.onSurface,
+          decorationThickness: 0.4,
           shadows:
               enableShadow
                   ? [
@@ -71,7 +85,7 @@ class TextWidget extends StatelessWidget {
       );
     }
 
-    /// 🎯 Select style based on [TextType].
+    /// 🎯 Map [TextType] to base styles from the current [TextTheme]
     switch (textType) {
       case TextType.displayLarge:
         return buildText(textTheme.displayLarge);
@@ -106,9 +120,8 @@ class TextWidget extends StatelessWidget {
       case TextType.button:
         return buildText(textTheme.labelLarge);
       case TextType.error:
-        return buildText(
-          textTheme.bodyLarge?.copyWith(color: AppConstants.errorColor),
-        );
+        final errorStyle = textTheme.bodyLarge ?? const TextStyle();
+        return buildText(errorStyle.copyWith(color: AppConstants.errorColor));
       case TextType.caption:
         return buildText(
           textTheme.bodySmall?.copyWith(
@@ -123,7 +136,7 @@ class TextWidget extends StatelessWidget {
   }
 }
 
-/// 📑 Enum for text styles used in [TextWidget].
+/// 🧩 Enum for text style presets used by [TextWidget]
 enum TextType {
   displayLarge,
   displayMedium,

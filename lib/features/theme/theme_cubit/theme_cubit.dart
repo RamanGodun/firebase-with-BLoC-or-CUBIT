@@ -11,9 +11,7 @@ class AppThemeCubit extends HydratedCubit<AppThemeState> {
   AppThemeCubit() : super(AppThemeState.initial());
 
   /// 🎨 [toggleTheme] toggles theme mode (Light / Dark).
-  void toggleTheme(bool isDarkMode) {
-    emit(state.copyWith(isDarkTheme: isDarkMode));
-  }
+  void toggle() => emit(state.copyWith(isDarkTheme: !state.isDarkTheme));
 
   /// 💾 [toJson] serializes state to JSON for persistent storage.
   @override

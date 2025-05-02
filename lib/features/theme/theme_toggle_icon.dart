@@ -33,18 +33,16 @@ class ThemeToggleIcon extends StatelessWidget {
 
   /// 🕹️ Toggles the theme between light and dark mode.w
   void _toggleTheme(BuildContext context, bool isDarkMode) {
-    context.read<AppThemeCubit>().toggleTheme(!isDarkMode);
+    context.read<AppThemeCubit>().toggle();
 
     // 🌟 Show overlay with correct message and icon
-    final overlayMessage =
-        isDarkMode ? AppStrings.lightModeEnabled : AppStrings.darkModeEnabled;
-    final overlayIcon =
-        isDarkMode ? AppConstants.lightModeIcon : AppConstants.darkModeIcon;
-
     OverlayNotificationService.showOverlay(
       context,
-      message: overlayMessage,
-      icon: overlayIcon,
+      message:
+          isDarkMode ? AppStrings.lightModeEnabled : AppStrings.darkModeEnabled,
+      icon: isDarkMode ? AppConstants.lightModeIcon : AppConstants.darkModeIcon,
     );
   }
+
+  ///
 }
