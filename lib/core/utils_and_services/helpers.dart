@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../navigation/router.dart' show RoutesNames;
+import '../navigation/_imports_for_router.dart' show RoutesNames;
 
 /*
 ? maybe should separate to different utils and name them accordingly? */

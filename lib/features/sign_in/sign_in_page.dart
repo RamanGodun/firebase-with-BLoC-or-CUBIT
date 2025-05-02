@@ -1,3 +1,4 @@
+import 'package:firebase_with_bloc_or_cubit/core/utils_and_services/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_and_services/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,7 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import '../../core/constants/app_constants.dart' show AppSpacing;
 import '../../core/constants/app_strings.dart';
 import '../../core/di/injection.dart';
-import '../../core/navigation/router.dart' show RoutesNames;
+import '../../core/navigation/_imports_for_router.dart' show RoutesNames;
 import '../../core/utils_and_services/errors_handling/error_dialog.dart';
 import '../../core/utils_and_services/form_fields_validation_and_extension/forms_status_extension.dart';
 import '../../core/utils_and_services/helpers.dart';
@@ -52,69 +53,72 @@ class SignInPageView extends HookWidget {
         return Scaffold(
           body: SafeArea(
             child: GestureDetector(
-              onTap: () => FocusScope.of(context).unfocus(),
+              onTap: context.unfocusKeyboard,
               child: Center(
-                child: AutofillGroup(
-                  child: ListView(
-                    shrinkWrap: true,
-                    children: [
-                      /// 🖼️ Logo with Hero animation
-                      const Hero(
-                        tag: 'Logo',
-                        child: Image(
-                          image: AssetImage('assets/images/flutter_logo.png'),
-                          width: 250,
+                child: FocusTraversalGroup(
+                  child: AutofillGroup(
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        /// 🖼️ Logo with Hero animation
+                        const Hero(
+                          tag: 'Logo',
+                          child: Image(
+                            image: AssetImage('assets/images/flutter_logo.png'),
+                            width: 250,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: AppSpacing.l),
+                        const SizedBox(height: AppSpacing.l),
 
-                      /// 📧 Email
-                      EmailInputField(
-                        focusNode: emailFocusNode,
-                        errorText: state.email.displayError,
-                        onChanged:
-                            (value) =>
-                                context.read<SignInCubit>().emailChanged(value),
-                        onSubmitted:
-                            () => FocusScope.of(
-                              context,
-                            ).requestFocus(passwordFocusNode),
-                      ),
-                      const SizedBox(height: AppSpacing.l),
+                        /// 📧 Email
+                        EmailInputField(
+                          focusNode: emailFocusNode,
+                          errorText: state.email.displayError,
+                          onChanged:
+                              (value) => context
+                                  .read<SignInCubit>()
+                                  .emailChanged(value),
+                          onSubmitted:
+                              () => FocusScope.of(
+                                context,
+                              ).requestFocus(passwordFocusNode),
+                        ),
+                        const SizedBox(height: AppSpacing.l),
 
-                      /// 🔒 Password
-                      PasswordInputField(
-                        focusNode: passwordFocusNode,
-                        errorText: state.password.displayError,
-                        onChanged:
-                            (value) => context
-                                .read<SignInCubit>()
-                                .passwordChanged(value),
-                        onSubmitted: () => _submit(context),
-                      ),
-                      const SizedBox(height: AppSpacing.xl),
+                        /// 🔒 Password
+                        PasswordInputField(
+                          focusNode: passwordFocusNode,
+                          errorText: state.password.displayError,
+                          onChanged:
+                              (value) => context
+                                  .read<SignInCubit>()
+                                  .passwordChanged(value),
+                          onSubmitted: () => _submit(context),
+                        ),
+                        const SizedBox(height: AppSpacing.xl),
 
-                      /// 🚀 Sign In Button
-                      FormSubmitButton<SignInCubit, SignInPageState>(
-                        text: AppStrings.signInButton,
-                        onSubmit: _submit,
-                        statusSelector: (state) => state.status,
-                        isValidatedSelector: (state) => state.isValid,
-                      ),
-                      const SizedBox(height: AppSpacing.s),
+                        /// 🚀 Sign In Button
+                        FormSubmitButton<SignInCubit, SignInPageState>(
+                          text: AppStrings.signInButton,
+                          onSubmit: _submit,
+                          statusSelector: (state) => state.status,
+                          isValidatedSelector: (state) => state.isValid,
+                        ),
+                        const SizedBox(height: AppSpacing.s),
 
-                      /// 🔁 Sign Up Redirect
-                      RedirectTextButton(
-                        label: AppStrings.redirectToSignUp,
-                        isDisabled: state.status.isSubmissionInProgress,
-                        onPressed:
-                            () => Helpers.pushToNamed(
-                              context,
-                              RoutesNames.signUp,
-                            ),
-                      ),
-                    ],
-                  ).withPaddingHorizontal(AppSpacing.xl),
+                        /// 🔁 Sign Up Redirect
+                        RedirectTextButton(
+                          label: AppStrings.redirectToSignUp,
+                          isDisabled: state.status.isSubmissionInProgress,
+                          onPressed:
+                              () => Helpers.pushToNamed(
+                                context,
+                                RoutesNames.signUp,
+                              ),
+                        ),
+                      ],
+                    ).withPaddingHorizontal(AppSpacing.xl),
+                  ),
                 ),
               ),
             ),

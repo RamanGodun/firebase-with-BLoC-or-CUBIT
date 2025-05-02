@@ -7,7 +7,7 @@ import 'package:firebase_with_bloc_or_cubit/features/auth_bloc/auth_bloc.dart';
 import 'package:firebase_with_bloc_or_cubit/presentation/widgets/custom_app_bar.dart';
 import 'package:firebase_with_bloc_or_cubit/presentation/widgets/text_widget.dart';
 
-import '../../core/navigation/router.dart' show RoutesNames;
+import '../../core/navigation/_imports_for_router.dart' show RoutesNames;
 
 /// 🏠 Home Page — shown after successful login.
 class HomePage extends StatelessWidget {

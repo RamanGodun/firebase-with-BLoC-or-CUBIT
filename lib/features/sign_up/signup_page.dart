@@ -1,3 +1,5 @@
+import 'package:firebase_with_bloc_or_cubit/core/utils_and_services/extensions/context_extensions/_context_extensions.dart';
+import 'package:firebase_with_bloc_or_cubit/core/utils_and_services/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -53,95 +55,97 @@ class SignUpView extends HookWidget {
     return BlocBuilder<SignUpCubit, SignUpState>(
       buildWhen: (prev, curr) => prev != curr,
       builder: (context, state) {
-        return GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Scaffold(
-            body: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    /// 🔰 App Logo with Hero animation
-                    const Hero(
-                      tag: 'Logo',
-                      child: Image(
-                        image: AssetImage('assets/images/flutter_logo.png'),
-                        height: 150,
+        return Scaffold(
+          body: SafeArea(
+            child: GestureDetector(
+              onTap: context.unfocusKeyboard,
+              child: Center(
+                child: FocusTraversalGroup(
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      /// 🔰 App Logo with Hero animation
+                      const Hero(
+                        tag: 'Logo',
+                        child: Image(
+                          image: AssetImage('assets/images/flutter_logo.png'),
+                          height: 150,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: AppSpacing.l),
+                      const SizedBox(height: AppSpacing.l),
 
-                    /// 👤 Full Name
-                    NameInputField(
-                      focusNode: nameFocus,
-                      errorText: state.name.errorText,
-                      onChanged:
-                          (val) =>
-                              context.read<SignUpCubit>().onNameChanged(val),
-                      onSubmitted:
-                          () => FocusScope.of(context).requestFocus(emailFocus),
-                    ),
-                    const SizedBox(height: AppSpacing.l),
+                      /// 👤 Full Name
+                      NameInputField(
+                        focusNode: nameFocus,
+                        errorText: state.name.errorText,
+                        onChanged:
+                            (val) =>
+                                context.read<SignUpCubit>().onNameChanged(val),
+                        onSubmitted:
+                            () =>
+                                FocusScope.of(context).requestFocus(emailFocus),
+                      ),
+                      const SizedBox(height: AppSpacing.l),
 
-                    /// 📧 Email
-                    EmailInputField(
-                      focusNode: emailFocus,
-                      errorText: state.email.displayError,
-                      onChanged:
-                          (val) =>
-                              context.read<SignUpCubit>().onEmailChanged(val),
-                      onSubmitted:
-                          () => FocusScope.of(
-                            context,
-                          ).requestFocus(passwordFocus),
-                    ),
-                    const SizedBox(height: AppSpacing.l),
+                      /// 📧 Email
+                      EmailInputField(
+                        focusNode: emailFocus,
+                        errorText: state.email.displayError,
+                        onChanged:
+                            (val) =>
+                                context.read<SignUpCubit>().onEmailChanged(val),
+                        onSubmitted:
+                            () => FocusScope.of(
+                              context,
+                            ).requestFocus(passwordFocus),
+                      ),
+                      const SizedBox(height: AppSpacing.l),
 
-                    /// 🔒 Password
-                    PasswordInputField(
-                      focusNode: passwordFocus,
-                      errorText: state.password.displayError,
-                      onChanged:
-                          (val) => context
-                              .read<SignUpCubit>()
-                              .onPasswordChanged(val),
-                      onSubmitted:
-                          () => FocusScope.of(
-                            context,
-                          ).requestFocus(confirmPasswordFocus),
-                    ),
-                    const SizedBox(height: AppSpacing.l),
+                      /// 🔒 Password
+                      PasswordInputField(
+                        focusNode: passwordFocus,
+                        errorText: state.password.displayError,
+                        onChanged:
+                            (val) => context
+                                .read<SignUpCubit>()
+                                .onPasswordChanged(val),
+                        onSubmitted:
+                            () => FocusScope.of(
+                              context,
+                            ).requestFocus(confirmPasswordFocus),
+                      ),
+                      const SizedBox(height: AppSpacing.l),
 
-                    /// 🔐 Confirm Password
-                    ConfirmPasswordInputField(
-                      focusNode: confirmPasswordFocus,
-                      errorText: state.confirmPassword.errorText,
-                      onChanged:
-                          (val) => context
-                              .read<SignUpCubit>()
-                              .onConfirmPasswordChanged(val),
-                      onSubmitted:
-                          () => context.read<SignUpCubit>().submitForm(),
-                    ),
-                    const SizedBox(height: AppSpacing.xxxl),
+                      /// 🔐 Confirm Password
+                      ConfirmPasswordInputField(
+                        focusNode: confirmPasswordFocus,
+                        errorText: state.confirmPassword.errorText,
+                        onChanged:
+                            (val) => context
+                                .read<SignUpCubit>()
+                                .onConfirmPasswordChanged(val),
+                        onSubmitted:
+                            () => context.read<SignUpCubit>().submitForm(),
+                      ),
+                      const SizedBox(height: AppSpacing.xxxl),
 
-                    /// 🚀 Submit Button with animation
-                    FormSubmitButton<SignUpCubit, SignUpState>(
-                      text: AppStrings.signUpButton,
-                      onSubmit: _onSubmit,
-                      statusSelector: (state) => state.status,
-                      isValidatedSelector: (state) => state.isValid,
-                    ),
-                    const SizedBox(height: AppSpacing.s),
+                      /// 🚀 Submit Button with animation
+                      FormSubmitButton<SignUpCubit, SignUpState>(
+                        text: AppStrings.signUpButton,
+                        onSubmit: _onSubmit,
+                        statusSelector: (state) => state.status,
+                        isValidatedSelector: (state) => state.isValid,
+                      ),
+                      const SizedBox(height: AppSpacing.s),
 
-                    /// 🔁 Redirect to Sign In
-                    RedirectTextButton(
-                      label: AppStrings.redirectToSignIn,
-                      isDisabled: state.status.isSubmissionInProgress,
-                      onPressed: () => Helpers.pop(context),
-                    ),
-                  ],
+                      /// 🔁 Redirect to Sign In
+                      RedirectTextButton(
+                        label: AppStrings.redirectToSignIn,
+                        isDisabled: state.status.isSubmissionInProgress,
+                        onPressed: () => Helpers.pop(context),
+                      ),
+                    ],
+                  ).withPaddingHorizontal(AppSpacing.xl),
                 ),
               ),
             ),
