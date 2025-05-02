@@ -3,7 +3,7 @@ part of './_imports_for_router.dart';
 final GoRouter goRouter = GoRouter(
   initialLocation: '/${RoutesNames.splash}',
   debugLogDiagnostics: true,
-  refreshListenable: GoRouterRefreshBloc(appSingleton<AuthBloc>().stream),
+  refreshListenable: GoRouterRefresher(appSingleton<AuthBloc>().stream),
 
   /// 🧭 Refactored redirect logic
   redirect:
@@ -17,7 +17,7 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: '/${RoutesNames.splash}',
       name: RoutesNames.splash,
-      pageBuilder: (_, __) => fadeTransitionPage(const SplashPage()),
+      pageBuilder: (_, __) => AppTransitions.fade(const SplashPage()),
     ),
 
     ShellRoute(
@@ -27,13 +27,14 @@ final GoRouter goRouter = GoRouter(
         GoRoute(
           path: '/${RoutesNames.home}',
           name: RoutesNames.home,
-          pageBuilder: (context, state) => fadeTransitionPage(const HomePage()),
+          pageBuilder:
+              (context, state) => AppTransitions.fade(const HomePage()),
           routes: [
             GoRoute(
               path: RoutesNames.profile,
               name: RoutesNames.profile,
               pageBuilder:
-                  (context, state) => fadeTransitionPage(const ProfilePage()),
+                  (context, state) => AppTransitions.fade(const ProfilePage()),
             ),
           ],
         ),
@@ -43,44 +44,44 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: '/${RoutesNames.signIn}',
       name: RoutesNames.signIn,
-      pageBuilder: (context, state) => fadeTransitionPage(const SignInPage()),
+      pageBuilder: (context, state) => AppTransitions.fade(const SignInPage()),
     ),
     GoRoute(
       path: '/${RoutesNames.signUp}',
       name: RoutesNames.signUp,
-      pageBuilder: (context, state) => fadeTransitionPage(const SignUpPage()),
+      pageBuilder: (context, state) => AppTransitions.fade(const SignUpPage()),
     ),
     GoRoute(
       path: '/${RoutesNames.resetPassword}',
       name: RoutesNames.resetPassword,
 
       pageBuilder:
-          (context, state) => fadeTransitionPage(const ResetPasswordPage()),
+          (context, state) => AppTransitions.fade(const ResetPasswordPage()),
     ),
     GoRoute(
       path: '/${RoutesNames.verifyEmail}',
       name: RoutesNames.verifyEmail,
       pageBuilder:
-          (context, state) => fadeTransitionPage(const VerifyEmailPage()),
+          (context, state) => AppTransitions.fade(const VerifyEmailPage()),
     ),
     GoRoute(
       path: '/${RoutesNames.changePassword}',
       name: RoutesNames.changePassword,
       pageBuilder:
-          (context, state) => fadeTransitionPage(const ChangePasswordPage()),
+          (context, state) => AppTransitions.fade(const ChangePasswordPage()),
     ),
     GoRoute(
       path: '/${RoutesNames.pageNotFound}',
       name: RoutesNames.pageNotFound,
       pageBuilder:
           (context, state) =>
-              fadeTransitionPage(const PageNotFound(errorMessage: 'Test')),
+              AppTransitions.fade(const PageNotFound(errorMessage: 'Test')),
     ),
   ],
 
   /// ❌ Fallback for unmatched routes
   errorPageBuilder:
-      (context, state) => fadeTransitionPage(
+      (context, state) => AppTransitions.fade(
         PageNotFound(errorMessage: state.error?.toString() ?? 'Unknown error'),
       ),
 );

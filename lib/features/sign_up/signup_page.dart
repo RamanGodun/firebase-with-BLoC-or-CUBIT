@@ -6,7 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../core/constants/app_constants.dart' show AppSpacing;
 import '../../core/constants/app_strings.dart';
-import '../../core/di/injection.dart';
+import '../../core/di/di_container.dart';
 import '../../core/utils_and_services/errors_handling/error_dialog.dart';
 import '../../core/utils_and_services/helpers.dart';
 import '../../core/utils_and_services/form_fields_validation_and_extension/forms_status_extension.dart';

@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 
-class GoRouterRefreshBloc extends ChangeNotifier {
-  GoRouterRefreshBloc(Stream stream) {
+class GoRouterRefresher extends ChangeNotifier {
+  GoRouterRefresher(Stream stream) {
     _subscription = stream.listen((_) => notifyListeners());
   }
 

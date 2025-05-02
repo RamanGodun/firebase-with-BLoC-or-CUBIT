@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/constants/app_constants.dart' show AppSpacing;
 import '../../core/constants/app_strings.dart';
-import '../../core/di/injection.dart';
+import '../../core/di/di_container.dart';
 import '../../core/entities/user_model.dart';
 import '../../core/utils_and_services/errors_handling/error_dialog.dart';
 import '../../presentation/widgets/custom_app_bar.dart';

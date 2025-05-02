@@ -1,4 +1,4 @@
-import '../../navigation/_imports_for_router.dart';
+import '_imports_for_router.dart';
 
 class AppRouterConfig {
   static final delegate = goRouter.routerDelegate;

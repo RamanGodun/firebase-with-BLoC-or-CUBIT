@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'core/config/observer/app_theme_config.dart';
-import 'core/config/observer/router_config.dart';
+import 'features/theme/app_theme_config.dart';
+import 'core/navigation/router_config.dart';
 import 'features/theme/app_material_theme.dart';
 import 'features/theme/theme_cubit/theme_cubit.dart';
 

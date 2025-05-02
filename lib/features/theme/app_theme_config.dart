@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../constants/app_strings.dart';
-import '../../../features/theme/app_material_theme.dart';
-import '../../../features/theme/app_theme.dart';
-import '../../../features/theme/theme_cubit/theme_cubit.dart';
-import '../../../features/theme/theme_enums.dart';
+import '../../core/constants/app_strings.dart';
+import 'app_material_theme.dart';
+import 'app_theme.dart';
+import 'theme_cubit/theme_cubit.dart';
+import 'theme_enums.dart';
 
 /// 🎛️ [AppConfig] — Isolated configuration class for theme composition
 abstract class AppConfig {

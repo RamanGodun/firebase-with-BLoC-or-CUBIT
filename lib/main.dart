@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'app_view.dart';
 import 'core/di/bootstrap.dart';
-import 'core/di/injection.dart';
+import 'core/di/di_container.dart';
 import 'features/auth_bloc/auth_bloc.dart';
 import 'features/theme/theme_cubit/theme_cubit.dart';
 
