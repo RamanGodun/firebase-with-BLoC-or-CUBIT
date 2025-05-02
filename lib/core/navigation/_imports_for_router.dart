@@ -10,6 +10,9 @@ import '../../presentation/pages/page_not_found.dart';
 import '../../presentation/pages/password_reset_page.dart';
 import '../../presentation/pages/splash_page.dart';
 import '../../presentation/pages/verify_email_page.dart';
+import '../../presentation/widgets/app_scaffold.dart';
+import 'page_transition.dart';
+import 'router_redirect_service.dart';
 import 'router_refresh_bloc.dart' show GoRouterRefreshBloc;
 
 part 'route_names.dart';
