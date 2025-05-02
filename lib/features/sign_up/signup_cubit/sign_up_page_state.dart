@@ -8,7 +8,7 @@ class SignUpState extends Equatable {
   final ConfirmPasswordInput confirmPassword;
   final FormzSubmissionStatus status;
   final bool isValid;
-  final CustomError error;
+  final Failure? failure;
 
   const SignUpState({
     this.name = const NameInput.pure(),
@@ -17,7 +17,7 @@ class SignUpState extends Equatable {
     this.confirmPassword = const ConfirmPasswordInput.pure(),
     this.status = FormzSubmissionStatus.initial,
     this.isValid = false,
-    this.error = const CustomError(),
+    this.failure,
   });
 
   /// Clones current state with optional overrides
@@ -28,7 +28,7 @@ class SignUpState extends Equatable {
     ConfirmPasswordInput? confirmPassword,
     FormzSubmissionStatus? status,
     bool? isValid,
-    CustomError? error,
+    Failure? failure,
   }) {
     return SignUpState(
       name: name ?? this.name,
@@ -37,7 +37,7 @@ class SignUpState extends Equatable {
       confirmPassword: confirmPassword ?? this.confirmPassword,
       status: status ?? this.status,
       isValid: isValid ?? this.isValid,
-      error: error ?? this.error,
+      failure: failure,
     );
   }
 
@@ -49,6 +49,6 @@ class SignUpState extends Equatable {
     confirmPassword,
     status,
     isValid,
-    error,
+    failure,
   ];
 }

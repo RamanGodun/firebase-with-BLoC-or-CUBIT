@@ -1,27 +1,36 @@
-import 'package:bloc/bloc.dart';
+import 'package:firebase_with_bloc_or_cubit/core/utils_and_services/errors_handling/extensions/failure_x.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-
-import '../../../core/entities/user_model.dart';
-import '../../../core/utils_and_services/errors_handling/custom_error.dart';
+import '../../../core/entities/user.dart';
+import '../../../core/utils_and_services/errors_handling/failure.dart';
+import '../../../core/utils_and_services/errors_handling/result_handler.dart';
 import '../../../data/repositories/profile_repository.dart';
 
 part 'profile_state.dart';
 
-/// 📘 [ProfileCubit] — Responsible for loading user profile from repository.
+/// 🧩 [ProfileCubit] — manages user profile loading by UID
+/// 🧼 Uses `Result<Failure, UserModel>` to map domain logic into UI states
+//----------------------------------------------------------------//
 class ProfileCubit extends Cubit<ProfileState> {
-  final ProfileRepository profileRepository;
+  final ProfileRepository _repository;
 
-  ProfileCubit({required this.profileRepository})
-    : super(ProfileState.initial());
+  ProfileCubit(this._repository) : super(ProfileState.initial());
 
-  /// 🔄 Fetches user profile using UID
-  Future<void> getProfile({required String uid}) async {
-    emit(state.copyWith(profileStatus: ProfileStatus.loading));
-    try {
-      final user = await profileRepository.getProfile(uid: uid);
-      emit(state.copyWith(profileStatus: ProfileStatus.loaded, user: user));
-    } on CustomError catch (e) {
-      emit(state.copyWith(profileStatus: ProfileStatus.error, error: e));
-    }
+  /// 🔄 Loads user profile by UID
+  Future<void> loadProfile(String uid) async {
+    emit(state.copyWith(status: ProfileStatus.loading));
+
+    final result = await _repository.getProfile(uid: uid);
+
+    // ✅ Правильно: передаємо Either в ResultHandler<User>
+    ResultHandler<User>(result)
+        .onFailure(
+          (f) => emit(state.copyWith(status: ProfileStatus.error, failure: f)),
+        )
+        .onSuccess(
+          (user) =>
+              emit(state.copyWith(status: ProfileStatus.loaded, user: user)),
+        )
+        .log();
   }
 }

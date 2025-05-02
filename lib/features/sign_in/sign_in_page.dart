@@ -7,7 +7,6 @@ import '../../core/constants/app_constants.dart' show AppSpacing;
 import '../../core/constants/app_strings.dart';
 import '../../core/di/di_container.dart';
 import '../../core/navigation/_imports_for_router.dart' show RoutesNames;
-import '../../core/utils_and_services/errors_handling/error_dialog.dart';
 import '../../core/utils_and_services/form_fields_validation_and_extension/forms_status_extension.dart';
 import '../../core/utils_and_services/helpers.dart';
 import '../../presentation/widgets/buttons/button_for_forms.dart';
@@ -17,6 +16,7 @@ import '../../presentation/widgets/input_fields.dart/password_input_field.dart';
 import 'sign_in_page_cubit/sign_in_page_cubit.dart';
 
 /// 🔐 [SignInPage] - Auth screen for existing users
+/// 🔐 [SignInPage] — Auth screen for existing users
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
 
@@ -30,7 +30,9 @@ class SignInPage extends StatelessWidget {
                 prev.status != current.status &&
                 current.status.isSubmissionFailure,
         listener: (context, state) {
-          AppDialogs.showErrorDialog(context, state.error);
+          if (state.failure != null) {
+            context.showFailureDialog(state.failure!);
+          }
           context.read<SignInCubit>().resetStatus();
         },
         child: const SignInPageView(),
@@ -134,12 +136,3 @@ class SignInPageView extends HookWidget {
     context.read<SignInCubit>().submit();
   }
 }
-
-
-/*
-SafeArea(
-        child: GestureDetector(
-          onTap: context.unfocusKeyboard,
-          child: FocusTraversalGroup(
-            child: ListView(
- */

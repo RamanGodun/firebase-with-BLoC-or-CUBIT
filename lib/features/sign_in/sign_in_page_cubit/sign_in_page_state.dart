@@ -6,14 +6,14 @@ class SignInPageState extends Equatable {
   final PasswordInput password;
   final FormzSubmissionStatus status;
   final bool isValid;
-  final CustomError error;
+  final Failure? failure; // 🔄 Замість CustomError
 
   const SignInPageState({
     this.email = const EmailInput.pure(),
     this.password = const PasswordInput.pure(),
     this.status = FormzSubmissionStatus.initial,
     this.isValid = false,
-    this.error = const CustomError(),
+    this.failure,
   });
 
   SignInPageState copyWith({
@@ -21,17 +21,17 @@ class SignInPageState extends Equatable {
     PasswordInput? password,
     FormzSubmissionStatus? status,
     bool? isValid,
-    CustomError? error,
+    Failure? failure,
   }) {
     return SignInPageState(
       email: email ?? this.email,
       password: password ?? this.password,
       status: status ?? this.status,
       isValid: isValid ?? this.isValid,
-      error: error ?? this.error,
+      failure: failure ?? this.failure,
     );
   }
 
   @override
-  List<Object?> get props => [email, password, status, isValid, error];
+  List<Object?> get props => [email, password, status, isValid, failure];
 }

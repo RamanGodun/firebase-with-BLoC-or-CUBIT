@@ -1,44 +1,39 @@
 part of 'profile_cubit.dart';
 
-/// 📍 Status of profile loading state
+/// 📍 [ProfileStatus] — represents profile load state
 enum ProfileStatus { initial, loading, loaded, error }
 
-/// 🧾 [ProfileState] — Holds the current profile data and status
+/// 🧾 [ProfileState] — Holds current status, user, and error message (if any)
 final class ProfileState extends Equatable {
-  final ProfileStatus profileStatus;
+  final ProfileStatus status;
   final User user;
-  final CustomError error;
+  final Failure? failure;
 
-  const ProfileState({
-    required this.profileStatus,
-    required this.user,
-    required this.error,
-  });
+  const ProfileState({required this.status, required this.user, this.failure});
 
-  /// 🆕 Initial state with default empty user and no error
+  /// 🆕 Default empty state
   factory ProfileState.initial() => ProfileState(
-        profileStatus: ProfileStatus.initial,
-        user: User.initial(),
-        error: const CustomError(),
-      );
+    status: ProfileStatus.initial,
+    user: User.initial(),
+    failure: null,
+  );
 
-  /// 🔁 Returns a copy of the state with optional updated values
-  ProfileState copyWith({
-    ProfileStatus? profileStatus,
-    User? user,
-    CustomError? error,
-  }) {
+  /// 🔁 Copy with updated values
+  ProfileState copyWith({ProfileStatus? status, User? user, Failure? failure}) {
     return ProfileState(
-      profileStatus: profileStatus ?? this.profileStatus,
+      status: status ?? this.status,
       user: user ?? this.user,
-      error: error ?? this.error,
+      failure: failure,
     );
   }
 
+  /// 🪪 Optional user-facing error message
+  String? get errorMessage => failure?.uiMessage;
+
   @override
-  List<Object> get props => [profileStatus, user, error];
+  List<Object?> get props => [status, user, failure];
 
   @override
   String toString() =>
-      'ProfileState(profileStatus: $profileStatus, user: $user, error: $error)';
+      'ProfileState(status: $status, user: $user, failure: $failure)';
 }

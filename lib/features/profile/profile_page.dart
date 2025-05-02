@@ -1,11 +1,10 @@
+import 'package:firebase_with_bloc_or_cubit/core/utils_and_services/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../core/constants/app_constants.dart' show AppSpacing;
 import '../../core/constants/app_strings.dart';
 import '../../core/di/di_container.dart';
-import '../../core/entities/user_model.dart';
-import '../../core/utils_and_services/errors_handling/error_dialog.dart';
+import '../../core/entities/user.dart';
 import '../../presentation/widgets/custom_app_bar.dart';
 import '../../presentation/widgets/text_widget.dart';
 import '../auth_bloc/auth_bloc.dart';
@@ -22,8 +21,7 @@ class ProfilePage extends StatelessWidget {
     if (uid == null) return const SizedBox.shrink();
 
     return BlocProvider(
-      create:
-          (_) => ProfileCubit(profileRepository: di())..getProfile(uid: uid),
+      create: (_) => ProfileCubit(di())..loadProfile(uid),
       child: const ProfileView(),
     );
   }
@@ -43,12 +41,12 @@ class ProfileView extends StatelessWidget {
       ),
       body: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
-          if (state.profileStatus == ProfileStatus.error) {
-            AppDialogs.showErrorDialog(context, state.error);
+          if (state.status == ProfileStatus.error && state.failure != null) {
+            context.showFailureDialog(state.failure!);
           }
         },
         builder: (context, state) {
-          switch (state.profileStatus) {
+          switch (state.status) {
             case ProfileStatus.loading:
               return const Center(child: CircularProgressIndicator.adaptive());
 
@@ -58,7 +56,7 @@ class ProfileView extends StatelessWidget {
             case ProfileStatus.loaded:
               return _UserProfileCard(user: state.user);
 
-            default:
+            case ProfileStatus.initial:
               return const SizedBox.shrink();
           }
         },

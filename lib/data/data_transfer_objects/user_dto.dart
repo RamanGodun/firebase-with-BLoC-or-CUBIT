@@ -1,17 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../core/entities/user_model.dart';
+import 'package:equatable/equatable.dart';
+import '../../core/utils_and_services/errors_handling/typedef.dart';
+import 'base_dto.dart';
 
-/// 📦 [UserDto] — Data Transfer Object for [User] entity.
-/// Used for serialization/deserialization between Firestore and domain layer.
-class UserDto {
-  final String id;
-  final String name;
-  final String email;
-  final String profileImage;
-  final int point;
-  final String rank;
-
-  const UserDto({
+class UserDTO extends BaseDTO with EquatableMixin {
+  const UserDTO({
     required this.id,
     required this.name,
     required this.email,
@@ -20,23 +13,17 @@ class UserDto {
     required this.rank,
   });
 
-  // ────────────────────────────────────────────────────────────────────
-  // 🔄 FROM FIRESTORE
-  // ────────────────────────────────────────────────────────────────────
+  final String id;
+  final String name;
+  final String email;
+  final String profileImage;
+  final int point;
+  final String rank;
 
-  /// 🧩 Creates a [UserDto] from Firestore document
-  factory UserDto.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
+  factory UserDTO.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data();
-
-    if (data == null) {
-      throw FirebaseException(
-        plugin: 'cloud_firestore',
-        code: 'invalid-data',
-        message: 'No user data found in Firestore document',
-      );
-    }
-
-    return UserDto(
+    if (data == null) throw Exception('No user data found in document');
+    return UserDTO(
       id: doc.id,
       name: data['name'] ?? '',
       email: data['email'] ?? '',
@@ -46,12 +33,8 @@ class UserDto {
     );
   }
 
-  // ────────────────────────────────────────────────────────────────────
-  // 🔁 TO FIRESTORE
-  // ────────────────────────────────────────────────────────────────────
-
-  /// 🔁 Converts this [UserDto] to Firestore-compatible map
-  Map<String, dynamic> toMap() => {
+  @override
+  DataMap toMap() => {
     'name': name,
     'email': email,
     'profileImage': profileImage,
@@ -59,41 +42,22 @@ class UserDto {
     'rank': rank,
   };
 
-  // ────────────────────────────────────────────────────────────────────
-  // 🔄 DOMAIN ↔ DTO MAPPINGS
-  // ────────────────────────────────────────────────────────────────────
-
-  /// 🔁 Converts [UserDto] to domain [User]
-  User toDomain() => User(
+  factory UserDTO.fromMap(DataMap map, {required String id}) => UserDTO(
     id: id,
-    name: name,
-    email: email,
-    profileImage: profileImage,
-    point: point,
-    rank: rank,
+    name: map['name'] ?? '',
+    email: map['email'] ?? '',
+    profileImage: map['profileImage'] ?? '',
+    point: map['point'] ?? 0,
+    rank: map['rank'] ?? '',
   );
 
-  /// 🔁 Converts domain [User] to [UserDto]
-  static UserDto fromDomain(User user) => UserDto(
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    profileImage: user.profileImage,
-    point: user.point,
-    rank: user.rank,
-  );
-
-  // ────────────────────────────────────────────────────────────────────
-  // 🆕 FACTORY
-  // ────────────────────────────────────────────────────────────────────
-
-  /// 🆕 Creates a new default [UserDto] with basic values
-  factory UserDto.newUser({
+  /// 🆕 Factory: Creates a new user with default values
+  factory UserDTO.newUser({
     required String id,
     required String name,
     required String email,
   }) {
-    return UserDto(
+    return UserDTO(
       id: id,
       name: name,
       email: email,
@@ -103,5 +67,10 @@ class UserDto {
     );
   }
 
-  ///
+  @override
+  List<Object?> get props => [id, name, email, profileImage, point, rank];
+
+  @override
+  String toString() =>
+      'UserDTO(id: $id, name: $name, email: $email, point: $point, rank: $rank)';
 }

@@ -1,19 +1,45 @@
-import 'package:flutter/foundation.dart';
+import 'package:equatable/equatable.dart';
 
-/// *🧩[CustomError] — unified error model used across the app, contains:
-///       - [code]: Firestore/Auth error code
-///       - [message]: Human-readable error message
-///       - [plugin]: Source of the error (e.g. `firebase_auth`, `cloud_firestore`)
-@immutable
-class CustomError {
+/// 🔌 [ErrorPlugin] — source of the error (used for analytics, diagnostics)
+/// 🧼 Provides context for where the error originated
+//----------------------------------------------------------------//
+enum ErrorPlugin {
+  httpClient,
+  firebase,
+  sqlite,
+  useCase,
+  unknown;
+
+  String get code => switch (this) {
+    httpClient => 'HTTP_CLIENT',
+    firebase => 'FIREBASE',
+    sqlite => 'SQLITE',
+    useCase => 'USE_CASE',
+    unknown => 'UNKNOWN',
+  };
+}
+
+/// 🧩 [CustomError] — internal representation of platform or API errors
+/// 🧼 Safely carries error metadata across layers
+//----------------------------------------------------------------//
+class CustomError extends Equatable {
   final String code;
   final String message;
-  final String plugin;
+  final ErrorPlugin plugin;
 
-  const CustomError({this.code = '', this.message = '', this.plugin = ''});
+  const CustomError({
+    required this.code,
+    required this.message,
+    required this.plugin,
+  });
 
-  /// 🔁 Creates a modified copy of the current error
-  CustomError copyWith({String? code, String? message, String? plugin}) {
+  factory CustomError.unknown([String? rawError]) => CustomError(
+    code: 'UNKNOWN',
+    message: rawError ?? 'An unknown error occurred',
+    plugin: ErrorPlugin.unknown,
+  );
+
+  CustomError copyWith({String? code, String? message, ErrorPlugin? plugin}) {
     return CustomError(
       code: code ?? this.code,
       message: message ?? this.message,
@@ -22,18 +48,5 @@ class CustomError {
   }
 
   @override
-  String toString() =>
-      'CustomError(code: $code, message: $message, plugin: $plugin)';
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is CustomError &&
-          runtimeType == other.runtimeType &&
-          code == other.code &&
-          message == other.message &&
-          plugin == other.plugin;
-
-  @override
-  int get hashCode => Object.hash(code, message, plugin);
+  List<Object?> get props => [code, message, plugin];
 }

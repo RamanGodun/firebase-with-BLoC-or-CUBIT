@@ -1,33 +1,54 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
+import 'dart:io';
+import 'package:flutter/foundation.dart' show kDebugMode, debugPrint;
 import 'custom_error.dart';
+import 'failure.dart';
 
-/// 🧩 Converts all exceptions into a unified [CustomError] structure.
-/// ✅ Use in [catch] blocks to ensure consistent error formatting across the app.
-/// Handles:
-///    - [FirebaseAuthException] – for auth-specific issues.
-///    - [FirebaseException] – for general Firebase service errors.
-///    - [Exception] – fallback for any other runtime exceptions.
+/// 🛡️ [handleException] — universal exception mapper
+/// 🧼 Converts any caught [Exception] into a domain-specific [Failure]
+//----------------------------------------------------------------//
+Failure handleException(dynamic error) {
+  _logError(error);
 
-CustomError handleException(dynamic exception) {
-  try {
-    throw exception;
-  } on FirebaseAuthException catch (e) {
-    return CustomError(
-      code: e.code,
-      message: e.message ?? 'Invalid credentials',
-      plugin: e.plugin,
-    );
-  } on FirebaseException catch (e) {
-    return CustomError(
-      code: e.code,
-      message: e.message ?? 'Firebase error',
-      plugin: e.plugin,
-    );
-  } catch (e) {
-    return CustomError(
-      code: 'unknown_exception',
-      message: e.toString(),
-      plugin: 'flutter_error/server_error',
-    );
+  if (error is Failure) return error;
+
+  return switch (error) {
+    SocketException _ => GenericFailure(
+      error: const CustomError(
+        code: 'NO_INTERNET',
+        message: 'No Internet connection. Please check your settings.',
+        plugin: ErrorPlugin.httpClient,
+      ),
+    ),
+    HttpException e => GenericFailure(
+      error: CustomError(
+        code: 'HTTP_ERROR',
+        message: e.message,
+        plugin: ErrorPlugin.httpClient,
+      ),
+    ),
+    FormatException _ => GenericFailure(
+      error: const CustomError(
+        code: 'FORMAT_ERROR',
+        message: 'Bad response format received.',
+        plugin: ErrorPlugin.unknown,
+      ),
+    ),
+    TimeoutException _ => GenericFailure(
+      error: const CustomError(
+        code: 'TIMEOUT',
+        message: 'Connection timeout occurred.',
+        plugin: ErrorPlugin.httpClient,
+      ),
+    ),
+    _ => UnknownFailure(message: error.toString()),
+  };
+}
+
+/// 🧼 [_logError] — logs error details only in debug mode
+//----------------------------------------------------------------//
+void _logError(dynamic error) {
+  if (kDebugMode) {
+    debugPrint('[ERROR] ${error.runtimeType}: $error');
   }
 }
