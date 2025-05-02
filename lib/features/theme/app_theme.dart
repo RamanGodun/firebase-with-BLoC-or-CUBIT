@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../core/constants/app_constants.dart';
 import 'text_styles.dart';
 import 'theme_enums.dart';
@@ -20,51 +21,51 @@ class ThemeFactory {
   const ThemeFactory(this.variant);
 
   ThemeData build({FontFamilyType? font}) {
+    final fontValue = (font ?? variant.font).value;
+
     return ThemeData(
       brightness: variant.brightness,
       scaffoldBackgroundColor: variant.background,
       primaryColor: variant.primaryColor,
       colorScheme: variant.colorScheme,
-      appBarTheme: _appBarTheme(font),
-      elevatedButtonTheme: _elevatedButtonTheme(),
-      textTheme: TextStyles4ThisAppThemes.getTheme(
-        variant.isDark ? AppThemeMode.dark : AppThemeMode.light,
-        font: font,
-      ),
-      cardTheme: _cardTheme(),
+      appBarTheme: _buildAppBarTheme(fontValue),
+      elevatedButtonTheme: _buildElevatedButtonTheme(),
+      textTheme: AppTextStyles.getTheme(variant.appThemeMode, font: font),
+      cardTheme: _buildCardTheme(),
     );
   }
 
   /// 📌 AppBarTheme config
-  AppBarTheme _appBarTheme(FontFamilyType? font) => AppBarTheme(
+  AppBarTheme _buildAppBarTheme(String fontFamily) => AppBarTheme(
     elevation: 0,
     backgroundColor: Colors.transparent,
-    foregroundColor: variant.isDark ? Colors.white : Colors.black,
+    foregroundColor: variant.contrastColor,
     actionsIconTheme: IconThemeData(color: variant.primaryColor),
     titleTextStyle: TextStyle(
-      fontFamily: (font ?? FontFamilyType.sfPro).value,
+      fontFamily: fontFamily,
       fontSize: 20,
       fontWeight: FontWeight.bold,
-      color: variant.isDark ? Colors.white : Colors.black,
+      color: variant.contrastColor,
     ),
     centerTitle: false,
   );
 
   /// 🔘 ElevatedButtonTheme config
-  ElevatedButtonThemeData _elevatedButtonTheme() => ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      backgroundColor: variant.primaryColor,
-      foregroundColor: Colors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: AppConstants.commonBorderRadius,
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
-      elevation: 0.5,
-    ),
-  );
+  ElevatedButtonThemeData _buildElevatedButtonTheme() =>
+      ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: variant.primaryColor,
+          foregroundColor: Colors.white,
+          shape: const RoundedRectangleBorder(
+            borderRadius: AppConstants.commonBorderRadius,
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
+          elevation: 0.5,
+        ),
+      );
 
   /// 🟦 CardTheme config
-  CardTheme _cardTheme() => CardTheme(
+  CardTheme _buildCardTheme() => CardTheme(
     color: variant.cardColor,
     shape: const RoundedRectangleBorder(
       borderRadius: AppConstants.commonBorderRadius,
@@ -74,6 +75,7 @@ class ThemeFactory {
   );
 }
 
+/// 📚 Semantic access to text styles
 TextStyle getSemanticStyle(TextTheme theme, TextStyleType type) =>
     switch (type) {
       TextStyleType.heading => theme.titleLarge!,

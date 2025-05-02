@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'theme_enums.dart';
 
-/// 🎨 [TextStyles4ThisAppThemes] — Uses Enhanced Enum for ThemeMode
+/// 🎨 [AppTextStyles] — Provides access to themed text styles
 /// 🧼 Clean access: TextStyles4ThisAppThemes.getTheme(AppThemeMode.dark)
-abstract class TextStyles4ThisAppThemes {
+abstract class AppTextStyles {
   static TextTheme getTheme(AppThemeMode mode, {FontFamilyType? font}) =>
       mode.builder.build(font);
 
@@ -25,7 +25,7 @@ abstract class TextStyles4ThisAppThemes {
   }
 }
 
-/// 🏭 [TextStyleFactory] — Factory for TextTheme based on brightness
+/// 🏭 [TextStyleFactory] — Builds a full [TextTheme] from config
 class TextStyleFactory {
   final Color color;
   const TextStyleFactory._(this.color);
@@ -34,34 +34,30 @@ class TextStyleFactory {
   static const dark = TextStyleFactory._(Colors.white);
 
   TextTheme build([FontFamilyType? font]) {
+    final family = (font ?? FontFamilyType.sfPro).value;
     return TextTheme(
-      titleLarge: _style(FontWeight.w600, 22, font),
-      titleMedium: _style(FontWeight.w500, 19, font),
-      titleSmall: _style(FontWeight.w400, 16, font),
-      bodyLarge: _style(FontWeight.w400, 17, font),
-      bodyMedium: _style(FontWeight.w400, 15, font),
-      bodySmall: _style(FontWeight.w400, 13, font),
-      labelLarge: _style(FontWeight.w500, 15, font),
-      labelMedium: _style(FontWeight.w400, 13, font),
-      labelSmall: _style(FontWeight.w400, 11, font),
+      titleLarge: _style(FontWeight.w600, 22, family),
+      titleMedium: _style(FontWeight.w500, 19, family),
+      titleSmall: _style(FontWeight.w400, 16, family),
+      bodyLarge: _style(FontWeight.w400, 17, family),
+      bodyMedium: _style(FontWeight.w400, 15, family),
+      bodySmall: _style(FontWeight.w400, 13, family),
+      labelLarge: _style(FontWeight.w500, 15, family),
+      labelMedium: _style(FontWeight.w400, 13, family),
+      labelSmall: _style(FontWeight.w400, 11, family),
     );
   }
 
-  TextStyle _style(FontWeight weight, double size, FontFamilyType? font) {
-    return TypographyFactory.get(
-      weight: weight,
-      size: size,
-      color: color,
-      font: font,
-    );
-  }
+  TextStyle _style(FontWeight weight, double size, String family) => TextStyle(
+    fontFamily: family,
+    fontWeight: weight,
+    fontSize: size,
+    color: color,
+  );
 }
 
-/// 🏭 [TypographyFactory] — returns single text style from params
+/// 🏭 [TypographyFactory] — Legacy access for single styles (optional override)
 class TypographyFactory {
-  //
-  static const _defaultFont = FontFamilyType.sfPro;
-
   static TextStyle get({
     required FontWeight weight,
     required double size,
@@ -69,7 +65,7 @@ class TypographyFactory {
     FontFamilyType? font,
   }) {
     return TextStyle(
-      fontFamily: (font ?? _defaultFont).value,
+      fontFamily: (font ?? FontFamilyType.sfPro).value,
       fontWeight: weight,
       fontSize: size,
       color: color,

@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: constant_identifier_names
 
+import 'package:flutter/material.dart';
 import '../../core/constants/app_constants.dart';
 import 'text_styles.dart';
 
@@ -10,6 +11,7 @@ enum AppThemeVariant {
     background: AppConstants.lightBackgroundColor,
     primaryColor: AppConstants.lightPrimaryColor,
     cardColor: AppConstants.lightOverlay,
+    contrastColor: Colors.black,
     colorScheme: ColorScheme.light(
       primary: AppConstants.lightPrimaryColor,
       secondary: AppConstants.lightAccentColor,
@@ -27,6 +29,7 @@ enum AppThemeVariant {
     background: AppConstants.darkBackgroundColor,
     primaryColor: AppConstants.darkPrimaryColor,
     cardColor: AppConstants.darkOverlay,
+    contrastColor: Colors.white,
     colorScheme: ColorScheme.dark(
       primary: AppConstants.darkPrimaryColor,
       secondary: AppConstants.lightAccentColor,
@@ -44,6 +47,7 @@ enum AppThemeVariant {
     background: Colors.black,
     primaryColor: AppConstants.darkPrimaryColor,
     cardColor: AppConstants.darkOverlay,
+    contrastColor: Colors.white,
     colorScheme: ColorScheme.dark(
       primary: AppConstants.darkPrimaryColor,
       secondary: AppConstants.lightAccentColor,
@@ -61,6 +65,7 @@ enum AppThemeVariant {
     background: AppConstants.darkOverlay,
     primaryColor: AppConstants.darkPrimaryColor,
     cardColor: Color(0xAA222222),
+    contrastColor: Colors.white,
     colorScheme: ColorScheme.dark(
       primary: AppConstants.darkPrimaryColor,
       secondary: AppConstants.lightAccentColor,
@@ -79,6 +84,7 @@ enum AppThemeVariant {
     required this.background,
     required this.primaryColor,
     required this.cardColor,
+    required this.contrastColor,
     required this.colorScheme,
   });
 
@@ -86,9 +92,14 @@ enum AppThemeVariant {
   final Color background;
   final Color primaryColor;
   final Color cardColor;
+  final Color contrastColor;
   final ColorScheme colorScheme;
 
   bool get isDark => brightness == Brightness.dark;
+  ThemeMode get themeMode => isDark ? ThemeMode.dark : ThemeMode.light;
+  AppThemeMode get appThemeMode =>
+      isDark ? AppThemeMode.dark : AppThemeMode.light;
+  FontFamilyType get font => FontFamilyType.sfPro;
 }
 
 /// ✨ Enhanced enum for font family options
@@ -100,6 +111,8 @@ enum FontFamilyType {
 
   final String value;
   const FontFamilyType(this.value);
+
+  bool get isGoogle => this == FontFamilyType.poppins; // adjust if needed
 }
 
 /// 🌗 [AppThemeMode] — Enhanced enum to select between dark/light theme
@@ -113,3 +126,11 @@ enum AppThemeMode {
 
 /// 📚 Semantic text styles for better DX/UI logic
 enum TextStyleType { heading, subheading, body, label }
+
+TextStyle getSemanticStyle(TextTheme theme, TextStyleType type) =>
+    switch (type) {
+      TextStyleType.heading => theme.titleLarge!,
+      TextStyleType.subheading => theme.titleMedium!,
+      TextStyleType.body => theme.bodyLarge!,
+      TextStyleType.label => theme.labelLarge!,
+    };
