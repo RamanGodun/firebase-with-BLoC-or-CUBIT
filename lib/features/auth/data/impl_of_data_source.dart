@@ -1,0 +1,95 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
+import '../../../core/shared_modules/errors_handling/either/either.dart';
+import '../../../core/shared_modules/errors_handling/handle_exception.dart';
+import '../../../core/utils/typedef.dart';
+import '../../../core/presentation/constants/app_constants.dart';
+import '../../shared/shared_data/shared_data_transfer_objects/user_dto.dart';
+import 'data_source.dart';
+
+/// 🧩 [AuthRemoteDataSourceImpl] — concrete implementation using Firebase
+class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
+  final fb_auth.FirebaseAuth _firebaseAuth;
+  final FirebaseFirestore _firestore;
+
+  const AuthRemoteDataSourceImpl(this._firebaseAuth, this._firestore);
+
+  @override
+  Stream<fb_auth.User?> get user => _firebaseAuth.userChanges();
+
+  @override
+  ResultFuture<fb_auth.UserCredential> signIn({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final result = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return Right(result);
+    } catch (e) {
+      return Left(handleException(e));
+    }
+  }
+
+  @override
+  ResultFuture<void> signUp({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final credential = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      final user = credential.user!;
+      final userDto = UserDTO.newUser(id: user.uid, name: name, email: email);
+
+      await _firestore
+          .collection(AppConstants.usersCollection)
+          .doc(user.uid)
+          .set(userDto.toMap());
+
+      return const Right(null);
+    } catch (e) {
+      return Left(handleException(e));
+    }
+  }
+
+  @override
+  ResultFuture<void> ensureUserProfileCreated(fb_auth.User user) async {
+    try {
+      final docRef = _firestore
+          .collection(AppConstants.usersCollection)
+          .doc(user.uid);
+      final doc = await docRef.get();
+
+      if (!doc.exists) {
+        final userDto = UserDTO.newUser(
+          id: user.uid,
+          name: user.displayName ?? '',
+          email: user.email ?? '',
+        );
+
+        await docRef.set(userDto.toMap());
+      }
+
+      return const Right(null);
+    } catch (e) {
+      return Left(handleException(e));
+    }
+  }
+
+  @override
+  ResultFuture<void> signOut() async {
+    try {
+      await _firebaseAuth.signOut();
+      return const Right(null);
+    } catch (e) {
+      return Left(handleException(e));
+    }
+  }
+}

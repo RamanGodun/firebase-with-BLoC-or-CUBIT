@@ -11,19 +11,16 @@ import '../../../../../core/shared_modules/form_fields/passwords_input.dart';
 import '../../../../../core/shared_modules/form_fields/validation_for_name_input.dart';
 import '../../../../../core/shared_modules/form_fields/validation_for_password_confirmation.dart';
 import '../../../../../core/shared_modules/errors_handling/result_handler.dart';
-import '../../../data/repo/auth_repository_impl.dart';
+import '../../../domain/use_cases/sign_up.dart';
 
 part 'sign_up_page_state.dart';
 
 /// 🧠 [SignUpCubit] — Handles logic for sign-up form: validation, debouncing, and submission.
 class SignUpCubit extends Cubit<SignUpState> {
-  final AuthRepository authRepository;
+  final SignUpUseCase signUpUseCase;
   final _debouncer = Debouncer(const Duration(milliseconds: 300));
 
-  SignUpCubit({required this.authRepository}) : super(const SignUpState()) {
-    debugPrint('🟢 onCreate -- SignUpCubit');
-    resetState();
-  }
+SignUpCubit({required this.signUpUseCase}) : super(const SignUpState());
 
   void onNameChanged(String value) {
     _debouncer.run(() {
@@ -72,7 +69,7 @@ class SignUpCubit extends Cubit<SignUpState> {
 
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
 
-    final result = await authRepository.signup(
+    final result = await signUpUseCase.call(
       name: state.name.value,
       email: state.email.value,
       password: state.password.value,

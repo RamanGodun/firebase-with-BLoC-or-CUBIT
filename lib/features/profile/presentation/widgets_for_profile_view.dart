@@ -1,0 +1,81 @@
+part of 'profile_view.dart';
+
+/// 🧾 [_UserProfileCard] — Displays user information after successful fetch.
+class _UserProfileCard extends StatelessWidget {
+  final User user;
+  const _UserProfileCard({required this.user});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.all(AppSpacing.l),
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      elevation: 4,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          FadeInImage.assetNetwork(
+            placeholder: 'assets/images/loading.gif',
+            image: user.profileImage,
+            width: double.infinity,
+            height: 200,
+            fit: BoxFit.cover,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(AppSpacing.xs),
+            child: DefaultTextStyle(
+              style: const TextStyle(fontSize: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextWidget(
+                    '${AppStrings.profileNameLabel} ${user.name}',
+                    TextType.titleMedium,
+                  ),
+                  const SizedBox(height: AppSpacing.xs),
+                  TextWidget(
+                    '${AppStrings.profileIdLabel} ${user.id}',
+                    TextType.titleSmall,
+                  ),
+                  TextWidget(
+                    '${AppStrings.profileEmailLabel} ${user.email}',
+                    TextType.titleSmall,
+                  ),
+                  const SizedBox(height: AppSpacing.m),
+                  TextWidget(
+                    '${AppStrings.profilePointsLabel} ${user.point}',
+                    TextType.bodyMedium,
+                  ),
+                  TextWidget(
+                    '${AppStrings.profileRankLabel} ${user.rank}',
+                    TextType.bodyMedium,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// ⚠️ [_ErrorContent] — Shown when profile loading fails.
+class _ErrorContent extends StatelessWidget {
+  const _ErrorContent();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image(image: AssetImage('assets/images/error.png'), width: 75),
+          SizedBox(height: AppSpacing.s),
+          TextWidget(AppStrings.profileErrorMessage, TextType.error),
+        ],
+      ),
+    );
+  }
+}

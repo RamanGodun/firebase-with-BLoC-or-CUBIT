@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart';
 import '../../app_config/bootstrap/di_container.dart';
-import '../../../features/auth/presentation/auth/auth_bloc/auth_bloc.dart';
+import '../../../features/auth/presentation/auth_bloc/auth_bloc.dart';
 import '../../../features/profile/presentation/profile_page.dart';
 import '../../../features/auth/presentation/sign_in/sign_in_page.dart';
-import '../../../features/auth/presentation/sign_up/signup_page.dart';
+import '../../../features/auth/presentation/sign_up/sign_up_page.dart';
 import '../../presentation/shared_pages/change_password_page.dart';
 import '../../presentation/shared_pages/_home_page.dart';
 import '../../presentation/shared_pages/page_not_found.dart';

@@ -1,47 +1,62 @@
 import 'package:get_it/get_it.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../../../features/auth/presentation/auth/auth_bloc/auth_bloc.dart';
-import '../../../features/profile/data/data_sources/data_source.dart';
-import '../../../features/profile/data/data_sources/impl_of_data_source.dart';
-import '../../../features/profile/data/repositories/profile_repo_impl.dart';
-import '../../../features/profile/domain/use_cases/load_profile_use_case.dart';
-import '../../../features/profile/domain/repositories/profile_repository.dart';
+import '../../../features/auth/data/data_source.dart';
+import '../../../features/auth/data/impl_of_data_source.dart';
+import '../../../features/auth/data/auth_repository_impl.dart';
+import '../../../features/auth/domain/repositories/auth_repo.dart';
+import '../../../features/auth/domain/use_cases/ensure_profile_created.dart';
+import '../../../features/auth/domain/use_cases/sign_in.dart';
+import '../../../features/auth/domain/use_cases/sign_out.dart';
+import '../../../features/auth/domain/use_cases/sign_up.dart';
+import '../../../features/auth/presentation/auth_bloc/auth_bloc.dart';
+import '../../../features/profile/data/data_source.dart';
+import '../../../features/profile/data/impl_of_data_source.dart';
+import '../../../features/profile/data/_profile_repo_impl.dart';
+import '../../../features/profile/domain/profile_repository.dart';
+import '../../../features/profile/domain/load_profile_use_case.dart';
 import '../../shared_modules/theme/theme_cubit/theme_cubit.dart';
-import '../../../features/auth/data/repo/auth_repository_impl.dart';
 import '../../../core/utils/extensions/general_extensions/get_it_x.dart';
 
 final di = GetIt.instance;
 
-/// 🧱 Initializes and registers all app dependencies
+/// 🧱 Registers all app-level dependencies via GetIt
 Future<void> initDIContainer() async {
   di
-    // 🔗 Firebase Core Services
+    // 🔗 Firebase core services
     ..registerLazySingletonIfAbsent<FirebaseAuth>(() => FirebaseAuth.instance)
     ..registerLazySingletonIfAbsent<FirebaseFirestore>(
       () => FirebaseFirestore.instance,
     )
-    // 📦 Repositories (Data Layer)
+    // 📡 Remote data sources
+    ..registerLazySingleton<AuthRemoteDataSource>(
+      () =>
+          AuthRemoteDataSourceImpl(di<FirebaseAuth>(), di<FirebaseFirestore>()),
+    )
     ..registerLazySingleton<ProfileRemoteDataSource>(
       () => ProfileRemoteDataSourceImpl(di<FirebaseFirestore>()),
+    )
+    // 📦 Repository implementations
+    ..registerLazySingleton<AuthRepo>(
+      () => AuthRepositoryImpl(di<AuthRemoteDataSource>()),
     )
     ..registerLazySingleton<ProfileRepository>(
       () => ProfileRepositoryImpl(di<ProfileRemoteDataSource>()),
     )
-    ..registerLazySingletonIfAbsent<AuthRepository>(
-      () => AuthRepository(
-        firestore: di<FirebaseFirestore>(),
-        firebaseAuth: di<FirebaseAuth>(),
+    // 🧠 Use cases (business logic)
+    ..registerLazySingleton(() => SignInUseCase(di<AuthRepo>()))
+    ..registerLazySingleton(() => SignUpUseCase(di<AuthRepo>()))
+    ..registerLazySingleton(() => SignOutUseCase(di<AuthRepo>()))
+    ..registerLazySingleton(
+      () => EnsureUserProfileCreatedUseCase(di<AuthRepo>()),
+    )
+    ..registerLazySingleton(() => LoadProfileUseCase(di<ProfileRepository>()))
+    // 📊 Blocs / Cubits
+    ..registerLazySingleton<AuthBloc>(
+      () => AuthBloc(
+        signOutUseCase: di<SignOutUseCase>(),
+        userStream: di<AuthRemoteDataSource>().user,
       ),
     )
-    // 📂 Use Cases (Domain Layer)
-    ..registerLazySingletonIfAbsent(
-      () => LoadProfileUseCase(di<ProfileRepository>()),
-    )
-    // 📊 Cubit / BLoC (Presentation Layer)
-    ..registerLazySingletonIfAbsent<AuthBloc>(
-      () => AuthBloc(authRepository: di()),
-    )
-    ..registerLazySingletonIfAbsent<AppThemeCubit>(() => AppThemeCubit());
+    ..registerLazySingleton<AppThemeCubit>(() => AppThemeCubit());
 }

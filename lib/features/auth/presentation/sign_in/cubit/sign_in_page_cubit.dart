@@ -8,20 +8,20 @@ import '../../../../../core/utils/debouncer.dart';
 import '../../../../../core/shared_modules/errors_handling/failure.dart';
 import '../../../../../core/shared_modules/form_fields/email_input.dart';
 import '../../../../../core/shared_modules/form_fields/passwords_input.dart';
-import '../../../data/repo/auth_repository_impl.dart';
 import '../../../../../core/shared_modules/errors_handling/result_handler.dart';
+import '../../../domain/use_cases/ensure_profile_created.dart';
+import '../../../domain/use_cases/sign_in.dart';
 
 part 'sign_in_page_state.dart';
 
 /// 🔐 [SignInCubit] — Manages Sign In logic, validation, submission.
 class SignInCubit extends Cubit<SignInPageState> {
-  final AuthRepository authRepository;
+  final SignInUseCase signIn;
+  final EnsureUserProfileCreatedUseCase ensureProfile;
   final _debouncer = Debouncer(const Duration(milliseconds: 300));
 
-  SignInCubit({required this.authRepository}) : super(const SignInPageState()) {
-    debugPrint('🟢 onCreate -- SignInCubit');
-    resetForm();
-  }
+  SignInCubit({required this.signIn, required this.ensureProfile})
+    : super(const SignInPageState());
 
   /// Handles email changes with debounce
   void emailChanged(String value) {
@@ -55,7 +55,7 @@ class SignInCubit extends Cubit<SignInPageState> {
 
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
 
-    final result = await authRepository.signin(
+    final result = await signIn(
       email: state.email.value,
       password: state.password.value,
     );
@@ -78,9 +78,7 @@ class SignInCubit extends Cubit<SignInPageState> {
             return;
           }
 
-          final profileResult = await authRepository.ensureUserProfileCreated(
-            user,
-          );
+          final profileResult = await ensureProfile(user);
           ResultHandler(profileResult)
               .onFailure(
                 (f) => emit(

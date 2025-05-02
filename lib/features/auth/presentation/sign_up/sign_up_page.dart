@@ -4,36 +4,30 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/app_config/bootstrap/di_container.dart';
 import '../../../../core/shared_modules/form_fields/forms_status_extension.dart';
 import '../../../../core/shared_modules/overlay/_overlay_service.dart';
-import '../../domain/use_cases/ensure_profile_created.dart';
-import '../../domain/use_cases/sign_in.dart';
-import 'cubit/sign_in_page_cubit.dart';
-import 'sign_in_view.dart';
+import '../../domain/use_cases/sign_up.dart';
+import 'cubit/sign_up_page_cubit.dart';
+import 'sign_up_view.dart';
 
-/// 🔐 [SignInPage] - Auth screen for existing users
-class SignInPage extends StatelessWidget {
-  const SignInPage({super.key});
+/// 🧾 [SignUpPage] - Entry point with BLoC provider and listener
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:
-          (_) => SignInCubit(
-            signIn: di<SignInUseCase>(),
-            ensureProfile: di<EnsureUserProfileCreatedUseCase>(),
-          ),
-      child: BlocListener<SignInCubit, SignInPageState>(
+      create: (_) => SignUpCubit(signUpUseCase: di<SignUpUseCase>()),
+      child: BlocListener<SignUpCubit, SignUpState>(
         listenWhen:
-            (prev, current) =>
-                prev.status != current.status &&
-                current.status.isSubmissionFailure,
+            (prev, curr) =>
+                prev.status != curr.status && curr.status.isSubmissionFailure,
         listener: (context, state) {
           if (state.failure != null) {
             OverlayNotificationService.dismissIfVisible();
             context.showFailureDialog(state.failure!);
+            context.read<SignUpCubit>().resetStatus();
           }
-          context.read<SignInCubit>().resetStatus();
         },
-        child: const SignInPageView(),
+        child: const SignUpView(),
       ),
     );
   }

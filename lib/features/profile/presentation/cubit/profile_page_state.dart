@@ -1,4 +1,4 @@
-part of 'profile_cubit.dart';
+part of 'profile_page_cubit.dart';
 
 /// 📍 [ProfileStatus] — represents profile load state
 enum ProfileStatus { initial, loading, loaded, error }

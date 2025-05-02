@@ -1,4 +1,4 @@
-import '../../shared_data/data_transfer_objects/user_dto.dart';
+import '../../shared_data/shared_data_transfer_objects/user_dto.dart';
 import '../../../../core/utils/typedef.dart';
 import 'user.dart';
 

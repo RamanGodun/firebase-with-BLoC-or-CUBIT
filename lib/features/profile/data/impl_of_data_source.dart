@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../../../core/presentation/constants/app_constants.dart';
-import '../../../../core/shared_modules/errors_handling/either/either.dart';
-import '../../../../core/shared_modules/errors_handling/failure.dart';
-import '../../../../core/shared_modules/errors_handling/handle_exception.dart';
-import '../../../../core/utils/typedef.dart';
-import '../../../shared/shared_data/data_transfer_objects/user_dto.dart';
+import '../../../core/presentation/constants/app_constants.dart';
+import '../../../core/shared_modules/errors_handling/either/either.dart';
+import '../../../core/shared_modules/errors_handling/failure.dart';
+import '../../../core/shared_modules/errors_handling/handle_exception.dart';
+import '../../../core/utils/typedef.dart';
+import '../../shared/shared_data/shared_data_transfer_objects/user_dto.dart';
 import 'data_source.dart';
 
 class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
