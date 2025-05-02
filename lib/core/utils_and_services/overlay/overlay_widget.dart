@@ -1,31 +1,59 @@
-part of 'overlay_service.dart';
+import 'package:firebase_with_bloc_or_cubit/core/utils_and_services/extensions/general_extensions/_general_extensions.dart';
+import 'package:flutter/material.dart';
+import '../../../presentation_common/widgets/text_widget.dart';
+import '../../../features/domain/constants/app_constants.dart';
 
-/// 🎭 [_AnimatedOverlayWidget] — fades and scales in a styled message
-class _AnimatedOverlayWidget extends HookWidget {
+part 'overlay_card.dart';
+
+/// 🎭 [AnimatedOverlayWidget] — fades and scales in a styled message
+class AnimatedOverlayWidget extends StatefulWidget {
   final String message;
   final IconData icon;
 
-  const _AnimatedOverlayWidget({required this.message, required this.icon});
+  const AnimatedOverlayWidget({
+    super.key,
+    required this.message,
+    required this.icon,
+  });
+
+  @override
+  State<AnimatedOverlayWidget> createState() => _AnimatedOverlayWidgetState();
+}
+
+class _AnimatedOverlayWidgetState extends State<AnimatedOverlayWidget>
+    with TickerProviderStateMixin {
+  static const _animationDuration = Duration(milliseconds: 600);
+
+  late final AnimationController _controller;
+  late final Animation<double> _opacity;
+  late final Animation<double> _scale;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this, duration: _animationDuration)
+      ..forward();
+
+    _opacity = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).chain(CurveTween(curve: Curves.easeOut)).animate(_controller);
+
+    _scale = Tween<double>(
+      begin: 0.8,
+      end: 1,
+    ).chain(CurveTween(curve: Curves.elasticOut)).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final animationController = useAnimationController(
-      duration: const Duration(milliseconds: 600),
-    )..forward();
-
-    final opacity = animationController.drive(
-      Tween<double>(begin: 0, end: 1).chain(CurveTween(curve: Curves.easeOut)),
-    );
-
-    final scale = animationController.drive(
-      Tween<double>(
-        begin: 0.8,
-        end: 1,
-      ).chain(CurveTween(curve: Curves.elasticOut)),
-    );
-
-    final colorScheme = Helpers.getColorScheme(context);
-    final isDark = colorScheme.brightness == Brightness.dark;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     final backgroundColor =
         isDark
@@ -40,56 +68,24 @@ class _AnimatedOverlayWidget extends HookWidget {
             ? AppConstants.overlayDarkBorder
             : AppConstants.overlayLightBorder;
 
-    return Stack(
-      children: [
-        Positioned(
-          top: MediaQuery.of(context).size.height * 0.4,
-          left: MediaQuery.of(context).size.width * 0.1,
-          right: MediaQuery.of(context).size.width * 0.1,
-          child: FadeTransition(
-            opacity: opacity,
-            child: ScaleTransition(
-              scale: scale,
-              child: Material(
-                color: Colors.transparent,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
-                  ),
-                  decoration: BoxDecoration(
-                    color: backgroundColor,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: borderColor, width: 1.5),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        blurRadius: 12,
-                        spreadRadius: 1,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(icon, color: textColor, size: 24),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: TextWidget(
-                          message,
-                          TextType.titleMedium,
-                          color: textColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+    return Align(
+      alignment: const FractionalOffset(0.5, 0.4),
+      child: FadeTransition(
+        opacity: _opacity,
+        child: ScaleTransition(
+          scale: _scale,
+          child: Material(
+            color: Colors.transparent,
+            child: OverlayCard(
+              icon: widget.icon,
+              message: widget.message,
+              textColor: textColor,
+              backgroundColor: backgroundColor,
+              borderColor: borderColor,
+            ).withPaddingHorizontal(AppSpacing.xl),
           ),
         ),
-      ],
+      ),
     );
   }
 }

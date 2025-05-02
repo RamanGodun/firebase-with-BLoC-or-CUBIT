@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'app_view.dart';
 import 'core/di/bootstrap.dart';
 import 'core/di/di_container.dart';
-import 'features/auth_bloc/auth_bloc.dart';
-import 'features/theme/theme_cubit/theme_cubit.dart';
+import 'features/presentation/auth_bloc/auth_bloc.dart';
+import 'features/presentation/theme_feature/theme_cubit/theme_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

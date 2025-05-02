@@ -1,4 +1,4 @@
-import '../../../features/auth_bloc/auth_bloc.dart';
+import '../../../features/presentation/auth_bloc/auth_bloc.dart';
 import '../_imports_for_router.dart';
 
 /// 🔁 Handles auth-aware redirect logic for GoRouter

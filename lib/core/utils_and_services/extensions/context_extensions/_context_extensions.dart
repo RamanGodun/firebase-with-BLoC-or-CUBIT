@@ -4,8 +4,8 @@ import 'package:firebase_with_bloc_or_cubit/core/utils_and_services/errors_handl
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../../presentation/widgets/text_widget.dart';
-import '../../../constants/app_strings.dart';
+import '../../../../presentation_common/widgets/text_widget.dart';
+import '../../../../features/domain/constants/app_strings.dart';
 import '../../../navigation/_imports_for_router.dart';
 import '../../errors_handling/failure.dart';
 

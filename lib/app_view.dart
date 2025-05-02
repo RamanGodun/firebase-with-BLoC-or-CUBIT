@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'features/theme/app_theme_config.dart';
+import 'core/utils_and_services/overlay/focus_overlay_dismiss_wrapper.dart';
+import 'features/presentation/theme_feature/config/app_theme_config.dart';
 import 'core/navigation/router_config.dart';
-import 'features/theme/app_material_theme.dart';
-import 'features/theme/theme_cubit/theme_cubit.dart';
+import 'features/presentation/theme_feature/config/app_material_theme.dart';
+import 'features/presentation/theme_feature/theme_cubit/theme_cubit.dart';
 
 /// 📦 [AppRootView] — Root UI widget. Delegates logic to [AppThemeBuilder].
 class AppRootView extends StatelessWidget {
@@ -53,6 +54,9 @@ class AppMaterialAppRouter extends StatelessWidget {
       routerDelegate: AppRouterConfig.delegate,
       routeInformationParser: AppRouterConfig.parser,
       routeInformationProvider: AppRouterConfig.provider,
+
+      ///
+      builder: (context, child) => FocusAndOverlayDismissWrapper(child: child!),
     );
   }
 }
@@ -85,6 +89,9 @@ class AppView extends StatelessWidget {
           routerDelegate: goRouter.routerDelegate,
           routeInformationParser: goRouter.routeInformationParser,
           routeInformationProvider: goRouter.routeInformationProvider,
+
+          ///
+          builder: (context, child) => FocusAndOverlayDismissWrapper(child: child!),
         );
       },
     );

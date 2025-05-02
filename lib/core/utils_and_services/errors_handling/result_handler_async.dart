@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../extensions/context_extensions/_context_extensions.dart';
+import '../overlay/_overlay_service.dart';
 import 'either/either.dart';
 import 'extensions/failure_x.dart';
 import 'failure.dart';
@@ -45,6 +46,7 @@ class ResultHandlerAsync<T> {
     if (!context.mounted) return this;
     final failure = result.leftOrNull;
     if (failure != null) {
+      OverlayNotificationService.dismissIfVisible();
       context.showFailureDialog(
         failure,
         title: title,
@@ -80,5 +82,3 @@ extension ResultFutureHandlerAsyncX<T> on Future<Either<Failure, T>> {
     return ResultHandlerAsync(result);
   }
 }
-
-
