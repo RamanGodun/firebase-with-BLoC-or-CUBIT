@@ -1,41 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_with_bloc_or_cubit/core/utils/typedef.dart';
+import 'package:firebase_with_bloc_or_cubit/features/shared/shared_domain/entities/user.dart';
+import 'package:firebase_with_bloc_or_cubit/features/profile/domain/repositories/profile_repository.dart';
 import 'package:firebase_with_bloc_or_cubit/features/shared/shared_domain/entities/user_extensions.dart';
-import '../../../../core/presentation/constants/app_constants.dart';
-import '../../../shared/shared_domain/entities/user.dart';
-import '../../../../core/shared_modules/errors_handling/failure.dart';
-import '../../../../core/shared_modules/errors_handling/either/either.dart';
-import '../../../../core/shared_modules/errors_handling/handle_exception.dart';
-import '../../../../core/utils/typedef.dart';
-import '../../../shared/shared_data/data_transfer_objects/user_dto.dart';
 
-/// 📦 [ProfileRepository]
-/// 🧼 Loads profile by UID from Firestore and maps to domain [User]
-class ProfileRepository {
-  final FirebaseFirestore firestore;
+import '../data_sources/data_source.dart';
 
-  const ProfileRepository({required this.firestore});
+class ProfileRepositoryImpl implements ProfileRepository {
+  final ProfileRemoteDataSource remote;
 
-  /// 🔎 [getProfile] — safely fetches user data from Firestore
+  ProfileRepositoryImpl(this.remote);
+
+  @override
   ResultFuture<User> getProfile({required String uid}) async {
-    try {
-      final docRef = firestore
-          .collection(AppConstants.usersCollection)
-          .doc(uid);
-
-      final doc = await docRef.get();
-
-      if (!doc.exists) {
-        return Left(
-          FirebaseFailure(message: 'User document not found in Firestore'),
-        );
-      }
-
-      final user = UserDTO.fromDoc(doc).toEntity();
-      return Right(user);
-    } catch (error) {
-      return Left(handleException(error));
-    }
+    final result = await remote.getUserDTO(uid);
+    return result.mapRight((dto) => dto.toEntity());
   }
-
-  ///
 }

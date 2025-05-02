@@ -141,3 +141,7 @@ While automated tests were not required for the test task, the structure is read
 ## ⚖️ License
 
 [MIT License](./LICENSE) © 2025 [Roman Godun](mailto:4l.roman.godun@gmail.com)
+
+
+## need to do
+! @injectable через injectable_generator

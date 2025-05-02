@@ -1,13 +1,16 @@
-// 📦 Dependency Injection Container Setup
-import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/get_it_x.dart';
 import 'package:get_it/get_it.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../features/auth/presentation/auth/auth_bloc/auth_bloc.dart';
+import '../../../features/profile/data/data_sources/data_source.dart';
+import '../../../features/profile/data/data_sources/impl_of_data_source.dart';
+import '../../../features/profile/data/repositories/profile_repo_impl.dart';
+import '../../../features/profile/domain/use_cases/load_profile_use_case.dart';
+import '../../../features/profile/domain/repositories/profile_repository.dart';
 import '../../shared_modules/theme/theme_cubit/theme_cubit.dart';
 import '../../../features/auth/data/repo/auth_repository_impl.dart';
-import '../../../features/profile/data/repositories/profile_repo_impl.dart';
+import '../../../core/utils/extensions/general_extensions/get_it_x.dart';
 
 final di = GetIt.instance;
 
@@ -20,14 +23,21 @@ Future<void> initDIContainer() async {
       () => FirebaseFirestore.instance,
     )
     // 📦 Repositories (Data Layer)
+    ..registerLazySingleton<ProfileRemoteDataSource>(
+      () => ProfileRemoteDataSourceImpl(di<FirebaseFirestore>()),
+    )
+    ..registerLazySingleton<ProfileRepository>(
+      () => ProfileRepositoryImpl(di<ProfileRemoteDataSource>()),
+    )
     ..registerLazySingletonIfAbsent<AuthRepository>(
       () => AuthRepository(
         firestore: di<FirebaseFirestore>(),
         firebaseAuth: di<FirebaseAuth>(),
       ),
     )
-    ..registerLazySingletonIfAbsent<ProfileRepository>(
-      () => ProfileRepository(firestore: di<FirebaseFirestore>()),
+    // 📂 Use Cases (Domain Layer)
+    ..registerLazySingletonIfAbsent(
+      () => LoadProfileUseCase(di<ProfileRepository>()),
     )
     // 📊 Cubit / BLoC (Presentation Layer)
     ..registerLazySingletonIfAbsent<AuthBloc>(
