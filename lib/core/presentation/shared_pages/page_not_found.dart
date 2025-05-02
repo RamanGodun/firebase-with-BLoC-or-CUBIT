@@ -5,7 +5,7 @@ import 'package:firebase_with_bloc_or_cubit/core/presentation/shared_widgets/but
 import 'package:firebase_with_bloc_or_cubit/core/presentation/shared_widgets/custom_app_bar.dart';
 import 'package:firebase_with_bloc_or_cubit/core/presentation/shared_widgets/text_widget.dart';
 
-import '../../shared_moduls/navigation/_imports_for_router.dart' show RoutesNames;
+import '../../shared_modules/navigation/_imports_for_router.dart' show RoutesNames;
 
 /// ❌ Page shown when route is not found.
 class PageNotFound extends StatelessWidget {

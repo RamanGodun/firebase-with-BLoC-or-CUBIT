@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_with_bloc_or_cubit/features/shared/shared_domain/entities/user_extensions.dart';
 import '../../../../core/presentation/constants/app_constants.dart';
 import '../../../shared/shared_domain/entities/user.dart';
-import '../../../../core/shared_moduls/errors_handling/failure.dart';
-import '../../../../core/shared_moduls/errors_handling/either/either.dart';
-import '../../../../core/shared_moduls/errors_handling/handle_exception.dart';
-import '../../../../core/shared_moduls/errors_handling/typedef.dart';
+import '../../../../core/shared_modules/errors_handling/failure.dart';
+import '../../../../core/shared_modules/errors_handling/either/either.dart';
+import '../../../../core/shared_modules/errors_handling/handle_exception.dart';
+import '../../../../core/utils/typedef.dart';
 import '../../../shared/shared_data/data_transfer_objects/user_dto.dart';
 
 /// 📦 [ProfileRepository]

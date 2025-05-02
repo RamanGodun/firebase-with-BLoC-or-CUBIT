@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'core/shared_moduls/overlay/focus_overlay_dismiss_wrapper.dart';
-import 'core/shared_moduls/theme/config/app_theme_config.dart';
-import 'core/shared_moduls/navigation/router_config.dart';
-import 'core/shared_moduls/theme/config/app_material_theme.dart';
-import 'core/shared_moduls/theme/theme_cubit/theme_cubit.dart';
+import 'core/shared_modules/overlay/focus_overlay_dismiss_wrapper.dart';
+import 'core/shared_modules/theme/config/app_theme_config.dart';
+import 'core/shared_modules/navigation/router_config.dart';
+import 'core/shared_modules/theme/config/app_material_theme.dart';
+import 'core/shared_modules/theme/theme_cubit/theme_cubit.dart';
 
 /// 📦 [AppRootView] — Root UI widget. Delegates logic to [AppThemeBuilder].
 class AppRootView extends StatelessWidget {

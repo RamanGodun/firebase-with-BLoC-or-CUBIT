@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import '../../../../core/shared_moduls/errors_handling/typedef.dart';
+import '../../../../core/utils/typedef.dart';
 import 'base_dto.dart';
 
 class UserDTO extends BaseDTO with EquatableMixin {

@@ -6,14 +6,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import '../../../../core/presentation/constants/app_constants.dart' show AppSpacing;
 import '../../../../core/presentation/constants/app_strings.dart';
 import '../../../../core/app_config/bootstrap/di_container.dart';
-import '../../../../core/shared_moduls/form_fields/forms_status_extension.dart';
-import '../../../../core/shared_moduls/overlay/_overlay_service.dart';
+import '../../../../core/shared_modules/form_fields/forms_status_extension.dart';
+import '../../../../core/shared_modules/overlay/_overlay_service.dart';
 import '../../../../core/presentation/shared_widgets/buttons/button_for_forms.dart';
 import '../../../../core/presentation/shared_widgets/buttons/text_button.dart';
-import '../../../../core/shared_moduls/form_fields/input_fields.dart/email_input_field.dart';
-import '../../../../core/shared_moduls/form_fields/input_fields.dart/name_input_field.dart';
-import '../../../../core/shared_moduls/form_fields/input_fields.dart/password_input_field.dart';
-import '../../../../core/shared_moduls/form_fields/input_fields.dart/password_confirmation_input_filed.dart';
+import '../../../../core/shared_modules/form_fields/input_fields.dart/email_input_field.dart';
+import '../../../../core/shared_modules/form_fields/input_fields.dart/name_input_field.dart';
+import '../../../../core/shared_modules/form_fields/input_fields.dart/password_input_field.dart';
+import '../../../../core/shared_modules/form_fields/input_fields.dart/password_confirmation_input_filed.dart';
 import 'signup_cubit/sign_up_page_cubit.dart';
 
 /// 🧾 [SignUpPage] - Entry point with BLoC provider and listener

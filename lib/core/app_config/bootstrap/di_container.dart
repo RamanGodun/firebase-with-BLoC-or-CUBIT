@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../features/auth/presentation/auth/auth_bloc/auth_bloc.dart';
-import '../../shared_moduls/theme/theme_cubit/theme_cubit.dart';
+import '../../shared_modules/theme/theme_cubit/theme_cubit.dart';
 import '../../../features/auth/data/repo/auth_repository_impl.dart';
 import '../../../features/profile/data/repositories/profile_repo_impl.dart';
 

@@ -5,11 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:flutter/foundation.dart';
 import 'package:formz/formz.dart';
 import '../../../../../core/utils/debouncer.dart';
-import '../../../../../core/shared_moduls/errors_handling/failure.dart';
-import '../../../../../core/shared_moduls/form_fields/email_input.dart';
-import '../../../../../core/shared_moduls/form_fields/passwords_input.dart';
+import '../../../../../core/shared_modules/errors_handling/failure.dart';
+import '../../../../../core/shared_modules/form_fields/email_input.dart';
+import '../../../../../core/shared_modules/form_fields/passwords_input.dart';
 import '../../../data/repo/auth_repository_impl.dart';
-import '../../../../../core/shared_moduls/errors_handling/result_handler.dart';
+import '../../../../../core/shared_modules/errors_handling/result_handler.dart';
 
 part 'sign_in_page_state.dart';
 

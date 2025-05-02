@@ -1,5 +1,5 @@
 import 'dart:convert';
-import '../../../../core/shared_moduls/errors_handling/typedef.dart';
+import '../../../../core/utils/typedef.dart';
 
 /// 🧩 [BaseDTO] — базовий клас для всіх DTO
 /// 🧼 Надає `toJson()`, `toMap()` та `fromJson(String)` загалом

@@ -1,5 +1,5 @@
 import '../../shared_data/data_transfer_objects/user_dto.dart';
-import '../../../../core/shared_moduls/errors_handling/typedef.dart';
+import '../../../../core/utils/typedef.dart';
 import 'user.dart';
 
 /*

@@ -1,0 +1,12 @@
+library;
+
+import '../shared_modules/errors_handling/either/either.dart';
+import '../shared_modules/errors_handling/either/unit.dart';
+import '../shared_modules/errors_handling/failure.dart';
+import '../shared_modules/errors_handling/result_handler.dart';
+
+/// Typedefs to match `dartz`-like style
+typedef ResultFuture<T> = Future<Either<Failure, T>>;
+typedef DataMap = Map<String, dynamic>;
+typedef ResultVoid = ResultFuture<Unit>;
+typedef Result<T> = ResultHandler<T>;
