@@ -3,16 +3,16 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extens
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import '../../../core/presentation/constants/app_constants.dart' show AppSpacing;
-import '../../../core/presentation/constants/app_strings.dart';
-import '../../../core/app_config/bootstrap/di_container.dart';
-import '../../../core/shared_moduls/navigation/_imports_for_router.dart' show RoutesNames;
-import '../../../core/shared_moduls/form_fields/forms_status_extension.dart';
-import '../../../core/shared_moduls/overlay/_overlay_service.dart';
-import '../../../core/presentation/shared_widgets/buttons/button_for_forms.dart';
-import '../../../core/presentation/shared_widgets/buttons/text_button.dart';
-import '../../../core/shared_moduls/form_fields/input_fields.dart/email_input_field.dart';
-import '../../../core/shared_moduls/form_fields/input_fields.dart/password_input_field.dart';
+import '../../../../core/presentation/constants/app_constants.dart' show AppSpacing;
+import '../../../../core/presentation/constants/app_strings.dart';
+import '../../../../core/app_config/bootstrap/di_container.dart';
+import '../../../../core/shared_moduls/navigation/_imports_for_router.dart' show RoutesNames;
+import '../../../../core/shared_moduls/form_fields/forms_status_extension.dart';
+import '../../../../core/shared_moduls/overlay/_overlay_service.dart';
+import '../../../../core/presentation/shared_widgets/buttons/button_for_forms.dart';
+import '../../../../core/presentation/shared_widgets/buttons/text_button.dart';
+import '../../../../core/shared_moduls/form_fields/input_fields.dart/email_input_field.dart';
+import '../../../../core/shared_moduls/form_fields/input_fields.dart/password_input_field.dart';
 import 'sign_in_page_cubit/sign_in_page_cubit.dart';
 
 /// 🔐 [SignInPage] - Auth screen for existing users

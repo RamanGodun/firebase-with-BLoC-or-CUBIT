@@ -4,10 +4,10 @@ import 'package:get_it/get_it.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../features/presentation/auth/auth_bloc/auth_bloc.dart';
+import '../../../features/auth/presentation/auth/auth_bloc/auth_bloc.dart';
 import '../../shared_moduls/theme/theme_cubit/theme_cubit.dart';
-import '../../../features/shared_data/repositories/auth_repository.dart';
-import '../../../features/shared_data/repositories/profile_repository.dart';
+import '../../../features/auth/data/repo/auth_repository_impl.dart';
+import '../../../features/profile/data/repositories/profile_repo_impl.dart';
 
 final di = GetIt.instance;
 
