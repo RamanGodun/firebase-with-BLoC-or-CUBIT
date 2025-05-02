@@ -1,15 +1,15 @@
-import 'package:firebase_with_bloc_or_cubit/core/utils_and_services/extensions/context_extensions/_context_extensions.dart';
+import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/constants/app_constants.dart' show AppSpacing;
-import '../../domain/constants/app_strings.dart';
-import '../../../core/di/di_container.dart';
-import '../../domain/entities/user.dart';
-import '../../../core/utils_and_services/overlay/_overlay_service.dart';
-import '../../../presentation_common/widgets/custom_app_bar.dart';
-import '../../../presentation_common/widgets/text_widget.dart';
-import '../auth_bloc/auth_bloc.dart';
-import '../theme_feature/theme_toggle_widget.dart';
+import '../../../core/presentation/constants/app_constants.dart' show AppSpacing;
+import '../../../core/presentation/constants/app_strings.dart';
+import '../../../core/app_config/bootstrap/di_container.dart';
+import '../../shared_domain/entities/user.dart';
+import '../../../core/shared_moduls/overlay/_overlay_service.dart';
+import '../../../core/presentation/shared_widgets/custom_app_bar.dart';
+import '../../../core/presentation/shared_widgets/text_widget.dart';
+import '../auth/auth_bloc/auth_bloc.dart';
+import '../../../core/shared_moduls/theme/theme_toggle_widget.dart';
 import 'profile_cubit/profile_cubit.dart';
 
 /// 👤 [ProfilePage] — shows user profile details fetched from backend.

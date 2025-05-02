@@ -3,15 +3,15 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:formz/formz.dart';
-import '../../../../../core/utils_and_services/debouncer.dart';
-import '../../../../../core/utils_and_services/errors_handling/failure.dart';
-import '../../form_fields/forms_status_extension.dart';
-import '../../form_fields/email_input.dart';
-import '../../form_fields/passwords_input.dart';
-import '../../form_fields/validation_for_name_input.dart';
-import '../../form_fields/validation_for_password_confirmation.dart';
-import '../../../../../core/utils_and_services/errors_handling/result_handler.dart';
-import '../../../data/repositories/auth_repository.dart';
+import '../../../../core/utils/debouncer.dart';
+import '../../../../core/shared_moduls/errors_handling/failure.dart';
+import '../../../../core/shared_moduls/form_fields/forms_status_extension.dart';
+import '../../../../core/shared_moduls/form_fields/email_input.dart';
+import '../../../../core/shared_moduls/form_fields/passwords_input.dart';
+import '../../../../core/shared_moduls/form_fields/validation_for_name_input.dart';
+import '../../../../core/shared_moduls/form_fields/validation_for_password_confirmation.dart';
+import '../../../../core/shared_moduls/errors_handling/result_handler.dart';
+import '../../../shared_data/repositories/auth_repository.dart';
 
 part 'sign_up_page_state.dart';
 

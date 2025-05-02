@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'app_view.dart';
-import 'core/di/bootstrap.dart';
-import 'core/di/di_container.dart';
-import 'features/presentation/auth_bloc/auth_bloc.dart';
-import 'features/presentation/theme_feature/theme_cubit/theme_cubit.dart';
+import 'core/app_config/bootstrap/bootstrap.dart';
+import 'core/app_config/bootstrap/di_container.dart';
+import 'features/presentation/auth/auth_bloc/auth_bloc.dart';
+import 'core/shared_moduls/theme/theme_cubit/theme_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
