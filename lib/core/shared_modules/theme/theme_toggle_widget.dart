@@ -1,10 +1,9 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../presentation/constants/app_constants.dart' show AppConstants;
+import '../../presentation/constants/_app_constants.dart' show AppIcons;
 import '../../presentation/constants/app_strings.dart' show AppStrings;
-import '../overlay/_overlay_service.dart'
-    show OverlayNotificationService;
+import '../overlay/_overlay_service.dart' show OverlayNotificationService;
 import 'theme_cubit/theme_cubit.dart' show AppThemeCubit;
 
 /// 🌗 [ThemeToggleIcon] - Toggles between light and dark mode.
@@ -17,8 +16,7 @@ class ThemeToggleIcon extends StatelessWidget {
       (cubit) => cubit.state.isDarkTheme,
     );
 
-    final icon =
-        isDarkMode ? AppConstants.darkModeIcon : AppConstants.lightModeIcon;
+    final icon = isDarkMode ? AppIcons.darkMode : AppIcons.lightMode;
 
     final iconColor = context.colorScheme.primary;
 
@@ -44,7 +42,7 @@ class ThemeToggleIcon extends StatelessWidget {
       context,
       message:
           isDarkMode ? AppStrings.lightModeEnabled : AppStrings.darkModeEnabled,
-      icon: isDarkMode ? AppConstants.lightModeIcon : AppConstants.darkModeIcon,
+      icon: isDarkMode ? AppIcons.lightMode : AppIcons.darkMode,
     );
   }
 

@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/cupertino.dart';
-import '../../constants/app_constants.dart' show AppSpacing;
-import '../text_widget.dart';
+import '../../../presentation/constants/_app_constants.dart' show AppColors, AppSpacing;
+import '../../../presentation/shared_widgets/text_widget.dart';
 
 /// 🌍 [CustomButtonForGoRouter] styled full-width button,
 /// that performs either GoRouter navigation or custom action.
@@ -35,8 +35,8 @@ class CustomButtonForGoRouter extends StatelessWidget {
         child: CupertinoButton(
           padding: const EdgeInsets.symmetric(vertical: AppSpacing.m),
           borderRadius: BorderRadius.circular(14),
-          color: colorScheme.primary.withOpacity(0.85),
-          disabledColor: colorScheme.primary.withOpacity(0.3),
+          color: AppColors.primary85,
+          disabledColor: AppColors.primary30,
           onPressed: () => _handleButtonPress(context),
           child: TextWidget(
             title,

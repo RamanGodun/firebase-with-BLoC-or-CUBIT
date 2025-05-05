@@ -6,20 +6,21 @@ import 'core/app_config/bootstrap/di_container.dart';
 import 'features/auth/presentation/auth_bloc/auth_bloc.dart';
 import 'core/shared_modules/theme/theme_cubit/theme_cubit.dart';
 
+/// 🟢 Initializes environment, DI, and runs app
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  /// 🧱 Initialize Firebase, HydratedStorage & BLoC Observer
+  /// 🔌 Firebase + HydratedBloc + Bloc Observer
   await bootstrapApp();
 
-  /// 🔌 Register global services & singletons via GetIt
+  /// 📦 Dependency Injection (GetIt)
   await initDIContainer();
 
-  /// 🚀 Launch the root app
+  /// 🚀 Run App
   runApp(const RootProviders());
 }
 
-/// 🧩 [RootProviders] wraps global BLoC/Cubit providers (from DI)
+/// 🌐 [RootProviders] — Wraps global Blocs for app-wide access
 class RootProviders extends StatelessWidget {
   const RootProviders({super.key});
 
@@ -27,17 +28,10 @@ class RootProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        /// 🔐 Auth state management (stream from FirebaseAuth)
-        BlocProvider.value(value: di<AuthBloc>()),
-
-        /// 🎨 Theme switcher with Hydrated persistence
-        BlocProvider.value(value: di<AppThemeCubit>()),
+        BlocProvider.value(value: di<AuthBloc>()), // 🔐 Auth State
+        BlocProvider.value(value: di<AppThemeCubit>()), // 🎨 Theme State
       ],
       child: const AppRootView(),
     );
   }
 }
-
-/*
-! Input fields feature refactor (include optimization)
- */

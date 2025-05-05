@@ -6,7 +6,7 @@ import 'core/shared_modules/navigation/router_config.dart';
 import 'core/shared_modules/theme/config/app_material_theme.dart';
 import 'core/shared_modules/theme/theme_cubit/theme_cubit.dart';
 
-/// 📦 [AppRootView] — Root UI widget. Delegates logic to [AppThemeBuilder].
+/// 🎛️ [AppRootView] — Root UI widget, delegates logic to [AppThemeBuilder].
 class AppRootView extends StatelessWidget {
   const AppRootView({super.key});
 
@@ -16,7 +16,7 @@ class AppRootView extends StatelessWidget {
   }
 }
 
-/// 🎛️ [AppThemeBuilder] — Listens for [AppThemeCubit] and triggers UI rebuild.
+/// 📱 AppThemeBuilder — Rebuilds UI on theme mode toggle
 class AppThemeBuilder extends StatelessWidget {
   const AppThemeBuilder({super.key});
 
@@ -26,18 +26,16 @@ class AppThemeBuilder extends StatelessWidget {
       buildWhen: (prev, curr) => prev.isDarkTheme != curr.isDarkTheme,
       builder: (context, state) {
         final config = AppConfig.fromState(state);
-
         return AppMaterialAppRouter(config: config);
       },
     );
   }
 }
 
-/// 🧩 [AppMaterialAppRouter] — MaterialApp.router configured via [AppThemeConfig].
+/// 🧩 [AppMaterialAppRouter] —  Centralized theme + navigation config
 class AppMaterialAppRouter extends StatelessWidget {
-  const AppMaterialAppRouter({super.key, required this.config});
-
   final AppThemeConfig config;
+  const AppMaterialAppRouter({super.key, required this.config});
 
   @override
   Widget build(BuildContext context) {

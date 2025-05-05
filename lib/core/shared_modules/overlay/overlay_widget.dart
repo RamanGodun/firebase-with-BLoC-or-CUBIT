@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
 import '../../presentation/shared_widgets/text_widget.dart';
-import '../../presentation/constants/app_constants.dart';
+import '../../presentation/constants/_app_constants.dart';
 
 part 'overlay_card.dart';
 
@@ -56,17 +56,10 @@ class _AnimatedOverlayWidgetState extends State<AnimatedOverlayWidget>
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     final backgroundColor =
-        isDark
-            ? AppConstants.overlayDarkBackground
-            : AppConstants.overlayLightBackground;
-    final textColor =
-        isDark
-            ? AppConstants.overlayDarkTextColor
-            : AppConstants.overlayLightTextColor;
+        isDark ? AppColors.darkOverlay : AppColors.lightOverlay;
+    final textColor = isDark ? AppColors.white : AppColors.black;
     final borderColor =
-        isDark
-            ? AppConstants.overlayDarkBorder
-            : AppConstants.overlayLightBorder;
+        isDark ? AppColors.overlayDarkBorder : AppColors.overlayLightBorder;
 
     return Align(
       alignment: const FractionalOffset(0.5, 0.4),

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import '../../../core/shared_modules/errors_handling/either/either.dart';
 import '../../../core/shared_modules/errors_handling/handle_exception.dart';
 import '../../../core/utils/typedef.dart';
-import '../../../core/presentation/constants/app_constants.dart';
+import '../../shared/shared_data/shared_sources/remote/data_source_constants.dart';
 import '../../shared/shared_data/shared_data_transfer_objects/user_dto.dart';
 import 'data_source.dart';
 
@@ -49,7 +49,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       final userDto = UserDTO.newUser(id: user.uid, name: name, email: email);
 
       await _firestore
-          .collection(AppConstants.usersCollection)
+          .collection(DataSourceConstants.usersCollection)
           .doc(user.uid)
           .set(userDto.toMap());
 
@@ -63,7 +63,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   ResultFuture<void> ensureUserProfileCreated(fb_auth.User user) async {
     try {
       final docRef = _firestore
-          .collection(AppConstants.usersCollection)
+          .collection(DataSourceConstants.usersCollection)
           .doc(user.uid);
       final doc = await docRef.get();
 

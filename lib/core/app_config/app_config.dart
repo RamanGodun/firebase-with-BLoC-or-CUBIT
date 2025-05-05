@@ -1,33 +1,31 @@
-/// ⚙️ [AppConfig] — Global static configuration for the application.
-/// Centralized constants for:
-///       - App identity
-///       - Versioning
-///       - Platform requirements
-///       - Global timeouts and flags
+/// ⚙️ [AppConfig] — Global application constants.
+/// Centralizes:
+///   • App identity & version
+///   • Platform requirements
+///   • Build flags (debug, CI)
+///   • Global network configs
 
 library;
 
 final class AppConfig {
-  /// 🧾 Application display name
+  /// 🏷️ App display name
   static const String appName = 'Firebase with BLoC/Cubit';
 
-  /// 🧾 Application version (sync with pubspec.yaml)
+  /// 🪪 App version (keep in sync with pubspec.yaml)
   static const String version = '0.1.0';
 
-  /// 📱 Minimum Android SDK version supported
+  /// 📱 Minimum Android SDK supported
   static const int minSdkVersion = 23;
 
-  /// ⏱️ Global timeout for network requests
+  /// ⏱️ Default timeout for network requests
   static const Duration requestTimeout = Duration(seconds: 10);
 
-  /// 🧪 Flag for build mode: `true` in **release**, `false` in **debug**
+  /// 🚀 Indicates if build is in release mode
   static const bool isReleaseMode = bool.fromEnvironment('dart.vm.product');
 
-  /// 👀 Flag for easier debug-specific logic
+  /// 🐞 Indicates if running in debug mode
   static bool get isDebugMode => !isReleaseMode;
 
-  ///
+  /// 🧪 Indicates if running in CI pipeline
   static const bool isCI = bool.fromEnvironment('CI');
-
-  ///
 }

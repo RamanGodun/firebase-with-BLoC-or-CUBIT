@@ -11,3 +11,14 @@ extension TapX on Widget {
     child: this,
   );
 }
+
+extension WidgetAlignX on Widget {
+  Widget aligned(Alignment alignment) =>
+      Align(alignment: alignment, child: this);
+
+  Widget centered() => Center(child: this);
+  Widget centerLeft() => aligned(Alignment.centerLeft);
+  Widget centerRight() => aligned(Alignment.centerRight);
+  Widget topCenter() => aligned(Alignment.topCenter);
+  Widget bottomCenter() => aligned(Alignment.bottomCenter);
+}

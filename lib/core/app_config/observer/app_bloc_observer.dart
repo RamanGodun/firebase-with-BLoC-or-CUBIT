@@ -12,7 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
 
-  /// 🕒 Returns timestamp for log entries.
+  /// 🕒 Returns the current time for consistent log entries.
   String _timestamp() => DateTime.now().toIso8601String();
 
   /// 🟢 Called when a BLoC or Cubit is created.
@@ -40,7 +40,9 @@ class AppBlocObserver extends BlocObserver {
   @override
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
-    debugPrint('➡️ [${_timestamp()}] Transition → ${bloc.runtimeType}: $transition');
+    debugPrint(
+      '➡️ [${_timestamp()}] Transition → ${bloc.runtimeType}: $transition',
+    );
   }
 
   /// ❌ Called when an error occurs inside BLoC/Cubit.

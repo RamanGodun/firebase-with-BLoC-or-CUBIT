@@ -1,22 +1,18 @@
 /// 🌐 [EnvConfig] — Environment-based configuration
-/// Supports `dev`, `staging`, and `prod` modes, use `.env` + `flutter_dotenv` for actual secrets.
-
-/// ! 🔐 Never store real credentials here!
-/// This file enables:
-///       • Per-env API URLs
-///       • Feature toggles
-///       • Logging / debug switches
-///       • Static defaults in development
+/// Supports dev, staging, and prod modes via `flutter_dotenv`.
+/// Never store secrets directly here.
+/// Used for: API base URLs, Feature toggles, Logging flags
+//------------------------------------------------------------------
 
 library;
 
 enum Environment { dev, staging, prod }
 
 final class EnvConfig {
-  /// 🌍 Current environment (⚠️ change before release!)
+  /// 🌍 Current environment (⚠️ adjust before release!)
   static const Environment currentEnv = Environment.dev;
 
-  /// 🌐 Base API endpoint
+  /// 🌐 API base URL by environment
   static String get apiBaseUrl => switch (currentEnv) {
     Environment.dev => 'https://api-dev.example.com',
     Environment.staging => 'https://api-staging.example.com',
@@ -36,7 +32,7 @@ final class EnvConfig {
   /// 🚀 Toggle for staging QA tools
   static bool get isStagingMode => currentEnv == Environment.staging;
 
-  /// 🔒 Production mode check
+  /// 🔐 Indicates if app is running in production
   static bool get isProduction => currentEnv == Environment.prod;
 
   ///

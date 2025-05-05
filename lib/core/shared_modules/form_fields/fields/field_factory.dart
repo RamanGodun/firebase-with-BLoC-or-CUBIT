@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../presentation/constants/app_constants.dart';
+import '../../../presentation/constants/_app_constants.dart';
 import '../../../presentation/constants/app_strings.dart';
 import 'app_text_field.dart';
 
@@ -21,7 +21,7 @@ class InputFieldFactory {
         key: const ValueKey('signup_name_field'),
         focusNode: focusNode,
         label: AppStrings.name,
-        icon: AppConstants.nameIcon,
+        icon: AppIcons.name,
         obscure: false,
         errorText: errorText,
         keyboardType: TextInputType.name,
@@ -32,7 +32,7 @@ class InputFieldFactory {
         key: const ValueKey('signup_email_field'),
         focusNode: focusNode,
         label: AppStrings.email,
-        icon: AppConstants.emailIcon,
+        icon: AppIcons.email,
         obscure: false,
         errorText: errorText,
         keyboardType: TextInputType.emailAddress,
@@ -43,7 +43,7 @@ class InputFieldFactory {
         key: const ValueKey('signup_password_field'),
         focusNode: focusNode,
         label: AppStrings.password,
-        icon: AppConstants.passwordIcon,
+        icon: AppIcons.password,
         obscure: true,
         errorText: errorText,
         onChanged: onChanged,
@@ -53,7 +53,7 @@ class InputFieldFactory {
         key: const ValueKey('signup_confirm_password_field'),
         focusNode: focusNode,
         label: AppStrings.confirmPassword,
-        icon: AppConstants.confirmPasswordIcon,
+        icon: AppIcons.confirmPassword,
         obscure: true,
         errorText: errorText,
         onChanged: onChanged,

@@ -5,7 +5,7 @@ import '../../auth/presentation/auth_bloc/auth_bloc.dart';
 import 'cubit/profile_page_cubit.dart';
 import 'profile_view.dart';
 
-/// 👤 [ProfilePage] — shows user profile details fetched from backend.
+/// 👤 [ProfilePage] — Shows user profile details fetched from backend.
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import '../../../utils/typedef.dart';
-import '../text_widget.dart';
+import '../../../presentation/shared_widgets/text_widget.dart';
 
 
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../constants/app_constants.dart';
+import '../constants/_app_constants.dart';
 import '../../utils/extensions/context_extensions/_context_extensions.dart';
 
 /// 📝 [TextWidget] — Custom Text widget with dynamic styling options.
@@ -74,10 +74,10 @@ class TextWidget extends StatelessWidget {
           shadows:
               enableShadow
                   ? [
-                    Shadow(
+                    const Shadow(
                       blurRadius: 2.0,
-                      color: Colors.black.withOpacity(0.2),
-                      offset: const Offset(1, 1),
+                      color: AppColors.shadow,
+                      offset: Offset(1, 1),
                     ),
                   ]
                   : null,
@@ -85,7 +85,7 @@ class TextWidget extends StatelessWidget {
       );
     }
 
-    /// 🎯 Map [TextType] to base styles from the current [TextTheme]
+    /// 🌟 Map [TextType] to base styles from the current [TextTheme]
     switch (textType) {
       case TextType.displayLarge:
         return buildText(textTheme.displayLarge);
@@ -121,13 +121,13 @@ class TextWidget extends StatelessWidget {
         return buildText(textTheme.labelLarge);
       case TextType.error:
         final errorStyle = textTheme.bodyLarge ?? const TextStyle();
-        return buildText(errorStyle.copyWith(color: AppConstants.errorColor));
+        return buildText(errorStyle.copyWith(color: AppColors.forErrors));
       case TextType.caption:
         return buildText(
           textTheme.bodySmall?.copyWith(
             fontSize: 12,
             fontWeight: FontWeight.w400,
-            color: Colors.grey.shade600,
+            color: AppColors.caption,
           ),
         );
       default:
@@ -136,7 +136,7 @@ class TextWidget extends StatelessWidget {
   }
 }
 
-/// 🧩 Enum for text style presets used by [TextWidget]
+/// 🧹 Enum for text style presets used by [TextWidget]
 enum TextType {
   displayLarge,
   displayMedium,
@@ -156,4 +156,38 @@ enum TextType {
   button,
   error,
   caption,
+}
+
+/// 📜 Extension for fast TextWidget creation from string
+extension TextTypeX on String {
+  Widget styled(
+    TextType type, {
+    Color? color,
+    TextAlign? align,
+    FontWeight? weight,
+    double? size,
+    double? spacing,
+    double? height,
+    TextOverflow? overflow,
+    int? maxLines,
+    bool shadow = false,
+    bool? multiline,
+    bool? underline,
+  }) {
+    return TextWidget(
+      this,
+      type,
+      color: color,
+      alignment: align,
+      fontWeight: weight,
+      fontSize: size,
+      letterSpacing: spacing,
+      height: height,
+      overflow: overflow,
+      maxLines: maxLines,
+      enableShadow: shadow,
+      isTextOnFewStrings: multiline,
+      isUnderlined: underline,
+    );
+  }
 }

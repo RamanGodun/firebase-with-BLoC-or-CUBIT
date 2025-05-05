@@ -7,10 +7,10 @@ import 'package:path_provider/path_provider.dart';
 import '../env.dart';
 import '../observer/app_bloc_observer.dart';
 
-/// 🧰 Bootstrap: Loads .env, initializes Firebase, HydratedBloc, BLoC observer.
+/// 🔧 bootstrap.dart — Environment & Firebase & Storage setup
 
 Future<void> bootstrapApp() async {
-  /// 📦 Load .env config file depending on current environment
+  /// 📄 Load environment-specific .env config
   final envFileName = switch (EnvConfig.currentEnv) {
     Environment.dev => '.env.dev',
     Environment.staging => '.env.staging',
@@ -19,13 +19,13 @@ Future<void> bootstrapApp() async {
   await dotenv.load(fileName: envFileName);
   debugPrint('✅ Loaded env file: $envFileName');
 
-  /// 👁️ Setup global observer for BLoC events/transitions
+  /// 👁️ Bloc event logger
   Bloc.observer = const AppBlocObserver();
 
   /// 🔥 Initialize Firebase
   await Firebase.initializeApp();
 
-  /// 💾 Initialize HydratedBloc storage for state persistence
+  /// 💾 State persistence setup (HydratedBloc)
   final hydratedStorage = await HydratedStorage.build(
     storageDirectory:
         kIsWeb

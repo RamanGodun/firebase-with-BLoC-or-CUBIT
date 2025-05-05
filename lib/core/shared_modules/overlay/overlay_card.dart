@@ -24,12 +24,12 @@ class OverlayCard extends StatelessWidget {
         color: backgroundColor,
         borderRadius: BorderRadius.circular(9),
         border: Border.all(color: borderColor, width: 1.5),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: Colors.black.withOpacity(0.3),
+            color: AppColors.shadow,
             blurRadius: 12,
             spreadRadius: 1,
-            offset: const Offset(0, 4),
+            offset: Offset(0, 4),
           ),
         ],
       ),

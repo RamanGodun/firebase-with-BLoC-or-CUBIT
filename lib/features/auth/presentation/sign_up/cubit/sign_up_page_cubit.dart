@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 
+import '../../../../../core/shared_modules/form_fields/validation/password_confirm.dart';
 import '../../../../../core/shared_modules/form_fields/validation/password_input.dart';
 import '../../../services/sign_up_service.dart';
 import '../../../../../core/utils/debouncer.dart';
@@ -11,7 +12,6 @@ import '../../../../../core/shared_modules/errors_handling/failure.dart';
 import '../../../../../core/shared_modules/form_fields/extensions/formz_status_x.dart';
 import '../../../../../core/shared_modules/form_fields/validation/email_input.dart';
 import '../../../../../core/shared_modules/form_fields/validation/name_input.dart';
-import '../../../../../core/shared_modules/form_fields/validation/confirm_password.dart';
 
 part 'sign_up_page_state.dart';
 
@@ -26,7 +26,12 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   /// 👤 Name change handler (with debounce)
   void onNameChanged(String value) {
-    _debouncer.run(() => _updateName(NameInput.dirty(value)));
+    _debouncer.run(() {
+      final trimmed = value.trim();
+      final input =
+          trimmed.isEmpty ? const NameInput.pure() : NameInput.dirty(trimmed);
+      _updateName(input);
+    });
   }
 
   /// 📧 Email change handler (with debounce)
@@ -90,10 +95,13 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   void _updatePassword(PasswordInput password) {
-    final confirm = ConfirmPasswordInput.dirty(
-      password: password.value,
-      value: state.confirmPassword.value,
-    );
+    final confirm =
+        state.confirmPassword.value.isEmpty
+            ? ConfirmPasswordInput.pure(password: password.value)
+            : ConfirmPasswordInput.dirty(
+              password: password.value,
+              value: state.confirmPassword.value,
+            );
 
     emit(
       state.copyWith(
