@@ -1,5 +1,6 @@
+import 'package:flutter/foundation.dart';
 import '../../../../features/auth/presentation/auth_bloc/auth_bloc.dart';
-import '../_imports_for_router.dart';
+import '../_imports_for_router.dart'; // для kDebugMode
 
 /// 🔁 Handles auth-aware redirect logic for GoRouter
 String? handleAuthRedirect({
@@ -19,10 +20,36 @@ String? handleAuthRedirect({
     '/${RoutesNames.resetPassword}',
   ].contains(currentPath);
 
-  if (isUnknown) return isSplash ? null : '/${RoutesNames.splash}';
-  if (isUnauthenticated) return isOnAuthPage ? null : '/${RoutesNames.signIn}';
+  if (isUnknown) {
+    final target = isSplash ? null : '/${RoutesNames.splash}';
+    if (kDebugMode) {
+      debugPrint('[🔁 Redirect] $currentPath → $target (authStatus: unknown)');
+    }
+    return target;
+  }
+
+  if (isUnauthenticated) {
+    final target = isOnAuthPage ? null : '/${RoutesNames.signIn}';
+    if (kDebugMode) {
+      debugPrint(
+        '[🔁 Redirect] $currentPath → $target (authStatus: unauthenticated)',
+      );
+    }
+    return target;
+  }
+
   if (isAuthenticated && (isSplash || isOnAuthPage)) {
-    return '/${RoutesNames.home}';
+    const target = '/${RoutesNames.home}';
+    if (kDebugMode) {
+      debugPrint(
+        '[🔁 Redirect] $currentPath → $target (authStatus: authenticated)',
+      );
+    }
+    return target;
+  }
+
+  if (kDebugMode) {
+    debugPrint('[✅ No redirect] $currentPath (authStatus: $status)');
   }
 
   return null;

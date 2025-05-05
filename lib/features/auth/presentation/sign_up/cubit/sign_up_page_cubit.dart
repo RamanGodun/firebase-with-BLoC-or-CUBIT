@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import '../../../../../core/utils/debouncer.dart';
 import '../../../../../core/shared_modules/errors_handling/failure.dart';
@@ -20,7 +20,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   final SignUpUseCase signUpUseCase;
   final _debouncer = Debouncer(const Duration(milliseconds: 300));
 
-SignUpCubit({required this.signUpUseCase}) : super(const SignUpState());
+  SignUpCubit({required this.signUpUseCase}) : super(const SignUpState());
 
   void onNameChanged(String value) {
     _debouncer.run(() {

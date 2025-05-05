@@ -23,11 +23,13 @@ final di = GetIt.instance;
 /// 🧱 Registers all app-level dependencies via GetIt
 Future<void> initDIContainer() async {
   di
+    ///
     // 🔗 Firebase core services
     ..registerLazySingletonIfAbsent<FirebaseAuth>(() => FirebaseAuth.instance)
     ..registerLazySingletonIfAbsent<FirebaseFirestore>(
       () => FirebaseFirestore.instance,
     )
+    ///
     // 📡 Remote data sources
     ..registerLazySingleton<AuthRemoteDataSource>(
       () =>
@@ -36,6 +38,7 @@ Future<void> initDIContainer() async {
     ..registerLazySingleton<ProfileRemoteDataSource>(
       () => ProfileRemoteDataSourceImpl(di<FirebaseFirestore>()),
     )
+    ///
     // 📦 Repository implementations
     ..registerLazySingleton<AuthRepo>(
       () => AuthRepositoryImpl(di<AuthRemoteDataSource>()),
@@ -43,6 +46,7 @@ Future<void> initDIContainer() async {
     ..registerLazySingleton<ProfileRepository>(
       () => ProfileRepositoryImpl(di<ProfileRemoteDataSource>()),
     )
+    ///
     // 🧠 Use cases (business logic)
     ..registerLazySingleton(() => SignInUseCase(di<AuthRepo>()))
     ..registerLazySingleton(() => SignUpUseCase(di<AuthRepo>()))
@@ -51,6 +55,7 @@ Future<void> initDIContainer() async {
       () => EnsureUserProfileCreatedUseCase(di<AuthRepo>()),
     )
     ..registerLazySingleton(() => LoadProfileUseCase(di<ProfileRepository>()))
+    ///
     // 📊 Blocs / Cubits
     ..registerLazySingleton<AuthBloc>(
       () => AuthBloc(
