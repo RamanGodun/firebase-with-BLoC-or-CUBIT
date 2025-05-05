@@ -41,6 +41,11 @@ class SignInCubit extends Cubit<SignInPageState> {
     );
   }
 
+  /// 👁️ Toggles password visibility
+  void togglePasswordVisibility() {
+    emit(state.copyWith(isPasswordObscure: !state.isPasswordObscure));
+  }
+
   /// 🚀 Triggers async sign-in via [SignInService]
   Future<void> submit() async {
     if (!state.isValid || isClosed) return;

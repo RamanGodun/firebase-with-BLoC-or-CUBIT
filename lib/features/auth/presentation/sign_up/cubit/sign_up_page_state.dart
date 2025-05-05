@@ -21,7 +21,6 @@ class SignUpState extends Equatable {
     this.status = FormzSubmissionStatus.initial,
     this.isValid = false,
     this.failure,
-    //
     this.isPasswordObscure = true,
     this.isConfirmPasswordObscure = true,
   });
@@ -35,7 +34,6 @@ class SignUpState extends Equatable {
     FormzSubmissionStatus? status,
     bool? isValid,
     Failure? failure,
-    //
     bool? isPasswordObscure,
     bool? isConfirmPasswordObscure,
   }) {
@@ -47,7 +45,6 @@ class SignUpState extends Equatable {
       status: status ?? this.status,
       isValid: isValid ?? this.isValid,
       failure: failure,
-      //
       isPasswordObscure: isPasswordObscure ?? this.isPasswordObscure,
       isConfirmPasswordObscure:
           isConfirmPasswordObscure ?? this.isConfirmPasswordObscure,

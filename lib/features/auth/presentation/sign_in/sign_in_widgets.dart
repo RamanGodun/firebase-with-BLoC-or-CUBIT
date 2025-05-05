@@ -24,7 +24,7 @@ class _EmailField extends StatelessWidget {
   }
 }
 
-/// 🔒 [_PasswordField] — Rebuilds only when password state changes
+/// 🔒 [_PasswordField] — Rebuilds only when password or obscure state changes
 class _PasswordField extends StatelessWidget {
   final FocusNode focusNode;
 
@@ -32,13 +32,28 @@ class _PasswordField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<SignInCubit, SignInPageState, String?>(
-      selector: (state) => state.password.uiError,
-      builder: (context, errorText) {
+    return BlocSelector<
+      SignInCubit,
+      SignInPageState,
+      ({String? errorText, bool isObscure})
+    >(
+      selector:
+          (state) => (
+            errorText: state.password.uiError,
+            isObscure: state.isPasswordObscure,
+          ),
+      builder: (context, field) {
+        final (errorText: errorText, isObscure: isObscure) = field;
+
         return InputFieldFactory.create(
           type: InputFieldType.password,
           focusNode: focusNode,
           errorText: errorText,
+          isObscure: isObscure,
+          suffixIcon: ObscureToggleIcon(
+            isObscure: isObscure,
+            onPressed: context.read<SignInCubit>().togglePasswordVisibility,
+          ),
           onChanged: context.read<SignInCubit>().passwordChanged,
           onSubmitted: () => context.read<SignInCubit>().submit(),
         );

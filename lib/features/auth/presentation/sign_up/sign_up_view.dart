@@ -30,55 +30,53 @@ class SignUpView extends HookWidget {
       body: SafeArea(
         child: GestureDetector(
           onTap: context.unfocusKeyboard,
-          child: Center(
-            child: FocusTraversalGroup(
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  /// 🔰 Logo
-                  const Hero(
-                    tag: 'Logo',
-                    child: Image(
-                      image: AssetImage('assets/images/flutter_logo.png'),
-                      height: 150,
-                    ),
+          child: FocusTraversalGroup(
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                /// 🔰 Logo
+                const Hero(
+                  tag: 'Logo',
+                  child: Image(
+                    image: AssetImage('assets/images/flutter_logo.png'),
+                    height: 150,
                   ),
-                  const SizedBox(height: AppSpacing.l),
+                ),
+                const SizedBox(height: AppSpacing.l),
 
-                  /// 👤 Name
-                  _NameField(
-                    focusNode: focusNodes.name,
-                    nextFocusNode: focusNodes.email,
-                  ),
-                  const SizedBox(height: AppSpacing.l),
+                /// 👤 Name
+                _NameField(
+                  focusNode: focusNodes.name,
+                  nextFocusNode: focusNodes.email,
+                ),
+                const SizedBox(height: AppSpacing.l),
 
-                  /// 📧 Email
-                  _EmailField(
-                    focusNode: focusNodes.email,
-                    nextFocusNode: focusNodes.password,
-                  ),
-                  const SizedBox(height: AppSpacing.l),
+                /// 📧 Email
+                _EmailField(
+                  focusNode: focusNodes.email,
+                  nextFocusNode: focusNodes.password,
+                ),
+                const SizedBox(height: AppSpacing.l),
 
-                  /// 🔒 Password
-                  _PasswordField(
-                    focusNode: focusNodes.password,
-                    nextFocusNode: focusNodes.confirmPassword,
-                  ),
-                  const SizedBox(height: AppSpacing.l),
+                /// 🔒 Password
+                _PasswordField(
+                  focusNode: focusNodes.password,
+                  nextFocusNode: focusNodes.confirmPassword,
+                ),
+                const SizedBox(height: AppSpacing.l),
 
-                  /// 🔐 Confirm Password
-                  _ConfirmPasswordField(focusNode: focusNodes.confirmPassword),
-                  const SizedBox(height: AppSpacing.xxxl),
+                /// 🔐 Confirm Password
+                _ConfirmPasswordField(focusNode: focusNodes.confirmPassword),
+                const SizedBox(height: AppSpacing.xxxl),
 
-                  /// 🚀 Submit button
-                  const _SubmitButton(),
-                  const SizedBox(height: AppSpacing.s),
+                /// 🚀 Submit button
+                const _SubmitButton(),
+                const SizedBox(height: AppSpacing.s),
 
-                  /// 🔁 Redirect text button
-                  const _RedirectToSignInButton(),
-                ],
-              ).withPaddingHorizontal(AppSpacing.l),
-            ),
+                /// 🔁 Redirect text button
+                const _RedirectToSignInButton(),
+              ],
+            ).centered().withPaddingHorizontal(AppSpacing.l),
           ),
         ),
       ),
