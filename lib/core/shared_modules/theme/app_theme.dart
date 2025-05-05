@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../presentation/constants/_app_constants.dart';
+import '../../constants/_app_constants.dart';
 import 'text_styles.dart';
 import 'enums_for_theme.dart';
 

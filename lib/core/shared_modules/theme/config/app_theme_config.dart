@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../presentation/constants/app_strings.dart';
+import '../../../constants/app_strings.dart';
 import 'app_material_theme.dart';
 import '../app_theme.dart';
 import '../theme_cubit/theme_cubit.dart';

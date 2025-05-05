@@ -2,14 +2,14 @@ part of 'sign_in_page_cubit.dart';
 
 /// 📄 [SignInPageState] — Stores form field values and state.
 class SignInPageState extends Equatable {
-  final EmailInput email;
+  final EmailInputValidation email;
   final PasswordInput password;
   final FormzSubmissionStatus status;
   final bool isValid;
   final Failure? failure; // 🔄 Замість CustomError
 
   const SignInPageState({
-    this.email = const EmailInput.pure(),
+    this.email = const EmailInputValidation.pure(),
     this.password = const PasswordInput.pure(),
     this.status = FormzSubmissionStatus.initial,
     this.isValid = false,
@@ -17,7 +17,7 @@ class SignInPageState extends Equatable {
   });
 
   SignInPageState copyWith({
-    EmailInput? email,
+    EmailInputValidation? email,
     PasswordInput? password,
     FormzSubmissionStatus? status,
     bool? isValid,

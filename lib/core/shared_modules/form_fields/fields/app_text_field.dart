@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
-/// 🧱 [AppTextField] — Універсальне текстове поле з підтримкою:
-/// - іконки
-/// - валідації
-/// - сабміту
-/// - керування фокусом
+/// 🧱 [AppTextField] — Reusable, styled text input field used across the app.
+/// Supports:
+/// - label & prefix icon
+/// - error display
+/// - focus control
+/// - submit action
+/// - obscured (e.g. password) mode
+//-------------------------------------------------------------------------
+
 class AppTextField extends StatelessWidget {
   final Key? fieldKey;
   final FocusNode focusNode;
@@ -16,6 +20,7 @@ class AppTextField extends StatelessWidget {
   final void Function(String) onChanged;
   final VoidCallback? onSubmitted;
 
+  ///
   const AppTextField({
     this.fieldKey,
     required this.focusNode,
@@ -52,4 +57,6 @@ class AppTextField extends StatelessWidget {
       onSubmitted: (_) => onSubmitted?.call(),
     );
   }
+
+  ///
 }

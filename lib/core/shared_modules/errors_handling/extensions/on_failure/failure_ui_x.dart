@@ -1,15 +1,8 @@
-import '../failure.dart';
+part of '_failure_x_imports.dart';
 
-extension FailureLogger on Failure {
-  ///
-  void log() => logFailureToCrashlytics(this);
-  String get uiMessage => message.isNotEmpty ? message : 'Something went wrong';
-
-  ///
-}
-
+/// 🧾 [FailureUI] — provides structured, detailed error formatting for diagnostics/UI.
 extension FailureUI on Failure {
-  ///
+  /// Returns a formatted string with extra debug details for complex errors.
   String get formattedMessage {
     if (this is GenericFailure) {
       final error = (this as GenericFailure).error;
@@ -20,4 +13,6 @@ extension FailureUI on Failure {
     }
     return message;
   }
+
+  ///
 }

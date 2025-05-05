@@ -3,15 +3,11 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-
-import '../../../../../core/shared_modules/form_fields/validation/password_confirm.dart';
-import '../../../../../core/shared_modules/form_fields/validation/password_input.dart';
+import '../../../../../core/shared_modules/form_fields/validation/_inputs_validation.dart';
 import '../../../services/sign_up_service.dart';
 import '../../../../../core/utils/debouncer.dart';
 import '../../../../../core/shared_modules/errors_handling/failure.dart';
 import '../../../../../core/shared_modules/form_fields/extensions/formz_status_x.dart';
-import '../../../../../core/shared_modules/form_fields/validation/email_input.dart';
-import '../../../../../core/shared_modules/form_fields/validation/name_input.dart';
 
 part 'sign_up_page_state.dart';
 
@@ -28,14 +24,14 @@ class SignUpCubit extends Cubit<SignUpState> {
   void onNameChanged(String value) {
     _debouncer.run(() {
       final trimmed = value.trim();
-      final input = NameInput.dirty(trimmed);
+      final input = NameInputValidation.dirty(trimmed);
       _updateName(input);
     });
   }
 
   /// 📧 Email change handler (with debounce)
   void onEmailChanged(String value) {
-    _debouncer.run(() => _updateEmail(EmailInput.dirty(value)));
+    _debouncer.run(() => _updateEmail(EmailInputValidation.dirty(value)));
   }
 
   /// 🔒 Password change
@@ -85,11 +81,11 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   /// Private methods are next:
   //
-  void _updateEmail(EmailInput email) {
+  void _updateEmail(EmailInputValidation email) {
     emit(state.copyWith(email: email, isValid: _validateForm(email: email)));
   }
 
-  void _updateName(NameInput name) {
+  void _updateName(NameInputValidation name) {
     emit(state.copyWith(name: name, isValid: _validateForm(name: name)));
   }
 
@@ -117,8 +113,8 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   bool _validateForm({
-    NameInput? name,
-    EmailInput? email,
+    NameInputValidation? name,
+    EmailInputValidation? email,
     PasswordInput? password,
     ConfirmPasswordInput? confirmPassword,
   }) {

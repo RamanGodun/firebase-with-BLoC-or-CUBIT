@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
-
-import '../../../presentation/constants/_app_constants.dart';
-import '../../../presentation/constants/app_strings.dart';
+import '../../../constants/_app_constants.dart';
+import '../../../constants/app_strings.dart';
+import 'app_keys.dart';
 import 'app_text_field.dart';
 
-/// 🔠 Supported input types
-enum InputFieldType { name, email, password, confirmPassword }
+/// 🔠 Supported input types for signup & login forms
+enum InputFieldType {
+  // 👤 User's display name. Used for user registration.
+  name,
+  // 📧 Email address. Used for login and registration.
+  email,
+  // 🔒 Account password. Used in login, signup, and change-password.
+  password,
+  // 🔒🔁 Password confirmation. Used in signup and password reset.
+  confirmPassword,
+}
 
-/// 🏗️ Factory for creating consistent input fields across forms
-class InputFieldFactory {
+//---------------------------------------------------------------------------------------
+
+/// 🏗️ Factory method that returns a themed [AppTextField], based on the [InputFieldType].
+/// Ensures consistent look & feel across forms (SignUp/Login).
+abstract class InputFieldFactory {
   static Widget create({
     required InputFieldType type,
     required FocusNode focusNode,
@@ -16,9 +28,11 @@ class InputFieldFactory {
     required void Function(String) onChanged,
     VoidCallback? onSubmitted,
   }) {
+    ///
     return switch (type) {
+      ///
       InputFieldType.name => AppTextField(
-        key: const ValueKey('signup_name_field'),
+        key: AppKeys.nameField,
         focusNode: focusNode,
         label: AppStrings.name,
         icon: AppIcons.name,
@@ -28,8 +42,10 @@ class InputFieldFactory {
         onChanged: onChanged,
         onSubmitted: onSubmitted,
       ),
+
+      ///
       InputFieldType.email => AppTextField(
-        key: const ValueKey('signup_email_field'),
+        key: AppKeys.emailField,
         focusNode: focusNode,
         label: AppStrings.email,
         icon: AppIcons.email,
@@ -39,8 +55,10 @@ class InputFieldFactory {
         onChanged: onChanged,
         onSubmitted: onSubmitted,
       ),
+
+      ///
       InputFieldType.password => AppTextField(
-        key: const ValueKey('signup_password_field'),
+        key: AppKeys.passwordField,
         focusNode: focusNode,
         label: AppStrings.password,
         icon: AppIcons.password,
@@ -49,8 +67,10 @@ class InputFieldFactory {
         onChanged: onChanged,
         onSubmitted: onSubmitted,
       ),
+
+      ///
       InputFieldType.confirmPassword => AppTextField(
-        key: const ValueKey('signup_confirm_password_field'),
+        key: AppKeys.confirmPasswordField,
         focusNode: focusNode,
         label: AppStrings.confirmPassword,
         icon: AppIcons.confirmPassword,
@@ -59,6 +79,8 @@ class InputFieldFactory {
         onChanged: onChanged,
         onSubmitted: onSubmitted,
       ),
+
+      ///
     };
   }
 }

@@ -32,7 +32,7 @@ class _EmailField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocSelector<SignUpCubit, SignUpState, String?>(
-      selector: (state) => state.email.displayError,
+      selector: (state) => state.email.uiError,
       builder: (context, errorText) {
         return InputFieldFactory.create(
           type: InputFieldType.email,
@@ -55,7 +55,7 @@ class _PasswordField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocSelector<SignUpCubit, SignUpState, String?>(
-      selector: (state) => state.password.displayError,
+      selector: (state) => state.password.uiError,
       builder: (context, errorText) {
         return InputFieldFactory.create(
           type: InputFieldType.password,

@@ -4,9 +4,8 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extens
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import '../../../../core/presentation/constants/_app_constants.dart'
-    show AppSpacing;
-import '../../../../core/presentation/constants/app_strings.dart';
+import '../../../../core/constants/_app_constants.dart' show AppSpacing;
+import '../../../../core/constants/app_strings.dart';
 import '../../../../core/shared_modules/form_fields/fields/button_for_forms.dart';
 import '../../../../core/presentation/shared_widgets/text_button.dart';
 import '../../../../core/shared_modules/form_fields/fields/use_auth_focus_nodes.dart';
@@ -75,7 +74,7 @@ class SignUpView extends HookWidget {
                   /// 🔁 Redirect text button
                   const _RedirectToSignInButton(),
                 ],
-              ).withPaddingHorizontal(AppSpacing.xl),
+              ).withPaddingHorizontal(AppSpacing.l),
             ),
           ),
         ),

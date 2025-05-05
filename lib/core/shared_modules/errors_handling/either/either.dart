@@ -1,3 +1,6 @@
+// 📦 core/shared_modules/errors_handling/either/either.dart
+
+/// 🎯 [Either] — functional programming construct representing a value that can be [Left] (failure) or [Right] (success).
 sealed class Either<L, R> {
   const Either();
 
@@ -9,10 +12,11 @@ sealed class Either<L, R> {
     Right(:final value) => rightOp(value),
   };
 
-  Either<L2, R2> map<L2, R2>(L2 Function(L l) mapL, R2 Function(R r) mapR) => switch (this) {
-    Left(:final value) => Left(mapL(value)),
-    Right(:final value) => Right(mapR(value)),
-  };
+  Either<L2, R2> map<L2, R2>(L2 Function(L l) mapL, R2 Function(R r) mapR) =>
+      switch (this) {
+        Left(:final value) => Left(mapL(value)),
+        Right(:final value) => Right(mapR(value)),
+      };
 
   Either<L, R2> mapRight<R2>(R2 Function(R r) mapR) => switch (this) {
     Left(:final value) => Left(value),
@@ -30,25 +34,16 @@ sealed class Either<L, R> {
   };
 }
 
+/// 📦 [Left] — wrapper for failure value in [Either]
 final class Left<L, R> extends Either<L, R> {
   const Left(this.value);
   final L value;
 }
 
+/// 📦 [Right] — wrapper for success value in [Either]
 final class Right<L, R> extends Either<L, R> {
   const Right(this.value);
   final R value;
 }
 
-/// ✅ Getters для зручного доступу в тестах
-extension EitherGetters<L, R> on Either<L, R> {
-  L? get leftOrNull => switch (this) {
-    Left(:final value) => value,
-    Right() => null,
-  };
 
-  R? get rightOrNull => switch (this) {
-    Right(:final value) => value as R?,
-    Left() => null,
-  };
-}

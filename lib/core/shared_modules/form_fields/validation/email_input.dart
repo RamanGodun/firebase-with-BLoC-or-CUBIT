@@ -1,19 +1,27 @@
-import 'package:formz/formz.dart';
-import 'package:validators/validators.dart';
+part of '_inputs_validation.dart';
 
-/// 📧 [EmailInput] — Validates email format & presence
-class EmailInput extends FormzInput<String, String> {
-  const EmailInput.pure() : super.pure('');
-  const EmailInput.dirty([super.value = '']) : super.dirty();
+/// 📧 [EmailInputValidation] — Formz input for validating user email.
+/// Checks for non-empty input and valid email format.
+//--------------------------------------------------------------------------------
+class EmailInputValidation extends FormzInput<String, EmailValidationError> {
+  const EmailInputValidation.pure() : super.pure('');
+  const EmailInputValidation.dirty([super.value = '']) : super.dirty();
 
   @override
-  String? validator(String value) {
-    if (value.trim().isEmpty) return 'Email is required';
-    if (!isEmail(value.trim())) return 'Invalid email';
+  EmailValidationError? validator(String value) {
+    final trimmed = value.trim();
+    if (trimmed.isEmpty) return EmailValidationError.empty;
+    if (!isEmail(trimmed)) return EmailValidationError.invalid;
     return null;
   }
 
-  /// 🧠 Converts raw error to displayable string
-  @override
-  String? get displayError => isPure || isValid ? null : error;
+  /// 🧼 [errorText] — Converts enum error to a human-readable message
+  String? get errorText => switch (error) {
+    EmailValidationError.empty => 'Email is required',
+    EmailValidationError.invalid => 'Invalid email address',
+    _ => null,
+  };
+
+  /// 🔁 [uiError] — Used by widgets to show validation message or nothing
+  String? get uiError => isPure || isValid ? null : errorText;
 }

@@ -1,12 +1,12 @@
-import 'package:formz/formz.dart' show FormzInput;
+part of '_inputs_validation.dart';
 
-/// 🔠 Validation errors for [NameInput]
-enum NameValidationError { empty, tooShort }
+/// 👤 [NameInputValidation] — Formz input for validating user's full name.
+/// Ensures non-empty input and minimum character length.
+//-------------------------------------------------------------------------
 
-/// 👤 [NameInput] — Validates full name for presence and length
-class NameInput extends FormzInput<String, NameValidationError> {
-  const NameInput.pure() : super.pure('');
-  const NameInput.dirty([super.value = '']) : super.dirty();
+class NameInputValidation extends FormzInput<String, NameValidationError> {
+  const NameInputValidation.pure() : super.pure('');
+  const NameInputValidation.dirty([super.value = '']) : super.dirty();
 
   @override
   NameValidationError? validator(String value) {
@@ -16,15 +16,13 @@ class NameInput extends FormzInput<String, NameValidationError> {
     return null;
   }
 
-  /// 🧠 Converts enum to string message
+  /// 🧼 [errorText] — Converts enum error to user-friendly message
   String? get errorText => switch (error) {
     NameValidationError.empty => 'Name is required',
     NameValidationError.tooShort => 'Name must be at least 2 characters',
     _ => null,
   };
 
-  ///
+  /// 🔁 [uiError] — Used by widgets to show validation message or nothing
   String? get uiError => isPure || isValid ? null : errorText;
-
-  ///
 }

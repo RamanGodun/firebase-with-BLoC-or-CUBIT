@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../presentation/constants/_app_constants.dart';
+import '../../constants/_app_constants.dart';
 import 'text_styles.dart';
 
 /// 🧩 Theme types — Enhanced Enum with behavior

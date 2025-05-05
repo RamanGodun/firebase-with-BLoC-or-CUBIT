@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import '../../../core/shared_modules/errors_handling/either/either.dart';
-import '../../../core/shared_modules/errors_handling/handle_exception.dart';
+import '../../../core/shared_modules/errors_handling/handlers/handle_exception.dart';
 import '../../../core/utils/typedef.dart';
 import '../../shared/shared_data/shared_sources/remote/data_source_constants.dart';
 import '../../shared/shared_data/shared_data_transfer_objects/user_dto.dart';

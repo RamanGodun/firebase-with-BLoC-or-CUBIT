@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kDebugMode, debugPrint;
-import 'custom_error.dart';
-import 'failure.dart';
+import '../custom_error.dart';
+import '../failure.dart';
 
-/// 🛡️ [handleException] — universal exception mapper
-/// 🧼 Converts any caught [Exception] into a domain-specific [Failure]
-//----------------------------------------------------------------//
+/// 🛡️ [handleException] — Maps any [Exception] or unknown error into a domain-level [Failure].
+/// Used to unify error handling across Data, Domain, and Presentation layers.
 Failure handleException(dynamic error) {
   _logError(error);
 
@@ -45,10 +44,11 @@ Failure handleException(dynamic error) {
   };
 }
 
-/// 🧼 [_logError] — logs error details only in debug mode
-//----------------------------------------------------------------//
+/// 🐞 [_logError] — Logs error details in debug mode for diagnostics.
+/// (e.g., caught exceptions before mapping them to [Failure])
 void _logError(dynamic error) {
   if (kDebugMode) {
-    debugPrint('[ERROR] ${error.runtimeType}: $error');
+    final prefix = error is Failure ? '[FAILURE]' : '[UNHANDLED]';
+    debugPrint('$prefix ${error.runtimeType}: $error');
   }
 }

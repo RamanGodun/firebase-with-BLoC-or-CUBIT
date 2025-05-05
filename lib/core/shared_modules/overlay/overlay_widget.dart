@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
 import '../../presentation/shared_widgets/text_widget.dart';
-import '../../presentation/constants/_app_constants.dart';
+import '../../constants/_app_constants.dart';
 
 part 'overlay_card.dart';
 

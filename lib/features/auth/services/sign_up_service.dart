@@ -1,5 +1,5 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either/either.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/extensions/failure_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/extensions/on_either/_either_x_imports.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/extensions/on_failure/_failure_x_imports.dart';
 import '../domain/use_cases/sign_up.dart';
 import '../../../core/utils/typedef.dart';
 

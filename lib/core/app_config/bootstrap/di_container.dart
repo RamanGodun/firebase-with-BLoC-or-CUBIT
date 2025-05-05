@@ -18,6 +18,7 @@ import '../../../features/profile/data/_profile_repo_impl.dart';
 import '../../../features/profile/domain/profile_repository.dart';
 import '../../../features/profile/domain/load_profile_use_case.dart';
 
+import '../../services/show_dialog.dart';
 import '../../shared_modules/theme/theme_cubit/theme_cubit.dart';
 import '../../../core/utils/extensions/general_extensions/get_it_x.dart';
 
@@ -31,6 +32,11 @@ Future<void> initDIContainer() async {
     ..registerLazySingletonIfAbsent<FirebaseAuth>(() => FirebaseAuth.instance)
     ..registerLazySingletonIfAbsent<FirebaseFirestore>(
       () => FirebaseFirestore.instance,
+    )
+    ///
+    // 🚀 Services
+    ..registerLazySingletonIfAbsent<IShowDialog>(
+      () => const MaterialDialogService(),
     )
     ///
     // 📡 Remote data sources

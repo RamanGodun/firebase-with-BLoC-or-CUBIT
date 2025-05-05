@@ -1,7 +1,7 @@
-/// 🧩 [Unit] — represents "no meaningful value"
+/// 🧩 [Unit] — represents a void-like type in functional programming
 class Unit {
   const Unit();
 }
 
-/// Global instance
+/// Global constant instance of [Unit]
 const unit = Unit();

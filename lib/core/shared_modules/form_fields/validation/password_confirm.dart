@@ -1,9 +1,9 @@
-import 'package:formz/formz.dart' show FormzInput;
+part of '_inputs_validation.dart';
 
-/// 🔒 [ConfirmPasswordValidationError] — validation rules
-enum ConfirmPasswordValidationError { empty, mismatch }
+/// 🔐 [ConfirmPasswordInput] — Formz input that validates password confirmation.
+/// Ensures the value is non-empty and matches the original password.
+//-------------------------------------------------------------------------
 
-/// 🔐 [ConfirmPasswordInput] — Confirms password match
 class ConfirmPasswordInput
     extends FormzInput<String, ConfirmPasswordValidationError> {
   final String password;
@@ -20,19 +20,17 @@ class ConfirmPasswordInput
     return null;
   }
 
-  /// 🧠 User-friendly error string
+  /// 🧼 Converts enum error to a user-friendly message
   String? get errorText => switch (error) {
     ConfirmPasswordValidationError.empty => 'Confirmation required',
     ConfirmPasswordValidationError.mismatch => 'Passwords do not match',
     _ => null,
   };
 
-  /// 🔁 Create a copy with updated password reference
-  ConfirmPasswordInput updatePassword(String newPassword) =>
-      ConfirmPasswordInput.dirty(password: newPassword, value: value);
-
-  ///
+  /// 🔁 Used by widgets to show validation message or nothing
   String? get uiError => isPure || isValid ? null : errorText;
 
-  ///
+  /// 🧩 Create a copy with updated password reference
+  ConfirmPasswordInput updatePassword(String newPassword) =>
+      ConfirmPasswordInput.dirty(password: newPassword, value: value);
 }

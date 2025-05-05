@@ -1,9 +1,12 @@
 part of '../../../utils/extensions/context_extensions/_context_extensions.dart';
 
 /// 🧩 [ContextDialogX] — platform-aware dialog utilities for [BuildContext]
+/// ⚠️ Shows a native-style error dialog for [Failure]
+/// Automatically chooses platform-specific dialog: Cupertino / Material.
 //----------------------------------------------------------------//
 extension ContextDialogX on BuildContext {
-  /// ⚠️ Shows a native-style error dialog for any [Failure]
+  ///
+
   void showFailureDialog(
     Failure failure, {
     String? title,

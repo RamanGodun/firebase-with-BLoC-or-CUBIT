@@ -6,6 +6,7 @@ extension FormzStatusX on FormzSubmissionStatus {
   bool get isLoading => this == FormzSubmissionStatus.inProgress;
   bool get isSuccess => this == FormzSubmissionStatus.success;
   bool get isFailure => this == FormzSubmissionStatus.failure;
+  bool get isValidated => this == FormzSubmissionStatus.success;
 
   /// 🔄 Aliases for semantic usage
   bool get isSubmissionInProgress => isLoading;

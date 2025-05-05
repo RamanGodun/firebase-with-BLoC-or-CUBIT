@@ -2,8 +2,8 @@ part of 'sign_up_page_cubit.dart';
 
 /// 🧾 [SignUpState] — Holds all field values and form status for SignUpCubit.
 class SignUpState extends Equatable {
-  final NameInput name;
-  final EmailInput email;
+  final NameInputValidation name;
+  final EmailInputValidation email;
   final PasswordInput password;
   final ConfirmPasswordInput confirmPassword;
   final FormzSubmissionStatus status;
@@ -11,8 +11,8 @@ class SignUpState extends Equatable {
   final Failure? failure;
 
   const SignUpState({
-    this.name = const NameInput.pure(),
-    this.email = const EmailInput.pure(),
+    this.name = const NameInputValidation.pure(),
+    this.email = const EmailInputValidation.pure(),
     this.password = const PasswordInput.pure(),
     this.confirmPassword = const ConfirmPasswordInput.pure(),
     this.status = FormzSubmissionStatus.initial,
@@ -22,8 +22,8 @@ class SignUpState extends Equatable {
 
   /// Clones current state with optional overrides
   SignUpState copyWith({
-    NameInput? name,
-    EmailInput? email,
+    NameInputValidation? name,
+    EmailInputValidation? email,
     PasswordInput? password,
     ConfirmPasswordInput? confirmPassword,
     FormzSubmissionStatus? status,

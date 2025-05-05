@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
-/// 🔌 [ErrorPlugin] — source of the error (used for analytics, diagnostics)
-/// 🧼 Provides context for where the error originated
-//----------------------------------------------------------------//
+/// 🔌 [ErrorPlugin] — Identifies the source of a [CustomError].
+/// 🧭 Useful for analytics, diagnostics, and categorizing error origins.
+
 enum ErrorPlugin {
   httpClient,
   firebase,
@@ -19,9 +19,11 @@ enum ErrorPlugin {
   };
 }
 
-/// 🧩 [CustomError] — internal representation of platform or API errors
-/// 🧼 Safely carries error metadata across layers
-//----------------------------------------------------------------//
+//----------------------------------------------------------------------------------
+
+/// 💥 [CustomError] — Encapsulates platform, SDK, or domain-level error information.
+/// 🧼 Designed for safe transport of error data between layers (Data → Domain → UI).
+
 class CustomError extends Equatable {
   final String code;
   final String message;
@@ -33,12 +35,14 @@ class CustomError extends Equatable {
     required this.plugin,
   });
 
+  /// 🪙 Fallback for unmapped errors.
   factory CustomError.unknown([String? rawError]) => CustomError(
     code: 'UNKNOWN',
     message: rawError ?? 'An unknown error occurred',
     plugin: ErrorPlugin.unknown,
   );
 
+  ///
   CustomError copyWith({String? code, String? message, ErrorPlugin? plugin}) {
     return CustomError(
       code: code ?? this.code,
@@ -47,6 +51,9 @@ class CustomError extends Equatable {
     );
   }
 
+  ///
   @override
   List<Object?> get props => [code, message, plugin];
+
+  ///
 }
