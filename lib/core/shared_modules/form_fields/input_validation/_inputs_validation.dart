@@ -1,3 +1,11 @@
+import 'package:formz/formz.dart';
+import 'package:validators/validators.dart';
+
+part 'email_input.dart';
+part 'name_input.dart';
+part 'password__input.dart';
+part 'password_confirm.dart';
+
 /// 📧 [EmailValidationError] — Enum representing email-specific validation failures.
 enum EmailValidationError {
   /// 🔠 Email is empty

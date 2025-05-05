@@ -19,7 +19,6 @@ class AppTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final void Function(String) onChanged;
   final VoidCallback? onSubmitted;
-  final Widget? suffixIcon;
 
   ///
   const AppTextField({
@@ -33,7 +32,6 @@ class AppTextField extends StatelessWidget {
     required this.onChanged,
     this.onSubmitted,
     super.key,
-    this.suffixIcon,
   });
 
   @override
@@ -53,7 +51,6 @@ class AppTextField extends StatelessWidget {
         filled: true,
         labelText: label,
         prefixIcon: Icon(icon),
-        suffixIcon: suffixIcon,
         errorText: errorText,
       ),
       onChanged: onChanged,

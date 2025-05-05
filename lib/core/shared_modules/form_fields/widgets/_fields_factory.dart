@@ -27,10 +27,6 @@ abstract class InputFieldFactory {
     required String? errorText,
     required void Function(String) onChanged,
     VoidCallback? onSubmitted,
-    bool isObscure = false,
-    Widget? suffixIcon,
-
-    ///
   }) {
     ///
     return switch (type) {
@@ -66,8 +62,7 @@ abstract class InputFieldFactory {
         focusNode: focusNode,
         label: AppStrings.password,
         icon: AppIcons.password,
-        suffixIcon: suffixIcon,
-        obscure: isObscure,
+        obscure: true,
         errorText: errorText,
         onChanged: onChanged,
         onSubmitted: onSubmitted,
@@ -79,8 +74,7 @@ abstract class InputFieldFactory {
         focusNode: focusNode,
         label: AppStrings.confirmPassword,
         icon: AppIcons.confirmPassword,
-        suffixIcon: suffixIcon,
-        obscure: isObscure,
+        obscure: true,
         errorText: errorText,
         onChanged: onChanged,
         onSubmitted: onSubmitted,
