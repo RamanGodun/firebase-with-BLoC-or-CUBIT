@@ -1,9 +1,9 @@
-import '../../features/auth/domain/use_cases/ensure_profile_created.dart';
-import '../../features/auth/domain/use_cases/sign_in.dart';
-import '../shared_modules/errors_handling/either/either.dart';
-import '../shared_modules/errors_handling/failure.dart';
-import '../shared_modules/errors_handling/extensions/failure_x.dart';
-import '../utils/typedef.dart';
+import '../domain/use_cases/ensure_profile_created.dart';
+import '../domain/use_cases/sign_in.dart';
+import '../../../core/shared_modules/errors_handling/either/either.dart';
+import '../../../core/shared_modules/errors_handling/failure.dart';
+import '../../../core/shared_modules/errors_handling/extensions/failure_x.dart';
+import '../../../core/utils/typedef.dart';
 
 /// 🧩 [SignInService] — Handles sign in & ensures profile with logging
 /// 🧼 Encapsulates full Cubit submit() logic safely

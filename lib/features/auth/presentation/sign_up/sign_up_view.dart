@@ -99,8 +99,7 @@ class SignUpView extends HookWidget {
                             (val) => context
                                 .read<SignUpCubit>()
                                 .onConfirmPasswordChanged(val),
-                        onSubmitted:
-                            () => context.read<SignUpCubit>().submitForm(),
+                        onSubmitted: () => context.read<SignUpCubit>().submit(),
                       ),
                       const SizedBox(height: AppSpacing.xxxl),
 
@@ -133,6 +132,6 @@ class SignUpView extends HookWidget {
   /// 🔽 Handles form submission logic
   void _onSubmit(BuildContext context) {
     FocusScope.of(context).unfocus();
-    context.read<SignUpCubit>().submitForm();
+    context.read<SignUpCubit>().submit();
   }
 }
