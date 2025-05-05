@@ -1,4 +1,5 @@
-part of '_inputs_validation.dart';
+import 'package:formz/formz.dart';
+import '_enums.dart';
 
 /// 👤 [NameInputValidation] — Formz input for validating user's full name.
 /// Ensures non-empty input and minimum character length.

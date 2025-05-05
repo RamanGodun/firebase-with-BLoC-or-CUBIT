@@ -1,4 +1,6 @@
-part of '_inputs_validation.dart';
+import 'package:formz/formz.dart';
+import '_enums.dart';
+import 'package:validators/validators.dart';
 
 /// 📧 [EmailInputValidation] — Formz input for validating user email.
 /// Checks for non-empty input and valid email format.

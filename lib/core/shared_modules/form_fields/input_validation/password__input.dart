@@ -1,4 +1,6 @@
-part of '_inputs_validation.dart';
+import 'package:formz/formz.dart';
+
+import '_enums.dart';
 
 /// 🔒 [PasswordInput] — Validates presence and minimum password length.
 //-------------------------------------------------------------------------
