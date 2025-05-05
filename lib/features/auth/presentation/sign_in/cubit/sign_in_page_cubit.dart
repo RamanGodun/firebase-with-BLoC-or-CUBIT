@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import '../../../../../core/shared_modules/form_fields/validation/_inputs_validation.dart';
+import '../../../../../core/shared_modules/form_fields/input_validation/_inputs_validation.dart';
 import '../../../services/sign_in_service.dart';
 import '../../../../../core/utils/debouncer.dart';
 import '../../../../../core/shared_modules/errors_handling/failure.dart';

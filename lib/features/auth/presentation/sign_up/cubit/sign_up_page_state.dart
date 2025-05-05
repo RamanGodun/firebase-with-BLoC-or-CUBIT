@@ -9,6 +9,8 @@ class SignUpState extends Equatable {
   final FormzSubmissionStatus status;
   final bool isValid;
   final Failure? failure;
+  final bool isPasswordObscure;
+  final bool isConfirmPasswordObscure;
 
   const SignUpState({
     this.name = const NameInputValidation.pure(),
@@ -18,6 +20,8 @@ class SignUpState extends Equatable {
     this.status = FormzSubmissionStatus.initial,
     this.isValid = false,
     this.failure,
+    this.isPasswordObscure = true,
+    this.isConfirmPasswordObscure = true,
   });
 
   /// Clones current state with optional overrides
@@ -29,6 +33,8 @@ class SignUpState extends Equatable {
     FormzSubmissionStatus? status,
     bool? isValid,
     Failure? failure,
+    bool? isPasswordObscure,
+    bool? isConfirmPasswordObscure,
   }) {
     return SignUpState(
       name: name ?? this.name,
@@ -38,6 +44,9 @@ class SignUpState extends Equatable {
       status: status ?? this.status,
       isValid: isValid ?? this.isValid,
       failure: failure,
+      isPasswordObscure: isPasswordObscure ?? this.isPasswordObscure,
+      isConfirmPasswordObscure:
+          isConfirmPasswordObscure ?? this.isConfirmPasswordObscure,
     );
   }
 
@@ -50,5 +59,7 @@ class SignUpState extends Equatable {
     status,
     isValid,
     failure,
+    isPasswordObscure,
+    isConfirmPasswordObscure,
   ];
 }

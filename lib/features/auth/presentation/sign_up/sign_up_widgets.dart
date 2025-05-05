@@ -46,7 +46,7 @@ class _EmailField extends StatelessWidget {
   }
 }
 
-/// 🔒 Password field
+/// 🔒 Password field (Stateless, isolated rebuilds)
 class _PasswordField extends StatelessWidget {
   final FocusNode focusNode;
   final FocusNode nextFocusNode;
@@ -54,13 +54,24 @@ class _PasswordField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<SignUpCubit, SignUpState, String?>(
-      selector: (state) => state.password.uiError,
-      builder: (context, errorText) {
+    return BlocSelector<SignUpCubit, SignUpState, ObscurableFieldVM>(
+      selector:
+          (state) => ObscurableFieldVM(
+            errorText: state.password.uiError,
+            isObscure: state.isPasswordObscure,
+          ),
+      // selector: (state) => state.passwordVM,
+      builder: (context, vm) {
         return InputFieldFactory.create(
           type: InputFieldType.password,
           focusNode: focusNode,
-          errorText: errorText,
+          errorText: vm.errorText,
+          isObscure: vm.isObscure,
+          suffixIcon: ObscureToggleIcon(
+            selector: (s) => s.isPasswordObscure,
+            onPressed:
+                () => context.read<SignUpCubit>().togglePasswordVisibility(),
+          ),
           onChanged:
               (val) => context.read<SignUpCubit>().onPasswordChanged(val),
           onSubmitted: () => nextFocusNode.requestFocus(),
@@ -77,13 +88,27 @@ class _ConfirmPasswordField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<SignUpCubit, SignUpState, String?>(
-      selector: (state) => state.confirmPassword.uiError,
-      builder: (context, errorText) {
+    return BlocSelector<SignUpCubit, SignUpState, ObscurableFieldVM>(
+      selector:
+          (state) => ObscurableFieldVM(
+            errorText: state.confirmPassword.uiError,
+            isObscure: state.isConfirmPasswordObscure,
+          ),
+      // selector: (state) => state.confirmPasswordVM,
+      builder: (context, vm) {
         return InputFieldFactory.create(
           type: InputFieldType.confirmPassword,
           focusNode: focusNode,
-          errorText: errorText,
+          errorText: vm.errorText,
+          isObscure: vm.isObscure,
+          suffixIcon: ObscureToggleIcon(
+            selector: (s) => s.isConfirmPasswordObscure,
+            onPressed:
+                () =>
+                    context
+                        .read<SignUpCubit>()
+                        .toggleConfirmPasswordVisibility(),
+          ),
           onChanged:
               (val) =>
                   context.read<SignUpCubit>().onConfirmPasswordChanged(val),

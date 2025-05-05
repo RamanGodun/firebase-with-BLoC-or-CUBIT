@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../constants/_app_constants.dart';
 import '../../../constants/app_strings.dart';
-import 'app_keys.dart';
+import '../app_keys.dart';
 import 'app_text_field.dart';
 
 /// 🔠 Supported input types for signup & login forms
@@ -27,6 +27,10 @@ abstract class InputFieldFactory {
     required String? errorText,
     required void Function(String) onChanged,
     VoidCallback? onSubmitted,
+    bool isObscure = false,
+    Widget? suffixIcon,
+
+    ///
   }) {
     ///
     return switch (type) {
@@ -62,7 +66,8 @@ abstract class InputFieldFactory {
         focusNode: focusNode,
         label: AppStrings.password,
         icon: AppIcons.password,
-        obscure: true,
+        suffixIcon: suffixIcon,
+        obscure: isObscure,
         errorText: errorText,
         onChanged: onChanged,
         onSubmitted: onSubmitted,
@@ -74,7 +79,8 @@ abstract class InputFieldFactory {
         focusNode: focusNode,
         label: AppStrings.confirmPassword,
         icon: AppIcons.confirmPassword,
-        obscure: true,
+        suffixIcon: suffixIcon,
+        obscure: isObscure,
         errorText: errorText,
         onChanged: onChanged,
         onSubmitted: onSubmitted,
