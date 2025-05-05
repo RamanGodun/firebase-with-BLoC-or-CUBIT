@@ -1,11 +1,13 @@
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/form_fields/extensions/formz_status_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import '../../../utils/typedef.dart';
 import '../text_widget.dart';
 
-typedef SubmitCallback = void Function(BuildContext context);
+
 
 /// ✅[FormSubmitButton] a submit button, that reacts to form validation and shows loader animation
 class FormSubmitButton<Cubit extends StateStreamable<State>, State>
@@ -43,7 +45,9 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
           tag: 'submit',
           child: ElevatedButton(
             onPressed:
-                isValidated && !isLoading ? () => onSubmit(context) : null,
+                (status.canSubmit && isValidated)
+                    ? () => onSubmit(context)
+                    : null,
             style:
                 style ??
                 ElevatedButton.styleFrom(

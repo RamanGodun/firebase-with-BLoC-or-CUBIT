@@ -39,6 +39,4 @@ extension NavigationX on BuildContext {
   Future<T?> pushTo<T>(Widget child) {
     return Navigator.of(this).push<T>(MaterialPageRoute(builder: (_) => child));
   }
-
-  void unfocusKeyboard() => FocusScope.of(this).unfocus();
 }

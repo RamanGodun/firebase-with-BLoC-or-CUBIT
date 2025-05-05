@@ -1,5 +1,7 @@
 library;
 
+import 'package:flutter/material.dart';
+
 import '../shared_modules/errors_handling/either/either.dart';
 import '../shared_modules/errors_handling/either/unit.dart';
 import '../shared_modules/errors_handling/failure.dart';
@@ -10,3 +12,4 @@ typedef ResultFuture<T> = Future<Either<Failure, T>>;
 typedef DataMap = Map<String, dynamic>;
 typedef ResultVoid = ResultFuture<Unit>;
 typedef Result<T> = ResultHandler<T>;
+typedef SubmitCallback = void Function(BuildContext context);

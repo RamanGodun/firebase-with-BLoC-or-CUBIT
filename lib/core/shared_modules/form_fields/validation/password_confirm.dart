@@ -1,20 +1,14 @@
 import 'package:formz/formz.dart' show FormzInput;
 
-/// 🔒 Confirm password field validation errors
+/// 🔒 [ConfirmPasswordValidationError] — validation rules
 enum ConfirmPasswordValidationError { empty, mismatch }
 
-/// *🧾[ConfirmPasswordInput] — Validates the confirm password field, validation logic:
-///       - Must not be empty
-///       - Must match the provided password
-
+/// 🔐 [ConfirmPasswordInput] — Confirms password match
 class ConfirmPasswordInput
     extends FormzInput<String, ConfirmPasswordValidationError> {
   final String password;
 
-  /// 🔹 Pure constructor (no value entered yet)
   const ConfirmPasswordInput.pure({this.password = ''}) : super.pure('');
-
-  /// 🔹 Dirty constructor (value has changed)
   const ConfirmPasswordInput.dirty({required this.password, String value = ''})
     : super.dirty(value);
 
@@ -26,17 +20,14 @@ class ConfirmPasswordInput
     return null;
   }
 
-  /// 🧠 Converts enum error to user-friendly message
-  String? get errorText {
-    if (isPure || isValid) return null;
-    return switch (error) {
-      ConfirmPasswordValidationError.empty => 'Confirmation required',
-      ConfirmPasswordValidationError.mismatch => 'Passwords do not match',
-      _ => null,
-    };
-  }
+  /// 🧠 User-friendly error string
+  String? get errorText => switch (error) {
+    ConfirmPasswordValidationError.empty => 'Confirmation required',
+    ConfirmPasswordValidationError.mismatch => 'Passwords do not match',
+    _ => null,
+  };
 
-  /// 🔁 Returns a new [ConfirmPasswordInput] with updated password reference
+  /// 🔁 Create a copy with updated password reference
   ConfirmPasswordInput updatePassword(String newPassword) =>
       ConfirmPasswordInput.dirty(password: newPassword, value: value);
 }
