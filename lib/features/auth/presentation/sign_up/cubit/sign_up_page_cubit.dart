@@ -28,8 +28,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   void onNameChanged(String value) {
     _debouncer.run(() {
       final trimmed = value.trim();
-      final input =
-          trimmed.isEmpty ? const NameInput.pure() : NameInput.dirty(trimmed);
+      final input = NameInput.dirty(trimmed);
       _updateName(input);
     });
   }
@@ -95,14 +94,10 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   void _updatePassword(PasswordInput password) {
-    final confirm =
-        state.confirmPassword.value.isEmpty
-            ? ConfirmPasswordInput.pure(password: password.value)
-            : ConfirmPasswordInput.dirty(
-              password: password.value,
-              value: state.confirmPassword.value,
-            );
-
+    final confirm = ConfirmPasswordInput.dirty(
+      password: password.value,
+      value: state.confirmPassword.value,
+    );
     emit(
       state.copyWith(
         password: password,

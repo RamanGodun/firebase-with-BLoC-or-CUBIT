@@ -30,4 +30,9 @@ class ConfirmPasswordInput
   /// 🔁 Create a copy with updated password reference
   ConfirmPasswordInput updatePassword(String newPassword) =>
       ConfirmPasswordInput.dirty(password: newPassword, value: value);
+
+  ///
+  String? get uiError => isPure || isValid ? null : errorText;
+
+  ///
 }

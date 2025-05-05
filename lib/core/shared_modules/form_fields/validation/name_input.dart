@@ -22,4 +22,9 @@ class NameInput extends FormzInput<String, NameValidationError> {
     NameValidationError.tooShort => 'Name must be at least 2 characters',
     _ => null,
   };
+
+  ///
+  String? get uiError => isPure || isValid ? null : errorText;
+
+  ///
 }
