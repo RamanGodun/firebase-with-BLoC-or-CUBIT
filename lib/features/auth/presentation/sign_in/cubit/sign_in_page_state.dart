@@ -6,7 +6,7 @@ class SignInPageState extends Equatable {
   final PasswordInput password;
   final FormzSubmissionStatus status;
   final bool isValid;
-  final Failure? failure; // 🔄 Замість CustomError
+  final Failure? failure;
 
   const SignInPageState({
     this.email = const EmailInputValidation.pure(),

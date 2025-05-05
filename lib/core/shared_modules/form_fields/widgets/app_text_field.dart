@@ -19,6 +19,7 @@ class AppTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final void Function(String) onChanged;
   final VoidCallback? onSubmitted;
+  final Widget? suffixIcon;
 
   ///
   const AppTextField({
@@ -27,6 +28,7 @@ class AppTextField extends StatelessWidget {
     required this.label,
     required this.icon,
     required this.obscure,
+    this.suffixIcon,
     this.errorText,
     this.keyboardType,
     required this.onChanged,
@@ -51,6 +53,7 @@ class AppTextField extends StatelessWidget {
         filled: true,
         labelText: label,
         prefixIcon: Icon(icon),
+        suffixIcon: suffixIcon,
         errorText: errorText,
       ),
       onChanged: onChanged,

@@ -14,3 +14,4 @@ typedef ResultVoid = ResultFuture<Unit>;
 typedef Result<T> = ResultHandler<T>;
 typedef SubmitCallback = void Function(BuildContext context);
 typedef ExceptionHandler = Failure Function(dynamic error);
+typedef FieldUiState = ({String? errorText, bool isObscure});

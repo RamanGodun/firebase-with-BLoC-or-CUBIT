@@ -46,6 +46,18 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
+  /// 👁️ Toggles visibility of the password field
+  void togglePasswordVisibility() {
+    emit(state.copyWith(isPasswordObscure: !state.isPasswordObscure));
+  }
+
+  /// 👁️🔁 Toggles visibility of the confirm password field
+  void toggleConfirmPasswordVisibility() {
+    emit(
+      state.copyWith(isConfirmPasswordObscure: !state.isConfirmPasswordObscure),
+    );
+  }
+
   /// 🚀 Triggers async sign-up via [SignUpService]
   Future<void> submit() async {
     if (!state.isValid || state.status.isSubmissionInProgress) return;

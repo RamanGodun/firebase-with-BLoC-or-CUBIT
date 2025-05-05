@@ -11,6 +11,8 @@ import '../../../../core/presentation/shared_widgets/text_button.dart';
 import '../../../../core/shared_modules/form_fields/use_auth_focus_nodes.dart';
 import '../../../../core/shared_modules/form_fields/widgets/_fields_factory.dart';
 import '../../../../core/shared_modules/form_fields/widgets/button_for_forms.dart';
+import '../../../../core/shared_modules/form_fields/widgets/password_visibility_icon.dart';
+import '../../../../core/utils/typedef.dart';
 import 'cubit/sign_up_page_cubit.dart';
 
 part 'sign_up_widgets.dart';
