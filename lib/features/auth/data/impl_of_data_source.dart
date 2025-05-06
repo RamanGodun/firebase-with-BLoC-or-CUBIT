@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
+import 'package:firebase_with_bloc_or_cubit/features/shared/shared_data/shared_data_transfer_objects/user_dto_x.dart';
 import '../../../core/shared_modules/errors_handling/either/either.dart';
 import '../../../core/shared_modules/errors_handling/handlers/handle_exception.dart';
 import '../../../core/utils/typedef.dart';
+import '../../shared/shared_data/shared_data_transfer_objects/user_dto_utils_x.dart';
 import '../../shared/shared_data/shared_sources/remote/data_source_constants.dart';
-import '../../shared/shared_data/shared_data_transfer_objects/user_dto.dart';
 import 'data_source.dart';
 
 /// 🧩 [AuthRemoteDataSourceImpl] — concrete implementation using Firebase
@@ -52,12 +53,16 @@ final class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       );
 
       final user = credential.user!;
-      final userDto = UserDTO.newUser(id: user.uid, name: name, email: email);
+      final userDto = UserDTOUtilsX.newUser(
+        id: user.uid,
+        name: name,
+        email: email,
+      );
 
       await _firestore
           .collection(DataSourceConstants.usersCollection)
           .doc(user.uid)
-          .set(userDto.toMap());
+          .set(userDto.toJsonMap());
 
       return const Right(null);
     } catch (e) {
@@ -76,12 +81,12 @@ final class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       final doc = await docRef.get();
 
       if (!doc.exists) {
-        final userDto = UserDTO.newUser(
+        final userDto = UserDTOUtilsX.newUser(
           id: user.uid,
           name: user.displayName ?? '',
           email: user.email ?? '',
         );
-        await docRef.set(userDto.toMap());
+        await docRef.set(userDto.toJsonMap());
       }
 
       return const Right(null);

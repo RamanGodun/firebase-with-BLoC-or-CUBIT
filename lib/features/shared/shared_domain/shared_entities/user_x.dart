@@ -1,12 +1,19 @@
-import 'user.dart';
-import '../../shared_data/shared_data_transfer_objects/user_dto.dart';
+import '_user.dart';
+import '../../shared_data/shared_data_transfer_objects/_user_dto.dart';
 
-/// 🧩 [UserExt] — Instance methods on [User]
-/// - 🧱 `copyWith()`
-/// - 🔄 `toDTO()`
-/// - ❓ `isEmpty`, `isNotEmpty`
+/// 🔁 [UserExt] — Extension on [User] with transformation and utility methods
 extension UserExt on User {
-  /// 🧱 Allows `.copyWith()` on [User]
+  /// 🧱 Converts [User] → [UserDTO] (for persistence or transfer)
+  UserDTO toDTO() => UserDTO(
+    id: id,
+    name: name,
+    email: email,
+    profileImage: profileImage,
+    point: point,
+    rank: rank,
+  );
+
+  /// 🧱 Allows `.copyWith()` on [User] entity (immutability support)
   User copyWith({
     String? id,
     String? name,
@@ -25,19 +32,9 @@ extension UserExt on User {
     );
   }
 
-  /// 🔄 Converts [User] to [UserDTO]
-  UserDTO toDTO() => UserDTO(
-    id: id,
-    name: name,
-    email: email,
-    profileImage: profileImage,
-    point: point,
-    rank: rank,
-  );
-
-  /// ❓ Returns `true` if user is considered empty
+  /// ❓ Checks if user is considered empty
   bool get isEmpty => id.isEmpty;
 
-  /// ❓ Returns `true` if user is valid/non-empty
-  bool get isNotEmpty => !isEmpty;
+  /// ✅ Opposite of [isEmpty]
+  bool get isNotEmpty => id.isNotEmpty;
 }

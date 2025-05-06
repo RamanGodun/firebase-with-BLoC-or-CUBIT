@@ -1,9 +1,5 @@
 part of 'profile_page_cubit.dart';
 
-/// 📍 [ProfileStatus] — Represents profile loading lifecycle
-//----------------------------------------------------------------
-enum ProfileStatus { initial, loading, loaded, error }
-
 /// 🧾 [ProfileState] — Holds current status, user entity, and optional failure
 //----------------------------------------------------------------
 
@@ -18,7 +14,7 @@ final class ProfileState extends Equatable {
   @pragma('vm:prefer-inline')
   factory ProfileState.initial() => ProfileState(
     status: ProfileStatus.initial,
-    user: UserX.empty(),
+    user: UserUtilsExt.empty(),
     failure: null,
   );
 
@@ -43,3 +39,7 @@ final class ProfileState extends Equatable {
 
   ///
 }
+
+/// 📍 [ProfileStatus] — Represents profile loading lifecycle
+//----------------------------------------------------------------
+enum ProfileStatus { initial, loading, loaded, error }

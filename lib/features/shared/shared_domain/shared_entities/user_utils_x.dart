@@ -1,12 +1,9 @@
-import 'user.dart';
-import '../../shared_data/shared_data_transfer_objects/user_dto.dart';
+import '../../shared_data/shared_data_transfer_objects/_user_dto.dart';
+import '_user.dart';
 
-/// 🧰 [UserUtilizeExt] — Static-like utilities for creating [User]
-/// - 🔰 `empty()`
-/// - 🔄 `fromDTO()`
-/// - 🔄 `fromDTOList()`
-extension UserUtilizeExt on User {
-  /// 🔰 Returns a predefined empty user
+/// 🧩 [UserUtilsExt] — Static-like utilities related to [User] creation
+extension UserUtilsExt on User {
+  /// 🔰 Returns a predefined empty [User] placeholder
   static User empty() => const User(
     id: '',
     name: '',
@@ -16,7 +13,7 @@ extension UserUtilizeExt on User {
     rank: '',
   );
 
-  /// 🔄 Converts [UserDTO] → [User]
+  /// 🔄 Converts [UserDTO] to [User] entity (factory-style)
   static User fromDTO(UserDTO dto) => User(
     id: dto.id,
     name: dto.name,
@@ -26,7 +23,9 @@ extension UserUtilizeExt on User {
     rank: dto.rank,
   );
 
-  /// 🔄 Converts [List<UserDTO>] → [List<User>]
+  /// 🔁 Mass conversion from DTO list to entity list
   static List<User> fromDTOList(List<UserDTO> list) =>
       list.map(fromDTO).toList();
+
+  ///
 }

@@ -41,6 +41,4 @@ final class RootProviders extends StatelessWidget {
 bootstrap
 [pluginSource]
 ! переведення методів в утилітарні класи
-theme_state needs comments
-! add final in all widgets
  */
