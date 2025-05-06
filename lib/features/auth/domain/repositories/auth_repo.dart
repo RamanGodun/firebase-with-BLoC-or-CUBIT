@@ -5,7 +5,7 @@ import '../../../../core/utils/typedef.dart';
 /// Defines interaction points for remote auth layer (e.g., Firebase)
 //----------------------------------------------------------------
 
-abstract class AuthRepo {
+abstract interface class AuthRepo {
   /// 🔄 Stream of the currently authenticated Firebase user
   Stream<fb_auth.User?> get user;
 

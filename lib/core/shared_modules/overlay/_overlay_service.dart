@@ -7,7 +7,7 @@ import 'overlay_widget.dart';
 //-------------------------------------------------------------
 
 @pragma('vm:entry-point')
-final class OverlayNotificationService {
+abstract final class OverlayNotificationService {
   OverlayNotificationService._();
 
   /// 📍 Holds the currently visible overlay (if any)

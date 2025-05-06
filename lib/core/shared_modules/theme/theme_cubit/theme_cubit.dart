@@ -6,7 +6,7 @@ part 'theme_state.dart';
 ///* ⚙️[AppThemeCubit] - Manages:
 ///    - 🎨 Theme Mode: Light / Dark mode.
 ///    - State Persistence: using [HydratedCubit] to restore settings after app restart.
-class AppThemeCubit extends HydratedCubit<AppThemeState> {
+final class AppThemeCubit extends HydratedCubit<AppThemeState> {
   /// 🆕 Initializes with persisted state or default values.
   AppThemeCubit() : super(AppThemeState.initial());
 

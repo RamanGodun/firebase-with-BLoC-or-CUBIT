@@ -11,10 +11,10 @@ import 'data_source.dart';
 /// ✅ Handles auth & Firestore profile creation
 //----------------------------------------------------------------
 
-class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
+final class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
+  ///
   final fb_auth.FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firestore;
-
   const AuthRemoteDataSourceImpl(this._firebaseAuth, this._firestore);
 
   /// 📡 Emits auth state changes

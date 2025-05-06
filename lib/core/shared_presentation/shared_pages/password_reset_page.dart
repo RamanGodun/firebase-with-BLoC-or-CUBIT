@@ -3,7 +3,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widg
 import '../../constants/app_strings.dart';
 
 /// 🔁 Page for initiating password reset process.
-class ResetPasswordPage extends StatelessWidget {
+final class ResetPasswordPage extends StatelessWidget {
   const ResetPasswordPage({super.key});
 
   @override

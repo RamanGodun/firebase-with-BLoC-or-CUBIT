@@ -18,7 +18,7 @@ final class ProfileState extends Equatable {
   @pragma('vm:prefer-inline')
   factory ProfileState.initial() => ProfileState(
     status: ProfileStatus.initial,
-    user: User.initial(),
+    user: UserX.empty(),
     failure: null,
   );
 

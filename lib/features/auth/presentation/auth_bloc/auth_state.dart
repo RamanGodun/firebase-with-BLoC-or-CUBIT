@@ -7,7 +7,7 @@ part of 'auth_bloc.dart';
 enum AuthStatus { unknown, authenticated, unauthenticated }
 
 /// 🧾 [AuthState] — Bloc state that holds current auth status & user
-class AuthState extends Equatable {
+final class AuthState extends Equatable {
   final AuthStatus authStatus;
   final fb_auth.User? user;
 

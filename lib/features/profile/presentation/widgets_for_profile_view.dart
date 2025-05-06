@@ -3,7 +3,7 @@ part of 'profile_view.dart';
 /// 🧾 [_UserProfileCard] — Displays user information after successful fetch.
 //----------------------------------------------------------------
 
-class _UserProfileCard extends StatelessWidget {
+final class _UserProfileCard extends StatelessWidget {
   final User user;
   const _UserProfileCard({required this.user});
 
@@ -66,7 +66,7 @@ class _UserProfileCard extends StatelessWidget {
 /// ⚠️ [_ErrorContent] — Shown when profile loading fails.
 //----------------------------------------------------------------
 
-class _ErrorContent extends StatelessWidget {
+final class _ErrorContent extends StatelessWidget {
   const _ErrorContent();
 
   @override

@@ -7,7 +7,7 @@ import 'core/shared_modules/theme/config/app_material_theme.dart';
 import 'core/shared_modules/theme/theme_cubit/theme_cubit.dart';
 
 /// 🎛️ [AppRootView] — Root UI widget, delegates logic to [AppThemeBuilder].
-class AppRootView extends StatelessWidget {
+final class AppRootView extends StatelessWidget {
   const AppRootView({super.key});
 
   @override
@@ -17,7 +17,7 @@ class AppRootView extends StatelessWidget {
 }
 
 /// 📱 AppThemeBuilder — Rebuilds UI on theme mode toggle
-class AppThemeBuilder extends StatelessWidget {
+final class AppThemeBuilder extends StatelessWidget {
   const AppThemeBuilder({super.key});
 
   @override
@@ -33,7 +33,7 @@ class AppThemeBuilder extends StatelessWidget {
 }
 
 /// 🧩 [AppMaterialAppRouter] —  Centralized theme + navigation config
-class AppMaterialAppRouter extends StatelessWidget {
+final class AppMaterialAppRouter extends StatelessWidget {
   final AppThemeConfig config;
   const AppMaterialAppRouter({super.key, required this.config});
 
@@ -65,7 +65,7 @@ class AppMaterialAppRouter extends StatelessWidget {
 ? option for prototyping, small MVP, or PoC
 
 /// 🗺️ [AppView] - root app view, listens for theme changes and builds [MaterialApp]
-class AppView extends StatelessWidget {
+final class AppView extends StatelessWidget {
   const AppView({super.key});
 
   @override

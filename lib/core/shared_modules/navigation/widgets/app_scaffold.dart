@@ -4,7 +4,7 @@ import 'package:firebase_with_bloc_or_cubit/core/constants/_app_constants.dart';
 
 /// 🧱 [AppScaffold] — Adaptive ShellRoute wrapper with optional glass-like background.
 /// Automatically adapts background based on ThemeMode unless explicitly overridden.
-class AppScaffold extends StatelessWidget {
+base class AppScaffold extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry? padding;
   final Color? backgroundColor;

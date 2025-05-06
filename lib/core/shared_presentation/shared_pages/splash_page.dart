@@ -4,7 +4,7 @@ import '../shared_widgets/loading_view.dart';
 
 /// ⏳ Initial splash screen shown during app startup.
 /// ⏳ [SplashPage] — Displays a loading indicator while auth is resolving
-class SplashPage extends StatelessWidget {
+final class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
   @override

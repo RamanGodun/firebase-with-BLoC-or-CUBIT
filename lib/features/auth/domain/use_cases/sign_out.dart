@@ -5,7 +5,7 @@ import '../repositories/auth_repo.dart';
 /// ✅ Handles signing out the currently authenticated user
 //----------------------------------------------------------------
 
-class SignOutUseCase {
+final class SignOutUseCase {
   final AuthRepo _repo;
   const SignOutUseCase(this._repo);
 

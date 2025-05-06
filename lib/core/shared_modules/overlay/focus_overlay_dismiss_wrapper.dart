@@ -9,7 +9,7 @@ import '_overlay_service.dart';
 /// 👉 Use to wrap full screens or forms to improve UX when tapping outside input
 //----------------------------------------------------------------
 
-class FocusAndOverlayDismissWrapper extends StatelessWidget {
+final class FocusAndOverlayDismissWrapper extends StatelessWidget {
   final Widget child;
   const FocusAndOverlayDismissWrapper({super.key, required this.child});
 

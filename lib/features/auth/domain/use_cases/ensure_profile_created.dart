@@ -6,7 +6,7 @@ import '../repositories/auth_repo.dart';
 /// 🧩 Ensures the Firestore profile exists after user logs in
 //----------------------------------------------------------------
 
-class EnsureUserProfileCreatedUseCase {
+final class EnsureUserProfileCreatedUseCase {
   final AuthRepo _repo;
   const EnsureUserProfileCreatedUseCase(this._repo);
 

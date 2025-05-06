@@ -12,7 +12,7 @@ part 'overlay_card.dart';
 /// Used by [OverlayNotificationService] to display temporary messages.
 //----------------------------------------------------------------
 
-class AnimatedOverlayWidget extends StatefulWidget {
+final class AnimatedOverlayWidget extends StatefulWidget {
   final String message;
   final IconData icon;
 

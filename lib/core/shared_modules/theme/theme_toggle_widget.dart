@@ -7,7 +7,7 @@ import '../overlay/_overlay_service.dart' show OverlayNotificationService;
 import 'theme_cubit/theme_cubit.dart' show AppThemeCubit;
 
 /// 🌗 [ThemeToggleIcon] - Toggles between light and dark mode.
-class ThemeToggleIcon extends StatelessWidget {
+final class ThemeToggleIcon extends StatelessWidget {
   const ThemeToggleIcon({super.key});
 
   @override

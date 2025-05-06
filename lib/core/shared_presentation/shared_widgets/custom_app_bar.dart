@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'text_widget.dart';
 
 /// 🎨 CustomAppBar with flexible icon/widgets in actions
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+final class CustomAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   ///
   final String title;
   final IconData? leadingIcon;

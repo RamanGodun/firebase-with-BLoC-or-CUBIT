@@ -5,7 +5,7 @@ import '../../../shared_presentation/shared_widgets/text_widget.dart';
 
 /// 🌍 [CustomButtonForGoRouter] styled full-width button,
 /// that performs either GoRouter navigation or custom action.
-class CustomButtonForGoRouter extends StatelessWidget {
+base class CustomButtonForGoRouter extends StatelessWidget {
   final String title;
   final String? routeName;
   final Map<String, String>? pathParameters;

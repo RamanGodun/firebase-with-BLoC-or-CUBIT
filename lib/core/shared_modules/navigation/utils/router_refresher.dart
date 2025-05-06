@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 /// 🔔 Calls `notifyListeners()` to update navigation when stream emits
 //--------------------------------------------------------------
 
-class GoRouterRefresher extends ChangeNotifier {
+base class GoRouterRefresher extends ChangeNotifier {
   GoRouterRefresher(Stream stream) {
     _subscription = stream.listen((_) => notifyListeners());
   }

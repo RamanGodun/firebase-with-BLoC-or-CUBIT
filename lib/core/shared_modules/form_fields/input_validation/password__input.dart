@@ -3,7 +3,7 @@ part of '_inputs_validation.dart';
 /// 🔒 [PasswordInput] — Validates presence and minimum password length.
 //-------------------------------------------------------------------------
 
-class PasswordInput extends FormzInput<String, PasswordValidationError> {
+final class PasswordInput extends FormzInput<String, PasswordValidationError> {
   const PasswordInput.pure() : super.pure('');
   const PasswordInput.dirty([super.value = '']) : super.dirty();
 

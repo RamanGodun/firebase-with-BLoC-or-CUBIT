@@ -3,7 +3,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widg
 import '../../constants/app_strings.dart';
 
 /// 🔐 Page for changing user password.
-class ChangePasswordPage extends StatelessWidget {
+final class ChangePasswordPage extends StatelessWidget {
   const ChangePasswordPage({super.key});
 
   @override

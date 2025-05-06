@@ -7,7 +7,7 @@ import 'data_source.dart';
 /// ✅ Handles authentication operations and delegates to data source
 //----------------------------------------------------------------
 
-class AuthRepositoryImpl implements AuthRepo {
+final class AuthRepositoryImpl implements AuthRepo {
   final AuthRemoteDataSource _remoteDataSource;
   const AuthRepositoryImpl(this._remoteDataSource);
 

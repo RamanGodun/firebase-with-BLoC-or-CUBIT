@@ -3,7 +3,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widg
 import '../../constants/app_strings.dart';
 
 /// 📧 Page prompting user to verify their email.
-class VerifyEmailPage extends StatelessWidget {
+final class VerifyEmailPage extends StatelessWidget {
   const VerifyEmailPage({super.key});
 
   @override

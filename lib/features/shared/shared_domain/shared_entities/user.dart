@@ -22,16 +22,6 @@ class User extends Equatable {
     required this.rank,
   });
 
-  /// 🔰 Returns an empty [User] placeholder
-  factory User.initial() => const User(
-    id: '',
-    name: '',
-    email: '',
-    profileImage: '',
-    point: 0,
-    rank: '',
-  );
-
   @override
   List<Object?> get props => [id, name, email, profileImage, point, rank];
 

@@ -11,7 +11,7 @@ import 'base_dto.dart';
 /// - 🆕 Initial user generation
 //----------------------------------------------------------------
 
-class UserDTO extends BaseDTO with EquatableMixin {
+final class UserDTO extends BaseDTO with EquatableMixin {
   const UserDTO({
     required this.id,
     required this.name,

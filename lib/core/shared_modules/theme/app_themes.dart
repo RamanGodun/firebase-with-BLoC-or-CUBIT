@@ -11,7 +11,7 @@ part '_themes_factory.dart';
 /// - Optional custom font (e.g. for dynamic switching)
 //----------------------------------------------------------------
 
-abstract class AppThemes {
+abstract interface class AppThemes {
   /// 🧬 Resolves a complete [ThemeData] from a available theme type options
   static ThemeData resolve(AppThemeType variant, {FontFamilyType? font}) =>
       _ThemeFactory(variant).build(font: font);

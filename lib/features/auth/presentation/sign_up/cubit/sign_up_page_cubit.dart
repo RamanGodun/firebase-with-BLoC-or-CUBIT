@@ -16,7 +16,7 @@ part 'sign_up_page_state.dart';
 /// ✅ Delegates actual sign-up to [SignUpService]
 //----------------------------------------------------------------
 
-class SignUpCubit extends Cubit<SignUpState> {
+final class SignUpCubit extends Cubit<SignUpState> {
   final SignUpService _signUpService;
   final _debouncer = Debouncer(const Duration(milliseconds: 200));
   SignUpCubit(this._signUpService) : super(const SignUpState());

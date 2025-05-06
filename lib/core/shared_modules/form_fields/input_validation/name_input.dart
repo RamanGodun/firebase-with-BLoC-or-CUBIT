@@ -4,7 +4,7 @@ part of '_inputs_validation.dart';
 /// Ensures non-empty input and minimum character length.
 //-------------------------------------------------------------------------
 
-class NameInputValidation extends FormzInput<String, NameValidationError> {
+final class NameInputValidation extends FormzInput<String, NameValidationError> {
   const NameInputValidation.pure() : super.pure('');
   const NameInputValidation.dirty([super.value = '']) : super.dirty();
 

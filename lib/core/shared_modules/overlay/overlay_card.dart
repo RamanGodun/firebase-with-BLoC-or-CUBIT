@@ -6,7 +6,7 @@ part of 'overlay_widget.dart';
 /// - 🌫️ Includes shadow and border for macOS-style floating effect
 //----------------------------------------------------------------
 
-class OverlayCard extends StatelessWidget {
+final class OverlayCard extends StatelessWidget {
   final IconData icon;
   final String message;
   final Color textColor;

@@ -4,7 +4,7 @@ part of '_inputs_validation.dart';
 /// 📧 [EmailInputValidation] — Formz input for validating user email.
 /// Checks for non-empty input and valid email format.
 //--------------------------------------------------------------------------------
-class EmailInputValidation extends FormzInput<String, EmailValidationError> {
+final class EmailInputValidation extends FormzInput<String, EmailValidationError> {
   const EmailInputValidation.pure() : super.pure('');
   const EmailInputValidation.dirty([super.value = '']) : super.dirty();
 

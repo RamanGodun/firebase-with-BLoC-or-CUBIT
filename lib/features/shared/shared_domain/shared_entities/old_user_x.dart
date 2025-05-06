@@ -4,7 +4,7 @@ import 'user.dart';
 
 /// 🧩 [UserX] — Static utilities for [User]
 extension UserX on User {
-  /// 🔰 Returns a predefined empty user
+  /// 🔰 Returns a predefined empty user, [User] placeholder
   static User empty() => const User(
     id: '',
     name: '',

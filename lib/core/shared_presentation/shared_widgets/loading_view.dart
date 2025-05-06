@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// ⏳ [LoadingView] — Semi-transparent fullscreen loading indicator
 //----------------------------------------------------------------
 
-class LoadingView extends StatelessWidget {
+final class LoadingView extends StatelessWidget {
   const LoadingView({super.key});
 
   @override

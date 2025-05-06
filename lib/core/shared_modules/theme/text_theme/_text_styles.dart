@@ -9,7 +9,7 @@ part 'typography_factory.dart';
 /// ✅ Centralized typography resolver used across both Material & Cupertino widgets
 //----------------------------------------------------------------
 
-abstract class AppTextStyles {
+abstract final class AppTextStyles {
   /// 🎨 Returns themed [TextTheme],
   /// based on selected [AppThemeMode] + optional [FontFamilyType]
   static TextTheme getTextTheme(AppThemeMode mode, {FontFamilyType? font}) =>

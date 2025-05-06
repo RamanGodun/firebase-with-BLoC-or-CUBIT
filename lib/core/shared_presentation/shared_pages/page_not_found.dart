@@ -10,7 +10,7 @@ import '../../shared_modules/navigation/_imports_for_router.dart'
     show RoutesNames;
 
 /// ❌ Page shown when route is not found.
-class PageNotFound extends StatelessWidget {
+final class PageNotFound extends StatelessWidget {
   final String errorMessage;
 
   const PageNotFound({super.key, required this.errorMessage});

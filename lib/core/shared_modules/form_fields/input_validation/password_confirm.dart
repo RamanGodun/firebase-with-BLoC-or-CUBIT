@@ -4,7 +4,7 @@ part of '_inputs_validation.dart';
 /// Ensures the value is non-empty and matches the original password.
 //-------------------------------------------------------------------------
 
-class ConfirmPasswordInput
+final class ConfirmPasswordInput
     extends FormzInput<String, ConfirmPasswordValidationError> {
   final String password;
 

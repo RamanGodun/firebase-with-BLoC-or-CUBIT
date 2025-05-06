@@ -11,7 +11,7 @@ import '../../shared_modules/navigation/_imports_for_router.dart'
     show RoutesNames;
 
 /// 🏠 [HomePage] is shown after successful login.
-class HomePage extends StatelessWidget {
+final class HomePage extends StatelessWidget {
   static const String routeName = AppStrings.homeRoute;
   const HomePage({super.key});
 

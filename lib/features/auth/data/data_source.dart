@@ -3,7 +3,7 @@ import '../../../core/utils/typedef.dart';
 
 /// 📜 [AuthRemoteDataSource] — contract for Firebase auth operations
 //----------------------------------------------------------------
-abstract class AuthRemoteDataSource {
+abstract interface class AuthRemoteDataSource {
   /// 📡 Stream of authentication user changes
   Stream<fb_auth.User?> get user;
 

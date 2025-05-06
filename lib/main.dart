@@ -21,7 +21,7 @@ void main() async {
 }
 
 /// 🌐 [RootProviders] — Wraps global Blocs for app-wide access
-class RootProviders extends StatelessWidget {
+final class RootProviders extends StatelessWidget {
   const RootProviders({super.key});
 
   @override

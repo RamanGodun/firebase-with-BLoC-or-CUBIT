@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../core/shared_modules/errors_handling/handlers/result_handler.dart';
 import '../../../shared/shared_domain/shared_entities/user.dart';
 import '../../../../core/shared_modules/errors_handling/failure.dart';
+import '../../../shared/shared_domain/shared_entities/old_user_x.dart';
 import '../../domain/load_profile_use_case.dart';
 
 part 'profile_page_state.dart';
