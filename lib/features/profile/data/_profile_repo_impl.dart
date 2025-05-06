@@ -9,7 +9,7 @@ import 'data_source.dart';
 /// ✅ Maps [UserDTO] → [User] via `.toEntity()`
 //----------------------------------------------------------------
 
-class ProfileRepositoryImpl implements ProfileRepository {
+final class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileRemoteDataSource remote;
 
   ProfileRepositoryImpl(this.remote);

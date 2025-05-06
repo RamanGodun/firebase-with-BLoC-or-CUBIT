@@ -11,7 +11,7 @@ part 'auth_state.dart';
 /// ✅ Emits `authenticated` / `unauthenticated` states and handles logout
 //----------------------------------------------------------------
 
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
+final class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignOutUseCase signOutUseCase;
   final Stream<fb_auth.User?> userStream;
   late final StreamSubscription<fb_auth.User?> _authSubscription;

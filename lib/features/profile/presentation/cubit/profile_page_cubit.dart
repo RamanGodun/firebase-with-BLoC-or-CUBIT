@@ -12,7 +12,7 @@ part 'profile_page_state.dart';
 /// ✅ Uses [ResultHandler] to map domain result into UI state transitions
 //----------------------------------------------------------------
 
-class ProfileCubit extends Cubit<ProfileState> {
+final class ProfileCubit extends Cubit<ProfileState> {
   final LoadProfileUseCase _loadProfile;
 
   ProfileCubit(this._loadProfile) : super(ProfileState.initial());

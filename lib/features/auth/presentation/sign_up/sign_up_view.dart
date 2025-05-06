@@ -21,7 +21,7 @@ part 'sign_up_widgets.dart';
 /// ✅ Includes all form fields, interactions, and field focus handling
 //----------------------------------------------------------------
 
-class SignUpView extends HookWidget {
+final class SignUpView extends HookWidget {
   const SignUpView({super.key});
 
   @override

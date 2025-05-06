@@ -3,7 +3,8 @@ part of '_text_styles.dart';
 /// 🏭 [TextStyleFactory] — Generates complete [TextTheme] from [AppThemeMode] and optional font
 //----------------------------------------------------------------
 
-class TextStyleFactory {
+final class TextStyleFactory {
+  ///
   final Color color;
   const TextStyleFactory._(this.color);
 

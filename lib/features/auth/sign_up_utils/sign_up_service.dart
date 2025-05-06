@@ -7,7 +7,7 @@ import '../../../core/utils/typedef.dart';
 /// ✅ Wraps [SignUpUseCase] to encapsulate clean business logic
 //----------------------------------------------------------------
 
-class SignUpService {
+final class SignUpService {
   final SignUpUseCase _signUp;
   const SignUpService(this._signUp);
 
@@ -17,6 +17,7 @@ class SignUpService {
     required String email,
     required String password,
   }) async {
+    ///
     final result = await _signUp(name: name, email: email, password: password);
 
     result.leftOrNull?.log(); // ❌ Log failure if exists

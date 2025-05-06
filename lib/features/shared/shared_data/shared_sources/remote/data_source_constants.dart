@@ -4,7 +4,10 @@ library;
 /// ✅ Use to avoid hardcoded strings throughout data layer
 //----------------------------------------------------------------
 
-class DataSourceConstants {
+final class DataSourceConstants {
+  @pragma('vm:prefer-inline')
+  const DataSourceConstants._();
+
   /// 👥 Firestore collection for user profiles
   static const String usersCollection = 'users';
 

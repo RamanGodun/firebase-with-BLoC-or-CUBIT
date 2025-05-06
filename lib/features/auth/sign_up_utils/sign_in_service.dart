@@ -11,7 +11,8 @@ import '../../../core/utils/typedef.dart';
 /// 🔐 Used in `submit()` logic to ensure clean separation of responsibilities
 //----------------------------------------------------------------
 
-class SignInService {
+final class SignInService {
+  ///
   final SignInUseCase _signIn;
   final EnsureUserProfileCreatedUseCase _ensureProfile;
 

@@ -21,7 +21,7 @@ part 'sign_in_widgets.dart';
 /// ✅ Uses HookWidget for managing focus nodes & rebuild optimization
 //----------------------------------------------------------------
 
-class SignInPageView extends HookWidget {
+final class SignInPageView extends HookWidget {
   const SignInPageView({super.key});
 
   @override

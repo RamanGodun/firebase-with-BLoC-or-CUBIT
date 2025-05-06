@@ -11,7 +11,7 @@ import '../../shared/shared_data/shared_sources/remote/data_source_constants.dar
 /// ✅ Returns [UserDTO] wrapped in Result for safe error handling
 //----------------------------------------------------------------
 
-class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
+final class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   final FirebaseFirestore firestore;
 
   ProfileRemoteDataSourceImpl(this.firestore);

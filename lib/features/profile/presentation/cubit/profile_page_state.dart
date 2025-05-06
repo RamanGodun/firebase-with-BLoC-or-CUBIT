@@ -15,6 +15,7 @@ final class ProfileState extends Equatable {
   const ProfileState({required this.status, required this.user, this.failure});
 
   /// 🆕 Initial state (empty user, no failure)
+  @pragma('vm:prefer-inline')
   factory ProfileState.initial() => ProfileState(
     status: ProfileStatus.initial,
     user: User.initial(),

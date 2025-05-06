@@ -14,7 +14,7 @@ import 'sign_in_view.dart';
 /// ✅ Provides scoped Cubit with injected services
 //----------------------------------------------------------------
 
-class SignInPage extends StatelessWidget {
+final class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
 
   @override
@@ -36,7 +36,7 @@ class SignInPage extends StatelessWidget {
 /// ✅ Displays error overlay and resets status after delay
 //----------------------------------------------------------------
 
-class _SignInListenerWrapper extends StatelessWidget {
+final class _SignInListenerWrapper extends StatelessWidget {
   const _SignInListenerWrapper();
 
   @override

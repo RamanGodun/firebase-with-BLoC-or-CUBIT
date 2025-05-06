@@ -13,7 +13,7 @@ import 'sign_up_view.dart';
 /// ✅ Sets up [SignUpCubit] and listens for submission failures
 //----------------------------------------------------------------
 
-class SignUpPage extends StatelessWidget {
+final class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
 
   @override
@@ -29,7 +29,7 @@ class SignUpPage extends StatelessWidget {
 /// ✅ Displays failure dialog and resets status after delay
 //----------------------------------------------------------------
 
-class _SignUpListenerWrapper extends StatelessWidget {
+final class _SignUpListenerWrapper extends StatelessWidget {
   const _SignUpListenerWrapper();
 
   @override

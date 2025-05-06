@@ -26,6 +26,7 @@ final class AppStrings {
   static const String redirectToSignIn = 'Already a member? Sign In!';
   static const String signInButton = 'Sign In';
   static const String redirectToSignUp = 'Not a member? Sign Up!';
+  static const submitButtonTag = 'submit';
 
   /// ────────────────────────────────────────────────────────────────────
   /// * 🌗 Theme Mode Messages

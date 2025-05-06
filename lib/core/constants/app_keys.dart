@@ -12,7 +12,6 @@ final class AppKeys {
   static const confirmPasswordField = ValueKey('signup_confirm_password_field');
 
   // 🚀 Submit button
-  static const submitButtonTag = 'submit';
   static const submitButtonText = ValueKey('submit_button_text');
   static const submitButtonLoader = ValueKey('submit_button_loader');
 }

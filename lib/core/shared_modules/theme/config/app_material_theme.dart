@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 //-------------------------------------------------------------
 
 @immutable
-class AppThemeConfig {
+final class AppThemeConfig {
   final String title;
   final bool debugShowCheckedModeBanner;
   final ThemeData theme;

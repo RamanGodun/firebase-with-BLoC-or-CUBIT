@@ -24,7 +24,7 @@ enum ErrorPlugin {
 /// 💥 [CustomError] — Encapsulates platform, SDK, or domain-level error information.
 /// 🧼 Designed for safe transport of error data between layers (Data → Domain → UI).
 
-class CustomError extends Equatable {
+final class CustomError extends Equatable {
   final String code;
   final String message;
   final ErrorPlugin plugin;

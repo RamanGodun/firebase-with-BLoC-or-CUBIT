@@ -20,5 +20,5 @@ final class AppTransitions {
   // static CustomTransitionPage<T> slide<T>(Widget child) => ...
   // static CustomTransitionPage<T> scale<T>(Widget child) => ...
 
-  ///
+  /// ? MAYBE should add slide, scale, fadeThrough, sharedAxis
 }

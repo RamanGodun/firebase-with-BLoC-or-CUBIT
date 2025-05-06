@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/app_config/bootstrap/di_container.dart';
 import '../../auth/presentation/auth_bloc/auth_bloc.dart';
+import '../domain/load_profile_use_case.dart';
 import 'cubit/profile_page_cubit.dart';
 import 'profile_view.dart';
 
@@ -21,7 +22,7 @@ class ProfilePage extends StatelessWidget {
 
     // 🧩 Injects [ProfileCubit] with DI and loads profile on init
     return BlocProvider(
-      create: (_) => ProfileCubit(di())..loadProfile(uid),
+      create: (_) => ProfileCubit(di<LoadProfileUseCase>())..loadProfile(uid),
       child: const ProfileView(),
     );
   }

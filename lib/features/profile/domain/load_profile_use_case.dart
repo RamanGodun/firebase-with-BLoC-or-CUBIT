@@ -6,7 +6,7 @@ import '../../shared/shared_domain/shared_entities/user.dart';
 /// 🧩 [LoadProfileUseCase] — Gets user profile from repository by UID
 //----------------------------------------------------------------
 
-class LoadProfileUseCase extends UseCaseWithParams<User, String> {
+final class LoadProfileUseCase extends UseCaseWithParams<User, String> {
   final ProfileRepository _repository;
 
   const LoadProfileUseCase(this._repository);

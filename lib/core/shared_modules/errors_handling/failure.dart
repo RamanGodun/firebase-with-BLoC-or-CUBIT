@@ -25,13 +25,13 @@ abstract class Failure extends Equatable {
 ///---------------------------------------------------------------------------
 
 /// 🌐 [ApiFailure] — HTTP or GraphQL-related errors.
-class ApiFailure extends Failure {
+final class ApiFailure extends Failure {
   const ApiFailure({required int super.statusCode, required super.message})
     : super._(code: 'API');
 }
 
 /// ⚙️ [GenericFailure] — SDK/platform errors, wrapped in [CustomError].
-class GenericFailure extends Failure {
+final class GenericFailure extends Failure {
   final CustomError error;
 
   GenericFailure({required this.error})
@@ -46,19 +46,19 @@ class GenericFailure extends Failure {
 }
 
 /// 🔥 [FirebaseFailure] — Firebase-related error wrapper.
-class FirebaseFailure extends Failure {
+final class FirebaseFailure extends Failure {
   FirebaseFailure({required super.message})
     : super._(statusCode: ErrorPlugin.firebase.code, code: 'FIREBASE');
 }
 
 /// 🧠 [UseCaseFailure] — Errors occurring within domain use-cases.
-class UseCaseFailure extends Failure {
+final class UseCaseFailure extends Failure {
   UseCaseFailure({required super.message})
     : super._(statusCode: ErrorPlugin.useCase.code, code: 'USE_CASE');
 }
 
 /// ❓ [UnknownFailure] — Fallback for unclassified or unexpected errors.
-class UnknownFailure extends Failure {
+final class UnknownFailure extends Failure {
   const UnknownFailure({required super.message})
     : super._(statusCode: 'UNKNOWN');
 }

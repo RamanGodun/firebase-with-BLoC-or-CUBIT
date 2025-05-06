@@ -4,6 +4,6 @@ import 'package:firebase_with_bloc_or_cubit/features/shared/shared_domain/shared
 /// 📦 [ProfileRepository] — Contract for loading user profile by UID
 //----------------------------------------------------------------
 
-abstract class ProfileRepository {
+abstract interface class ProfileRepository {
   ResultFuture<User> getProfile({required String uid});
 }

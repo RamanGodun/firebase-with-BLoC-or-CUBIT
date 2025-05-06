@@ -4,7 +4,8 @@ part of 'app_themes.dart';
 /// 🔧 Converts a strongly-typed [AppThemeType] into a fully styled theme configuration
 //----------------------------------------------------------------
 
-class _ThemeFactory {
+final class _ThemeFactory {
+  ///
   final AppThemeType variant;
   const _ThemeFactory(this.variant);
 

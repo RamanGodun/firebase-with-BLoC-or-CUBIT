@@ -8,6 +8,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 //----------------------------------------------------------------
 
 final class EnvFirebaseOptions {
+  EnvFirebaseOptions._();
+
   /// 🧠 Chooses correct [FirebaseOptions] based on platform
   static FirebaseOptions get currentPlatform {
     return switch (defaultTargetPlatform) {
@@ -23,6 +25,7 @@ final class EnvFirebaseOptions {
   }
 
   /// 🤖 Android config from .env
+  @pragma('vm:prefer-inline')
   static FirebaseOptions get _android => FirebaseOptions(
     apiKey: dotenv.env['FIREBASE_API_KEY']!,
     appId: dotenv.env['FIREBASE_APP_ID']!,
@@ -32,6 +35,7 @@ final class EnvFirebaseOptions {
   );
 
   /// 🍏 iOS config from .env
+  @pragma('vm:prefer-inline')
   static FirebaseOptions get _ios => FirebaseOptions(
     apiKey: dotenv.env['FIREBASE_API_KEY']!,
     appId: dotenv.env['FIREBASE_APP_ID']!,
@@ -42,6 +46,7 @@ final class EnvFirebaseOptions {
   );
 
   /// 🌐 Web config from .env
+  @pragma('vm:prefer-inline')
   static FirebaseOptions get _web => FirebaseOptions(
     apiKey: dotenv.env['FIREBASE_API_KEY']!,
     appId: dotenv.env['FIREBASE_APP_ID']!,

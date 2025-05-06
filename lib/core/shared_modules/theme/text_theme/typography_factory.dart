@@ -4,7 +4,7 @@ part of '_text_styles.dart';
 /// 🧪 Optional: can be replaced by consistent use of [AppTextStyles]
 //----------------------------------------------------------------
 
-class TypographyFactory {
+final class TypographyFactory {
   static TextStyle get({
     required FontWeight weight,
     required double size,

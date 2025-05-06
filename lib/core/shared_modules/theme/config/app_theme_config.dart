@@ -9,7 +9,10 @@ import '../theming_enums.dart';
 /// ✅ Used to create `MaterialApp` config from [AppThemeState]
 //-------------------------------------------------------------
 
-abstract class AppConfig {
+@immutable
+final class AppConfig {
+  const AppConfig._();
+
   ///
   static AppThemeConfig fromState(AppThemeState state) {
     return AppThemeConfig(

@@ -1,3 +1,4 @@
+import 'package:firebase_with_bloc_or_cubit/core/constants/app_strings.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/form_fields/extensions/formz_status_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
@@ -43,7 +44,7 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
         final isLoading = status.isInProgress;
 
         return Hero(
-          tag: AppKeys.submitButtonTag,
+          tag: AppStrings.submitButtonTag,
           child: ElevatedButton(
             // 🚀 Trigger submit when form is valid and ready
             onPressed:
