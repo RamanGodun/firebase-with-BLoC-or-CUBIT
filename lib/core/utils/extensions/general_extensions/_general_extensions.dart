@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-import '../../../shared_presentation/shared_widgets/text_widget.dart';
-
-part 'string_extensions.dart';
-part 'text_style_extensions.dart';
-part 'theme_mode_extensions.dart';
-part 'widget_padding_extensions.dart';
-part 'others_extensions.dart';
-part 'widget_border_radius_extensions.dart';
-part 'widget_animation_extensions.dart';
-part 'number_formatting_extensions.dart';
-part 'duration_extensions.dart';
-part 'datetime_extensions.dart';
+part 'string_x.dart';
+part 'text_style_x.dart';
+part 'theme_mode_x.dart';
+part 'widget_padding_x.dart';
+part 'others_x.dart';
+part 'widget_border_radius_x.dart';
+part 'widget_animation_x.dart';
+part 'number_formatting_x.dart';
+part 'duration_x.dart';
+part 'datetime_x.dart';
+part 'widget_aligning_x.dart';

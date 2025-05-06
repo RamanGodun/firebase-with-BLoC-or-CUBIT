@@ -1,8 +1,13 @@
 part of '_general_extensions.dart';
 
 /// 🌀 [AnimateX] — Widget animation helpers
+/// ✅ Provides common animated entrance effects for widgets:
+/// - fadeIn, scaleIn, slideInFromBottom, etc.
+/// - Uses `TweenAnimationBuilder` / `AnimatedOpacity`
+///----------------------------------------------------------------
+
 extension AnimateX on Widget {
-  /// 🔶 Fade In
+  /// 🔶 Fades in the widget with opacity animation
   Widget fadeIn({
     Duration duration = const Duration(milliseconds: 400),
     Curve curve = Curves.easeIn,
@@ -13,7 +18,7 @@ extension AnimateX on Widget {
     child: this,
   );
 
-  /// 🔷 Scale In
+  /// 🔷 Scales in the widget with elastic entrance
   Widget scaleIn({
     Duration duration = const Duration(milliseconds: 400),
     Curve curve = Curves.easeOutBack,
@@ -26,7 +31,7 @@ extension AnimateX on Widget {
     child: this,
   );
 
-  /// 🔽 Slide In (from bottom)
+  /// 🔽 Slides the widget in from the bottom
   Widget slideInFromBottom({
     Duration duration = const Duration(milliseconds: 400),
     Curve curve = Curves.easeOut,
@@ -43,7 +48,7 @@ extension AnimateX on Widget {
     child: this,
   );
 
-  /// ◀️ Slide In (from left)
+  /// ◀️ Slides the widget in from the left
   Widget slideInFromLeft({
     Duration duration = const Duration(milliseconds: 400),
     Curve curve = Curves.easeOut,
@@ -60,7 +65,7 @@ extension AnimateX on Widget {
     child: this,
   );
 
-  /// 🔁 Rotate In
+  /// 🔁 Rotates the widget into place
   Widget rotateIn({
     Duration duration = const Duration(milliseconds: 400),
     Curve curve = Curves.easeInOut,
@@ -73,7 +78,7 @@ extension AnimateX on Widget {
     child: this,
   );
 
-  /// 🎯 Bounce In
+  /// 🎯 Bounces the widget in (scale)
   Widget bounceIn({
     Duration duration = const Duration(milliseconds: 600),
     Curve curve = Curves.elasticOut,
@@ -86,26 +91,24 @@ extension AnimateX on Widget {
     child: this,
   );
 
-  /// 🔄 Обгортає в [AnimatedSwitcher]
+  /// 🔄 Wraps widget in [AnimatedSwitcher] with fade + scale transition
   Widget withAnimationSwitcher({
     Duration duration = const Duration(milliseconds: 300),
     Curve switchInCurve = Curves.easeIn,
     Curve switchOutCurve = Curves.easeOut,
     AnimatedSwitcherTransitionBuilder? transitionBuilder,
-  }) {
-    return AnimatedSwitcher(
-      duration: duration,
-      switchInCurve: switchInCurve,
-      switchOutCurve: switchOutCurve,
-      transitionBuilder:
-          transitionBuilder ??
-          (child, animation) => FadeTransition(
-            opacity: animation,
-            child: ScaleTransition(scale: animation, child: child),
-          ),
-      child: this,
-    );
-  }
+  }) => AnimatedSwitcher(
+    duration: duration,
+    switchInCurve: switchInCurve,
+    switchOutCurve: switchOutCurve,
+    transitionBuilder:
+        transitionBuilder ??
+        (child, animation) => FadeTransition(
+          opacity: animation,
+          child: ScaleTransition(scale: animation, child: child),
+        ),
+    child: this,
+  );
 
   ///
 }

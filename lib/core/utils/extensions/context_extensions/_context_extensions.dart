@@ -9,10 +9,10 @@ import '../../../constants/app_strings.dart';
 import '../../../shared_modules/navigation/_imports_for_router.dart';
 import '../../../shared_modules/errors_handling/failure.dart';
 
-part 'context_theme.dart';
-part 'context_media.dart';
-part 'context_padding.dart';
-part 'context_snackbar.dart';
-part 'context_navigation.dart';
+part 'theme_x.dart';
+part 'media_query_x.dart';
+part 'padding_x.dart';
+part 'snackbar_x.dart';
+part 'navigation_x.dart';
 part '../../../shared_modules/errors_handling/extensions/failure_dialog_context_x.dart.dart';
 part 'other_x.dart';

@@ -20,7 +20,7 @@ import '../../../features/profile/domain/load_profile_use_case.dart';
 
 import '../../services/show_dialog.dart';
 import '../../shared_modules/theme/theme_cubit/theme_cubit.dart';
-import '../../../core/utils/extensions/general_extensions/get_it_x.dart';
+import '../../utils/extensions/general_extensions/get_it_safe_di_x.dart';
 
 /// 💡 di_container.dart — All app-wide dependency registrations
 final di = GetIt.instance;
