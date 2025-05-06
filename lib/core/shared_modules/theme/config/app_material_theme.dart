@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-/// 🎛️ [AppThemeConfig] — Strongly typed theming config
+/// 🎛️ [AppThemeConfig] — Typed container for app-wide theming settings
+/// ✅ Used by `MaterialApp`:
+//-------------------------------------------------------------
+
 @immutable
 class AppThemeConfig {
   final String title;

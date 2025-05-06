@@ -6,8 +6,8 @@ import '../../../core/constants/_app_constants.dart'
 import '../../../core/constants/app_strings.dart';
 import '../../shared/shared_domain/shared_entities/user.dart';
 import '../../../core/shared_modules/overlay/_overlay_service.dart';
-import '../../../core/presentation/shared_widgets/custom_app_bar.dart';
-import '../../../core/presentation/shared_widgets/text_widget.dart';
+import '../../../core/shared_presentation/shared_widgets/custom_app_bar.dart';
+import '../../../core/shared_presentation/shared_widgets/text_widget.dart';
 import '../../../core/shared_modules/theme/theme_toggle_widget.dart';
 import 'cubit/profile_page_cubit.dart';
 

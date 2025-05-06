@@ -4,8 +4,8 @@ part 'app_colors.dart';
 part 'app_spacing.dart';
 part 'app_icons.dart';
 
-/// * [AppConstants]- centralized place for static constants.
-abstract class AppConstants {
+/// * [UIConstants]- centralized place for static constants.
+abstract class UIConstants {
   ///
   /// ────────────────────────────────────────────────────────────────────
   /// * 📏 Common UI Constants

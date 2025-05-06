@@ -1,11 +1,17 @@
+import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
-import '../../presentation/shared_widgets/text_widget.dart';
+import '../../shared_presentation/shared_widgets/text_widget.dart';
 import '../../constants/_app_constants.dart';
 
 part 'overlay_card.dart';
 
-/// 🎭 [AnimatedOverlayWidget] — fades and scales in a styled message
+/// 🎭 [AnimatedOverlayWidget] – A toast-like animated widget that:
+/// - 🔽 Slides in with fade & scale animation
+/// - 🖼 Shows icon + message in styled banner
+/// Used by [OverlayNotificationService] to display temporary messages.
+//----------------------------------------------------------------
+
 class AnimatedOverlayWidget extends StatefulWidget {
   final String message;
   final IconData icon;
@@ -22,8 +28,8 @@ class AnimatedOverlayWidget extends StatefulWidget {
 
 class _AnimatedOverlayWidgetState extends State<AnimatedOverlayWidget>
     with TickerProviderStateMixin {
+  ///
   static const _animationDuration = Duration(milliseconds: 600);
-
   late final AnimationController _controller;
   late final Animation<double> _opacity;
   late final Animation<double> _scale;
@@ -31,14 +37,14 @@ class _AnimatedOverlayWidgetState extends State<AnimatedOverlayWidget>
   @override
   void initState() {
     super.initState();
+
+    /// 🎞️ Init animation
     _controller = AnimationController(vsync: this, duration: _animationDuration)
       ..forward();
-
     _opacity = Tween<double>(
       begin: 0,
       end: 1,
     ).chain(CurveTween(curve: Curves.easeOut)).animate(_controller);
-
     _scale = Tween<double>(
       begin: 0.8,
       end: 1,
@@ -46,15 +52,9 @@ class _AnimatedOverlayWidgetState extends State<AnimatedOverlayWidget>
   }
 
   @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
+    /// 🎨 Adapt color scheme to theme
+    final isDark = context.isDarkMode;
     final backgroundColor =
         isDark ? AppColors.darkOverlay : AppColors.lightOverlay;
     final textColor = isDark ? AppColors.white : AppColors.black;
@@ -62,23 +62,32 @@ class _AnimatedOverlayWidgetState extends State<AnimatedOverlayWidget>
         isDark ? AppColors.overlayDarkBorder : AppColors.overlayLightBorder;
 
     return Align(
-      alignment: const FractionalOffset(0.5, 0.4),
+      alignment: const FractionalOffset(0.5, 0.4), // 📍 Slightly above center
       child: FadeTransition(
         opacity: _opacity,
         child: ScaleTransition(
           scale: _scale,
           child: Material(
-            color: Colors.transparent,
+            color: AppColors.transparent,
             child: OverlayCard(
               icon: widget.icon,
               message: widget.message,
               textColor: textColor,
               backgroundColor: backgroundColor,
               borderColor: borderColor,
-            ).withPaddingHorizontal(AppSpacing.xl),
+            ).withPaddingHorizontal(AppSpacing.xl), // ↔️ Outer spacing
           ),
         ),
       ),
     );
   }
+
+  /// 🧹 Clean up controller
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  ///
 }

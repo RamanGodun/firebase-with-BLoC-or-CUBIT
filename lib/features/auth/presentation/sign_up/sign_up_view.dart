@@ -7,7 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget;
 
 import '../../../../core/constants/_app_constants.dart' show AppSpacing;
 import '../../../../core/constants/app_strings.dart' show AppStrings;
-import '../../../../core/presentation/shared_widgets/text_button.dart';
+import '../../../../core/shared_presentation/shared_widgets/text_button.dart';
 import '../../../../core/shared_modules/form_fields/use_auth_focus_nodes.dart';
 import '../../../../core/shared_modules/form_fields/widgets/_fields_factory.dart';
 import '../../../../core/shared_modules/form_fields/widgets/button_for_forms.dart';

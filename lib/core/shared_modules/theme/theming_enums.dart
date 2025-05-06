@@ -1,83 +1,96 @@
 import 'package:flutter/material.dart';
 import '../../constants/_app_constants.dart';
-import 'text_styles.dart';
+import 'text_theme/_text_styles.dart';
 
-/// 🧩 Theme types — Enhanced Enum with behavior
-enum AppThemeVariant {
+/// 🎨 [AppThemeType] — Enhanced enum that defines full theme variants
+/// ✅ Used to generate [ThemeData] dynamically
+//----------------------------------------------------------------
+
+enum AppThemeType {
+  ///
   light(
     brightness: Brightness.light,
     background: AppColors.lightBackground,
     primaryColor: AppColors.lightPrimary,
     cardColor: AppColors.lightOverlay,
-    contrastColor: Colors.black,
+    contrastColor: AppColors.black,
     colorScheme: ColorScheme.light(
       primary: AppColors.lightPrimary,
       secondary: AppColors.lightAccent,
       background: AppColors.lightBackground,
       surface: AppColors.lightSurface,
-      onPrimary: Colors.white,
-      onSecondary: Colors.black,
-      onBackground: Colors.black,
-      onSurface: Colors.black,
+      onPrimary: AppColors.white,
+      onSecondary: AppColors.black,
+      onBackground: AppColors.black,
+      onSurface: AppColors.black,
       error: AppColors.forErrors,
     ),
   ),
+
+  ///
   dark(
     brightness: Brightness.dark,
     background: AppColors.darkBackground,
     primaryColor: AppColors.darkPrimary,
     cardColor: AppColors.darkOverlay,
-    contrastColor: Colors.white,
+    contrastColor: AppColors.white,
     colorScheme: ColorScheme.dark(
       primary: AppColors.darkPrimary,
-      secondary: AppColors.lightAccent,
+      secondary: AppColors.darkAccent,
       background: AppColors.darkBackground,
       surface: AppColors.darkSurface,
-      onPrimary: Colors.white,
-      onSecondary: Colors.white,
-      onBackground: Colors.white,
-      onSurface: Colors.white,
+      onPrimary: AppColors.white,
+      onSecondary: AppColors.white,
+      onBackground: AppColors.white,
+      onSurface: AppColors.white,
       error: AppColors.forErrors,
     ),
   ),
+
+  ///
   amoled(
     brightness: Brightness.dark,
-    background: Colors.black,
+    background: AppColors.black,
     primaryColor: AppColors.darkPrimary,
     cardColor: AppColors.darkOverlay,
-    contrastColor: Colors.white,
+    contrastColor: AppColors.white,
     colorScheme: ColorScheme.dark(
       primary: AppColors.darkPrimary,
-      secondary: AppColors.lightAccent,
-      background: Colors.black,
+      secondary: AppColors.darkAccent,
+      background: AppColors.black,
       surface: AppColors.darkSurface,
-      onPrimary: Colors.white,
-      onSecondary: Colors.white,
-      onBackground: Colors.white,
-      onSurface: Colors.white,
+      onPrimary: AppColors.white,
+      onSecondary: AppColors.white,
+      onBackground: AppColors.white,
+      onSurface: AppColors.white,
       error: AppColors.forErrors,
     ),
   ),
+
+  ///
   glass(
     brightness: Brightness.dark,
     background: AppColors.darkOverlay,
     primaryColor: AppColors.darkPrimary,
-    cardColor: Color(0xAA222222),
-    contrastColor: Colors.white,
+    cardColor: AppColors.glassCardColor,
+    contrastColor: AppColors.white,
     colorScheme: ColorScheme.dark(
       primary: AppColors.darkPrimary,
-      secondary: AppColors.lightAccent,
+      secondary: AppColors.darkAccent,
       background: AppColors.darkOverlay,
       surface: AppColors.darkSurface,
-      onPrimary: Colors.white,
-      onSecondary: Colors.white,
-      onBackground: Colors.white,
-      onSurface: Colors.white,
+      onPrimary: AppColors.white,
+      onSecondary: AppColors.white,
+      onBackground: AppColors.white,
+      onSurface: AppColors.white,
       error: AppColors.forErrors,
     ),
+
+    ///
   );
 
-  const AppThemeVariant({
+  //
+  const AppThemeType({
     required this.brightness,
     required this.background,
     required this.primaryColor,
@@ -93,14 +106,31 @@ enum AppThemeVariant {
   final Color contrastColor;
   final ColorScheme colorScheme;
 
+  /// 🔘 True getter if dark theme
   bool get isDark => brightness == Brightness.dark;
+
+  /// 📦 Converts to [ThemeMode]
   ThemeMode get themeMode => isDark ? ThemeMode.dark : ThemeMode.light;
+
+  /// 🌓 Maps to [AppThemeMode]
   AppThemeMode get appThemeMode =>
       isDark ? AppThemeMode.dark : AppThemeMode.light;
+
+  /// 🔤 Selected font family
   FontFamilyType get font => FontFamilyType.sfPro;
+
+  ///
 }
 
-/// ✨ Enhanced enum for font family options
+//
+///==============================================================
+//
+
+//
+/// 🔤 [FontFamilyType] — Enhanced enum for supported fonts
+/// 🧩 Can be extended to support Google Fonts in future
+//----------------------------------------------------------------
+
 enum FontFamilyType {
   sfPro('SFProText'),
   aeonik('Aeonik'),
@@ -110,10 +140,21 @@ enum FontFamilyType {
   final String value;
   const FontFamilyType(this.value);
 
+  /// 🔎 Checks if font is a Google Font
   bool get isGoogle => this == FontFamilyType.poppins;
+
+  ///
 }
 
-/// 🌗 [AppThemeMode] — Enhanced enum to select between dark/light theme
+//
+///==============================================================
+//
+
+//
+/// 🌓 [AppThemeMode] — Represents base typography configuration
+/// 💡 Used to switch light/dark [TextTheme] factories
+//----------------------------------------------------------------
+
 enum AppThemeMode {
   light(TextStyleFactory.light),
   dark(TextStyleFactory.dark);
@@ -121,14 +162,3 @@ enum AppThemeMode {
   final TextStyleFactory builder;
   const AppThemeMode(this.builder);
 }
-
-/// 📚 Semantic text styles for better DX/UI logic
-enum TextStyleType { heading, subheading, body, label }
-
-TextStyle getSemanticStyle(TextTheme theme, TextStyleType type) =>
-    switch (type) {
-      TextStyleType.heading => theme.titleLarge!,
-      TextStyleType.subheading => theme.titleMedium!,
-      TextStyleType.body => theme.bodyLarge!,
-      TextStyleType.label => theme.labelLarge!,
-    };

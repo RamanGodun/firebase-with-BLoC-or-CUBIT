@@ -12,7 +12,7 @@ import '../../../../core/shared_modules/form_fields/widgets/password_visibility_
 import '../../../../core/shared_modules/navigation/_imports_for_router.dart'
     show RoutesNames;
 import '../../../../core/shared_modules/form_fields/widgets/button_for_forms.dart';
-import '../../../../core/presentation/shared_widgets/text_button.dart';
+import '../../../../core/shared_presentation/shared_widgets/text_button.dart';
 import 'cubit/sign_in_page_cubit.dart';
 
 part 'sign_in_widgets.dart';
