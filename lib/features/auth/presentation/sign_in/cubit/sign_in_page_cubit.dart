@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_with_bloc_or_cubit/features/auth/presentation/sign_in/cubit/sign_in_state_validation_x.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import '../../../../../core/shared_modules/form_fields/input_validation/_inputs_validation.dart';
-import '../../../services/sign_in_service.dart';
+import '../../../sign_up_utils/sign_in_service.dart';
 import '../../../../../core/utils/debouncer.dart';
 import '../../../../../core/shared_modules/errors_handling/failure.dart';
 
@@ -15,7 +16,7 @@ part 'sign_in_page_state.dart';
 
 class SignInCubit extends Cubit<SignInPageState> {
   final SignInService _signInService;
-  final _debouncer = Debouncer(const Duration(milliseconds: 300));
+  final _debouncer = Debouncer(const Duration(milliseconds: 200));
 
   SignInCubit(this._signInService) : super(const SignInPageState());
 
@@ -23,24 +24,14 @@ class SignInCubit extends Cubit<SignInPageState> {
   void emailChanged(String value) {
     _debouncer.run(() {
       final email = EmailInputValidation.dirty(value);
-      emit(
-        state.copyWith(
-          email: email,
-          isValid: Formz.validate([email, state.password]),
-        ),
-      );
+      emit(state.updateWith(email: email));
     });
   }
 
   /// 🔒 Handles password field changes and form revalidation
   void passwordChanged(String value) {
     final password = PasswordInput.dirty(value);
-    emit(
-      state.copyWith(
-        password: password,
-        isValid: Formz.validate([state.email, password]),
-      ),
-    );
+    emit(state.updateWith(password: password));
   }
 
   /// 👁️ Toggles password visibility flag
@@ -49,7 +40,6 @@ class SignInCubit extends Cubit<SignInPageState> {
   }
 
   /// 🚀 Triggers form submission via [SignInService]
-  /// Skips if form is invalid or cubit is closed
   Future<void> submit() async {
     if (!state.isValid || isClosed) return;
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));

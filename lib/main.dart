@@ -39,5 +39,5 @@ class RootProviders extends StatelessWidget {
 /*
 ! DIALOGS AND SNACKBARS
 ._()
-sign up cubit
+
  */

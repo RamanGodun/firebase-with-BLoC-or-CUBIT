@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_with_bloc_or_cubit/features/auth/sign_up_utils/sign_up_state_validation_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import '../../../../../core/shared_modules/form_fields/input_validation/_inputs_validation.dart';
-import '../../../services/sign_up_service.dart';
+import '../../../sign_up_utils/sign_up_service.dart';
 import '../../../../../core/utils/debouncer.dart';
 import '../../../../../core/shared_modules/errors_handling/failure.dart';
 import '../../../../../core/shared_modules/form_fields/extensions/formz_status_x.dart';
@@ -17,33 +18,39 @@ part 'sign_up_page_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
   final SignUpService _signUpService;
-  final _debouncer = Debouncer(const Duration(milliseconds: 300));
+  final _debouncer = Debouncer(const Duration(milliseconds: 200));
   SignUpCubit(this._signUpService) : super(const SignUpState());
 
   /// 👤 Handles name input with trimming & debounce
   void onNameChanged(String value) {
     _debouncer.run(() {
-      final trimmed = value.trim();
-      final input = NameInputValidation.dirty(trimmed);
-      _updateName(input);
+      final input = NameInputValidation.dirty(value.trim());
+      emit(state.updateWith(name: input));
     });
   }
 
   /// 📧 Handles email input with debounce
   void onEmailChanged(String value) {
-    _debouncer.run(() => _updateEmail(EmailInputValidation.dirty(value)));
+    _debouncer.run(() {
+      final email = EmailInputValidation.dirty(value);
+      emit(state.updateWith(email: email));
+    });
   }
 
-  /// 🔒 Handles password input and triggers confirm sync
+  /// 🔒 Handles password input and updates confirm sync
   void onPasswordChanged(String value) {
-    _updatePassword(PasswordInput.dirty(value));
+    final password = PasswordInput.dirty(value);
+    final confirm = state.confirmPassword.updatePassword(password.value);
+    emit(state.updateWith(password: password, confirmPassword: confirm));
   }
 
   /// 🔐 Handles confirm password input and validates match
   void onConfirmPasswordChanged(String value) {
-    _updateConfirmPassword(
-      ConfirmPasswordInput.dirty(password: state.password.value, value: value),
+    final input = ConfirmPasswordInput.dirty(
+      password: state.password.value,
+      value: value,
     );
+    emit(state.updateWith(confirmPassword: input));
   }
 
   /// 👁️ Toggles password field visibility
@@ -89,55 +96,6 @@ class SignUpCubit extends Cubit<SignUpState> {
   void resetState() {
     debugPrint('🧼 SignUpCubit → resetState()');
     emit(const SignUpState());
-  }
-
-  //────────────────────────────────────────────────────────────────────────────
-  // 🔒 PRIVATE HELPERS
-  //────────────────────────────────────────────────────────────────────────────
-
-  void _updateEmail(EmailInputValidation email) {
-    emit(state.copyWith(email: email, isValid: _validateForm(email: email)));
-  }
-
-  void _updateName(NameInputValidation name) {
-    emit(state.copyWith(name: name, isValid: _validateForm(name: name)));
-  }
-
-  void _updatePassword(PasswordInput password) {
-    final confirm = ConfirmPasswordInput.dirty(
-      password: password.value,
-      value: state.confirmPassword.value,
-    );
-    emit(
-      state.copyWith(
-        password: password,
-        confirmPassword: confirm,
-        isValid: _validateForm(password: password, confirmPassword: confirm),
-      ),
-    );
-  }
-
-  void _updateConfirmPassword(ConfirmPasswordInput confirm) {
-    emit(
-      state.copyWith(
-        confirmPassword: confirm,
-        isValid: _validateForm(confirmPassword: confirm),
-      ),
-    );
-  }
-
-  bool _validateForm({
-    NameInputValidation? name,
-    EmailInputValidation? email,
-    PasswordInput? password,
-    ConfirmPasswordInput? confirmPassword,
-  }) {
-    return Formz.validate([
-      name ?? state.name,
-      email ?? state.email,
-      password ?? state.password,
-      confirmPassword ?? state.confirmPassword,
-    ]);
   }
 
   ///

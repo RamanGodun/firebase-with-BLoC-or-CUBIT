@@ -1,20 +1,14 @@
-import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
-import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
 
+import '../shared_widgets/loading_view.dart';
+
 /// ⏳ Initial splash screen shown during app startup.
+/// ⏳ [SplashPage] — Displays a loading indicator while auth is resolving
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = context.colorScheme.primary;
-
-    return Scaffold(
-      body:
-          CircularProgressIndicator.adaptive(
-            backgroundColor: primaryColor,
-          ).centered(),
-    );
+    return const Scaffold(body: LoadingView());
   }
 }

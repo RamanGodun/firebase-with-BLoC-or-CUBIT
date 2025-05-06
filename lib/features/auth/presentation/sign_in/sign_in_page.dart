@@ -2,7 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extens
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/app_config/bootstrap/di_container.dart';
-import '../../services/sign_in_service.dart';
+import '../../sign_up_utils/sign_in_service.dart';
 import '../../../../core/shared_modules/form_fields/extensions/formz_status_x.dart';
 import '../../../../core/shared_modules/overlay/_overlay_service.dart';
 import '../../domain/use_cases/ensure_profile_created.dart';
