@@ -1,35 +1,52 @@
 part of '_imports_for_router.dart';
 
+/// 🚦 [goRouter] — Main GoRouter instance for the app
+/// Responsible for:
+/// - ✅ Initial route configuration
+/// - 🔄 Handling auth-based redirects
+/// - 🧱 Shell layout scaffolding
+/// - 🗺️ Declarative route definitions
+/// - ❌ Custom error page fallback
+//---------------------------------------------------------------
+
 final GoRouter goRouter = GoRouter(
+  /// ⏳ Initial route (Splash Screen)
   initialLocation: '/${RoutesNames.splash}',
+
+  /// 🐞 Enable GoRouter debug logs (only in debug mode)
   debugLogDiagnostics: true,
+
+  /// 🔄 Refresh when auth state changes (listens to AuthBloc stream)
   refreshListenable: GoRouterRefresher(di<AuthBloc>().stream),
 
-  /// 🧭 Refactored redirect logic
+  /// 🔐 Redirects based on current auth state
   redirect:
       (context, state) => handleAuthRedirect(
         authBloc: di<AuthBloc>(),
         currentPath: state.matchedLocation,
       ),
 
-  /// 🗺️ Routes
+  /// 🗺️ Route Map — Declare all navigable paths
   routes: [
+    /// ⏳ Splash Page
     GoRoute(
       path: '/${RoutesNames.splash}',
       name: RoutesNames.splash,
       pageBuilder: (_, __) => AppTransitions.fade(const SplashPage()),
     ),
 
+    /// 🧱 Shell Layout (Main App Scaffold)
     ShellRoute(
-      // path: '/app',
       builder: (context, state, child) => AppScaffold(child: child),
       routes: [
+        /// 🏠 Home Page
         GoRoute(
           path: '/${RoutesNames.home}',
           name: RoutesNames.home,
           pageBuilder:
               (context, state) => AppTransitions.fade(const HomePage()),
           routes: [
+            /// 👤 Profile Page (Nested under Home)
             GoRoute(
               path: RoutesNames.profile,
               name: RoutesNames.profile,
@@ -41,6 +58,7 @@ final GoRouter goRouter = GoRouter(
       ],
     ),
 
+    /// 🔐 Auth Pages
     GoRoute(
       path: '/${RoutesNames.signIn}',
       name: RoutesNames.signIn,
@@ -54,7 +72,6 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: '/${RoutesNames.resetPassword}',
       name: RoutesNames.resetPassword,
-
       pageBuilder:
           (context, state) => AppTransitions.fade(const ResetPasswordPage()),
     ),
@@ -70,6 +87,8 @@ final GoRouter goRouter = GoRouter(
       pageBuilder:
           (context, state) => AppTransitions.fade(const ChangePasswordPage()),
     ),
+
+    /// ❌ Error / 404 Page
     GoRoute(
       path: '/${RoutesNames.pageNotFound}',
       name: RoutesNames.pageNotFound,
@@ -79,9 +98,11 @@ final GoRouter goRouter = GoRouter(
     ),
   ],
 
-  /// ❌ Fallback for unmatched routes
+  /// ❌ Fallback: Unmatched route or navigation error
   errorPageBuilder:
       (context, state) => AppTransitions.fade(
         PageNotFound(errorMessage: state.error?.toString() ?? 'Unknown error'),
       ),
+
+  ///
 );

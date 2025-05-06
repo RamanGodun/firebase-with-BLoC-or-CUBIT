@@ -1,15 +1,16 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/form_fields/extensions/formz_status_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
+import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import '../../../constants/_app_constants.dart';
 import '../../../utils/typedef.dart';
 import '../../../presentation/shared_widgets/text_widget.dart';
+import '../../../constants/app_keys.dart';
 
-
-
-/// ✅[FormSubmitButton] a submit button, that reacts to form validation and shows loader animation
+/// ✅ [FormSubmitButton] — A reusable submit button with validation logic and animated loading indicator
 class FormSubmitButton<Cubit extends StateStreamable<State>, State>
     extends StatelessWidget {
   final String text;
@@ -42,54 +43,46 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
         final isLoading = status.isInProgress;
 
         return Hero(
-          tag: 'submit',
+          tag: AppKeys.submitButtonTag,
           child: ElevatedButton(
+            // 🚀 Trigger submit when form is valid and ready
             onPressed:
                 (status.canSubmit && isValidated)
                     ? () => onSubmit(context)
                     : null,
+
+            // 🎨 Custom button style or fallback to default
             style:
                 style ??
                 ElevatedButton.styleFrom(
                   backgroundColor: colorScheme.primary,
                   foregroundColor: colorScheme.onPrimary,
-                  disabledBackgroundColor: Colors.grey.shade400,
-                  disabledForegroundColor: Colors.white70,
+                  disabledBackgroundColor: AppColors.buttonDisabledBackground,
+                  disabledForegroundColor: AppColors.buttonDisabledForeground,
                   padding: const EdgeInsets.symmetric(
                     vertical: 14,
                     horizontal: 24,
                   ),
                   elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
                 ),
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              switchInCurve: Curves.easeIn,
-              switchOutCurve: Curves.easeOut,
-              transitionBuilder:
-                  (child, animation) => FadeTransition(
-                    opacity: animation,
-                    child: ScaleTransition(scale: animation, child: child),
-                  ),
-              child:
-                  isLoading
-                      ? const SizedBox(
-                        key: ValueKey('loader'),
-                        height: 24,
-                        width: 24,
-                        child: CupertinoActivityIndicator(radius: 12),
-                      )
-                      : TextWidget(
-                        text,
-                        TextType.titleMedium,
-                        key: const ValueKey('text'),
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-            ),
-          ),
+
+            // 🔁 Loader or animated label
+            child:
+                (isLoading
+                    ? const SizedBox(
+                      key: AppKeys.submitButtonLoader,
+                      height: 24,
+                      width: 24,
+                      child: CupertinoActivityIndicator(radius: 12),
+                    )
+                    : TextWidget(
+                      key: AppKeys.submitButtonText,
+                      text,
+                      TextType.titleMedium,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ).withAnimationSwitcher()),
+          ).withRoundedCorners(8).withPaddingTop(30),
         );
       },
     );

@@ -1,11 +1,13 @@
+import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
+import 'package:flutter/material.dart';
 import 'package:firebase_with_bloc_or_cubit/core/presentation/shared_widgets/text_widget.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/extensions/on_failure/_failure_x_imports.dart';
-import 'package:flutter/material.dart';
 
+import '../constants/app_strings.dart';
 import '../shared_modules/errors_handling/failure.dart';
 
-/// 🔌 [IShowDialog] — abstraction for platform/dialog services
-/// 🧼 Enables testing and platform-specific implementations.
+/// 🔌 [IShowDialog] — abstraction for displaying platform dialogs.
+/// 🧼 Enables mocking, testing, and platform-specific implementations.
 abstract interface class IShowDialog {
   void alertOnError(
     BuildContext context,
@@ -16,6 +18,8 @@ abstract interface class IShowDialog {
   });
 }
 
+/// 🧱 [MaterialDialogService] — Default material dialog implementation for errors.
+/// Uses [AlertDialog] and [TextWidget] with unified theming & platform support.
 class MaterialDialogService implements IShowDialog {
   const MaterialDialogService();
 
@@ -31,15 +35,21 @@ class MaterialDialogService implements IShowDialog {
       context: context,
       builder:
           (_) => AlertDialog(
-            title: TextWidget(title ?? 'Oops...', TextType.titleMedium),
+            title: TextWidget(
+              title ?? AppStrings.errorDialogTitle,
+              TextType.titleMedium,
+            ),
             content: TextWidget(failure.uiMessage, TextType.error),
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  context.popView();
                   onClose?.call();
                 },
-                child: TextWidget(buttonText ?? 'OK', TextType.titleSmall),
+                child: TextWidget(
+                  buttonText ?? AppStrings.okButton,
+                  TextType.titleSmall,
+                ),
               ),
             ],
           ),

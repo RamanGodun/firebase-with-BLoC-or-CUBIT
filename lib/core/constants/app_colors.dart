@@ -44,5 +44,8 @@ class AppColors {
   ///
   static const Color primary85 = Color(0xD9005153); // 85% of primary
   static const Color primary30 = Color(0x4D005153); // 30% of primary
+  static const Color buttonDisabledBackground = Color(0xFFBDBDBD); // Grey[400]
+  static const Color buttonDisabledForeground = Color(0xB3FFFFFF); // White70
+
   ///
 }

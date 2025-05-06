@@ -8,7 +8,7 @@ import '../env.dart';
 import '../observer/app_bloc_observer.dart';
 
 /// 🔧 bootstrap.dart — Environment & Firebase & Storage setup
-
+//------------------------------------------------------------
 Future<void> bootstrapApp() async {
   /// 📄 Load environment-specific .env config
   final envFileName = switch (EnvConfig.currentEnv) {
