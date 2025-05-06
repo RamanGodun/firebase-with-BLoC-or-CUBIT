@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../shared_modules/errors_handling/either/either.dart';
-import '../shared_modules/errors_handling/either/unit.dart';
-import '../shared_modules/errors_handling/failure.dart';
+import '../shared_modules/errors_handling/unit.dart';
+import '../shared_modules/errors_handling/failures/failure.dart';
 import '../shared_modules/errors_handling/handlers/result_handler.dart';
 
 /// 🧩 [ResultFuture] — Represents async result with [Either<Failure, T>]

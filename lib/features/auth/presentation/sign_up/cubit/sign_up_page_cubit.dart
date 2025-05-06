@@ -7,7 +7,7 @@ import 'package:formz/formz.dart';
 import '../../../../../core/shared_modules/form_fields/input_validation/_inputs_validation.dart';
 import '../../../sign_up_utils/sign_up_service.dart';
 import '../../../../../core/utils/debouncer.dart';
-import '../../../../../core/shared_modules/errors_handling/failure.dart';
+import '../../../../../core/shared_modules/errors_handling/failures/failure.dart';
 import '../../../../../core/shared_modules/form_fields/extensions/formz_status_x.dart';
 
 part 'sign_up_page_state.dart';

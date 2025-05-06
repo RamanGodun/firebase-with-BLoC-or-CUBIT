@@ -1,4 +1,4 @@
-part of '../../../utils/extensions/context_extensions/_context_extensions.dart';
+part of '../../utils/extensions/context_extensions/_context_extensions.dart';
 
 /// 🧩 [ContextDialogX] — platform-aware dialog utilities for [BuildContext]
 /// ⚠️ Shows a native-style error dialog for [Failure]

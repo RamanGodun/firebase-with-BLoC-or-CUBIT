@@ -1,7 +1,7 @@
 part of '_either_x_imports.dart';
 
-/// 🧩 [ResultFutureX<T>] — async sugar for `Future<Either<Failure, T>>`
-/// ✅ Unified extension for async consumption and chaining of failures/success.
+/// 🧩 [ResultFutureX<T>] — Async sugar for `Future<Either<Failure, T>>`
+/// ✅ Unified access to async chaining, fallback and message handling
 //-------------------------------------------------------------------------
 
 extension ResultFutureX<T> on Future<Either<Failure, T>> {
@@ -18,9 +18,7 @@ extension ResultFutureX<T> on Future<Either<Failure, T>> {
   }) async => (await this).fold(onFailure, onSuccess);
 
   /// 🎯 Get value or fallback
-  Future<T> getOrElse(T fallback) async =>
-      (await this).fold((_) => fallback, (r) => r);
-  // Future<T> getOrElse(T fallback) async => (await this).rightOrNull ?? fallback; // this will be faster
+  Future<T> getOrElse(T fallback) async => (await this).rightOrNull ?? fallback;
 
   /// 🧼 Extract failure message or null
   Future<String?> failureMessageOrNull() async =>
@@ -33,30 +31,6 @@ extension ResultFutureX<T> on Future<Either<Failure, T>> {
     final result = await this;
     if (result.isLeft) await handler(result.leftOrNull!);
     return ResultHandler(result);
-  }
-
-  /// 💬 Show SnackBar if failure
-  Future<void> handleSnackBar(BuildContext context) async {
-    final result = await this;
-    if (!context.mounted) return;
-    result.handleSnackBar(context);
-  }
-
-  /// 💬 Show Dialog if failure
-  Future<void> handleDialog(
-    BuildContext context, {
-    String? title,
-    String? buttonText,
-    VoidCallback? onClose,
-  }) async {
-    final result = await this;
-    if (!context.mounted) return;
-    result.handleDialog(
-      context,
-      title: title,
-      buttonText: buttonText,
-      onClose: onClose,
-    );
   }
 
   ///

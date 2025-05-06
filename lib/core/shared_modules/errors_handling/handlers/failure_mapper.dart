@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kDebugMode, debugPrint;
 import '../error_plugin_enums.dart';
-import '../failure.dart';
+import '../failures/failure.dart';
 
 /// 🧰 [FailureMapper] — Central place for mapping, logging and formatting exceptions
 //-------------------------------------------------------------------------

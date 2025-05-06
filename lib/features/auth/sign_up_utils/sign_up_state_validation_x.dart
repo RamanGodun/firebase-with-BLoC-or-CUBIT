@@ -1,7 +1,7 @@
 import 'package:formz/formz.dart';
 import '../../../core/shared_modules/form_fields/input_validation/_inputs_validation.dart';
 import '../presentation/sign_up/cubit/sign_up_page_cubit.dart';
-import '../../../../../core/shared_modules/errors_handling/failure.dart';
+import '../../../core/shared_modules/errors_handling/failures/failure.dart';
 
 /// 🧩 [SignUpStateValidationX] — Adds validation and update utilities to [SignUpState]
 /// ✅ Simplifies state mutation and ensures validation is always up-to-date

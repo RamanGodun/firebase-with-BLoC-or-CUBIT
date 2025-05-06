@@ -1,9 +1,9 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/extensions/on_failure/_failure_x_imports.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/on_failure/_failure_x_imports.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../../../core/shared_modules/errors_handling/handlers/result_handler.dart';
 import '../../../shared/shared_domain/shared_entities/_user.dart';
-import '../../../../core/shared_modules/errors_handling/failure.dart';
+import '../../../../core/shared_modules/errors_handling/failures/failure.dart';
 import '../../../shared/shared_domain/shared_entities/user_utils_x.dart';
 import '../../domain/load_profile_use_case.dart';
 

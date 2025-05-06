@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/extensions/on_either/_either_x_imports.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/extensions/on_failure/_failure_x_imports.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either/extensions/_either_x_imports.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/on_failure/_failure_x_imports.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/extensions/context_extensions/_context_extensions.dart';
 import '../../overlay/_overlay_service.dart';
 import '../either/either.dart';
-import '../failure.dart';
+import '../failures/failure.dart';
 
 /// 🧩 [ResultHandlerAsync<T>] — async wrapper around `Either<Failure, T>`
 /// ✅ Provides clean async result handling with chainable syntax.
