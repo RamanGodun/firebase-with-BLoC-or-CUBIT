@@ -11,10 +11,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   /// 🔌 Firebase + HydratedBloc + Bloc Observer
-  await bootstrapApp();
+  await AppBootstrap.initialize();
 
-  /// 📦 Dependency Injection (GetIt)
-  await initDIContainer();
+  /// 📦 Initializes all app dependencies via GetIt
+  await AppDI.init();
 
   /// 🚀 Run App
   runApp(const RootProviders());
@@ -38,5 +38,5 @@ final class RootProviders extends StatelessWidget {
 
 /*
 ! DIALOGS AND SNACKBARS
-! переведення методів в утилітарні класи
+! Errors handling redundant 
  */

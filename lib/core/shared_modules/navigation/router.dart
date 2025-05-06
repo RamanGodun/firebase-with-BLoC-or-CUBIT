@@ -21,7 +21,7 @@ final GoRouter goRouter = GoRouter(
 
   /// 🔐 Redirects based on current auth state
   redirect:
-      (context, state) => handleAuthRedirect(
+      (context, state) => AuthRedirectMapper.from(
         authBloc: di<AuthBloc>(),
         currentPath: state.matchedLocation,
       ),

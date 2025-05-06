@@ -34,7 +34,7 @@ final class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
 
       return Right(UserDTOUtilsX.fromDoc(doc));
     } catch (e) {
-      return Left(handleException(e));
+      return Left(FailureMapper.from(e));
     }
   }
 }

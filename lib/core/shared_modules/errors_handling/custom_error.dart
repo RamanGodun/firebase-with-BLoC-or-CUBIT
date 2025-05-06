@@ -1,28 +1,8 @@
 import 'package:equatable/equatable.dart';
 
-/// 🔌 [ErrorPlugin] — Identifies the source of a [CustomError].
-/// 🧭 Useful for analytics, diagnostics, and categorizing error origins.
-
-enum ErrorPlugin {
-  httpClient,
-  firebase,
-  sqlite,
-  useCase,
-  unknown;
-
-  String get code => switch (this) {
-    httpClient => 'HTTP_CLIENT',
-    firebase => 'FIREBASE',
-    sqlite => 'SQLITE',
-    useCase => 'USE_CASE',
-    unknown => 'UNKNOWN',
-  };
-}
-
-//----------------------------------------------------------------------------------
-
 /// 💥 [CustomError] — Encapsulates platform, SDK, or domain-level error information.
 /// 🧼 Designed for safe transport of error data between layers (Data → Domain → UI).
+//----------------------------------------------------------------------------------
 
 final class CustomError extends Equatable {
   final String code;
@@ -56,4 +36,24 @@ final class CustomError extends Equatable {
   List<Object?> get props => [code, message, plugin];
 
   ///
+}
+
+/// 🔌 [ErrorPlugin] — Identifies the source of a [CustomError].
+/// 🧭 Useful for analytics, diagnostics, and categorizing error origins.
+//-------------------------------------------------------------------------
+
+enum ErrorPlugin {
+  httpClient,
+  firebase,
+  sqlite,
+  useCase,
+  unknown;
+
+  String get code => switch (this) {
+    httpClient => 'HTTP_CLIENT',
+    firebase => 'FIREBASE',
+    sqlite => 'SQLITE',
+    useCase => 'USE_CASE',
+    unknown => 'UNKNOWN',
+  };
 }

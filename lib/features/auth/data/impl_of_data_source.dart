@@ -35,7 +35,7 @@ final class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       );
       return Right(result);
     } catch (e) {
-      return Left(handleException(e));
+      return Left(FailureMapper.from(e));
     }
   }
 
@@ -66,7 +66,7 @@ final class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       return const Right(null);
     } catch (e) {
-      return Left(handleException(e));
+      return Left(FailureMapper.from(e));
     }
   }
 
@@ -91,7 +91,7 @@ final class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
       return const Right(null);
     } catch (e) {
-      return Left(handleException(e));
+      return Left(FailureMapper.from(e));
     }
   }
 
@@ -102,7 +102,7 @@ final class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       await _firebaseAuth.signOut();
       return const Right(null);
     } catch (e) {
-      return Left(handleException(e));
+      return Left(FailureMapper.from(e));
     }
   }
 
