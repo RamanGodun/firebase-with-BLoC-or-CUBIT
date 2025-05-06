@@ -5,6 +5,10 @@ import 'package:firebase_with_bloc_or_cubit/features/shared/shared_domain/shared
 
 import 'data_source.dart';
 
+/// 🧩 [ProfileRepositoryImpl] — Concrete implementation using remote data source
+/// ✅ Maps [UserDTO] → [User] via `.toEntity()`
+//----------------------------------------------------------------
+
 class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileRemoteDataSource remote;
 

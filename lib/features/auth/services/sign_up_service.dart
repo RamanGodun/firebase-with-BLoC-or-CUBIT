@@ -3,14 +3,15 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/
 import '../domain/use_cases/sign_up.dart';
 import '../../../core/utils/typedef.dart';
 
-/// 🧩 [SignUpService] — Handles full sign-up flow with validation & logging
-/// 🧼 Encapsulates logic previously inside [SignUpCubit]
+/// 🧩 [SignUpService] — Handles full sign-up flow with logging
+/// ✅ Wraps [SignUpUseCase] to encapsulate clean business logic
+//----------------------------------------------------------------
+
 class SignUpService {
   final SignUpUseCase _signUp;
+  const SignUpService(this._signUp);
 
-  SignUpService(this._signUp);
-
-  /// 🚀 Executes sign-up, validates and logs result
+  /// 🚀 Executes sign-up and logs any failure
   ResultFuture<void> execute({
     required String name,
     required String email,
@@ -18,8 +19,10 @@ class SignUpService {
   }) async {
     final result = await _signUp(name: name, email: email, password: password);
 
-    result.leftOrNull?.log();
+    result.leftOrNull?.log(); // ❌ Log failure if exists
 
     return result;
   }
+
+  ///
 }

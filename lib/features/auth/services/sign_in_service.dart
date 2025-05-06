@@ -6,23 +6,27 @@ import '../../../core/shared_modules/errors_handling/either/either.dart';
 import '../../../core/shared_modules/errors_handling/failure.dart';
 import '../../../core/utils/typedef.dart';
 
-/// 🧩 [SignInService] — Handles sign in & ensures profile with logging
-/// 🧼 Encapsulates full Cubit submit() logic safely
-//----------------------------------------------------------------//
+/// 🧩 [SignInService] — Handles sign-in logic and profile creation
+/// ✅ Combines [SignInUseCase] and [EnsureUserProfileCreatedUseCase] into one flow
+/// 🔐 Used in `submit()` logic to ensure clean separation of responsibilities
+//----------------------------------------------------------------
+
 class SignInService {
   final SignInUseCase _signIn;
   final EnsureUserProfileCreatedUseCase _ensureProfile;
 
-  SignInService(this._signIn, this._ensureProfile);
+  const SignInService(this._signIn, this._ensureProfile);
 
-  /// 🚀 Executes sign-in and profile creation, with full logging
+  /// 🚀 Executes sign-in and ensures user profile exists in Firestore
+  /// 🔍 Logs all failures internally
   ResultFuture<void> execute({
     required String email,
     required String password,
   }) async {
     final signInResult = await _signIn(email: email, password: password);
+
     if (signInResult.isLeft) {
-      signInResult.leftOrNull?.log();
+      signInResult.leftOrNull?.log(); // ❌ Log auth failure
       return Left(signInResult.leftOrNull!);
     }
 
@@ -31,15 +35,17 @@ class SignInService {
 
     if (user == null) {
       const failure = UnknownFailure(message: 'User is null');
-      failure.log();
+      failure.log(); // ❗️Unexpected null user
       return const Left(failure);
     }
 
     final profileResult = await _ensureProfile(user);
     if (profileResult.isLeft) {
-      profileResult.leftOrNull?.log();
+      profileResult.leftOrNull?.log(); // ❌ Log profile creation error
     }
 
     return profileResult;
   }
+
+  ///
 }

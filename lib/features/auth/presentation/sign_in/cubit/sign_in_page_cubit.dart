@@ -11,13 +11,15 @@ part 'sign_in_page_state.dart';
 
 /// 🔐 [SignInCubit] — Manages Sign In logic, validation, submission.
 /// ✅ Full sign-in logic moved to [SignInService] via DI
+//----------------------------------------------------------------
+
 class SignInCubit extends Cubit<SignInPageState> {
   final SignInService _signInService;
   final _debouncer = Debouncer(const Duration(milliseconds: 300));
 
   SignInCubit(this._signInService) : super(const SignInPageState());
 
-  /// 📧 Handles email changes with debounce
+  /// 📧 Handles email field changes with debounce and validation
   void emailChanged(String value) {
     _debouncer.run(() {
       final email = EmailInputValidation.dirty(value);
@@ -30,7 +32,7 @@ class SignInCubit extends Cubit<SignInPageState> {
     });
   }
 
-  /// 🔐 Handles password change and form revalidation
+  /// 🔒 Handles password field changes and form revalidation
   void passwordChanged(String value) {
     final password = PasswordInput.dirty(value);
     emit(
@@ -41,12 +43,13 @@ class SignInCubit extends Cubit<SignInPageState> {
     );
   }
 
-  /// 👁️ Toggles password visibility
+  /// 👁️ Toggles password visibility flag
   void togglePasswordVisibility() {
     emit(state.copyWith(isPasswordObscure: !state.isPasswordObscure));
   }
 
-  /// 🚀 Triggers async sign-in via [SignInService]
+  /// 🚀 Triggers form submission via [SignInService]
+  /// Skips if form is invalid or cubit is closed
   Future<void> submit() async {
     if (!state.isValid || isClosed) return;
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
@@ -66,8 +69,11 @@ class SignInCubit extends Cubit<SignInPageState> {
     );
   }
 
+  /// 🔄 Resets only the submission status (used after dialogs)
   void resetStatus() =>
       emit(state.copyWith(status: FormzSubmissionStatus.initial));
+
+  /// 🧼 Resets the entire form to initial state
   void resetForm() => emit(const SignInPageState());
 
   ///

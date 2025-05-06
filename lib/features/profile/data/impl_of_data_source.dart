@@ -7,6 +7,10 @@ import '../../shared/shared_data/shared_data_transfer_objects/user_dto.dart';
 import 'data_source.dart';
 import '../../shared/shared_data/shared_sources/remote/data_source_constants.dart';
 
+/// 🧩 [ProfileRemoteDataSourceImpl] — Fetches user data from Firestore
+/// ✅ Returns [UserDTO] wrapped in Result for safe error handling
+//----------------------------------------------------------------
+
 class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   final FirebaseFirestore firestore;
 

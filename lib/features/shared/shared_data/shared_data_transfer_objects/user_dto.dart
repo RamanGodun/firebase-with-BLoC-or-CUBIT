@@ -3,6 +3,14 @@ import 'package:equatable/equatable.dart';
 import '../../../../core/utils/typedef.dart';
 import 'base_dto.dart';
 
+/// 👤 [UserDTO] — Firebase-ready Data Transfer Object for user model
+/// ✅ Supports:
+/// - 🔄 Conversion from Firestore document
+/// - 🧱 Serialization via `BaseDTO`
+/// - 🧪 Equality with `Equatable`
+/// - 🆕 Initial user generation
+//----------------------------------------------------------------
+
 class UserDTO extends BaseDTO with EquatableMixin {
   const UserDTO({
     required this.id,
@@ -20,6 +28,7 @@ class UserDTO extends BaseDTO with EquatableMixin {
   final int point;
   final String rank;
 
+  /// 🔄 Converts Firestore document into [UserDTO]
   factory UserDTO.fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data();
     if (data == null) throw Exception('No user data found in document');
@@ -33,6 +42,7 @@ class UserDTO extends BaseDTO with EquatableMixin {
     );
   }
 
+  /// 🧱 Converts [UserDTO] into a serializable [Map]
   @override
   DataMap toMap() => {
     'name': name,
@@ -42,6 +52,7 @@ class UserDTO extends BaseDTO with EquatableMixin {
     'rank': rank,
   };
 
+  /// 🔁 Constructs [UserDTO] from a raw [Map]
   factory UserDTO.fromMap(DataMap map, {required String id}) => UserDTO(
     id: id,
     name: map['name'] ?? '',
@@ -67,9 +78,11 @@ class UserDTO extends BaseDTO with EquatableMixin {
     );
   }
 
+  /// 🧪 Equatable props for efficient comparison
   @override
   List<Object?> get props => [id, name, email, profileImage, point, rank];
 
+  /// 🧾 String representation for debugging
   @override
   String toString() =>
       'UserDTO(id: $id, name: $name, email: $email, point: $point, rank: $rank)';

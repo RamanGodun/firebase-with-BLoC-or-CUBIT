@@ -17,13 +17,16 @@ import 'cubit/sign_in_page_cubit.dart';
 
 part 'sign_in_widgets.dart';
 
-/// 🔐 [SignInPageView] — Full sign-in form UI with optimized rebuilds
+/// 🔐 [SignInPageView] — Main UI layout for the sign-in form
+/// ✅ Uses HookWidget for managing focus nodes & rebuild optimization
+//----------------------------------------------------------------
+
 class SignInPageView extends HookWidget {
   const SignInPageView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // 📌 Focus management (shared across fields)
+    // 📌 Initialize and memoize focus nodes for fields
     final focusNodes = useAuthFocusNodes();
 
     return Scaffold(
@@ -33,38 +36,33 @@ class SignInPageView extends HookWidget {
           child: FocusTraversalGroup(
             child: AutofillGroup(
               child:
+                  ///
                   ListView(
                     shrinkWrap: true,
                     padding: const EdgeInsets.symmetric(
                       horizontal: AppSpacing.xl,
                     ),
                     children: [
-                      /// 🖼️ Logo with Hero animation
-                      const Hero(
-                        tag: 'Logo',
-                        child: Image(
-                          image: AssetImage('assets/images/flutter_logo.png'),
-                          width: 250,
-                        ),
-                      ),
+                      /// 🖼️ Logo with Hero animation for smooth transitions
+                      const _LogoImage(),
                       const SizedBox(height: AppSpacing.l),
 
-                      /// 📧 Email
+                      /// 📧 Email input field
                       _EmailField(
                         focusNode: focusNodes.email,
                         nextFocus: focusNodes.password,
                       ),
                       const SizedBox(height: AppSpacing.l),
 
-                      /// 🔒 Password
+                      /// 🔒 Password input field
                       _PasswordField(focusNode: focusNodes.password),
                       const SizedBox(height: AppSpacing.xl),
 
-                      /// 🚀 Sign In submit Button
+                      /// 🚀 Primary submit button
                       const _SubmitButton(),
                       const SizedBox(height: AppSpacing.s),
 
-                      /// 🔁 Redirect  to Sign Up page
+                      /// 🔁 Link to redirect to sign-up screen
                       const _RedirectToSignUpButton(),
                     ],
                   ).centered(),
@@ -74,4 +72,6 @@ class SignInPageView extends HookWidget {
       ),
     );
   }
+
+  ///
 }

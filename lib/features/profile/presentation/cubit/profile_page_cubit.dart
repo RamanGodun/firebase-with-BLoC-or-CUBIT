@@ -8,15 +8,16 @@ import '../../domain/load_profile_use_case.dart';
 
 part 'profile_page_state.dart';
 
-/// 🧩 [ProfileCubit] — manages user profile loading by UID
-/// 🧼 Uses `Result<Failure, UserModel>` to map domain logic into UI states
-//----------------------------------------------------------------//
+/// 🧩 [ProfileCubit] — Manages user profile loading by UID
+/// ✅ Uses [ResultHandler] to map domain result into UI state transitions
+//----------------------------------------------------------------
 
 class ProfileCubit extends Cubit<ProfileState> {
   final LoadProfileUseCase _loadProfile;
 
   ProfileCubit(this._loadProfile) : super(ProfileState.initial());
 
+  /// 🚀 Loads user profile and emits corresponding UI states
   Future<void> loadProfile(String uid) async {
     emit(state.copyWith(status: ProfileStatus.loading));
 
@@ -34,4 +35,6 @@ class ProfileCubit extends Cubit<ProfileState> {
         )
         .log();
   }
+
+  ///
 }

@@ -12,15 +12,15 @@ import '../../../../../core/shared_modules/form_fields/extensions/formz_status_x
 part 'sign_up_page_state.dart';
 
 /// 🧠 [SignUpCubit] — Handles logic for sign-up form: validation, debouncing, and submission.
-/// 🧼 Delegates sign-up execution to [SignUpService]
-//----------------------------------------------------------------//
+/// ✅ Delegates actual sign-up to [SignUpService]
+//----------------------------------------------------------------
+
 class SignUpCubit extends Cubit<SignUpState> {
   final SignUpService _signUpService;
   final _debouncer = Debouncer(const Duration(milliseconds: 300));
-
   SignUpCubit(this._signUpService) : super(const SignUpState());
 
-  /// 👤 Name change handler (with debounce)
+  /// 👤 Handles name input with trimming & debounce
   void onNameChanged(String value) {
     _debouncer.run(() {
       final trimmed = value.trim();
@@ -29,36 +29,36 @@ class SignUpCubit extends Cubit<SignUpState> {
     });
   }
 
-  /// 📧 Email change handler (with debounce)
+  /// 📧 Handles email input with debounce
   void onEmailChanged(String value) {
     _debouncer.run(() => _updateEmail(EmailInputValidation.dirty(value)));
   }
 
-  /// 🔒 Password change
+  /// 🔒 Handles password input and triggers confirm sync
   void onPasswordChanged(String value) {
     _updatePassword(PasswordInput.dirty(value));
   }
 
-  /// 🔐 Confirm password change
+  /// 🔐 Handles confirm password input and validates match
   void onConfirmPasswordChanged(String value) {
     _updateConfirmPassword(
       ConfirmPasswordInput.dirty(password: state.password.value, value: value),
     );
   }
 
-  /// 👁️ Toggles visibility of the password field
+  /// 👁️ Toggles password field visibility
   void togglePasswordVisibility() {
     emit(state.copyWith(isPasswordObscure: !state.isPasswordObscure));
   }
 
-  /// 👁️🔁 Toggles visibility of the confirm password field
+  /// 👁️🔁 Toggles confirm password visibility
   void toggleConfirmPasswordVisibility() {
     emit(
       state.copyWith(isConfirmPasswordObscure: !state.isConfirmPasswordObscure),
     );
   }
 
-  /// 🚀 Triggers async sign-up via [SignUpService]
+  /// 🚀 Triggers sign-up process (via [SignUpService]), if form is valid
   Future<void> submit() async {
     if (!state.isValid || state.status.isSubmissionInProgress) return;
 
@@ -80,19 +80,21 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
-  /// 🧽 Resets only status field
+  /// 🔄 Resets only submission status (e.g. after dialog)
   void resetStatus() {
     emit(state.copyWith(status: FormzSubmissionStatus.initial));
   }
 
-  /// 🔄 Resets full state (all fields)
+  /// 🧼 Fully resets form fields & validation
   void resetState() {
     debugPrint('🧼 SignUpCubit → resetState()');
     emit(const SignUpState());
   }
 
-  /// Private methods are next:
-  //
+  //────────────────────────────────────────────────────────────────────────────
+  // 🔒 PRIVATE HELPERS
+  //────────────────────────────────────────────────────────────────────────────
+
   void _updateEmail(EmailInputValidation email) {
     emit(state.copyWith(email: email, isValid: _validateForm(email: email)));
   }

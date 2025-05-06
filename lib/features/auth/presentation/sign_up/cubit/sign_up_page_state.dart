@@ -1,6 +1,8 @@
 part of 'sign_up_page_cubit.dart';
 
-/// 🧾 [SignUpState] — Holds all field values and form status for SignUpCubit.
+/// 🧾 [SignUpState] — Holds all field values and form status for [SignUpCubit]
+/// ✅ Centralized state object for validation, UI, and submission status
+//----------------------------------------------------------------
 class SignUpState extends Equatable {
   final NameInputValidation name;
   final EmailInputValidation email;
@@ -9,7 +11,6 @@ class SignUpState extends Equatable {
   final FormzSubmissionStatus status;
   final bool isValid;
   final Failure? failure;
-  // 👁️ NEW: Fields for visibility toggle
   final bool isPasswordObscure;
   final bool isConfirmPasswordObscure;
 
@@ -25,7 +26,7 @@ class SignUpState extends Equatable {
     this.isConfirmPasswordObscure = true,
   });
 
-  /// Clones current state with optional overrides
+  /// 🧱 Clones current state with optional overrides
   SignUpState copyWith({
     NameInputValidation? name,
     EmailInputValidation? email,

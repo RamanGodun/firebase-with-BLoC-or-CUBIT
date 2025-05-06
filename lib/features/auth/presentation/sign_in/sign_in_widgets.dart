@@ -1,6 +1,25 @@
 part of 'sign_in_view.dart';
 
-/// 📧 [_EmailField] — Rebuilds only when email state changes
+/// 🖼️ [_LogoImage] — Displays Flutter logo with hero animation
+//----------------------------------------------------------------
+class _LogoImage extends StatelessWidget {
+  const _LogoImage();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Hero(
+      tag: 'Logo',
+      child: Image(
+        image: AssetImage('assets/images/flutter_logo.png'),
+        width: 250,
+      ),
+    );
+  }
+}
+
+/// 📧 [_EmailField] — Email input field with validation & focus handling
+/// ✅ Rebuilds only when `email.uiError` changes
+//----------------------------------------------------------------
 class _EmailField extends StatelessWidget {
   final FocusNode focusNode;
   final FocusNode nextFocus;
@@ -24,7 +43,9 @@ class _EmailField extends StatelessWidget {
   }
 }
 
-/// 🔒 [_PasswordField] — Rebuilds only when password or obscure state changes
+/// 🔒 [_PasswordField] — Password field with toggle visibility logic
+/// ✅ Rebuilds only when password error or visibility state changes
+//----------------------------------------------------------------
 class _PasswordField extends StatelessWidget {
   final FocusNode focusNode;
 
@@ -62,7 +83,9 @@ class _PasswordField extends StatelessWidget {
   }
 }
 
-/// 🚀 Sign In Button
+/// 🚀 [_SubmitButton] — Button for triggering sign-in logic
+/// ✅ Uses [FormSubmitButton] for automatic loading state binding
+//----------------------------------------------------------------
 class _SubmitButton extends StatelessWidget {
   const _SubmitButton();
 
@@ -80,7 +103,9 @@ class _SubmitButton extends StatelessWidget {
   }
 }
 
-/// 🔁 Redirect to Sign Up
+/// 🔁 [_RedirectToSignUpButton] — Button to navigate to the sign-up screen
+/// ✅ Disabled during form submission
+//----------------------------------------------------------------
 class _RedirectToSignUpButton extends StatelessWidget {
   const _RedirectToSignUpButton();
 

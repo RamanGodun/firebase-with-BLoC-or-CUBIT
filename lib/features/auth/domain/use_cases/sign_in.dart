@@ -3,10 +3,15 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/typedef.dart';
 
 import '../repositories/auth_repo.dart';
 
+/// 🔐 [SignInUseCase]
+/// ✅ Handles user sign-in with email & password
+//----------------------------------------------------------------
+
 class SignInUseCase {
   final AuthRepo _repo;
   const SignInUseCase(this._repo);
 
+  /// 🚪 Authenticates user using provided credentials
   ResultFuture<fb_auth.UserCredential> call({
     required String email,
     required String password,

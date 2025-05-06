@@ -17,66 +17,68 @@ import 'cubit/sign_up_page_cubit.dart';
 
 part 'sign_up_widgets.dart';
 
-/// 🧾 [SignUpView] - Contains full form UI and field logic
+/// 🧾 [SignUpView] — Full UI layout for Sign Up screen
+/// ✅ Includes all form fields, interactions, and field focus handling
+//----------------------------------------------------------------
+
 class SignUpView extends HookWidget {
   const SignUpView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // 📌 Focus management (shared across fields)
+    // 📌 Shared focus nodes for form fields
     final focusNodes = useAuthFocusNodes();
 
     return Scaffold(
       body: SafeArea(
         child: GestureDetector(
+          // 🔕 Dismiss keyboard on outside tap
           onTap: context.unfocusKeyboard,
           child: FocusTraversalGroup(
             child: ListView(
-              shrinkWrap: true,
-              children: [
-                /// 🔰 Logo
-                const Hero(
-                  tag: 'Logo',
-                  child: Image(
-                    image: AssetImage('assets/images/flutter_logo.png'),
-                    height: 150,
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.l),
+                  shrinkWrap: true,
+                  children: [
+                    /// 🔰 Logo with optional hero animation
+                    const _LogoImage(),
+                    const SizedBox(height: AppSpacing.l),
 
-                /// 👤 Name
-                _NameField(
-                  focusNode: focusNodes.name,
-                  nextFocusNode: focusNodes.email,
-                ),
-                const SizedBox(height: AppSpacing.l),
+                    /// 👤 Name input
+                    _NameField(
+                      focusNode: focusNodes.name,
+                      nextFocusNode: focusNodes.email,
+                    ),
+                    const SizedBox(height: AppSpacing.l),
 
-                /// 📧 Email
-                _EmailField(
-                  focusNode: focusNodes.email,
-                  nextFocusNode: focusNodes.password,
-                ),
-                const SizedBox(height: AppSpacing.l),
+                    /// 📧 Email input
+                    _EmailField(
+                      focusNode: focusNodes.email,
+                      nextFocusNode: focusNodes.password,
+                    ),
+                    const SizedBox(height: AppSpacing.l),
 
-                /// 🔒 Password
-                _PasswordField(
-                  focusNode: focusNodes.password,
-                  nextFocusNode: focusNodes.confirmPassword,
-                ),
-                const SizedBox(height: AppSpacing.l),
+                    /// 🔒 Password input
+                    _PasswordField(
+                      focusNode: focusNodes.password,
+                      nextFocusNode: focusNodes.confirmPassword,
+                    ),
+                    const SizedBox(height: AppSpacing.l),
 
-                /// 🔐 Confirm Password
-                _ConfirmPasswordField(focusNode: focusNodes.confirmPassword),
-                const SizedBox(height: AppSpacing.xxxl),
+                    /// 🔐 Confirm password input
+                    _ConfirmPasswordField(
+                      focusNode: focusNodes.confirmPassword,
+                    ),
+                    const SizedBox(height: AppSpacing.xxxl),
 
-                /// 🚀 Submit button
-                const _SubmitButton(),
-                const SizedBox(height: AppSpacing.s),
+                    /// 🚀 Form submission button
+                    const _SubmitButton(),
+                    const SizedBox(height: AppSpacing.s),
 
-                /// 🔁 Redirect text button
-                const _RedirectToSignInButton(),
-              ],
-            ).centered().withPaddingHorizontal(AppSpacing.l),
+                    /// 🔁 Redirect to Sign In page
+                    const _RedirectToSignInButton(),
+                  ],
+                )
+                .centered() // 📍 Center the column vertically
+                .withPaddingHorizontal(AppSpacing.l), // ↔ Horizontal padding
           ),
         ),
       ),

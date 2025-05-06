@@ -8,15 +8,20 @@ import '../../shared/shared_data/shared_data_transfer_objects/user_dto.dart';
 import 'data_source.dart';
 
 /// 🧩 [AuthRemoteDataSourceImpl] — concrete implementation using Firebase
+/// ✅ Handles auth & Firestore profile creation
+//----------------------------------------------------------------
+
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final fb_auth.FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firestore;
 
   const AuthRemoteDataSourceImpl(this._firebaseAuth, this._firestore);
 
+  /// 📡 Emits auth state changes
   @override
   Stream<fb_auth.User?> get user => _firebaseAuth.userChanges();
 
+  /// 🔐 Email/password sign in
   @override
   ResultFuture<fb_auth.UserCredential> signIn({
     required String email,
@@ -33,6 +38,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     }
   }
 
+  /// 📝 Registers user in Firebase + creates Firestore profile
   @override
   ResultFuture<void> signUp({
     required String name,
@@ -59,12 +65,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     }
   }
 
+  /// 🧱 Ensures Firestore profile exists after login (e.g. from other providers)
   @override
   ResultFuture<void> ensureUserProfileCreated(fb_auth.User user) async {
     try {
       final docRef = _firestore
           .collection(DataSourceConstants.usersCollection)
           .doc(user.uid);
+
       final doc = await docRef.get();
 
       if (!doc.exists) {
@@ -73,7 +81,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           name: user.displayName ?? '',
           email: user.email ?? '',
         );
-
         await docRef.set(userDto.toMap());
       }
 
@@ -83,6 +90,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     }
   }
 
+  /// 🚪 Signs out current Firebase user
   @override
   ResultFuture<void> signOut() async {
     try {
@@ -92,4 +100,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       return Left(handleException(e));
     }
   }
+
+  //
 }

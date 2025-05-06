@@ -3,7 +3,9 @@ import 'package:firebase_with_bloc_or_cubit/features/shared/shared_domain/use_ca
 import 'package:firebase_with_bloc_or_cubit/features/profile/domain/profile_repository.dart';
 import '../../shared/shared_domain/shared_entities/user.dart';
 
-/// 🧩 [LoadProfileUseCase] — gets user profile by UID
+/// 🧩 [LoadProfileUseCase] — Gets user profile from repository by UID
+//----------------------------------------------------------------
+
 class LoadProfileUseCase extends UseCaseWithParams<User, String> {
   final ProfileRepository _repository;
 

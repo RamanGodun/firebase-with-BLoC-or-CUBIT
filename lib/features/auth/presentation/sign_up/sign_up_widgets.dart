@@ -1,6 +1,24 @@
 part of 'sign_up_view.dart';
 
-/// 👤 Name field
+/// 🖼️ [_LogoImage] — Displays logo with hero animation
+//----------------------------------------------------------------
+class _LogoImage extends StatelessWidget {
+  const _LogoImage();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Hero(
+      tag: 'Logo',
+      child: Image(
+        image: AssetImage('assets/images/flutter_logo.png'),
+        height: 150,
+      ),
+    );
+  }
+}
+
+/// 👤 [_NameField] — Handles name input with validation
+//----------------------------------------------------------------
 class _NameField extends StatelessWidget {
   final FocusNode focusNode;
   final FocusNode nextFocusNode;
@@ -23,7 +41,8 @@ class _NameField extends StatelessWidget {
   }
 }
 
-/// 📧 Email field
+/// 📧 [_EmailField] — Handles email input with validation
+//----------------------------------------------------------------
 class _EmailField extends StatelessWidget {
   final FocusNode focusNode;
   final FocusNode nextFocusNode;
@@ -46,7 +65,8 @@ class _EmailField extends StatelessWidget {
   }
 }
 
-/// 🔒 Password field
+/// 🔒 [_PasswordField] — Handles password input with toggle visibility
+//----------------------------------------------------------------
 class _PasswordField extends StatelessWidget {
   final FocusNode focusNode;
   final FocusNode nextFocusNode;
@@ -75,13 +95,13 @@ class _PasswordField extends StatelessWidget {
           onChanged: context.read<SignUpCubit>().onPasswordChanged,
           onSubmitted: () => nextFocusNode.requestFocus(),
         );
-        //
       },
     );
   }
 }
 
-/// 🔐 Confirm password field
+/// 🔐 [_ConfirmPasswordField] — Validates match with password
+//----------------------------------------------------------------
 class _ConfirmPasswordField extends StatelessWidget {
   final FocusNode focusNode;
   const _ConfirmPasswordField({required this.focusNode});
@@ -110,13 +130,13 @@ class _ConfirmPasswordField extends StatelessWidget {
           onChanged: context.read<SignUpCubit>().onConfirmPasswordChanged,
           onSubmitted: context.read<SignUpCubit>().submit,
         );
-        //
       },
     );
   }
 }
 
-/// 🚀 Submit button
+/// 🚀 [_SubmitButton] — Validated submit with status feedback
+//----------------------------------------------------------------
 class _SubmitButton extends StatelessWidget {
   const _SubmitButton();
 
@@ -134,7 +154,8 @@ class _SubmitButton extends StatelessWidget {
   }
 }
 
-/// 🔁 Redirect to Sign In
+/// 🔁 [_RedirectToSignInButton] — Disabled if submitting
+//----------------------------------------------------------------
 class _RedirectToSignInButton extends StatelessWidget {
   const _RedirectToSignInButton();
 

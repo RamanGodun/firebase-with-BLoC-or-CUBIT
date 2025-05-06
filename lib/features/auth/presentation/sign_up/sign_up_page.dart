@@ -9,7 +9,10 @@ import '../../domain/use_cases/sign_up.dart';
 import 'cubit/sign_up_page_cubit.dart';
 import 'sign_up_view.dart';
 
-/// 🧾 [SignUpPage] - Entry point with BLoC provider and listener
+/// 🧾 [SignUpPage] — Entry point for Sign Up screen with scoped Cubit DI
+/// ✅ Sets up [SignUpCubit] and listens for submission failures
+//----------------------------------------------------------------
+
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
 
@@ -22,7 +25,10 @@ class SignUpPage extends StatelessWidget {
   }
 }
 
-/// 🔄 [_SignUpListenerWrapper] — Listens for failure & handles UI reactions
+/// 🔄 [_SignUpListenerWrapper] — Listens for failed submissions and shows UI feedback
+/// ✅ Displays failure dialog and resets status after delay
+//----------------------------------------------------------------
+
 class _SignUpListenerWrapper extends StatelessWidget {
   const _SignUpListenerWrapper();
 
@@ -36,6 +42,8 @@ class _SignUpListenerWrapper extends StatelessWidget {
         if (state.failure != null) {
           OverlayNotificationService.dismissIfVisible();
           context.showFailureDialog(state.failure!);
+
+          // ⏱ Reset status after delay to allow clean retry
           Future.delayed(const Duration(milliseconds: 300), () {
             if (context.mounted) {
               context.read<SignUpCubit>().resetStatus();

@@ -7,12 +7,17 @@ import '../../domain/use_cases/sign_out.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
-/// 🔐 [AuthBloc] — Handles authentication state and Firebase auth stream.
+/// 🔐 [AuthBloc] — Manages auth state using Firebase user stream and [SignOutUseCase]
+/// ✅ Emits `authenticated` / `unauthenticated` states and handles logout
+//----------------------------------------------------------------
+
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignOutUseCase signOutUseCase;
   final Stream<fb_auth.User?> userStream;
   late final StreamSubscription<fb_auth.User?> _authSubscription;
 
+  /// 🧱 Initializes [AuthBloc] with Firebase user stream
+  /// 🧭 Listens to auth state changes and dispatches [AuthStateChangedEvent]
   AuthBloc({required this.signOutUseCase, required this.userStream})
     : super(AuthState.unknown()) {
     _authSubscription = userStream.listen(
@@ -23,7 +28,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignoutRequestedEvent>(_onSignoutRequested);
   }
 
-  /// 🔁 Reacts to user login/logout from Firebase
+  /// 🔁 Handles [AuthStateChangedEvent] → updates auth status and user
   void _onAuthStateChanged(
     AuthStateChangedEvent event,
     Emitter<AuthState> emit,
@@ -39,7 +44,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  /// 🚪 Handles user sign-out
+  /// 🚪 Handles [SignoutRequestedEvent] → calls [signOutUseCase]
   Future<void> _onSignoutRequested(
     SignoutRequestedEvent event,
     Emitter<AuthState> emit,
@@ -47,10 +52,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     await signOutUseCase();
   }
 
-  /// 🧼 Dispose the subscription
+  /// 🧼 Cancels auth stream subscription on BLoC close
   @override
   Future<void> close() {
     _authSubscription.cancel();
     return super.close();
   }
+
+  ///
 }

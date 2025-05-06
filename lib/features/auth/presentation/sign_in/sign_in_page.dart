@@ -10,7 +10,10 @@ import '../../domain/use_cases/sign_in.dart';
 import 'cubit/sign_in_page_cubit.dart';
 import 'sign_in_view.dart';
 
-/// 🔐 [SignInPage] — Entry point (with scoped DI) for Auth screen for existing users
+/// 🔐 [SignInPage] — Entry point for the sign-in feature
+/// ✅ Provides scoped Cubit with injected services
+//----------------------------------------------------------------
+
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
 
@@ -29,7 +32,10 @@ class SignInPage extends StatelessWidget {
   }
 }
 
-/// 🔄 [_SignInListenerWrapper] — Listens for failure & handles UI reactions
+/// 🔄 [_SignInListenerWrapper] — Listens for submission failures
+/// ✅ Displays error overlay and resets status after delay
+//----------------------------------------------------------------
+
 class _SignInListenerWrapper extends StatelessWidget {
   const _SignInListenerWrapper();
 
@@ -44,7 +50,8 @@ class _SignInListenerWrapper extends StatelessWidget {
           OverlayNotificationService.dismissIfVisible();
           context.showFailureDialog(state.failure!);
         }
-        // context.read<SignInCubit>().resetStatus();
+
+        // Optional: delay before resetting status to avoid UI jitter
         Future.delayed(const Duration(milliseconds: 300), () {
           if (context.mounted) {
             context.read<SignInCubit>().resetStatus();
