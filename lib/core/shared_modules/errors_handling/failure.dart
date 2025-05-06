@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'custom_error.dart';
+import 'error_plugin_enums.dart';
 
 /// 🔥 [Failure] — Abstract base class for domain-level failures.
 /// ✅ Used in [Either<Failure, T>] to handle errors safely across layers
@@ -8,21 +8,15 @@ import 'custom_error.dart';
 abstract class Failure extends Equatable {
   /// Descriptive human-readable error message
   final String message;
-
-  /// Optional technical code or status (e.g. HTTP, plugin-specific)
+  // Optional technical code or status (e.g. HTTP, plugin-specific)
   final dynamic statusCode;
-
-  /// Optional domain-level app-specific code
+  // Optional domain-level app-specific code
   final String? code;
 
-  ///
   const Failure._({required this.message, this.statusCode, this.code});
 
-  ///
   @override
   List<Object?> get props => [message, statusCode, code];
-
-  //
 }
 
 //----------------------------------------------------------------------------
@@ -34,20 +28,19 @@ final class ApiFailure extends Failure {
     : super._(code: 'API');
 }
 
-/// ⚙️ [GenericFailure] — Platform or SDK error, wrapped in [CustomError].
-/// ✅ Includes plugin source and detailed message
+/// ⚙️ [GenericFailure] — Platform or SDK error (e.g. no internet, format error, timeout).
+/// ✅ Includes plugin source, custom code, and message
 final class GenericFailure extends Failure {
-  final CustomError error;
+  final ErrorPlugin plugin;
 
-  GenericFailure({required this.error})
-    : super._(
-        message: error.message,
-        code: error.code,
-        statusCode: error.plugin.code,
-      );
+  GenericFailure({
+    required this.plugin,
+    required String super.code,
+    required super.message,
+  }) : super._(statusCode: plugin.code);
 
   @override
-  List<Object?> get props => [message, code, statusCode, error];
+  List<Object?> get props => super.props..add(plugin);
 }
 
 /// 🔥 [FirebaseFailure] — Firebase service-related failure.

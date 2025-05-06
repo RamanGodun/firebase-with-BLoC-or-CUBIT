@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart' show debugPrint;
-
-import '../../custom_error.dart';
+import '../../error_plugin_enums.dart';
 import '../../failure.dart';
 
 part 'failure_logger_x.dart';

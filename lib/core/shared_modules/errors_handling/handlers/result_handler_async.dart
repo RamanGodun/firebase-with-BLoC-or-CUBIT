@@ -10,6 +10,8 @@ import '../failure.dart';
 /// 🧩 [ResultHandlerAsync<T>] — async wrapper around `Either<Failure, T>`
 /// ✅ Provides clean async result handling with chainable syntax.
 /// Useful for services, use-cases, and UI layers (e.g. after API calls).
+//-------------------------------------------------------------------------
+
 class ResultHandlerAsync<T> {
   final Either<Failure, T> result;
   const ResultHandlerAsync(this.result);

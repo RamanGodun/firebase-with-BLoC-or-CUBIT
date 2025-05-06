@@ -1,4 +1,8 @@
+library;
+
 /// 🧩 [Unit] — represents a void-like type in functional programming
+//-------------------------------------------------------------------------
+
 final class Unit {
   const Unit._();
 }

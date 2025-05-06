@@ -1,7 +1,10 @@
 part of '_failure_x_imports.dart';
 
 /// 🪵 [FailureLogger] — provides Crashlytics/debug logging and safe UI fallback message.
+//-------------------------------------------------------------------------
+
 extension FailureLogger on Failure {
+  //
   /// Logs this failure (to console or Crashlytics, depending on environment).
   void log() => logFailureToCrashlytics(this);
 
@@ -18,5 +21,6 @@ void logFailureToCrashlytics(Failure failure) {
   final type = failure.runtimeType.toString();
 
   debugPrint('[FAILURE] [$source][$code][$type] $message');
-  //
+
+  ///
 }

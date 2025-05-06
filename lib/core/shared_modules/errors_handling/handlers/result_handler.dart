@@ -10,6 +10,7 @@ import '../failure.dart';
 /// 🧩 [ResultHandler] — wrapper around `Either<Failure, T>`
 /// ✅ Provides clean, readable, chainable result handling for sync operations.
 /// Useful for UseCases or repositories in domain layer.
+//-------------------------------------------------------------------------
 
 @immutable
 final class ResultHandler<T> {

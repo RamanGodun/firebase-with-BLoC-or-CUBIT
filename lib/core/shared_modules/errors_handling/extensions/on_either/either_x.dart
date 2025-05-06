@@ -2,6 +2,7 @@ part of '_either_x_imports.dart';
 
 /// 🧩 [ResultX<T>] — sync sugar for `Either<Failure, T>`
 /// ✅ Enables UI handling, fallback values, and null-safe failure/message access.
+//-------------------------------------------------------------------------
 
 extension ResultX<T> on Either<Failure, T> {
   /// 🔁 Match (fold) sync logic

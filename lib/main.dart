@@ -35,8 +35,3 @@ final class RootProviders extends StatelessWidget {
     );
   }
 }
-
-/*
-! DIALOGS AND SNACKBARS
-! Errors handling redundant 
- */

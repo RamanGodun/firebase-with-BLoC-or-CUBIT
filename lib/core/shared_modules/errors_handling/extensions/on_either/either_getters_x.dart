@@ -1,6 +1,8 @@
 part of '_either_x_imports.dart';
 
 /// ✅ [EitherGetters] — lightweight accessors for test/debug/logic
+//-------------------------------------------------------------------------
+
 extension EitherGetters<L, R> on Either<L, R> {
   L? get leftOrNull => switch (this) {
     Left(:final value) => value,

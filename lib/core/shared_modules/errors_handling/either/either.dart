@@ -1,6 +1,9 @@
-// 📦 core/shared_modules/errors_handling/either/either.dart
+library;
 
-/// 🎯 [Either] — functional programming construct representing a value that can be [Left] (failure) or [Right] (success).
+/// 🎯 [Either] — functional programming construct representing
+/// a value that can be [Left] (failure) or [Right] (success).
+//-------------------------------------------------------------------------
+
 sealed class Either<L, R> {
   const Either();
 
@@ -45,5 +48,3 @@ final class Right<L, R> extends Either<L, R> {
   const Right(this.value);
   final R value;
 }
-
-

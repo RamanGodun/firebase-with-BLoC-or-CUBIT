@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kDebugMode, debugPrint;
-import '../custom_error.dart';
+import '../error_plugin_enums.dart';
 import '../failure.dart';
 
 /// 🧰 [FailureMapper] — Central place for mapping, logging and formatting exceptions
+//-------------------------------------------------------------------------
+
 final class FailureMapper {
   const FailureMapper._();
 
@@ -18,38 +20,30 @@ final class FailureMapper {
 
     return switch (error) {
       SocketException _ => GenericFailure(
-        error: const CustomError(
-          code: 'NO_INTERNET',
-          message: 'No Internet connection. Please check your settings.',
-          plugin: ErrorPlugin.httpClient,
-        ),
+        plugin: ErrorPlugin.httpClient,
+        code: 'NO_INTERNET',
+        message: 'No Internet connection. Please check your settings.',
       ),
       HttpException e => GenericFailure(
-        error: CustomError(
-          code: 'HTTP_ERROR',
-          message: e.message,
-          plugin: ErrorPlugin.httpClient,
-        ),
+        plugin: ErrorPlugin.httpClient,
+        code: 'HTTP_ERROR',
+        message: e.message,
       ),
       FormatException _ => GenericFailure(
-        error: const CustomError(
-          code: 'FORMAT_ERROR',
-          message: 'Bad response format received.',
-          plugin: ErrorPlugin.unknown,
-        ),
+        plugin: ErrorPlugin.unknown,
+        code: 'FORMAT_ERROR',
+        message: 'Bad response format received.',
       ),
       TimeoutException _ => GenericFailure(
-        error: const CustomError(
-          code: 'TIMEOUT',
-          message: 'Connection timeout occurred.',
-          plugin: ErrorPlugin.httpClient,
-        ),
+        plugin: ErrorPlugin.httpClient,
+        code: 'TIMEOUT',
+        message: 'Connection timeout occurred.',
       ),
       _ => UnknownFailure(message: error.toString()),
     };
   }
 
-  /// 🐞 [_logError] — Logs error details in debug mode for diagnostics.
+  /// 🔞 [_logError] — Logs error details in debug mode for diagnostics.
   /// (e.g., caught exceptions before mapping them to [Failure])
   static void _logError(dynamic error) {
     if (kDebugMode) {

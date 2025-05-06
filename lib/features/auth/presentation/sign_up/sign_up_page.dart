@@ -44,7 +44,7 @@ final class _SignUpListenerWrapper extends StatelessWidget {
           context.showFailureDialog(state.failure!);
 
           // ⏱ Reset status after delay to allow clean retry
-          Future.delayed(const Duration(milliseconds: 300), () {
+          Future.delayed(const Duration(milliseconds: 150), () {
             if (context.mounted) {
               context.read<SignUpCubit>().resetStatus();
             }

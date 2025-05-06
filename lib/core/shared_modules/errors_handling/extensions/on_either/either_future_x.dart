@@ -2,6 +2,7 @@ part of '_either_x_imports.dart';
 
 /// 🧩 [ResultFutureX<T>] — async sugar for `Future<Either<Failure, T>>`
 /// ✅ Unified extension for async consumption and chaining of failures/success.
+//-------------------------------------------------------------------------
 
 extension ResultFutureX<T> on Future<Either<Failure, T>> {
   /// 🔁 Match with async callbacks
