@@ -1,7 +1,5 @@
 part of '_inputs_validation.dart';
 
-
-
 /// 👤 [NameInputValidation] — Formz input for validating user's full name.
 /// Ensures non-empty input and minimum character length.
 //-------------------------------------------------------------------------

@@ -1,14 +1,16 @@
+library;
+
 /// 🌐 [EnvConfig] — Environment-based configuration
 /// Supports dev, staging, and prod modes via `flutter_dotenv`.
 /// Never store secrets directly here.
 /// Used for: API base URLs, Feature toggles, Logging flags
 //------------------------------------------------------------------
 
-library;
-
 enum Environment { dev, staging, prod }
 
 final class EnvConfig {
+  EnvConfig._();
+
   /// 🌍 Current environment (⚠️ adjust before release!)
   static const Environment currentEnv = Environment.dev;
 

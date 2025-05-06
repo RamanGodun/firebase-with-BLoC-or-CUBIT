@@ -20,7 +20,10 @@ enum InputFieldType {
 
 /// 🏗️ Factory method that returns a themed [AppTextField], based on the [InputFieldType].
 /// Ensures consistent look & feel across forms (SignUp/Login).
-abstract class InputFieldFactory {
+final class InputFieldFactory {
+  InputFieldFactory._();
+
+  ///
   static Widget create({
     required InputFieldType type,
     required FocusNode focusNode,

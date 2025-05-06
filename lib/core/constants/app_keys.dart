@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 /// 🗝 [AppKeys] — All ValueKeys used across the app.
 /// Centralized for testability, clarity, and consistency.
-abstract class AppKeys {
-  // 👤 Signup fields
+final class AppKeys {
+  const AppKeys._();
+
+  /// 👤 Signup fields
   static const nameField = ValueKey('signup_name_field');
   static const emailField = ValueKey('signup_email_field');
   static const passwordField = ValueKey('signup_password_field');

@@ -1,7 +1,7 @@
 /// 🧩 [Unit] — represents a void-like type in functional programming
-class Unit {
-  const Unit();
+final class Unit {
+  const Unit._();
 }
 
-/// Global constant instance of [Unit]
-const unit = Unit();
+/// 🌐 Global constant instance of [Unit]
+const unit = Unit._();

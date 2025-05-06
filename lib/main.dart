@@ -38,6 +38,7 @@ class RootProviders extends StatelessWidget {
 
 /*
 ! DIALOGS AND SNACKBARS
-._()
-
+botstrap
+[pluginSource]
+! переведення методів в утилітарні класи
  */

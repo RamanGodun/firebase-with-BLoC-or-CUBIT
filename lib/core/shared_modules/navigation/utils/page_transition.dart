@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 /// 🚀 [AppTransitions] — Centralized transitions for GoRouter navigation
-abstract class AppTransitions {
+final class AppTransitions {
+  AppTransitions._();
+
   /// 🍎 iOS-style fade animation
   static CustomTransitionPage<T> fade<T>(Widget child) {
     return CustomTransitionPage<T>(

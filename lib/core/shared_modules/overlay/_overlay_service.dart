@@ -6,7 +6,10 @@ import 'overlay_widget.dart';
 /// ✅ Displays temporary overlay notifications
 //-------------------------------------------------------------
 
-class OverlayNotificationService {
+@pragma('vm:entry-point')
+final class OverlayNotificationService {
+  OverlayNotificationService._();
+
   /// 📍 Holds the currently visible overlay (if any)
   static OverlayEntry? _activeOverlay;
   // 🕒 Timer to auto-dismiss overlay after delay

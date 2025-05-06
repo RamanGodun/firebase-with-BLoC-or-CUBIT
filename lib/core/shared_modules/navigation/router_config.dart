@@ -9,8 +9,13 @@ import '_imports_for_router.dart';
 /// - `routeInformationProvider`
 //----------------------------------------------------------------
 
-class AppRouterConfig {
+final class AppRouterConfig {
+  const AppRouterConfig._();
+
+  ///
   static final delegate = goRouter.routerDelegate;
   static final parser = goRouter.routeInformationParser;
   static final provider = goRouter.routeInformationProvider;
+
+  ///
 }

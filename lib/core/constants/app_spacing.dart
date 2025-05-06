@@ -1,7 +1,9 @@
 part of '_app_constants.dart';
 
 /// 📏 [AppSpacing] — Defines common padding/margin spacing values for layout
-class AppSpacing {
+final class AppSpacing {
+  const AppSpacing._();
+
   static const double xxxs = 2.0;
   static const double xxs = 4.0;
   static const double xs = 6.0;
@@ -14,4 +16,6 @@ class AppSpacing {
   static const double xxxl2 = 85.0;
   static const double huge = 100.0;
   static const double massive = 120.0;
+
+  ///
 }

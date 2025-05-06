@@ -5,7 +5,9 @@ part 'app_spacing.dart';
 part 'app_icons.dart';
 
 /// * [UIConstants]- centralized place for static constants.
-abstract class UIConstants {
+final class UIConstants {
+  const UIConstants._();
+
   ///
   /// ────────────────────────────────────────────────────────────────────
   /// * 📏 Common UI Constants

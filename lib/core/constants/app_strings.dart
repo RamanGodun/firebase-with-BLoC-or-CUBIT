@@ -1,5 +1,7 @@
 /// * 📄[AppStrings] centralized place for all app text constants.
-abstract class AppStrings {
+final class AppStrings {
+  const AppStrings._();
+
   ///
   /// ===============================
   /// * 🏠 App Titles

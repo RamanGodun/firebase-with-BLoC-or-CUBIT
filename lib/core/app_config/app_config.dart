@@ -1,3 +1,5 @@
+library;
+
 /// ⚙️ [AppConfig] — Global application constants.
 /// Centralizes:
 ///   • App identity & version
@@ -5,9 +7,9 @@
 ///   • Build flags (debug, CI)
 ///   • Global network configs
 
-library;
-
 final class AppConfig {
+  AppConfig._();
+
   /// 🏷️ App display name
   static const String appName = 'Firebase with BLoC/Cubit';
 

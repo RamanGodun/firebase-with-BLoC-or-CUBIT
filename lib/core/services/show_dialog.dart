@@ -9,6 +9,9 @@ import '../shared_modules/errors_handling/failure.dart';
 /// 🔌 [IShowDialog] — abstraction for displaying platform dialogs.
 /// 🧼 Enables mocking, testing, and platform-specific implementations.
 abstract interface class IShowDialog {
+  const IShowDialog._();
+
+  ///
   void alertOnError(
     BuildContext context,
     Failure failure, {
