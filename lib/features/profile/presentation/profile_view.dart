@@ -1,11 +1,9 @@
-import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/_app_constants.dart' show AppSpacing;
 import '../../../core/constants/app_strings.dart';
 import '../../../core/shared_presentation/shared_widgets/loading_view.dart';
 import '../../shared/shared_domain/shared_entities/_user.dart';
-import '../../../core/shared_modules/overlay/_overlay_service.dart';
 import '../../../core/shared_presentation/shared_widgets/custom_app_bar.dart';
 import '../../../core/shared_presentation/shared_widgets/text_widget.dart';
 import '../../../core/shared_modules/theme/theme_toggle_widget.dart';
@@ -23,21 +21,20 @@ final class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
+      ///
+      appBar:
+      ///
+      const CustomAppBar(
         title: AppStrings.profilePageTitle,
         actionWidgets: [ThemeToggleIcon()],
         isNeedPaddingAfterActionIcon: true,
       ),
-      body: BlocConsumer<ProfileCubit, ProfileState>(
-        listener: (context, state) {
-          final failure = state.failure?.consume(); // 👈 споживаємо одноразово
-          if (state.status == ProfileStatus.error && failure != null) {
-            OverlayNotificationService.dismissIfVisible();
-            context.showFailureDialog(failure);
-          }
-        },
 
-        ///
+      ///
+      body:
+      ///
+      BlocBuilder<ProfileCubit, ProfileState>(
+        buildWhen: (previous, current) => previous.status != current.status,
         builder: (context, state) {
           switch (state.status) {
             ///
@@ -52,13 +49,9 @@ final class ProfileView extends StatelessWidget {
 
             case ProfileStatus.initial:
               return const SizedBox.shrink();
-
-            ///
           }
         },
       ),
     );
   }
-
-  //
 }

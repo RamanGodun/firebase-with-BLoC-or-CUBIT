@@ -5,7 +5,7 @@ part of '_failure_x_imports.dart';
 
 extension FailureUI on Failure {
   //
-  /// Returns a formatted string with extra debug details for complex errors.
+  /// 🧾 Returns detailed debug message (code + plugin name)
   String get formattedMessage => switch (this) {
     GenericFailure(:final plugin, :final code, :final message) =>
       '$message\n\nCode: $code\nSource: ${plugin.name}',
@@ -14,8 +14,24 @@ extension FailureUI on Failure {
     _ => message,
   };
 
-  /// Human-friendly fallback message for UI display.
-  String get uiMessage => message.isNotEmpty ? message : 'Something went wrong';
+  /// 🌍 Returns localized message if possible, otherwise fallback to raw `message`
+  String uiMessageOrRaw([BuildContext? context, Map<String, String>? params]) {
+    try {
+      if (context != null && translationKey != null) {
+        final localizations = AppLocalizations.of(context);
+        final translated = localizations?.translate(translationKey!, params);
+        if (translated != null && translated.trim().isNotEmpty) {
+          return translated;
+        }
+      }
+    } catch (_) {
+      // 🔒 Safely ignore localization's errors
+    }
+    return message.isNotEmpty ? message : 'Something went wrong';
+  }
+
+  // 🔁 Method with UI (to use in UI layer)
+  String uiMessage(BuildContext context) => uiMessageOrRaw(context);
 
   /// 📌 Contextual icon for overlay usage (e.g. showError)
   IconData get overlayIcon => switch (this) {

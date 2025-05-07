@@ -41,5 +41,8 @@ final class ProfileCubit extends Cubit<ProfileState> {
         .log();
   }
 
+  /// 🧽 Clears failure after it's been shown to UI
+  void clearFailure() => emit(state.copyWith(failure: null));
+
   ///
 }

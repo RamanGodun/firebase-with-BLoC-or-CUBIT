@@ -54,11 +54,13 @@ final class _SignInListenerWrapper extends StatelessWidget {
           OverlayNotificationService.dismissIfVisible();
           context.showFailureDialog(failure);
         }
-        // Delay before resetting status to avoid UI jitter
+
+        /// ⏱ Reset after delay to avoid UI jitter and preserve UX
         Future.delayed(const Duration(milliseconds: 300), () {
-          if (context.mounted) {
-            context.read<SignInCubit>().resetStatus();
-          }
+          if (!context.mounted) return;
+          final cubit = context.read<SignInCubit>();
+          cubit.resetStatus();
+          cubit.clearFailure();
         });
       },
 

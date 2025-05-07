@@ -1,0 +1,21 @@
+{
+  "failure": {
+    "network": {
+      "no_connection": "",
+      "timeout": ""
+    },
+    "auth": {
+      "unauthorized": ""
+    },
+    "firebase": {
+      "generic": ""
+    },
+    "format": {
+      "error": ""
+    },
+    "unknown": "",
+    "plugin": {
+      "missing": ""
+    }
+  }
+}

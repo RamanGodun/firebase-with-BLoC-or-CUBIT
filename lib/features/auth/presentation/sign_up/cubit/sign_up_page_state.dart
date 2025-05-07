@@ -66,7 +66,7 @@ final class SignUpState extends Equatable {
   ];
 
   /// 🧠 Extracts error message from failure if present (only once)
-  String? get errorMessage => failure?.consume()?.uiMessage;
+  String? get errorMessage => failure?.consume()?.uiMessageOrRaw();
 
   ///
 }

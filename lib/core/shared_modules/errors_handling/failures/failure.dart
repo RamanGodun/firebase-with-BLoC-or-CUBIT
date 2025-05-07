@@ -1,22 +1,33 @@
 import 'package:equatable/equatable.dart';
-import '../error_plugin_enums.dart';
+import '../handlers/error_plugin_enums.dart';
+import 'failure_key.dart';
 
 /// 🔥 [Failure] — Abstract base class for domain-level failures.
 /// ✅ Used in [Either<Failure, T>] to handle errors safely across layers
 /// ✅ Supports structured debugging, plugin source tracking, and equality
 //---------------------------------------------------------------------------
 abstract class Failure extends Equatable {
-  /// Descriptive human-readable error message
+  /// 💬 Descriptive fallback error message (used if no localization is present)
   final String message;
-  // Optional technical code or status (e.g. HTTP, plugin-specific)
+
+  /// 🔑 Localization key (can be used with AppLocalizations or custom i18n system)
+  final String? translationKey;
+
+  /// 🧾 Optional technical code or status (e.g. HTTP code, plugin error code)
   final dynamic statusCode;
-  // Optional domain-level app-specific code
+
+  /// 🧱 Optional domain-level app-specific code
   final String? code;
 
-  const Failure._({required this.message, this.statusCode, this.code});
+  const Failure._({
+    required this.message,
+    this.translationKey,
+    this.statusCode,
+    this.code,
+  });
 
   @override
-  List<Object?> get props => [message, statusCode, code];
+  List<Object?> get props => [message, translationKey, statusCode, code];
 }
 
 //----------------------------------------------------------------------------
@@ -24,8 +35,8 @@ abstract class Failure extends Equatable {
 /// 🌐 [ApiFailure] — HTTP or GraphQL-related failure from remote source.
 /// ✅ Contains status code + message
 final class ApiFailure extends Failure {
-  const ApiFailure({required int super.statusCode, required super.message})
-    : super._(code: 'API');
+  ApiFailure({required int super.statusCode, required super.message})
+    : super._(code: 'API', translationKey: FailureKey.unknown.translationKey);
 }
 
 /// ⚙️ [GenericFailure] — Platform or SDK error (e.g. no internet, format error, timeout).
@@ -37,7 +48,8 @@ final class GenericFailure extends Failure {
     required this.plugin,
     required String super.code,
     required super.message,
-  }) : super._(statusCode: plugin.code);
+    FailureKey? key,
+  }) : super._(statusCode: plugin.code, translationKey: key?.translationKey);
 
   @override
   List<Object?> get props => super.props..add(plugin);
@@ -46,41 +58,65 @@ final class GenericFailure extends Failure {
 /// 🔥 [FirebaseFailure] — Firebase service-related failure.
 /// ✅ Wraps Firebase errors with source tagging
 final class FirebaseFailure extends Failure {
-  FirebaseFailure({required super.message})
-    : super._(statusCode: ErrorPlugin.firebase.code, code: 'FIREBASE');
+  FirebaseFailure({
+    required super.message,
+    FailureKey key = FailureKey.firebaseGeneric,
+  }) : super._(
+         statusCode: ErrorPlugin.firebase.code,
+         code: 'FIREBASE',
+         translationKey: key.translationKey,
+       );
 }
 
 /// 🧠 [UseCaseFailure] — Application logic or business rule violation.
 /// ✅ Originates from domain-level use cases
 final class UseCaseFailure extends Failure {
   UseCaseFailure({required super.message})
-    : super._(statusCode: ErrorPlugin.useCase.code, code: 'USE_CASE');
+    : super._(
+        statusCode: ErrorPlugin.useCase.code,
+        code: 'USE_CASE',
+        translationKey: FailureKey.unknown.translationKey,
+      );
 }
 
 /// ❓ [UnknownFailure] — Catch-all fallback for unexpected/unmapped errors.
 /// ✅ Used when no concrete error type applies
 final class UnknownFailure extends Failure {
-  const UnknownFailure({required super.message})
-    : super._(statusCode: 'UNKNOWN');
+  UnknownFailure({required super.message, FailureKey key = FailureKey.unknown})
+    : super._(statusCode: 'UNKNOWN', translationKey: key.translationKey);
 }
 
 /// 📡 [NetworkFailure] — Specific failure for connectivity issues
 /// ✅ Helps distinguish between generic and network-related failures
 final class NetworkFailure extends Failure {
-  NetworkFailure({required super.message})
-    : super._(statusCode: ErrorPlugin.httpClient.code, code: 'NETWORK');
+  NetworkFailure({required super.message, required FailureKey key})
+    : super._(
+        statusCode: ErrorPlugin.httpClient.code,
+        code: 'NETWORK',
+        translationKey: key.translationKey,
+      );
 }
 
 /// 🔒 [UnauthorizedFailure] — User is not authenticated or token expired
 /// ✅ Enables redirect to login screen or session recovery logic
 final class UnauthorizedFailure extends Failure {
-  const UnauthorizedFailure({required super.message})
-    : super._(statusCode: 401, code: 'UNAUTHORIZED');
+  UnauthorizedFailure({
+    required super.message,
+    FailureKey key = FailureKey.unauthorized,
+  }) : super._(
+         statusCode: 401,
+         code: 'UNAUTHORIZED',
+         translationKey: key.translationKey,
+       );
 }
 
 /// 🧊 [CacheFailure] — Cache is missing or invalid
 /// ✅ Useful when working with local storage or memory cache
 final class CacheFailure extends Failure {
-  const CacheFailure({required super.message})
-    : super._(statusCode: 'CACHE', code: 'CACHE');
+  CacheFailure({required super.message})
+    : super._(
+        statusCode: 'CACHE',
+        code: 'CACHE',
+        translationKey: FailureKey.unknown.translationKey,
+      );
 }

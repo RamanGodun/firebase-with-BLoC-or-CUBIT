@@ -32,7 +32,7 @@ final class ProfileState extends Equatable {
   }
 
   /// 🧠 Extracts the error message from failure once (via `consume`)
-  String? get errorMessage => failure?.consume()?.uiMessage;
+  String? get errorMessage => failure?.consume()?.uiMessageOrRaw();
 
   @override
   List<Object?> get props => [status, user, failure];

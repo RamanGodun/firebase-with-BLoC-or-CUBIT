@@ -40,7 +40,7 @@ class MaterialDialogService implements IShowDialog {
               title ?? AppStrings.errorDialogTitle,
               TextType.titleMedium,
             ),
-            content: TextWidget(failure.uiMessage, TextType.error),
+            content: TextWidget(failure.uiMessage(context), TextType.error),
             actions: [
               TextButton(
                 onPressed: () {

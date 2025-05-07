@@ -69,5 +69,8 @@ class SignInCubit extends Cubit<SignInPageState> {
   /// 🧼 Resets the entire form to initial state
   void resetForm() => emit(const SignInPageState());
 
+  /// 🧽 Resets failure after consumption (якщо окремо від статусу)
+  void clearFailure() => emit(state.copyWith(failure: null));
+
   ///
 }

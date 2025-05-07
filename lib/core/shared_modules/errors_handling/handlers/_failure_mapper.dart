@@ -5,7 +5,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
 import '../app_logger.dart';
-import '../error_plugin_enums.dart';
+import '../failures/failure_key.dart';
+import 'error_plugin_enums.dart';
 import '../failures/failure.dart';
 
 /// 🧰 [FailureMapper] — Central place for mapping, logging and formatting exceptions
@@ -21,59 +22,64 @@ final class FailureMapper {
     if (error is Failure) return error;
 
     return switch (error) {
-      // 🌐 Network-related errors
       SocketException _ => NetworkFailure(
+        key: FailureKey.networkNoConnection,
         message: 'No Internet connection. Please check your settings.',
       ),
       TimeoutException _ => NetworkFailure(
+        key: FailureKey.networkTimeout,
         message: 'Connection timeout occurred.',
       ),
-      HttpException(:final message) => NetworkFailure(message: message),
+      HttpException(:final message) => NetworkFailure(
+        key: FailureKey.networkTimeout,
+        message: message,
+      ),
 
-      // 🔐 Unauthorized access (e.g. 401)
       DioException(:final response) when response?.statusCode == 401 =>
-        const UnauthorizedFailure(
+        UnauthorizedFailure(
+          key: FailureKey.unauthorized,
           message: 'Unauthorized access. Please log in again.',
         ),
 
-      // 🔥 Firebase-related exceptions
       FirebaseException(:final message) => FirebaseFailure(
+        key: FailureKey.firebaseGeneric,
         message: message ?? 'Firebase error occurred.',
       ),
 
-      // 🧱 Platform-related exceptions
       PlatformException(:final code, :final message) => GenericFailure(
         plugin: ErrorPlugin.useCase,
         code: code,
+        key: FailureKey.formatError,
         message: message ?? 'Platform error occurred.',
       ),
 
-      // 📦 Plugin-related exceptions
       MissingPluginException(:final message) => GenericFailure(
         plugin: ErrorPlugin.useCase,
         code: 'MISSING_PLUGIN',
+        key: FailureKey.missingPlugin,
         message: message ?? 'Plugin not found or not initialized.',
       ),
 
-      // 📄 Format/JSON exceptions
       FormatException _ => GenericFailure(
         plugin: ErrorPlugin.unknown,
         code: 'FORMAT_ERROR',
+        key: FailureKey.formatError,
         message: 'Bad response format received.',
       ),
+
       JsonUnsupportedObjectError(:final cause) => GenericFailure(
         plugin: ErrorPlugin.unknown,
         code: 'JSON_ERROR',
+        key: FailureKey.formatError,
         message: 'Unsupported JSON structure: $cause',
       ),
 
-      // 🛠️ Dio-specific errors (non-401)
       DioException(:final type, :final message) => NetworkFailure(
+        key: FailureKey.networkTimeout,
         message: message ?? 'Dio error occurred. Type: ${type.name}',
       ),
 
-      // 🟡 Fallback for unknown errors
-      _ => UnknownFailure(message: error.toString()),
+      _ => UnknownFailure(key: FailureKey.unknown, message: error.toString()),
     };
   }
 

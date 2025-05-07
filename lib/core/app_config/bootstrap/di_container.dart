@@ -3,8 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../../features/auth/data/data_source.dart';
-import '../../../features/auth/data/impl_of_data_source.dart';
+import '../../../features/auth/data/data_source_contract.dart';
+import '../../../features/auth/data/impl_of_data_source_contract.dart';
 import '../../../features/auth/data/auth_repository_impl.dart';
 import '../../../features/auth/domain/repositories/auth_repo.dart';
 import '../../../features/auth/domain/use_cases/ensure_profile_created.dart';
@@ -13,8 +13,8 @@ import '../../../features/auth/domain/use_cases/sign_out.dart';
 import '../../../features/auth/domain/use_cases/sign_up.dart';
 import '../../../features/auth/presentation/auth_bloc/auth_bloc.dart';
 
-import '../../../features/profile/data/data_source.dart';
-import '../../../features/profile/data/impl_of_data_source.dart';
+import '../../../features/profile/data/data_source_contract.dart';
+import '../../../features/profile/data/impl_of_data_source_contract.dart';
 import '../../../features/profile/data/_profile_repo_impl.dart';
 import '../../../features/profile/domain/profile_repository.dart';
 import '../../../features/profile/domain/load_profile_use_case.dart';

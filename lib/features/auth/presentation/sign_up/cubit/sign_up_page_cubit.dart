@@ -102,5 +102,8 @@ final class SignUpCubit extends Cubit<SignUpState> {
     emit(const SignUpState());
   }
 
+  /// 🧽 Resets the failure after it’s been consumed
+  void clearFailure() => emit(state.copyWith(failure: null));
+
   ///
 }

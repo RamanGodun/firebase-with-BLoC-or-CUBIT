@@ -35,9 +35,9 @@ final class SignInService {
     final user = credential.user;
 
     if (user == null) {
-      const failure = UnknownFailure(message: 'User is null');
+      final failure = UnknownFailure(message: 'User is null');
       failure.log(); // ❗️Unexpected null user
-      return const Left(failure);
+      return Left(failure);
     }
 
     final profileResult = await _ensureProfile(user);
