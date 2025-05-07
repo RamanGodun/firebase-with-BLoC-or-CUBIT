@@ -26,6 +26,7 @@ final class FailureMapper {
     if (error is Failure) return error;
 
     ///
+    // 📦 Known exception mapping to domain-level Failures
     return switch (error) {
       ///
       SocketException _ => NetworkFailure(

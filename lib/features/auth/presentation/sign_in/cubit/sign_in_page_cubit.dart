@@ -5,7 +5,7 @@ import 'package:firebase_with_bloc_or_cubit/features/auth/presentation/sign_in/c
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import '../../../../../core/shared_modules/form_fields/input_validation/_inputs_validation.dart';
-import '../../../sign_up_utils/sign_in_service.dart';
+import '../../../services/sign_in_service.dart';
 import '../../../../../core/utils/debouncer.dart';
 import '../../../../../core/shared_modules/errors_handling/failures/_failure.dart';
 part 'sign_in_page_state.dart';

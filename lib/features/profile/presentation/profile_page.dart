@@ -1,8 +1,7 @@
-import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/app_config/bootstrap/di_container.dart';
-import '../../../core/shared_modules/overlay/_overlay_service.dart';
+import '../../../core/utils/failure_notifier.dart';
 import '../../auth/presentation/auth_bloc/auth_bloc.dart';
 import '../domain/load_profile_use_case.dart';
 import 'cubit/profile_page_cubit.dart';
@@ -30,8 +29,8 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-/// 🔁 [_ProfileListenerWrapper] — Handles failure overlays for [ProfileCubit]
-/// ✅ Wraps [ProfileView] and listens for side-effects like errors
+/// 🔁 [_ProfileListenerWrapper] — Listens for one-shot profile errors
+/// ✅ Shows error overlay and clears failure from Bloc state
 //----------------------------------------------------------------
 
 final class _ProfileListenerWrapper extends StatelessWidget {
@@ -40,14 +39,18 @@ final class _ProfileListenerWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<ProfileCubit, ProfileState>(
+      ///
+      listenWhen:
+          (prev, curr) =>
+              prev.status != curr.status && curr.status == ProfileStatus.error,
+
+      // 📣 Shows error dialog once and clears failure from state
       listener: (context, state) {
-        final failure = state.failure?.consume();
-        if (state.status == ProfileStatus.error && failure != null) {
-          OverlayNotificationService.dismissIfVisible();
-          context.showFailureDialog(failure);
-          context.read<ProfileCubit>().clearFailure();
-        }
+        FailureNotifier.handle(context, state.failure);
+        context.read<ProfileCubit>().clearFailure();
       },
+
+      ///
       child: const ProfileView(),
     );
   }

@@ -1,16 +1,15 @@
-import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/app_config/bootstrap/di_container.dart';
-import '../../sign_up_utils/sign_up_service.dart';
+import '../../../../core/utils/failure_notifier.dart';
+import '../../services/sign_up_service.dart';
 import '../../../../core/shared_modules/form_fields/extensions/formz_status_x.dart';
-import '../../../../core/shared_modules/overlay/_overlay_service.dart';
 import '../../domain/use_cases/sign_up.dart';
 import 'cubit/sign_up_page_cubit.dart';
 import 'sign_up_view.dart';
 
-/// 🧾 [SignUpPage] — Entry point for Sign Up screen with scoped Cubit DI
-/// ✅ Sets up [SignUpCubit] and listens for submission failures
+/// 🧾 [SignUpPage] — Entry point for the sign-up feature
+/// ✅ Provides scoped Cubit with injected service
 //----------------------------------------------------------------
 
 final class SignUpPage extends StatelessWidget {
@@ -25,8 +24,9 @@ final class SignUpPage extends StatelessWidget {
   }
 }
 
-/// 🔄 [_SignUpListenerWrapper] — Listens for failed submissions and shows UI feedback
-/// ✅ Displays failure dialog and resets status after delay
+/// 🔄 [_SignUpListenerWrapper] — Bloc listener for one-shot error feedback.
+/// ✅ Listens for `FormzSubmissionStatus.failure` and shows error dialog.
+/// ✅ Uses [FailureNotifier] to consume and display failure only once.
 //----------------------------------------------------------------
 
 final class _SignUpListenerWrapper extends StatelessWidget {
@@ -40,21 +40,17 @@ final class _SignUpListenerWrapper extends StatelessWidget {
           (prev, curr) =>
               prev.status != curr.status && curr.status.isSubmissionFailure,
 
-      ///
+      /// 📣 Show error once, then reset state after delay
       listener: (context, state) {
-        final failure = state.failure?.consume();
-        if (failure != null) {
-          OverlayNotificationService.dismissIfVisible();
-          context.showFailureDialog(failure);
-
-          /// ⏱ Reset after delay to avoid UI jitter and preserve UX
-          Future.delayed(const Duration(milliseconds: 150), () {
-            if (!context.mounted) return;
+        FailureNotifier.handleAndReset(
+          context,
+          state.failure,
+          onReset: () {
             final cubit = context.read<SignUpCubit>();
             cubit.resetStatus();
             cubit.clearFailure();
-          });
-        }
+          },
+        );
       },
 
       ///
