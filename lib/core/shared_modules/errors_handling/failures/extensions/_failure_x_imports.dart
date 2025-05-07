@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../app_logger.dart';
 import '../../error_plugin_enums.dart';
 import '../failure.dart';
 

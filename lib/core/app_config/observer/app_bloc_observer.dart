@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../shared_modules/errors_handling/app_logger.dart';
+
 /// 🔍 [AppBlocObserver] — Global observer for BLoC/Cubit lifecycle events.
 /// Logs key transitions to help debug and track state changes, includes:
 ///           - 🟢 onCreate
@@ -9,6 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 ///           - ➡️ onTransition (only for BLoC)
 ///           - ❌ onError
 ///           - 🔴 onClose
+///-----------------------------------------------------------------------------
+
 final class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
 
@@ -48,8 +52,10 @@ final class AppBlocObserver extends BlocObserver {
   /// ❌ Called when an error occurs inside BLoC/Cubit.
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    debugPrint(
-      '❌ [${_timestamp()}] Error → ${bloc.runtimeType}: $error\n$stackTrace',
+    AppErrorLogger.logBlocError(
+      error: error,
+      stackTrace: stackTrace,
+      origin: bloc.runtimeType.toString(),
     );
     super.onError(bloc, error, stackTrace);
   }

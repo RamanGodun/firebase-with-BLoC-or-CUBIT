@@ -1,13 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
-import 'package:flutter/foundation.dart' show debugPrint, kDebugMode;
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
-
+import '../app_logger.dart';
 import '../error_plugin_enums.dart';
 import '../failures/failure.dart';
 
@@ -18,8 +15,8 @@ final class FailureMapper {
 
   /// 🛡️ [from] — Maps any [Exception] or unknown error into a domain-level [Failure].
   /// Used to unify error handling across Data, Domain, and Presentation layers.
-  static Failure from(dynamic error) {
-    _logError(error);
+  static Failure from(dynamic error, [StackTrace? stackTrace]) {
+    _logRawError(error, stackTrace);
 
     if (error is Failure) return error;
 
@@ -80,32 +77,10 @@ final class FailureMapper {
     };
   }
 
-  /// 🔎 [_logError] — Logs details to Crashlytics (and debug console if in dev mode)
-  static void _logError(dynamic error) {
-    final isFailure = error is Failure;
-    final pluginCode =
-        isFailure ? error.pluginSource : ErrorPlugin.unknown.code;
-    final label = isFailure ? '[FAILURE]' : '[UNHANDLED]';
-
-    if (kDebugMode) {
-      debugPrint('$label [$pluginCode] ${error.runtimeType}: $error');
-    }
-
-    FirebaseCrashlytics.instance.recordError(
-      error,
-      StackTrace.current,
-      reason: _generateCrashlyticsReason(error),
-      fatal: false,
-    );
-  }
-
-  /// 📟 [_generateCrashlyticsReason] — Builds a detailed `reason` string for Crashlytics reports
-  static String _generateCrashlyticsReason(dynamic error) {
-    if (error is Failure) {
-      return '[${error.pluginSource}] ${error.runtimeType}: ${error.message}';
-    } else {
-      return '[UNHANDLED] ${error.runtimeType}: ${error.toString()}';
-    }
+  /// 🔎 [_logRawError] — Logs details to Crashlytics (and console in debug)
+  ///    **before** mapping to [Failure]
+  static void _logRawError(Object error, [StackTrace? stackTrace]) {
+    AppErrorLogger.logException(error, stackTrace);
   }
 
   ///
