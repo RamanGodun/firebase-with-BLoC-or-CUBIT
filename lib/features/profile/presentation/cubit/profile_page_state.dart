@@ -1,25 +1,29 @@
 part of 'profile_page_cubit.dart';
 
-/// 🧾 [ProfileState] — Holds current status, user entity, and optional failure
+/// 🧾 [ProfileState] — Represents the current state of the user profile
+/// ✅ Holds profile loading status, user entity, and optional failure
+/// ✅ Failure is wrapped in [Consumable] to prevent repeated UI consumption
 //----------------------------------------------------------------
-
 final class ProfileState extends Equatable {
   final ProfileStatus status;
   final User user;
-  final Failure? failure;
+  final Consumable<Failure>? failure;
 
   const ProfileState({required this.status, required this.user, this.failure});
 
-  /// 🆕 Initial state (empty user, no failure)
-  @pragma('vm:prefer-inline')
+  /// 🆕 Empty user, initial status, no failure
   factory ProfileState.initial() => ProfileState(
     status: ProfileStatus.initial,
     user: UserUtilsExt.empty(),
     failure: null,
   );
 
-  /// 🔁 Creates a new state with updated fields
-  ProfileState copyWith({ProfileStatus? status, User? user, Failure? failure}) {
+  /// 🔁 Clones the state with optional updated fields
+  ProfileState copyWith({
+    ProfileStatus? status,
+    User? user,
+    Consumable<Failure>? failure,
+  }) {
     return ProfileState(
       status: status ?? this.status,
       user: user ?? this.user,
@@ -27,8 +31,8 @@ final class ProfileState extends Equatable {
     );
   }
 
-  /// 🧠 Extracts readable message from failure (if exists)
-  String? get errorMessage => failure?.uiMessage;
+  /// 🧠 Extracts the error message from failure once (via `consume`)
+  String? get errorMessage => failure?.consume()?.uiMessage;
 
   @override
   List<Object?> get props => [status, user, failure];
@@ -36,10 +40,13 @@ final class ProfileState extends Equatable {
   @override
   String toString() =>
       'ProfileState(status: $status, user: $user, failure: $failure)';
-
-  ///
 }
 
 /// 📍 [ProfileStatus] — Represents profile loading lifecycle
 //----------------------------------------------------------------
-enum ProfileStatus { initial, loading, loaded, error }
+enum ProfileStatus {
+  initial, // Idle or not started
+  loading, // Currently loading profile
+  loaded, // Profile loaded successfully
+  error, // Failed to load profile
+}

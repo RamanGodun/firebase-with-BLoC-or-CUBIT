@@ -35,13 +35,17 @@ final class _SignUpListenerWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignUpCubit, SignUpState>(
+      ///
       listenWhen:
           (prev, curr) =>
               prev.status != curr.status && curr.status.isSubmissionFailure,
+
+      ///
       listener: (context, state) {
-        if (state.failure != null) {
+        final failure = state.failure?.consume();
+        if (failure != null) {
           OverlayNotificationService.dismissIfVisible();
-          context.showFailureDialog(state.failure!);
+          context.showFailureDialog(failure);
 
           // ⏱ Reset status after delay to allow clean retry
           Future.delayed(const Duration(milliseconds: 150), () {
@@ -49,8 +53,11 @@ final class _SignUpListenerWrapper extends StatelessWidget {
               context.read<SignUpCubit>().resetStatus();
             }
           });
+          //
         }
       },
+
+      ///
       child: const SignUpView(),
     );
   }

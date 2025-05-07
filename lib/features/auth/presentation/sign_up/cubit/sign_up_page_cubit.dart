@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_with_bloc_or_cubit/features/auth/sign_up_utils/sign_up_state_validation_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/on_failure/_failure_x_imports.dart';
+import 'package:firebase_with_bloc_or_cubit/core/utils/consumable.dart';
+import 'package:firebase_with_bloc_or_cubit/features/auth/presentation/sign_up/cubit/sign_up_state_validation_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -15,7 +17,6 @@ part 'sign_up_page_state.dart';
 /// 🧠 [SignUpCubit] — Handles logic for sign-up form: validation, debouncing, and submission.
 /// ✅ Delegates actual sign-up to [SignUpService]
 //----------------------------------------------------------------
-
 final class SignUpCubit extends Cubit<SignUpState> {
   final SignUpService _signUpService;
   final _debouncer = Debouncer(const Duration(milliseconds: 200));
@@ -81,7 +82,10 @@ final class SignUpCubit extends Cubit<SignUpState> {
 
     result.fold(
       (f) => emit(
-        state.copyWith(status: FormzSubmissionStatus.failure, failure: f),
+        state.copyWith(
+          status: FormzSubmissionStatus.failure,
+          failure: f.asConsumable(),
+        ),
       ),
       (_) => emit(state.copyWith(status: FormzSubmissionStatus.success)),
     );

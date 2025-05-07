@@ -42,22 +42,27 @@ final class _SignInListenerWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignInCubit, SignInPageState>(
+      ///
       listenWhen:
           (prev, curr) =>
               prev.status != curr.status && curr.status.isSubmissionFailure,
-      listener: (context, state) {
-        if (state.failure != null) {
-          OverlayNotificationService.dismissIfVisible();
-          context.showFailureDialog(state.failure!);
-        }
 
-        // Optional: delay before resetting status to avoid UI jitter
+      ///
+      listener: (context, state) {
+        final failure = state.failure?.consume();
+        if (failure != null) {
+          OverlayNotificationService.dismissIfVisible();
+          context.showFailureDialog(failure);
+        }
+        // Delay before resetting status to avoid UI jitter
         Future.delayed(const Duration(milliseconds: 300), () {
           if (context.mounted) {
             context.read<SignInCubit>().resetStatus();
           }
         });
       },
+
+      ///
       child: const SignInPageView(),
     );
   }

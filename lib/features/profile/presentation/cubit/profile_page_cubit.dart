@@ -1,4 +1,5 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/on_failure/_failure_x_imports.dart';
+import 'package:firebase_with_bloc_or_cubit/core/utils/consumable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../../../core/shared_modules/errors_handling/handlers/result_handler.dart';
@@ -18,22 +19,25 @@ final class ProfileCubit extends Cubit<ProfileState> {
 
   ProfileCubit(this._loadProfile) : super(ProfileState.initial());
 
-  /// 🚀 Loads user profile and emits corresponding UI states
+  /// 📦 Loads the profile and updates state accordingly.
+  /// ✅ Emits: [loading → loaded] or [loading → error]
   Future<void> loadProfile(String uid) async {
     emit(state.copyWith(status: ProfileStatus.loading));
 
     final result = await _loadProfile(uid);
 
     ResultHandler(result)
-        .onSuccess(
-          (user) =>
-              emit(state.copyWith(status: ProfileStatus.loaded, user: user)),
-        )
-        .onFailure(
-          (failure) => emit(
-            state.copyWith(status: ProfileStatus.error, failure: failure),
-          ),
-        )
+        .onSuccess((user) {
+          emit(state.copyWith(status: ProfileStatus.loaded, user: user));
+        })
+        .onFailure((failure) {
+          emit(
+            state.copyWith(
+              status: ProfileStatus.error,
+              failure: failure.asConsumable(),
+            ),
+          );
+        })
         .log();
   }
 

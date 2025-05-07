@@ -30,13 +30,17 @@ final class ProfileView extends StatelessWidget {
       ),
       body: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
-          if (state.status == ProfileStatus.error && state.failure != null) {
+          final failure = state.failure?.consume(); // 👈 споживаємо одноразово
+          if (state.status == ProfileStatus.error && failure != null) {
             OverlayNotificationService.dismissIfVisible();
-            context.showFailureDialog(state.failure!);
+            context.showFailureDialog(failure);
           }
         },
+
+        ///
         builder: (context, state) {
           switch (state.status) {
+            ///
             case ProfileStatus.loading:
               return const LoadingView();
 
