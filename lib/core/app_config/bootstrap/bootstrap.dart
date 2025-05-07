@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
 import 'package:path_provider/path_provider.dart';
 
 import '../env.dart';
-import '../observer/app_bloc_observer.dart';
+import '../../shared_modules/errors_handling/loggers/app_bloc_observer.dart';
 
 /// 🚀 [AppBootstrap] — Handles platform & app core initialization
 /// ✅ Loads environment config, sets up Firebase, Bloc observer, and state persistence
