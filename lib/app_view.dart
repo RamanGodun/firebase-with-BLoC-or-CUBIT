@@ -54,7 +54,7 @@ final class AppMaterialAppRouter extends StatelessWidget {
       routeInformationProvider: AppRouterConfig.provider,
 
       ///
-      builder: (context, child) => FocusAndOverlayDismissWrapper(child: child!),
+      builder: (context, child) => GlobalOverlayHandler(child: child!),
     );
   }
 }

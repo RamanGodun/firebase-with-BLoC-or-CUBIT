@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 import '../shared_modules/errors_handling/failures/_failure.dart';
-import '../shared_modules/overlay/_overlay_service.dart';
+import '../shared_modules/overlay/overlay_service.dart';
 import 'consumable.dart';
 
 /// 📌 [FailureNotifier] — Centralized one-shot UI handler for [Failure].
