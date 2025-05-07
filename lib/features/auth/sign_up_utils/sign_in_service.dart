@@ -3,7 +3,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/
 import '../domain/use_cases/ensure_profile_created.dart';
 import '../domain/use_cases/sign_in.dart';
 import '../../../core/shared_modules/errors_handling/either/either.dart';
-import '../../../core/shared_modules/errors_handling/failures/failure.dart';
+import '../../../core/shared_modules/errors_handling/failures/_failure.dart';
 import '../../../core/utils/typedef.dart';
 
 /// 🧩 [SignInService] — Handles sign-in logic and profile creation

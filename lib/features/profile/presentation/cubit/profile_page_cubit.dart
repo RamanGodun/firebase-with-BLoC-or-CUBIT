@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../../../core/shared_modules/errors_handling/handlers/result_handler.dart';
 import '../../../shared/shared_domain/shared_entities/_user.dart';
-import '../../../../core/shared_modules/errors_handling/failures/failure.dart';
+import '../../../../core/shared_modules/errors_handling/failures/_failure.dart';
 import '../../../shared/shared_domain/shared_entities/user_utils_x.dart';
 import '../../domain/load_profile_use_case.dart';
 

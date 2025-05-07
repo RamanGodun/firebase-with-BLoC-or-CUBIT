@@ -18,4 +18,6 @@ enum ErrorPlugin {
     useCase => 'USE_CASE',
     unknown => 'UNKNOWN',
   };
+
+  ///
 }

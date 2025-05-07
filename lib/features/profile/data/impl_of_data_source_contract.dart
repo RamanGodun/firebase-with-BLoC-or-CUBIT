@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_with_bloc_or_cubit/features/shared/shared_data/shared_data_transfer_objects/user_dto_utils_x.dart';
-import '../../../core/shared_modules/errors_handling/failures/failure.dart';
+import '../../../core/shared_modules/errors_handling/failures/_failure.dart';
 import '../../../core/utils/typedef.dart';
 import '../../shared/shared_data/shared_data_transfer_objects/_user_dto.dart';
 import 'data_source_contract.dart';

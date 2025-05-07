@@ -7,9 +7,18 @@ part of '_failure_x_imports.dart';
 /// Automatically defers logging to `FailureMapper` if raw error is handled there.
 //-------------------------------------------------------------------------
 
+///  [FailureLogger] — Logs [Failure] using AppErrorLogger
 extension FailureLogger on Failure {
-  /// Logs this failure (used in ResultHandler or manually).
-  void log({StackTrace? stackTrace}) {
+  void log([StackTrace? stackTrace]) {
     AppErrorLogger.logFailure(this, stackTrace);
+  }
+}
+
+/// 🐞 [RawErrorLogger] — Logs raw [Exception] before mapping to [Failure]
+final class RawErrorLogger {
+  const RawErrorLogger._();
+
+  static void log(Object error, [StackTrace? stackTrace]) {
+    AppErrorLogger.logException(error, stackTrace);
   }
 }

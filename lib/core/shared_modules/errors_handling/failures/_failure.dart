@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import '../handlers/error_plugin_enums.dart';
-import 'failure_key.dart';
+import 'failure_keys_enum.dart';
 
 /// 🔥 [Failure] — Abstract base class for domain-level failures.
 /// ✅ Used in [Either<Failure, T>] to handle errors safely across layers
@@ -48,8 +48,11 @@ final class GenericFailure extends Failure {
     required this.plugin,
     required String super.code,
     required super.message,
-    FailureKey? key,
-  }) : super._(statusCode: plugin.code, translationKey: key?.translationKey);
+    FailureKey? translationKey,
+  }) : super._(
+         statusCode: plugin.code,
+         translationKey: translationKey?.translationKey,
+       );
 
   @override
   List<Object?> get props => super.props..add(plugin);
@@ -60,11 +63,11 @@ final class GenericFailure extends Failure {
 final class FirebaseFailure extends Failure {
   FirebaseFailure({
     required super.message,
-    FailureKey key = FailureKey.firebaseGeneric,
+    FailureKey translationKey = FailureKey.firebaseGeneric,
   }) : super._(
          statusCode: ErrorPlugin.firebase.code,
          code: 'FIREBASE',
-         translationKey: key.translationKey,
+         translationKey: translationKey.translationKey,
        );
 }
 
@@ -82,18 +85,23 @@ final class UseCaseFailure extends Failure {
 /// ❓ [UnknownFailure] — Catch-all fallback for unexpected/unmapped errors.
 /// ✅ Used when no concrete error type applies
 final class UnknownFailure extends Failure {
-  UnknownFailure({required super.message, FailureKey key = FailureKey.unknown})
-    : super._(statusCode: 'UNKNOWN', translationKey: key.translationKey);
+  UnknownFailure({
+    required super.message,
+    FailureKey translationKey = FailureKey.unknown,
+  }) : super._(
+         statusCode: 'UNKNOWN',
+         translationKey: translationKey.translationKey,
+       );
 }
 
 /// 📡 [NetworkFailure] — Specific failure for connectivity issues
 /// ✅ Helps distinguish between generic and network-related failures
 final class NetworkFailure extends Failure {
-  NetworkFailure({required super.message, required FailureKey key})
+  NetworkFailure({required super.message, required FailureKey translationKey})
     : super._(
         statusCode: ErrorPlugin.httpClient.code,
         code: 'NETWORK',
-        translationKey: key.translationKey,
+        translationKey: translationKey.translationKey,
       );
 }
 
@@ -102,11 +110,11 @@ final class NetworkFailure extends Failure {
 final class UnauthorizedFailure extends Failure {
   UnauthorizedFailure({
     required super.message,
-    FailureKey key = FailureKey.unauthorized,
+    FailureKey translationKey = FailureKey.unauthorized,
   }) : super._(
          statusCode: 401,
          code: 'UNAUTHORIZED',
-         translationKey: key.translationKey,
+         translationKey: translationKey.translationKey,
        );
 }
 

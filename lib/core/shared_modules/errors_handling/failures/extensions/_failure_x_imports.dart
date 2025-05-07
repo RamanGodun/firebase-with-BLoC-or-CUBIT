@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../utils/localization/app_localizations.dart';
 import '../../loggers/app_error_logger.dart';
 import '../../handlers/error_plugin_enums.dart';
-import '../failure.dart';
+import '../_failure.dart';
 
 part 'failure_logger_x.dart';
 part 'failure_ui_x.dart';

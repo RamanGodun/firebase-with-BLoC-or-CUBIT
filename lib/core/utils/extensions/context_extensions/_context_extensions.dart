@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../../shared_presentation/shared_widgets/text_widget.dart';
 import '../../../constants/app_strings.dart';
 import '../../../shared_modules/navigation/_imports_for_router.dart';
-import '../../../shared_modules/errors_handling/failures/failure.dart';
+import '../../../shared_modules/errors_handling/failures/_failure.dart';
 
 part 'theme_x.dart';
 part 'media_query_x.dart';
