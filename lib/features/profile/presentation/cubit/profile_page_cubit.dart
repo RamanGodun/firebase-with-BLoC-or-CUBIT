@@ -2,7 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/
 import 'package:firebase_with_bloc_or_cubit/core/utils/consumable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../../../../core/shared_modules/errors_handling/handlers/result_handler.dart';
+import '../../../../core/shared_modules/errors_handling/dsl_like_result/result_handler.dart';
 import '../../../shared/shared_domain/shared_entities/_user.dart';
 import '../../../../core/shared_modules/errors_handling/failures/_failure.dart';
 import '../../../shared/shared_domain/shared_entities/user_utils_x.dart';
@@ -11,7 +11,7 @@ import '../../domain/load_profile_use_case.dart';
 part 'profile_page_state.dart';
 
 /// 🧩 [ProfileCubit] — Manages user profile loading by UID
-/// ✅ Uses [ResultHandler] to map domain result into UI state transitions
+/// ✅ Uses [DSLLikeResultHandler] to map domain result into UI state transitions
 //----------------------------------------------------------------
 
 final class ProfileCubit extends Cubit<ProfileState> {
@@ -26,7 +26,7 @@ final class ProfileCubit extends Cubit<ProfileState> {
 
     final result = await _loadProfile(uid);
 
-    ResultHandler(result)
+    DSLLikeResultHandler(result)
         .onSuccess((user) {
           emit(state.copyWith(status: ProfileStatus.loaded, user: user));
         })

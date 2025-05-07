@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../../handlers/error_plugin_enums.dart';
+import '../handlers/error_plugin_enums.dart';
 
 /// 🔥 [Failure] — Abstract base class for domain-level failures.
 /// ✅ Used in [Either<Failure, T>] to handle errors safely across layers

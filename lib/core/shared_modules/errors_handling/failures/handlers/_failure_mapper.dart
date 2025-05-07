@@ -4,10 +4,10 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
-import '../failures/extensions/_failure_x_imports.dart' show RawErrorLogger;
-import '../failures/failure_keys_enum.dart';
+import '../extensions/_failure_x_imports.dart' show RawErrorLogger;
+import '../failure_keys_enum.dart';
 import 'error_plugin_enums.dart';
-import '../failures/_failure.dart';
+import '../_failure.dart';
 
 /// 🧰 [FailureMapper] — centralized converter for raw exceptions to domain-level [Failure].
 /// ✅ Converts raw system-level exceptions (e.g. Dio, Firebase, Platform, IO)

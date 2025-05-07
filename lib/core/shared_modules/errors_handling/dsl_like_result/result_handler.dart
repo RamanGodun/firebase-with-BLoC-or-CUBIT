@@ -7,22 +7,22 @@ import '../failures/extensions/_failure_x_imports.dart';
 /// 🧩 [ResultHandler<T>] — wrapper around `Either<Failure, T>`
 /// ✅ Clean, chainable, and readable result API for Cubits, Providers, UseCases.
 @immutable
-final class ResultHandler<T> {
+final class DSLLikeResultHandler<T> {
   final Either<Failure, T> result;
-  const ResultHandler(this.result);
+  const DSLLikeResultHandler(this.result);
 
   // ──────────────────────────────────────────────────────────────────────
   // 🔹 Success / Failure Callbacks
   // ──────────────────────────────────────────────────────────────────────
 
   /// 🔹 Executes handler if result is success
-  ResultHandler<T> onSuccess(void Function(T value) handler) {
+  DSLLikeResultHandler<T> onSuccess(void Function(T value) handler) {
     if (result.isRight) handler(result.rightOrNull as T);
     return this;
   }
 
   /// 🔹 Executes handler if result is failure
-  ResultHandler<T> onFailure(void Function(Failure failure) handler) {
+  DSLLikeResultHandler<T> onFailure(void Function(Failure failure) handler) {
     if (result.isLeft) handler(result.leftOrNull!);
     return this;
   }
@@ -63,7 +63,7 @@ final class ResultHandler<T> {
   // ──────────────────────────────────────────────────────────────────────
 
   /// 🐞 Logs failure (debug or Crashlytics)
-  ResultHandler<T> log() {
+  DSLLikeResultHandler<T> log() {
     result.leftOrNull?.log();
     return this;
   }

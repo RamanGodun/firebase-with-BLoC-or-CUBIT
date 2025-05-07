@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/shared_modules/errors_handling/handlers/result_handler.dart';
+import '../../../../core/shared_modules/errors_handling/dsl_like_result/result_handler.dart';
 import '../../domain/use_cases/sign_out.dart';
 
 part 'auth_event.dart';
@@ -51,7 +51,7 @@ final class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     final result = await signOutUseCase();
-    ResultHandler(result).onFailure((f) {
+    DSLLikeResultHandler(result).onFailure((f) {
       // emit error state або show overlay
       // emit(state.copyWith(...));
     }).log();

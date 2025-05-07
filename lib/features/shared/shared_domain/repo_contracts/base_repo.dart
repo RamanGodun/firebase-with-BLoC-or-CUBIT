@@ -1,6 +1,6 @@
 import '../../../../core/shared_modules/errors_handling/either/either.dart';
 import '../../../../core/shared_modules/errors_handling/failures/_failure.dart';
-import '../../../../core/shared_modules/errors_handling/handlers/_failure_mapper.dart';
+import '../../../../core/shared_modules/errors_handling/failures/handlers/_failure_mapper.dart';
 
 /// 🧩 [BaseRepository] — Common abstraction for handling safe async calls.
 /// ✅ Eliminates boilerplate try-catch in concrete repositories

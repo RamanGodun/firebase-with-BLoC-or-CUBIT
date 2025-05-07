@@ -9,16 +9,16 @@ import '../failures/_failure.dart';
 /// Useful for services, use-cases, and UI layers (e.g. after API calls).
 //-------------------------------------------------------------------------
 
-class ResultHandlerAsync<T> {
+class DSLLikeResultHandlerAsync<T> {
   final Either<Failure, T> result;
-  const ResultHandlerAsync(this.result);
+  const DSLLikeResultHandlerAsync(this.result);
 
   // ──────────────────────────────────────────────────────────────────────
   // 🔹 Async Callbacks
   // ──────────────────────────────────────────────────────────────────────
 
   /// 🔹 Runs [handler] if result is Right (success)
-  Future<ResultHandlerAsync<T>> onSuccessAsync(
+  Future<DSLLikeResultHandlerAsync<T>> onSuccessAsync(
     FutureOr<void> Function(T value) handler,
   ) async {
     if (result.isRight) await handler(result.rightOrNull as T);
@@ -26,7 +26,7 @@ class ResultHandlerAsync<T> {
   }
 
   /// 🔹 Runs [handler] if result is Left (failure)
-  Future<ResultHandlerAsync<T>> onFailureAsync(
+  Future<DSLLikeResultHandlerAsync<T>> onFailureAsync(
     FutureOr<void> Function(Failure failure) handler,
   ) async {
     if (result.isLeft) await handler(result.leftOrNull!);
@@ -63,7 +63,7 @@ class ResultHandlerAsync<T> {
   // ──────────────────────────────────────────────────────────────────────
 
   /// 🐞 Logs failure (Crashlytics or debugPrint)
-  Future<ResultHandlerAsync<T>> logAsync() async {
+  Future<DSLLikeResultHandlerAsync<T>> logAsync() async {
     result.leftOrNull?.log();
     return this;
   }

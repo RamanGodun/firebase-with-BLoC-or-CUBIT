@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../shared_modules/errors_handling/either/either.dart';
-import '../shared_modules/errors_handling/handlers/unit.dart';
+import '../shared_modules/errors_handling/either/unit.dart';
 import '../shared_modules/errors_handling/failures/_failure.dart';
-import '../shared_modules/errors_handling/handlers/result_handler.dart';
+import '../shared_modules/errors_handling/dsl_like_result/result_handler.dart';
 
 /// 🧩 [ResultFuture] — Represents async result with [Either<Failure, T>]
 typedef ResultFuture<T> = Future<Either<Failure, T>>;
@@ -14,7 +14,7 @@ typedef DataMap = Map<String, dynamic>;
 typedef ResultVoid = ResultFuture<Unit>;
 
 /// 🧰 [Result<T>] — Generic result handler wrapper
-typedef Result<T> = ResultHandler<T>;
+typedef Result<T> = DSLLikeResultHandler<T>;
 
 /// 📤 [SubmitCallback] — Button or form submission callback
 typedef SubmitCallback = void Function(BuildContext context);

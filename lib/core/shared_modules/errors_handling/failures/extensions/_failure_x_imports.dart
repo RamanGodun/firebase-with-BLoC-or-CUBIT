@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../../../utils/localization/app_localizations.dart';
 import '../../loggers/app_error_logger.dart';
-import '../../handlers/error_plugin_enums.dart';
+import '../handlers/error_plugin_enums.dart';
 import '../_failure.dart';
 
-part 'failure_logger_x.dart';
+part '../../loggers/failure_logger_x.dart';
 part 'failure_ui_x.dart';
 part 'failure_source_x.dart';
 part 'other_failure_x.dart';

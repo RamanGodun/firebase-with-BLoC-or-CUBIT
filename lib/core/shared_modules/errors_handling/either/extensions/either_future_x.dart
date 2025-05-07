@@ -19,12 +19,12 @@ extension ResultFutureX<T> on Future<Either<Failure, T>> {
       (await this).fold((f) => f.message, (_) => null);
 
   /// 🔹 Runs failure handler if result is Left
-  Future<ResultHandler<T>> onFailure(
+  Future<DSLLikeResultHandler<T>> onFailure(
     FutureOr<void> Function(Failure f) handler,
   ) async {
     final result = await this;
     if (result.isLeft) await handler(result.leftOrNull!);
-    return ResultHandler(result);
+    return DSLLikeResultHandler(result);
   }
 
   /// 🔁 Maps Right value using async transformation
