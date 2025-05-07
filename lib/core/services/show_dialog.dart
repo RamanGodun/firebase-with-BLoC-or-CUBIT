@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widgets/text_widget.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/on_failure/_failure_x_imports.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
 
 import '../constants/app_strings.dart';
 import '../shared_modules/errors_handling/failures/failure.dart';

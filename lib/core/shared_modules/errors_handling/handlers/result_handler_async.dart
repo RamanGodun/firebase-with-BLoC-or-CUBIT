@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either/extensions/_either_x_imports.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/on_failure/_failure_x_imports.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
 import '../either/either.dart';
 import '../failures/failure.dart';
 

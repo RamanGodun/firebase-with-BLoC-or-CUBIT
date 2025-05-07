@@ -63,3 +63,24 @@ final class UnknownFailure extends Failure {
   const UnknownFailure({required super.message})
     : super._(statusCode: 'UNKNOWN');
 }
+
+/// 📡 [NetworkFailure] — Specific failure for connectivity issues
+/// ✅ Helps distinguish between generic and network-related failures
+final class NetworkFailure extends Failure {
+  NetworkFailure({required super.message})
+    : super._(statusCode: ErrorPlugin.httpClient.code, code: 'NETWORK');
+}
+
+/// 🔒 [UnauthorizedFailure] — User is not authenticated or token expired
+/// ✅ Enables redirect to login screen or session recovery logic
+final class UnauthorizedFailure extends Failure {
+  const UnauthorizedFailure({required super.message})
+    : super._(statusCode: 401, code: 'UNAUTHORIZED');
+}
+
+/// 🧊 [CacheFailure] — Cache is missing or invalid
+/// ✅ Useful when working with local storage or memory cache
+final class CacheFailure extends Failure {
+  const CacheFailure({required super.message})
+    : super._(statusCode: 'CACHE', code: 'CACHE');
+}
