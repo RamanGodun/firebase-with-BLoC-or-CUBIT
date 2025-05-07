@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either/extensions/_either_x_imports.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/on_failure/_failure_x_imports.dart';
-import 'package:flutter/material.dart';
-import '../../../utils/extensions/context_extensions/_context_extensions.dart';
-import '../../overlay/_overlay_service.dart';
 import '../either/either.dart';
 import '../failures/failure.dart';
 
@@ -68,31 +65,6 @@ class ResultHandlerAsync<T> {
   /// 🐞 Logs failure (Crashlytics or debugPrint)
   Future<ResultHandlerAsync<T>> logAsync() async {
     result.leftOrNull?.log();
-    return this;
-  }
-
-  // ──────────────────────────────────────────────────────────────────────
-  // 💬 UI Dialog
-  // ──────────────────────────────────────────────────────────────────────
-
-  /// 💬 Displays a dialog if failure exists
-  Future<ResultHandlerAsync<T>> showDialog(
-    BuildContext context, {
-    String? title,
-    String? buttonText,
-    VoidCallback? onClose,
-  }) async {
-    if (!context.mounted) return this;
-    final failure = result.leftOrNull;
-    if (failure != null) {
-      OverlayNotificationService.dismissIfVisible();
-      context.showFailureDialog(
-        failure,
-        title: title,
-        buttonText: buttonText,
-        onClose: onClose,
-      );
-    }
     return this;
   }
 
