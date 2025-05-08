@@ -47,14 +47,29 @@ extension OverlayExtensions on BuildContext {
     Duration duration = const Duration(seconds: 2),
   }) {
     final request = switch (type) {
-      OverlayType.snackbar => SnackbarRequest.from(message!),
-      OverlayType.dialog => DialogRequest(child!),
-      OverlayType.banner => BannerRequest(child!, duration: duration),
-      OverlayType.loading => LoaderRequest(child!, duration: duration),
-      OverlayType.widget => WidgetRequest(child!, duration: duration),
+      OverlayType.snackbar when message != null => SnackbarRequest.from(
+        message,
+      ),
+      OverlayType.dialog when child != null => DialogRequest(child),
+      OverlayType.banner when child != null => BannerRequest(
+        child,
+        duration: duration,
+      ),
+      OverlayType.loading when child != null => LoaderRequest(
+        child,
+        duration: duration,
+      ),
+      OverlayType.widget when child != null => WidgetRequest(
+        child,
+        duration: duration,
+      ),
+      _ =>
+        throw ArgumentError('Missing required fields for overlay type: $type'),
     };
     showOverlayRequest(request);
   }
+
+  ///
 }
 
 /// 🧩 DSL enum types for overlay rendering

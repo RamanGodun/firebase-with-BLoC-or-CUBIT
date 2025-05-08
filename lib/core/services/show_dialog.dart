@@ -4,7 +4,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widg
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
 
 import '../constants/app_strings.dart';
-import '../shared_modules/errors_handling/failures/_failure.dart';
+import '../shared_modules/errors_handling/failures/failure.dart';
 
 /// 🔌 [IShowDialog] — abstraction for displaying platform dialogs.
 /// 🧼 Enables mocking, testing, and platform-specific implementations.

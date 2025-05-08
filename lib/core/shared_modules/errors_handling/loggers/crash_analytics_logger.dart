@@ -2,7 +2,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
 import 'package:flutter/foundation.dart' show debugPrint, kDebugMode;
 
-import '../failures/_failure.dart';
+import '../failures/failure.dart';
 import 'i_logger_contract.dart';
 
 /// 🧱 [CrashlyticsLogger] — Concrete implementation of [ILogger] using Firebase Crashlytics.

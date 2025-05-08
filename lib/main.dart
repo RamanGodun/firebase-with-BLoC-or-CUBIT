@@ -41,14 +41,8 @@ final class RootProviders extends StatelessWidget {
 
 
 /*
-! додати локалізовані банери через OverlayMessageKey, або зробити autologging через middleware.
 
-Всі OverlayRequest (особливо SnackbarRequest, BannerRequest) можуть приймати OverlayMessageKey:
-SnackbarRequest.from(
-  context.tr(key.translationKey, namedArgs: key.params),
-  key: key,
-);
-
-відокремити presentation logic від translation — ідеально для Clean Architecture + Easy Localization
+Можемо оновити OverlayDispatcher так, щоб:
+	•	логування в _logOverlayShow було більш інформативним.
 
  */

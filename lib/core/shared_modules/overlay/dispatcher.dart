@@ -15,6 +15,7 @@ final class OverlayDispatcher {
   final Queue<_OverlayQueueItem> _queue = Queue();
   final Set<BuildContext> _activeContexts = {}; // For clearOnDispose
   bool _isProcessing = false;
+  OverlayEntry? _activeEntry;
 
   /// 🧩 Enqueue an overlay request (guaranteed to be one-at-a-time)
   void enqueueRequest(BuildContext context, OverlayRequest request) {
@@ -52,46 +53,49 @@ final class OverlayDispatcher {
   }
 
   /// 🧩 Central dispatching per request type
-  Future<void> _executeRequest(BuildContext context, OverlayRequest request) =>
-      switch (request) {
+  Future<void> _executeRequest(
+    BuildContext context,
+    OverlayRequest request,
+  ) async {
+    try {
+      await switch (request) {
         DialogRequest(:final dialog) => showDialog<void>(
           context: context,
           barrierDismissible: true,
           builder: (_) => dialog,
         ),
-
         SnackbarRequest(:final snackbar, :final duration) => _handleSnackbar(
           context,
           snackbar,
           duration,
         ),
-
         BannerRequest(:final banner, :final duration) => _showOverlay(
           context,
           banner,
           duration,
         ),
-
         LoaderRequest(:final loader, :final duration) => _showOverlay(
           context,
           loader,
           duration,
         ),
-
         WidgetRequest(:final widget, :final duration) => _showOverlay(
           context,
           widget,
           duration,
         ),
-
         ThemeBannerRequest(:final message, :final icon) => _showOverlay(
           context,
           AnimatedOverlayWidget(message: message, icon: icon),
           request.duration,
         ),
-
-        ///
       };
+    } catch (e, st) {
+      debugPrint('[OverlayDispatcher] Failed to render overlay: $e');
+      debugPrint('[OverlayDispatcher] StackTrace: $st');
+      // optionally log or fallback
+    }
+  }
 
   /// 🧱 Generic widget overlay
   Future<void> _showOverlay(
@@ -101,9 +105,11 @@ final class OverlayDispatcher {
   ) async {
     final overlay = Overlay.of(context, rootOverlay: true);
     final entry = OverlayEntry(builder: (_) => widget);
+    _activeEntry = entry; // Зберігаємо активний entry
     overlay.insert(entry);
+
     await Future.delayed(duration);
-    entry.remove();
+    _dismissEntry();
   }
 
   /// 🍞 Snackbar handler (for Android/iOS)
@@ -116,6 +122,19 @@ final class OverlayDispatcher {
     messenger?.showSnackBar(snackbar);
     await Future.delayed(duration);
   }
+
+  /// 🚫 Closes the currently active overlay immediately.
+  Future<void> dismissCurrent({bool clearQueue = false}) async {
+    await _dismissEntry();
+    if (clearQueue) _queue.clear();
+  }
+
+  Future<void> _dismissEntry() async {
+    _activeEntry?.remove();
+    _activeEntry = null;
+  }
+
+  ///
 }
 
 final class _OverlayQueueItem {

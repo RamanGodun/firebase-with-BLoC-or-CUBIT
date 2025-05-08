@@ -40,9 +40,13 @@ final class BannerRequest extends OverlayRequest {
   @override
   final Duration duration;
 
+  @override
+  final OverlayMessageKey? messageKey;
+
   const BannerRequest(
     this.banner, {
     this.duration = const Duration(seconds: 2),
+    this.messageKey,
   });
 }
 
@@ -74,7 +78,11 @@ final class WidgetRequest extends OverlayRequest {
 final class ThemeBannerRequest extends OverlayRequest {
   final String message;
   final IconData icon;
-  const ThemeBannerRequest(this.message, this.icon);
+
+  @override
+  final OverlayMessageKey? messageKey;
+
+  const ThemeBannerRequest(this.message, this.icon, {this.messageKey});
 
   @override
   Duration get duration => const Duration(seconds: 2);

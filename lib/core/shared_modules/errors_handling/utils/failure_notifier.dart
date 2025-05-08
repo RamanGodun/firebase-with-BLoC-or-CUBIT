@@ -1,10 +1,10 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/_overlay_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-import '../../overlay/overlay_message_key.dart';
-import '../../overlay/requests.dart';
-import '../failures/_failure.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/requests.dart';
+import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
+import '../failures/failure.dart';
 import 'consumable.dart';
 
 /// 📌 [FailureNotifier] — Centralized one-shot UI handler for [Failure].
@@ -12,9 +12,7 @@ import 'consumable.dart';
 /// ✅ Supports both dialogs and banner overlays based on failure type.
 //----------------------------------------------------------------
 final class FailureNotifier {
-  /// 🧩 Shows UI feedback for [Consumable<Failure>] and resets state after delay.
-  /// ✅ Ensures error is only shown once (via `.consume()`).
-  /// ✅ Executes optional `onReset()` after 300ms (e.g. for Bloc reset).
+  /// 🧩 Shows feedback for [Consumable<Failure>] and resets state after delay.
   static void handleAndReset(
     BuildContext context,
     Consumable<Failure>? consumable, {
@@ -22,9 +20,7 @@ final class FailureNotifier {
   }) {
     final failure = consumable?.consume();
     if (failure != null) {
-      context.unfocusKeyboard();
-      _showFeedback(context, failure);
-
+      _show(context, failure);
       Future.delayed(const Duration(milliseconds: 300), () {
         if (!context.mounted) return;
         onReset();
@@ -32,49 +28,43 @@ final class FailureNotifier {
     }
   }
 
-  /// 🧩 Shows UI feedback for [Consumable<Failure>] without any reset logic.
-  /// ✅ Use when no Bloc/form state mutation is needed after error.
+  /// 🧩 Shows feedback for [Consumable<Failure>] without state mutation.
   static void handle(BuildContext context, Consumable<Failure>? consumable) {
     final failure = consumable?.consume();
-    if (failure != null) {
-      context.unfocusKeyboard();
-      _showFeedback(context, failure);
-    }
+    if (failure != null) _show(context, failure);
   }
 
-  /// 🔁 Internal feedback logic: Banner for known UX-friendly cases, Dialog for others
-  static void _showFeedback(BuildContext context, Failure failure) {
-    final key = failure.translationKey;
-    final fallback = failure.message;
+  /// 📍 Shows platform dialog regardless of failure type (critical fallback).
+  static void showDialog(BuildContext context, Failure failure) {
+    final key = failure.toOverlayMessageKey();
 
-    // ✨ Show UX-friendly overlay if defined
-    if (failure.isNetworkFailure || failure.isFirebaseFailure) {
-      context.showOverlayRequest(
-        SnackbarRequest(
-          SnackBar(content: Text(failure.uiMessage(context))),
-          messageKey:
-              key != null
-                  ? StaticOverlayMessageKey(key, fallback: fallback)
-                  : null,
-        ),
-      );
-      return;
-    }
-
-    // 📍 Fallback to platform dialog
     context.showOverlayRequest(
       DialogRequest(
         AlertDialog(
-          title: const Text('Error'),
-          content: Text(failure.uiMessage(context)),
+          title: const TextWidget('Error', TextType.titleLarge),
+          content: TextWidget(
+            key?.localize(context) ?? failure.message,
+            TextType.error,
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
+              child: const TextWidget('OK', TextType.titleMedium),
             ),
           ],
         ),
       ),
     );
+  }
+
+  /// 🔁 Internal logic: decide which overlay to show
+  static void _show(BuildContext context, Failure failure) {
+    context.unfocusKeyboard();
+
+    if (failure.isNetworkFailure || failure.isFirebaseFailure) {
+      context.showOverlayRequest(failure.overlayThemeBanner(context));
+    } else {
+      showDialog(context, failure);
+    }
   }
 }

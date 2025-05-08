@@ -29,3 +29,22 @@ extension FailureCodeX on Failure {
 /// final apiError = failure.as<ApiFailure>();
 /// if (apiError != null) print(apiError.statusCode);
 /// ```
+
+/// 🧩 [FailureOverlayX] — Adds conversion from [Failure] to [OverlayMessageKey]
+//------------------------------------------------------------
+extension FailureOverlayX on Failure {
+  OverlayMessageKey? toOverlayMessageKey() {
+    if (translationKey == null) return null;
+    return StaticOverlayMessageKey(translationKey!, fallback: message);
+  }
+
+  /// 🪧 Banner overlay for UX-friendly failures
+  OverlayRequest overlayThemeBanner(BuildContext context) {
+    final key = toOverlayMessageKey();
+    return ThemeBannerRequest(
+      key?.localize(context) ?? message,
+      overlayIcon,
+      messageKey: key,
+    );
+  }
+}

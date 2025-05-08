@@ -1,4 +1,6 @@
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
 import 'package:flutter/material.dart';
+import '../errors_handling/failures/failure.dart';
 import 'requests.dart';
 
 /// 🧪 Допоміжні фабрики (опційно)
@@ -26,4 +28,14 @@ extension OverlayRequestFactories on Object {
     Widget widget, {
     Duration duration = const Duration(seconds: 2),
   }) => WidgetRequest(widget, duration: duration);
+
+  ThemeBannerRequest overlayThemeBanner(Failure failure, BuildContext context) {
+    return ThemeBannerRequest(
+      failure.uiMessage(context),
+      failure.overlayIcon,
+      messageKey: failure.toOverlayMessageKey(),
+    );
+  }
+
+  ///
 }

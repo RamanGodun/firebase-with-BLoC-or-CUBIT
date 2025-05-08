@@ -7,7 +7,7 @@ import 'package:formz/formz.dart';
 import '../../../../../core/shared_modules/form_fields/input_validation/_inputs_validation.dart';
 import '../../../services/sign_in_service.dart';
 import '../../../../../core/utils/debouncer.dart';
-import '../../../../../core/shared_modules/errors_handling/failures/_failure.dart';
+import '../../../../../core/shared_modules/errors_handling/failures/failure.dart';
 part 'sign_in_page_state.dart';
 
 /// 🔐 [SignInCubit] — Manages Sign In logic, validation, submission.

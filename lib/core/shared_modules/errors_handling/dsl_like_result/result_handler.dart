@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../either/either.dart';
-import '../failures/_failure.dart';
+import '../failures/failure.dart';
 import '../either/extensions/_either_x_imports.dart';
 import '../failures/extensions/_failure_x_imports.dart';
 
