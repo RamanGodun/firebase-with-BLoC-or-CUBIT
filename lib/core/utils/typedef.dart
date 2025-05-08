@@ -24,3 +24,6 @@ typedef ExceptionHandler = Failure Function(dynamic error);
 
 /// 🧾 [FieldUiState] — Compact record for field visibility & error display
 typedef FieldUiState = ({String? errorText, bool isObscure});
+
+/// 📦 Wraps child with EasyLocalization widget
+typedef LocalizationWrapper = Widget Function(Widget child);

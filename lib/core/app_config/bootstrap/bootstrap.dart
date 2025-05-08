@@ -1,15 +1,15 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
 import 'package:path_provider/path_provider.dart';
-
 import '../env.dart';
 import '../../shared_modules/errors_handling/loggers/app_bloc_observer.dart';
 
-/// 🚀 [AppBootstrap] — Handles platform & app core initialization
-/// ✅ Loads environment config, sets up Firebase, Bloc observer, and state persistence
+/// 🚀✅ [AppBootstrap] — Handles platform & app core initialization, loads environment config,
+/// sets up Firebase, Bloc observer, HydratedBloc persistence, and localization
 //-----------------------------------------------------------------------------
 
 final class AppBootstrap {
@@ -18,10 +18,11 @@ final class AppBootstrap {
   /// 🎯 Entry point — must be called before `runApp`
   static Future<void> initialize() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await _initEnv();
     _initBlocObserver();
+    await _initEnv();
     await _initFirebase();
-    await _initHydratedStorage(); // 💾 HydratedBloc persistence
+    await _initHydratedStorage();
+    await _initLocalization();
   }
 
   /// 📄 Loads `.env.{environment}` config file based on current environment mode
@@ -40,12 +41,17 @@ final class AppBootstrap {
     Bloc.observer = const AppBlocObserver();
   }
 
+  /// 🌍 Ensures EasyLocalization is initialized before `runApp`
+  static Future<void> _initLocalization() async {
+    await EasyLocalization.ensureInitialized();
+  }
+
   /// 🔥 Initializes Firebase SDK (core only — used by all Firebase services)
   static Future<void> _initFirebase() async {
     await Firebase.initializeApp();
   }
 
-  /// 💾 Configures persistent HydratedBloc (local storage)
+  /// 💾 Configures persistent local storage (HydratedBloc)
   static Future<void> _initHydratedStorage() async {
     final storage = await HydratedStorage.build(
       storageDirectory:

@@ -1,0 +1,32 @@
+{
+  "failure": {
+    "network": {
+      "no_connection": "No internet connection",
+      "timeout": "The connection timed out. Please try again later."
+    },
+    "auth": {
+      "unauthorized": "You are not authorized. Please log in."
+    },
+    "firebase": {
+      "generic": "A Firebase error occurred. Please try again."
+    },
+    "format": {
+      "error": "Invalid data format."
+    },
+    "unknown": "An unknown error occurred.",
+    "plugin": {
+      "missing": "A required plugin is missing or not initialized."
+    }
+  },
+  "overlay": {
+    "success": {
+      "saved": "Saved successfully",
+      "deleted": "Item deleted"
+    },
+    "error": {
+      "unexpected": "Something went wrong",
+      "no_internet": "No internet connection",
+      "timeout": "Request timeout. Try again."
+    }
+  }
+}

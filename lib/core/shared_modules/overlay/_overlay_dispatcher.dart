@@ -4,35 +4,39 @@ import '_overlay_request.dart';
 
 /// 🎯 Centralized overlay dispatcher — entry point for all overlay requests
 //-------------------------------------------------------------
-
 final class OverlayDispatcher {
   static final instance = OverlayDispatcher._();
   OverlayDispatcher._();
 
-  ///
-  final Queue<(BuildContext, OverlayRequest)> _queue = Queue();
+  final Queue<_OverlayQueueItem> _queue = Queue();
+  final Set<BuildContext> _activeContexts = {}; // For clearOnDispose
   bool _isProcessing = false;
 
-  ///
   void enqueueRequest(BuildContext context, OverlayRequest request) {
-    _queue.add((context, request));
+    _logOverlayShow(request);
+    _activeContexts.add(context);
+    _queue.add(_OverlayQueueItem(context: context, request: request));
     _processQueue();
   }
 
-  ///
+  void clearAll() => _queue.clear();
+
+  void clearByContext(BuildContext context) {
+    _queue.removeWhere((e) => e.context == context);
+    _activeContexts.remove(context);
+  }
+
   void _processQueue() {
     if (_isProcessing || _queue.isEmpty) return;
 
     _isProcessing = true;
-    final (context, request) = _queue.removeFirst();
-
-    _executeRequest(context, request).whenComplete(() {
+    final item = _queue.removeFirst();
+    _executeRequest(item.context, item.request).whenComplete(() {
       _isProcessing = false;
       _processQueue();
     });
   }
 
-  ///
   Future<void> _executeRequest(BuildContext context, OverlayRequest request) =>
       switch (request) {
         DialogRequest(:final dialog) => showDialog<void>(
@@ -66,7 +70,6 @@ final class OverlayDispatcher {
         ),
       };
 
-  ///
   Future<void> _showOverlay(
     BuildContext context,
     Widget widget,
@@ -79,7 +82,6 @@ final class OverlayDispatcher {
     entry.remove();
   }
 
-  ///
   Future<void> _handleSnackbar(
     BuildContext context,
     SnackBar snackbar,
@@ -90,5 +92,21 @@ final class OverlayDispatcher {
     await Future.delayed(duration);
   }
 
+  void _logOverlayShow(OverlayRequest request) {
+    final messageKey = switch (request) {
+      SnackbarRequest(:final messageKey) => messageKey,
+      _ => null,
+    };
+    if (messageKey != null) {
+      debugPrint('[Overlay] Show: ${messageKey.translationKey}');
+    }
+  }
+
   ///
+}
+
+final class _OverlayQueueItem {
+  final BuildContext context;
+  final OverlayRequest request;
+  const _OverlayQueueItem({required this.context, required this.request});
 }
