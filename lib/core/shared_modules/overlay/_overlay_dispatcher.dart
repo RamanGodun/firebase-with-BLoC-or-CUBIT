@@ -9,14 +9,17 @@ final class OverlayDispatcher {
   static final instance = OverlayDispatcher._();
   OverlayDispatcher._();
 
+  ///
   final Queue<(BuildContext, OverlayRequest)> _queue = Queue();
   bool _isProcessing = false;
 
+  ///
   void enqueueRequest(BuildContext context, OverlayRequest request) {
     _queue.add((context, request));
     _processQueue();
   }
 
+  ///
   void _processQueue() {
     if (_isProcessing || _queue.isEmpty) return;
 
@@ -29,6 +32,7 @@ final class OverlayDispatcher {
     });
   }
 
+  ///
   Future<void> _executeRequest(BuildContext context, OverlayRequest request) =>
       switch (request) {
         DialogRequest(:final dialog) => showDialog<void>(
@@ -62,6 +66,7 @@ final class OverlayDispatcher {
         ),
       };
 
+  ///
   Future<void> _showOverlay(
     BuildContext context,
     Widget widget,
@@ -74,6 +79,7 @@ final class OverlayDispatcher {
     entry.remove();
   }
 
+  ///
   Future<void> _handleSnackbar(
     BuildContext context,
     SnackBar snackbar,
@@ -83,4 +89,6 @@ final class OverlayDispatcher {
     messenger?.showSnackBar(snackbar);
     await Future.delayed(duration);
   }
+
+  ///
 }

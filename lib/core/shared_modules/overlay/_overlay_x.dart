@@ -4,16 +4,16 @@ import '_overlay_request.dart';
 
 /// 🧩 Syntactic sugar for overlay system
 extension OverlayExtensions on BuildContext {
+  //
+
+  ///
   void showOverlayRequest(OverlayRequest request) =>
       OverlayDispatcher.instance.enqueueRequest(this, request);
 
+  //
   /// ✅ Лаконічні виклики без дублювання типів (варіант 1)
-  /*
-context.showSnackbar('Saved!');
-context.showPlatformDialog(AlertDialog(...));
-context.showBannerOverlay(MyBanner());
- */
   //-------------------------------------------------------------
+
   void showSnackbar(String message) =>
       showOverlayRequest(SnackbarRequest.from(message));
 
@@ -34,17 +34,18 @@ context.showBannerOverlay(MyBanner());
     Widget loader, {
     Duration duration = const Duration(seconds: 2),
   }) => showOverlayRequest(LoaderRequest(loader, duration: duration));
-
-  //-------------------------------------------------------------
-  //-------------------------------------------------------------
-
-  /// 🧩 DSL-подібний API (варіант 2)
   /*
-context.showOverlay(OverlayType.snackbar, message: 'Welcome!');
-context.showOverlay(OverlayType.dialog, child: AlertDialog(...));
-context.showOverlay(OverlayType.banner, child: MyBanner());
+context.showSnackbar('Saved!');
+context.showPlatformDialog(AlertDialog(...));
+context.showBannerOverlay(MyBanner());
  */
+
+  //=============================================================
+
+  //
+  /// 🧩 DSL-подібний API (варіант 2)
   //-------------------------------------------------------------
+
   void showOverlay(
     OverlayType type, {
     String? message,
@@ -60,9 +61,19 @@ context.showOverlay(OverlayType.banner, child: MyBanner());
     };
     showOverlayRequest(request);
   }
+  /*
+context.showOverlay(OverlayType.snackbar, message: 'Welcome!');
+context.showOverlay(OverlayType.dialog, child: AlertDialog(...));
+context.showOverlay(OverlayType.banner, child: MyBanner());
+ */
+
+  ///
 }
 
 /// 🧪 Допоміжні фабрики (опційно)
+/// Типи оверлеїв для DSL-подібного API
+//-------------------------------------------------------------
+
 extension OverlayRequestFactories on Object {
   SnackbarRequest overlaySnackbar(String message) =>
       SnackbarRequest.from(message);
@@ -84,3 +95,5 @@ extension OverlayRequestFactories on Object {
     Duration duration = const Duration(seconds: 2),
   }) => WidgetRequest(widget, duration: duration);
 }
+
+enum OverlayType { snackbar, dialog, banner, loading, widget }
