@@ -105,7 +105,7 @@ final class OverlayDispatcher {
   ) async {
     final overlay = Overlay.of(context, rootOverlay: true);
     final entry = OverlayEntry(builder: (_) => widget);
-    _activeEntry = entry; // Зберігаємо активний entry
+    _activeEntry = entry; 
     overlay.insert(entry);
 
     await Future.delayed(duration);

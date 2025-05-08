@@ -1,4 +1,4 @@
-import '../failures/failure.dart';
+import '../errors_handling/failures/failure.dart';
 
 /// 📄 [ILogger] — Interface for application-wide error logging.
 /// ✅ Enables switching between different logger implementations (e.g., Crashlytics, Console, Mock).

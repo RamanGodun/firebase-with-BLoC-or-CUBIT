@@ -27,6 +27,10 @@
       "unexpected": "Something went wrong",
       "no_internet": "No internet connection",
       "timeout": "Request timeout. Try again."
+    },
+    "theme": {
+      "light_enabled": "Light mode enabled",
+      "dark_enabled": "Dark mode enabled"
     }
   }
 }

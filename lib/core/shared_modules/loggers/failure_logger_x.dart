@@ -1,4 +1,4 @@
-part of '../failures/extensions/_failure_x_imports.dart';
+part of '../errors_handling/failures/extensions/_failure_x_imports.dart';
 
 /// 🪵 [FailureLogger] — provides Crashlytics/debug logging.
 /// ✅ Use `failure.log()` to record and trace errors.

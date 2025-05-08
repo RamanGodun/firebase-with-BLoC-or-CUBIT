@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../constants/_app_constants.dart' show AppIcons;
 import '../../constants/app_strings.dart' show AppStrings;
+import '../overlay/overlay_message_key.dart';
 import 'theme_cubit/theme_cubit.dart' show AppThemeCubit;
 
 /// 🌗 [ThemeToggleIcon] - Toggles between light and dark mode.
@@ -12,11 +13,11 @@ final class ThemeToggleIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = context.select<AppThemeCubit, bool>(
+    final wasDarkMode = context.select<AppThemeCubit, bool>(
       (cubit) => cubit.state.isDarkTheme,
     );
 
-    final icon = isDarkMode ? AppIcons.darkMode : AppIcons.lightMode;
+    final icon = wasDarkMode ? AppIcons.darkMode : AppIcons.lightMode;
 
     final iconColor = context.colorScheme.primary;
 
@@ -24,9 +25,9 @@ final class ThemeToggleIcon extends StatelessWidget {
       padding: const EdgeInsets.only(right: 20),
       child: IconButton(
         icon: Icon(icon, color: iconColor),
-        onPressed: () => _toggleTheme(context, isDarkMode),
+        onPressed: () => _toggleTheme(context, wasDarkMode),
         tooltip:
-            isDarkMode
+            wasDarkMode
                 ? AppStrings.lightModeEnabled
                 : AppStrings.darkModeEnabled,
       ),
@@ -39,8 +40,10 @@ final class ThemeToggleIcon extends StatelessWidget {
 
     // 🌟 Show overlay with correct message and icon
     context.showThemeBanner(
-      message:
-          isDarkMode ? AppStrings.lightModeEnabled : AppStrings.darkModeEnabled,
+      key:
+          isDarkMode
+              ? OverlayMessageKeys.lightModeEnabled
+              : OverlayMessageKeys.darkModeEnabled,
       icon: isDarkMode ? AppIcons.lightMode : AppIcons.darkMode,
     );
     //

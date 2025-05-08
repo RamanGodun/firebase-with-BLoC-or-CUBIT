@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dispatcher.dart';
+import 'overlay_message_key.dart';
 import 'requests.dart';
 
 /// 🧩 Syntactic sugar for overlay system
@@ -33,8 +34,14 @@ extension OverlayExtensions on BuildContext {
     Duration duration = const Duration(seconds: 2),
   }) => showOverlayRequest(LoaderRequest(loader, duration: duration));
 
-  void showThemeBanner({required String message, required IconData icon}) =>
-      showOverlayRequest(ThemeBannerRequest(message, icon));
+  void showThemeBanner({
+    required OverlayMessageKey key,
+    required IconData icon,
+  }) {
+    showOverlayRequest(
+      ThemeBannerRequest(key.localize(this), icon, messageKey: key),
+    );
+  }
 
   //=============================================================
   // 🧩 VARIANT 2: DSL-like API (switch-based)

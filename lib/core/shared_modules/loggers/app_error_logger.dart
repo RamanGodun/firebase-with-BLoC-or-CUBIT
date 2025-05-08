@@ -1,5 +1,5 @@
-import '../../../app_config/bootstrap/di_container.dart' show di;
-import '../failures/failure.dart';
+import '../../app_config/bootstrap/di_container.dart' show di;
+import '../errors_handling/failures/failure.dart';
 import 'i_logger_contract.dart';
 
 /// 🧭 [AppErrorLogger] — Centralized logger for all application-level errors.

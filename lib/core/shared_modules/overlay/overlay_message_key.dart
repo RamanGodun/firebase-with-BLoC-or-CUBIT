@@ -74,6 +74,18 @@ sealed class OverlayMessageKeys {
     'overlay.success.deleted',
     fallback: 'Item deleted',
   );
+
+  static final lightModeEnabled = StaticOverlayMessageKey(
+    'overlay.theme.light_enabled',
+    fallback: 'Light mode enabled',
+  );
+
+  static final darkModeEnabled = StaticOverlayMessageKey(
+    'overlay.theme.dark_enabled',
+    fallback: 'Dark mode enabled',
+  );
+
+  ///
 }
 
 bool _mapEquals(Map<String, String> a, Map<String, String> b) {
