@@ -1,5 +1,7 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
+import '../loggers/_app_error_logger.dart';
+import 'queue_item.dart';
 import 'requests.dart';
 import 'legacy/custom_animated_banner/overlay_widget.dart';
 
@@ -12,16 +14,17 @@ final class OverlayDispatcher {
   static final instance = OverlayDispatcher._();
   OverlayDispatcher._();
 
-  final Queue<_OverlayQueueItem> _queue = Queue();
+  final Queue<OverlayQueueItem> _queue = Queue();
   final Set<BuildContext> _activeContexts = {}; // For clearOnDispose
   bool _isProcessing = false;
   OverlayEntry? _activeEntry;
+  OverlayRequest? _activeRequest;
 
   /// 🧩 Enqueue an overlay request (guaranteed to be one-at-a-time)
   void enqueueRequest(BuildContext context, OverlayRequest request) {
-    _logOverlayShow(request);
+    AppErrorLogger.logOverlayShow(request);
     _activeContexts.add(context);
-    _queue.add(_OverlayQueueItem(context: context, request: request));
+    _queue.add(OverlayQueueItem(context: context, request: request));
     _processQueue();
   }
 
@@ -44,12 +47,6 @@ final class OverlayDispatcher {
       _isProcessing = false;
       _processQueue();
     });
-  }
-
-  /// 🧪 Debug logging overlay key (if localized)
-  void _logOverlayShow(OverlayRequest request) {
-    final key = request.messageKey;
-    if (key != null) debugPrint('[Overlay] Show: ${key.translationKey}');
   }
 
   /// 🧩 Central dispatching per request type
@@ -105,11 +102,12 @@ final class OverlayDispatcher {
   ) async {
     final overlay = Overlay.of(context, rootOverlay: true);
     final entry = OverlayEntry(builder: (_) => widget);
-    _activeEntry = entry; 
-    overlay.insert(entry);
+    _activeEntry = entry;
+    _activeRequest = _queue.isNotEmpty ? _queue.first.request : null;
 
+    overlay.insert(entry);
     await Future.delayed(duration);
-    _dismissEntry();
+    await _dismissEntry();
   }
 
   /// 🍞 Snackbar handler (for Android/iOS)
@@ -129,16 +127,13 @@ final class OverlayDispatcher {
     if (clearQueue) _queue.clear();
   }
 
+  /// 🧩 Closes the currently active overlay immediately.
   Future<void> _dismissEntry() async {
+    AppErrorLogger.logOverlayDismiss(_activeRequest); // centralized logging
     _activeEntry?.remove();
     _activeEntry = null;
+    _activeRequest = null;
   }
 
   ///
-}
-
-final class _OverlayQueueItem {
-  final BuildContext context;
-  final OverlayRequest request;
-  const _OverlayQueueItem({required this.context, required this.request});
 }

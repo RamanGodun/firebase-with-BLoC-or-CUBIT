@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart' show debugPrint;
+
 import '../../app_config/bootstrap/di_container.dart' show di;
 import '../errors_handling/failures/failure.dart';
+import '../overlay/requests.dart';
 import 'i_logger_contract.dart';
 
 /// 🧭 [AppErrorLogger] — Centralized logger for all application-level errors.
@@ -42,6 +45,20 @@ abstract final class AppErrorLogger {
     stackTrace: stackTrace,
     origin: origin,
   );
+
+  /// 🪧 Logs when overlay is shown.
+  static void logOverlayShow(OverlayRequest request) {
+    final key = request.messageKey;
+    final type = request.runtimeType;
+    debugPrint('[Overlay][$type] Show: ${key?.translationKey ?? "<no key>"}');
+  }
+
+  /// ❌ Logs when overlay is dismissed.
+  static void logOverlayDismiss(OverlayRequest? request) {
+    final key = request?.messageKey?.translationKey ?? '<no key>';
+    final type = request?.runtimeType ?? 'Unknown';
+    debugPrint('[Overlay][$type] Dismissed: $key');
+  }
 
   ///
 }
