@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'requests.dart';
-import 'custom_animated_banner/overlay_widget.dart';
+import 'legacy/custom_animated_banner/overlay_widget.dart';
 
 /// 🎯 Centralized overlay dispatcher — entry point for all overlay requests
 /// ✅ Enhanced OverlayDispatcher with strict one-at-a-time queue management

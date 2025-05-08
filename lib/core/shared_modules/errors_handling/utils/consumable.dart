@@ -1,4 +1,4 @@
-import '../shared_modules/errors_handling/failures/_failure.dart';
+import '../failures/_failure.dart';
 
 /// 🧩 [Consumable] — Wraps a value for one-time consumption.
 /// ✅ Prevents repeated UI side-effects (like dialogs/snackbars)

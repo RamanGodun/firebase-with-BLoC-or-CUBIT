@@ -1,5 +1,5 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
-import 'package:firebase_with_bloc_or_cubit/core/utils/consumable.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/consumable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../../../core/shared_modules/errors_handling/dsl_like_result/result_handler.dart';

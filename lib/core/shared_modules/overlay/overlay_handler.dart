@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 
-import 'custom_animated_banner/overlay_service.dart';
+// import 'legacy/custom_animated_banner/overlay_service.dart';
 
 /// 🧩 [GlobalOverlayHandler] – Universal wrapper for:
 /// - 📱 Dismissing keyboard
@@ -30,7 +30,7 @@ final class GlobalOverlayHandler extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (dismissKeyboard) context.unfocusKeyboard();
-        if (dismissOverlay) OverlayNotificationService.dismissIfVisible();
+        // if (dismissOverlay) OverlayNotificationService.dismissIfVisible();
       },
       behavior: HitTestBehavior.translucent,
       child: child,

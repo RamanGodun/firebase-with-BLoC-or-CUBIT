@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_with_bloc_or_cubit/core/utils/consumable.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/consumable.dart';
 import 'package:firebase_with_bloc_or_cubit/features/auth/presentation/sign_in/cubit/sign_in_state_validation_x.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';

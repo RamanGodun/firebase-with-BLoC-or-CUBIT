@@ -1,7 +1,7 @@
 import 'package:formz/formz.dart';
 import '../../../../../core/shared_modules/errors_handling/failures/_failure.dart';
 import '../../../../../core/shared_modules/form_fields/input_validation/_inputs_validation.dart';
-import '../../../../../core/utils/consumable.dart';
+import '../../../../../core/shared_modules/errors_handling/utils/consumable.dart';
 import 'sign_in_page_cubit.dart';
 
 /// 🧩 [SignInStateValidationX] — Adds validation and update logic to [SignInPageState]
