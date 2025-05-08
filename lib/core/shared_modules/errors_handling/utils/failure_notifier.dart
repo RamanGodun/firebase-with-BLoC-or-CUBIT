@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/overlay_dsl_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
+import '../../overlay/core/overlay_kind.dart';
 import '../failures/failure.dart';
 import 'consumable.dart';
 
 /// 📌 [FailureNotifier] — Centralized one-shot UI handler for [Failure].
 /// ✅ Works with [Consumable<Failure>] to prevent duplicate feedback.
-/// ✅ Supports both dialogs and banner overlays based on failure type.
-//----------------------------------------------------------------
+/// ✅ Integrates with DSL-based overlay system.
 final class FailureNotifier {
   /// 🧩 Shows feedback for [Consumable<Failure>] and resets state after delay.
   static void handleAndReset(
@@ -17,7 +17,6 @@ final class FailureNotifier {
     required VoidCallback onReset,
   }) {
     final failure = consumable?.consume();
-
     if (failure != null) {
       _show(context, failure);
       Future.delayed(const Duration(milliseconds: 300), () {
@@ -43,16 +42,18 @@ final class FailureNotifier {
     );
   }
 
-  /// 🔁 Internal logic: decide which overlay to show
+  /// 🔁 Internal logic: decides which overlay to show.
   static void _show(BuildContext context, Failure failure) {
     context.unfocusKeyboard();
 
+    // 🔗 If network or Firebase-related — show themed banner
     if (failure.isNetworkFailure || failure.isFirebaseFailure) {
-      context.overlay.banner.error(failure.uiMessage(context));
+      context.overlay.showBanner(
+        kind: OverlayKind.error,
+        message: failure.uiMessage(context),
+      );
     } else {
       showDialog(context, failure);
     }
   }
-
-  ///
 }

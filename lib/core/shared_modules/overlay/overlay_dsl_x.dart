@@ -1,3 +1,5 @@
+// 🔧 Overlay DSL System Refactored to Unified `context.overlay` API
+
 import 'package:flutter/material.dart';
 import 'core/overlay_dispatcher.dart';
 import 'core/overlay_message_key.dart';
@@ -6,19 +8,18 @@ import 'core/overlay_kind.dart';
 import 'presentation/widgets/animated_kind_banner.dart';
 import 'presentation/widgets/platform_dialog_widget.dart';
 
-/// ✅ Main extension for accessing overlay DSL
+// ✅ DSL Entry Point
 extension OverlayDSL on BuildContext {
   OverlayController get overlay => OverlayController(this);
 }
 
-/// 🛡️ Private extension — інкапсулює raw dispatcher call
+// 🛡️ Dispatcher bridge
 extension _OverlayDispatcherX on BuildContext {
-  void _showOverlayRequest(OverlayRequest request) {
-    OverlayDispatcher.instance.enqueueRequest(this, request);
-  }
+  void _showOverlayRequest(OverlayRequest request) =>
+      OverlayDispatcher.instance.enqueueRequest(this, request);
 }
 
-/// 🎛️ Main controller class for overlay categories
+// 🎛️ Central Overlay Controller
 final class OverlayController {
   final BuildContext _context;
   const OverlayController(this._context);
@@ -53,27 +54,7 @@ final class OverlayController {
     Duration duration = const Duration(seconds: 2),
   }) => _context._showOverlayRequest(LoaderRequest(child, duration: duration));
 
-  OverlayBannerController get banner => OverlayBannerController(_context);
-
-  void themeBanner({required OverlayMessageKey key, required IconData icon}) {
-    _context._showOverlayRequest(
-      ThemeBannerRequest(key.localize(_context), icon, messageKey: key),
-    );
-  }
-}
-
-/// 🪧 Banner controller for kind-driven overlays
-final class OverlayBannerController {
-  final BuildContext _context;
-  const OverlayBannerController(this._context);
-
-  void success(String message) => _show(message, OverlayKind.success);
-  void error(String message) => _show(message, OverlayKind.error);
-  void info(String message) => _show(message, OverlayKind.info);
-  void warning(String message) => _show(message, OverlayKind.warning);
-  void confirm(String message) => _show(message, OverlayKind.confirm);
-
-  void _show(String message, OverlayKind kind) {
+  void showBanner({required OverlayKind kind, required String message}) {
     final key = StaticOverlayMessageKey(
       'overlay.kind.${kind.runtimeType}',
       fallback: message,
@@ -86,4 +67,14 @@ final class OverlayBannerController {
       ),
     );
   }
+
+  void showBannerWidget(
+    Widget banner, {
+    Duration duration = const Duration(seconds: 2),
+  }) => _context._showOverlayRequest(BannerRequest(banner, duration: duration));
+
+  void themeBanner({required OverlayMessageKey key, required IconData icon}) =>
+      _context._showOverlayRequest(
+        ThemeBannerRequest(key.localize(_context), icon, messageKey: key),
+      );
 }
