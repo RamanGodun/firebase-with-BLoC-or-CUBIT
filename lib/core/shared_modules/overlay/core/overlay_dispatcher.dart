@@ -1,7 +1,7 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import '../../loggers/_app_error_logger.dart';
-import 'owerlay_queue_item.dart';
+import 'overlay_queue_item.dart';
 import 'overlay_requests.dart';
 import '../presentation/widgets/overlay_widget.dart';
 
