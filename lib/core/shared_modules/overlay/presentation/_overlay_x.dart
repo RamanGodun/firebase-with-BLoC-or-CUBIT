@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'animated_kind_banner.dart';
-import 'dispatcher.dart';
+import 'widgets/animated_kind_banner.dart';
+import '../core/overlay_dispatcher.dart';
 import 'overlay_kind.dart';
-import 'overlay_message_key.dart';
-import 'requests.dart';
+import '../core/overlay_message_key.dart';
+import 'widgets/platform_dialog_widget.dart';
+import '../core/overlay_requests.dart';
 
 /// 🧩 Syntactic sugar for overlay system
 extension OverlayExtensions on BuildContext {
@@ -18,8 +19,25 @@ extension OverlayExtensions on BuildContext {
   void showSnackbar(String message) =>
       showOverlayRequest(SnackbarRequest.from(message));
 
-  void showPlatformDialog(Widget dialog) =>
-      showOverlayRequest(DialogRequest(dialog));
+  void showPlatformDialogText({
+    required String title,
+    required String content,
+    String confirmText = 'OK',
+    String cancelText = 'Cancel',
+    VoidCallback? onConfirm,
+    VoidCallback? onCancel,
+  }) => showOverlayRequest(
+    DialogRequest(
+      PlatformDialogWidget(
+        title: title,
+        content: content,
+        confirmText: confirmText,
+        cancelText: cancelText,
+        onConfirm: onConfirm,
+        onCancel: onCancel,
+      ),
+    ),
+  );
 
   void showCustomOverlay(
     Widget widget, {
@@ -111,29 +129,3 @@ extension OverlayExtensions on BuildContext {
 
 /// 🧩 DSL enum types for overlay rendering
 enum OverlayType { snackbar, dialog, banner, loading, widget }
-
-
-/*
-context.showSnackbar('This is a snackbar');
-context.showPlatformDialog(AlertDialog(title: Text('Dialog'), content: Text('Platform dialog')));
-context.showCustomOverlay(MyCustomOverlayWidget());
-context.showBannerOverlay(MyCustomBanner());
-context.showLoaderOverlay(CircularProgressIndicator());
-context.showThemeBanner(key: OverlayMessageKeys.lightModeEnabled, icon: Icons.light_mode);
-
-
-context.showErrorBanner(OverlayMessageKeys.unexpected);
-context.showSuccessBanner(OverlayMessageKeys.saved);
-context.showInfoBanner(OverlayMessageKeys.darkModeEnabled);
-context.showWarningBanner(OverlayMessageKeys.timeout);
-context.showConfirmBanner(OverlayMessageKeys.deleted);
-
-
-context.showOverlay(OverlayType.snackbar, message: 'Generic Snackbar');
-context.showOverlay(OverlayType.dialog, child: AlertDialog(title: Text('Dialog')));
-context.showOverlay(OverlayType.banner, child: MyCustomBanner());
-context.showOverlay(OverlayType.loading, child: CircularProgressIndicator());
-context.showOverlay(OverlayType.widget, child: MyCustomWidget());
-
-
- */

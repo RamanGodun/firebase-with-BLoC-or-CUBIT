@@ -1,8 +1,8 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/_overlay_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/presentation/_overlay_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/requests.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/core/overlay_requests.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import '../failures/failure.dart';
 import 'consumable.dart';

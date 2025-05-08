@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart' show debugPrint;
 
 import '../../app_config/bootstrap/di_container.dart' show di;
 import '../errors_handling/failures/failure.dart';
-import '../overlay/requests.dart';
+import '../overlay/core/overlay_requests.dart';
 import 'i_logger_contract.dart';
 
 /// 🧭 [AppErrorLogger] — Centralized logger for all application-level errors.

@@ -1,9 +1,9 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
-import '../loggers/_app_error_logger.dart';
-import 'queue_item.dart';
-import 'requests.dart';
-import 'legacy/custom_animated_banner/overlay_widget.dart';
+import '../../loggers/_app_error_logger.dart';
+import 'owerlay_queue_item.dart';
+import 'overlay_requests.dart';
+import '../presentation/widgets/overlay_widget.dart';
 
 /// 🎯 Centralized overlay dispatcher — entry point for all overlay requests
 /// ✅ Enhanced OverlayDispatcher with strict one-at-a-time queue management

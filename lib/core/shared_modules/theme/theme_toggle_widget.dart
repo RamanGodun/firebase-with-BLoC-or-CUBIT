@@ -1,10 +1,10 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/_overlay_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/presentation/_overlay_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../constants/_app_constants.dart' show AppIcons;
 import '../../constants/app_strings.dart' show AppStrings;
-import '../overlay/overlay_message_key.dart';
+import '../overlay/core/overlay_message_key.dart';
 import 'theme_cubit/theme_cubit.dart' show AppThemeCubit;
 
 /// 🌗 [ThemeToggleIcon] - Toggles between light and dark mode.

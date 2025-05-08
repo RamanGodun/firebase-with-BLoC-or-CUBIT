@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
 import 'package:flutter/material.dart';
-import '../errors_handling/failures/failure.dart';
-import 'requests.dart';
+import '../../errors_handling/failures/failure.dart';
+import '../core/overlay_requests.dart';
 
 /// 🧪 Допоміжні фабрики (опційно)
 /// Типи оверлеїв для DSL-подібного API
