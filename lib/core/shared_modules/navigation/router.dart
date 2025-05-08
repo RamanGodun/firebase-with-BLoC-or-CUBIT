@@ -10,6 +10,10 @@ part of '_imports_for_router.dart';
 //---------------------------------------------------------------
 
 final GoRouter goRouter = GoRouter(
+  /// 👁️ Observers — Navigation side-effects
+  /// - ✅ Auto-clears overlays on push/pop/replace (OverlayDispatcher)
+  observers: [OverlayNavigatorObserver()],
+
   /// ⏳ Initial route (Splash Screen)
   initialLocation: '/${RoutesNames.splash}',
 

@@ -40,9 +40,3 @@ final class RootProviders extends StatelessWidget {
 }
 
 
-/*
-
-Можемо оновити OverlayDispatcher так, щоб:
-	•	логування в _logOverlayShow було більш інформативним.
-
- */

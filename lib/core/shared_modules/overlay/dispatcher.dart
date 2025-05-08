@@ -29,7 +29,10 @@ final class OverlayDispatcher {
   }
 
   /// 🧼 Remove all pending overlays from queue
-  void clearAll() => _queue.clear();
+  void clearAll() {
+    debugPrint('[OverlayDispatcher] clearAll()');
+    _queue.clear();
+  }
 
   /// 🧼 Remove all overlays tied to a specific context
   void clearByContext(BuildContext context) {

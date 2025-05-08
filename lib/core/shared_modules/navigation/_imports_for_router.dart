@@ -10,6 +10,7 @@ import '../../shared_presentation/shared_pages/page_not_found.dart';
 import '../../shared_presentation/shared_pages/password_reset_page.dart';
 import '../../shared_presentation/shared_pages/splash_page.dart';
 import '../../shared_presentation/shared_pages/verify_email_page.dart';
+import 'utils/overlay_observer.dart';
 import 'widgets/app_scaffold.dart';
 import 'utils/page_transition.dart';
 import 'utils/router_redirect.dart';
