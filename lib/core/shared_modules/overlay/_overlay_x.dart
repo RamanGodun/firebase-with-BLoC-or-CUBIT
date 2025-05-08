@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'animated_kind_banner.dart';
 import 'dispatcher.dart';
+import 'overlay_kind.dart';
 import 'overlay_message_key.dart';
 import 'requests.dart';
 
@@ -44,7 +46,35 @@ extension OverlayExtensions on BuildContext {
   }
 
   //=============================================================
-  // 🧩 VARIANT 2: DSL-like API (switch-based)
+  // ✅ VARIANT 2: Semantically grouped overlays (Kind-based)
+  //=============================================================
+
+  void showErrorBanner(OverlayMessageKey key) =>
+      _showKindBanner(key, OverlayKind.error);
+
+  void showSuccessBanner(OverlayMessageKey key) =>
+      _showKindBanner(key, OverlayKind.success);
+
+  void showInfoBanner(OverlayMessageKey key) =>
+      _showKindBanner(key, OverlayKind.info);
+
+  void showWarningBanner(OverlayMessageKey key) =>
+      _showKindBanner(key, OverlayKind.warning);
+
+  void showConfirmBanner(OverlayMessageKey key) =>
+      _showKindBanner(key, OverlayKind.confirm);
+
+  void _showKindBanner(OverlayMessageKey key, OverlayKind kind) =>
+      showOverlayRequest(
+        BannerRequest(
+          AnimatedKindBanner(message: key.localize(this), kind: kind),
+          duration: const Duration(seconds: 2),
+          messageKey: key,
+        ),
+      );
+
+  //=============================================================
+  // 🧩 VARIANT 3: DSL-like API (switch-based)
   //=============================================================
 
   void showOverlay(
@@ -71,7 +101,7 @@ extension OverlayExtensions on BuildContext {
         duration: duration,
       ),
       _ =>
-        throw ArgumentError('Missing required fields for overlay type: $type'),
+        throw ArgumentError('Missing required fields for overlay type: \$type'),
     };
     showOverlayRequest(request);
   }
@@ -82,14 +112,28 @@ extension OverlayExtensions on BuildContext {
 /// 🧩 DSL enum types for overlay rendering
 enum OverlayType { snackbar, dialog, banner, loading, widget }
 
-/*
-context.showSnackbar('Saved!');
-context.showPlatformDialog(AlertDialog(...));
-context.showBannerOverlay(MyBanner());
- */
 
 /*
-context.showOverlay(OverlayType.snackbar, message: 'Welcome!');
-context.showOverlay(OverlayType.dialog, child: AlertDialog(...));
-context.showOverlay(OverlayType.banner, child: MyBanner());
+context.showSnackbar('This is a snackbar');
+context.showPlatformDialog(AlertDialog(title: Text('Dialog'), content: Text('Platform dialog')));
+context.showCustomOverlay(MyCustomOverlayWidget());
+context.showBannerOverlay(MyCustomBanner());
+context.showLoaderOverlay(CircularProgressIndicator());
+context.showThemeBanner(key: OverlayMessageKeys.lightModeEnabled, icon: Icons.light_mode);
+
+
+context.showErrorBanner(OverlayMessageKeys.unexpected);
+context.showSuccessBanner(OverlayMessageKeys.saved);
+context.showInfoBanner(OverlayMessageKeys.darkModeEnabled);
+context.showWarningBanner(OverlayMessageKeys.timeout);
+context.showConfirmBanner(OverlayMessageKeys.deleted);
+
+
+context.showOverlay(OverlayType.snackbar, message: 'Generic Snackbar');
+context.showOverlay(OverlayType.dialog, child: AlertDialog(title: Text('Dialog')));
+context.showOverlay(OverlayType.banner, child: MyCustomBanner());
+context.showOverlay(OverlayType.loading, child: CircularProgressIndicator());
+context.showOverlay(OverlayType.widget, child: MyCustomWidget());
+
+
  */
