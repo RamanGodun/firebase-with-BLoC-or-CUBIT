@@ -12,7 +12,6 @@ import '../../../shared_modules/errors_handling/failures/_failure.dart';
 part 'theme_x.dart';
 part 'media_query_x.dart';
 part 'padding_x.dart';
-part 'snackbar_x.dart';
 part 'navigation_x.dart';
 part '../../failure_dialog_context_x.dart.dart';
 part 'other_x.dart';

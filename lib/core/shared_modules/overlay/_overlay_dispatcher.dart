@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import '_overlay_request.dart';
 
 /// 🎯 Centralized overlay dispatcher — entry point for all overlay requests
+/// ✅ Enhanced OverlayDispatcher with strict one-at-a-time queue management
+/// — Guarantees overlays show one by one, never overlapping.
 //-------------------------------------------------------------
+
 final class OverlayDispatcher {
   static final instance = OverlayDispatcher._();
   OverlayDispatcher._();
@@ -12,6 +15,7 @@ final class OverlayDispatcher {
   final Set<BuildContext> _activeContexts = {}; // For clearOnDispose
   bool _isProcessing = false;
 
+  /// 🧩 Enqueue an overlay request (guaranteed to be one-at-a-time)
   void enqueueRequest(BuildContext context, OverlayRequest request) {
     _logOverlayShow(request);
     _activeContexts.add(context);
@@ -19,13 +23,16 @@ final class OverlayDispatcher {
     _processQueue();
   }
 
+  /// 🧼 Remove all pending overlays from queue
   void clearAll() => _queue.clear();
 
+  /// 🧼 Remove all overlays tied to a specific context
   void clearByContext(BuildContext context) {
     _queue.removeWhere((e) => e.context == context);
     _activeContexts.remove(context);
   }
 
+  /// 🚦 Internal queue processor — runs one-at-a-time
   void _processQueue() {
     if (_isProcessing || _queue.isEmpty) return;
 
@@ -37,6 +44,13 @@ final class OverlayDispatcher {
     });
   }
 
+  /// 🧪 Debug logging overlay key (if localized)
+  void _logOverlayShow(OverlayRequest request) {
+    final key = request.messageKey;
+    if (key != null) debugPrint('[Overlay] Show: ${key.translationKey}');
+  }
+
+  /// 🧩 Central dispatching per request type
   Future<void> _executeRequest(BuildContext context, OverlayRequest request) =>
       switch (request) {
         DialogRequest(:final dialog) => showDialog<void>(
@@ -70,6 +84,7 @@ final class OverlayDispatcher {
         ),
       };
 
+  /// 🧱 Generic widget overlay
   Future<void> _showOverlay(
     BuildContext context,
     Widget widget,
@@ -82,6 +97,7 @@ final class OverlayDispatcher {
     entry.remove();
   }
 
+  /// 🍞 Snackbar handler (for Android/iOS)
   Future<void> _handleSnackbar(
     BuildContext context,
     SnackBar snackbar,
@@ -91,18 +107,6 @@ final class OverlayDispatcher {
     messenger?.showSnackBar(snackbar);
     await Future.delayed(duration);
   }
-
-  void _logOverlayShow(OverlayRequest request) {
-    final messageKey = switch (request) {
-      SnackbarRequest(:final messageKey) => messageKey,
-      _ => null,
-    };
-    if (messageKey != null) {
-      debugPrint('[Overlay] Show: ${messageKey.translationKey}');
-    }
-  }
-
-  ///
 }
 
 final class _OverlayQueueItem {
