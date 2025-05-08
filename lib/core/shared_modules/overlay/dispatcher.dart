@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
-import '_overlay_request.dart';
+import 'requests.dart';
+import 'custom_animated_banner/overlay_widget.dart';
 
 /// 🎯 Centralized overlay dispatcher — entry point for all overlay requests
 /// ✅ Enhanced OverlayDispatcher with strict one-at-a-time queue management
@@ -82,6 +83,14 @@ final class OverlayDispatcher {
           widget,
           duration,
         ),
+
+        ThemeBannerRequest(:final message, :final icon) => _showOverlay(
+          context,
+          AnimatedOverlayWidget(message: message, icon: icon),
+          request.duration,
+        ),
+
+        ///
       };
 
   /// 🧱 Generic widget overlay

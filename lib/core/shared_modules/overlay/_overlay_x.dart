@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import '_overlay_dispatcher.dart';
-import '_overlay_request.dart';
+import 'dispatcher.dart';
+import 'requests.dart';
 
 /// 🧩 Syntactic sugar for overlay system
 extension OverlayExtensions on BuildContext {
-  //
-
-  ///
+  /// 🔁 Enqueue raw overlay request
   void showOverlayRequest(OverlayRequest request) =>
       OverlayDispatcher.instance.enqueueRequest(this, request);
 
-  //
-  /// ✅ Лаконічні виклики без дублювання типів (варіант 1)
-  //-------------------------------------------------------------
+  //=============================================================
+  // ✅ VARIANT 1: Concise API (no type repetition)
+  //=============================================================
 
   void showSnackbar(String message) =>
       showOverlayRequest(SnackbarRequest.from(message));
@@ -34,17 +32,13 @@ extension OverlayExtensions on BuildContext {
     Widget loader, {
     Duration duration = const Duration(seconds: 2),
   }) => showOverlayRequest(LoaderRequest(loader, duration: duration));
-  /*
-context.showSnackbar('Saved!');
-context.showPlatformDialog(AlertDialog(...));
-context.showBannerOverlay(MyBanner());
- */
+
+  void showThemeBanner({required String message, required IconData icon}) =>
+      showOverlayRequest(ThemeBannerRequest(message, icon));
 
   //=============================================================
-
-  //
-  /// 🧩 DSL-подібний API (варіант 2)
-  //-------------------------------------------------------------
+  // 🧩 VARIANT 2: DSL-like API (switch-based)
+  //=============================================================
 
   void showOverlay(
     OverlayType type, {
@@ -61,39 +55,19 @@ context.showBannerOverlay(MyBanner());
     };
     showOverlayRequest(request);
   }
-  /*
+}
+
+/// 🧩 DSL enum types for overlay rendering
+enum OverlayType { snackbar, dialog, banner, loading, widget }
+
+/*
+context.showSnackbar('Saved!');
+context.showPlatformDialog(AlertDialog(...));
+context.showBannerOverlay(MyBanner());
+ */
+
+/*
 context.showOverlay(OverlayType.snackbar, message: 'Welcome!');
 context.showOverlay(OverlayType.dialog, child: AlertDialog(...));
 context.showOverlay(OverlayType.banner, child: MyBanner());
  */
-
-  ///
-}
-
-/// 🧪 Допоміжні фабрики (опційно)
-/// Типи оверлеїв для DSL-подібного API
-//-------------------------------------------------------------
-
-extension OverlayRequestFactories on Object {
-  SnackbarRequest overlaySnackbar(String message) =>
-      SnackbarRequest.from(message);
-
-  DialogRequest overlayDialog(Widget dialog) => DialogRequest(dialog);
-
-  BannerRequest overlayBanner(
-    Widget banner, {
-    Duration duration = const Duration(seconds: 2),
-  }) => BannerRequest(banner, duration: duration);
-
-  LoaderRequest overlayLoader(
-    Widget loader, {
-    Duration duration = const Duration(seconds: 2),
-  }) => LoaderRequest(loader, duration: duration);
-
-  WidgetRequest overlayWidget(
-    Widget widget, {
-    Duration duration = const Duration(seconds: 2),
-  }) => WidgetRequest(widget, duration: duration);
-}
-
-enum OverlayType { snackbar, dialog, banner, loading, widget }

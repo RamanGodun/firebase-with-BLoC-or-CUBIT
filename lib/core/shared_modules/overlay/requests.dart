@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '_overlay_message_key.dart';
+import 'overlay_message_key.dart';
 
 /// 🎯 Base sealed class for overlay requests
 sealed class OverlayRequest {
@@ -68,4 +68,14 @@ final class WidgetRequest extends OverlayRequest {
     this.widget, {
     this.duration = const Duration(seconds: 2),
   });
+}
+
+///
+final class ThemeBannerRequest extends OverlayRequest {
+  final String message;
+  final IconData icon;
+  const ThemeBannerRequest(this.message, this.icon);
+
+  @override
+  Duration get duration => const Duration(seconds: 2);
 }
