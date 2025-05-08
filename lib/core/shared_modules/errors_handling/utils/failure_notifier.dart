@@ -1,8 +1,6 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/presentation/_overlay_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/core/overlay_requests.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/overlay_dsl_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import '../failures/failure.dart';
 import 'consumable.dart';
@@ -19,6 +17,7 @@ final class FailureNotifier {
     required VoidCallback onReset,
   }) {
     final failure = consumable?.consume();
+
     if (failure != null) {
       _show(context, failure);
       Future.delayed(const Duration(milliseconds: 300), () {
@@ -38,22 +37,9 @@ final class FailureNotifier {
   static void showDialog(BuildContext context, Failure failure) {
     final key = failure.toOverlayMessageKey();
 
-    context.showOverlayRequest(
-      DialogRequest(
-        AlertDialog(
-          title: const TextWidget('Error', TextType.titleLarge),
-          content: TextWidget(
-            key?.localize(context) ?? failure.message,
-            TextType.error,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const TextWidget('OK', TextType.titleMedium),
-            ),
-          ],
-        ),
-      ),
+    context.overlay.dialog(
+      title: 'Error',
+      content: key?.localize(context) ?? failure.message,
     );
   }
 
@@ -62,9 +48,11 @@ final class FailureNotifier {
     context.unfocusKeyboard();
 
     if (failure.isNetworkFailure || failure.isFirebaseFailure) {
-      context.showOverlayRequest(failure.overlayThemeBanner(context));
+      context.overlay.banner.error(failure.uiMessage(context));
     } else {
       showDialog(context, failure);
     }
   }
+
+  ///
 }

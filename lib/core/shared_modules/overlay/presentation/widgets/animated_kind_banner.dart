@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
 import '../../../../shared_presentation/shared_widgets/text_widget.dart';
-import '../overlay_kind.dart';
+import '../../core/overlay_kind.dart';
 
 /// 🪧 [AnimatedKindBanner] — Overlay banner with dynamic icon + color + message.
 /// Used for `showErrorBanner`, `showSuccessBanner`, etc.

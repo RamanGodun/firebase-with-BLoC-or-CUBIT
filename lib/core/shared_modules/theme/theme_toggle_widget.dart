@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/presentation/_overlay_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/overlay_dsl_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +39,7 @@ final class ThemeToggleIcon extends StatelessWidget {
     context.read<AppThemeCubit>().toggle();
 
     // 🌟 Show overlay with correct message and icon
-    context.showThemeBanner(
+    context.overlay.themeBanner(
       key:
           isDarkMode
               ? OverlayMessageKeys.lightModeEnabled
