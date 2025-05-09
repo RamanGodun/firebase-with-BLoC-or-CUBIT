@@ -1,7 +1,7 @@
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/overlay_dsl_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/app_config/bootstrap/di_container.dart';
-import '../../../../core/shared_modules/errors_handling/utils/failure_notifier.dart';
 import '../../services/sign_in_service.dart';
 import '../../../../core/shared_modules/form_fields/extensions/formz_status_x.dart';
 import '../../domain/use_cases/ensure_profile_created.dart';
@@ -32,8 +32,7 @@ final class SignInPage extends StatelessWidget {
 }
 
 /// 🔄 [_SignInListenerWrapper] — Bloc listener for one-shot error feedback.
-/// ✅ Listens for `FormzSubmissionStatus.failure` and shows error dialog.
-/// ✅ Uses [FailureNotifier] to consume and display failure only once.
+/// ✅ Uses `Consumable<FailureUIModel>` for single-use error overlays.
 //----------------------------------------------------------------
 
 final class _SignInListenerWrapper extends StatelessWidget {
@@ -47,17 +46,15 @@ final class _SignInListenerWrapper extends StatelessWidget {
           (prev, curr) =>
               prev.status != curr.status && curr.status.isSubmissionFailure,
 
-      /// 📣 Show error once, then reset state after delay
+      /// 📣 Show error once and reset failure + status
       listener: (context, state) {
-        FailureNotifier.handleAndReset(
-          context,
-          state.failure,
-          onReset: () {
-            final cubit = context.read<SignInCubit>();
-            cubit.resetStatus();
-            cubit.clearFailure();
-          },
-        );
+        final model = state.failure?.consume();
+        if (model != null) {
+          context.overlay.showError(model);
+          context.read<SignInCubit>()
+            ..resetStatus()
+            ..clearFailure();
+        }
       },
 
       ///

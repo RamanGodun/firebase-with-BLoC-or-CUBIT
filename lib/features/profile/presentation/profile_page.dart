@@ -1,7 +1,7 @@
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/overlay_dsl_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/app_config/bootstrap/di_container.dart';
-import '../../../core/shared_modules/errors_handling/utils/failure_notifier.dart';
 import '../../auth/presentation/auth_bloc/auth_bloc.dart';
 import '../domain/load_profile_use_case.dart';
 import 'cubit/profile_page_cubit.dart';
@@ -29,8 +29,8 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-/// 🔁 [_ProfileListenerWrapper] — Listens for one-shot profile errors
-/// ✅ Shows error overlay and clears failure from Bloc state
+/// 🔄 [_ProfileListenerWrapper] — Bloc listener for one-shot error feedback.
+/// ✅ Uses `Consumable<FailureUIModel>` for single-use error overlays.
 //----------------------------------------------------------------
 
 final class _ProfileListenerWrapper extends StatelessWidget {
@@ -44,10 +44,13 @@ final class _ProfileListenerWrapper extends StatelessWidget {
           (prev, curr) =>
               prev.status != curr.status && curr.status == ProfileStatus.error,
 
-      // 📣 Shows error dialog once and clears failure from state
+      /// 📣 Show error once and reset failure
       listener: (context, state) {
-        FailureNotifier.handle(context, state.failure);
-        context.read<ProfileCubit>().clearFailure();
+        final model = state.failure?.consume();
+        if (model != null) {
+          context.overlay.showError(model);
+          context.read<ProfileCubit>().clearFailure();
+        }
       },
 
       ///

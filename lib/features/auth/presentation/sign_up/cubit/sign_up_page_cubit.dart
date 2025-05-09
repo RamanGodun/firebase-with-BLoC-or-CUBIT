@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/consumable.dart';
-import 'package:firebase_with_bloc_or_cubit/features/auth/presentation/sign_up/cubit/sign_up_state_validation_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -13,11 +12,14 @@ import '../../../../../core/utils/debouncer.dart';
 import '../../../../../core/shared_modules/form_fields/extensions/formz_status_x.dart';
 
 part 'sign_up_page_state.dart';
+part 'sign_up_state_validation_x.dart';
 
 /// 🧠 [SignUpCubit] — Handles logic for sign-up form: validation, debouncing, and submission.
 /// ✅ Delegates actual sign-up to [SignUpService]
 //----------------------------------------------------------------
+
 final class SignUpCubit extends Cubit<SignUpState> {
+  //
   final SignUpService _signUpService;
   final _debouncer = Debouncer(const Duration(milliseconds: 200));
   SignUpCubit(this._signUpService) : super(const SignUpState());
@@ -69,7 +71,6 @@ final class SignUpCubit extends Cubit<SignUpState> {
   /// 🚀 Triggers sign-up process (via [SignUpService]), if form is valid
   Future<void> submit() async {
     if (!state.isValid || state.status.isSubmissionInProgress) return;
-
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
 
     final result = await _signUpService.execute(
@@ -79,7 +80,6 @@ final class SignUpCubit extends Cubit<SignUpState> {
     );
 
     if (isClosed) return;
-
     result.fold(
       (f) => emit(
         state.copyWith(
@@ -91,7 +91,7 @@ final class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
-  /// 🔄 Resets only submission status (e.g. after dialog)
+  /// ♻️ Resets only submission status (e.g. after dialog)
   void resetStatus() {
     emit(state.copyWith(status: FormzSubmissionStatus.initial));
   }

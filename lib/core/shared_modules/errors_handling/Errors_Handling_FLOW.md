@@ -3,43 +3,147 @@
 ---
 
 ## 🎯 Goal
-
-Design a **unified, robust, and scalable** error handling system for Flutter apps using **Clean Architecture + SOLID principles**.
+Establish a **unified, robust, and scalable** error handling strategy tailored for Flutter applications,
+that adheres to **Clean Architecture** and embraces **SOLID principles**.
 
 ---
+
+
 
 ## ⚙️ System Overview
 
-This workflow strictly follows Clean Architecture:
+This error handling workflow strictly follows **Clean Architecture** and is optimized for **production-grade Flutter apps**:
 
-* **Data Layer:** hybrid — throws exceptions (`ASTRODES`) for SDK/API, but returns `Either<Failure, T>` directly (`AZER`) for expected issues (validation, cache, known states)
-* **Repository Layer:** catches exceptions (from ASTRODES) and converts them to `Failure`; passes AZER as-is
-* **Domain Layer:** uses `Either<Failure, T>` or `DSLLikeResultHandler` to propagate results
-* **Cubit/Notifier Layer:** handles result and emits state (via `.fold()` or DSL)
-* **UI Layer:** responds to `Failure` (e.g. shows SnackBar or Dialog)
 
-> **Bonus:** Fully extensible, testable, debuggable, and production-ready with Firebase Crashlytics or logs.
 
----
+### ✅ Data Layer
 
-## 🧱 Architecture Placement
+Implements a **hybrid strategy** combining two mechanisms:
 
-| Layer          | Responsibility                                                    |
-| -------------- | ----------------------------------------------------------------- |
-| DataSource     | Uses hybrid: throws (ASTRODES) for SDK/API, returns Either (AZER) |
-| Repository     | Catches errors, maps to `Failure` via `FailureMapper`             |
-| UseCase        | Delegates logic, forwards `Either<Failure, T>`                    |
-| Cubit/Notifier | Triggers states from result                                       |
-| UI             | Reacts to state changes with visuals (e.g. SnackBar)              |
+* **ASTRODES** (API/System Throwable Response → Domain Error Strategy):
+  - External/system/SDK errors (e.g. `DioError`, `FirebaseException`, `PlatformException`, `SocketException`, etc.) are **thrown**
+  - These are caught and mapped in the repository
 
-where:
+* **AZER** (App-Zone Expected Result):
+  - Anticipated logical outcomes (e.g. cache miss, duplicate, validation error) are returned as `Either<Failure, T>` without throwing
 
-* ASTRODES = API/System Throwable Response → Domain Error Strategy
-* AZER = App-Zone Expected Result
+> This approach ensures traceability for unexpected exceptions while cleanly separating known domain errors.
 
 ---
 
-## 🔄 Full Flow
+
+
+### ✅ Repository Layer
+
+Serves as the **central error boundary**, converting all outcomes to the unified AZER format. Inherits from `BaseRepository`.
+
+* For thrown exceptions (ASTRODES):
+  - Catches errors
+  - Maps to domain-level `Failure` using `FailureMapper`
+  - Returns as `Left(Failure)` via AZER
+
+* For expected failures (AZER-style):
+  - Forwards the `Either<Failure, T>` result directly, returns them **as-is**
+
+> Every public method returns a standardized shape:  
+> `ResultFuture<T> = Future<Either<Failure, T>>`
+
+Examples:
+```dart
+Future<Either<Failure, T>> safeCall<T>(Future<T> Function() action) async {
+  try {
+    final result = await action();
+    return Right(result);
+  } catch (error, stack) {
+    return Left(FailureMapper.from(error, stack));
+  }
+}
+
+Future<Either<Failure, void>> safeCallVoid(Future<void> Function() action) async {
+  try {
+    await action();
+    return const Right(null);
+  } catch (error, stack) {
+    return Left(FailureMapper.from(error, stack));
+  }
+}
+
+
+
+
+### ✅ Domain Layer (UseCase)
+
+Inherits from `UseCaseWithParams` or `UseCaseWithoutParams`.
+Implements **pure business logic**, delegates to repositories.
+
+* Always returns: `ResultFuture<T> = Future<Either<Failure, T>>`
+* Can use `.flatMap()` or `.mapRight()` for additional logic
+* No platform or framework dependencies
+* Delegates logic
+
+
+
+### ✅ Cubit / Notifier Layer
+
+Responsible for **handling results and emitting states**.
+
+* **Simple cases** use classical:
+
+  ```dart
+  result.fold(
+    (f) => emit(ErrorState(f)),
+    (v) => emit(SuccessState(v)),
+  );
+  ```
+
+* **Complex flows** use:
+
+  ```dart
+  await getUserUseCase().then(
+    (r) => DSLLikeResultHandler(r)
+      ..onFailure((f) => emit(ErrorState(f)))
+      ..onSuccess((v) => emit(SuccessState(v)))
+      ..log(),
+  );
+  ```
+
+> DSL-like syntax is more readable for flows with multiple chained steps, recover, or fallback logic.
+> Use DSL **when**: 
+  - you need `.log()`, `.track()`, `.redirect()`, etc.
+  - UX feedback is composite (reset form, delay, retry)
+
+
+
+### ✅ Presentation Layer (UI)
+
+Does not access raw `Failure`.
+
+* Listens for `state.failure` which is:
+  * A `Consumable<FailureUIModel>`
+  * Mapped from `Failure` via `.toUIModel()`
+
+* Visual feedback is delegated to `OverlayDispatcher`:
+  ```dart
+  final model = state.failure?.consume();
+  if (model != null) context.overlay.showError(model);
+  ```
+
+> This keeps UI layer stateless, reactive, testable, and internationalized.
+
+
+
+### 🧩 What is `Consumable<T>`?
+
+`Consumable<T>` is a one-time value wrapper for safe UI feedback triggers.
+**Advantages:**
+* Guarantees one-shot side effects
+* Prevents duplicate feedback on rebuilds
+* Declarative and testable
+
+---
+
+
+### 🔄 Full Flow Diagram
 
 ```mermaid
 sequenceDiagram
@@ -49,169 +153,81 @@ sequenceDiagram
     participant Repo
     participant DataSource
 
-    UI->>Cubit: trigger fetchUser()
-    Cubit->>UseCase: call()
-    UseCase->>Repo: getUser()
-    Repo->>DataSource: fetch from Dio/Firebase
-    DataSource-->>Repo: throws Exception OR returns Either (hybrid)
-    Repo->>Repo: catch error (if thrown)
-    Repo->>Repo: FailureMapper.from(error)
-    Repo-->>UseCase: Left(Failure)
-    UseCase-->>Cubit: Left(Failure)
-    Cubit-->>UI: emit(ErrorState)
-    UI->>UI: showDialog/showSnackBar
+    UI->>Cubit: trigger action
+    Cubit->>UseCase: call use case
+    UseCase->>Repo: request data
+    Repo->>DataSource: fetch/compute result
+    DataSource-->>Repo: Either (AZER) or throw (ASTRODES)
+    Repo->>Repo: catch + map → `FailureMapper`
+    Repo-->>UseCase: Left(Failure) or Right(Data)
+    UseCase-->>Cubit: propagate result (AZER)
+    Cubit-->>UI: emit state + `FailureUIModel`
+    UI->>UI: show overlay if `.consume()` is not null
 ```
 
 ---
 
-## 📦 Folder Responsibilities
 
-### 1. **DataSource (Data Layer)**
 
-* May throw (ASTRODES): `SocketException`, `HttpException`, `TimeoutException`, etc.
-* Or return `Either<Failure, T>` directly (AZER) for:
 
-  * Cache misses
-  * Domain validation errors
-  * Known failure conditions
 
-```dart
-// AZER-style — no throw, returns Either for known state
-ResultFuture<UserDTO> getUser() async {
-  if (!cache.contains(uid)) {
-    return Left(CacheFailure(...));
-  }
-  return Right(cache.get(uid));
-}
 
-// ASTRODES-style — throw if SDK/API fails
-Future<UserDTO> getUserFromApi() async {
-  final response = await dio.get(...); // throws if fails
-  return UserDTO.fromJson(response.data);
-}
-```
+
+### ✅ Summary
+
+#### 🧱 Layered Responsibilities
+
+| Layer / Component     | Role                                     | Best Practice                                                                    |
+| --------------------- | ---------------------------------------- | -------------------------------------------------------------------------------- |
+| **DataSource**        | Accesses raw data (SDK, API, platform)   | Hybrid approach: `throw` for ASTRODES, return `Either<Failure, T>` for AZER      |
+| **Repository**        | Converts outcomes to AZER format         | Wraps calls via `safeCall` / `safeCallVoid`, uses `FailureMapper` for exceptions |
+| **FailureMapper**     | Converts exceptions into domain failures | Central mapping layer; supports Crashlytics, debug logging                       |
+| **UseCase**           | Delegates logic and returns result       | Standard: `ResultFuture<T>` = `Future<Either<Failure, T>>`; pure, framework-free |
+| **Cubit / Notifier**  | Handles result and emits state           | Uses `.fold()` for simple flows, DSL handler for UX feedback & chaining          |
+| **UI Layer**          | Displays feedback based on state         | Observes `Consumable<FailureUIModel>`, triggers overlay if `.consume() != null`  |
+| **OverlayDispatcher** | Renders visual feedback centrally        | Uses `context.overlay.showError(...)` with `FailureUIModel`                      |
 
 ---
 
-### 2. **Repository (Data Layer)**
+#### 🧩 Core Error Handling Concepts
 
-* Inherits from `BaseRepository`
-* Uses `safeCall` / `safeCallVoid` for all async operations
-* Maps exceptions via `FailureMapper`
+| Concept             | Purpose                                                       |
+| ------------------- | ------------------------------------------------------------- |
+| `Failure`           | Domain-level abstraction of error                             |
+| `FailureUIModel`    | Visual + localized error model used by UI                     |
+| `Consumable<T>`     | Ensures feedback triggers only once                           |
+| `OverlayDispatcher` | Layer-agnostic error delivery for dialogs/snackbars/banners   |
+| `translationKey`    | i18n key for `FailureUIModel`; enables full localization path |
+| `FailureMapper`     | Converts caught ASTRODES exceptions to structured Failure type|
 
-```dart
-class UserRepositoryImpl extends BaseRepository implements UserRepository {
-  @override
-  Future<Either<Failure, User>> getUser() async {
-    return safeCall(() async {
-      final dto = await remoteDataSource.getUserFromApi();
-      return dto.toEntity();
-    });
-  }
-}
-```
 
 ---
 
-### 3. **UseCase (Domain Layer)**
+#### 🧭 Decision Matrix
 
-* Inherits from `UseCaseWithParams` or `UseCaseWithoutParams`
-* Delegates logic to repository
-
-```dart
-class GetUserUseCase extends UseCaseWithoutParams<User> {
-  final UserRepository _repo;
-  const GetUserUseCase(this._repo);
-
-  @override
-  ResultFuture<User> call() => _repo.getUser();
-}
-```
-
----
-
-### 4. **Cubit/Notifier (Presentation/Orchestration)**
-
-* Option A: Classical `.fold()` approach
-* Option B: DSL-like syntax via `DSLLikeResultHandler`
-
-```dart
-// Classic AZER
-final result = await getUserUseCase();
-result.fold(
-  (f) => emit(UserError(f)),
-  (u) => emit(UserLoaded(u)),
-);
-
-// DSL-like with ResultHandler
-await getUserUseCase()
-  .then((r) => DSLLikeResultHandler(r)
-    .onFailure((f) => emit(UserError(f)))
-    .onSuccess((u) => emit(UserLoaded(u))));
-```
+| Context                     | Preferred Strategy                 | Rationale                                                          |
+| --------------------------- | ---------------------------------- | ------------------------------------------------------------------ |
+| Complex UX flows            | ✅ `DSLLikeResultHandler`           | Fluent control for logs, side effects, fallback, or retry chains   |
+| Basic success/failure logic | ✅ `.fold()` / `.match()`           | Simple, concise, readable                                          |
+| SDK/API/Platform errors     | ✅ ASTRODES                         | Thrown, then caught in repo and mapped via `FailureMapper`         |
+| Known domain failures       | ✅ AZER                             | Returned as `Either<Failure, T>` without throwing                  |
+| Result shape                | ✅ `ResultFuture<T>` everywhere     | Standardized async result format in all layers                     |
+| Exception handling          | ✅ `safeCall()` or `safeCallVoid()` | Captures and maps low-level errors to AZER                         |
+| Failure-to-UI mapping       | ✅ `.toUIModel()`                   | Produces consistent UI-ready error with icon & translation support |
+| UI delivery trigger         | ✅ `context.overlay.showError(...)` | Unified mechanism for showing user-facing errors                   |
+| Feedback one-time handling  | ✅ `Consumable<FailureUIModel>`     | Ensures overlays shown once per failure emission                   |
 
 ---
 
-### 5. **UI (Presentation)**
+#### ✅ Key Benefits
 
-UI listens to `ErrorState` and invokes a centralized visual handler using `FailureNotifier` + `Consumable<Failure>`.
-
-```dart
-BlocListener<UserCubit, UserState>(
-  listenWhen: (prev, curr) =>
-      prev.status != curr.status && curr.status == UserStatus.error,
-  listener: (context, state) {
-    FailureNotifier.handle(context, state.failure);
-    context.read<UserCubit>().clearFailure();
-  },
-  child: UserView(),
-);
-```
-
----
-
-## 📌 `FailureNotifier` — Central UI Error Handler
-
-* Ensures UI error is shown **only once** (dialog/snackbar)
-* Uses `consume()` method from `Consumable`
-* Optional `handleAndReset()` resets Bloc/form state after feedback
-
----
-
-## 🧩 What is `Consumable<T>`?
-
-`Consumable<T>` is a one-time value wrapper for safe UI feedback triggers.
-
-**Advantages:**
-
-* Guarantees one-shot side effects
-* Prevents duplicate feedback on rebuilds
-* Declarative and testable
-
----
-
-## ✅ Summary
-
-| Responsibility | Best Practice                     |
-| -------------- | --------------------------------- |
-| DataSource     | hybrid: throws or returns Either  |
-| Repository     | extends BaseRepository + safeCall |
-| UseCase        | abstract base, returns Either     |
-| Cubit          | fold() or DSLHandler + emit()     |
-| UI             | `FailureNotifier` + `Consumable`  |
-| FailureMapper  | central mapping + logging         |
-
----
-
-## ✅ Benefits
-
-* Clean separation of concerns
-* Two alternative handling paths: explicit & DSL-like
-* Centralized `FailureMapper`
-* Safe feedback with `Consumable`
-* Ready for internationalization, Crashlytics, retry
-* Consistent with Clean Architecture principles
-
----
-
-
+* 📐 Enforces Clean Architecture across all layers
+* 🔁 Supports both `.fold()` and DSL-like handler styles
+* 🔍 Typed results (`Either<Failure, T>`) at every transition point
+* 🔧 `FailureMapper` gives central, customizable error conversions
+* 🧪 Easily testable: no untyped exceptions leaked to upper layers
+* 🚀 Overlay-based UI feedback: clean, testable, localizable
+* 🌍 Fully i18n-capable with `translationKey` support
+* 🧩 Modular extension: `.log()`, `.retry()`, `.track()`, `.redirect()`
+* 🔐 Ready for Crashlytics / analytics
+* 🧼 Feedback flow guarantees one-shot UX via `Consumable`

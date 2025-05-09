@@ -12,7 +12,7 @@ class SignInPageState extends Equatable {
   final Consumable<FailureUIModel>? failure;
   final bool isPasswordObscure;
 
-  /// 🧱 Initial constructor with default values
+  // 🧱 Initial constructor with default values
   const SignInPageState({
     this.email = const EmailInputValidation.pure(),
     this.password = const PasswordInput.pure(),
@@ -22,14 +22,14 @@ class SignInPageState extends Equatable {
     this.isPasswordObscure = true,
   });
 
-  /// 🔁 Returns new instance with optional overridden fields
+  // 🔁 Returns new instance with optional overridden fields
   SignInPageState copyWith({
-    EmailInputValidation? email,
-    PasswordInput? password,
-    FormzSubmissionStatus? status,
-    bool? isValid,
-    Consumable<FailureUIModel>? failure,
-    bool? isPasswordObscure,
+    final EmailInputValidation? email,
+    final PasswordInput? password,
+    final FormzSubmissionStatus? status,
+    final bool? isValid,
+    final Consumable<FailureUIModel>? failure,
+    final bool? isPasswordObscure,
   }) {
     return SignInPageState(
       email: email ?? this.email,
@@ -41,7 +41,6 @@ class SignInPageState extends Equatable {
     );
   }
 
-  /// 🧪 Required for equality comparison in Bloc rebuilds
   @override
   List<Object?> get props => [
     email,
@@ -51,9 +50,6 @@ class SignInPageState extends Equatable {
     failure,
     isPasswordObscure,
   ];
-
-  /// 🧠 Extracts error message from failure if present (only once)
-  String? get errorMessage => failure?.consume()?.fallbackMessage;
 
   ///
 }

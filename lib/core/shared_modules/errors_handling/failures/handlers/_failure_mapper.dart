@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
 import '../extensions/_failure_x_imports.dart' show RawErrorLogger;
-import '../failure_keys_enum.dart';
+import 'failure_keys_enum.dart';
 import 'error_plugin_enums.dart';
 import '../failure.dart';
 

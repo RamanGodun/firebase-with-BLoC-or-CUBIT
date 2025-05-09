@@ -1,9 +1,12 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/consumable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// 📦 profile_page_cubit.dart
+
+import 'dart:async';
 import 'package:equatable/equatable.dart';
-import '../../../../core/shared_modules/errors_handling/dsl_like_result/result_handler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/consumable.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
 import '../../../../core/shared_modules/errors_handling/failures/failure_ui_model.dart';
+import '../../../../core/shared_modules/errors_handling/dsl_like_result/result_handler.dart';
 import '../../../shared/shared_domain/shared_entities/_user.dart';
 import '../../../shared/shared_domain/shared_entities/user_utils_x.dart';
 import '../../domain/load_profile_use_case.dart';
@@ -19,29 +22,29 @@ final class ProfileCubit extends Cubit<ProfileState> {
 
   ProfileCubit(this._loadProfile) : super(ProfileState.initial());
 
-  /// 📦 Loads the profile and updates state accordingly.
-  /// ✅ Emits: [loading → loaded] or [loading → error]
+  /// 🚀 Triggers user profile loading by [uid]
+  /// ✅ Emits: loading → loaded | error
   Future<void> loadProfile(String uid) async {
     emit(state.copyWith(status: ProfileStatus.loading));
 
     final result = await _loadProfile(uid);
 
     DSLLikeResultHandler(result)
-        .onSuccess((user) {
-          emit(state.copyWith(status: ProfileStatus.loaded, user: user));
-        })
-        .onFailure((failure) {
-          emit(
-            state.copyWith(
-              status: ProfileStatus.error,
-              failure: failure.asConsumableUIModel(),
-            ),
-          );
-        })
-        .log();
+      ..onSuccess((user) {
+        emit(state.copyWith(status: ProfileStatus.loaded, user: user));
+      })
+      ..onFailure((failure) {
+        emit(
+          state.copyWith(
+            status: ProfileStatus.error,
+            failure: failure.asConsumableUIModel(),
+          ),
+        );
+      })
+      ..log();
   }
 
-  /// 🧽 Clears failure after it's been shown to UI
+  /// 🧽 Resets failure after it's consumed by UI
   void clearFailure() => emit(state.copyWith(failure: null));
 
   ///

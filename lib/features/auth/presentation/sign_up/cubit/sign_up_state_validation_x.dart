@@ -1,23 +1,18 @@
-import 'package:formz/formz.dart';
-import '../../../../../core/shared_modules/errors_handling/failures/failure_ui_model.dart';
-import '../../../../../core/shared_modules/form_fields/input_validation/_inputs_validation.dart';
-import '../../../../../core/shared_modules/errors_handling/utils/consumable.dart';
-import 'sign_up_page_cubit.dart';
+part of 'sign_up_page_cubit.dart';
 
-/// 🧩 [SignUpStateValidationX] — Adds validation and update utilities to [SignUpState]
+/// 🥉 [SignUpStateValidationX] — Adds validation and update utilities to [SignUpState]
 /// ✅ Simplifies state mutation and ensures validation is always up-to-date
 /// 🔐 Used in `SignUpCubit` for field-level updates with validation
 //----------------------------------------------------------------------------
 
 extension SignUpStateValidationX on SignUpState {
-  //
   /// ✅ Validates form fields using Formz
-  /// 📥 Accepts optional overrides; falls back to current state values
+  /// 📅 Accepts optional overrides; falls back to current state values
   bool validateWith({
-    NameInputValidation? name,
-    EmailInputValidation? email,
-    PasswordInput? password,
-    ConfirmPasswordInput? confirmPassword,
+    final NameInputValidation? name,
+    final EmailInputValidation? email,
+    final PasswordInput? password,
+    final ConfirmPasswordInput? confirmPassword,
   }) {
     return Formz.validate([
       name ?? this.name,
@@ -27,17 +22,17 @@ extension SignUpStateValidationX on SignUpState {
     ]);
   }
 
-  /// 🔁 Returns a new state with updated values and revalidated form
+  /// ➞ Returns a new state with updated values and revalidated form
   /// 📦 Supports field updates and UI controls like visibility or submission status
   SignUpState updateWith({
-    NameInputValidation? name,
-    EmailInputValidation? email,
-    PasswordInput? password,
-    ConfirmPasswordInput? confirmPassword,
-    FormzSubmissionStatus? status,
-    Consumable<FailureUIModel>? failure,
-    bool? isPasswordObscure,
-    bool? isConfirmPasswordObscure,
+    final NameInputValidation? name,
+    final EmailInputValidation? email,
+    final PasswordInput? password,
+    final ConfirmPasswordInput? confirmPassword,
+    final FormzSubmissionStatus? status,
+    final Consumable<FailureUIModel>? failure,
+    final bool? isPasswordObscure,
+    final bool? isConfirmPasswordObscure,
   }) {
     final updated = copyWith(
       name: name,
@@ -51,4 +46,6 @@ extension SignUpStateValidationX on SignUpState {
     );
     return updated.copyWith(isValid: updated.validateWith());
   }
+
+  ///
 }

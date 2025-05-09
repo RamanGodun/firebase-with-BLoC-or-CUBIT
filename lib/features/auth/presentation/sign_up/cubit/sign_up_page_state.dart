@@ -1,8 +1,9 @@
 part of 'sign_up_page_cubit.dart';
 
-/// 🧾 [SignUpState] — Holds all field values and form status for [SignUpCubit]
+/// 🗞 [SignUpState] — Holds all field values and form status for [SignUpCubit]
 /// ✅ Centralized state object for validation, UI, and submission status
 //----------------------------------------------------------------
+
 final class SignUpState extends Equatable {
   final NameInputValidation name;
   final EmailInputValidation email;
@@ -28,15 +29,15 @@ final class SignUpState extends Equatable {
 
   /// 🧱 Clones current state with optional overrides
   SignUpState copyWith({
-    NameInputValidation? name,
-    EmailInputValidation? email,
-    PasswordInput? password,
-    ConfirmPasswordInput? confirmPassword,
-    FormzSubmissionStatus? status,
-    bool? isValid,
-    Consumable<FailureUIModel>? failure,
-    bool? isPasswordObscure,
-    bool? isConfirmPasswordObscure,
+    final NameInputValidation? name,
+    final EmailInputValidation? email,
+    final PasswordInput? password,
+    final ConfirmPasswordInput? confirmPassword,
+    final FormzSubmissionStatus? status,
+    final bool? isValid,
+    final Consumable<FailureUIModel>? failure,
+    final bool? isPasswordObscure,
+    final bool? isConfirmPasswordObscure,
   }) {
     return SignUpState(
       name: name ?? this.name,
@@ -64,9 +65,6 @@ final class SignUpState extends Equatable {
     isPasswordObscure,
     isConfirmPasswordObscure,
   ];
-
-  /// 🧠 Extracts error message from failure if present (only once)
-  String? get errorMessage => failure?.consume()?.fallbackMessage;
 
   ///
 }
