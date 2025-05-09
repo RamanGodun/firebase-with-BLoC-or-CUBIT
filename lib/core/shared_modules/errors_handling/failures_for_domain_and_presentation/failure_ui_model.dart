@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../overlay/core/overlay_kind.dart';
-import 'failure_x/failure_ui_x.dart';
+import 'failure_x/ui_failures_x.dart';
 
 
 /// ✅ Used in Cubit to map raw Failure into UI-ready format (icons, kinds, keys)

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
-import '../errors_handling/failures_for_domain_and_presentation/failure_x/failure_ui_x.dart';
+import '../errors_handling/failures_for_domain_and_presentation/failure_x/ui_failures_x.dart';
 import 'core/overlay_dispatcher.dart';
 import 'core/overlay_message_key.dart';
 import 'core/overlay_requests.dart';

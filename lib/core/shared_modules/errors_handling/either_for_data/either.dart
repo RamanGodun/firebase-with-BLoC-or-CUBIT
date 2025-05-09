@@ -46,7 +46,7 @@ sealed class Either<L, R> {
   };
 
   /// 🔁 FlatMap (Right-biased) — chain another [Either] result
-  Either<L, R2> flatMap<R2>(Either<L, R2> Function(R r) mapR) => switch (this) {
+  Either<L, R2> thenMap<R2>(Either<L, R2> Function(R r) mapR) => switch (this) {
     Left(:final value) => Left(value),
     Right(:final value) => mapR(value),
   };

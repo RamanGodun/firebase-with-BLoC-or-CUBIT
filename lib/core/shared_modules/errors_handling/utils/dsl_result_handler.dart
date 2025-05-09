@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../either_for_data/either.dart';
 import '../failures_for_domain_and_presentation/failure_for_domain.dart';
 
-
 /// 🧩 [ResultHandler<T>] — wrapper around `Either<Failure, T>`
 /// ✅ Clean, chainable, and readable result API for Cubits, Providers, UseCases.
 @immutable
