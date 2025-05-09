@@ -1,3 +1,4 @@
+import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'overlay_message_key.dart';
@@ -27,8 +28,25 @@ final class SnackbarOverlay extends OverlayAction {
 
   const SnackbarOverlay(this.snackbar, {this.messageKey});
 
-  factory SnackbarOverlay.from(String message, {OverlayMessageKey? key}) =>
-      SnackbarOverlay(SnackBar(content: Text(message)), messageKey: key);
+  factory SnackbarOverlay.from(String message, {OverlayMessageKey? key}) {
+    return SnackbarOverlay(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        content: SafeArea(
+          bottom: true,
+          top: false,
+          left: false,
+          right: false,
+          child: TextWidget(message, TextType.error),
+        ),
+
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      messageKey: key,
+    );
+  }
 
   @override
   Duration get duration => const Duration(seconds: 2);
