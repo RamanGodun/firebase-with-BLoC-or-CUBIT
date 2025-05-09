@@ -1,17 +1,35 @@
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either_for_data/_eithers_facade.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_x/failure_diagnostics_x.dart';
-
-import '../either.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import '../../failures_for_domain_and_presentation/failure_for_domain.dart';
+import '../../../loggers/_app_error_logger.dart';
 
 /// 🧩 [ResultX<T>] — Sync sugar for `Either<Failure, T>`
 /// ✅ Enables fallback values, failure access, and folding logic
 //-------------------------------------------------------------------------
+
 extension ResultX<T> on Either<Failure, T> {
-  /// 🔁 Match (fold) sync logic
-  void match({
+  /// 🔁 Match (fold) sync logic — now chainable
+  /// ✅ Auto-logs failure and tracks success
+  Either<Failure, T> match({
     required void Function(Failure failure) onFailure,
     required void Function(T value) onSuccess,
-  }) => fold(onFailure, onSuccess);
+    String? successTag,
+    StackTrace? stack,
+  }) {
+    fold(
+      (f) {
+        AppErrorLogger.logFailure(f, stack);
+        onFailure(f);
+      },
+      (r) {
+        final tag = successTag ?? 'Success';
+        debugPrint('[SUCCESS][$tag] $r');
+        onSuccess(r);
+      },
+    );
+    return this;
+  }
 
   /// 🎯 Returns value or fallback
   T getOrElse(T fallback) => fold((_) => fallback, (r) => r);
@@ -19,7 +37,6 @@ extension ResultX<T> on Either<Failure, T> {
   /// 🧼 Returns failure message or null
   String? get failureMessage => fold((f) => f.message, (_) => null);
 
-  ///
   /// 🔁 Maps right value
   Either<Failure, R> mapRight<R>(R Function(T value) transform) =>
       mapRight(transform);
@@ -34,6 +51,7 @@ extension ResultX<T> on Either<Failure, T> {
     Right() => false,
   };
 
+  /// 🔁 Emits state changes declaratively
   void emitStates({
     void Function()? emitLoading,
     required void Function(Failure) emitFailure,

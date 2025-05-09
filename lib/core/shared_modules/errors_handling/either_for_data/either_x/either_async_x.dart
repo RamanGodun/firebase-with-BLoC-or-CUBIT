@@ -1,7 +1,9 @@
 import 'dart:async' show FutureOr;
 
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either_for_data/either_x/either_getters_x.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 
+import '../../../loggers/_app_error_logger.dart';
 import '../either.dart';
 import '../../failures_for_domain_and_presentation/failure_for_domain.dart';
 import '../../utils/dsl_result_handler.dart';
@@ -11,11 +13,26 @@ import '../../utils/dsl_result_handler.dart';
 //-------------------------------------------------------------------------
 
 extension ResultFutureX<T> on Future<Either<Failure, T>> {
-  /// 🔁 Match with async callbacks
+  /// 🔁 Match with async callbacks — auto-logs failure and tracks success
   Future<void> matchAsync({
     required Future<void> Function(Failure) onFailure,
     required Future<void> Function(T) onSuccess,
-  }) async => (await this).fold(onFailure, onSuccess);
+    String? successTag,
+    StackTrace? stack,
+  }) async {
+    final result = await this;
+    return result.fold(
+      (f) async {
+        AppErrorLogger.logFailure(f, stack);
+        await onFailure(f);
+      },
+      (r) async {
+        final tag = successTag ?? 'Success';
+        debugPrint('[SUCCESS][$tag] \$r');
+        await onSuccess(r);
+      },
+    );
+  }
 
   /// 🎯 Get value or fallback
   Future<T> getOrElse(T fallback) async => (await this).rightOrNull ?? fallback;
@@ -72,8 +89,8 @@ extension ResultFutureX<T> on Future<Either<Failure, T>> {
     int maxAttempts = 3,
     Duration delay = const Duration(milliseconds: 500),
   }) async {
-    int attempt = 0;
-    Either<Failure, T> result = await this;
+    var result = await task();
+    var attempt = 1;
     while (result.isLeft && attempt < maxAttempts) {
       await Future.delayed(delay);
       result = await task();

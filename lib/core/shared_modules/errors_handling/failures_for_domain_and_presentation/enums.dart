@@ -30,7 +30,7 @@ enum FailureKey {
   formatError,
   unknown,
   missingPlugin
-  // інші кейси...
+  // other cases
   ;
 
   String get translationKey => switch (this) {

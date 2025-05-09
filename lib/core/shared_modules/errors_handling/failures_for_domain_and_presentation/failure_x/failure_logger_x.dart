@@ -1,5 +1,5 @@
-import '../errors_handling/failures_for_domain_and_presentation/failure_for_domain.dart';
-import '_app_error_logger.dart';
+import '../failure_for_domain.dart';
+import '../../../loggers/_app_error_logger.dart';
 
 /// 🪵 [FailureLogger] — provides Crashlytics/debug logging.
 /// ✅ Use `failure.log()` to record and trace errors.
@@ -23,3 +23,4 @@ final class RawErrorLogger {
     AppErrorLogger.logException(error, stackTrace);
   }
 }
+
