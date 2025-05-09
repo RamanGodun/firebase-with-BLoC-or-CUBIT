@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../overlay/core/overlay_kind.dart';
-import 'extensions/_failure_x_imports.dart';
-import 'failure.dart';
+import 'failure_x/failure_ui_x.dart';
+
 
 /// ✅ Used in Cubit to map raw Failure into UI-ready format (icons, kinds, keys)
 /// 🧩 [FailureUIModel] — Stateless model for representing a failure in the UI
@@ -23,3 +23,4 @@ final class FailureUIModel {
     this.formattedCode,
   });
 }
+

@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_x/failure_ui_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/consumable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import '../../../../../core/shared_modules/errors_handling/failures/failure_ui_model.dart';
+import '../../../../../core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
 import '../../../../../core/shared_modules/form_fields/input_validation/_inputs_validation.dart';
 import '../../../services/sign_in_service.dart';
 import '../../../../../core/utils/debouncer.dart';
@@ -52,7 +52,7 @@ class SignInCubit extends Cubit<SignInPageState> {
     );
 
     if (isClosed) return;
-   result.fold(
+    result.fold(
       (f) => emit(
         state.copyWith(
           status: FormzSubmissionStatus.failure,

@@ -1,4 +1,12 @@
-part of '_either_x_imports.dart';
+
+
+import 'dart:async' show FutureOr;
+
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either_for_data/either_x/either_getters_x.dart';
+
+import '../either.dart';
+import '../../failures_for_domain_and_presentation/failure_for_domain.dart';
+import '../../utils/dsl_result_handler.dart';
 
 /// 🧩 [ResultFutureX<T>] — Async sugar for `Future<Either<Failure, T>>`
 /// ✅ Unified access to async chaining, fallback and message handling

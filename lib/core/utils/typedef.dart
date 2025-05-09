@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../shared_modules/errors_handling/either/either.dart';
-import '../shared_modules/errors_handling/either/unit.dart';
-import '../shared_modules/errors_handling/failures/failure.dart';
-import '../shared_modules/errors_handling/dsl_like_result/result_handler.dart';
+import '../shared_modules/errors_handling/either_for_data/either.dart';
+import '../shared_modules/errors_handling/either_for_data/unit.dart';
+import '../shared_modules/errors_handling/failures_for_domain_and_presentation/failure_for_domain.dart';
+import '../shared_modules/errors_handling/utils/dsl_result_handler.dart';
 
 /// 🧩 [ResultFuture] — Represents async result with [Either<Failure, T>]
 typedef ResultFuture<T> = Future<Either<Failure, T>>;

@@ -1,4 +1,9 @@
-part of '_failure_x_imports.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_x/failure_diagnostics_x.dart';
+import 'package:flutter/material.dart';
+import '../../../overlay/core/overlay_kind.dart';
+import '../enums.dart';
+import '../failure_for_domain.dart';import '../../utils/consumable.dart';
+import '../failure_ui_model.dart';
 
 /// ✅ [FailureToUIModelX] — Maps [Failure] to [FailureUIModel] without localization context
 extension FailureToUIModelX on Failure {

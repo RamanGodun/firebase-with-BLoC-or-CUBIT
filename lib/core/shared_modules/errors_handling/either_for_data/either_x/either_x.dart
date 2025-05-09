@@ -1,4 +1,7 @@
-part of '_either_x_imports.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_x/failure_diagnostics_x.dart';
+
+import '../either.dart';
+import '../../failures_for_domain_and_presentation/failure_for_domain.dart';
 
 /// 🧩 [ResultX<T>] — Sync sugar for `Either<Failure, T>`
 /// ✅ Enables fallback values, failure access, and folding logic
@@ -31,15 +34,6 @@ extension ResultX<T> on Either<Failure, T> {
     Right() => false,
   };
 
-  /// 🌀 Emits states to cubit based on result
-  /// Usage:
-  /// ```dart
-  /// result.emitStates(
-  ///   emitLoading: () => emit(Loading()),
-  ///   emitFailure: (f) => emit(Failed(f)),
-  ///   emitSuccess: (data) => emit(Success(data)),
-  /// );
-  /// ```
   void emitStates({
     void Function()? emitLoading,
     required void Function(Failure) emitFailure,

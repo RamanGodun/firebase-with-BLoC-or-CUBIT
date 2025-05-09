@@ -4,31 +4,24 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
-import '../extensions/_failure_x_imports.dart' show RawErrorLogger;
-import 'failure_keys_enum.dart';
-import 'error_plugin_enums.dart';
-import '../failure.dart';
+import '../../loggers/failure_logger_x.dart' show RawErrorLogger;
+import '../failures_for_domain_and_presentation/enums.dart';
+import '../failures_for_domain_and_presentation/failure_for_domain.dart';
 
 /// 🧰 [FailureMapper] — centralized converter for raw exceptions to domain-level [Failure].
-/// ✅ Converts raw system-level exceptions (e.g. Dio, Firebase, Platform, IO)
-///    into strongly-typed domain-specific [Failure] models.
-/// ✅ Guarantees consistent error handling across all layers (Data → Domain → UI).
-/// -------------------------------------------------------------------------
-
+/// ✅ Converts ASTRODES into structured [Failure] types.
+/// ✅ Guarantees consistent mapping across Data → Domain → UI.
 final class FailureMapper {
   const FailureMapper._();
 
-  /// 🛡️ [from] — Converts any [Exception] (or unknown object) to a domain-specific [Failure].
+  /// 🛡️ Converts any caught error into domain-level [Failure].
   static Failure from(dynamic error, [StackTrace? stackTrace]) {
-    ///  * ❗ Logging responsibility has been moved to [RawErrorLogger].
     RawErrorLogger.log(error, stackTrace);
 
     if (error is Failure) return error;
 
-    ///
-    // 📦 Known exception mapping to domain-level Failures
     return switch (error) {
-      ///
+      //
       SocketException _ => NetworkFailure(
         translationKey: FailureKey.networkNoConnection,
         message: 'No Internet connection. Please check your settings.',
@@ -48,14 +41,10 @@ final class FailureMapper {
 
       ///
       DioException(:final response) when response?.statusCode == 401 =>
-        UnauthorizedFailure(
-          translationKey: FailureKey.unauthorized,
-          message: 'Unauthorized access. Please log in again.',
-        ),
+        UnauthorizedFailure(message: 'Unauthorized. Please log in again.'),
 
       ///
       FirebaseException(:final message) => FirebaseFailure(
-        translationKey: FailureKey.firebaseGeneric,
         message: message ?? 'Firebase error occurred.',
       ),
 
@@ -63,49 +52,46 @@ final class FailureMapper {
       PlatformException(:final code, :final message) => GenericFailure(
         plugin: ErrorPlugin.useCase,
         code: code,
-        translationKey: FailureKey.formatError,
         message: message ?? 'Platform error occurred.',
+        translationKey: FailureKey.formatError,
       ),
 
       ///
       MissingPluginException(:final message) => GenericFailure(
         plugin: ErrorPlugin.useCase,
         code: 'MISSING_PLUGIN',
+        message: message ?? 'Plugin not initialized.',
         translationKey: FailureKey.missingPlugin,
-        message: message ?? 'Plugin not found or not initialized.',
       ),
 
       ///
       FormatException _ => GenericFailure(
         plugin: ErrorPlugin.unknown,
         code: 'FORMAT_ERROR',
+        message: 'Malformed data received.',
         translationKey: FailureKey.formatError,
-        message: 'Bad response format received.',
       ),
 
       ///
       JsonUnsupportedObjectError(:final cause) => GenericFailure(
         plugin: ErrorPlugin.unknown,
         code: 'JSON_ERROR',
+        message: 'Unsupported JSON: $cause',
         translationKey: FailureKey.formatError,
-        message: 'Unsupported JSON structure: $cause',
       ),
 
       ///
       DioException(:final type, :final message) => NetworkFailure(
         translationKey: FailureKey.networkTimeout,
-        message: message ?? 'Dio error occurred. Type: ${type.name}',
+        message: message ?? 'Dio error: ${type.name}',
       ),
 
       ///
-      _ => UnknownFailure(
-        translationKey: FailureKey.unknown,
-        message: error.toString(),
-      ),
+      _ => UnknownFailure(message: error.toString()),
 
       ///
     };
   }
 
-  ///
+  //
 }
