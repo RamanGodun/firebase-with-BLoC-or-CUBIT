@@ -1,5 +1,5 @@
 import 'package:formz/formz.dart';
-import '../../../../../core/shared_modules/errors_handling/failures/failure.dart';
+import '../../../../../core/shared_modules/errors_handling/failures/failure_ui_model.dart';
 import '../../../../../core/shared_modules/form_fields/input_validation/_inputs_validation.dart';
 import '../../../../../core/shared_modules/errors_handling/utils/consumable.dart';
 import 'sign_in_page_cubit.dart';
@@ -22,7 +22,7 @@ extension SignInStateValidationX on SignInPageState {
     EmailInputValidation? email,
     PasswordInput? password,
     FormzSubmissionStatus? status,
-    Consumable<Failure>? failure,
+    Consumable<FailureUIModel>? failure,
     bool? isPasswordObscure,
   }) {
     final updated = copyWith(

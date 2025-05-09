@@ -19,7 +19,6 @@ import '../../../features/profile/data/_profile_repo_impl.dart';
 import '../../../features/profile/domain/profile_repository.dart';
 import '../../../features/profile/domain/load_profile_use_case.dart';
 
-import '../../services/show_dialog.dart';
 import '../../shared_modules/loggers/crash_analytics_logger.dart';
 import '../../shared_modules/loggers/i_logger_contract.dart';
 import '../../shared_modules/theme/theme_cubit/theme_cubit.dart';
@@ -37,7 +36,6 @@ final class AppDI {
   static Future<void> init() async {
     _registerLoggers();
     _registerFirebase();
-    _registerServices();
     _registerDataSources();
     _registerRepositories();
     _registerUseCases();
@@ -57,13 +55,6 @@ final class AppDI {
       ..registerLazySingletonIfAbsent<FirebaseFirestore>(
         () => FirebaseFirestore.instance,
       );
-  }
-
-  /// 🛠️ Registers UI or platform-related services
-  static void _registerServices() {
-    di.registerLazySingletonIfAbsent<IShowDialog>(
-      () => const MaterialDialogService(),
-    );
   }
 
   /// 📡 Registers all remote data sources

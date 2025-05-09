@@ -10,7 +10,7 @@ final class SignUpState extends Equatable {
   final ConfirmPasswordInput confirmPassword;
   final FormzSubmissionStatus status;
   final bool isValid;
-  final Consumable<Failure>? failure;
+  final Consumable<FailureUIModel>? failure;
   final bool isPasswordObscure;
   final bool isConfirmPasswordObscure;
 
@@ -34,7 +34,7 @@ final class SignUpState extends Equatable {
     ConfirmPasswordInput? confirmPassword,
     FormzSubmissionStatus? status,
     bool? isValid,
-    Consumable<Failure>? failure,
+    Consumable<FailureUIModel>? failure,
     bool? isPasswordObscure,
     bool? isConfirmPasswordObscure,
   }) {
@@ -66,7 +66,7 @@ final class SignUpState extends Equatable {
   ];
 
   /// 🧠 Extracts error message from failure if present (only once)
-  String? get errorMessage => failure?.consume()?.uiMessageOrRaw();
+  String? get errorMessage => failure?.consume()?.fallbackMessage;
 
   ///
 }

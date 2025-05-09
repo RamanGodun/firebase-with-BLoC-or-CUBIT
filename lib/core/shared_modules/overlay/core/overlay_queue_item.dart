@@ -4,6 +4,6 @@ import 'overlay_requests.dart';
 
 final class OverlayQueueItem {
   final BuildContext context;
-  final OverlayRequest request;
+  final OverlayAction request;
   const OverlayQueueItem({required this.context, required this.request});
 }

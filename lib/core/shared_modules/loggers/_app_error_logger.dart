@@ -47,14 +47,14 @@ abstract final class AppErrorLogger {
   );
 
   /// 🪧 Logs when overlay is shown.
-  static void logOverlayShow(OverlayRequest request) {
+  static void logOverlayShow(OverlayAction request) {
     final key = request.messageKey;
     final type = request.runtimeType;
     debugPrint('[Overlay][$type] Show: ${key?.translationKey ?? "<no key>"}');
   }
 
   /// ❌ Logs when overlay is dismissed.
-  static void logOverlayDismiss(OverlayRequest? request) {
+  static void logOverlayDismiss(OverlayAction? request) {
     final key = request?.messageKey?.translationKey ?? '<no key>';
     final type = request?.runtimeType ?? 'Unknown';
     debugPrint('[Overlay][$type] Dismissed: $key');

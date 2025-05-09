@@ -9,7 +9,7 @@ class SignInPageState extends Equatable {
   final PasswordInput password;
   final FormzSubmissionStatus status;
   final bool isValid;
-  final Consumable<Failure>? failure;
+  final Consumable<FailureUIModel>? failure;
   final bool isPasswordObscure;
 
   /// 🧱 Initial constructor with default values
@@ -28,7 +28,7 @@ class SignInPageState extends Equatable {
     PasswordInput? password,
     FormzSubmissionStatus? status,
     bool? isValid,
-    Consumable<Failure>? failure,
+    Consumable<FailureUIModel>? failure,
     bool? isPasswordObscure,
   }) {
     return SignInPageState(
@@ -51,6 +51,9 @@ class SignInPageState extends Equatable {
     failure,
     isPasswordObscure,
   ];
+
+  /// 🧠 Extracts error message from failure if present (only once)
+  String? get errorMessage => failure?.consume()?.fallbackMessage;
 
   ///
 }

@@ -3,8 +3,8 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../../../core/shared_modules/errors_handling/dsl_like_result/result_handler.dart';
+import '../../../../core/shared_modules/errors_handling/failures/failure_ui_model.dart';
 import '../../../shared/shared_domain/shared_entities/_user.dart';
-import '../../../../core/shared_modules/errors_handling/failures/failure.dart';
 import '../../../shared/shared_domain/shared_entities/user_utils_x.dart';
 import '../../domain/load_profile_use_case.dart';
 
@@ -34,7 +34,7 @@ final class ProfileCubit extends Cubit<ProfileState> {
           emit(
             state.copyWith(
               status: ProfileStatus.error,
-              failure: failure.asConsumable(),
+              failure: failure.asConsumableUIModel(),
             ),
           );
         })

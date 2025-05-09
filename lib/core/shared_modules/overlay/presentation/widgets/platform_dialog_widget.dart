@@ -10,6 +10,9 @@ class PlatformDialogWidget extends StatelessWidget {
   final VoidCallback? onConfirm;
   final VoidCallback? onCancel;
 
+  /// ✅ Додай новий параметр
+  final IconData? icon;
+
   const PlatformDialogWidget({
     super.key,
     required this.title,
@@ -18,12 +21,19 @@ class PlatformDialogWidget extends StatelessWidget {
     this.cancelText = 'Cancel',
     this.onConfirm,
     this.onCancel,
+    this.icon, // ← додано
   });
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: TextWidget(title, TextType.titleMedium),
+      title: Row(
+        children: [
+          if (icon != null) Icon(icon, size: 24),
+          if (icon != null) const SizedBox(width: 8),
+          TextWidget(title, TextType.titleMedium),
+        ],
+      ),
       content: TextWidget(content, TextType.bodyMedium),
       actions: [
         TextButton(

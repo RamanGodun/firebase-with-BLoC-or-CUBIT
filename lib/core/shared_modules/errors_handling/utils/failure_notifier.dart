@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/_failure_x_imports.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/overlay_dsl_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
-import '../../overlay/core/overlay_kind.dart';
-import '../failures/failure.dart';
+import '../failures/failure_ui_model.dart';
 import 'consumable.dart';
 
-/// 📌 [FailureNotifier] — Centralized one-shot UI handler for [Failure].
-/// ✅ Works with [Consumable<Failure>] to prevent duplicate feedback.
-/// ✅ Integrates with DSL-based overlay system.
+/// 📌 [FailureNotifier] — Unified handler for showing failure overlays.
+/// ✅ Fully aligned with OverlayDispatcher and `context.overlay` system
 final class FailureNotifier {
-  /// 🧩 Shows feedback for [Consumable<Failure>] and resets state after delay.
+  /// 🧩 Handles a one-shot [FailureUIModel] and then resets the state
   static void handleAndReset(
     BuildContext context,
-    Consumable<Failure>? consumable, {
+    Consumable<FailureUIModel>? consumable, {
     required VoidCallback onReset,
   }) {
-    final failure = consumable?.consume();
-    if (failure != null) {
-      _show(context, failure);
+    final model = consumable?.consume();
+    if (model != null) {
+      context.overlay.showError(model);
       Future.delayed(const Duration(milliseconds: 300), () {
         if (!context.mounted) return;
         onReset();
@@ -26,34 +22,12 @@ final class FailureNotifier {
     }
   }
 
-  /// 🧩 Shows feedback for [Consumable<Failure>] without state mutation.
-  static void handle(BuildContext context, Consumable<Failure>? consumable) {
-    final failure = consumable?.consume();
-    if (failure != null) _show(context, failure);
-  }
-
-  /// 📍 Shows platform dialog regardless of failure type (critical fallback).
-  static void showDialog(BuildContext context, Failure failure) {
-    final key = failure.toOverlayMessageKey();
-
-    context.overlay.dialog(
-      title: 'Error',
-      content: key?.localize(context) ?? failure.message,
-    );
-  }
-
-  /// 🔁 Internal logic: decides which overlay to show.
-  static void _show(BuildContext context, Failure failure) {
-    context.unfocusKeyboard();
-
-    // 🔗 If network or Firebase-related — show themed banner
-    if (failure.isNetworkFailure || failure.isFirebaseFailure) {
-      context.overlay.showBanner(
-        kind: OverlayKind.error,
-        message: failure.uiMessage(context),
-      );
-    } else {
-      showDialog(context, failure);
-    }
+  /// 🧩 Shows the overlay error without clearing the state
+  static void handle(
+    BuildContext context,
+    Consumable<FailureUIModel>? consumable,
+  ) {
+    final model = consumable?.consume();
+    if (model != null) context.overlay.showError(model);
   }
 }

@@ -7,7 +7,7 @@ part of 'profile_page_cubit.dart';
 final class ProfileState extends Equatable {
   final ProfileStatus status;
   final User user;
-  final Consumable<Failure>? failure;
+  final Consumable<FailureUIModel>? failure;
 
   const ProfileState({required this.status, required this.user, this.failure});
 
@@ -22,7 +22,7 @@ final class ProfileState extends Equatable {
   ProfileState copyWith({
     ProfileStatus? status,
     User? user,
-    Consumable<Failure>? failure,
+    final Consumable<FailureUIModel>? failure,
   }) {
     return ProfileState(
       status: status ?? this.status,
@@ -31,8 +31,8 @@ final class ProfileState extends Equatable {
     );
   }
 
-  /// 🧠 Extracts the error message from failure once (via `consume`)
-  String? get errorMessage => failure?.consume()?.uiMessageOrRaw();
+  /// 🧠 Extracts error message from failure if present (only once)
+  String? get errorMessage => failure?.consume()?.fallbackMessage;
 
   @override
   List<Object?> get props => [status, user, failure];

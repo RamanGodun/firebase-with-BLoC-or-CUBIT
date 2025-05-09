@@ -1,40 +1,22 @@
 part of '_failure_x_imports.dart';
 
-/// 🧾 [FailureUI] — provides structured, detailed error formatting for diagnostics/UI.
-//-------------------------------------------------------------------------------------
-
-extension FailureUI on Failure {
-  //
-  /// 🧾 Returns detailed debug message (code + plugin name)
-  String get formattedMessage => switch (this) {
-    GenericFailure(:final plugin, :final code, :final message) =>
-      '$message\n\nCode: $code\nSource: ${plugin.name}',
-    ApiFailure(:final statusCode, :final message) =>
-      '$message\n\nStatus Code: $statusCode',
-    _ => message,
-  };
-
-  /// 🌍 Returns localized message if possible, otherwise fallback to raw `message`
-  String uiMessageOrRaw([BuildContext? context, Map<String, String>? params]) {
-    try {
-      if (context != null && translationKey != null) {
-        final localizations = AppLocalizations.of(context);
-        final translated = localizations?.translate(translationKey!, params);
-        if (translated != null && translated.trim().isNotEmpty) {
-          return translated;
-        }
-      }
-    } catch (_) {
-      // 🔒 Safely ignore localization's errors
-    }
-    return message.isNotEmpty ? message : 'Something went wrong';
+/// ✅ [FailureToUIModelX] — Maps [Failure] to [FailureUIModel] without localization context
+extension FailureToUIModelX on Failure {
+  FailureUIModel toUIModel({
+    FailurePresentationType presentation = FailurePresentationType.banner,
+  }) {
+    return FailureUIModel(
+      fallbackMessage: message,
+      translationKey: translationKey,
+      formattedCode: safeCode,
+      icon: _resolveIcon(),
+      kind: _resolveKind(),
+      presentation: presentation,
+    );
   }
 
-  // 🔁 Method with UI (to use in UI layer)
-  String uiMessage(BuildContext context) => uiMessageOrRaw(context);
-
-  /// 📌 Contextual icon for overlay usage (e.g. showError)
-  IconData get overlayIcon => switch (this) {
+  /// 🖼️ Internal: Icon depending on failure type
+  IconData _resolveIcon() => switch (this) {
     ApiFailure() => Icons.cloud_off,
     FirebaseFailure() => Icons.fireplace,
     UseCaseFailure() => Icons.settings,
@@ -44,8 +26,34 @@ extension FailureUI on Failure {
       ErrorPlugin.useCase => Icons.build,
       _ => Icons.error_outline,
     },
+    UnauthorizedFailure() => Icons.lock,
+    NetworkFailure() => Icons.signal_wifi_connected_no_internet_4,
+    CacheFailure() => Icons.sd_storage,
     _ => Icons.error_outline,
   };
 
-  ///
+  /// 🎨 Internal: Kind based on semantics
+  OverlayKind _resolveKind() => switch (this) {
+    ApiFailure() => OverlayKind.error,
+    FirebaseFailure() => OverlayKind.error,
+    UnauthorizedFailure() => OverlayKind.warning,
+    NetworkFailure() => OverlayKind.error,
+    CacheFailure() => OverlayKind.info,
+    UseCaseFailure() => OverlayKind.warning,
+    GenericFailure(:final plugin) => switch (plugin) {
+      ErrorPlugin.firebase => OverlayKind.error,
+      ErrorPlugin.httpClient => OverlayKind.error,
+      ErrorPlugin.useCase => OverlayKind.warning,
+      _ => OverlayKind.error,
+    },
+    _ => OverlayKind.error,
+  };
+
+  /// 🎯 One-shot wrapper for state management
+  Consumable<FailureUIModel> asConsumableUIModel({
+    FailurePresentationType presentation = FailurePresentationType.banner,
+  }) => Consumable(toUIModel(presentation: presentation));
 }
+
+/// 📌 Type of how to show error in the UI
+enum FailurePresentationType { banner, snackbar, dialog }

@@ -18,10 +18,10 @@ final class OverlayDispatcher {
   final Set<BuildContext> _activeContexts = {}; // For clearOnDispose
   bool _isProcessing = false;
   OverlayEntry? _activeEntry;
-  OverlayRequest? _activeRequest;
+  OverlayAction? _activeRequest;
 
   /// 🧩 Enqueue an overlay request (guaranteed to be one-at-a-time)
-  void enqueueRequest(BuildContext context, OverlayRequest request) {
+  void enqueueRequest(BuildContext context, OverlayAction request) {
     AppErrorLogger.logOverlayShow(request);
     _activeContexts.add(context);
     _queue.add(OverlayQueueItem(context: context, request: request));
@@ -55,36 +55,36 @@ final class OverlayDispatcher {
   /// 🧩 Central dispatching per request type
   Future<void> _executeRequest(
     BuildContext context,
-    OverlayRequest request,
+    OverlayAction request,
   ) async {
     try {
       await switch (request) {
-        DialogRequest(:final dialog) => showDialog<void>(
+        DialogOverlay(:final dialog) => showDialog<void>(
           context: context,
           barrierDismissible: true,
           builder: (_) => dialog,
         ),
-        SnackbarRequest(:final snackbar, :final duration) => _handleSnackbar(
+        SnackbarOverlay(:final snackbar, :final duration) => _handleSnackbar(
           context,
           snackbar,
           duration,
         ),
-        BannerRequest(:final banner, :final duration) => _showOverlay(
+        BannerOverlay(:final banner, :final duration) => _showOverlay(
           context,
           banner,
           duration,
         ),
-        LoaderRequest(:final loader, :final duration) => _showOverlay(
+        LoaderOverlay(:final loader, :final duration) => _showOverlay(
           context,
           loader,
           duration,
         ),
-        WidgetRequest(:final widget, :final duration) => _showOverlay(
+        CustomOverlay(:final widget, :final duration) => _showOverlay(
           context,
           widget,
           duration,
         ),
-        ThemeBannerRequest(:final message, :final icon) => _showOverlay(
+        ThemedBannerOverlay(:final message, :final icon) => _showOverlay(
           context,
           AnimatedOverlayWidget(message: message, icon: icon),
           request.duration,
@@ -140,5 +140,3 @@ final class OverlayDispatcher {
 
   ///
 }
-
-

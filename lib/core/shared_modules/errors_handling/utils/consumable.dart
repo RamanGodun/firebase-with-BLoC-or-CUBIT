@@ -1,4 +1,4 @@
-import '../failures/failure.dart';
+library;
 
 /// 🧩 [Consumable] — Wraps a value for one-time consumption.
 /// ✅ Prevents repeated UI side-effects (like dialogs/snackbars)
@@ -29,9 +29,4 @@ final class Consumable<T> {
   @override
   String toString() =>
       'Consumable(value: $_value, consumed: $_hasBeenConsumed)';
-}
-
-/// ✅ [FailureXConsumable] — Adds `.asConsumable()` to any Failure
-extension FailureXConsumable on Failure {
-  Consumable<Failure> asConsumable() => Consumable(this);
 }
