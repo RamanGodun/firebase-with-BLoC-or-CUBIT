@@ -34,23 +34,13 @@ final class ProfileView extends StatelessWidget {
       body:
       ///
       BlocBuilder<ProfileCubit, ProfileState>(
-        buildWhen: (previous, current) => previous.status != current.status,
-        builder: (context, state) {
-          switch (state.status) {
-            ///
-            case ProfileStatus.loading:
-              return const LoadingView();
-
-            case ProfileStatus.error:
-              return const _ErrorContent();
-
-            case ProfileStatus.loaded:
-              return _UserProfileCard(user: state.user);
-
-            case ProfileStatus.initial:
-              return const SizedBox.shrink();
-          }
-        },
+        builder:
+            (context, state) => switch (state) {
+              ProfileInitial() => const SizedBox.shrink(),
+              ProfileLoading() => const LoadingView(),
+              ProfileError() => const _ErrorContent(),
+              ProfileLoaded(:final user) => _UserProfileCard(user: user),
+            },
       ),
     );
   }

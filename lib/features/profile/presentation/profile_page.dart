@@ -40,16 +40,16 @@ final class _ProfileListenerWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<ProfileCubit, ProfileState>(
       ///
-      listenWhen:
-          (prev, curr) =>
-              prev.status != curr.status && curr.status == ProfileStatus.error,
+      listenWhen: (prev, curr) => prev is! ProfileError && curr is ProfileError,
 
       /// 📣 Show error once and reset failure
       listener: (context, state) {
-        final model = state.failure?.consume();
-        if (model != null) {
-          context.overlay.showError(model);
-          context.read<ProfileCubit>().clearFailure();
+        if (state is ProfileError) {
+          final model = state.failure.consume();
+          if (model != null) {
+            context.overlay.showError(model);
+            context.read<ProfileCubit>().clearFailure();
+          }
         }
       },
 

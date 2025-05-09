@@ -6,14 +6,14 @@
 
 This module implements a **unified, scalable error handling system** that supports two alternative paradigms:
 
-* 🧊 **AZER** — Classic, explicit and readable error flow using `Either<Failure, T>` and `.fold(...)`
-* 🔗 **DSL-like** — Declarative, chainable alternative inspired by functional programming, using `DSLLikeResultHandler` and `matchAsync()` extensions
+* 🧨 **AZER** — Classic, explicit and readable error flow using `Either<Failure, T>` and `.fold(...)`
+* 🔗 **DSL-like** — Declarative, chainable alternative inspired by functional programming, using `DSLLikeResultHandler`, `.match()` and `.matchAsync()` extensions
 
 Each approach is interchangeable and can be selected per feature or team preference.
 
 ---
 
-## 🔁 AZER: Explicit (Classic) Style
+## 🤁 AZER: Explicit (Classic) Style
 
 ### ✅ When to Use:
 
@@ -21,7 +21,7 @@ Each approach is interchangeable and can be selected per feature or team prefere
 * You prefer **clarity** and **predictable flow**
 * Common in Cubit/BLoC state management
 
-### 🧩 Code Example:
+### 🤩 Code Example:
 
 ```dart
 final result = await getUserUseCase();
@@ -34,7 +34,7 @@ result.fold(
 
 ---
 
-## 🧪 DSL-like Style
+## 🧚 DSL-like Style
 
 ### ✅ When to Use:
 
@@ -59,6 +59,16 @@ await getUserUseCase().then((r) => DSLLikeResultHandler(r)
   .onSuccess((u) => emit(Loaded(u))));
 ```
 
+### ✳️ Variant 3 — `match()` (sync style for `Either<Failure, T>`):
+
+```dart
+final result = await getUserUseCase();
+result.match(
+  onFailure: (f) => emit(Failed(f)),
+  onSuccess: (u) => emit(Loaded(u)),
+);
+```
+
 ### ✨ Advanced Chaining:
 
 ```dart
@@ -71,9 +81,9 @@ await getUserUseCase()
 
 ---
 
-## 🧩 Integration in Cubit
+## 🧹 Integration in Cubit
 
-### 🧊 AZER-style Cubit Example:
+### 🧨 AZER-style Cubit Example:
 
 ```dart
 Future<void> fetchUser() async {
@@ -104,31 +114,37 @@ Future<void> fetchUser() async {
 ```plaintext
 errors_handling/
 │
-├── dsl_like_result/                     # DSL-style result wrappers
-│   ├── result_handler.dart              # DSLLikeResultHandler<T>
-│   └── result_handler_async.dart        # DSLLikeResultHandlerAsync<T>
+├── either_for_data/                       # Core functional primitives
+│   ├── either.dart                        # Either<L, R> implementation
+│   ├── unit.dart                          # Unit type
+│   ├── _eithers_facade.dart               # Exports commonly used extensions
+│   └── either_x/                          # DSL-like and utility extensions
+│       ├── either_async_x.dart
+│       ├── either_getters_x.dart
+│       ├── either_test_x.dart
+│       ├── either_x.dart
+│       ├── result_logger_x.dart
+│       └── result_navigation_x.dart
 │
-├── either/                              # Functional Either construct
-│   ├── either.dart                      # Core Either<L, R> class
-│   ├── unit.dart                        # Functional void-like replacement
-│   └── extensions/                      # Helpers for fold/map/etc
-│       └── either_x.dart, ...
+├── failures_for_domain_and_presentation/ # Domain + UI error types
+│   ├── enums.dart                         # FailureKey, ErrorPlugin
+│   ├── failure_for_domain.dart            # Failure base types
+│   ├── failure_ui_model.dart              # FailureUIModel
+│   └── failure_x/                         # Extensions
+│       ├── failure_diagnostics_x.dart
+│       ├── failure_logger_x.dart
+│       ├── failure_navigation.dart
+│       └── ui_failures_x.dart
 │
-├── failures/                            # Domain-level failure models
-│   ├── _failure.dart                    # Base types (ApiFailure, etc.)
-│   ├── failure_keys_enum.dart           # i18n keys for localization
-│   ├── extensions/                      # UI/logging/source extensions
-│   └── handlers/                        # FailureMapper, plugin enums
-│       ├── _failure_mapper.dart
-│       └── error_plugin_enums.dart
+├── utils/                                 # Additional helpers
+│   ├── consumable.dart                    # Consumable<T> wrapper
+│   ├── dsl_result_handler.dart            # DSLLikeResultHandler
+│   ├── dsl_result_handler_async.dart      # Async version
+│   └── failure_mapper.dart                # Exception to Failure mapper
 │
-├── loggers/                             # Logging and diagnostics
-│   ├── i_logger_contract.dart           # Logger interface
-│   ├── app_error_logger.dart            # Debug + Crashlytics logger
-│   ├── crash_analytics_logger.dart      # FirebaseCrashlytics wrapper
-│   └── app_bloc_observer.dart           # BlocObserver with failure tracking
-│
-└── README.md                            # Developer manual for error system
+├── Errors_Handling_FLOW.md               # Visualized flow diagram (optional)
+├── One_time_error_displaying.md          # Additional strategy pattern for UI
+└── README.md                              # Developer manual for error system
 ```
 
 ---
@@ -137,10 +153,10 @@ errors_handling/
 
 | Criteria                        | AZER (Classic) | DSL-like Handler     |
 | ------------------------------- | -------------- | -------------------- |
-| ✅ Predictable and explicit      | ✔️ Yes         | ❌ Less explicit     |
-| ✅ Declarative & chainable       | ❌ No          | ✔️ Yes               |
-| ✅ Requires no extra wrappers    | ✔️ Yes         | ❌ Needs `.then(...)`|
-| ✅ Team prefers functional style | ❌ Maybe       | ✔️ Perfect fit       |
+| ✅ Predictable and explicit      | ✔️ Yes         | ❌ Less explicit      |
+| ✅ Declarative & chainable       | ❌ No           | ✔️ Yes               |
+| ✅ Requires no extra wrappers    | ✔️ Yes         | ❌ Needs `.then(...)` |
+| ✅ Team prefers functional style | ❌ Maybe        | ✔️ Perfect fit       |
 
 > 🧠 **Recommendation:** Use AZER by default for UI state management (Cubit/BLoC). DSL-style is best for expressive chains and functional flows.
 
@@ -154,4 +170,4 @@ Always aim for clarity, testability, and clean separation of failure concerns.
 
 ---
 
-🧪 Happy error handling & bulletproof code! ☕
+🧪 Happy error handling & bulletproof code! ☕️

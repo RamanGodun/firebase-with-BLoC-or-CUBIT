@@ -1,116 +1,121 @@
-# 🎯 Error Feedback in Cubit — One-Time Error Display (Ephemeral vs. Consumable)
+# 🧯 One-Time Error Feedback in Cubit — Clean & Reliable
 
 ---
 
-## 🧩 Goal
+## 🎯 Purpose
 
-Prevent duplicate error dialogs or snackbars in Flutter apps when the UI rebuilds or user returns to the screen.
+Ensure error feedback (dialogs, banners, snackbars) is **shown only once**, even if the UI rebuilds or user returns to the screen.
 
----
-
-## ✅ Strategy Overview
-
-When using `Cubit` or `Bloc`, emitting an error state can cause repeated UI feedback (e.g., dialog shown again) if the same error state remains active.
-
-To prevent this, use **one of two robust patterns**:
+> ✅ Fully aligned with the [`AZER`](./README.md#📦-overview) error strategy, Clean Architecture, and stateless UI principles.
 
 ---
 
-## 1️⃣ Ephemeral Error State (Emit → Reset)
+## 🧩 Problem
 
-### 🧠 Concept
+In `Cubit`/`Bloc`, emitting a `Failure` or `FailureUIModel` can cause:
 
-Emit an error state (e.g., `FormzSubmissionStatus.failure`) **temporarily**, then **immediately reset** to a neutral state (e.g., `initial`).
+* repeated dialogs/snackbars after navigation
+* feedback shown again on rebuild
 
-> ⏱️ `Future.microtask()` ensures the reset happens *after the listener has already processed the error*. This avoids triggering the same feedback again on rebuild.
+To avoid that, we implement **one-shot UI signaling**, using either:
+
+1. **Ephemeral status-based strategy** — via temporary state emission
+2. **Consumable model strategy** — via one-time wrappers (`Consumable<T>`) in state
+
+---
+
+## 1️⃣ Ephemeral Status Pattern (Stateless)
+
+### 🧠 Idea
+
+Emit `FormzSubmissionStatus.failure`, then reset it to `initial` in a `Future.microtask`. This gives `BlocListener` enough time to act once, without re-triggers.
 
 ### ✅ Use Case
 
-Works well when error is displayed via `BlocListener` reacting to a field like `status`.
+Great for simple forms using `.status` as a change notifier.
 
-### 📦 Example (Cubit logic)
+### 📦 Cubit Example
 
 ```dart
-result.fold(
-  (f) {
-    emit(state.copyWith(status: FormzSubmissionStatus.failure, failure: f));
+emit(state.copyWith(
+  status: FormzSubmissionStatus.failure,
+  failure: f.asConsumableUIModel(),
+));
 
-    // Reset state in next microtask to avoid duplicate feedback
-    Future.microtask(() {
-      if (!isClosed) {
-        emit(state.copyWith(status: FormzSubmissionStatus.initial));
-      }
-    });
-  },
-  (_) => emit(state.copyWith(status: FormzSubmissionStatus.success)),
-);
+Future.microtask(() {
+  if (!isClosed) emit(state.copyWith(status: FormzSubmissionStatus.initial));
+});
 ```
 
-### 📦 BlocListener
+### 📦 Listener Example
 
 ```dart
 BlocListener<MyCubit, MyState>(
   listenWhen: (prev, curr) =>
     prev.status != curr.status && curr.status.isSubmissionFailure,
   listener: (context, state) {
-    context.showFailureDialog(state.failure!);
+    final model = state.failure?.consume();
+    if (model != null) context.overlay.showError(model);
   },
 );
 ```
 
 ---
 
-## 2️⃣ Consumable Event Wrapper (Single Use)
+## 2️⃣ Consumable Wrapper Pattern (Stateful)
 
-### 🧠 Concept
+### 🧠 Idea
 
-Store the failure as a one-time `Consumable<Failure>` event in state. UI **consumes** it only once.
-
-> ✅ Excellent fit when using `ResultHandler` / `.match()` pattern — avoids the need to reset state.
+Wrap a `FailureUIModel` in a `Consumable`, so it can only be used once — even if state stays the same.
 
 ### ✅ Use Case
 
-Preferred when state stays unchanged after error (e.g., form remains filled).
+Works best when the UI state (form, input, etc.) should **persist** after an error.
 
-### 📦 Helper Class
+### 📦 `Consumable<T>` Class
 
 ```dart
-class Consumable<T> {
-  T? _value;
-  bool _isConsumed = false;
+final class Consumable<T> {
+  final T? _value;
+  bool _hasBeenConsumed = false;
 
   Consumable(T value) : _value = value;
 
   T? consume() {
-    if (_isConsumed) return null;
-    _isConsumed = true;
+    if (_hasBeenConsumed) return null;
+    _hasBeenConsumed = true;
     return _value;
   }
 
-  bool get isConsumed => _isConsumed;
+  bool get isConsumed => _hasBeenConsumed;
 }
 ```
 
-### 📦 Cubit Usage
+### 📦 In Cubit
 
 ```dart
 result.fold(
   (f) => emit(state.copyWith(
     status: FormzSubmissionStatus.failure,
-    failureEvent: Consumable(f),
+    failure: f.asConsumableUIModel(),
   )),
   (_) => emit(state.copyWith(status: FormzSubmissionStatus.success)),
 );
 ```
 
-### 📦 BlocListener
+### 📦 In Listener
 
 ```dart
 BlocListener<MyCubit, MyState>(
+  listenWhen: (prev, curr) =>
+    prev.status != curr.status && curr.status.isSubmissionFailure,
   listener: (context, state) {
-    final failure = state.failureEvent?.consume();
-    if (failure != null) {
-      context.showFailureDialog(failure);
+    final model = state.failure?.consume();
+    if (model != null) {
+      context.overlay.showError(model);
+      context.read<MyCubit>()
+        ..resetStatus()
+        ..clearFailure();
     }
   },
 );
@@ -118,20 +123,27 @@ BlocListener<MyCubit, MyState>(
 
 ---
 
-## 🔬 Testing Notes
+## 🧪 Testing Tips
 
-* `Consumable` is unit-testable — simply check `.isConsumed` or call `.consume()` in tests.
-* You can mock `Consumable<Failure>` easily for Cubit/Notifier testing.
+* `Consumable` is testable: check `.isConsumed` or use `.consume()`
+* Your UI tests can assert dialog shows once, based on a `failure?.consume()` result
 
 ---
 
-## ✅ Summary
+## ✅ Strategy Matrix
 
-| Pattern            | When to Use                                               |
-| ------------------ | --------------------------------------------------------- |
-| Ephemeral State    | Stateless reset; simple forms; no persistent state needed |
-| Consumable Wrapper | Complex forms; reusable state; error shouldn’t reappear   |
+| Pattern            | When to Use                                                        |
+| ------------------ | ------------------------------------------------------------------ |
+| Ephemeral Status   | Stateless reset — short flows, `status` triggers one-time feedback |
+| Consumable Wrapper | Persistent UI state — form survives error without being cleared    |
 
-Both strategies are production-ready and used in top-tier apps. Choose based on **UI needs and state lifecycle**.
+> 💡 Use both together: `FormzSubmissionStatus.failure` + `Consumable<FailureUIModel>`
 
-> 💡 Tip: You can even combine both if needed (e.g., use `status` + `Consumable<Failure>`).
+---
+
+## 🛡️ Aligned With:
+
+* ✅ AZER: Domain-level `Failure` returned as `Either<Failure, T>`
+* ✅ Failure Mapping: `.toUIModel()` for consistent overlays
+* ✅ Clean Presentation: `Consumable<FailureUIModel>` in `Cubit`, no business logic in UI
+* ✅ Stateless Feedback: UI reads + consumes, never stores failure logic

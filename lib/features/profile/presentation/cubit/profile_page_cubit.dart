@@ -1,49 +1,40 @@
 import 'dart:async';
-import 'package:equatable/equatable.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_x/ui_failures_x.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/consumable.dart';
-import '../../../../core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
-import '../../../../core/shared_modules/errors_handling/utils/dsl_result_handler.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_x/ui_failures_x.dart';
 import '../../../shared/shared_domain/shared_entities/_user.dart';
-import '../../../shared/shared_domain/shared_entities/user_utils_x.dart';
 import '../../domain/load_profile_use_case.dart';
 
 part 'profile_page_state.dart';
 
-/// 🧩 [ProfileCubit] — Manages user profile loading by UID
-/// ✅ Uses [DSLLikeResultHandler] to map domain result into UI state transitions
-//----------------------------------------------------------------
+/// 🧩 [ProfileCubit] — Manages profile loading state and side effects.
+/// ✅ Emits sealed [ProfileState] values following AZER + Clean Architecture.
+//----------------------------------------------------------------------------
 
 final class ProfileCubit extends Cubit<ProfileState> {
   final LoadProfileUseCase _loadProfile;
 
-  ProfileCubit(this._loadProfile) : super(ProfileState.initial());
+  ProfileCubit(this._loadProfile) : super(const ProfileInitial());
 
-  /// 🚀 Triggers user profile loading by [uid]
-  /// ✅ Emits: loading → loaded | error
+  /// 🚀 Loads user profile by UID
   Future<void> loadProfile(String uid) async {
-    emit(state.copyWith(status: ProfileStatus.loading));
+    emit(const ProfileLoading());
 
     final result = await _loadProfile(uid);
 
-    DSLLikeResultHandler(result)
-      ..onSuccess((user) {
-        emit(state.copyWith(status: ProfileStatus.loaded, user: user));
-      })
-      ..onFailure((failure) {
-        emit(
-          state.copyWith(
-            status: ProfileStatus.error,
-            failure: failure.asConsumableUIModel(),
-          ),
-        );
-      })
-      ..log();
+    result.fold(
+      (f) => emit(ProfileError(f.asConsumableUIModel())),
+      (u) => emit(ProfileLoaded(u)),
+    );
   }
 
-  /// 🧽 Resets failure after it's consumed by UI
-  void clearFailure() => emit(state.copyWith(failure: null));
+  /// 🧽 Clears failure after UI consumed it
+  void clearFailure() {
+    if (state is ProfileError) {
+      emit(const ProfileInitial());
+    }
+  }
 
   ///
 }

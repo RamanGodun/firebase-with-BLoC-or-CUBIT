@@ -1,3 +1,5 @@
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_x/failure_diagnostics_x.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import '../failure_for_domain.dart';
 import '../../../loggers/_app_error_logger.dart';
 
@@ -24,3 +26,27 @@ final class RawErrorLogger {
   }
 }
 
+/// 📈 [FailureTrackX] — Triggers analytics or diagnostic events for failures
+// -----------------------------------------------------------------------------
+extension FailureTrackX on Failure {
+  /// 📊 Logs a track event based on failure type
+  /// 💡 Replace [trackCallback] with actual analytics (e.g. FirebaseAnalytics.logEvent)
+  Failure track(void Function(String eventName) trackCallback) {
+    trackCallback('failure_${runtimeType.toString().toLowerCase()}');
+    return this;
+  }
+}
+
+/// 🖨️ [FailureDebugX] — Adds better developer feedback for debugging
+// -----------------------------------------------------------------------------
+extension FailureDebugX on Failure {
+  /// 📋 Prints formatted error to debug console
+  Failure debugLog([String? label]) {
+    final tag = label ?? 'Failure';
+    debugPrint('[DEBUG][$tag] => $label — $message | status=$safeStatus');
+    return this;
+  }
+
+  /// 🧪 For golden test snapshots or snapshots
+  String get debugSummary => '[${runtimeType.toString()}] $label';
+}
