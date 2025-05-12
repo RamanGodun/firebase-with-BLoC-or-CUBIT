@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'app_view.dart';
 import 'core/app_config/bootstrap/bootstrap.dart';
@@ -16,6 +17,9 @@ void main() async {
 
   /// 📦 Initializes all app dependencies via GetIt
   await AppDI.init();
+
+  /// 🌈 Enables debug painting for layout visualisation (repaint regions)
+  debugRepaintRainbowEnabled = false;
 
   /// 🚀 Run App
   runApp(AppLocalization.wrap(const RootProviders()));
@@ -41,19 +45,6 @@ final class RootProviders extends StatelessWidget {
 
 
 /*
-	ResultX Використати .match або .emitStates у Cubit, замінити .fold
-
-  ResultFutureX Додати в UseCase, Service, Cubit для чистішої логіки
-
- EitherGetters Замінити result.fold(...) на result.leftOrNull?.log() тощо
- 
-DSLLikeResultHandler Замінити .fold в Cubit на DSL-підхід
-
-
-
-
-? DSLLikeResultHandlerAsync   Доречно в UI або async flows з overlay або chain 
- 
 
 
 
