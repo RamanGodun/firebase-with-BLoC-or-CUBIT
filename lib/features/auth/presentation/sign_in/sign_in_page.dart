@@ -50,7 +50,7 @@ final class _SignInListenerWrapper extends StatelessWidget {
       listener: (context, state) {
         final model = state.failure?.consume();
         if (model != null) {
-          context.overlay.showError(model);
+          context.overlay.showError(model, showAs: ShowAs.snackbar);
           context.read<SignInCubit>()
             ..resetStatus()
             ..clearFailure();

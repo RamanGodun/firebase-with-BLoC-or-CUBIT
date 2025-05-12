@@ -9,6 +9,7 @@ class PlatformDialogWidget extends StatelessWidget {
   final String cancelText;
   final VoidCallback? onConfirm;
   final VoidCallback? onCancel;
+  final Color? color;
 
   /// ✅ Додай новий параметр
   final IconData? icon;
@@ -21,7 +22,8 @@ class PlatformDialogWidget extends StatelessWidget {
     this.cancelText = 'Cancel',
     this.onConfirm,
     this.onCancel,
-    this.icon, // ← додано
+    this.icon,
+    this.color,
   });
 
   @override

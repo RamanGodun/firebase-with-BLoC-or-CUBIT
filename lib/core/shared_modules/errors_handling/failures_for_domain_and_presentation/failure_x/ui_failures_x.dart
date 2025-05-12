@@ -1,22 +1,19 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_x/failure_diagnostics_x.dart';
 import 'package:flutter/material.dart';
-import '../../../overlay/core/overlay_kind.dart';
 import '../enums.dart';
-import '../failure_for_domain.dart';import '../../utils/consumable.dart';
+import '../failure_for_domain.dart';
+import '../../utils/consumable.dart';
 import '../failure_ui_model.dart';
 
 /// ✅ [FailureToUIModelX] — Maps [Failure] to [FailureUIModel] without localization context
 extension FailureToUIModelX on Failure {
-  FailureUIModel toUIModel({
-    FailurePresentationType presentation = FailurePresentationType.banner,
-  }) {
+  ///
+  FailureUIModel toUIModel() {
     return FailureUIModel(
       fallbackMessage: message,
       translationKey: translationKey,
       formattedCode: safeCode,
       icon: _resolveIcon(),
-      kind: _resolveKind(),
-      presentation: presentation,
     );
   }
 
@@ -37,28 +34,8 @@ extension FailureToUIModelX on Failure {
     _ => Icons.error_outline,
   };
 
-  /// 🎨 Internal: Kind based on semantics
-  OverlayKind _resolveKind() => switch (this) {
-    ApiFailure() => OverlayKind.error,
-    FirebaseFailure() => OverlayKind.error,
-    UnauthorizedFailure() => OverlayKind.warning,
-    NetworkFailure() => OverlayKind.error,
-    CacheFailure() => OverlayKind.info,
-    UseCaseFailure() => OverlayKind.warning,
-    GenericFailure(:final plugin) => switch (plugin) {
-      ErrorPlugin.firebase => OverlayKind.error,
-      ErrorPlugin.httpClient => OverlayKind.error,
-      ErrorPlugin.useCase => OverlayKind.warning,
-      _ => OverlayKind.error,
-    },
-    _ => OverlayKind.error,
-  };
-
   /// 🎯 One-shot wrapper for state management
-  Consumable<FailureUIModel> asConsumableUIModel({
-    FailurePresentationType presentation = FailurePresentationType.banner,
-  }) => Consumable(toUIModel(presentation: presentation));
-}
+  Consumable<FailureUIModel> asConsumableUIModel() => Consumable(toUIModel());
 
-/// 📌 Type of how to show error in the UI
-enum FailurePresentationType { banner, snackbar, dialog }
+  ///
+}

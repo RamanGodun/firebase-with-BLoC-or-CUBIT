@@ -59,9 +59,7 @@ class SignInCubit extends Cubit<SignInPageState> {
         emit(
           state.copyWith(
             status: FormzSubmissionStatus.failure,
-            failure: f.asConsumableUIModel(
-              presentation: FailurePresentationType.dialog,
-            ),
+            failure: f.asConsumableUIModel(),
           ),
         );
       })
