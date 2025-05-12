@@ -21,6 +21,8 @@ import '../../../features/profile/domain/load_profile_use_case.dart';
 
 import '../../shared_modules/loggers/crash_analytics_logger.dart';
 import '../../shared_modules/loggers/i_logger_contract.dart';
+import '../../shared_modules/overlay/core/overlay_dispatcher/_overlay_dispatcher.dart';
+import '../../shared_modules/overlay/core/overlay_dispatcher/overlay_dispatcher_contract.dart';
 import '../../shared_modules/theme/theme_cubit/theme_cubit.dart';
 
 /// 💠 Global instance of GetIt DI container
@@ -34,7 +36,7 @@ final class AppDI {
 
   /// 🎯 Entry point — call once in `main()`
   static Future<void> init() async {
-    _registerLoggers();
+    _registerSharedModules();
     _registerFirebase();
     _registerDataSources();
     _registerRepositories();
@@ -44,8 +46,11 @@ final class AppDI {
 
   /// 🔍 Registers global logging services (e.g., Crashlytics, Console).
   /// Used across all layers via [AppErrorLogger] abstraction.
-  static void _registerLoggers() {
+  static void _registerSharedModules() {
     di.registerLazySingletonIfAbsent<ILogger>(() => CrashlyticsLogger());
+    di.registerLazySingletonIfAbsent<IOverlayDispatcher>(
+      () => OverlayDispatcher(),
+    );
   }
 
   /// 🔗 Registers core Firebase dependencies

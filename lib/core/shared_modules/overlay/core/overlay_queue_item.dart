@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'overlay_requests.dart';
+import 'overlay_types.dart';
 
 final class OverlayQueueItem {
   final BuildContext context;
-  final OverlayAction request;
+  final OverlayUIEntry request;
   const OverlayQueueItem({required this.context, required this.request});
 }

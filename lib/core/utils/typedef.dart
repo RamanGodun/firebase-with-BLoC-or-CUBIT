@@ -3,6 +3,7 @@ import '../shared_modules/errors_handling/either_for_data/either.dart';
 import '../shared_modules/errors_handling/either_for_data/unit.dart';
 import '../shared_modules/errors_handling/failures_for_domain_and_presentation/failure_for_domain.dart';
 import '../shared_modules/errors_handling/utils/dsl_result_handler.dart';
+import '../shared_modules/overlay/core/overlay_presets.dart';
 
 /// 🧩 [ResultFuture] — Represents async result with [Either<Failure, T>]
 typedef ResultFuture<T> = Future<Either<Failure, T>>;
@@ -27,3 +28,6 @@ typedef FieldUiState = ({String? errorText, bool isObscure});
 
 /// 📦 Wraps child with EasyLocalization widget
 typedef LocalizationWrapper = Widget Function(Widget child);
+
+///
+typedef OverlayBannerFactory = Widget Function(OverlayUIPresets, String);

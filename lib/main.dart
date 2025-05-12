@@ -18,7 +18,7 @@ void main() async {
   /// 📦 Initializes all app dependencies via GetIt
   await AppDI.init();
 
-  /// 🌈 Enables debug painting for layout visualisation (repaint regions)
+  /// 🌈 Enables debug painting for layout visualization (repaint regions)
   debugRepaintRainbowEnabled = false;
 
   /// 🚀 Run App
@@ -42,10 +42,3 @@ final class RootProviders extends StatelessWidget {
     );
   }
 }
-
-
-/*
-
-
-
- */

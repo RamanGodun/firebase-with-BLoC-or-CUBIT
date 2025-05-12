@@ -7,42 +7,41 @@ import '../../../constants/_app_constants.dart';
 import 'overlay_presets.dart';
 import 'overlay_message_key.dart';
 
-/// 🎯 Base sealed class for overlay requests
-sealed class OverlayAction {
-  const OverlayAction();
+/// 🎯 [OverlayUIEntry] — Base sealed class for all queued overlay UI entries
+/// ✅ Used to distinguish between Snackbar, Banner, Dialog, etc.
+sealed class OverlayUIEntry {
+  const OverlayUIEntry();
 
   Duration get duration;
   OverlayMessageKey? get messageKey => null;
 }
 
-/// 💬 Platform adaptive dialog
-final class DialogOverlay extends OverlayAction {
+/// 💬 [DialogOverlayEntry] — Represents a platform-adaptive dialog overlay
+final class DialogOverlayEntry extends OverlayUIEntry {
   final Widget dialog;
-  const DialogOverlay(this.dialog);
+  const DialogOverlayEntry(this.dialog);
 
   @override
   Duration get duration => Duration.zero;
 }
 
-/// 🍞 Snackbar overlay with optional localization key
-final class SnackbarOverlay extends OverlayAction {
+/// 🍞 [SnackbarOverlayEntry] — Represents a styled snackbar overlay
+final class SnackbarOverlayEntry extends OverlayUIEntry {
   final SnackBar snackbar;
   @override
   final OverlayMessageKey? messageKey;
+  const SnackbarOverlayEntry(this.snackbar, {this.messageKey});
 
-  const SnackbarOverlay(this.snackbar, {this.messageKey});
-
-  factory SnackbarOverlay.from(
+  /// 🏗️ Factory with support for presets, localization keys and custom icon
+  factory SnackbarOverlayEntry.from(
     String message, {
     BuildContext? context,
     OverlayMessageKey? key,
-    OverlayPresets preset = const OverlayErrorPreset(),
+    OverlayUIPresets preset = const OverlayErrorPreset(),
     IconData? icon,
   }) {
-    ///
     final resolvedColor = context?.colorScheme.onPrimary ?? AppColors.white;
-    //
-    return SnackbarOverlay(
+    return SnackbarOverlayEntry(
       SnackBar(
         behavior: SnackBarBehavior.floating,
         margin: const EdgeInsets.fromLTRB(3, 3, 3, 0),
@@ -54,8 +53,8 @@ final class SnackbarOverlay extends OverlayAction {
         content: SafeArea(
           top: true,
           bottom: false,
-          left: false,
-          right: false,
+          left: true,
+          right: true,
           child: Container(
             decoration: BoxDecoration(
               color: preset.color.withOpacity(0.7),
@@ -91,55 +90,54 @@ final class SnackbarOverlay extends OverlayAction {
   Duration get duration => const Duration(seconds: 2);
 }
 
-/// 🪧 Banner overlay
-final class BannerOverlay extends OverlayAction {
+/// 🪧 [BannerOverlayEntry] — Represents a banner overlay (animated or custom)
+final class BannerOverlayEntry extends OverlayUIEntry {
   final Widget banner;
   @override
   final Duration duration;
-
   @override
   final OverlayMessageKey? messageKey;
 
-  const BannerOverlay(
+  const BannerOverlayEntry(
     this.banner, {
     this.duration = const Duration(seconds: 2),
     this.messageKey,
   });
 }
 
-/// ⏳ Loading indicator overlay
-final class LoaderOverlay extends OverlayAction {
+/// ⏳ [LoaderOverlayEntry] — Represents a loading spinner overlay
+final class LoaderOverlayEntry extends OverlayUIEntry {
   final Widget loader;
   @override
   final Duration duration;
 
-  const LoaderOverlay(
+  const LoaderOverlayEntry(
     this.loader, {
     this.duration = const Duration(seconds: 2),
   });
 }
 
-/// 🧩 Custom widget overlay
-final class CustomOverlay extends OverlayAction {
+/// 🧩 [CustomOverlayEntry] — Generic overlay with any widget and duration
+final class CustomOverlayEntry extends OverlayUIEntry {
   final Widget widget;
   @override
   final Duration duration;
 
-  const CustomOverlay(
+  const CustomOverlayEntry(
     this.widget, {
     this.duration = const Duration(seconds: 2),
   });
 }
 
-///
-final class ThemedBannerOverlay extends OverlayAction {
+/// 🎨 [ThemedBannerOverlayEntry] — Predefined banner with icon and message, styled by theme
+final class ThemedBannerOverlayEntry extends OverlayUIEntry {
   final String message;
   final IconData icon;
 
   @override
   final OverlayMessageKey? messageKey;
 
-  const ThemedBannerOverlay(this.message, this.icon, {this.messageKey});
+  const ThemedBannerOverlayEntry(this.message, this.icon, {this.messageKey});
 
   @override
   Duration get duration => const Duration(seconds: 2);

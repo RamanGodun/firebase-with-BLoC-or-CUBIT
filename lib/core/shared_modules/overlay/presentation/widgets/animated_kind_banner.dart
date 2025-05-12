@@ -7,7 +7,7 @@ import '../../core/overlay_presets.dart';
 /// Used for `showErrorBanner`, `showSuccessBanner`, etc.
 final class AnimatedKindBanner extends StatelessWidget {
   final String message;
-  final OverlayPresets preset;
+  final OverlayUIPresets preset;
 
   const AnimatedKindBanner({
     super.key,

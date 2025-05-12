@@ -1,43 +1,33 @@
 import 'package:flutter/material.dart';
 
-/// 🧩 [OverlayPresets] — Universal styling preset for overlays (banner/snackbar/dialog)
-/// ✅ Replaces old [OverlayKind] by aggregating all needed display parameters.
+/// 🧩 [OverlayUIPresets] — Universal styling preset for overlays (banner/snackbar/dialog)
+/// ✅ Extensible and composable way to define how overlays look and behave
+/// ✅ Supports Open/Closed principle: base contract + optional override points
 ///--------------------------------------------------------------------------
-sealed class OverlayPresets {
-  const OverlayPresets();
+sealed class OverlayUIPresets {
+  const OverlayUIPresets();
 
-  /// 🧱 Visual icon
   IconData get icon;
-
-  /// 🎨 Primary accent color (for icon, border, etc.)
   Color get color;
-
-  /// 🧾 Optional default title (e.g., for dialog)
   String get title;
-
-  /// ⏱ Duration of overlay display
   Duration get duration;
-
-  /// 📦 Margin around overlay widget
   EdgeInsets get margin;
-
-  /// 📐 Optional shape (snackbar, banner, etc.)
   ShapeBorder get shape;
-
-  /// 🔲 Padding within overlay content
   EdgeInsets get contentPadding;
-
-  /// 📍 SnackBar position behavior
   SnackBarBehavior get behavior;
-
-  /// 🧠 Optional default confirm text (for dialogs)
   String get confirmText;
-
-  /// ❌ Optional cancel text (for confirm dialogs)
   String? get cancelText;
+
+  /// 🧩 Optional banner widget override
+  Widget? buildBanner(String message, BuildContext context) => null;
+
+  /// 🧩 Optional dialog widget override
+  Widget? buildDialog(String title, String content, BuildContext context) =>
+      null;
 }
 
-final class OverlayErrorPreset extends OverlayPresets {
+///
+final class OverlayErrorPreset extends OverlayUIPresets {
   const OverlayErrorPreset();
 
   @override
@@ -64,7 +54,8 @@ final class OverlayErrorPreset extends OverlayPresets {
   String? get cancelText => null;
 }
 
-final class OverlaySuccessPreset extends OverlayPresets {
+///
+final class OverlaySuccessPreset extends OverlayUIPresets {
   const OverlaySuccessPreset();
 
   @override
@@ -91,7 +82,8 @@ final class OverlaySuccessPreset extends OverlayPresets {
   String? get cancelText => null;
 }
 
-final class OverlayInfoPreset extends OverlayPresets {
+///
+final class OverlayInfoPreset extends OverlayUIPresets {
   const OverlayInfoPreset();
 
   @override
@@ -117,7 +109,8 @@ final class OverlayInfoPreset extends OverlayPresets {
   String? get cancelText => null;
 }
 
-final class OverlayWarningPreset extends OverlayPresets {
+///
+final class OverlayWarningPreset extends OverlayUIPresets {
   const OverlayWarningPreset();
 
   @override
@@ -144,7 +137,8 @@ final class OverlayWarningPreset extends OverlayPresets {
   String? get cancelText => null;
 }
 
-final class OverlayConfirmPreset extends OverlayPresets {
+///
+final class OverlayConfirmPreset extends OverlayUIPresets {
   const OverlayConfirmPreset();
 
   @override
