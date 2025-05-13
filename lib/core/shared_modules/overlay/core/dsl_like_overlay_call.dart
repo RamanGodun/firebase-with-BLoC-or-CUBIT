@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/core/context_overlay_x.dart';
 import 'package:flutter/material.dart';
 import '../../errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
-import 'overlay_entries.dart';
+import '../presentation/overlay_entries/_overlay_entries.dart';
 import 'overlay_message_key.dart';
 import '../overlay_presets/overlay_presets.dart';
 import '../presentation/widgets/animated_kind_banner.dart';

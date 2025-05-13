@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core/overlay_entries.dart';
+import '../presentation/overlay_entries/_overlay_entries.dart';
 
 final class OverlayQueueItem {
   final BuildContext context;

@@ -1,15 +1,16 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import '../../loggers/_app_error_logger.dart';
+import 'conflicts_strategy/conflicts_strategy.dart';
 import 'overlay_dispatcher_contract.dart';
 import 'overlay_queue_item.dart';
-import '../core/overlay_entries.dart';
-import '../presentation/widgets/overlay_widget.dart';
+import '../presentation/overlay_entries/_overlay_entries.dart';
 
 /// 🎯 [OverlayDispatcher] — Centralized singleton overlay queue manager
 /// ✅ Ensures overlays (SnackBars, Banners, Dialogs) are shown one-at-a-time
-/// 🧠 Works with fallback timeout and internal cleanup
-/// — Guarantees overlays show one by one, never overlapping.
+/// ✅ Supports conflict resolution via [OverlayConflictStrategy]
+/// ✅ Uses widget-based rendering to support Open/Closed principle
+/// ✅ Includes fallback timeout and proper cleanup
 //-------------------------------------------------------------
 
 final class OverlayDispatcher implements IOverlayDispatcher {
@@ -20,76 +21,68 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   OverlayDispatcher._();
 
   final Queue<OverlayQueueItem> _queue = Queue();
-  final Set<BuildContext> _activeContexts = {}; // 📍 For per-context clearing
-  bool _isProcessing = false;
-  OverlayEntry? _activeEntry;
-  OverlayUIEntry? _activeRequest;
 
-  /// 🧩 Adds a request to the queue and initiates processing if idle
+  /// 📍 Used for per-context clearByContext
+  final Set<BuildContext> _activeContexts = {};
+
+  /// 🚦 Flag to prevent overlapping overlays
+  bool _isProcessing = false;
+
+  /// 🟡 Currently displayed OverlayEntry
+  OverlayEntry? _activeEntry;
+
+  /// 🧠 Currently active logical request for conflict strategy & logging
+  OverlayUIEntry? _activeRequest;
+  //
+
+  /// 🧩 Public API — adds overlay request to queue with conflict strategy check
+  /// ✳️ If there's an active overlay, checks whether new one should replace it.
+  /// ✳️ If not allowed and not `waitQueue`, request is silently dropped.
   @override
   void enqueueRequest(BuildContext context, OverlayUIEntry request) {
     AppErrorLogger.logOverlayShow(request);
     _activeContexts.add(context);
+    if (_activeRequest != null) {
+      final shouldReplace = _shouldReplaceCurrent(request, _activeRequest!);
+      if (shouldReplace) {
+        _dismissEntry(); // 🔄 Replace current overlay
+      } else if (!_shouldWait(request)) {
+        return; // ❌ Drop new request if not allowed
+      }
+    }
     _queue.add(OverlayQueueItem(context: context, request: request));
     _processQueue();
   }
 
-  /// 🚦 Internal: Processes the overlay queue one-by-one with timeout fallback
+  /// 🚦 Queue processor — ensures one-by-one execution with fallback timeout
+  /// ✳️ If overlay hangs beyond 10 seconds, fallback proceeds with cleanup.
   void _processQueue() {
     if (_isProcessing || _queue.isEmpty) return;
     _isProcessing = true;
     final item = _queue.removeFirst();
+
     Future.any([
-      _executeRequest(item.context, item.request),
-      Future.delayed(const Duration(seconds: 10)), // ⏱ Timeout fallback
+      _renderEntry(item.context, item.request),
+      Future.delayed(const Duration(seconds: 10)),
     ]).whenComplete(() {
       _isProcessing = false;
-      _processQueue();
+      _processQueue(); // 🔁 Process next in queue
     });
   }
 
-  /// 🔀 Handles the dispatching logic for each type of [OverlayType]
-  Future<void> _executeRequest(
-    BuildContext context,
-    OverlayUIEntry request,
-  ) async {
+  /// 🖼️ Uses Open/Closed-compatible method to delegate build/render logic
+  Future<void> _renderEntry(BuildContext context, OverlayUIEntry entry) async {
     try {
-      await switch (request) {
-        DialogOverlayEntry dialog => showDialog<void>(
-          context: context,
-          barrierDismissible: true,
-          builder: (_) => dialog.build(),
-        ),
-        SnackbarOverlayEntry(:final snackbar, :final duration) =>
-          _handleSnackbar(context, snackbar, duration),
-        BannerOverlayEntry(:final banner, :final duration) => _showOverlay(
-          context,
-          banner,
-          duration,
-        ),
-        LoaderOverlayEntry(:final loader, :final duration) => _showOverlay(
-          context,
-          loader,
-          duration,
-        ),
-        CustomOverlayEntry(:final widget, :final duration) => _showOverlay(
-          context,
-          widget,
-          duration,
-        ),
-        ThemedBannerOverlayEntry(:final message, :final icon) => _showOverlay(
-          context,
-          AnimatedOverlayWidget(message: message, icon: icon),
-          request.duration,
-        ),
-      };
+      final widget = entry.buildWidget(context);
+      final duration = entry.duration;
+      await _showOverlay(context, widget, duration);
     } catch (e, st) {
-      debugPrint('[OverlayDispatcher] Failed to render overlay: $e');
-      debugPrint('[OverlayDispatcher] StackTrace: $st');
+      debugPrint('[OverlayDispatcher] Error: $e');
+      debugPrint('$st');
     }
   }
 
-  /// 📦 Shows generic widget inside Overlay and dismisses after [duration]
+  /// 📦 Shows widget in overlay for given [duration], then cleans up
   Future<void> _showOverlay(
     BuildContext context,
     Widget widget,
@@ -97,35 +90,24 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   ) async {
     final overlay = Overlay.of(context, rootOverlay: true);
     if (!context.mounted) return;
+
     final entry = OverlayEntry(builder: (_) => widget);
     _activeEntry = entry;
     _activeRequest = _queue.isNotEmpty ? _queue.first.request : null;
+
     overlay.insert(entry);
     await Future.delayed(duration);
     await _dismissEntry();
   }
 
-  /// 🍞 Shows [SnackBar] and delays continuation
-  Future<void> _handleSnackbar(
-    BuildContext context,
-    SnackBar snackbar,
-    Duration duration,
-  ) async {
-    final messenger = ScaffoldMessenger.maybeOf(context);
-    messenger?.showSnackBar(snackbar);
-    await Future.delayed(duration);
-  }
-
-  ///
-
-  /// 🚫 Dismisses current overlay; optionally clears queue
+  /// ❌ Public API to dismiss current overlay (with optional queue clear)
   @override
   Future<void> dismissCurrent({bool clearQueue = false}) async {
     await _dismissEntry();
     if (clearQueue) _queue.clear();
   }
 
-  /// 🔻 Removes active overlay entry and resets internal state
+  /// 🧹 Internal cleanup for current active overlay entry
   Future<void> _dismissEntry() async {
     AppErrorLogger.logOverlayDismiss(_activeRequest);
     _activeEntry?.remove();
@@ -133,16 +115,32 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     _activeRequest = null;
   }
 
-  ///
+  /// 🤝 Determines if [next] request is allowed to replace [current] request
+  bool _shouldReplaceCurrent(OverlayUIEntry next, OverlayUIEntry current) {
+    final n = next.strategy;
+    final c = current.strategy;
 
-  /// 🧼 Clears all overlay requests from the queue
+    return switch (n.policy) {
+      OverlayReplacePolicy.forceReplace => true,
+      OverlayReplacePolicy.forceIfSameCategory => n.category == c.category,
+      OverlayReplacePolicy.forceIfLowerPriority =>
+        n.priority.index > c.priority.index,
+      OverlayReplacePolicy.waitQueue => false,
+    };
+  }
+
+  /// ⏳ Used to determine if request should be queued instead of dropped
+  bool _shouldWait(OverlayUIEntry next) =>
+      next.strategy.policy == OverlayReplacePolicy.waitQueue;
+
+  /// 🧼 Removes all pending overlay requests from queue
   @override
   void clearAll() {
     debugPrint('[OverlayDispatcher] clearAll()');
     _queue.clear();
   }
 
-  /// 🧼 Clears overlay requests for a specific [context]
+  /// 🧼 Clears queued overlays specific to [context]
   @override
   void clearByContext(BuildContext context) {
     _queue.removeWhere((e) => e.context == context);
@@ -151,34 +149,3 @@ final class OverlayDispatcher implements IOverlayDispatcher {
 
   ///
 }
-
-///
-
-//-------------------------------------------------------------
-
-///
-
-class OverlayConflictStrategy {
-  final OverlayPriority priority;
-  final OverlayReplacePolicy policy;
-  final OverlayCategory category;
-
-  const OverlayConflictStrategy({
-    required this.priority,
-    required this.policy,
-    required this.category,
-  });
-}
-
-enum OverlayReplacePolicy {
-  waitQueue,
-  forceReplace,
-  forceIfSameCategory,
-  forceIfLowerPriority,
-}
-
-///
-enum OverlayPriority { low, normal, high, critical }
-
-///
-enum OverlayCategory { bannerTheme, bannerError, dialog, loader, snackbar }

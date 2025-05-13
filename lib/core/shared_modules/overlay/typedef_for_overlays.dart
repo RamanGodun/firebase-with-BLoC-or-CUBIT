@@ -1,4 +1,4 @@
-import 'core/overlay_entries.dart';
+import 'presentation/overlay_entries/_overlay_entries.dart';
 
 /// ✅ Type aliases for improved readability in feature and UI layers
 /// ❗ Use these in Presentation Layer, not Core Dispatcher logic

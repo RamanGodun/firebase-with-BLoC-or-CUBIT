@@ -17,8 +17,6 @@ final class AnimatedPresetBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final props = preset.resolve();
-
     return Align(
       alignment: Alignment.topCenter,
       child: Material(

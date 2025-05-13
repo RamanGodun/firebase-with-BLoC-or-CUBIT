@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../core/overlay_entries.dart';
+import '../presentation/overlay_entries/_overlay_entries.dart';
 
 /// 📄 [IOverlayDispatcher] — Contract for the centralized overlay queue manager
 /// ✅ Used by both the real and mock implementations to abstract dispatch logic

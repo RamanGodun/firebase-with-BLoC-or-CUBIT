@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'overlay_dispatcher_contract.dart';
-import '../core/overlay_entries.dart';
+import '../presentation/overlay_entries/_overlay_entries.dart';
 
 class MockOverlayDispatcher implements IOverlayDispatcher {
   final List<OverlayUIEntry> calls = [];
