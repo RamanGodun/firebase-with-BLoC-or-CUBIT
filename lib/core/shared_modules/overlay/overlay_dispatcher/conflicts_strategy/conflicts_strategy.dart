@@ -11,7 +11,14 @@ enum OverlayReplacePolicy {
 
 enum OverlayPriority { low, normal, high, critical }
 
-enum OverlayCategory { bannerTheme, bannerError, dialog, loader, snackbar }
+enum OverlayCategory {
+  bannerTheme,
+  bannerError,
+  dialog,
+  loader,
+  snackbar,
+  error,
+}
 
 class OverlayConflictStrategy {
   final OverlayPriority priority;

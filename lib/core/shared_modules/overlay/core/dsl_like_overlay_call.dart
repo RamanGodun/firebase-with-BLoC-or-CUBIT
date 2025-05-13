@@ -3,33 +3,65 @@ import 'package:flutter/material.dart';
 import '../../errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
 import '../presentation/overlay_entries/_overlay_entries.dart';
 import 'overlay_message_key.dart';
-import '../overlay_presets/overlay_presets.dart';
-import '../presentation/widgets/animated_kind_banner.dart';
+import '../presentation/overlay_presets/overlay_presets.dart';
 
 /// 🎯 [OverlayController] — Central high-level API for triggering UI overlays
 /// ✅ Decouples UI call sites from internal dispatcher logic
 /// ✅ Automatically uses extensible presets when available
+/// ✅ Platform-aware rendering using sealed entries
 ///-------------------------------------------------------------
 
 final class OverlayController {
-  //
   final BuildContext _context;
   const OverlayController(this._context);
 
   /// 🧩 Shows a loading spinner for a given [duration]
-  void showLoader({
-    required Widget child,
-    Duration duration = const Duration(seconds: 2),
-  }) => _context.overlayDispatcher.enqueueRequest(
-    _context,
-    LoaderOverlayEntry(child, duration: duration),
-  );
+  void showLoader({Duration duration = const Duration(seconds: 2)}) {
+    final platform = Theme.of(_context).platform;
+    final entry = switch (platform) {
+      TargetPlatform.android => AndroidLoaderOverlayEntry(duration: duration),
+      TargetPlatform.iOS => IOSLoaderOverlayEntry(duration: duration),
+      _ => IOSLoaderOverlayEntry(duration: duration),
+    };
+    _context.overlayDispatcher.enqueueRequest(_context, entry);
+  }
 
-  /// 🧩 Shows a styled snackbar with fallback message
-  void showSnackbar(String message) => _context.overlayDispatcher
-      .enqueueRequest(_context, SnackbarOverlayEntry.from(message));
+  /// 🍞 Shows a platform-aware snackbar (iOS/Android) using optional preset
+  void showSnackbar({
+    required String message,
+    OverlayMessageKey? messageKey,
+    OverlayUIPresets preset = const OverlayInfoUIPreset(),
+    bool isError = false,
+    IconData? icon,
+  }) {
+    final platform = Theme.of(_context).platform;
+    final entry = switch (platform) {
+      TargetPlatform.android => AndroidSnackbarOverlayEntry(
+        message,
+        preset: preset,
+        messageKey: messageKey,
+        isError: isError,
+        icon: icon,
+      ),
+      TargetPlatform.iOS => IOSSnackbarOverlayEntry(
+        message,
+        preset: preset,
+        messageKey: messageKey,
+        isError: isError,
+        icon: icon,
+      ),
+      _ => IOSSnackbarOverlayEntry(
+        message,
+        preset: preset,
+        messageKey: messageKey,
+        isError: isError,
+        icon: icon,
+      ),
+    };
+    _context.overlayDispatcher.enqueueRequest(_context, entry);
+  }
 
-  /// 🧩 Shows a dialog using either a preset override or default styled dialog
+  /// 💬 Shows a short platform-adaptive dialog (iOS/Android)
   void showDialog({
     required String title,
     required String content,
@@ -37,50 +69,78 @@ final class OverlayController {
     String? cancelText,
     VoidCallback? onConfirm,
     VoidCallback? onCancel,
-    OverlayUIPresets preset = const OverlayInfoUIPreset(),
+    OverlayUIPresets? preset,
+    bool isError = false,
   }) {
-    final props = preset.resolve();
-    _context.overlayDispatcher.enqueueRequest(
-      _context,
-      DialogOverlayEntry(
-        title: title,
-        content: content,
+    final platform = Theme.of(_context).platform;
+    final entry = switch (platform) {
+      TargetPlatform.android => AndroidDialogOverlayEntry(
+        title,
+        content,
         confirmText: confirmText ?? 'OK',
         cancelText: cancelText ?? 'Cancel',
         onConfirm: onConfirm,
         onCancel: onCancel,
-        icon: props.icon,
-        color: props.color,
+        preset: preset,
+        isError: isError,
       ),
-    );
+      TargetPlatform.iOS => IOSDialogOverlayEntry(
+        title,
+        content,
+        confirmText: confirmText ?? 'OK',
+        cancelText: cancelText ?? 'Cancel',
+        onConfirm: onConfirm,
+        onCancel: onCancel,
+        preset: preset,
+        isError: isError,
+      ),
+      _ => IOSDialogOverlayEntry(
+        title,
+        content,
+        confirmText: confirmText ?? 'OK',
+        cancelText: cancelText ?? 'Cancel',
+        onConfirm: onConfirm,
+        onCancel: onCancel,
+        preset: preset,
+        isError: isError,
+      ),
+    };
+    _context.overlayDispatcher.enqueueRequest(_context, entry);
   }
 
-  /// 🧩 Shows a banner using either a preset override or default styled banner
-  void showBanner({required OverlayUIPresets preset, required String message}) {
-    final props = preset.resolve();
-    final key = StaticOverlayMessageKey(
-      'overlay.kind.${preset.runtimeType}',
-      fallback: message,
-    );
-    final banner = AnimatedPresetBanner(message: message, props: props);
-    _context.overlayDispatcher.enqueueRequest(
-      _context,
-      BannerOverlayEntry(banner, duration: props.duration, messageKey: key),
-    );
-  }
-
-  /// 📦 Shows a themed icon+text banner from a [OverlayMessageKey]
-  void showThemeBanner({
+  /// 🪧 Shows a platform-aware banner (iOS/Android) using optional preset
+  void showBanner({
     required OverlayMessageKey key,
     required IconData icon,
-  }) => _context.overlayDispatcher.enqueueRequest(
-    _context,
-    ThemedBannerOverlayEntry(key.localize(_context), icon, messageKey: key),
-  );
-
-  /// 🧩 Directly triggers a custom overlay request (e.g., custom widget)
-  void showRequest(OverlayUIEntry request) {
-    _context.overlayDispatcher.enqueueRequest(_context, request);
+    OverlayUIPresets? preset,
+    bool isError = false,
+  }) {
+    final message = key.localize(_context);
+    final platform = Theme.of(_context).platform;
+    final entry = switch (platform) {
+      TargetPlatform.android => AndroidBannerOverlayEntry(
+        message,
+        key,
+        preset: preset,
+        isError: isError,
+        icon: icon,
+      ),
+      TargetPlatform.iOS => IOSBannerOverlayEntry(
+        message,
+        key,
+        preset: preset,
+        isError: isError,
+        icon: icon,
+      ),
+      _ => IOSBannerOverlayEntry(
+        message,
+        key,
+        preset: preset,
+        isError: isError,
+        icon: icon,
+      ),
+    };
+    _context.overlayDispatcher.enqueueRequest(_context, entry);
   }
 
   /// 🧠 Handles displaying [FailureUIModel] as banner/snackbar/dialog
@@ -88,10 +148,9 @@ final class OverlayController {
   void showError(
     FailureUIModel model, {
     BuildContext? overrideContext,
-    ShowErrorAs showAs = ShowErrorAs.banner,
+    ShowErrorAs showAs = ShowErrorAs.dialog,
     OverlayUIPresets preset = const OverlayErrorUIPreset(),
   }) {
-    final ctx = overrideContext ?? _context;
     final key =
         model.translationKey == null
             ? null
@@ -102,18 +161,25 @@ final class OverlayController {
 
     switch (showAs) {
       case ShowErrorAs.banner:
-        showBanner(preset: preset, message: model.fallbackMessage);
+        showBanner(
+          key:
+              key ??
+              StaticOverlayMessageKey(
+                'error.unknown',
+                fallback: model.fallbackMessage,
+              ),
+          icon: model.icon,
+          preset: preset,
+          isError: true,
+        );
         break;
       case ShowErrorAs.snackbar:
-        ctx.overlayDispatcher.enqueueRequest(
-          ctx,
-          SnackbarOverlayEntry.from(
-            model.fallbackMessage,
-            context: ctx,
-            icon: model.icon,
-            preset: preset,
-            key: key,
-          ),
+        showSnackbar(
+          message: model.fallbackMessage,
+          messageKey: key,
+          preset: preset,
+          isError: true,
+          icon: model.icon,
         );
         break;
       case ShowErrorAs.dialog:
@@ -121,12 +187,33 @@ final class OverlayController {
           title: 'Error occurred',
           content: key?.localize(_context) ?? model.fallbackMessage,
           confirmText: 'Ok',
-          // cancelText: 'Cancel',
+          cancelText: 'Cancel',
           preset: preset,
+          isError: true,
         );
         break;
     }
   }
+
+  ///
+  /// 🧱 Shows any custom widget inside overlay (platform-aware container)
+  void showCustomOverlay({
+    required Widget child,
+    Duration duration = const Duration(seconds: 2),
+  }) {
+    final platform = Theme.of(_context).platform;
+    final entry = switch (platform) {
+      TargetPlatform.android => AndroidCustomOverlayEntry(
+        child,
+        duration: duration,
+      ),
+      TargetPlatform.iOS => IOSCustomOverlayEntry(child, duration: duration),
+      _ => IOSCustomOverlayEntry(child, duration: duration),
+    };
+    _context.overlayDispatcher.enqueueRequest(_context, entry);
+  }
+
+  //
 }
 
 /// 📌 Specifies how to display an error in UI

@@ -1,15 +1,15 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import '../../loggers/_app_error_logger.dart';
+import 'conflicts_strategy/conflict_resolver.dart';
 import 'conflicts_strategy/conflicts_strategy.dart';
 import 'overlay_dispatcher_contract.dart';
 import '../presentation/overlay_entries/_overlay_entries.dart';
 
 /// 🎯 [OverlayDispatcher] — Centralized singleton overlay queue manager
-/// ✅ Ensures overlays (SnackBars, Banners, Dialogs) are shown one-at-a-time
-/// ✅ Supports conflict resolution via [OverlayConflictStrategy]
-/// ✅ Uses widget-based rendering to support Open/Closed principle
-/// ✅ Includes fallback timeout and proper cleanup
+/// ✅ Platform-agnostic, decoupled from overlay UI implementations
+/// ✅ Resolves conflicts via [OverlayConflictStrategy]
+/// ✅ Supports timeouts and context-aware cleanup
 //-------------------------------------------------------------
 
 final class OverlayDispatcher implements IOverlayDispatcher {
@@ -41,14 +41,18 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   void enqueueRequest(BuildContext context, OverlayUIEntry request) {
     AppErrorLogger.logOverlayShow(request);
     _activeContexts.add(context);
+
     if (_activeRequest != null) {
-      final shouldReplace = _shouldReplaceCurrent(request, _activeRequest!);
-      if (shouldReplace) {
+      if (OverlayConflictResolver.shouldReplaceCurrent(
+        request,
+        _activeRequest!,
+      )) {
         _dismissEntry(); // 🔄 Replace current overlay
-      } else if (!_shouldWait(request)) {
+      } else if (!OverlayConflictResolver.shouldWait(request)) {
         return; // ❌ Drop new request if not allowed
       }
     }
+
     _queue.add(OverlayQueueItem(context: context, request: request));
     _processQueue();
   }
@@ -72,9 +76,9 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   /// 🖼️ Uses Open/Closed-compatible method to delegate build/render logic
   Future<void> _renderEntry(BuildContext context, OverlayUIEntry entry) async {
     try {
-      final widget = entry.buildWidget(context);
+      final widget = entry.build(context);
       final duration = entry.duration;
-      await _showOverlay(context, widget, duration);
+      await _showOverlay(context, widget, duration, entry);
     } catch (e, st) {
       debugPrint('[OverlayDispatcher] Error: $e');
       debugPrint('$st');
@@ -86,15 +90,16 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     BuildContext context,
     Widget widget,
     Duration duration,
+    OverlayUIEntry request, // <-- додали сюди
   ) async {
     final overlay = Overlay.of(context, rootOverlay: true);
     if (!context.mounted) return;
 
-    final entry = OverlayEntry(builder: (_) => widget);
-    _activeEntry = entry;
-    _activeRequest = _queue.isNotEmpty ? _queue.first.request : null;
+    final entryWidget = OverlayEntry(builder: (_) => widget);
+    _activeEntry = entryWidget;
+    _activeRequest = request; // <-- тепер доступний
 
-    overlay.insert(entry);
+    overlay.insert(entryWidget);
     await Future.delayed(duration);
     await _dismissEntry();
   }
@@ -113,24 +118,6 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     _activeEntry = null;
     _activeRequest = null;
   }
-
-  /// 🤝 Determines if [next] request is allowed to replace [current] request
-  bool _shouldReplaceCurrent(OverlayUIEntry next, OverlayUIEntry current) {
-    final n = next.strategy;
-    final c = current.strategy;
-
-    return switch (n.policy) {
-      OverlayReplacePolicy.forceReplace => true,
-      OverlayReplacePolicy.forceIfSameCategory => n.category == c.category,
-      OverlayReplacePolicy.forceIfLowerPriority =>
-        n.priority.index > c.priority.index,
-      OverlayReplacePolicy.waitQueue => false,
-    };
-  }
-
-  /// ⏳ Used to determine if request should be queued instead of dropped
-  bool _shouldWait(OverlayUIEntry next) =>
-      next.strategy.policy == OverlayReplacePolicy.waitQueue;
 
   /// 🧼 Removes all pending overlay requests from queue
   @override
