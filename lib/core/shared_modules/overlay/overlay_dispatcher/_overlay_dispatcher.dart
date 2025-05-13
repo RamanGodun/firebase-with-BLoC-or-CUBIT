@@ -1,10 +1,10 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
-import '../../../loggers/_app_error_logger.dart';
+import '../../loggers/_app_error_logger.dart';
 import 'overlay_dispatcher_contract.dart';
-import '../overlay_queue_item.dart';
-import '../overlay_types.dart';
-import '../../presentation/widgets/overlay_widget.dart';
+import 'overlay_queue_item.dart';
+import '../core/overlay_entries.dart';
+import '../presentation/widgets/overlay_widget.dart';
 
 /// 🎯 [OverlayDispatcher] — Centralized singleton overlay queue manager
 /// ✅ Ensures overlays (SnackBars, Banners, Dialogs) are shown one-at-a-time
@@ -34,27 +34,11 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     _processQueue();
   }
 
-  /// 🧼 Clears all overlay requests from the queue
-  @override
-  void clearAll() {
-    debugPrint('[OverlayDispatcher] clearAll()');
-    _queue.clear();
-  }
-
-  /// 🧼 Clears overlay requests for a specific [context]
-  @override
-  void clearByContext(BuildContext context) {
-    _queue.removeWhere((e) => e.context == context);
-    _activeContexts.remove(context);
-  }
-
   /// 🚦 Internal: Processes the overlay queue one-by-one with timeout fallback
   void _processQueue() {
     if (_isProcessing || _queue.isEmpty) return;
-
     _isProcessing = true;
     final item = _queue.removeFirst();
-
     Future.any([
       _executeRequest(item.context, item.request),
       Future.delayed(const Duration(seconds: 10)), // ⏱ Timeout fallback
@@ -71,10 +55,10 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   ) async {
     try {
       await switch (request) {
-        DialogOverlayEntry(:final dialog) => showDialog<void>(
+        DialogOverlayEntry dialog => showDialog<void>(
           context: context,
           barrierDismissible: true,
-          builder: (_) => dialog,
+          builder: (_) => dialog.build(),
         ),
         SnackbarOverlayEntry(:final snackbar, :final duration) =>
           _handleSnackbar(context, snackbar, duration),
@@ -116,7 +100,6 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     final entry = OverlayEntry(builder: (_) => widget);
     _activeEntry = entry;
     _activeRequest = _queue.isNotEmpty ? _queue.first.request : null;
-
     overlay.insert(entry);
     await Future.delayed(duration);
     await _dismissEntry();
@@ -132,6 +115,8 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     messenger?.showSnackBar(snackbar);
     await Future.delayed(duration);
   }
+
+  ///
 
   /// 🚫 Dismisses current overlay; optionally clears queue
   @override
@@ -149,4 +134,51 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   }
 
   ///
+
+  /// 🧼 Clears all overlay requests from the queue
+  @override
+  void clearAll() {
+    debugPrint('[OverlayDispatcher] clearAll()');
+    _queue.clear();
+  }
+
+  /// 🧼 Clears overlay requests for a specific [context]
+  @override
+  void clearByContext(BuildContext context) {
+    _queue.removeWhere((e) => e.context == context);
+    _activeContexts.remove(context);
+  }
+
+  ///
 }
+
+///
+
+//-------------------------------------------------------------
+
+///
+
+class OverlayConflictStrategy {
+  final OverlayPriority priority;
+  final OverlayReplacePolicy policy;
+  final OverlayCategory category;
+
+  const OverlayConflictStrategy({
+    required this.priority,
+    required this.policy,
+    required this.category,
+  });
+}
+
+enum OverlayReplacePolicy {
+  waitQueue,
+  forceReplace,
+  forceIfSameCategory,
+  forceIfLowerPriority,
+}
+
+///
+enum OverlayPriority { low, normal, high, critical }
+
+///
+enum OverlayCategory { bannerTheme, bannerError, dialog, loader, snackbar }

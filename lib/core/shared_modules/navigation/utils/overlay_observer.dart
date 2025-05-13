@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import '../../../app_config/bootstrap/di_container.dart';
-import '../../overlay/core/overlay_dispatcher/overlay_dispatcher_contract.dart';
+import '../../overlay/overlay_dispatcher/overlay_dispatcher_contract.dart';
 // ✅ Goal: Automatically clear active overlays when navigating between screens
 
 /// 🧩 [OverlayNavigatorObserver] — Observes navigation events to clear overlays

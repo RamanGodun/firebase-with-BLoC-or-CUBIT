@@ -1,34 +1,36 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
 import '../../../../shared_presentation/shared_widgets/text_widget.dart';
-import '../../core/overlay_presets.dart';
+import '../../overlay_presets/preset_props.dart';
 
-/// 🪧 [AnimatedKindBanner] — Overlay banner with dynamic icon + color + message.
+/// 🪧 [AnimatedPresetBanner] — Overlay banner with dynamic icon + color + message.
 /// Used for `showErrorBanner`, `showSuccessBanner`, etc.
-final class AnimatedKindBanner extends StatelessWidget {
+final class AnimatedPresetBanner extends StatelessWidget {
   final String message;
-  final OverlayUIPresets preset;
+  final OverlayUIPresetProps props;
 
-  const AnimatedKindBanner({
+  const AnimatedPresetBanner({
     super.key,
     required this.message,
-    required this.preset,
+    required this.props,
   });
 
   @override
   Widget build(BuildContext context) {
+    // final props = preset.resolve();
+
     return Align(
       alignment: Alignment.topCenter,
       child: Material(
         elevation: 10,
         borderRadius: BorderRadius.circular(12),
-        color: preset.color.withOpacity(0.9),
+        color: props.color.withOpacity(0.9),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          padding: props.contentPadding,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(preset.icon, color: Colors.white),
+              Icon(props.icon, color: Colors.white),
               const SizedBox(width: 8),
               Flexible(
                 child: TextWidget(

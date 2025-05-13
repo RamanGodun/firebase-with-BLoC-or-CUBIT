@@ -2,7 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extens
 import 'package:flutter/material.dart';
 
 import '../../../app_config/bootstrap/di_container.dart';
-import '../core/overlay_dispatcher/overlay_dispatcher_contract.dart';
+import '../overlay_dispatcher/overlay_dispatcher_contract.dart';
 
 /// 🧩 [GlobalOverlayHandler] – Universal wrapper for:
 /// - 📱 Dismissing keyboard

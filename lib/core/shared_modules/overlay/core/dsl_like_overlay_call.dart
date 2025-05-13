@@ -1,19 +1,29 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/core/context_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/core/context_overlay_x.dart';
 import 'package:flutter/material.dart';
 import '../../errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
-import 'overlay_types.dart';
+import 'overlay_entries.dart';
 import 'overlay_message_key.dart';
-import 'overlay_presets.dart';
+import '../overlay_presets/overlay_presets.dart';
 import '../presentation/widgets/animated_kind_banner.dart';
-import '../presentation/widgets/platform_dialog_widget.dart';
 
 /// 🎯 [OverlayController] — Central high-level API for triggering UI overlays
 /// ✅ Decouples UI call sites from internal dispatcher logic
 /// ✅ Automatically uses extensible presets when available
 ///-------------------------------------------------------------
+
 final class OverlayController {
+  //
   final BuildContext _context;
   const OverlayController(this._context);
+
+  /// 🧩 Shows a loading spinner for a given [duration]
+  void showLoader({
+    required Widget child,
+    Duration duration = const Duration(seconds: 2),
+  }) => _context.overlayDispatcher.enqueueRequest(
+    _context,
+    LoaderOverlayEntry(child, duration: duration),
+  );
 
   /// 🧩 Shows a styled snackbar with fallback message
   void snackbar(String message) => _context.overlayDispatcher.enqueueRequest(
@@ -22,57 +32,44 @@ final class OverlayController {
   );
 
   /// 🧩 Shows a dialog using either a preset override or default styled dialog
-  void dialog({
+  void showDialog({
     required String title,
     required String content,
-    String confirmText = 'OK',
-    String cancelText = 'Cancel',
+    String? confirmText,
+    String? cancelText,
     VoidCallback? onConfirm,
     VoidCallback? onCancel,
-    OverlayUIPresets preset = const OverlayInfoPreset(),
+    OverlayUIPresets preset = const OverlayInfoUIPreset(),
   }) {
-    final customDialog = preset.buildDialog(title, content, _context);
+    final props = preset.resolve();
     _context.overlayDispatcher.enqueueRequest(
       _context,
       DialogOverlayEntry(
-        customDialog ??
-            PlatformDialogWidget(
-              title: title,
-              content: content,
-              confirmText: confirmText,
-              cancelText: cancelText,
-              onConfirm: onConfirm,
-              onCancel: onCancel,
-              icon: preset.icon,
-              color: preset.color,
-            ),
+        title: title,
+        content: content,
+        confirmText: confirmText ?? 'OK',
+        cancelText: cancelText ?? 'Cancel',
+        onConfirm: onConfirm,
+        onCancel: onCancel,
+        icon: props.icon,
+        color: props.color,
       ),
     );
   }
 
-  /// 🧩 Shows a loading spinner for a given [duration]
-  void loader({
-    required Widget child,
-    Duration duration = const Duration(seconds: 2),
-  }) => _context.overlayDispatcher.enqueueRequest(
-    _context,
-    LoaderOverlayEntry(child, duration: duration),
-  );
-
   /// 🧩 Shows a banner using either a preset override or default styled banner
   void showBanner({required OverlayUIPresets preset, required String message}) {
-    final customBanner = preset.buildBanner(message, _context);
+    final props = preset.resolve();
     final key = StaticOverlayMessageKey(
       'overlay.kind.${preset.runtimeType}',
       fallback: message,
     );
+
+    final banner = AnimatedPresetBanner(message: message, props: props);
+
     _context.overlayDispatcher.enqueueRequest(
       _context,
-      BannerOverlayEntry(
-        customBanner ?? AnimatedKindBanner(message: message, preset: preset),
-        duration: preset.duration,
-        messageKey: key,
-      ),
+      BannerOverlayEntry(banner, duration: props.duration, messageKey: key),
     );
   }
 
@@ -98,12 +95,12 @@ final class OverlayController {
   }
 
   /// 🧠 Handles displaying [FailureUIModel] as banner/snackbar/dialog
-  /// 📌 Uses [OverlayUIPresets] and [ShowAs] to configure appearance and behavior
+  /// 📌 Uses [OverlayUIPresets] and [ShowErrorAs] to configure appearance and behavior
   void showError(
     FailureUIModel model, {
     BuildContext? overrideContext,
-    ShowAs showAs = ShowAs.banner,
-    OverlayUIPresets preset = const OverlayErrorPreset(),
+    ShowErrorAs showAs = ShowErrorAs.banner,
+    OverlayUIPresets preset = const OverlayErrorUIPreset(),
   }) {
     final ctx = overrideContext ?? _context;
     final key =
@@ -115,10 +112,10 @@ final class OverlayController {
             );
 
     switch (showAs) {
-      case ShowAs.banner:
+      case ShowErrorAs.banner:
         showBanner(preset: preset, message: model.fallbackMessage);
         break;
-      case ShowAs.snackbar:
+      case ShowErrorAs.snackbar:
         ctx.overlayDispatcher.enqueueRequest(
           ctx,
           SnackbarOverlayEntry.from(
@@ -130,12 +127,12 @@ final class OverlayController {
           ),
         );
         break;
-      case ShowAs.dialog:
-        dialog(
-          title: preset.title,
+      case ShowErrorAs.dialog:
+        showDialog(
+          title: 'Error occurred',
           content: key?.localize(_context) ?? model.fallbackMessage,
-          confirmText: preset.confirmText,
-          cancelText: preset.cancelText ?? 'Cancel',
+          confirmText: 'Ok',
+          // cancelText: 'Cancel',
           preset: preset,
         );
         break;
@@ -144,4 +141,4 @@ final class OverlayController {
 }
 
 /// 📌 Specifies how to display an error in UI
-enum ShowAs { banner, snackbar, dialog }
+enum ShowErrorAs { banner, snackbar, dialog }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../app_config/bootstrap/di_container.dart';
-import 'overlay_dsl_x.dart';
-import 'overlay_dispatcher/overlay_dispatcher_contract.dart';
+import 'dsl_like_overlay_call.dart';
+import '../overlay_dispatcher/overlay_dispatcher_contract.dart';
 
 /// 🎯 [OverlayContextX] — Unified extension for overlay DSL and dispatcher access
 /// ✅ Use `context.overlay` to access the overlay controller

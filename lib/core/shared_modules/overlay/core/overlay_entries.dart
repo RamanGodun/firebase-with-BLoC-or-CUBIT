@@ -4,7 +4,7 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extens
 import 'package:flutter/material.dart';
 
 import '../../../constants/_app_constants.dart';
-import 'overlay_presets.dart';
+import '../overlay_presets/overlay_presets.dart';
 import 'overlay_message_key.dart';
 
 /// 🎯 [OverlayUIEntry] — Base sealed class for all queued overlay UI entries
@@ -18,8 +18,52 @@ sealed class OverlayUIEntry {
 
 /// 💬 [DialogOverlayEntry] — Represents a platform-adaptive dialog overlay
 final class DialogOverlayEntry extends OverlayUIEntry {
-  final Widget dialog;
-  const DialogOverlayEntry(this.dialog);
+  final String title;
+  final String content;
+  final String confirmText;
+  final String cancelText;
+  final VoidCallback? onConfirm;
+  final VoidCallback? onCancel;
+  final IconData? icon;
+  final Color? color;
+
+  const DialogOverlayEntry({
+    required this.title,
+    required this.content,
+    this.confirmText = 'OK',
+    this.cancelText = 'Cancel',
+    this.onConfirm,
+    this.onCancel,
+    this.icon,
+    this.color,
+  });
+
+  Widget build() => AlertDialog(
+    title: Row(
+      children: [
+        if (icon != null) Icon(icon, size: 24),
+        if (icon != null) const SizedBox(width: 8),
+        Text(title),
+      ],
+    ),
+    content: Text(content),
+    actions: [
+      TextButton(
+        onPressed: () {
+          onCancel?.call();
+          // Navigator pop will be done by dispatcher
+        },
+        child: Text(cancelText),
+      ),
+      TextButton(
+        onPressed: () {
+          onConfirm?.call();
+          // Navigator pop will be done by dispatcher
+        },
+        child: Text(confirmText),
+      ),
+    ],
+  );
 
   @override
   Duration get duration => Duration.zero;
@@ -37,17 +81,18 @@ final class SnackbarOverlayEntry extends OverlayUIEntry {
     String message, {
     BuildContext? context,
     OverlayMessageKey? key,
-    OverlayUIPresets preset = const OverlayErrorPreset(),
+    OverlayUIPresets preset = const OverlayErrorUIPreset(),
     IconData? icon,
   }) {
     final resolvedColor = context?.colorScheme.onPrimary ?? AppColors.white;
+    final props = preset.resolve();
     return SnackbarOverlayEntry(
       SnackBar(
         behavior: SnackBarBehavior.floating,
         margin: const EdgeInsets.fromLTRB(3, 3, 3, 0),
-        padding: preset.contentPadding,
-        shape: preset.shape,
-        duration: preset.duration,
+        padding: props.contentPadding,
+        shape: props.shape,
+        duration: props.duration,
         backgroundColor: Colors.transparent,
         elevation: 0,
         content: SafeArea(
@@ -57,7 +102,7 @@ final class SnackbarOverlayEntry extends OverlayUIEntry {
           right: true,
           child: Container(
             decoration: BoxDecoration(
-              color: preset.color.withOpacity(0.7),
+              color: props.color.withOpacity(0.7),
               borderRadius: BorderRadius.circular(8),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
@@ -65,8 +110,8 @@ final class SnackbarOverlayEntry extends OverlayUIEntry {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
-                  icon ?? preset.icon,
-                  color: preset.color,
+                  icon ?? props.icon,
+                  color: props.color,
                 ).withPaddingLeft(10),
                 const SizedBox(width: 6),
                 Expanded(
@@ -142,3 +187,4 @@ final class ThemedBannerOverlayEntry extends OverlayUIEntry {
   @override
   Duration get duration => const Duration(seconds: 2);
 }
+
