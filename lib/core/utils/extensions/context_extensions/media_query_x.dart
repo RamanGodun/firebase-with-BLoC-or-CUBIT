@@ -46,5 +46,8 @@ extension ContextMediaX on BuildContext {
   double get verticalPadding =>
       mediaQuery.padding.top + mediaQuery.padding.bottom;
 
+  /// 📱 Short-hand platform access for UI entries
+  TargetPlatform get platform => Theme.of(this).platform;
+
   ///
 }

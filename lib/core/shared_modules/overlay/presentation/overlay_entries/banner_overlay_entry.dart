@@ -1,7 +1,7 @@
 part of '_overlay_entries.dart';
 
-/// 🍎 [IOSBannerOverlayEntry] — Glass-style banner overlay for iOS/macOS
-final class IOSBannerOverlayEntry extends OverlayUIEntry {
+/// 🪧 [BannerOverlayEntry] — Unified platform-aware banner overlay entry
+final class BannerOverlayEntry extends OverlayUIEntry {
   final String message;
   @override
   final OverlayMessageKey? messageKey;
@@ -9,7 +9,7 @@ final class IOSBannerOverlayEntry extends OverlayUIEntry {
   final bool isError;
   final IconData? icon;
 
-  const IOSBannerOverlayEntry(
+  const BannerOverlayEntry(
     this.message,
     this.messageKey, {
     this.preset,
@@ -35,6 +35,11 @@ final class IOSBannerOverlayEntry extends OverlayUIEntry {
   @override
   Widget build(BuildContext context) {
     final props = preset?.resolve() ?? const OverlayInfoUIPreset().resolve();
-    return AnimatedOverlayWidget(message: message, icon: icon ?? props.icon);
+    return AppBanner(
+      message: message,
+      icon: icon ?? props.icon,
+      props: props,
+      platform: context.platform,
+    );
   }
 }

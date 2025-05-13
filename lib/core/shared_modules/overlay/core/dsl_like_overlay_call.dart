@@ -17,94 +17,7 @@ final class OverlayController {
 
   /// 🧩 Shows a loading spinner for a given [duration]
   void showLoader({Duration duration = const Duration(seconds: 2)}) {
-    final platform = Theme.of(_context).platform;
-    final entry = switch (platform) {
-      TargetPlatform.android => AndroidLoaderOverlayEntry(duration: duration),
-      TargetPlatform.iOS => IOSLoaderOverlayEntry(duration: duration),
-      _ => IOSLoaderOverlayEntry(duration: duration),
-    };
-    _context.overlayDispatcher.enqueueRequest(_context, entry);
-  }
-
-  /// 🍞 Shows a platform-aware snackbar (iOS/Android) using optional preset
-  void showSnackbar({
-    required String message,
-    OverlayMessageKey? messageKey,
-    OverlayUIPresets preset = const OverlayInfoUIPreset(),
-    bool isError = false,
-    IconData? icon,
-  }) {
-    final platform = Theme.of(_context).platform;
-    final entry = switch (platform) {
-      TargetPlatform.android => AndroidSnackbarOverlayEntry(
-        message,
-        preset: preset,
-        messageKey: messageKey,
-        isError: isError,
-        icon: icon,
-      ),
-      TargetPlatform.iOS => IOSSnackbarOverlayEntry(
-        message,
-        preset: preset,
-        messageKey: messageKey,
-        isError: isError,
-        icon: icon,
-      ),
-      _ => IOSSnackbarOverlayEntry(
-        message,
-        preset: preset,
-        messageKey: messageKey,
-        isError: isError,
-        icon: icon,
-      ),
-    };
-    _context.overlayDispatcher.enqueueRequest(_context, entry);
-  }
-
-  /// 💬 Shows a short platform-adaptive dialog (iOS/Android)
-  void showDialog({
-    required String title,
-    required String content,
-    String? confirmText,
-    String? cancelText,
-    VoidCallback? onConfirm,
-    VoidCallback? onCancel,
-    OverlayUIPresets? preset,
-    bool isError = false,
-  }) {
-    final platform = Theme.of(_context).platform;
-    final entry = switch (platform) {
-      TargetPlatform.android => AndroidDialogOverlayEntry(
-        title,
-        content,
-        confirmText: confirmText ?? 'OK',
-        cancelText: cancelText ?? 'Cancel',
-        onConfirm: onConfirm,
-        onCancel: onCancel,
-        preset: preset,
-        isError: isError,
-      ),
-      TargetPlatform.iOS => IOSDialogOverlayEntry(
-        title,
-        content,
-        confirmText: confirmText ?? 'OK',
-        cancelText: cancelText ?? 'Cancel',
-        onConfirm: onConfirm,
-        onCancel: onCancel,
-        preset: preset,
-        isError: isError,
-      ),
-      _ => IOSDialogOverlayEntry(
-        title,
-        content,
-        confirmText: confirmText ?? 'OK',
-        cancelText: cancelText ?? 'Cancel',
-        onConfirm: onConfirm,
-        onCancel: onCancel,
-        preset: preset,
-        isError: isError,
-      ),
-    };
+    final entry = LoaderOverlayEntry(duration: duration);
     _context.overlayDispatcher.enqueueRequest(_context, entry);
   }
 
@@ -116,30 +29,56 @@ final class OverlayController {
     bool isError = false,
   }) {
     final message = key.localize(_context);
-    final platform = Theme.of(_context).platform;
-    final entry = switch (platform) {
-      TargetPlatform.android => AndroidBannerOverlayEntry(
-        message,
-        key,
-        preset: preset,
-        isError: isError,
-        icon: icon,
-      ),
-      TargetPlatform.iOS => IOSBannerOverlayEntry(
-        message,
-        key,
-        preset: preset,
-        isError: isError,
-        icon: icon,
-      ),
-      _ => IOSBannerOverlayEntry(
-        message,
-        key,
-        preset: preset,
-        isError: isError,
-        icon: icon,
-      ),
-    };
+    final entry = BannerOverlayEntry(
+      message,
+      key,
+      preset: preset,
+      isError: isError,
+      icon: icon,
+    );
+    _context.overlayDispatcher.enqueueRequest(_context, entry);
+  }
+
+  /// 🍞 Shows a platform-aware snackbar (iOS/Android) using optional preset
+  void showSnackbar({
+    required String message,
+    OverlayMessageKey? messageKey,
+    OverlayUIPresets preset = const OverlayInfoUIPreset(),
+    bool isError = false,
+    IconData? icon,
+  }) {
+    final entry = SnackbarOverlayEntry(
+      message,
+      messageKey: messageKey,
+      preset: preset,
+      isError: isError,
+      icon: icon,
+    );
+    _context.overlayDispatcher.enqueueRequest(_context, entry);
+  }
+
+  /// 💬 Shows a short platform-adaptive dialog (iOS/Android)
+  /// 💬 Shows a short platform-adaptive dialog (iOS/Android)
+  void showDialog({
+    required String title,
+    required String content,
+    String? confirmText,
+    String? cancelText,
+    VoidCallback? onConfirm,
+    VoidCallback? onCancel,
+    OverlayUIPresets? preset,
+    bool isError = false,
+  }) {
+    final entry = DialogOverlayEntry(
+      title,
+      content,
+      confirmText: confirmText ?? 'OK',
+      cancelText: cancelText ?? 'Cancel',
+      onConfirm: onConfirm,
+      onCancel: onCancel,
+      preset: preset,
+      isError: isError,
+    );
     _context.overlayDispatcher.enqueueRequest(_context, entry);
   }
 
