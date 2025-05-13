@@ -1,5 +1,4 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/core/context_overlay_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/core/dsl_like_overlay_call.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/app_config/bootstrap/di_container.dart';
@@ -52,9 +51,9 @@ final class _SignInListenerWrapper extends StatelessWidget {
       listener: (context, state) {
         final model = state.failure?.consume();
         if (model != null) {
-          context.overlay.showError(
+          context.showError(
             model,
-            showAs: ShowErrorAs.dialog,
+            showAs: ShowErrorAs.banner,
             preset: const OverlayInfoUIPreset(),
           );
           context.read<SignInCubit>()

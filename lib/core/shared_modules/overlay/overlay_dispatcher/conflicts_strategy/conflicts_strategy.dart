@@ -31,3 +31,5 @@ class OverlayConflictStrategy {
     required this.category,
   });
 }
+
+enum OverlayDismissPolicy { dismissible, persistent }

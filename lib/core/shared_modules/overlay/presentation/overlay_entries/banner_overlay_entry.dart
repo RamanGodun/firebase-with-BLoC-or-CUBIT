@@ -42,4 +42,10 @@ final class BannerOverlayEntry extends OverlayUIEntry {
       platform: context.platform,
     );
   }
+
+  ///
+  @override
+  OverlayDismissPolicy get dismissPolicy => OverlayDismissPolicy.dismissible;
+
+  ///
 }

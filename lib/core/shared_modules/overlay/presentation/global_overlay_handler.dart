@@ -2,6 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extens
 import 'package:flutter/material.dart';
 
 import '../../../app_config/bootstrap/di_container.dart';
+import '../overlay_dispatcher/_overlay_dispatcher.dart';
 import '../overlay_dispatcher/overlay_dispatcher_contract.dart';
 
 /// 🧩 [GlobalOverlayHandler] – Universal wrapper for:
@@ -29,12 +30,20 @@ final class GlobalOverlayHandler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        if (dismissKeyboard) context.unfocusKeyboard();
-        if (dismissOverlay) di<IOverlayDispatcher>().dismissCurrent();
-      },
       behavior: HitTestBehavior.translucent,
+      onTap: () async {
+        if (dismissKeyboard) context.unfocusKeyboard();
+        if (dismissOverlay) {
+          final dispatcher = di<IOverlayDispatcher>();
+          if (dispatcher is OverlayDispatcher &&
+              dispatcher.isActiveDismissible) {
+            await dispatcher.dismissCurrent();
+          }
+        }
+      },
       child: child,
     );
   }
+
+  ///
 }

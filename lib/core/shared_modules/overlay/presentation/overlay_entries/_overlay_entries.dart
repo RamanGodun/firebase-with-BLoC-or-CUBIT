@@ -7,6 +7,7 @@ import '../widgets/app_dialog.dart';
 import '../widgets/app_loader.dart';
 import '../widgets/app_snackbar.dart';
 import '../../core/overlay_message_key.dart';
+import '../widgets/custom_overlay.dart';
 
 part 'custom_overlay_entry.dart';
 part 'dialog_overlay_entry.dart';
@@ -14,15 +15,10 @@ part 'loader_overlay_entry.dart';
 part 'snackbar_overlay_entry.dart';
 part 'banner_overlay_entry.dart';
 
-/// 🎯 [OverlayUIEntry] — Sealed root type for all queued overlay UI requests
-/// ✅ Used by dispatcher queue
-/// ✅ Holds conflict strategy per entry type
-/// ✅ Requires each implementation to provide [duration], [messageKey] and [strategy]
-//--------------------------------------------------------------------------------
-
 /// 🎯 [OverlayUIEntry] — Sealed base class for queued overlay entries
 /// ✅ Each entry must implement: [duration], [messageKey], [strategy], [build(context)]
 //--------------------------------------------------------------------------------
+
 sealed class OverlayUIEntry {
   const OverlayUIEntry();
 
@@ -37,4 +33,12 @@ sealed class OverlayUIEntry {
 
   /// 🖼️ Widget builder — always called by the dispatcher
   Widget build(BuildContext context);
+
+  /// 🧼 Optional dismiss callback
+  VoidCallback? get onDismiss => null;
+
+  /// 🆕 Whether GlobalOverlayHandler can dismiss this overlay
+  OverlayDismissPolicy get dismissPolicy => OverlayDismissPolicy.dismissible;
+
+  ///
 }

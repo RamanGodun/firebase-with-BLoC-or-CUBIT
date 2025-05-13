@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Props — Pure UI styling configuration
 // ─────────────────────────────────────────────────────────────────────────────
 
-class OverlayUIPresetProps {
+class OverlayUIPresetProps extends Equatable {
   final IconData icon;
   final Color color;
   final Duration duration;
@@ -41,4 +42,17 @@ class OverlayUIPresetProps {
       behavior: behavior ?? this.behavior,
     );
   }
+
+  @override
+  List<Object> get props => [
+    icon,
+    color,
+    duration,
+    margin,
+    shape,
+    contentPadding,
+    behavior,
+  ];
+
+  ///
 }

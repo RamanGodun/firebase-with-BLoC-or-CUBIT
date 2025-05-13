@@ -4,6 +4,7 @@ import 'preset_props.dart';
 
 /// 🧩 [OverlayUIPresets] — Base class that returns styled props per preset
 /// ✅ Each preset maps to its [OverlayUIPresetProps]
+/// ✅ Includes optional memoization for performance
 ///--------------------------------------------------------------------------
 
 sealed class OverlayUIPresets {
@@ -34,42 +35,12 @@ sealed class OverlayUIPresets {
   }
 }
 
-final class OverlayErrorUIPreset extends OverlayUIPresets {
-  const OverlayErrorUIPreset();
-  @override
-  OverlayUIPresetProps resolve() => const OverlayUIPresetProps(
-    icon: Icons.error_outline,
-    color: Colors.redAccent,
-    duration: Duration(seconds: 3),
-    margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(8)),
-    ),
-    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-    behavior: SnackBarBehavior.floating,
-  );
-}
-
-final class OverlaySuccessUIPreset extends OverlayUIPresets {
-  const OverlaySuccessUIPreset();
-  @override
-  OverlayUIPresetProps resolve() => const OverlayUIPresetProps(
-    icon: Icons.check_circle_outline,
-    color: Colors.green,
-    duration: Duration(seconds: 2),
-    margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(8)),
-    ),
-    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-    behavior: SnackBarBehavior.fixed,
-  );
-}
+/// 🔁 MEMOIZED VARIANTs
 
 final class OverlayInfoUIPreset extends OverlayUIPresets {
   const OverlayInfoUIPreset();
-  @override
-  OverlayUIPresetProps resolve() => const OverlayUIPresetProps(
+
+  static final OverlayUIPresetProps _resolved = const OverlayUIPresetProps(
     icon: Icons.info_outline,
     color: Colors.blueAccent,
     duration: Duration(seconds: 3),
@@ -80,12 +51,56 @@ final class OverlayInfoUIPreset extends OverlayUIPresets {
     contentPadding: EdgeInsets.all(14),
     behavior: SnackBarBehavior.floating,
   );
+
+  @override
+  OverlayUIPresetProps resolve() => _resolved;
 }
 
+///
+final class OverlayErrorUIPreset extends OverlayUIPresets {
+  const OverlayErrorUIPreset();
+
+  static final _resolved = const OverlayUIPresetProps(
+    icon: Icons.error_outline,
+    color: Colors.redAccent,
+    duration: Duration(seconds: 3),
+    margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(8)),
+    ),
+    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    behavior: SnackBarBehavior.floating,
+  );
+
+  @override
+  OverlayUIPresetProps resolve() => _resolved;
+}
+
+///
+final class OverlaySuccessUIPreset extends OverlayUIPresets {
+  const OverlaySuccessUIPreset();
+
+  static final _resolved = const OverlayUIPresetProps(
+    icon: Icons.check_circle_outline,
+    color: Colors.green,
+    duration: Duration(seconds: 2),
+    margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(8)),
+    ),
+    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    behavior: SnackBarBehavior.fixed,
+  );
+
+  @override
+  OverlayUIPresetProps resolve() => _resolved;
+}
+
+///
 final class OverlayWarningUIPreset extends OverlayUIPresets {
   const OverlayWarningUIPreset();
-  @override
-  OverlayUIPresetProps resolve() => const OverlayUIPresetProps(
+
+  static final _resolved = const OverlayUIPresetProps(
     icon: Icons.warning_amber_rounded,
     color: Colors.orangeAccent,
     duration: Duration(seconds: 4),
@@ -96,12 +111,16 @@ final class OverlayWarningUIPreset extends OverlayUIPresets {
     contentPadding: EdgeInsets.symmetric(horizontal: 18, vertical: 14),
     behavior: SnackBarBehavior.floating,
   );
+
+  @override
+  OverlayUIPresetProps resolve() => _resolved;
 }
 
+///
 final class OverlayConfirmUIPreset extends OverlayUIPresets {
   const OverlayConfirmUIPreset();
-  @override
-  OverlayUIPresetProps resolve() => const OverlayUIPresetProps(
+
+  static final _resolved = const OverlayUIPresetProps(
     icon: Icons.help_outline_rounded,
     color: Colors.teal,
     duration: Duration.zero,
@@ -112,8 +131,12 @@ final class OverlayConfirmUIPreset extends OverlayUIPresets {
     contentPadding: EdgeInsets.all(16),
     behavior: SnackBarBehavior.fixed,
   );
+
+  @override
+  OverlayUIPresetProps resolve() => _resolved;
 }
 
+///
 final class _OverlayCustomPreset extends OverlayUIPresets {
   final OverlayUIPresetProps _props;
   const _OverlayCustomPreset(this._props);

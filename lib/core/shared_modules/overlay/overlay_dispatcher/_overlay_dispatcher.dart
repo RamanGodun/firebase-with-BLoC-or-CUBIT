@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import '../../loggers/_app_error_logger.dart';
@@ -33,6 +34,8 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   /// 🧠 Currently active logical request for conflict strategy & logging
   OverlayUIEntry? _activeRequest;
   //
+  bool get isActiveDismissible =>
+      _activeRequest?.dismissPolicy != OverlayDismissPolicy.persistent;
 
   /// 🧩 Public API — adds overlay request to queue with conflict strategy check
   /// ✳️ If there's an active overlay, checks whether new one should replace it.
@@ -64,12 +67,25 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     _isProcessing = true;
     final item = _queue.removeFirst();
 
-    Future.any([
-      _renderEntry(item.context, item.request),
-      Future.delayed(const Duration(seconds: 10)),
-    ]).whenComplete(() {
+    final completer = Completer<void>();
+    bool isRendered = false;
+
+    _renderEntry(item.context, item.request).then((_) {
+      isRendered = true;
+      completer.complete();
+    });
+
+    Future.delayed(const Duration(seconds: 10)).then((_) {
+      if (!isRendered) {
+        debugPrint('[OverlayDispatcher] Timeout fallback triggered');
+        _dismissEntry();
+        completer.complete();
+      }
+    });
+
+    completer.future.whenComplete(() {
       _isProcessing = false;
-      _processQueue(); // 🔁 Process next in queue
+      _processQueue();
     });
   }
 
@@ -90,23 +106,48 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     BuildContext context,
     Widget widget,
     Duration duration,
-    OverlayUIEntry request, // <-- додали сюди
+    OverlayUIEntry request,
   ) async {
     final overlay = Overlay.of(context, rootOverlay: true);
     if (!context.mounted) return;
 
-    final entryWidget = OverlayEntry(builder: (_) => widget);
+    final entryWidget = OverlayEntry(
+      builder: (context) {
+        return Stack(
+          children: [
+            Positioned.fill(
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () async {
+                  if (isActiveDismissible) {
+                    await dismissCurrent();
+                  }
+                },
+              ),
+            ),
+            widget,
+          ],
+        );
+      },
+    );
+
     _activeEntry = entryWidget;
-    _activeRequest = request; // <-- тепер доступний
+    _activeRequest = request;
 
     overlay.insert(entryWidget);
-    await Future.delayed(duration);
-    await _dismissEntry();
+    debugPrint('[Overlay] Insert: ${request.runtimeType}, duration=$duration');
+
+    // ⏱️ Auto-dismiss only if duration > 0
+    if (duration > Duration.zero) {
+      await Future.delayed(duration);
+      await _dismissEntry();
+    }
   }
 
   /// ❌ Public API to dismiss current overlay (with optional queue clear)
   @override
   Future<void> dismissCurrent({bool clearQueue = false}) async {
+    if (!isActiveDismissible) return;
     await _dismissEntry();
     if (clearQueue) _queue.clear();
   }
@@ -115,6 +156,7 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   Future<void> _dismissEntry() async {
     AppErrorLogger.logOverlayDismiss(_activeRequest);
     _activeEntry?.remove();
+    _activeRequest?.onDismiss?.call();
     _activeEntry = null;
     _activeRequest = null;
   }

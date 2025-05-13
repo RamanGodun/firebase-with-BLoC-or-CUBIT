@@ -47,7 +47,7 @@ final class _ProfileListenerWrapper extends StatelessWidget {
         if (state is ProfileError) {
           final model = state.failure.consume();
           if (model != null) {
-            context.overlay.showError(model);
+            context.showError(model);
             context.read<ProfileCubit>().clearFailure();
           }
         }
