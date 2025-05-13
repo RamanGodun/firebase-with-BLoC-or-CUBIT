@@ -47,4 +47,9 @@ final class BannerOverlayEntry extends OverlayUIEntry {
   }
 
   ///
+
+  @override
+  bool get tapPassthroughEnabled => true; // 👈 allows passthrough for taps
+
+  ///
 }

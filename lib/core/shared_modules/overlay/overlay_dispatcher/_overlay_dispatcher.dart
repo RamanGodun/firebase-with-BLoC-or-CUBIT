@@ -6,6 +6,7 @@ import 'conflicts_strategy/conflict_resolver.dart';
 import 'conflicts_strategy/conflicts_strategy.dart';
 import 'overlay_dispatcher_contract.dart';
 import '../presentation/overlay_entries/_overlay_entries.dart';
+import '../presentation/tap_through_overlay_barrier.dart';
 
 /// 🎯 [OverlayDispatcher] — Centralized singleton overlay queue manager
 /// ✅ Platform-agnostic, decoupled from overlay UI implementations
@@ -25,6 +26,9 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   /// 📍 Used for per-context clearByContext
   final Set<BuildContext> _activeContexts = {};
 
+  /// 🧠 For built-in throttling
+  final Map<Type, DateTime> _lastRequestTimestamps = {};
+
   /// 🚦 Flag to prevent overlapping overlays
   bool _isProcessing = false;
 
@@ -33,15 +37,28 @@ final class OverlayDispatcher implements IOverlayDispatcher {
 
   /// 🧠 Currently active logical request for conflict strategy & logging
   OverlayUIEntry? _activeRequest;
+
+  /// 💾 Used for re-firing enqueued request after dismiss
+  OverlayQueueItem? _pendingRequestAfterDismiss;
   //
   bool get isActiveDismissible =>
       _activeRequest?.dismissPolicy != OverlayDismissPolicy.persistent;
+  static const _minIntervalBetweenSameType = Duration(milliseconds: 150);
 
   /// 🧩 Public API — adds overlay request to queue with conflict strategy check
   /// ✳️ If there's an active overlay, checks whether new one should replace it.
   /// ✳️ If not allowed and not `waitQueue`, request is silently dropped.
   @override
   void enqueueRequest(BuildContext context, OverlayUIEntry request) {
+    // 🚧 Skip if same type request came too soon
+    final lastShown = _lastRequestTimestamps[request.runtimeType];
+    if (lastShown != null &&
+        DateTime.now().difference(lastShown) < _minIntervalBetweenSameType) {
+      debugPrint('[OverlayDispatcher] Throttled: ${request.runtimeType}');
+      return;
+    }
+    _lastRequestTimestamps[request.runtimeType] = DateTime.now();
+
     AppErrorLogger.logOverlayShow(request);
     _activeContexts.add(context);
 
@@ -50,18 +67,26 @@ final class OverlayDispatcher implements IOverlayDispatcher {
         request,
         _activeRequest!,
       )) {
-        _dismissEntry(); // 🔄 Replace current overlay
+        _pendingRequestAfterDismiss = OverlayQueueItem(
+          context: context,
+          request: request,
+        );
+        _queue.clear();
+        _dismissEntry(); // 🔄 Change the active one
+        return;
       } else if (!OverlayConflictResolver.shouldWait(request)) {
-        return; // ❌ Drop new request if not allowed
+        return; // ❌ Drop if not allowed
       }
     }
+
+    // 🧹 Очистити чергу від запитів того ж типу (тільки останній виживає)
+    _queue.removeWhere((e) => e.request.runtimeType == request.runtimeType);
 
     _queue.add(OverlayQueueItem(context: context, request: request));
     _processQueue();
   }
 
   /// 🚦 Queue processor — ensures one-by-one execution with fallback timeout
-  /// ✳️ If overlay hangs beyond 10 seconds, fallback proceeds with cleanup.
   void _processQueue() {
     if (_isProcessing || _queue.isEmpty) return;
     _isProcessing = true;
@@ -75,21 +100,35 @@ final class OverlayDispatcher implements IOverlayDispatcher {
       completer.complete();
     });
 
+    _handleTimeout(isRendered, completer);
+
+    completer.future.whenComplete(() {
+      _isProcessing = false;
+      _handlePendingRequestAfterDismiss();
+      _processQueue();
+    });
+  }
+
+  /// ⏳ Timeout fallback if render takes too long
+  void _handleTimeout(bool isRendered, Completer<void> completer) {
     Future.delayed(const Duration(seconds: 10)).then((_) {
-      if (!isRendered) {
+      if (!isRendered && !completer.isCompleted) {
         debugPrint('[OverlayDispatcher] Timeout fallback triggered');
         _dismissEntry();
         completer.complete();
       }
     });
-
-    completer.future.whenComplete(() {
-      _isProcessing = false;
-      _processQueue();
-    });
   }
 
-  /// 🖼️ Uses Open/Closed-compatible method to delegate build/render logic
+  /// 🔁 Enqueues deferred request if present
+  void _handlePendingRequestAfterDismiss() {
+    if (_pendingRequestAfterDismiss case final item?) {
+      _queue.add(item);
+      _pendingRequestAfterDismiss = null;
+    }
+  }
+
+  /// 🖼️ Builds and shows overlay
   Future<void> _renderEntry(BuildContext context, OverlayUIEntry entry) async {
     try {
       final widget = entry.build(context);
@@ -101,7 +140,7 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     }
   }
 
-  /// 📦 Shows widget in overlay for given [duration], then cleans up
+  /// 📦 Inserts overlay in UI and starts auto-dismiss timer
   Future<void> _showOverlay(
     BuildContext context,
     Widget widget,
@@ -115,17 +154,15 @@ final class OverlayDispatcher implements IOverlayDispatcher {
       builder: (context) {
         return Stack(
           children: [
-            Positioned.fill(
-              child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () async {
-                  if (isActiveDismissible) {
-                    await dismissCurrent();
-                  }
-                },
-              ),
+            TapThroughOverlayBarrier(
+              enablePassthrough: request.tapPassthroughEnabled,
+              onTapOverlay: () {
+                if (request.dismissPolicy == OverlayDismissPolicy.dismissible) {
+                  dismissCurrent();
+                }
+              },
+              child: widget,
             ),
-            widget,
           ],
         );
       },
@@ -133,11 +170,8 @@ final class OverlayDispatcher implements IOverlayDispatcher {
 
     _activeEntry = entryWidget;
     _activeRequest = request;
-
     overlay.insert(entryWidget);
-    debugPrint('[Overlay] Insert: ${request.runtimeType}, duration=$duration');
 
-    // ⏱️ Auto-dismiss only if duration > 0
     if (duration > Duration.zero) {
       await Future.delayed(duration);
       await _dismissEntry();
@@ -152,7 +186,7 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     if (clearQueue) _queue.clear();
   }
 
-  /// 🧹 Internal cleanup for current active overlay entry
+  /// 🧹 Cleanup of active overlay
   Future<void> _dismissEntry() async {
     AppErrorLogger.logOverlayDismiss(_activeRequest);
     _activeEntry?.remove();
@@ -161,25 +195,22 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     _activeRequest = null;
   }
 
-  /// 🧼 Removes all pending overlay requests from queue
+  /// 🧼 Clears all pending overlay requests
   @override
   void clearAll() {
     debugPrint('[OverlayDispatcher] clearAll()');
     _queue.clear();
   }
 
-  /// 🧼 Clears queued overlays specific to [context]
+  /// 🧼 Clears requests for a specific context
   @override
   void clearByContext(BuildContext context) {
     _queue.removeWhere((e) => e.context == context);
     _activeContexts.remove(context);
   }
-
-  ///
 }
 
-///
-
+/// 📦 Wrapper for context + overlay request
 final class OverlayQueueItem {
   final BuildContext context;
   final OverlayUIEntry request;
