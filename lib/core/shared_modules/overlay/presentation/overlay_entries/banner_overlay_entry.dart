@@ -27,12 +27,8 @@ final class BannerOverlayEntry extends OverlayUIEntry {
   @override
   OverlayConflictStrategy get strategy => OverlayConflictStrategy(
     priority: isError ? OverlayPriority.critical : OverlayPriority.normal,
-    policy:
-        isError
-            ? OverlayReplacePolicy.forceReplace
-            : OverlayReplacePolicy.forceIfSameCategory,
-    category:
-        isError ? OverlayCategory.bannerError : OverlayCategory.bannerTheme,
+    policy: OverlayReplacePolicy.dropIfSameType,
+    category: isError ? OverlayCategory.error : OverlayCategory.banner,
   );
 
   @override

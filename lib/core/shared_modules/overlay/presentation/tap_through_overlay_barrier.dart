@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// ✅ Updated TapThroughOverlayBarrier with precise pointer passthrough logic
-/// ✅ Now guarantees that taps reach widgets _under_ the overlay if enabled
+/// ✅ TapThroughOverlayBarrier v2
+/// ✅ Handles passthrough and dismiss logic in one place
+/// ✅ Guarantees solid UX for theme toggle / fast interactions
 class TapThroughOverlayBarrier extends StatelessWidget {
   final Widget child;
   final bool enablePassthrough;
@@ -16,25 +17,40 @@ class TapThroughOverlayBarrier extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ✅ Transparent stack layer that lets taps fall through if enabled
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: Listener(
-            behavior: HitTestBehavior.translucent,
-            onPointerDown: (event) {
-              if (enablePassthrough) {
-                // ✅ Immediately dismiss overlay
-                onTapOverlay?.call();
-              }
-            },
-            child: const SizedBox.expand(),
+    return Listener(
+      behavior: HitTestBehavior.translucent,
+      onPointerDown: (event) {
+        if (enablePassthrough) {
+          onTapOverlay?.call(); // 🔁 dismiss overlay if needed
+        }
+      },
+      child: Stack(
+        children: [
+          // ⚠️ Renders overlay content but allows passthrough when needed
+          IgnorePointer(
+            ignoring: enablePassthrough,
+            child: child,
           ),
-        ),
-
-        // ⚠️ Overlay widget rendered above but not blocking interaction if passthrough enabled
-        IgnorePointer(ignoring: enablePassthrough, child: child),
-      ],
+        ],
+      ),
     );
   }
 }
+
+/// USAGE EXAMPLE IN DISPATCHER:
+///
+/// ```dart
+/// OverlayEntry(
+///   builder: (ctx) => TapThroughOverlayBarrier(
+///     enablePassthrough: request.tapPassthroughEnabled,
+///     onTapOverlay: () {
+///       if (request.dismissPolicy == OverlayDismissPolicy.dismissible) {
+///         dismissCurrent();
+///       }
+///     },
+///     child: Builder(
+///       builder: (overlayCtx) => request.build(overlayCtx),
+///     ),
+///   ),
+/// )
+/// 

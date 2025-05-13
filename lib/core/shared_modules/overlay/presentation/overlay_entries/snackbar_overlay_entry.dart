@@ -51,4 +51,8 @@ final class SnackbarOverlayEntry extends OverlayUIEntry {
   }
 
   ///
+  @override
+  bool get tapPassthroughEnabled => true; // 👈 allows passthrough for taps
+
+  ///
 }

@@ -19,6 +19,10 @@ final class OverlayConflictResolver {
       OverlayReplacePolicy.forceIfSameCategory => n.category == c.category,
       OverlayReplacePolicy.forceIfLowerPriority =>
         n.priority.index > c.priority.index,
+      OverlayReplacePolicy.dropIfSameType =>
+        next.runtimeType == current.runtimeType &&
+            next.messageKey != null &&
+            next.messageKey == current.messageKey,
       OverlayReplacePolicy.waitQueue => false,
     };
   }
