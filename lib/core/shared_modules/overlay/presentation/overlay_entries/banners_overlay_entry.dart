@@ -22,8 +22,6 @@ final class BannerOverlayEntry extends OverlayUIEntry {
   );
 }
 
-
-
 /// 🎨 [ThemedBannerOverlayEntry] — Predefined banner with icon and message, styled by theme
 final class ThemedBannerOverlayEntry extends OverlayUIEntry {
   final String message;
@@ -42,4 +40,7 @@ final class ThemedBannerOverlayEntry extends OverlayUIEntry {
     policy: OverlayReplacePolicy.forceIfSameCategory,
     category: OverlayCategory.bannerTheme,
   );
+
+  /// 🧱 Builds animated toast-style widget with icon + message
+  Widget build() => AnimatedOverlayWidget(message: message, icon: icon);
 }

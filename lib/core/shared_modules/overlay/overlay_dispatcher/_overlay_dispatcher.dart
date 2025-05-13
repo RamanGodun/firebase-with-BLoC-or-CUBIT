@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../loggers/_app_error_logger.dart';
 import 'conflicts_strategy/conflicts_strategy.dart';
 import 'overlay_dispatcher_contract.dart';
-import 'overlay_queue_item.dart';
 import '../presentation/overlay_entries/_overlay_entries.dart';
 
 /// 🎯 [OverlayDispatcher] — Centralized singleton overlay queue manager
@@ -148,4 +147,12 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   }
 
   ///
+}
+
+///
+
+final class OverlayQueueItem {
+  final BuildContext context;
+  final OverlayUIEntry request;
+  const OverlayQueueItem({required this.context, required this.request});
 }

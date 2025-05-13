@@ -26,10 +26,8 @@ final class OverlayController {
   );
 
   /// 🧩 Shows a styled snackbar with fallback message
-  void snackbar(String message) => _context.overlayDispatcher.enqueueRequest(
-    _context,
-    SnackbarOverlayEntry.from(message),
-  );
+  void showSnackbar(String message) => _context.overlayDispatcher
+      .enqueueRequest(_context, SnackbarOverlayEntry.from(message));
 
   /// 🧩 Shows a dialog using either a preset override or default styled dialog
   void showDialog({
@@ -64,30 +62,21 @@ final class OverlayController {
       'overlay.kind.${preset.runtimeType}',
       fallback: message,
     );
-
     final banner = AnimatedPresetBanner(message: message, props: props);
-
     _context.overlayDispatcher.enqueueRequest(
       _context,
       BannerOverlayEntry(banner, duration: props.duration, messageKey: key),
     );
   }
 
-  /// 📦 Shows a custom banner widget for a given [duration]
-  void showBannerWidget(
-    Widget banner, {
-    Duration duration = const Duration(seconds: 2),
+  /// 📦 Shows a themed icon+text banner from a [OverlayMessageKey]
+  void showThemeBanner({
+    required OverlayMessageKey key,
+    required IconData icon,
   }) => _context.overlayDispatcher.enqueueRequest(
     _context,
-    BannerOverlayEntry(banner, duration: duration),
+    ThemedBannerOverlayEntry(key.localize(_context), icon, messageKey: key),
   );
-
-  /// 📦 Shows a themed icon+text banner from a [OverlayMessageKey]
-  void themeBanner({required OverlayMessageKey key, required IconData icon}) =>
-      _context.overlayDispatcher.enqueueRequest(
-        _context,
-        ThemedBannerOverlayEntry(key.localize(_context), icon, messageKey: key),
-      );
 
   /// 🧩 Directly triggers a custom overlay request (e.g., custom widget)
   void showRequest(OverlayUIEntry request) {

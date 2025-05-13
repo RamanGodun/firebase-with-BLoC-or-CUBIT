@@ -47,9 +47,6 @@ extension OverlayEntryBuilder on OverlayUIEntry {
     BannerOverlayEntry e => e.banner,
     LoaderOverlayEntry e => e.loader,
     CustomOverlayEntry e => e.widget,
-    ThemedBannerOverlayEntry e => AnimatedOverlayWidget(
-      message: e.message,
-      icon: e.icon,
-    ),
+    ThemedBannerOverlayEntry e => e.build(),
   };
 }

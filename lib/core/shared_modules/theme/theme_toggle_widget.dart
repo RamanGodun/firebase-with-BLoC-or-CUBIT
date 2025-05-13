@@ -39,7 +39,7 @@ final class ThemeToggleIcon extends StatelessWidget {
     context.read<AppThemeCubit>().toggle();
 
     // 🌟 Show overlay with correct message and icon
-    context.overlay.themeBanner(
+    context.overlay.showThemeBanner(
       key:
           isDarkMode
               ? OverlayMessageKeys.lightModeEnabled
