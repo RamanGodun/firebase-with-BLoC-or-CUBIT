@@ -9,7 +9,13 @@ part of '_overlay_entries.dart';
 final class LoaderOverlayEntry extends OverlayUIEntry {
   @override
   final Duration duration;
-  const LoaderOverlayEntry({this.duration = const Duration(seconds: 2)});
+  @override
+  final OverlayDismissPolicy dismissPolicy;
+
+  const LoaderOverlayEntry({
+    this.duration = const Duration(seconds: 2),
+    this.dismissPolicy = OverlayDismissPolicy.persistent,
+  });
 
   @override
   OverlayConflictStrategy get strategy => const OverlayConflictStrategy(

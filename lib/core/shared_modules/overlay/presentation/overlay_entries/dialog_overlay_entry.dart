@@ -11,6 +11,8 @@ final class DialogOverlayEntry extends OverlayUIEntry {
   final VoidCallback? onCancel;
   final OverlayUIPresets? preset;
   final bool isError;
+  @override
+  final OverlayDismissPolicy dismissPolicy;
 
   const DialogOverlayEntry(
     this.title,
@@ -21,6 +23,7 @@ final class DialogOverlayEntry extends OverlayUIEntry {
     this.onCancel,
     this.preset,
     this.isError = false,
+    this.dismissPolicy = OverlayDismissPolicy.dismissible,
   });
 
   @override
@@ -50,4 +53,6 @@ final class DialogOverlayEntry extends OverlayUIEntry {
       platform: context.platform,
     );
   }
+
+  ///
 }

@@ -8,6 +8,8 @@ final class BannerOverlayEntry extends OverlayUIEntry {
   final OverlayUIPresets? preset;
   final bool isError;
   final IconData? icon;
+  @override
+  final OverlayDismissPolicy dismissPolicy;
 
   const BannerOverlayEntry(
     this.message,
@@ -15,6 +17,7 @@ final class BannerOverlayEntry extends OverlayUIEntry {
     this.preset,
     this.isError = false,
     this.icon,
+    this.dismissPolicy = OverlayDismissPolicy.dismissible,
   });
 
   @override
@@ -42,10 +45,6 @@ final class BannerOverlayEntry extends OverlayUIEntry {
       platform: context.platform,
     );
   }
-
-  ///
-  @override
-  OverlayDismissPolicy get dismissPolicy => OverlayDismissPolicy.dismissible;
 
   ///
 }

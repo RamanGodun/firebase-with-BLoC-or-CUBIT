@@ -13,6 +13,8 @@ final class SnackbarOverlayEntry extends OverlayUIEntry {
   final OverlayUIPresets preset;
   final bool isError;
   final IconData? icon;
+  @override
+  final OverlayDismissPolicy dismissPolicy;
 
   const SnackbarOverlayEntry(
     this.message, {
@@ -20,6 +22,7 @@ final class SnackbarOverlayEntry extends OverlayUIEntry {
     this.preset = const OverlayInfoUIPreset(),
     this.isError = false,
     this.icon,
+    this.dismissPolicy = OverlayDismissPolicy.dismissible,
   });
 
   @override

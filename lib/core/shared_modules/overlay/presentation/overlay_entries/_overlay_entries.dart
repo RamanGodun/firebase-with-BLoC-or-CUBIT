@@ -38,7 +38,7 @@ sealed class OverlayUIEntry {
   VoidCallback? get onDismiss => null;
 
   /// 🆕 Whether GlobalOverlayHandler can dismiss this overlay
-  OverlayDismissPolicy get dismissPolicy => OverlayDismissPolicy.dismissible;
+   OverlayDismissPolicy get dismissPolicy;
 
   ///
 }

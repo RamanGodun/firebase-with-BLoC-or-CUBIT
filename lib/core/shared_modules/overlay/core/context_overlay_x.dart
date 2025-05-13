@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../app_config/bootstrap/di_container.dart';
 import '../../errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
+import '../overlay_dispatcher/conflicts_strategy/conflicts_strategy.dart';
 import '../presentation/overlay_entries/_overlay_entries.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';
 import '../overlay_dispatcher/overlay_dispatcher_contract.dart';
@@ -18,6 +19,12 @@ extension OverlayContextX on BuildContext {
   IOverlayDispatcher get overlayDispatcher => di<IOverlayDispatcher>();
 
   ///
+  OverlayDismissPolicy _resolveDismissPolicy(bool isDismissible) =>
+      isDismissible
+          ? OverlayDismissPolicy.dismissible
+          : OverlayDismissPolicy.persistent;
+
+  ///
   /// 🧩 Shows a loading spinner for a given [duration]
   void showLoader({Duration duration = const Duration(seconds: 2)}) {
     final entry = LoaderOverlayEntry(duration: duration);
@@ -30,6 +37,7 @@ extension OverlayContextX on BuildContext {
     required IconData icon,
     OverlayUIPresets? preset,
     bool isError = false,
+    bool isDismissible = true,
   }) {
     final message = key.localize(this);
     final entry = BannerOverlayEntry(
@@ -38,6 +46,10 @@ extension OverlayContextX on BuildContext {
       preset: preset,
       isError: isError,
       icon: icon,
+      dismissPolicy:
+          isError
+              ? OverlayDismissPolicy.persistent
+              : _resolveDismissPolicy(isDismissible),
     );
     overlayDispatcher.enqueueRequest(this, entry);
   }
@@ -49,6 +61,7 @@ extension OverlayContextX on BuildContext {
     OverlayUIPresets preset = const OverlayInfoUIPreset(),
     bool isError = false,
     IconData? icon,
+    bool isDismissible = true,
   }) {
     final entry = SnackbarOverlayEntry(
       message,
@@ -56,6 +69,10 @@ extension OverlayContextX on BuildContext {
       preset: preset,
       isError: isError,
       icon: icon,
+      dismissPolicy:
+          isError
+              ? OverlayDismissPolicy.persistent
+              : _resolveDismissPolicy(isDismissible),
     );
     overlayDispatcher.enqueueRequest(this, entry);
   }
@@ -70,6 +87,7 @@ extension OverlayContextX on BuildContext {
     VoidCallback? onCancel,
     OverlayUIPresets? preset,
     bool isError = false,
+    bool isDismissible = true,
   }) {
     final entry = DialogOverlayEntry(
       title,
@@ -80,6 +98,10 @@ extension OverlayContextX on BuildContext {
       onCancel: onCancel,
       preset: preset,
       isError: isError,
+      dismissPolicy:
+          isError
+              ? OverlayDismissPolicy.persistent
+              : _resolveDismissPolicy(isDismissible),
     );
     overlayDispatcher.enqueueRequest(this, entry);
   }
@@ -90,6 +112,7 @@ extension OverlayContextX on BuildContext {
     FailureUIModel model, {
     ShowErrorAs showAs = ShowErrorAs.dialog,
     OverlayUIPresets preset = const OverlayErrorUIPreset(),
+    bool isDismissible = true,
   }) {
     final key =
         model.translationKey == null
@@ -111,6 +134,7 @@ extension OverlayContextX on BuildContext {
           icon: model.icon,
           preset: preset,
           isError: true,
+          isDismissible: isDismissible,
         );
         break;
       case ShowErrorAs.snackbar:
@@ -120,6 +144,7 @@ extension OverlayContextX on BuildContext {
           preset: preset,
           isError: true,
           icon: model.icon,
+          isDismissible: isDismissible,
         );
         break;
       case ShowErrorAs.dialog:
@@ -130,6 +155,7 @@ extension OverlayContextX on BuildContext {
           cancelText: 'Cancel',
           preset: preset,
           isError: true,
+          isDismissible: isDismissible,
         );
         break;
     }
@@ -139,8 +165,18 @@ extension OverlayContextX on BuildContext {
   void showCustomOverlay({
     required Widget child,
     Duration duration = const Duration(seconds: 2),
+    bool isDismissible = true,
+    bool isError = false,
   }) {
-    final entry = CustomOverlayEntry(child: child, duration: duration);
+    final entry = CustomOverlayEntry(
+      child: child,
+      duration: duration,
+      isError: isError,
+      dismissPolicy:
+          isError
+              ? OverlayDismissPolicy.persistent
+              : _resolveDismissPolicy(isDismissible),
+    );
     overlayDispatcher.enqueueRequest(this, entry);
   }
 

@@ -7,19 +7,27 @@ part of '_overlay_entries.dart';
 
 final class CustomOverlayEntry extends OverlayUIEntry {
   final Widget child;
+  final bool isError;
   @override
   final Duration duration;
+  @override
+  final OverlayDismissPolicy dismissPolicy;
 
   const CustomOverlayEntry({
     required this.child,
     this.duration = const Duration(seconds: 2),
+    this.isError = false,
+    this.dismissPolicy = OverlayDismissPolicy.dismissible,
   });
 
   @override
-  OverlayConflictStrategy get strategy => const OverlayConflictStrategy(
-    priority: OverlayPriority.normal,
-    policy: OverlayReplacePolicy.waitQueue,
-    category: OverlayCategory.bannerTheme,
+  OverlayConflictStrategy get strategy => OverlayConflictStrategy(
+    priority: isError ? OverlayPriority.critical : OverlayPriority.normal,
+    policy:
+        isError
+            ? OverlayReplacePolicy.forceReplace
+            : OverlayReplacePolicy.forceIfLowerPriority,
+    category: isError ? OverlayCategory.error : OverlayCategory.otherCustom,
   );
 
   @override

@@ -18,6 +18,7 @@ enum OverlayCategory {
   loader,
   snackbar,
   error,
+  otherCustom,
 }
 
 class OverlayConflictStrategy {
