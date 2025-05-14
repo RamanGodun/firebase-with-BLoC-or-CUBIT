@@ -37,6 +37,7 @@ sealed class OverlayUIEntry {
   OverlayDismissPolicy get dismissPolicy;
 
   ///
-  bool get tapPassthroughEnabled => false; // default
+  bool get tapPassthroughEnabled => false;
+
   ///
 }

@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
-import '../failures_for_domain_and_presentation/failure_x/failure_logger_x.dart' show RawErrorLogger;
+import '../../loggers/failure_logger_x.dart' show RawErrorLogger;
 import '../failures_for_domain_and_presentation/enums.dart';
 import '../failures_for_domain_and_presentation/failure_for_domain.dart';
 

@@ -1,3 +1,5 @@
+import '../../loggers/_app_error_logger.dart';
+
 abstract final class AppLocalizer {
   static String Function(String key)? _resolver;
 
@@ -15,7 +17,11 @@ abstract final class AppLocalizer {
   /// 🌐 Resolves a translation key or returns fallback
   static String t(String key, {String? fallback}) {
     final value = _resolver?.call(key);
-    return (value == null || value == key) ? (fallback ?? key) : value;
+    if (value == null || value == key) {
+      AppErrorLogger.logStringFallback(key, fallback ?? key);
+      return fallback ?? key;
+    }
+    return (value == key) ? (fallback ?? key) : value;
   }
 
   /// 🧪 Internal check (used in debug/tests)

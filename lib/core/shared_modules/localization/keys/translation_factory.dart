@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' show BuildContext;
+import '../../loggers/_app_error_logger.dart';
 import '../core/translation_resolver.dart';
 import 'translation_key_interface.dart';
 
@@ -47,13 +48,22 @@ final class ParameterizedTranslatable implements ITranslationKey {
   });
 
   @override
-  String localize(BuildContext context) =>
-      LocalizationResolver.safeTrWithFallback(
-        context,
-        translationKey,
-        fallback,
-        namedArgs: params,
-      );
+  String localize(BuildContext context) {
+    final translated = LocalizationResolver.safeTrWithFallback(
+      context,
+      translationKey,
+      fallback,
+      namedArgs: params,
+    );
+
+    if (translated == fallback) {
+      AppErrorLogger.logMissingTranslation(this);
+    }
+
+    return translated;
+  }
+
+  //
 }
 
 /// 📌 Static translation key holder
@@ -74,11 +84,20 @@ final class SimpleTranslatable implements ITranslationKey {
   });
 
   @override
-  String localize(BuildContext context) =>
-      LocalizationResolver.safeTrWithFallback(
-        context,
-        translationKey,
-        fallback,
-        namedArgs: params,
-      );
+  String localize(BuildContext context) {
+    final translated = LocalizationResolver.safeTrWithFallback(
+      context,
+      translationKey,
+      fallback,
+      namedArgs: params,
+    );
+
+    if (translated == fallback) {
+      AppErrorLogger.logMissingTranslation(this);
+    }
+
+    return translated;
+  }
+
+  //
 }

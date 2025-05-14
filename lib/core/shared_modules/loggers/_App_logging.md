@@ -149,9 +149,3 @@ try {
 > 💡 **Tip**: Keep `FailureMapper` focused on conversion — logging belongs to this logger module.
 
 Happy debugging! 🐞
-
-
-
-
-
-
