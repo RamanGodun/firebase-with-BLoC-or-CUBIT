@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../app_config/bootstrap/di_container.dart';
-import '../errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
-import 'overlay_dispatcher/conflicts_strategy/conflicts_strategy.dart';
-import 'presentation/overlay_entries/_overlay_entries.dart';
-import 'presentation/overlay_presets/overlay_presets.dart';
+import '../../../app_config/bootstrap/di_container.dart';
+import '../../errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
+import 'conflicts_strategy/conflicts_strategy.dart';
+import '../presentation/overlay_entries/_overlay_entries.dart';
+import '../presentation/overlay_presets/overlay_presets.dart';
 import 'overlay_dispatcher/overlay_dispatcher_interface.dart';
 
 /// 🎯 [OverlayContextX] — Unified extension for overlay DSL and dispatcher access

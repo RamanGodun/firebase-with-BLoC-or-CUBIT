@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'core/shared_modules/overlay/presentation/global_overlay_handler.dart';
+import 'core/shared_modules/overlay/core/global_overlay_handler.dart';
 import 'core/shared_modules/theme/config/app_theme_config.dart';
 import 'core/shared_modules/navigation/router_config.dart';
 import 'core/shared_modules/theme/config/app_material_theme.dart';

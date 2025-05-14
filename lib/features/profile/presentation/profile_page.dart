@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/context_overlay_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/core/context_overlay_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/app_config/bootstrap/di_container.dart';

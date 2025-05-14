@@ -1,12 +1,15 @@
-/*
-
 import 'dart:collection';
 import 'package:flutter/material.dart';
-import '../presentation/overlay_entries/_overlay_entries.dart';
-import '../presentation/tap_through_overlay_barrier.dart';
-import 'conflicts_strategy/conflict_resolver.dart';
-import 'conflicts_strategy/conflicts_strategy.dart';
-import 'overlay_dispatcher_contract.dart';
+import '../../../loggers/_app_error_logger.dart';
+import '../../presentation/overlay_entries/_overlay_entries.dart';
+import '../tap_through_overlay_barrier.dart';
+import '../conflicts_strategy/conflict_resolver.dart';
+import '../conflicts_strategy/conflicts_strategy.dart';
+import 'overlay_dispatcher_interface.dart';
+
+// ✅ REFACTORED OverlayDispatcher with full conflict resolution logic
+// ✅ Prevents duplicates
+// ✅ Enforces Open/Closed Principle (no dispatcher logic changes needed)
 
 final class OverlayDispatcher implements IOverlayDispatcher {
   OverlayDispatcher._();
@@ -23,33 +26,39 @@ final class OverlayDispatcher implements IOverlayDispatcher {
 
   @override
   void enqueueRequest(BuildContext context, OverlayUIEntry request) {
-    final overlay = Overlay.of(context, rootOverlay: true);
+    // 🧩 Log enqueue attempt
+    AppErrorLogger.logOverlayShow(request);
 
-    final shouldReplace =
-        _activeRequest != null &&
-        OverlayConflictResolver.shouldReplaceCurrent(request, _activeRequest!);
+    // 📌 Handle conflict with current active
+    if (_activeRequest != null) {
+      final shouldReplace = OverlayConflictResolver.shouldReplaceCurrent(
+        request,
+        _activeRequest!,
+      );
 
-    final isDuplicate = _queue.any(
-      (item) =>
-          item.request.runtimeType == request.runtimeType &&
-          item.request.messageKey != null &&
-          request.messageKey != null &&
-          item.request.messageKey == request.messageKey,
-    );
+      final isSameType = request.runtimeType == _activeRequest.runtimeType;
 
-    // 🛑 Drop if marked as dropIfSameType and duplicate is detected
-    if (request.strategy.policy == OverlayReplacePolicy.dropIfSameType &&
-        shouldReplace == false &&
-        isDuplicate) {
-      return;
+      // 🛑 Drop if same type and policy = dropIfSameType
+      if (request.strategy.policy == OverlayReplacePolicy.dropIfSameType &&
+          isSameType) {
+        return;
+      }
+
+      // ✅ Replace current if allowed
+      if (shouldReplace) {
+        dismissCurrent();
+      }
+
+      // 📌 Optional: remove same-type from queue to prevent duplicates
+      _queue.removeWhere(
+        (item) =>
+            item.request.runtimeType == request.runtimeType &&
+            item.request.strategy.category == request.strategy.category,
+      );
+
+      _queue.add(_OverlayQueueItem(context: context, request: request));
+      _tryProcessQueue();
     }
-
-    if (shouldReplace) {
-      dismissCurrent(clearQueue: true);
-    }
-
-    _queue.add(_OverlayQueueItem(overlay: overlay, request: request));
-    _tryProcessQueue();
   }
 
   void _tryProcessQueue() {
@@ -58,6 +67,8 @@ final class OverlayDispatcher implements IOverlayDispatcher {
 
     final item = _queue.removeFirst();
     _activeRequest = item.request;
+    final context = item.context;
+    final overlay = Overlay.of(context, rootOverlay: true);
 
     final entry = OverlayEntry(
       builder:
@@ -76,18 +87,13 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     );
 
     _activeEntry = entry;
-    item.overlay.insert(entry);
+    overlay.insert(entry);
 
     if (item.request.duration > Duration.zero) {
-      final entryRef = _activeEntry;
-      final requestRef = _activeRequest;
-
       Future.delayed(item.request.duration, () async {
-        if (_activeEntry == entryRef && _activeRequest == requestRef) {
-          await _dismissEntry();
-          _isProcessing = false;
-          _tryProcessQueue();
-        }
+        await _dismissEntry();
+        _isProcessing = false;
+        _tryProcessQueue();
       });
     } else {
       _isProcessing = false;
@@ -103,6 +109,7 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   Future<void> _dismissEntry() async {
     _activeEntry?.remove();
     _activeRequest?.onDismiss?.call();
+    AppErrorLogger.logOverlayDismiss(_activeRequest);
     _activeEntry = null;
     _activeRequest = null;
   }
@@ -112,16 +119,13 @@ final class OverlayDispatcher implements IOverlayDispatcher {
 
   @override
   void clearByContext(BuildContext context) {
-    final overlay = Overlay.of(context, rootOverlay: true);
-    _queue.removeWhere((item) => item.overlay == overlay);
+    _queue.removeWhere((item) => item.context == context);
   }
 }
 
+///
 final class _OverlayQueueItem {
-  final OverlayState overlay;
+  final BuildContext context;
   final OverlayUIEntry request;
-
-  const _OverlayQueueItem({required this.overlay, required this.request});
+  const _OverlayQueueItem({required this.context, required this.request});
 }
-
- */

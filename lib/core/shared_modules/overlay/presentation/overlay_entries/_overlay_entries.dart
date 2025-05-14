@@ -1,6 +1,6 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
-import '../../overlay_dispatcher/conflicts_strategy/conflicts_strategy.dart';
+import '../../core/conflicts_strategy/conflicts_strategy.dart';
 import '../overlay_presets/overlay_presets.dart';
 import '../widgets/app_banner.dart';
 import '../widgets/app_dialog.dart';
