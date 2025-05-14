@@ -4,7 +4,7 @@ part of '_overlay_entries.dart';
 final class BannerOverlayEntry extends OverlayUIEntry {
   final String message;
   @override
-  final OverlayMessageKey? messageKey;
+  final TranslationKey? messageKey;
   final OverlayUIPresets? preset;
   final bool isError;
   final IconData? icon;

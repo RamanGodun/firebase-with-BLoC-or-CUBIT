@@ -1,8 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-/// 🌐 [AppLocalizationUtils] — Handles safe .tr() with or without EasyLocalization
-abstract final class AppLocalizationUtils {
+/// 🌐 [LocalizationResolver] — Handles safe .tr() with or without EasyLocalization
+abstract final class LocalizationResolver {
+  LocalizationResolver._();
+
+  ///
   static String tr(
     BuildContext context,
     String key, {
@@ -36,6 +39,30 @@ abstract final class AppLocalizationUtils {
     }
 
     return key.tr(args: args ?? [], namedArgs: namedArgs ?? {}, gender: gender);
+  }
+
+  /// ✅ Utility for deep equality check of String maps
+  static bool mapEquals(Map<String, String> a, Map<String, String> b) {
+    if (a.length != b.length) return false;
+    for (final key in a.keys) {
+      if (a[key] != b[key]) return false;
+    }
+    return true;
+  }
+
+  ///
+  static String safeTrWithFallback(
+    BuildContext context,
+    String key,
+    String fallback, {
+    Map<String, String> namedArgs = const {},
+  }) {
+    try {
+      final localized = tr(context, key, namedArgs: namedArgs);
+      return (localized == key) ? fallback : localized;
+    } catch (_) {
+      return fallback;
+    }
   }
 
   ///

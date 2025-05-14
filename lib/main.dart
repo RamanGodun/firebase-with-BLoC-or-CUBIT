@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'app_view.dart';
 import 'core/app_config/bootstrap/bootstrap.dart';
 import 'core/app_config/bootstrap/di_container.dart';
-import 'core/shared_modules/localization/_localization_config.dart';
+import 'core/shared_modules/localization/core/localization_config.dart';
 import 'features/auth/presentation/auth_bloc/auth_bloc.dart';
 import 'core/shared_modules/theme/theme_cubit/theme_cubit.dart';
 

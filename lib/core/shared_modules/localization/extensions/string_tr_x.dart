@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 
-import 'localizer.dart';
+import '../core/app_localizer.dart';
 
 /// 📌 Extension for `AppStrings.someKey.tl()` — translated localization
 extension AppStringsTLX on String {

@@ -20,4 +20,6 @@ abstract final class AppLocalizer {
 
   /// 🧪 Internal check (used in debug/tests)
   static bool get isInitialized => _resolver != null;
+
+  ///
 }

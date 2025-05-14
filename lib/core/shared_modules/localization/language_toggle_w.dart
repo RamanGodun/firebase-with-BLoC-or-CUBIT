@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/localization/strings_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/localization/extensions/string_tr_x.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/context_overlay_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/localization/app_strings.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/localization/overlay_message_key.dart';
 import '../../shared_presentation/constants/_app_constants.dart' show AppIcons;
+import 'keys/tr_keys.dart';
 
 /// 🌐 [LanguageToggleIcon] — toggles between supported app languages
 final class LanguageToggleIcon extends StatefulWidget {
@@ -45,8 +45,8 @@ final class _LanguageToggleIconState extends State<LanguageToggleIcon> {
 
     final key =
         isEnglish
-            ? OverlayMessageKeys.languageSwitchedToUa
-            : OverlayMessageKeys.languageSwitchedToEn;
+            ? AppTranslationKeys.languageSwitchedToUa
+            : AppTranslationKeys.languageSwitchedToEn;
 
     final localizedMessage = key.localize(context);
 

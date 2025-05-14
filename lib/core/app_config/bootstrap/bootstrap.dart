@@ -5,7 +5,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
 import 'package:path_provider/path_provider.dart';
-import '../../shared_modules/localization/localizer.dart';
+import '../../shared_modules/localization/core/app_localizer.dart';
 import '../env.dart';
 import '../../shared_modules/loggers/app_bloc_observer.dart';
 

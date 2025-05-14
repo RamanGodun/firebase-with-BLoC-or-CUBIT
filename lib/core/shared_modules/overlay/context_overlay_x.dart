@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../app_config/bootstrap/di_container.dart';
 import '../errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
+import '../localization/keys/translation_factory.dart';
 import 'overlay_dispatcher/conflicts_strategy/conflicts_strategy.dart';
 import 'presentation/overlay_entries/_overlay_entries.dart';
 import 'presentation/overlay_presets/overlay_presets.dart';
 import 'overlay_dispatcher/overlay_dispatcher_contract.dart';
-import '../localization/overlay_message_key.dart';
+import '../localization/keys/translation_key_contract.dart';
 
 /// 🎯 [OverlayContextX] — Unified extension for overlay DSL and dispatcher access
 /// ✅ Use `context.showSnackbar(...)` / `context.showBanner(...)` directly
@@ -33,9 +34,9 @@ extension OverlayContextX on BuildContext {
 
   /// 🪧 Shows a platform-aware banner (iOS/Android) using optional preset
   void showBanner({
-    required OverlayMessageKey key,
+    required TranslationKey key,
     required IconData icon,
-    String? customMessage, // 🆕
+    String? customMessage,
     OverlayUIPresets? preset,
     bool isError = false,
     bool isDismissible = true,
@@ -58,7 +59,7 @@ extension OverlayContextX on BuildContext {
   /// 🍞 Shows a platform-aware snackbar (iOS/Android) using optional preset
   void showSnackbar({
     required String message,
-    OverlayMessageKey? messageKey,
+    TranslationKey? messageKey,
     OverlayUIPresets preset = const OverlayInfoUIPreset(),
     bool isError = false,
     IconData? icon,
@@ -118,17 +119,18 @@ extension OverlayContextX on BuildContext {
     final key =
         model.translationKey == null
             ? null
-            : StaticOverlayMessageKey(
+            : TranslatableFactory.of(
               model.translationKey!,
               fallback: model.fallbackMessage,
             );
 
     switch (showAs) {
+      //
       case ShowErrorAs.banner:
         showBanner(
           key:
               key ??
-              StaticOverlayMessageKey(
+              TranslatableFactory.of(
                 'error.unknown',
                 fallback: model.fallbackMessage,
               ),
@@ -138,6 +140,7 @@ extension OverlayContextX on BuildContext {
           isDismissible: isDismissible,
         );
         break;
+      //
       case ShowErrorAs.snackbar:
         showSnackbar(
           message: model.fallbackMessage,
@@ -148,6 +151,7 @@ extension OverlayContextX on BuildContext {
           isDismissible: isDismissible,
         );
         break;
+      //
       case ShowErrorAs.dialog:
         showDialog(
           title: 'Error occurred',
