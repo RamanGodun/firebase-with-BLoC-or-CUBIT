@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
-import 'package:firebase_with_bloc_or_cubit/core/constants/_app_constants.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/constants/_app_constants.dart';
 
 /// 🧱 [AppScaffold] — Adaptive ShellRoute wrapper with optional glass-like background.
 /// Automatically adapts background based on ThemeMode unless explicitly overridden.

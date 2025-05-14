@@ -36,21 +36,3 @@ class TapThroughOverlayBarrier extends StatelessWidget {
     );
   }
 }
-
-/// USAGE EXAMPLE IN DISPATCHER:
-///
-/// ```dart
-/// OverlayEntry(
-///   builder: (ctx) => TapThroughOverlayBarrier(
-///     enablePassthrough: request.tapPassthroughEnabled,
-///     onTapOverlay: () {
-///       if (request.dismissPolicy == OverlayDismissPolicy.dismissible) {
-///         dismissCurrent();
-///       }
-///     },
-///     child: Builder(
-///       builder: (overlayCtx) => request.build(overlayCtx),
-///     ),
-///   ),
-/// )
-/// 

@@ -50,6 +50,17 @@ class StaticOverlayMessageKey extends OverlayMessageKey {
 
 // 🔖 Популярні pre-defined ключі для UI/UX-повідомлень
 sealed class OverlayMessageKeys {
+  ///
+  static final languageSwitchedToEn = StaticOverlayMessageKey(
+    'overlay.language.switched_to_en',
+    fallback: 'Switched to English',
+  );
+
+  static final languageSwitchedToUa = StaticOverlayMessageKey(
+    'overlay.language.switched_to_ua',
+    fallback: 'Переключено на українську',
+  );
+
   static final unexpected = StaticOverlayMessageKey(
     'overlay.error.unexpected',
     fallback: 'Something went wrong',
@@ -84,8 +95,6 @@ sealed class OverlayMessageKeys {
     'overlay.theme.dark_enabled',
     fallback: 'Dark mode enabled',
   );
-
-  ///
 }
 
 bool _mapEquals(Map<String, String> a, Map<String, String> b) {

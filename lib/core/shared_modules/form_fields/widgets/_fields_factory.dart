@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../constants/_app_constants.dart';
-import '../../../constants/app_strings.dart';
-import '../../../constants/app_keys.dart';
+import '../../../shared_presentation/constants/_app_constants.dart';
+import '../../localization/app_strings.dart';
+import '../../../shared_presentation/constants/app_keys.dart';
 import 'app_text_field.dart';
 
 /// 🔠 Supported input types for signup & login forms

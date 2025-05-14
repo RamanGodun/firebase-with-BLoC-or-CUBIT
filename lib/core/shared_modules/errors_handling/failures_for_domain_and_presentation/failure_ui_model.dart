@@ -8,10 +8,12 @@ final class FailureUIModel {
   final String fallbackMessage;
   final String? translationKey;
   final String? formattedCode;
+  final String localizedMessage;
   final IconData icon;
 
   const FailureUIModel({
     required this.fallbackMessage,
+    required this.localizedMessage,
     required this.icon,
     this.translationKey,
     this.formattedCode,

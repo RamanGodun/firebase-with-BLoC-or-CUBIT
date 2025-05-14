@@ -46,6 +46,7 @@ class AppBanner extends StatelessWidget {
                     color: context.colorScheme.primary,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
+                    isTextOnFewStrings: true,
                   ),
                 ),
               ],

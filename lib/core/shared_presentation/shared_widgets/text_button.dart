@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/constants/_app_constants.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/constants/_app_constants.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'text_widget.dart';

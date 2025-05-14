@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../../app_config/bootstrap/di_container.dart';
-import '../../errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
-import '../overlay_dispatcher/conflicts_strategy/conflicts_strategy.dart';
-import '../presentation/overlay_entries/_overlay_entries.dart';
-import '../presentation/overlay_presets/overlay_presets.dart';
-import '../overlay_dispatcher/overlay_dispatcher_contract.dart';
-import 'overlay_message_key.dart';
+import '../../app_config/bootstrap/di_container.dart';
+import '../errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
+import 'overlay_dispatcher/conflicts_strategy/conflicts_strategy.dart';
+import 'presentation/overlay_entries/_overlay_entries.dart';
+import 'presentation/overlay_presets/overlay_presets.dart';
+import 'overlay_dispatcher/overlay_dispatcher_contract.dart';
+import '../localization/overlay_message_key.dart';
 
 /// 🎯 [OverlayContextX] — Unified extension for overlay DSL and dispatcher access
 /// ✅ Use `context.showSnackbar(...)` / `context.showBanner(...)` directly
@@ -35,11 +35,12 @@ extension OverlayContextX on BuildContext {
   void showBanner({
     required OverlayMessageKey key,
     required IconData icon,
+    String? customMessage, // 🆕
     OverlayUIPresets? preset,
     bool isError = false,
     bool isDismissible = true,
   }) {
-    final message = key.localize(this);
+    final message = customMessage ?? key.localize(this);
     final entry = BannerOverlayEntry(
       message,
       key,

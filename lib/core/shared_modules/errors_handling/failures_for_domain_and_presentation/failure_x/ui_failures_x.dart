@@ -1,5 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_x/failure_diagnostics_x.dart';
 import 'package:flutter/material.dart';
+import '../../../localization/localizer.dart';
+import '../../../loggers/_app_error_logger.dart';
 import '../enums.dart';
 import '../failure_for_domain.dart';
 import '../../utils/consumable.dart';
@@ -9,33 +11,44 @@ import '../failure_ui_model.dart';
 extension FailureToUIModelX on Failure {
   ///
   FailureUIModel toUIModel() {
+    final resolvedText = translationKey != null
+        ? AppLocalizer.t(translationKey!, fallback: message)
+        : message;
+
+    // 🪵 Log missing translation keys centrally
+    if (translationKey != null && resolvedText == message) {
+      AppErrorLogger.logFailure(
+        this,
+        StackTrace.current,
+      );
+    }
+
     return FailureUIModel(
       fallbackMessage: message,
       translationKey: translationKey,
       formattedCode: safeCode,
       icon: _resolveIcon(),
+      localizedMessage: resolvedText,
     );
   }
 
   /// 🖼️ Internal: Icon depending on failure type
   IconData _resolveIcon() => switch (this) {
-    ApiFailure() => Icons.cloud_off,
-    FirebaseFailure() => Icons.fireplace,
-    UseCaseFailure() => Icons.settings,
-    GenericFailure(:final plugin) => switch (plugin) {
-      ErrorPlugin.httpClient => Icons.wifi_off,
-      ErrorPlugin.firebase => Icons.fire_extinguisher,
-      ErrorPlugin.useCase => Icons.build,
-      _ => Icons.error_outline,
-    },
-    UnauthorizedFailure() => Icons.lock,
-    NetworkFailure() => Icons.signal_wifi_connected_no_internet_4,
-    CacheFailure() => Icons.sd_storage,
-    _ => Icons.error_outline,
-  };
+        ApiFailure() => Icons.cloud_off,
+        FirebaseFailure() => Icons.fireplace,
+        UseCaseFailure() => Icons.settings,
+        GenericFailure(:final plugin) => switch (plugin) {
+            ErrorPlugin.httpClient => Icons.wifi_off,
+            ErrorPlugin.firebase => Icons.fire_extinguisher,
+            ErrorPlugin.useCase => Icons.build,
+            _ => Icons.error_outline,
+          },
+        UnauthorizedFailure() => Icons.lock,
+        NetworkFailure() => Icons.signal_wifi_connected_no_internet_4,
+        CacheFailure() => Icons.sd_storage,
+        _ => Icons.error_outline,
+      };
 
   /// 🎯 One-shot wrapper for state management
   Consumable<FailureUIModel> asConsumableUIModel() => Consumable(toUIModel());
-
-  ///
 }

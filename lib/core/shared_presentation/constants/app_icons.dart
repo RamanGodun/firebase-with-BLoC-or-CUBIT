@@ -20,6 +20,10 @@ final class AppIcons {
   static const IconData name = Icons.account_box;
   static const IconData password = Icons.lock;
   static const IconData confirmPassword = Icons.lock_outline;
+  // 🌐 Language toggle icons
+  static const IconData languageEn = Icons.language;
+  static const IconData languageUk = Icons.g_translate;
+  static const IconData language = Icons.language;
 
   ///
 }

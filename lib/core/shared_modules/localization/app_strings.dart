@@ -1,5 +1,5 @@
 /// * 📄[AppStrings] centralized place for all app text constants.
-final class AppStrings {
+abstract final class AppStrings {
   const AppStrings._();
 
   ///
@@ -75,6 +75,18 @@ final class AppStrings {
   /// 🖼 Assets Paths
   // ────────────────────────────────────────────────────────────────────
   static const String blocLogoPath = 'assets/images/bloc_logo_full.png';
+
+  // ─────────────────────────────────────────────
+  // * 🌍 Language Switch
+  // ─────────────────────────────────────────────
+  static const String languageSwitchToUa = 'Switch to Ukrainian';
+  static const String languageSwitchToEn = 'Switch to English';
+
+  static const String languageSwitchedToUa =
+      'Language switched to 🇺🇦 Ukrainian';
+  static const String languageSwitchedToEn =
+      'Language switched to 🇬🇧 English';
+
 
   /// ────────────────────────────────────────────────────────────────────
   /// * 🔍 OTHERS

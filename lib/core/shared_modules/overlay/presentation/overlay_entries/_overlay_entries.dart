@@ -6,7 +6,7 @@ import '../widgets/app_banner.dart';
 import '../widgets/app_dialog.dart';
 import '../widgets/app_loader.dart';
 import '../widgets/app_snackbar.dart';
-import '../../core/overlay_message_key.dart';
+import '../../../localization/overlay_message_key.dart';
 import '../widgets/custom_overlay.dart';
 
 part 'custom_overlay_entry.dart';

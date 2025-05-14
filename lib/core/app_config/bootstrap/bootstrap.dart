@@ -5,6 +5,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
 import 'package:path_provider/path_provider.dart';
+import '../../shared_modules/localization/localizer.dart';
 import '../env.dart';
 import '../../shared_modules/loggers/app_bloc_observer.dart';
 
@@ -44,25 +45,30 @@ final class AppBootstrap {
   /// 🌍 Ensures EasyLocalization is initialized before `runApp`
   static Future<void> _initLocalization() async {
     await EasyLocalization.ensureInitialized();
+    AppLocalizer.init(
+      resolver: (key) => key.tr(),
+    ); // ? when app with localization
   }
 
-  /// 🔥 Initializes Firebase SDK (core only — used by all Firebase services)
-  static Future<void> _initFirebase() async {
-    await Firebase.initializeApp();
-  }
+  // AppLocalizer.init(resolver: (key) => key); // ? when app without localization
+}
 
-  /// 💾 Configures persistent local storage (HydratedBloc)
-  static Future<void> _initHydratedStorage() async {
-    final storage = await HydratedStorage.build(
-      storageDirectory:
-          kIsWeb
-              ? HydratedStorageDirectory.web
-              : HydratedStorageDirectory(
-                (await getApplicationDocumentsDirectory()).path,
-              ),
-    );
-    HydratedBloc.storage = storage;
-  }
+/// 🔥 Initializes Firebase SDK (core only — used by all Firebase services)
+Future<void> _initFirebase() async {
+  await Firebase.initializeApp();
+}
+
+/// 💾 Configures persistent local storage (HydratedBloc)
+Future<void> _initHydratedStorage() async {
+  final storage = await HydratedStorage.build(
+    storageDirectory:
+        kIsWeb
+            ? HydratedStorageDirectory.web
+            : HydratedStorageDirectory(
+              (await getApplicationDocumentsDirectory()).path,
+            ),
+  );
+  HydratedBloc.storage = storage;
 
   ///
 }
