@@ -32,6 +32,7 @@ final class AppSnackbarWidget extends StatelessWidget {
                     message,
                     TextType.bodyMedium,
                     color: Colors.white,
+                    isTextOnFewStrings: true,
                   ),
                 ),
               ],

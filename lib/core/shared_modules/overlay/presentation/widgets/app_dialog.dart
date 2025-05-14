@@ -1,5 +1,7 @@
+import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../../shared_presentation/constants/_app_constants.dart';
 import '../../../../shared_presentation/shared_widgets/text_widget.dart';
 import '../overlay_presets/preset_props.dart';
 
@@ -36,15 +38,25 @@ class AppDialog extends StatelessWidget {
 
     if (platform == TargetPlatform.iOS || platform == TargetPlatform.macOS) {
       return CupertinoAlertDialog(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (icon != null) Icon(icon, size: 28),
-            if (icon != null) const SizedBox(height: 4),
-            TextWidget(title, TextType.titleMedium),
-          ],
+        title:
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (icon != null)
+                  Icon(
+                    icon,
+                    size: 28,
+                    color: presetProps?.color ?? AppColors.forErrors,
+                  ),
+                if (icon != null) const SizedBox(height: 4),
+                TextWidget(title, TextType.titleMedium),
+              ],
+            ).centered(),
+        content: TextWidget(
+          content,
+          TextType.bodyMedium,
+          isTextOnFewStrings: true,
         ),
-        content: TextWidget(content, TextType.bodyMedium),
         actions: [
           CupertinoDialogAction(onPressed: onCancel, child: Text(cancelText)),
           CupertinoDialogAction(

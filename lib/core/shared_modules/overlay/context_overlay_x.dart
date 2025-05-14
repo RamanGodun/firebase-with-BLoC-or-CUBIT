@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../app_config/bootstrap/di_container.dart';
 import '../errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
-import '../localization/keys/translation_factory.dart';
 import 'overlay_dispatcher/conflicts_strategy/conflicts_strategy.dart';
 import 'presentation/overlay_entries/_overlay_entries.dart';
 import 'presentation/overlay_presets/overlay_presets.dart';
-import 'overlay_dispatcher/overlay_dispatcher_contract.dart';
-import '../localization/keys/translation_key_contract.dart';
+import 'overlay_dispatcher/overlay_dispatcher_interface.dart';
 
 /// 🎯 [OverlayContextX] — Unified extension for overlay DSL and dispatcher access
 /// ✅ Use `context.showSnackbar(...)` / `context.showBanner(...)` directly
@@ -34,17 +32,14 @@ extension OverlayContextX on BuildContext {
 
   /// 🪧 Shows a platform-aware banner (iOS/Android) using optional preset
   void showBanner({
-    required TranslationKey key,
-    required IconData icon,
-    String? customMessage,
-    OverlayUIPresets? preset,
+    required String message,
+    IconData? icon,
+    OverlayUIPresets preset = const OverlayInfoUIPreset(),
     bool isError = false,
     bool isDismissible = true,
   }) {
-    final message = customMessage ?? key.localize(this);
     final entry = BannerOverlayEntry(
       message,
-      key,
       preset: preset,
       isError: isError,
       icon: icon,
@@ -59,7 +54,6 @@ extension OverlayContextX on BuildContext {
   /// 🍞 Shows a platform-aware snackbar (iOS/Android) using optional preset
   void showSnackbar({
     required String message,
-    TranslationKey? messageKey,
     OverlayUIPresets preset = const OverlayInfoUIPreset(),
     bool isError = false,
     IconData? icon,
@@ -67,7 +61,6 @@ extension OverlayContextX on BuildContext {
   }) {
     final entry = SnackbarOverlayEntry(
       message,
-      messageKey: messageKey,
       preset: preset,
       isError: isError,
       icon: icon,
@@ -87,7 +80,7 @@ extension OverlayContextX on BuildContext {
     String? cancelText,
     VoidCallback? onConfirm,
     VoidCallback? onCancel,
-    OverlayUIPresets? preset,
+    OverlayUIPresets preset = const OverlayInfoUIPreset(),
     bool isError = false,
     bool isDismissible = true,
   }) {
@@ -116,24 +109,12 @@ extension OverlayContextX on BuildContext {
     OverlayUIPresets preset = const OverlayErrorUIPreset(),
     bool isDismissible = true,
   }) {
-    final key =
-        model.translationKey == null
-            ? null
-            : TranslatableFactory.of(
-              model.translationKey!,
-              fallback: model.fallbackMessage,
-            );
-
+    ///
     switch (showAs) {
       //
       case ShowErrorAs.banner:
         showBanner(
-          key:
-              key ??
-              TranslatableFactory.of(
-                'error.unknown',
-                fallback: model.fallbackMessage,
-              ),
+          message: model.localizedMessage,
           icon: model.icon,
           preset: preset,
           isError: true,
@@ -143,8 +124,7 @@ extension OverlayContextX on BuildContext {
       //
       case ShowErrorAs.snackbar:
         showSnackbar(
-          message: model.fallbackMessage,
-          messageKey: key,
+          message: model.localizedMessage,
           preset: preset,
           isError: true,
           icon: model.icon,
@@ -154,9 +134,10 @@ extension OverlayContextX on BuildContext {
       //
       case ShowErrorAs.dialog:
         showDialog(
-          title: 'Error occurred',
-          content: key?.localize(this) ?? model.fallbackMessage,
-          confirmText: 'Ok',
+          title:
+              'Error occurred', // 🎯 якщо потрібно локалізувати — через ключ `FailureKey.dialogTitleError`
+          content: model.localizedMessage,
+          confirmText: 'OK',
           cancelText: 'Cancel',
           preset: preset,
           isError: true,
@@ -185,7 +166,7 @@ extension OverlayContextX on BuildContext {
     overlayDispatcher.enqueueRequest(this, entry);
   }
 
-  ///
+  //
 }
 
 ///

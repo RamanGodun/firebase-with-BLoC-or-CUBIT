@@ -25,8 +25,7 @@ final class LoaderOverlayEntry extends OverlayUIEntry {
   );
 
   @override
-  TranslationKey? get messageKey => null;
-
-  @override
   Widget build(BuildContext context) => AppLoader(platform: context.platform);
+
+  ///
 }

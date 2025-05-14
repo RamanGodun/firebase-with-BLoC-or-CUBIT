@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart' show BuildContext;
 import '../core/translation_resolver.dart';
-import 'translation_key_contract.dart';
+import 'translation_key_interface.dart';
 
 final class TranslatableFactory {
   /// ✅ Static translation key with fallback only
-  static TranslationKey simple(String key, {required String fallback}) =>
+  static ITranslationKey simple(String key, {required String fallback}) =>
       SimpleTranslatable(key, fallback: fallback);
 
   /// ✅ Parameterized translation key with args
-  static TranslationKey param(
+  static ITranslationKey param(
     String key, {
     required String fallback,
     required Map<String, String> args,
   }) => ParameterizedTranslatable(key, fallback: fallback, params: args);
 
   /// 🧩 Universal shortcut based on `args` presence
-  static TranslationKey of(
+  static ITranslationKey of(
     String key, {
     required String fallback,
     Map<String, String>? args,
@@ -30,7 +30,7 @@ final class TranslatableFactory {
 }
 
 /// 📌 Parameterized translation key holder
-final class ParameterizedTranslatable implements TranslationKey {
+final class ParameterizedTranslatable implements ITranslationKey {
   @override
   final String translationKey;
 
@@ -57,7 +57,7 @@ final class ParameterizedTranslatable implements TranslationKey {
 }
 
 /// 📌 Static translation key holder
-final class SimpleTranslatable implements TranslationKey {
+final class SimpleTranslatable implements ITranslationKey {
   @override
   final String translationKey;
 

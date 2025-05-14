@@ -33,4 +33,6 @@ final class CustomOverlayEntry extends OverlayUIEntry {
   @override
   Widget build(BuildContext context) =>
       AppCustomOverlay(platform: context.platform, child: child);
+
+  ///
 }

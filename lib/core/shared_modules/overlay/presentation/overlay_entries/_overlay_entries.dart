@@ -6,7 +6,6 @@ import '../widgets/app_banner.dart';
 import '../widgets/app_dialog.dart';
 import '../widgets/app_loader.dart';
 import '../widgets/app_snackbar.dart';
-import '../../../localization/keys/translation_key_contract.dart';
 import '../widgets/custom_overlay.dart';
 
 part 'custom_overlay_entry.dart';
@@ -24,9 +23,6 @@ sealed class OverlayUIEntry {
 
   /// 🕐 How long the overlay stays on screen (if not dismissed manually)
   Duration get duration;
-
-  /// 🏷️ Optional localization/translation key (used for deduplication or i18n)
-  TranslationKey? get messageKey => null;
 
   /// ⚖️ Conflict strategy (used to resolve priority/collision in queue)
   OverlayConflictStrategy get strategy;

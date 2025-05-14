@@ -38,12 +38,14 @@ final class ThemeToggleIcon extends StatelessWidget {
   void _toggleTheme(BuildContext context, bool isDarkMode) {
     context.read<AppThemeCubit>().toggle();
 
+    final message =
+        isDarkMode
+            ? AppTranslationKeys.lightModeEnabled.localize(context)
+            : AppTranslationKeys.darkModeEnabled.localize(context);
+
     // 🌟 Show overlay with correct message and icon
     context.showBanner(
-      key:
-          isDarkMode
-              ? AppTranslationKeys.lightModeEnabled
-              : AppTranslationKeys.darkModeEnabled,
+      message: message,
       icon: isDarkMode ? AppIcons.lightMode : AppIcons.darkMode,
     );
     //

@@ -53,8 +53,8 @@ final class _SignInListenerWrapper extends StatelessWidget {
         if (model != null) {
           context.showError(
             model,
-            showAs: ShowErrorAs.banner,
-            preset: const OverlayInfoUIPreset(),
+            showAs: ShowErrorAs.dialog,
+            preset: const OverlayErrorUIPreset(),
           );
           context.read<SignInCubit>()
             ..resetStatus()

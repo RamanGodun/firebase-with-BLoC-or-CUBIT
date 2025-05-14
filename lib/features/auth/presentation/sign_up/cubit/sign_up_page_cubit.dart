@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_x/ui_failures_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_x/to_ui_failures_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/consumable.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_bloc/flutter_bloc.dart';

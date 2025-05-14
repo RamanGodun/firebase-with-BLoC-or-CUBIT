@@ -1,12 +1,11 @@
 import '../../presentation/overlay_entries/_overlay_entries.dart';
 import 'conflicts_strategy.dart';
 
-/// Extracted logic that determines whether to replace or skip an overlay based on its strategy
-
+/// 🎯 Logic to determine overlay conflict resolution strategy
 final class OverlayConflictResolver {
   const OverlayConflictResolver._();
 
-  /// 🤝 Determines if [next] request is allowed to replace [current] request
+  /// 🤝 Should [next] replace the [current] active overlay?
   static bool shouldReplaceCurrent(
     OverlayUIEntry next,
     OverlayUIEntry current,
@@ -15,21 +14,26 @@ final class OverlayConflictResolver {
     final c = current.strategy;
 
     return switch (n.policy) {
+      //
       OverlayReplacePolicy.forceReplace => true,
+
+      //
       OverlayReplacePolicy.forceIfSameCategory => n.category == c.category,
+
+      //
       OverlayReplacePolicy.forceIfLowerPriority =>
         n.priority.index > c.priority.index,
+
+      //
       OverlayReplacePolicy.dropIfSameType =>
-        next.runtimeType == current.runtimeType &&
-            next.messageKey != null &&
-            next.messageKey == current.messageKey,
+        next.runtimeType == current.runtimeType,
+
+      //
       OverlayReplacePolicy.waitQueue => false,
     };
   }
 
-  /// ⏳ Used to determine if request should be queued instead of dropped
-  static bool shouldWait(OverlayUIEntry next) =>
-      next.strategy.policy == OverlayReplacePolicy.waitQueue;
-
-  ///
+  /// ⏳ Whether to wait or silently ignore the request
+  static bool shouldWait(OverlayUIEntry entry) =>
+      entry.strategy.policy == OverlayReplacePolicy.waitQueue;
 }

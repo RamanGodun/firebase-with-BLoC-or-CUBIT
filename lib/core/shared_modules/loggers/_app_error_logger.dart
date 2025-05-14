@@ -48,16 +48,28 @@ abstract final class AppErrorLogger {
 
   /// 🪧 Logs when overlay is shown.
   static void logOverlayShow(OverlayUIEntry request) {
-    final key = request.messageKey;
-    final type = request.runtimeType;
-    debugPrint('[Overlay][$type] Show: ${key?.translationKey ?? "<no key>"}');
+    final type = request.runtimeType.toString();
+    final strategy = request.strategy;
+    debugPrint(
+      '[Overlay][$type] Show → '
+      'duration: ${request.duration.inMilliseconds}ms, '
+      'priority: ${strategy.priority.name}, '
+      'category: ${strategy.category.name}, '
+      'policy: ${strategy.policy.name}, '
+      'tapThrough: ${request.tapPassthroughEnabled}',
+    );
   }
 
   /// ❌ Logs when overlay is dismissed.
   static void logOverlayDismiss(OverlayUIEntry? request) {
-    final key = request?.messageKey?.translationKey ?? '<no key>';
-    final type = request?.runtimeType ?? 'Unknown';
-    debugPrint('[Overlay][$type] Dismissed: $key');
+    final type = request?.runtimeType.toString() ?? 'Unknown';
+    final strategy = request?.strategy;
+    debugPrint(
+      '[Overlay][$type] Dismissed → '
+      'priority: ${strategy?.priority.name ?? 'n/a'}, '
+      'category: ${strategy?.category.name ?? 'n/a'}, '
+      'policy: ${strategy?.policy.name ?? 'n/a'}',
+    );
   }
 
   ///

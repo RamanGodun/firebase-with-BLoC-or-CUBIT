@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../core/translation_resolver.dart';
 
 /// 🌍 Interface for any translatable message key
-abstract interface class TranslationKey {
+abstract interface class ITranslationKey {
   String get translationKey;
   String get fallback;
   Map<String, String> get params;

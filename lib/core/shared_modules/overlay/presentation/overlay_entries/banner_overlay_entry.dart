@@ -3,8 +3,6 @@ part of '_overlay_entries.dart';
 /// 🪧 [BannerOverlayEntry] — Unified platform-aware banner overlay entry
 final class BannerOverlayEntry extends OverlayUIEntry {
   final String message;
-  @override
-  final TranslationKey? messageKey;
   final OverlayUIPresets? preset;
   final bool isError;
   final IconData? icon;
@@ -12,8 +10,7 @@ final class BannerOverlayEntry extends OverlayUIEntry {
   final OverlayDismissPolicy dismissPolicy;
 
   const BannerOverlayEntry(
-    this.message,
-    this.messageKey, {
+    this.message, {
     this.preset,
     this.isError = false,
     this.icon,

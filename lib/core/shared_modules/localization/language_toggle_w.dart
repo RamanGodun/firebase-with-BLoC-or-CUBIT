@@ -50,11 +50,7 @@ final class _LanguageToggleIconState extends State<LanguageToggleIcon> {
 
     final localizedMessage = key.localize(context);
 
-    context.showBanner(
-      key: key,
-      icon: AppIcons.language,
-      customMessage: localizedMessage,
-    );
+    context.showBanner(message: localizedMessage, icon: AppIcons.language);
   }
 
   ///

@@ -8,8 +8,6 @@ part of '_overlay_entries.dart';
 
 final class SnackbarOverlayEntry extends OverlayUIEntry {
   final String message;
-  @override
-  final TranslationKey? messageKey;
   final OverlayUIPresets preset;
   final bool isError;
   final IconData? icon;
@@ -18,7 +16,6 @@ final class SnackbarOverlayEntry extends OverlayUIEntry {
 
   const SnackbarOverlayEntry(
     this.message, {
-    this.messageKey,
     this.preset = const OverlayInfoUIPreset(),
     this.isError = false,
     this.icon,
