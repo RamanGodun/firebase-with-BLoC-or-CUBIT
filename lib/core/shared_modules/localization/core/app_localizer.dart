@@ -18,7 +18,7 @@ abstract final class AppLocalizer {
   static String t(String key, {String? fallback}) {
     final value = _resolver?.call(key);
     if (value == null || value == key) {
-      AppErrorLogger.logStringFallback(key, fallback ?? key);
+      AppLogger.logStringFallback(key, fallback ?? key);
       return fallback ?? key;
     }
     return (value == key) ? (fallback ?? key) : value;

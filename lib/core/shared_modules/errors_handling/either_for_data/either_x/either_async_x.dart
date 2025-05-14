@@ -23,7 +23,7 @@ extension ResultFutureX<T> on Future<Either<Failure, T>> {
     final result = await this;
     return result.fold(
       (f) async {
-        AppErrorLogger.logFailure(f, stack);
+        AppLogger.logFailure(f, stack);
         await onFailure(f);
       },
       (r) async {

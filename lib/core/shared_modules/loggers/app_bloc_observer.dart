@@ -52,7 +52,7 @@ final class AppBlocObserver extends BlocObserver {
   /// ❌ Called when an error occurs inside BLoC/Cubit.
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    AppErrorLogger.logBlocError(
+    AppLogger.logBlocError(
       error: error,
       stackTrace: stackTrace,
       origin: bloc.runtimeType.toString(),

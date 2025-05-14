@@ -17,4 +17,9 @@ abstract interface class IOverlayDispatcher {
 
   /// 🧼 Clears all overlay requests associated with a given [context]
   void clearByContext(BuildContext context);
+
+  /// Whether current overlay can be dismissed externally.
+  bool get canBeDismissedExternally;
+
+  ///
 }

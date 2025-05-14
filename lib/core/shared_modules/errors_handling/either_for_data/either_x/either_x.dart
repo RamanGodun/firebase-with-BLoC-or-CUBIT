@@ -19,7 +19,7 @@ extension ResultX<T> on Either<Failure, T> {
   }) {
     fold(
       (f) {
-        AppErrorLogger.logFailure(f, stack);
+        AppLogger.logFailure(f, stack);
         onFailure(f);
       },
       (r) {

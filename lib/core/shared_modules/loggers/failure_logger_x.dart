@@ -13,7 +13,7 @@ import '_app_error_logger.dart';
 ///  [FailureLogger] — Logs [Failure] using AppErrorLogger
 extension FailureLogger on Failure {
   void log([StackTrace? stackTrace]) {
-    AppErrorLogger.logFailure(this, stackTrace);
+    AppLogger.logFailure(this, stackTrace);
   }
 }
 
@@ -22,7 +22,7 @@ final class RawErrorLogger {
   const RawErrorLogger._();
 
   static void log(Object error, [StackTrace? stackTrace]) {
-    AppErrorLogger.logException(error, stackTrace);
+    AppLogger.logException(error, stackTrace);
   }
 }
 

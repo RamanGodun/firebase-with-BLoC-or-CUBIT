@@ -7,9 +7,12 @@ import '../conflicts_strategy/conflict_resolver.dart';
 import '../conflicts_strategy/conflicts_strategy.dart';
 import 'overlay_dispatcher_interface.dart';
 
-// ✅ REFACTORED OverlayDispatcher with full conflict resolution logic
-// ✅ Prevents duplicates
-// ✅ Enforces Open/Closed Principle (no dispatcher logic changes needed)
+/// 🧠 [OverlayDispatcher] – Handles overlay lifecycle:
+/// - Queueing requests
+/// - Resolving conflicts
+/// - Managing overlay insertion & dismissal
+/// - Centralized logging
+///----------------------------------------------------------------
 
 final class OverlayDispatcher implements IOverlayDispatcher {
   OverlayDispatcher._();
@@ -21,55 +24,56 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   OverlayUIEntry? _activeRequest;
   bool _isProcessing = false;
 
+  /// 🟢 Whether the current overlay can be dismissed externally.
+  @override
   bool get canBeDismissedExternally =>
       _activeRequest?.dismissPolicy == OverlayDismissPolicy.dismissible;
 
+  /// 📥 Adds a new request to the queue, resolves conflicts if needed.
   @override
   void enqueueRequest(BuildContext context, OverlayUIEntry request) {
-    AppErrorLogger.logOverlayShow(request);
+    debugPrint(
+      '[🟡 enqueueRequest] type=${request.runtimeType}, strategy=${request.strategy.policy}',
+    );
+    AppLogger.logOverlayShow(request);
 
     if (_activeRequest != null) {
+      debugPrint('[🟠 Active exists → ${_activeRequest.runtimeType}]');
+
       final shouldReplace = OverlayConflictResolver.shouldReplaceCurrent(
         request,
         _activeRequest!,
       );
-
       final isSameType = request.runtimeType == _activeRequest.runtimeType;
 
       if (request.strategy.policy == OverlayReplacePolicy.dropIfSameType &&
           isSameType) {
+        debugPrint('[🚫 Dropped: dropIfSameType]');
         return;
       }
 
       if (shouldReplace) {
+        debugPrint('[♻️ Replacing current]');
         dismissCurrent();
       }
-
-      _queue.removeWhere(
-        (item) =>
-            item.request.runtimeType == request.runtimeType &&
-            item.request.strategy.category == request.strategy.category,
-      );
-
-      _queue.add(_OverlayQueueItem(context: context, request: request));
-      _tryProcessQueue();
-    } else {
-      _queue.add(_OverlayQueueItem(context: context, request: request));
-      _tryProcessQueue();
     }
+
+    _removeDuplicateInQueue(request);
+    _queue.add(_OverlayQueueItem(context: context, request: request));
+    debugPrint('[➕ Added to queue] length = ${_queue.length}');
+    _tryProcessQueue();
   }
 
+  /// ▶️ Processes the first item in queue if no active entry.
   void _tryProcessQueue() {
     if (_isProcessing || _queue.isEmpty) return;
     _isProcessing = true;
 
     final item = _queue.removeFirst();
     _activeRequest = item.request;
-    final context = item.context;
+    final overlay = Overlay.of(item.context, rootOverlay: true);
 
-    final overlay = Overlay.of(context, rootOverlay: true);
-
-    final entry = OverlayEntry(
+    _activeEntry = OverlayEntry(
       builder:
           (ctx) => TapThroughOverlayBarrier(
             enablePassthrough: item.request.tapPassthroughEnabled,
@@ -85,12 +89,13 @@ final class OverlayDispatcher implements IOverlayDispatcher {
           ),
     );
 
-    _activeEntry = entry;
+    overlay.insert(_activeEntry!);
+    AppLogger.logOverlayInserted(_activeRequest);
+    debugPrint('[✅ Overlay inserted]');
 
-    overlay.insert(entry); // ✅ синхронна вставка
-
-    if (item.request.duration > Duration.zero) {
-      Future.delayed(item.request.duration, () async {
+    final delay = item.request.duration;
+    if (delay > Duration.zero) {
+      Future.delayed(delay, () async {
         await _dismissEntry();
         _isProcessing = false;
         _tryProcessQueue();
@@ -98,35 +103,45 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     } else {
       _isProcessing = false;
     }
-
-    debugPrint('[✅ Overlay inserted]');
   }
 
-  ///
+  /// ❌ Dismisses current overlay and clears queue if needed.
   @override
   Future<void> dismissCurrent({bool clearQueue = false}) async {
     await _dismissEntry();
     if (clearQueue) _queue.clear();
   }
 
+  /// 🧹 Internal: removes overlay from screen and resets state.
   Future<void> _dismissEntry() async {
     _activeEntry?.remove();
     _activeRequest?.onDismiss?.call();
-    AppErrorLogger.logOverlayDismiss(_activeRequest);
+    AppLogger.logOverlayDismiss(_activeRequest);
     _activeEntry = null;
     _activeRequest = null;
   }
 
+  /// 🔁 Removes pending duplicates by type & category to avoid stacking
+  void _removeDuplicateInQueue(OverlayUIEntry request) {
+    _queue.removeWhere(
+      (item) =>
+          item.request.runtimeType == request.runtimeType &&
+          item.request.strategy.category == request.strategy.category,
+    );
+  }
+
+  /// ❌ Clears entire queue.
   @override
   void clearAll() => _queue.clear();
 
+  /// ❌ Clears requests in queue for a specific context.
   @override
   void clearByContext(BuildContext context) {
     _queue.removeWhere((item) => item.context == context);
   }
 }
 
-///
+/// 📦 Pairs overlay request with its context
 final class _OverlayQueueItem {
   final BuildContext context;
   final OverlayUIEntry request;

@@ -57,7 +57,7 @@ final class ParameterizedTranslatable implements ITranslationKey {
     );
 
     if (translated == fallback) {
-      AppErrorLogger.logMissingTranslation(this);
+      AppLogger.logMissingTranslation(this);
     }
 
     return translated;
@@ -93,7 +93,7 @@ final class SimpleTranslatable implements ITranslationKey {
     );
 
     if (translated == fallback) {
-      AppErrorLogger.logMissingTranslation(this);
+      AppLogger.logMissingTranslation(this);
     }
 
     return translated;

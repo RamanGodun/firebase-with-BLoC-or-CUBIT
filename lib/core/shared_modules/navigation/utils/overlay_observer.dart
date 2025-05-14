@@ -1,10 +1,12 @@
 import 'package:flutter/widgets.dart';
 import '../../../app_config/bootstrap/di_container.dart';
 import '../../overlay/core/overlay_dispatcher/overlay_dispatcher_interface.dart';
-// ✅ Goal: Automatically clear active overlays when navigating between screens
 
+// ✅ Goal: Automatically clear active overlays when navigating between screens
 /// 🧩 [OverlayNavigatorObserver] — Observes navigation events to clear overlays
 /// 📌 Use in GoRouter via `navigatorBuilder`, or wrap `MaterialApp.router`
+///----------------------------------------------------------------
+
 final class OverlayNavigatorObserver extends NavigatorObserver {
   @override
   void didPush(Route route, Route? previousRoute) {

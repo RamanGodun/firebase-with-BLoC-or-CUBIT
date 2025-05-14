@@ -10,7 +10,7 @@ import '../../failures_for_domain_and_presentation/failure_for_domain.dart';
 extension ResultLoggerExt<T> on Either<Failure, T> {
   /// 🪵 Logs failure if result is Left
   Either<Failure, T> log([StackTrace? stack]) {
-    if (isLeft) AppErrorLogger.logFailure(leftOrNull!, stack);
+    if (isLeft) AppLogger.logFailure(leftOrNull!, stack);
     return this;
   }
 
@@ -34,7 +34,7 @@ extension FutureResultLoggerExt<T> on Future<Either<Failure, T>> {
   /// 🪵 Logs failure if result is Left
   Future<Either<Failure, T>> log([StackTrace? stack]) async {
     final result = await this;
-    if (result.isLeft) AppErrorLogger.logFailure(result.leftOrNull!, stack);
+    if (result.isLeft) AppLogger.logFailure(result.leftOrNull!, stack);
     return result;
   }
 

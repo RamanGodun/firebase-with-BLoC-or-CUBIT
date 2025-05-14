@@ -17,7 +17,7 @@ extension FailureToUIModelX on Failure {
             : message;
 
     if (translationKey != null && resolvedText == message) {
-      AppErrorLogger.logFailure(this, StackTrace.current);
+      AppLogger.logFailure(this, StackTrace.current);
     }
 
     return FailureUIModel(

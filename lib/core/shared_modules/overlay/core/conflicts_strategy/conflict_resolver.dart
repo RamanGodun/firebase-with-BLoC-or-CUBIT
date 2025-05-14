@@ -2,6 +2,8 @@ import '../../presentation/overlay_entries/_overlay_entries.dart';
 import 'conflicts_strategy.dart';
 
 /// 🎯 Logic to determine overlay conflict resolution strategy
+///----------------------------------------------------------------
+
 final class OverlayConflictResolver {
   const OverlayConflictResolver._();
 
@@ -16,18 +18,14 @@ final class OverlayConflictResolver {
     return switch (n.policy) {
       //
       OverlayReplacePolicy.forceReplace => true,
-
       //
       OverlayReplacePolicy.forceIfSameCategory => n.category == c.category,
-
       //
       OverlayReplacePolicy.forceIfLowerPriority =>
         n.priority.index > c.priority.index,
-
       //
       OverlayReplacePolicy.dropIfSameType =>
         next.runtimeType == current.runtimeType,
-
       //
       OverlayReplacePolicy.waitQueue => false,
     };
