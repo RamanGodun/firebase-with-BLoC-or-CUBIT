@@ -41,6 +41,7 @@ final class DialogOverlayEntry extends OverlayUIEntry {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('[🧱 AppBannerEntry → build] $content');
     final props = preset?.resolve();
     return AppDialog(
       title: title,

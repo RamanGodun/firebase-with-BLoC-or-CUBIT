@@ -61,6 +61,7 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     }
   }
 
+  ///
   void _tryProcessQueue() {
     if (_isProcessing || _queue.isEmpty) return;
     _isProcessing = true;
@@ -68,6 +69,7 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     final item = _queue.removeFirst();
     _activeRequest = item.request;
     final context = item.context;
+
     final overlay = Overlay.of(context, rootOverlay: true);
 
     final entry = OverlayEntry(
@@ -87,6 +89,8 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     );
 
     _activeEntry = entry;
+
+    /// 🟢 Синхронна вставка (як у робочому коді)
     overlay.insert(entry);
 
     if (item.request.duration > Duration.zero) {
@@ -98,8 +102,11 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     } else {
       _isProcessing = false;
     }
+
+    debugPrint('[✅ Overlay inserted]');
   }
 
+  ///
   @override
   Future<void> dismissCurrent({bool clearQueue = false}) async {
     await _dismissEntry();

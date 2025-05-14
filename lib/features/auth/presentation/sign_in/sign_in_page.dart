@@ -49,11 +49,14 @@ final class _SignInListenerWrapper extends StatelessWidget {
       /// 📣 Show error once and reset failure + status
       listener: (context, state) {
         final model = state.failure?.consume();
+        print('[🔥 showError listener] model: $model');
         if (model != null) {
           context.showError(model, showAs: ShowErrorAs.dialog);
           context.read<SignInCubit>()
             ..resetStatus()
             ..clearFailure();
+        } else {
+          print('[❌ Skipped overlay] Model was already consumed.');
         }
       },
 

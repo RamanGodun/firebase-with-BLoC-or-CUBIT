@@ -30,6 +30,7 @@ final class BannerOverlayEntry extends OverlayUIEntry {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('[🧱 AppBannerEntry → build] $message');
     final props = preset?.resolve() ?? const OverlayInfoUIPreset().resolve();
     return AppBanner(
       message: message,

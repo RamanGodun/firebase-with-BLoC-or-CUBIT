@@ -32,6 +32,7 @@ class AppDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('[🎨 AppDialog Widget → build]');
     final icon = presetProps?.icon;
     final shape = presetProps?.shape;
     final backgroundColor = presetProps?.color;
@@ -85,4 +86,6 @@ class AppDialog extends StatelessWidget {
       ],
     );
   }
+
+  ///
 }
