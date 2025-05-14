@@ -26,10 +26,8 @@ final class OverlayDispatcher implements IOverlayDispatcher {
 
   @override
   void enqueueRequest(BuildContext context, OverlayUIEntry request) {
-    // 🧩 Log enqueue attempt
     AppErrorLogger.logOverlayShow(request);
 
-    // 📌 Handle conflict with current active
     if (_activeRequest != null) {
       final shouldReplace = OverlayConflictResolver.shouldReplaceCurrent(
         request,
@@ -38,18 +36,15 @@ final class OverlayDispatcher implements IOverlayDispatcher {
 
       final isSameType = request.runtimeType == _activeRequest.runtimeType;
 
-      // 🛑 Drop if same type and policy = dropIfSameType
       if (request.strategy.policy == OverlayReplacePolicy.dropIfSameType &&
           isSameType) {
         return;
       }
 
-      // ✅ Replace current if allowed
       if (shouldReplace) {
         dismissCurrent();
       }
 
-      // 📌 Optional: remove same-type from queue to prevent duplicates
       _queue.removeWhere(
         (item) =>
             item.request.runtimeType == request.runtimeType &&
@@ -58,10 +53,12 @@ final class OverlayDispatcher implements IOverlayDispatcher {
 
       _queue.add(_OverlayQueueItem(context: context, request: request));
       _tryProcessQueue();
+    } else {
+      _queue.add(_OverlayQueueItem(context: context, request: request));
+      _tryProcessQueue();
     }
   }
 
-  ///
   void _tryProcessQueue() {
     if (_isProcessing || _queue.isEmpty) return;
     _isProcessing = true;
@@ -90,8 +87,7 @@ final class OverlayDispatcher implements IOverlayDispatcher {
 
     _activeEntry = entry;
 
-    /// 🟢 Синхронна вставка (як у робочому коді)
-    overlay.insert(entry);
+    overlay.insert(entry); // ✅ синхронна вставка
 
     if (item.request.duration > Duration.zero) {
       Future.delayed(item.request.duration, () async {

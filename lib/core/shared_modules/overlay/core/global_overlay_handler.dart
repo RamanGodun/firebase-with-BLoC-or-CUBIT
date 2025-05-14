@@ -33,7 +33,6 @@ final class GlobalOverlayHandler extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       onTap: () async {
         if (dismissKeyboard) context.unfocusKeyboard();
-
         if (dismissOverlay) {
           final dispatcher = di<IOverlayDispatcher>();
           if (dispatcher is OverlayDispatcher &&
