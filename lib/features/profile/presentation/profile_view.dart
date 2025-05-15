@@ -4,7 +4,7 @@ import '../../../core/shared_modules/app_localization/language_toggle_w.dart';
 import '../../../core/shared_presentation/constants/_app_constants.dart'
     show AppSpacing;
 import '../../../core/shared_modules/app_localization/app_strings.dart';
-import '../../../core/shared_presentation/shared_widgets/loading_view.dart';
+import '../../../core/shared_modules/app_overlays/presentation/widgets/loaders.dart';
 import '../../shared/shared_domain/shared_entities/_user.dart';
 import '../../../core/shared_presentation/shared_widgets/custom_app_bar.dart';
 import '../../../core/shared_presentation/shared_widgets/text_widget.dart';
@@ -39,7 +39,7 @@ final class ProfileView extends StatelessWidget {
         builder:
             (context, state) => switch (state) {
               ProfileInitial() => const SizedBox.shrink(),
-              ProfileLoading() => const LoadingView(),
+              ProfileLoading() => const LoaderWidget(),
               ProfileError() => const _ErrorContent(),
               ProfileLoaded(:final user) => _UserProfileCard(user: user),
             },

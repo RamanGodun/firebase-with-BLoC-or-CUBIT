@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../shared_presentation/shared_widgets/text_widget.dart';
 import '../../../../shared_presentation/constants/_app_constants.dart';
 
-part 'overlay_card.dart';
+part 'banner_card.dart';
 
 /// 🎭 [AnimatedBanner] — Animated toast-like widget for lightweight notifications
 /// - ⬇️ Slides in with fade and elastic scale

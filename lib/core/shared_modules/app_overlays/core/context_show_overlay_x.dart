@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../app_config/bootstrap/di_container.dart';
 import '../../app_errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
+import 'conflicts_strategy/conflicts_strategy.dart';
 import 'conflicts_strategy/police_resolver.dart';
 import 'overlay_entries/_overlay_entries.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';
@@ -17,9 +18,12 @@ extension OverlayContextX on BuildContext {
   IOverlayDispatcher get overlayDispatcher => di<IOverlayDispatcher>();
 
   ///
-  /// 🧩 Shows a loading spinner for a given [duration]
-  void showLoader({Duration duration = const Duration(seconds: 2)}) {
-    final entry = LoaderOverlayEntry(duration: duration);
+  /// ⏳ Shows a loader that must be dismissed manually (persistent)
+  void showPersistentLoader() {
+    final entry = const LoaderOverlayEntry(
+      duration: Duration.zero, // 👈 stay until dismiss()
+      dismissPolicy: OverlayDismissPolicy.persistent,
+    );
     overlayDispatcher.enqueueRequest(this, entry);
   }
 
@@ -87,6 +91,22 @@ extension OverlayContextX on BuildContext {
     overlayDispatcher.enqueueRequest(this, entry);
   }
 
+  /// 🧱 Shows any custom widget inside overlay (platform-aware container)
+  void showCustomOverlay({
+    required Widget child,
+    Duration duration = const Duration(seconds: 2),
+    bool isDismissible = true,
+    bool isError = false,
+  }) {
+    final entry = CustomOverlayEntry(
+      child: child,
+      duration: duration,
+      isError: isError,
+      dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
+    );
+    overlayDispatcher.enqueueRequest(this, entry);
+  }
+
   /// 🧠 Handles displaying [FailureUIModel] as banner/snackbar/dialog
   /// 📌 Uses [OverlayUIPresets] and [ShowErrorAs] to configure appearance and behavior
   void showError(
@@ -146,22 +166,6 @@ extension OverlayContextX on BuildContext {
         break;
       //
     }
-  }
-
-  /// 🧱 Shows any custom widget inside overlay (platform-aware container)
-  void showCustomOverlay({
-    required Widget child,
-    Duration duration = const Duration(seconds: 2),
-    bool isDismissible = true,
-    bool isError = false,
-  }) {
-    final entry = CustomOverlayEntry(
-      child: child,
-      duration: duration,
-      isError: isError,
-      dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
-    );
-    overlayDispatcher.enqueueRequest(this, entry);
   }
 
   //

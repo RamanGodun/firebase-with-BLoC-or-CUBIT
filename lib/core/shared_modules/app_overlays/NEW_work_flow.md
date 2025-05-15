@@ -1,128 +1,170 @@
-# 📦 Overlay DSL System — README
+""
 
-A lightweight, extensible, and production-grade DSL-style API for showing UI overlays (Snackbar, Banner, Dialog, Loader) across the app via `BuildContext.overlay`.
+# 🧠 Overlay System Workflow Manual — Production-Grade Architecture
 
----
-
-## 🧭 Purpose
-
-This module provides a clean and intuitive way to display overlay notifications using a **domain-specific language (DSL)** approach. It's designed for:
-
-* 🚀 **Scalability** – easily extendable to support new types (e.g., `Banner`, `CustomWidget`)
-* 🔁 **Reusability** – use across the app consistently
-* 💬 **Localization** – central support for localizing error messages (via `OverlayMessageKey`)
-* ✅ **Error Handling Integration** – works seamlessly with `FailureNotifier`
+This document defines the **overlay rendering system** workflow in the app. It is structured to ensure *single source of truth*, clean architecture, and perfect UX separation between state-driven, side-effect-driven, and user-driven overlays.
 
 ---
 
-## 🔧 DSL Entry Point
+## ✅ Architectural Principles
 
-Every overlay is triggered from context:
+### 🟢 Core Rules:
+
+* 🔄 **State-driven overlays** (e.g. loaders, empty states) are controlled by `Cubit/Bloc` via `BlocBuilder`.
+* 🔒 **Side-effect overlays** (e.g. error dialogs/snackbars) are shown through `BlocListener` + `Dispatcher`.
+* 💬 **User-driven overlays** (e.g. confirmation dialogs, adding data) are shown **manually** via `OverlayService`.
+
+---
+
+## 🗺️ System Layers
+
+### 1. **Dispatcher-based Overlays**
+
+Dispatcher is responsible for queueing, conflict resolution, insertion, and lifecycle management of transient overlays (banners, snackbars, error dialogs, toasts).
+
+**Entry Point:**
 
 ```dart
-context.overlay.snackbar('Operation complete');
-context.overlay.dialog(...);
-context.overlay.loader(...);
-context.overlay.themeBanner(...);
-context.overlay.showBanner(...);
-context.overlay.showBannerWidget(...);
+context.showError(model);
+context.showSnackbar(...);
+context.showBanner(...);
+context.showDialog(...); // via dispatcher
 ```
 
----
+**Core Flow:**
 
-## 🧱 Structure
-
-```dart
-extension OverlayDSL on BuildContext {
-  OverlayController get overlay => OverlayController(this);
-}
-
-final class OverlayController {
-  void snackbar(String message);
-  void dialog({ ... });
-  void loader({ ... });
-  void showBanner({ required OverlayKind kind, required String message });
-  void showBannerWidget(Widget banner);
-  void themeBanner({ required OverlayMessageKey key, required IconData icon });
-}
 ```
+ListenerWrapper → FailureUIModel → context.showError(...) → Dispatcher → OverlayEntry → Render
+```
+
+**Relevant Files:**
+
+* `OverlayDispatcher`
+* `OverlayUIEntry` subclasses (e.g. `DialogOverlayEntry`)
+* `OverlayConflictStrategy`, `OverlayPolicyResolver`
+* `context_show_overlay_x.dart`
 
 ---
 
-## 🧩 OverlayKind
+### 2. **StateManager-driven Overlays (Builders)**
 
-Used to semantically define the style of banner overlays:
+Used to show `loaders`, `empty screens`, or `data content` via `BlocBuilder` or `HookBuilder`.
 
-```dart
-OverlayKind.success
-OverlayKind.error
-OverlayKind.info
-OverlayKind.warning
-OverlayKind.confirm
-```
+**Entry Point:**
 
 ```dart
-context.overlay.showBanner(
-  kind: OverlayKind.error,
-  message: AppStrings.operationFailed.translate(),
+BlocBuilder<ProfileCubit, ProfileState>(
+  builder: (context, state) => switch (state) {
+    ProfileLoading() => LoaderWidget(), // direct widget
+    ...
+  },
 );
 ```
 
+**Key Principle:**
+
+> Loader is not a transient overlay. It’s part of the main layout flow and must live inside the Builder — not via Dispatcher.
+
 ---
 
-## 💬 Localization
+### 3. **Manually Triggered User-Driven Dialogs**
 
-* Regular overlays use `.translate()` from `AppStrings`
-* For error handling, `OverlayMessageKey` is still supported:
+Dialogs shown via direct user interaction (button press, swipe, FAB) must be called **without Dispatcher** to avoid overlay queue interference.
+
+**Entry Point:**
 
 ```dart
-final key = OverlayMessageKeys.timeout;
-context.overlay.dialog(
-  title: 'Error',
-  content: key.localize(context),
+OverlayService.showAddItemDialog(context);
+```
+
+**Why?**
+
+* Dispatcher is not aware of modal context.
+* Dispatcher queues and replaces overlays — which can **conflict with modal dialogs**.
+
+**Relevant File:**
+
+* `overlay_service.dart`
+
+---
+
+## 🧩 File Usage Guide
+
+| Component                        | Purpose                                            | Usage Context                   |
+| -------------------------------- | -------------------------------------------------- | ------------------------------- |
+| `OverlayContextX`                | DSL extension for Dispatcher overlays              | Side-effects (errors, feedback) |
+| `OverlayDispatcher`              | Queues + manages overlay conflicts                 | Auto-managed                    |
+| `OverlayUIPresets`               | Shared UI styles for snackbars, banners, dialogs   | Visual consistency              |
+| `OverlayUIEntry` subclasses      | Declarative overlay descriptors                    | Internal Dispatcher use         |
+| `GlobalOverlayHandler`           | Keyboard + overlay dismiss gesture handler         | Wraps `MaterialApp.builder`     |
+| `OverlayService`                 | Manual user interaction overlays (not queued)      | Used for `showDialog`/modals    |
+| `ListenerWrapper` (BlocListener) | Handles one-shot feedback (failure, success, etc.) | Pushes to Dispatcher            |
+| `Builder` (BlocBuilder)          | Renders layout based on `Cubit` state              | Loader, UI widgets              |
+
+---
+
+## 🧪 Conflict-Resolution Policies
+
+Each overlay entry defines:
+
+* `OverlayPriority` — controls replacement importance.
+* `OverlayReplacePolicy` — how to handle existing overlays.
+* `OverlayCategory` — logical type (banner, loader, dialog).
+
+Dispatcher consults `OverlayPolicyResolver` to determine if:
+
+* current overlay must be dismissed
+* queued overlay must wait
+* new overlay must be dropped
+
+---
+
+## 🧠 Real World Flow
+
+### A. ProfilePage (State-based loader, Dispatcher-based error)
+
+```dart
+BlocBuilder<ProfileCubit, ProfileState>(
+  builder: (context, state) => switch (state) {
+    ProfileLoading() => LoaderWidget(),       // UI-driven
+    ProfileError() => ErrorContent(),         // fallback view
+    ProfileLoaded(:user) => UserProfileCard(user: user),
+  },
 );
 ```
 
-Only `FailureNotifier` uses `OverlayMessageKey` directly.
-
----
-
-## 🧪 FailureNotifier Example
-
 ```dart
-FailureNotifier.handle(context, failure.asConsumable());
+BlocListener<ProfileCubit, ProfileState>(
+  listenWhen: (prev, curr) => curr is ProfileError,
+  listener: (context, state) {
+    final model = state.failure.consume();
+    if (model != null) context.showError(model); // Dispatcher-driven
+  },
+);
 ```
 
-Internally uses `OverlayMessageKey` + context.overlay DSL.
+### B. SignInPage (SideEffect + Form feedback)
+
+* Listener handles only `failure`.
+* Builder handles only form `status`.
 
 ---
 
-## ✅ Benefits
+## ✅ Summary: Best Practice Flow
 
-* 💡 Clear and expressive DSL syntax
-* 💥 Full support for async queueing via `OverlayDispatcher`
-* 🌐 Clean localization model for both UI & error overlays
-* 🔁 Easily extendable for custom widgets or new types
-* 🧩 Plug-and-play with Clean Architecture and SOLID
-
----
-
-## 🔄 Future Enhancements
-
-* `showBannerWithWidget(Widget)`
-* `OverlayToast` / `OverlaySheet`
-* Custom transitions
+| Type            | Who triggers | Where rendered         | Via                      | Dispatcher? |
+| --------------- | ------------ | ---------------------- | ------------------------ | ----------- |
+| Loader          | `Cubit`      | `Builder`              | `LoaderWidget()`         | ❌ No        |
+| Error Dialog    | `Listener`   | `Overlay`              | `context.showError()`    | ✅ Yes       |
+| User Dialog     | User         | `Dialog` via Navigator | `OverlayService`         | ❌ No        |
+| Snackbar/Banner | `Listener`   | `Overlay`              | `context.showSnackbar()` | ✅ Yes       |
 
 ---
 
-## 📌 Summary
+## ✅ Conclusions
 
-This system defines a clean boundary between presentation & behavior. All overlays are now declarative, testable, and consistent across the app via:
+* ❗ **Dispatcher must never manage long-lived loaders or user dialogs.**
+* 🧱 Dispatcher is perfect for transient feedback overlays.
+* 🎮 Always ensure UI has a *single source of truth* — either via Cubit state or user interaction — never both simultaneously.
 
-```dart
-context.overlay // → OverlayController
-```
-
-Use it. Extend it. Own it.
-
----
+""

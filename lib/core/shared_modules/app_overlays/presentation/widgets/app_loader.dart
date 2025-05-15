@@ -10,12 +10,14 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extens
 
 final class AppLoader extends StatelessWidget {
   // 📱 Target platform to determine visual styling
-  final TargetPlatform platform;
+  final TargetPlatform? platformOverride;
 
-  const AppLoader({required this.platform, super.key});
+  const AppLoader({this.platformOverride, super.key});
 
   @override
   Widget build(BuildContext context) {
+    final platform = platformOverride ?? context.platform;
+
     return switch (platform) {
       //
       // 🤖 Android: loader inside circular background with shadow

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../shared_widgets/loading_view.dart';
+import '../../shared_modules/app_overlays/presentation/widgets/loaders.dart';
 
 /// ⏳ Initial splash screen shown during app startup.
 /// ⏳ [SplashPage] — Displays a loading indicator while auth is resolving
@@ -9,6 +9,6 @@ final class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: LoadingView());
+    return const Scaffold(body: LoaderWidget());
   }
 }

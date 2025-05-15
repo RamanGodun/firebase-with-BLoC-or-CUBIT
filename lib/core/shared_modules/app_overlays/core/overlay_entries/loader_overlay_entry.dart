@@ -30,5 +30,6 @@ final class LoaderOverlayEntry extends OverlayUIEntry {
   /// 🏗️ Builds a platform-specific loader widget
   /// Called by Dispatcher during insertion
   @override
-  Widget build(BuildContext context) => AppLoader(platform: context.platform);
+  Widget build(BuildContext context) =>
+      AppLoader(platformOverride: context.platform);
 }
