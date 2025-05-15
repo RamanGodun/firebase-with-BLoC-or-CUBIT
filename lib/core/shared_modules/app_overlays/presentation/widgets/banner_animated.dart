@@ -1,14 +1,18 @@
+import 'dart:ui';
+
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
+import '../../../../app_config/bootstrap/di_container.dart';
 import '../../../../shared_presentation/shared_widgets/text_widget.dart';
 import '../../../../shared_presentation/constants/_app_constants.dart';
+import '../../../app_animation/banner_animation.dart';
 
 part 'banner_card.dart';
 
 /// 🎭 [AnimatedBanner] — Animated toast-like widget for lightweight notifications
 /// - ⬇️ Slides in with fade and elastic scale
-/// - 🖼️ Displays icon + message inside styled [OverlayCard]
+/// - 🖼️ Displays icon + message inside styled [BannerCard]
 /// - 🌓 Adapts to light/dark theme automatically
 ///----------------------------------------------------------------------------
 
@@ -25,60 +29,41 @@ final class AnimatedBanner extends StatefulWidget {
 class _AnimatedBannerState extends State<AnimatedBanner>
     with TickerProviderStateMixin {
   //
-  static const _animationDuration = Duration(milliseconds: 600);
   // 🎞️ Animation controller and tweens
   late final AnimationController _controller;
   late final Animation<double> _opacity;
   late final Animation<double> _scale;
-
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: _animationDuration,
-    );
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) _controller.forward();
-    });
-
-    _opacity = Tween(
-      begin: 0.0,
-      end: 1.0,
-    ).chain(CurveTween(curve: Curves.easeOut)).animate(_controller);
-    _scale = Tween(
-      begin: 0.8,
-      end: 1.0,
-    ).chain(CurveTween(curve: Curves.elasticOut)).animate(_controller);
+    final service = di<BannerAnimationService>();
+    _controller = service.init(this);
+    _opacity = service.opacity();
+    _scale = service.scale();
+    _controller.forward();
   }
 
   @override
   Widget build(BuildContext context) {
-    // 🎨 Themed styling for light/dark modes
-    final isDark = context.isDarkMode;
-    final backgroundColor =
-        isDark ? AppColors.darkOverlay : AppColors.lightOverlay;
-    final textColor = isDark ? AppColors.white : AppColors.black;
-    final borderColor =
-        isDark ? AppColors.overlayDarkBorder : AppColors.overlayLightBorder;
-
     return Align(
-      alignment: const FractionalOffset(0.5, 0.4), // 📍 Slightly above center
+      alignment: const FractionalOffset(0.5, 0.4),
       child: FadeTransition(
         opacity: _opacity,
         child: ScaleTransition(
           scale: _scale,
-          child: Material(
-            color: AppColors.transparent,
-            child: OverlayCard(
-              icon: widget.icon,
-              message: widget.message,
-              textColor: textColor,
-              backgroundColor: backgroundColor,
-              borderColor: borderColor,
-            ).withPaddingHorizontal(AppSpacing.xl), // ↔️ Outer spacing
-          ),
+          child: BannerCard(
+            icon: widget.icon,
+            message: widget.message,
+            textColor: context.isDarkMode ? AppColors.white : AppColors.black,
+            backgroundColor:
+                context.isDarkMode
+                    ? AppColors.darkOverlay
+                    : AppColors.lightOverlay,
+            borderColor:
+                context.isDarkMode
+                    ? AppColors.overlayDarkBorder
+                    : AppColors.overlayLightBorder,
+          ).withPaddingHorizontal(AppSpacing.xl),
         ),
       ),
     );
@@ -87,7 +72,7 @@ class _AnimatedBannerState extends State<AnimatedBanner>
   /// 🧹 Clean up controller
   @override
   void dispose() {
-    _controller.dispose();
+    di<BannerAnimationService>().dispose();
     super.dispose();
   }
 

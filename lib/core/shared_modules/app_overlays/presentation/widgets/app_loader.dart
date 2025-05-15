@@ -25,7 +25,7 @@ final class AppLoader extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: context.colorScheme.secondary,
+            color: context.colorScheme.secondary.withOpacity(0.1),
             shape: BoxShape.circle,
             boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 10)],
           ),
@@ -39,7 +39,7 @@ final class AppLoader extends StatelessWidget {
           width: 64,
           height: 64,
           decoration: BoxDecoration(
-            color: context.colorScheme.secondary,
+            color: context.colorScheme.secondary.withOpacity(0.1),
             borderRadius: BorderRadius.circular(12),
           ),
           child: const Center(child: CircularProgressIndicator.adaptive()),

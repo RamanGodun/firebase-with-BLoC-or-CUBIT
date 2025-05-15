@@ -18,10 +18,7 @@ final class LoaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loader = ColoredBox(
-      color: backgroundColor ?? Colors.white,
-      child: Center(child: AppLoader(platformOverride: platformOverride)),
-    );
+    final loader = Center(child: AppLoader(platformOverride: platformOverride));
 
     return wrapInMaterialApp
         ? MaterialApp(home: loader)

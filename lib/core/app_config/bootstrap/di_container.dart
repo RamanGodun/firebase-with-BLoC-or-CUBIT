@@ -19,6 +19,7 @@ import '../../../features/profile/data/_profile_repo_impl.dart';
 import '../../../features/profile/domain/profile_repository.dart';
 import '../../../features/profile/domain/load_profile_use_case.dart';
 
+import '../../shared_modules/app_animation/banner_animation.dart';
 import '../../shared_modules/app_loggers/crash_analytics_logger.dart';
 import '../../shared_modules/app_loggers/i_logger_contract.dart';
 import '../../shared_modules/app_overlays/core/overlay_dispatcher/overlay_dispatcher.dart';
@@ -44,13 +45,14 @@ final class AppDI {
     _registerBlocs();
   }
 
-  /// 🔍 Registers global logging services (e.g., Crashlytics, Console).
-  /// Used across all layers via [AppErrorLogger] abstraction.
+  /// 🔍 Registers global  services
   static void _registerSharedModules() {
-    di.registerLazySingletonIfAbsent<ILogger>(() => CrashlyticsLogger());
-    di.registerLazySingletonIfAbsent<IOverlayDispatcher>(
-      () => OverlayDispatcher(),
-    );
+    di
+      ..registerLazySingletonIfAbsent<ILogger>(() => CrashlyticsLogger())
+      ..registerLazySingletonIfAbsent<IOverlayDispatcher>(
+        () => OverlayDispatcher(),
+      )
+      ..registerLazySingletonIfAbsent(() => BannerAnimationService());
   }
 
   /// 🔗 Registers core Firebase dependencies
