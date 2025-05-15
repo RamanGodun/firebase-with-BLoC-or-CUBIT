@@ -1,16 +1,26 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-// 📦 Props — Pure UI styling configuration
-// ─────────────────────────────────────────────────────────────────────────────
+/// 🎨 [OverlayUIPresetProps] — Pure styling config for overlay UI
+/// - Immutable value object used in preset resolution
+/// - Passed to UI widgets (e.g. [AppBanner], [AppSnackbarWidget])
+/// - Encapsulates color, shape, icon, spacing, duration, etc.
+///----------------------------------------------------------------------------
 
 class OverlayUIPresetProps extends Equatable {
+  // 🧩 Leading icon for the overlay
   final IconData icon;
+  // 🎨 Background color
   final Color color;
+  // ⏱️ Duration the overlay remains on screen
   final Duration duration;
+  // ↔️ Outer margin from screen edges
   final EdgeInsets margin;
+  // 🪟 Shape of the card/dialog/snackbar
   final ShapeBorder shape;
+  // 🧃 Padding inside the content area
   final EdgeInsets contentPadding;
+  // 🧭 SnackBar behavior (fixed/floating)
   final SnackBarBehavior behavior;
 
   const OverlayUIPresetProps({
@@ -23,6 +33,7 @@ class OverlayUIPresetProps extends Equatable {
     required this.behavior,
   });
 
+  /// 🔁 Creates a new copy with optional overrides
   OverlayUIPresetProps copyWith({
     IconData? icon,
     Color? color,
@@ -53,6 +64,4 @@ class OverlayUIPresetProps extends Equatable {
     contentPadding,
     behavior,
   ];
-
-  ///
 }

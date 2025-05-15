@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../presentation/overlay_entries/_overlay_entries.dart';
+import '../overlay_entries/_overlay_entries.dart';
 
 /// 📄 [IOverlayDispatcher] — Contract for the centralized overlay queue manager
 /// ✅ Used by both the real and mock implementations to abstract dispatch logic
@@ -14,9 +14,6 @@ abstract interface class IOverlayDispatcher {
 
   /// 🧼 Clears all pending overlay requests from the queue
   void clearAll();
-
-  /// 🧼 Clears all overlay requests associated with a given [context]
-  void clearByContext(BuildContext context);
 
   /// Whether current overlay can be dismissed externally.
   bool get canBeDismissedExternally;

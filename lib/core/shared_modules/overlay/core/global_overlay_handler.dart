@@ -5,19 +5,19 @@ import '../../../app_config/bootstrap/di_container.dart';
 import 'overlay_dispatcher/overlay_dispatcher.dart';
 import 'overlay_dispatcher/overlay_dispatcher_interface.dart';
 
-/// 🧩 [GlobalOverlayHandler] – Universal wrapper for:
-/// - 📱 Dismissing keyboard
-/// - 🔕 Hiding active floating overlays/notifications (e.g., toast banners)
-/// 👉 Use to wrap full screens or forms to improve UX when tapping outside input
-//----------------------------------------------------------------
+/// 🧩 [GlobalOverlayHandler] — Universal gesture wrapper for screen-wide UX improvements:
+/// - 📱 Automatically dismisses keyboard when user taps outside input
+/// - 🔕 Automatically hides currently active overlay (e.g. toast/banner)
+/// - ✅ Use to wrap full screens, scrollable areas, or forms
+/// - ✅ Respects external dismiss policy before closing overlay
+///----------------------------------------------------------------------------
 
 final class GlobalOverlayHandler extends StatelessWidget {
+  // 📦 The child widget to wrap (usually a full screen or form)
   final Widget child;
-
-  /// Whether to dismiss keyboard on tap (default: true)
+  // 🧯 Whether to dismiss the keyboard on tap outside
   final bool dismissKeyboard;
-
-  /// Whether to dismiss overlay notification on tap (default: true)
+  // 🧹 Whether to dismiss overlays on tap (if allowed)
   final bool dismissOverlay;
 
   const GlobalOverlayHandler({
@@ -32,7 +32,10 @@ final class GlobalOverlayHandler extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () async {
+        // 📱 Unfocus text fields
         if (dismissKeyboard) context.unfocusKeyboard();
+
+        // 🔕 Dismiss overlay if allowed
         if (dismissOverlay) {
           final dispatcher = di<IOverlayDispatcher>();
           if (dispatcher is OverlayDispatcher &&

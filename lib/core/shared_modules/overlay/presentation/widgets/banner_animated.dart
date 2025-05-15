@@ -6,30 +6,27 @@ import '../../../../shared_presentation/constants/_app_constants.dart';
 
 part 'overlay_card.dart';
 
-/// 🎭 [AnimatedOverlayWidget] – A toast-like animated widget that:
-/// - 🔽 Slides in with fade & scale animation
-/// - 🖼 Shows icon + message in styled banner
-/// Used by [OverlayNotificationService] to display temporary messages.
-//----------------------------------------------------------------
+/// 🎭 [AnimatedBanner] — Animated toast-like widget for lightweight notifications
+/// - ⬇️ Slides in with fade and elastic scale
+/// - 🖼️ Displays icon + message inside styled [OverlayCard]
+/// - 🌓 Adapts to light/dark theme automatically
+///----------------------------------------------------------------------------
 
-final class AnimatedOverlayWidget extends StatefulWidget {
+final class AnimatedBanner extends StatefulWidget {
   final String message;
   final IconData icon;
 
-  const AnimatedOverlayWidget({
-    super.key,
-    required this.message,
-    required this.icon,
-  });
+  const AnimatedBanner({super.key, required this.message, required this.icon});
 
   @override
-  State<AnimatedOverlayWidget> createState() => _AnimatedOverlayWidgetState();
+  State<AnimatedBanner> createState() => _AnimatedBannerState();
 }
 
-class _AnimatedOverlayWidgetState extends State<AnimatedOverlayWidget>
+class _AnimatedBannerState extends State<AnimatedBanner>
     with TickerProviderStateMixin {
-  ///
+  //
   static const _animationDuration = Duration(milliseconds: 600);
+  // 🎞️ Animation controller and tweens
   late final AnimationController _controller;
   late final Animation<double> _opacity;
   late final Animation<double> _scale;
@@ -38,7 +35,7 @@ class _AnimatedOverlayWidgetState extends State<AnimatedOverlayWidget>
   void initState() {
     super.initState();
 
-    /// 🎞️ Init animation
+    // 🎞️ Initialize animations
     _controller = AnimationController(vsync: this, duration: _animationDuration)
       ..forward();
     _opacity = Tween<double>(
@@ -53,7 +50,7 @@ class _AnimatedOverlayWidgetState extends State<AnimatedOverlayWidget>
 
   @override
   Widget build(BuildContext context) {
-    /// 🎨 Adapt color scheme to theme
+    // 🎨 Themed styling for light/dark modes
     final isDark = context.isDarkMode;
     final backgroundColor =
         isDark ? AppColors.darkOverlay : AppColors.lightOverlay;

@@ -1,10 +1,10 @@
-part of 'overlay_widget.dart';
+part of 'banner_animated.dart';
 
-/// 🧩 [OverlayCard] – A reusable styled container for overlay content:
-/// - 🖼️ Contains an [Icon] and [TextWidget]
-/// - 🎨 Uses theme-aware colors
-/// - 🌫️ Includes shadow and border for macOS-style floating effect
-//----------------------------------------------------------------
+/// 🧩 [OverlayCard] — Themed container for compact overlay content
+/// - 🖼️ Displays [Icon] and [TextWidget] in a styled card
+/// - 🌓 Adapts to light/dark theme via injected colors
+/// - 🌫️ Mimics macOS-like floating appearance with shadow and border
+///----------------------------------------------------------------------------
 
 final class OverlayCard extends StatelessWidget {
   final IconData icon;
@@ -35,7 +35,7 @@ final class OverlayCard extends StatelessWidget {
             color: AppColors.shadow,
             blurRadius: 12,
             spreadRadius: 1,
-            offset: Offset(0, 4),
+            offset: Offset(0, 4), // ⬇️ Subtle drop shadow
           ),
         ],
       ),
@@ -43,7 +43,7 @@ final class OverlayCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min, // 📏 Shrink to fit content
         children: [
           Icon(icon, color: textColor, size: 24),
-          const SizedBox(width: 12), // ↔️ Spacing
+          const SizedBox(width: 12),
           Expanded(
             child: TextWidget(message, TextType.titleMedium, color: textColor),
           ),

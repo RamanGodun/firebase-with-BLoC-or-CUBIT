@@ -44,9 +44,7 @@ final class RootProviders extends StatelessWidget {
 }
 
 /*
-! Перенос логіки localize(context) у OverlayController → OverlayMessageKey
 
-
-
+! make info dialog
 
  */

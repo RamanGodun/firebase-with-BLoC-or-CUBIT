@@ -27,8 +27,8 @@ enum OverlayReplacePolicy {
   dropIfSameType, // 🚫 Ignore if same type already visible
 }
 
-/// 🧠 [OverlayConflictStrategy] — Describes the behavior of an overlay
-/// regarding priority, replacement, and category.
+/// 🧠 [OverlayConflictStrategy] — Strategy object for each overlay that
+/// defines its replacement logic and category identification.
 class OverlayConflictStrategy {
   final OverlayPriority priority;
   final OverlayReplacePolicy policy;

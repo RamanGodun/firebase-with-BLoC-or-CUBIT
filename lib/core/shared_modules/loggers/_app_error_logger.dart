@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart' show debugPrint;
 import '../../app_config/bootstrap/di_container.dart' show di;
 import '../errors_handling/failures_for_domain_and_presentation/failure_for_domain.dart';
-import '../overlay/presentation/overlay_entries/_overlay_entries.dart';
+import '../overlay/core/overlay_entries/_overlay_entries.dart';
 import '../localization/keys/translation_key_interface.dart';
 import 'i_logger_contract.dart';
 
@@ -58,6 +58,23 @@ abstract final class AppLogger {
     );
   }
 
+  /// 🪧 Logs for dispatcher events
+  static void logOverlayActiveExists(OverlayUIEntry? request) {
+    debugPrint('[🟠 Active exists → ${request.runtimeType}]');
+  }
+
+  static void logOverlayDroppedSameType() {
+    debugPrint('[🚫 Dropped: dropIfSameType]');
+  }
+
+  static void logOverlayReplacing() {
+    debugPrint('[♻️ Replacing current]');
+  }
+
+  static void logOverlayAddedToQueue(int length) {
+    debugPrint('[➕ Added to queue] length = $length');
+  }
+
   // ───────────────────────────────────── Failures ─────────────────────────────────────
 
   /// ❗ Logs uncaught SDK/API exceptions before mapping.
@@ -94,4 +111,6 @@ abstract final class AppLogger {
   static void logStringFallback(String key, String fallback) {
     debugPrint('[Localization] String fallback for "$key" → "$fallback"');
   }
+
+  ///
 }

@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-
 import 'preset_props.dart';
 
-/// 🧩 [OverlayUIPresets] — Base class that returns styled props per preset
-/// ✅ Each preset maps to its [OverlayUIPresetProps]
-/// ✅ Includes optional memoization for performance
-///--------------------------------------------------------------------------
+/// 🧩 [OverlayUIPresets] — Abstract base for defining UI style presets
+/// - Returns [OverlayUIPresetProps] for overlays (e.g. snackbars, banners)
+/// - Immutable and memoized for performance
+/// - Supports `.withOverride()` to customize existing presets
+///----------------------------------------------------------------------------
 
 sealed class OverlayUIPresets {
   const OverlayUIPresets();
 
+  /// 🎨 Resolves the current preset to styling props
   OverlayUIPresetProps resolve();
 
+  /// 🧪 Creates a new customized preset by overriding selected fields
   OverlayUIPresets withOverride({
     IconData? icon,
     Color? color,
@@ -35,8 +37,11 @@ sealed class OverlayUIPresets {
   }
 }
 
-/// 🔁 MEMOIZED VARIANTs
+// ─────────────────────────────────────────────────────────────────────────────
+// ✅ Built-in Presets (Memoized)
+// ─────────────────────────────────────────────────────────────────────────────
 
+/// ℹ️ [OverlayInfoUIPreset] — Blue info-style banner/snackbar
 final class OverlayInfoUIPreset extends OverlayUIPresets {
   const OverlayInfoUIPreset();
 
@@ -56,7 +61,7 @@ final class OverlayInfoUIPreset extends OverlayUIPresets {
   OverlayUIPresetProps resolve() => _resolved;
 }
 
-///
+/// ❌ [OverlayErrorUIPreset] — Red error-style preset
 final class OverlayErrorUIPreset extends OverlayUIPresets {
   const OverlayErrorUIPreset();
 
@@ -76,7 +81,7 @@ final class OverlayErrorUIPreset extends OverlayUIPresets {
   OverlayUIPresetProps resolve() => _resolved;
 }
 
-///
+/// ✅ [OverlaySuccessUIPreset] — Green success confirmation preset
 final class OverlaySuccessUIPreset extends OverlayUIPresets {
   const OverlaySuccessUIPreset();
 
@@ -96,7 +101,7 @@ final class OverlaySuccessUIPreset extends OverlayUIPresets {
   OverlayUIPresetProps resolve() => _resolved;
 }
 
-///
+/// ⚠️ [OverlayWarningUIPreset] — Orange warning preset
 final class OverlayWarningUIPreset extends OverlayUIPresets {
   const OverlayWarningUIPreset();
 
@@ -116,7 +121,7 @@ final class OverlayWarningUIPreset extends OverlayUIPresets {
   OverlayUIPresetProps resolve() => _resolved;
 }
 
-///
+/// ❓ [OverlayConfirmUIPreset] — Used for confirm dialogs (duration = 0)
 final class OverlayConfirmUIPreset extends OverlayUIPresets {
   const OverlayConfirmUIPreset();
 
@@ -136,9 +141,10 @@ final class OverlayConfirmUIPreset extends OverlayUIPresets {
   OverlayUIPresetProps resolve() => _resolved;
 }
 
-///
+/// 🧪 [_OverlayCustomPreset] — Internal: Used to hold customized resolved props
 final class _OverlayCustomPreset extends OverlayUIPresets {
   final OverlayUIPresetProps _props;
+
   const _OverlayCustomPreset(this._props);
 
   @override

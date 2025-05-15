@@ -1,12 +1,12 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
-import '../../core/conflicts_strategy/conflicts_strategy.dart';
-import '../overlay_presets/overlay_presets.dart';
-import '../widgets/app_banner.dart';
-import '../widgets/app_dialog.dart';
-import '../widgets/app_loader.dart';
-import '../widgets/app_snackbar.dart';
-import '../widgets/custom_overlay.dart';
+import '../conflicts_strategy/conflicts_strategy.dart';
+import '../../presentation/overlay_presets/overlay_presets.dart';
+import '../../presentation/widgets/app_banner.dart';
+import '../../presentation/widgets/app_dialog.dart';
+import '../../presentation/widgets/app_loader.dart';
+import '../../presentation/widgets/app_snackbar.dart';
+import '../../presentation/widgets/app_custom_overlay.dart';
 
 part 'custom_overlay_entry.dart';
 part 'dialog_overlay_entry.dart';

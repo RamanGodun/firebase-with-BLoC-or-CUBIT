@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 
-/// ✅ TapThroughOverlayBarrier v2
-/// ✅ Handles passthrough and dismiss logic in one place
-/// ✅ Guarantees solid UX for theme toggle / fast interactions
-class TapThroughOverlayBarrier extends StatelessWidget {
+/// 🧱 [TapThroughOverlayBarrier] — Wrapper for overlay content that supports:
+/// - 🫥 Tap-through passthrough (e.g. for banners, loaders)
+/// - ❌ Dismiss trigger via [onTapOverlay] callback
+/// - ✅ Guarantees proper UX for overlays that allow interaction below
+///----------------------------------------------------------------------------
+
+final class TapThroughOverlayBarrier extends StatelessWidget {
+  // 🧩 The widget to display inside the overlay
   final Widget child;
+  // 🫥 If `true`, allows taps to pass through the overlay
   final bool enablePassthrough;
+  // ❌ Called when the overlay is tapped (used for dismissing overlays)
   final VoidCallback? onTapOverlay;
 
   const TapThroughOverlayBarrier({
@@ -21,16 +27,13 @@ class TapThroughOverlayBarrier extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       onPointerDown: (event) {
         if (enablePassthrough) {
-          onTapOverlay?.call(); // 🔁 dismiss overlay if needed
+          onTapOverlay?.call(); // ❌ Trigger dismissal if allowed
         }
       },
       child: Stack(
         children: [
-          // ⚠️ Renders overlay content but allows passthrough when needed
-          IgnorePointer(
-            ignoring: enablePassthrough,
-            child: child,
-          ),
+          // 👆 Only blocks interaction if passthrough is disabled
+          IgnorePointer(ignoring: enablePassthrough, child: child),
         ],
       ),
     );

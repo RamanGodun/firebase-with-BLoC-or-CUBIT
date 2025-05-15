@@ -2,13 +2,23 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extens
 import 'package:flutter/material.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 
+/// 🔄 [AppLoader] — Platform-adaptive loading spinner
+/// - Renders circular loader with styled background
+/// - Uses custom decoration on Android/iOS, fallback adaptive loader elsewhere
+/// - Used by [LoaderOverlayEntry] as final visual widget
+///----------------------------------------------------------------------------
+
 final class AppLoader extends StatelessWidget {
+  // 📱 Target platform to determine visual styling
   final TargetPlatform platform;
+
   const AppLoader({required this.platform, super.key});
 
   @override
   Widget build(BuildContext context) {
     return switch (platform) {
+      //
+      // 🤖 Android: loader inside circular background with shadow
       TargetPlatform.android => Center(
         child: Container(
           padding: const EdgeInsets.all(16),
@@ -20,6 +30,8 @@ final class AppLoader extends StatelessWidget {
           child: const CircularProgressIndicator(),
         ),
       ),
+
+      // 🍎 iOS: loader inside rounded rectangle
       TargetPlatform.iOS => Center(
         child: Container(
           width: 64,
@@ -31,6 +43,8 @@ final class AppLoader extends StatelessWidget {
           child: const Center(child: CircularProgressIndicator.adaptive()),
         ),
       ),
+
+      // 🖥️ Other platforms: default adaptive loader centered
       _ => const CircularProgressIndicator.adaptive().centered(),
     };
   }

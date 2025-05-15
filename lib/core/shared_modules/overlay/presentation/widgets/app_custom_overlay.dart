@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
 /// 🧱 [AppCustomOverlay] — Cross-platform UI wrapper for custom overlays
-class AppCustomOverlay extends StatelessWidget {
+/// - Used by [CustomOverlayEntry] to render any custom widget
+/// - Adapts styling depending on platform (iOS/macOS vs others)
+///----------------------------------------------------------------------------
+
+final class AppCustomOverlay extends StatelessWidget {
+  // 🧩 Custom child widget to be displayed in the overlay
   final Widget child;
+  // 📱 Target platform for platform-specific rendering
   final TargetPlatform platform;
 
   const AppCustomOverlay({
@@ -14,13 +20,16 @@ class AppCustomOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (platform) {
+      // 🍎 iOS/macOS: translucent background with rounded corners
       TargetPlatform.iOS || TargetPlatform.macOS => _IOSStyle(child),
+      // 🤖 Android/others: Material-style elevated container
       _ => _AndroidStyle(child),
     };
   }
 }
 
-class _IOSStyle extends StatelessWidget {
+/// 🍎 [_IOSStyle] — Styling for Cupertino platforms (blur-like background)
+final class _IOSStyle extends StatelessWidget {
   final Widget child;
   const _IOSStyle(this.child);
 
@@ -39,7 +48,8 @@ class _IOSStyle extends StatelessWidget {
   }
 }
 
-class _AndroidStyle extends StatelessWidget {
+/// 🤖 [_AndroidStyle] — Styling for Material-based platforms
+final class _AndroidStyle extends StatelessWidget {
   final Widget child;
   const _AndroidStyle(this.child);
 

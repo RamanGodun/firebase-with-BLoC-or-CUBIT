@@ -3,12 +3,17 @@ import 'package:flutter/material.dart';
 
 import '../../../../shared_presentation/shared_widgets/text_widget.dart';
 import '../overlay_presets/preset_props.dart';
-import 'overlay_widget.dart';
+import 'banner_animated.dart';
+
+/// 🪧 [AppBanner] — Platform-adaptive banner widget
+/// - Renders banner UI for [BannerOverlayEntry]
+/// - Uses material design on Android, [AnimatedBanner] on iOS/macOS
+///----------------------------------------------------------------------------
 
 class AppBanner extends StatelessWidget {
   final String message;
   final IconData icon;
-  final OverlayUIPresetProps props;
+  final OverlayUIPresetProps props; // 🎨 Styling preset
   final TargetPlatform platform;
 
   const AppBanner({
@@ -22,10 +27,12 @@ class AppBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return switch (platform) {
-      TargetPlatform.iOS || TargetPlatform.macOS => AnimatedOverlayWidget(
-        message: message,
-        icon: icon,
-      ),
+      //
+      // 🍎 iOS/macOS style: uses custom animated widget
+      TargetPlatform.iOS ||
+      TargetPlatform.macOS => AnimatedBanner(message: message, icon: icon),
+
+      // 🤖 Android/Web/Windows/Linux: Material-styled banner
       _ => Align(
         alignment: Alignment.topCenter,
         child: Material(
@@ -56,6 +63,4 @@ class AppBanner extends StatelessWidget {
       ),
     };
   }
-
-  ///
 }

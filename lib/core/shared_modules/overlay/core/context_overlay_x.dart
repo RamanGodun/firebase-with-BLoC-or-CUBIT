@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../app_config/bootstrap/di_container.dart';
 import '../../errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
-import 'conflicts_strategy/conflicts_strategy.dart';
-import '../presentation/overlay_entries/_overlay_entries.dart';
+import 'conflicts_strategy/police_resolver.dart';
+import 'overlay_entries/_overlay_entries.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';
 import 'overlay_dispatcher/overlay_dispatcher_interface.dart';
 
@@ -12,16 +12,9 @@ import 'overlay_dispatcher/overlay_dispatcher_interface.dart';
 //-------------------------------------------------------------
 
 extension OverlayContextX on BuildContext {
-  ///
-
+  //
   /// 🔌 Direct access to [IOverlayDispatcher] from DI
   IOverlayDispatcher get overlayDispatcher => di<IOverlayDispatcher>();
-
-  ///
-  OverlayDismissPolicy _resolveDismissPolicy(bool isDismissible) =>
-      isDismissible
-          ? OverlayDismissPolicy.dismissible
-          : OverlayDismissPolicy.persistent;
 
   ///
   /// 🧩 Shows a loading spinner for a given [duration]
@@ -43,10 +36,7 @@ extension OverlayContextX on BuildContext {
       preset: preset,
       isError: isError,
       icon: icon,
-      dismissPolicy:
-          isError
-              ? OverlayDismissPolicy.persistent
-              : _resolveDismissPolicy(isDismissible),
+      dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
     );
     overlayDispatcher.enqueueRequest(this, entry);
   }
@@ -64,10 +54,7 @@ extension OverlayContextX on BuildContext {
       preset: preset,
       isError: isError,
       icon: icon,
-      dismissPolicy:
-          isError
-              ? OverlayDismissPolicy.persistent
-              : _resolveDismissPolicy(isDismissible),
+      dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
     );
     overlayDispatcher.enqueueRequest(this, entry);
   }
@@ -93,10 +80,7 @@ extension OverlayContextX on BuildContext {
       onCancel: onCancel,
       preset: preset,
       isError: isError,
-      dismissPolicy:
-          isError
-              ? OverlayDismissPolicy.persistent
-              : _resolveDismissPolicy(isDismissible),
+      dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
     );
     overlayDispatcher.enqueueRequest(this, entry);
   }
@@ -107,7 +91,7 @@ extension OverlayContextX on BuildContext {
     FailureUIModel model, {
     ShowErrorAs showAs = ShowErrorAs.dialog,
     OverlayUIPresets preset = const OverlayErrorUIPreset(),
-    bool isDismissible = true,
+    bool isDismissible = false,
   }) {
     ///
 
@@ -136,7 +120,7 @@ extension OverlayContextX on BuildContext {
       case ShowErrorAs.dialog:
         showDialog(
           title:
-              'Error occurred', // 🎯 якщо потрібно локалізувати — через ключ `FailureKey.dialogTitleError`
+              'Error occurred', // Винести в локалізований ключ `FailureKey.dialogTitleError`
           content: model.localizedMessage,
           confirmText: 'OK',
           cancelText: 'Cancel',
@@ -159,10 +143,7 @@ extension OverlayContextX on BuildContext {
       child: child,
       duration: duration,
       isError: isError,
-      dismissPolicy:
-          isError
-              ? OverlayDismissPolicy.persistent
-              : _resolveDismissPolicy(isDismissible),
+      dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
     );
     overlayDispatcher.enqueueRequest(this, entry);
   }

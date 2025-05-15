@@ -1,12 +1,18 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../app_config/bootstrap/di_container.dart';
 import '../../../../shared_presentation/constants/_app_constants.dart';
 import '../../../../shared_presentation/shared_widgets/text_widget.dart';
+import '../../core/overlay_dispatcher/overlay_dispatcher_interface.dart';
 import '../overlay_presets/preset_props.dart';
 
-/// 🧱 [AppDialog] — Stateless cross-platform dialog widget
-/// ✅ Renders CupertinoAlertDialog for iOS/macOS, AlertDialog for Android/others
+/// 🧱 [AppDialog] — Platform-adaptive dialog widget
+/// - Renders [CupertinoAlertDialog] on iOS/macOS
+/// - Renders [AlertDialog] on Android and others
+/// - Used by [DialogOverlayEntry] as the final UI layer
+///----------------------------------------------------------------------------
 
 class AppDialog extends StatelessWidget {
   final String title;
@@ -15,7 +21,7 @@ class AppDialog extends StatelessWidget {
   final String cancelText;
   final VoidCallback? onConfirm;
   final VoidCallback? onCancel;
-  final OverlayUIPresetProps? presetProps;
+  final OverlayUIPresetProps? presetProps; // 🎨 Styling preset
   final TargetPlatform platform;
 
   const AppDialog({
@@ -32,11 +38,15 @@ class AppDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('[🎨 AppDialog Widget → build]');
     final icon = presetProps?.icon;
     final shape = presetProps?.shape;
     final backgroundColor = presetProps?.color;
+    // 🧩 Fallbacks for cancel/confirm if not provided
+    fallbackDismiss() => di<IOverlayDispatcher>().dismissCurrent();
+    final handleCancel = onCancel ?? fallbackDismiss;
+    final handleConfirm = onConfirm ?? fallbackDismiss;
 
+    // 🍎 iOS/macOS: Native-styled Cupertino dialog
     if (platform == TargetPlatform.iOS || platform == TargetPlatform.macOS) {
       return CupertinoAlertDialog(
         title:
@@ -47,7 +57,7 @@ class AppDialog extends StatelessWidget {
                   Icon(
                     icon,
                     size: 28,
-                    color: presetProps?.color ?? AppColors.forErrors,
+                    color: backgroundColor ?? AppColors.forErrors,
                   ),
                 if (icon != null) const SizedBox(height: 4),
                 TextWidget(title, TextType.titleMedium),
@@ -59,9 +69,12 @@ class AppDialog extends StatelessWidget {
           isTextOnFewStrings: true,
         ),
         actions: [
-          CupertinoDialogAction(onPressed: onCancel, child: Text(cancelText)),
           CupertinoDialogAction(
-            onPressed: onConfirm,
+            onPressed: handleCancel,
+            child: Text(cancelText),
+          ),
+          CupertinoDialogAction(
+            onPressed: handleConfirm,
             isDefaultAction: true,
             child: Text(confirmText),
           ),
@@ -69,6 +82,7 @@ class AppDialog extends StatelessWidget {
       );
     }
 
+    // 🤖 Android/others: Material-styled dialog
     return AlertDialog(
       shape: shape,
       backgroundColor: backgroundColor,
@@ -86,6 +100,4 @@ class AppDialog extends StatelessWidget {
       ],
     );
   }
-
-  ///
 }

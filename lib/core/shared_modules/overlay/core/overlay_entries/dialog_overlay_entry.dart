@@ -1,7 +1,11 @@
 part of '_overlay_entries.dart';
 
-/// 💬 [DialogOverlayEntry] — Unified platform-aware dialog entry
-//--------------------------------------------------------------------------------
+/// 💬 [DialogOverlayEntry] — Overlay entry for platform-adaptive dialogs
+/// - Acts as a configuration object for [OverlayDispatcher]
+/// - Encapsulates conflict strategy, interaction callbacks, and style
+/// - Builds a ready-to-render [AppDialog] widget
+// ----------------------------------------------------------------------
+
 final class DialogOverlayEntry extends OverlayUIEntry {
   final String title;
   final String content;
@@ -9,8 +13,10 @@ final class DialogOverlayEntry extends OverlayUIEntry {
   final String cancelText;
   final VoidCallback? onConfirm;
   final VoidCallback? onCancel;
-  final OverlayUIPresets? preset;
-  final bool isError;
+  final OverlayUIPresets? preset; // 🎨 Optional style preset
+  final bool isError; // ❗ Marks as an error (affects strategy and priority)
+
+  // 🔐 Dismiss policy (persistent or dismissible)
   @override
   final OverlayDismissPolicy dismissPolicy;
 
@@ -26,9 +32,11 @@ final class DialogOverlayEntry extends OverlayUIEntry {
     this.dismissPolicy = OverlayDismissPolicy.dismissible,
   });
 
+  /// ⏳ Dialogs don’t auto-dismiss (require explicit user interaction)
   @override
   Duration get duration => Duration.zero;
 
+  /// ⚙️ Defines how this entry behaves in conflict scenarios
   @override
   OverlayConflictStrategy get strategy => OverlayConflictStrategy(
     priority: isError ? OverlayPriority.critical : OverlayPriority.normal,
@@ -39,10 +47,12 @@ final class DialogOverlayEntry extends OverlayUIEntry {
     category: isError ? OverlayCategory.error : OverlayCategory.dialog,
   );
 
+  /// 🏗️ Builds a platform-aware dialog widget with resolved props
+  /// Called by Dispatcher during overlay insertion
   @override
   Widget build(BuildContext context) {
-    debugPrint('[🧱 AppBannerEntry → build] $content');
-    final props = preset?.resolve();
+    final props = preset?.resolve() ?? const OverlayInfoUIPreset().resolve();
+
     return AppDialog(
       title: title,
       content: content,
@@ -54,6 +64,4 @@ final class DialogOverlayEntry extends OverlayUIEntry {
       platform: context.platform,
     );
   }
-
-  ///
 }

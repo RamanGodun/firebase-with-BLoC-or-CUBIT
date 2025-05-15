@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import '../../../../shared_presentation/shared_widgets/text_widget.dart';
 import '../overlay_presets/preset_props.dart';
 
-/// 🧱 Cross-platform [Snackbar] widget, renders based on [platform]
+/// 🍞 [AppSnackbarWidget] — Platform-adaptive snackbar widget
+//----------------------------------------------------------------------------
+
 final class AppSnackbarWidget extends StatelessWidget {
   final String message;
   final IconData icon;
-  final OverlayUIPresetProps props;
+  final OverlayUIPresetProps props; // 🎨 Styling preset
   final TargetPlatform platform;
 
   const AppSnackbarWidget({
@@ -19,6 +21,7 @@ final class AppSnackbarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 🤖 Android native snackbar using ScaffoldMessenger
     if (platform == TargetPlatform.android) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         ScaffoldMessenger.maybeOf(context)?.showSnackBar(
@@ -45,10 +48,11 @@ final class AppSnackbarWidget extends StatelessWidget {
           ),
         );
       });
-      return const SizedBox.shrink();
+
+      return const SizedBox.shrink(); // 🔇 Avoids rendering duplicate content
     }
 
-    // Default to iOS-like
+    // 🍎 iOS/macOS/others: Custom styled snackbar at bottom
     return Align(
       alignment: Alignment.bottomCenter,
       child: Material(
