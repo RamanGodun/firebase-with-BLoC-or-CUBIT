@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlay/core/context_overlay_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_overlays/core/context_overlay_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/app_config/bootstrap/di_container.dart';
@@ -51,7 +51,7 @@ final class _SignInListenerWrapper extends StatelessWidget {
         final model = state.failure?.consume();
         print('[🔥 showError listener] model: $model');
         if (model != null) {
-          context.showError(model, showAs: ShowErrorAs.snackbar);
+          context.showError(model, showAs: ShowErrorAs.infoDialog);
           context.read<SignInCubit>()
             ..resetStatus()
             ..clearFailure();

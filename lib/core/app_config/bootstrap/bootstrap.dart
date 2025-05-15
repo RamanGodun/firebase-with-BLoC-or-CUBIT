@@ -5,9 +5,9 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
 import 'package:path_provider/path_provider.dart';
-import '../../shared_modules/localization/core/app_localizer.dart';
+import '../../shared_modules/app_localization/core/app_localizer.dart';
 import '../env.dart';
-import '../../shared_modules/loggers/app_bloc_observer.dart';
+import '../../shared_modules/app_loggers/app_bloc_observer.dart';
 
 /// 🚀✅ [AppBootstrap] — Handles platform & app core initialization, loads environment config,
 /// sets up Firebase, Bloc observer, HydratedBloc persistence, and localization

@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import '../../../../core/shared_presentation/constants/_app_constants.dart' show AppSpacing;
-import '../../../../core/shared_modules/localization/app_strings.dart';
+import '../../../../core/shared_modules/app_localization/app_strings.dart';
 import '../../../../core/shared_modules/form_fields/use_auth_focus_nodes.dart';
 import '../../../../core/shared_modules/form_fields/widgets/_fields_factory.dart';
 import '../../../../core/shared_modules/form_fields/widgets/password_visibility_icon.dart';
-import '../../../../core/shared_modules/navigation/_imports_for_router.dart'
+import '../../../../core/shared_modules/app_navigation/_imports_for_router.dart'
     show RoutesNames;
 import '../../../../core/shared_modules/form_fields/widgets/button_for_forms.dart';
 import '../../../../core/shared_presentation/shared_widgets/text_button.dart';

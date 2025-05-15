@@ -19,11 +19,11 @@ import '../../../features/profile/data/_profile_repo_impl.dart';
 import '../../../features/profile/domain/profile_repository.dart';
 import '../../../features/profile/domain/load_profile_use_case.dart';
 
-import '../../shared_modules/loggers/crash_analytics_logger.dart';
-import '../../shared_modules/loggers/i_logger_contract.dart';
-import '../../shared_modules/overlay/core/overlay_dispatcher/overlay_dispatcher.dart';
-import '../../shared_modules/overlay/core/overlay_dispatcher/overlay_dispatcher_interface.dart';
-import '../../shared_modules/theme/theme_cubit/theme_cubit.dart';
+import '../../shared_modules/app_loggers/crash_analytics_logger.dart';
+import '../../shared_modules/app_loggers/i_logger_contract.dart';
+import '../../shared_modules/app_overlays/core/overlay_dispatcher/overlay_dispatcher.dart';
+import '../../shared_modules/app_overlays/core/overlay_dispatcher/overlay_dispatcher_interface.dart';
+import '../../shared_modules/app_theme/theme_cubit/theme_cubit.dart';
 
 /// 💠 Global instance of GetIt DI container
 final di = GetIt.instance;
