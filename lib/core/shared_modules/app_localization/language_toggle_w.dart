@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_localization/extensions/string_tr_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_overlays/core/overlay_service.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_overlays/core/context_show_overlay_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_localization/app_strings.dart';
 import '../../shared_presentation/constants/_app_constants.dart' show AppIcons;
@@ -50,7 +50,7 @@ final class _LanguageToggleIconState extends State<LanguageToggleIcon> {
 
     final localizedMessage = key.localize(context);
 
-    context.showBanner(message: localizedMessage, icon: AppIcons.language);
+    context.showUserBanner(localizedMessage, AppIcons.language);
   }
 
   ///

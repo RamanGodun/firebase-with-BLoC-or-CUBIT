@@ -34,17 +34,22 @@ class _AnimatedBannerState extends State<AnimatedBanner>
   @override
   void initState() {
     super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: _animationDuration,
+    );
 
-    // 🎞️ Initialize animations
-    _controller = AnimationController(vsync: this, duration: _animationDuration)
-      ..forward();
-    _opacity = Tween<double>(
-      begin: 0,
-      end: 1,
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _controller.forward();
+    });
+
+    _opacity = Tween(
+      begin: 0.0,
+      end: 1.0,
     ).chain(CurveTween(curve: Curves.easeOut)).animate(_controller);
-    _scale = Tween<double>(
+    _scale = Tween(
       begin: 0.8,
-      end: 1,
+      end: 1.0,
     ).chain(CurveTween(curve: Curves.elasticOut)).animate(_controller);
   }
 
