@@ -6,7 +6,7 @@ import 'queue_manager/_queue_manager.dart';
 import 'queue_manager/dialog_overlay_job.dart';
 import 'queue_manager/snackbar_overlay_job.dart';
 
-extension UserOverlayContextX on BuildContext {
+extension ContextXForUserDrivenOverlayFlow on BuildContext {
   void showUserBanner(String message, IconData icon) {
     di<OverlayQueueManager>().enqueue(
       BannerOverlayJob(context: this, message: message, icon: icon),

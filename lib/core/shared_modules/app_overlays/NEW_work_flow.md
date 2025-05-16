@@ -1,170 +1,165 @@
-""
-
 # 🧠 Overlay System Workflow Manual — Production-Grade Architecture
 
-This document defines the **overlay rendering system** workflow in the app. It is structured to ensure *single source of truth*, clean architecture, and perfect UX separation between state-driven, side-effect-driven, and user-driven overlays.
+This document outlines the **overlay rendering system** in a modular Flutter app, specifically detailing 
+the finalized **State-Driven Overlay Flow**. The system separates UI overlays into **State-Driven** 
+and **User-Driven** flows for maximum scalability, testability, and UX consistency.
 
 ---
 
 ## ✅ Architectural Principles
 
-### 🟢 Core Rules:
+### 🧩 Key Design:
 
-* 🔄 **State-driven overlays** (e.g. loaders, empty states) are controlled by `Cubit/Bloc` via `BlocBuilder`.
-* 🔒 **Side-effect overlays** (e.g. error dialogs/snackbars) are shown through `BlocListener` + `Dispatcher`.
-* 💬 **User-driven overlays** (e.g. confirmation dialogs, adding data) are shown **manually** via `OverlayService`.
+* The system is divided into two flows:
+
+  1. **State-Driven Overlays** — shown automatically via state changes (e.g. Cubit).
+  2. **User-Driven Overlays** — shown from direct user actions (e.g. button tap).
+
+> **This section documents only State-Driven Overlay Flow.** User-Driven flow is documented separately.
 
 ---
 
-## 🗺️ System Layers
+## 🗺️ File & Module Structure
 
-### 1. **Dispatcher-based Overlays**
+```
+core/
+├── shared_modules/
+│   ├── overlays/
+│   │   ├── state_driven_flow/          ◀️ This file
+│   │   └── user_driven_flow/           ◀️ (Separate)
+│   └── app_animation/
+│       └── animation_host.dart         ◀️ Central Animation Host Widget
+```
 
-Dispatcher is responsible for queueing, conflict resolution, insertion, and lifecycle management of transient overlays (banners, snackbars, error dialogs, toasts).
+### ✅ AnimationHost location:
 
-**Entry Point:**
+* `AnimationHost` (shared endpoint for all overlay widgets)
+* Lives in `app_animation` module (not in overlays)
+* Called from `OverlayEntry.build()`
+
+---
+
+## 🧠 State-Driven Overlay Flow
+
+### 🎯 Purpose
+
+Manages all overlays triggered from the application state (e.g. BlocListener).
+Designed for side-effect rendering: error banners, dialogs, snackbars, etc.
+
+### 🔁 Entry Point
 
 ```dart
 context.showError(model);
 context.showSnackbar(...);
 context.showBanner(...);
-context.showDialog(...); // via dispatcher
+context.showDialog(...);
 ```
 
-**Core Flow:**
+These methods internally create an `OverlayUIEntry` and enqueue it via `OverlayDispatcher`.
 
-```
-ListenerWrapper → FailureUIModel → context.showError(...) → Dispatcher → OverlayEntry → Render
-```
+### 📦 Dispatcher Responsibilities
 
-**Relevant Files:**
-
-* `OverlayDispatcher`
-* `OverlayUIEntry` subclasses (e.g. `DialogOverlayEntry`)
-* `OverlayConflictStrategy`, `OverlayPolicyResolver`
-* `context_show_overlay_x.dart`
+* Queues overlay entries
+* Resolves conflicts and dismiss policies
+* Injects overlays into root `Overlay` using `OverlayEntry`
+* Calls `AnimationHost` as render point
 
 ---
 
-### 2. **StateManager-driven Overlays (Builders)**
+## 🧩 Overlay Entry Components
 
-Used to show `loaders`, `empty screens`, or `data content` via `BlocBuilder` or `HookBuilder`.
+### 📌 Common:
 
-**Entry Point:**
+All `OverlayUIEntry` subclasses must provide:
+
+* `build(BuildContext)` — returns widget calling `AnimationHost`
+* `OverlayConflictStrategy` — defines queue/replace rules
+* `OverlayDismissPolicy` — whether can be dismissed by user
+* `OverlayCategory` & `OverlayPriority` — used for conflict resolution
+
+### ✅ Subclasses:
+
+* `BannerOverlayEntry`
+* `SnackbarOverlayEntry`
+* `DialogOverlayEntry`
+
+> ❗ All error and non-error flows use the same entries. Error flows are distinguished via `isError = true` + different `OverlayConflictStrategy`.
+
+---
+
+## 🧠 Overlay Conflict Resolution
+
+### ✅ Managed via:
+
+* `OverlayConflictStrategy` object
+* `OverlayPolicyResolver.shouldReplaceCurrent(...)`
+
+### 📌 Strategy Properties:
 
 ```dart
-BlocBuilder<ProfileCubit, ProfileState>(
-  builder: (context, state) => switch (state) {
-    ProfileLoading() => LoaderWidget(), // direct widget
-    ...
-  },
-);
+OverlayPriority: normal | high | critical
+OverlayReplacePolicy: waitQueue | forceReplace | forceIfSameCategory | forceIfLowerPriority | dropIfSameType
+OverlayCategory: banner | snackbar | dialog | error
 ```
 
-**Key Principle:**
-
-> Loader is not a transient overlay. It’s part of the main layout flow and must live inside the Builder — not via Dispatcher.
-
----
-
-### 3. **Manually Triggered User-Driven Dialogs**
-
-Dialogs shown via direct user interaction (button press, swipe, FAB) must be called **without Dispatcher** to avoid overlay queue interference.
-
-**Entry Point:**
+### 🧠 Sample:
 
 ```dart
-OverlayService.showAddItemDialog(context);
+OverlayConflictStrategy(
+  priority: OverlayPriority.critical,
+  policy: OverlayReplacePolicy.forceReplace,
+  category: OverlayCategory.error,
+)
 ```
 
-**Why?**
-
-* Dispatcher is not aware of modal context.
-* Dispatcher queues and replaces overlays — which can **conflict with modal dialogs**.
-
-**Relevant File:**
-
-* `overlay_service.dart`
-
 ---
 
-## 🧩 File Usage Guide
-
-| Component                        | Purpose                                            | Usage Context                   |
-| -------------------------------- | -------------------------------------------------- | ------------------------------- |
-| `OverlayContextX`                | DSL extension for Dispatcher overlays              | Side-effects (errors, feedback) |
-| `OverlayDispatcher`              | Queues + manages overlay conflicts                 | Auto-managed                    |
-| `OverlayUIPresets`               | Shared UI styles for snackbars, banners, dialogs   | Visual consistency              |
-| `OverlayUIEntry` subclasses      | Declarative overlay descriptors                    | Internal Dispatcher use         |
-| `GlobalOverlayHandler`           | Keyboard + overlay dismiss gesture handler         | Wraps `MaterialApp.builder`     |
-| `OverlayService`                 | Manual user interaction overlays (not queued)      | Used for `showDialog`/modals    |
-| `ListenerWrapper` (BlocListener) | Handles one-shot feedback (failure, success, etc.) | Pushes to Dispatcher            |
-| `Builder` (BlocBuilder)          | Renders layout based on `Cubit` state              | Loader, UI widgets              |
-
----
-
-## 🧪 Conflict-Resolution Policies
-
-Each overlay entry defines:
-
-* `OverlayPriority` — controls replacement importance.
-* `OverlayReplacePolicy` — how to handle existing overlays.
-* `OverlayCategory` — logical type (banner, loader, dialog).
-
-Dispatcher consults `OverlayPolicyResolver` to determine if:
-
-* current overlay must be dismissed
-* queued overlay must wait
-* new overlay must be dropped
-
----
-
-## 🧠 Real World Flow
-
-### A. ProfilePage (State-based loader, Dispatcher-based error)
+## 🧪 Failure Handling (example)
 
 ```dart
-BlocBuilder<ProfileCubit, ProfileState>(
-  builder: (context, state) => switch (state) {
-    ProfileLoading() => LoaderWidget(),       // UI-driven
-    ProfileError() => ErrorContent(),         // fallback view
-    ProfileLoaded(:user) => UserProfileCard(user: user),
-  },
-);
-```
-
-```dart
-BlocListener<ProfileCubit, ProfileState>(
-  listenWhen: (prev, curr) => curr is ProfileError,
+BlocListener<MyCubit, MyState>(
+  listenWhen: (prev, curr) => curr is MyErrorState,
   listener: (context, state) {
     final model = state.failure.consume();
-    if (model != null) context.showError(model); // Dispatcher-driven
+    if (model != null) {
+      context.showError(
+        model,
+        showAs: ShowErrorAs.dialog,
+        preset: OverlayErrorUIPreset(),
+      );
+    }
   },
 );
 ```
 
-### B. SignInPage (SideEffect + Form feedback)
+### 🔄 Will render:
 
-* Listener handles only `failure`.
-* Builder handles only form `status`.
-
----
-
-## ✅ Summary: Best Practice Flow
-
-| Type            | Who triggers | Where rendered         | Via                      | Dispatcher? |
-| --------------- | ------------ | ---------------------- | ------------------------ | ----------- |
-| Loader          | `Cubit`      | `Builder`              | `LoaderWidget()`         | ❌ No        |
-| Error Dialog    | `Listener`   | `Overlay`              | `context.showError()`    | ✅ Yes       |
-| User Dialog     | User         | `Dialog` via Navigator | `OverlayService`         | ❌ No        |
-| Snackbar/Banner | `Listener`   | `Overlay`              | `context.showSnackbar()` | ✅ Yes       |
+* Platform-aware animated dialog
+* Shown via `DialogOverlayEntry`
+* Inserted through `OverlayDispatcher`
+* Animated using `AnimationHost`
 
 ---
 
-## ✅ Conclusions
+## ✅ Summary: State-Driven Overlay Flow
 
-* ❗ **Dispatcher must never manage long-lived loaders or user dialogs.**
-* 🧱 Dispatcher is perfect for transient feedback overlays.
-* 🎮 Always ensure UI has a *single source of truth* — either via Cubit state or user interaction — never both simultaneously.
+| Action       | API Used                 | Dispatcher | UI Layer      | Animates via    |
+| ------------ | ------------------------ | ---------- | ------------- | --------------- |
+| Error Banner | `context.showError()`    | ✅ Yes      | `AppBanner`   | `AnimationHost` |
+| Snackbar     | `context.showSnackbar()` | ✅ Yes      | `AppSnackbar` | `AnimationHost` |
+| Error Dialog | `context.showError()`    | ✅ Yes      | `AppDialog`   | `AnimationHost` |
+| Info Dialog  | `context.showDialog()`   | ✅ Yes      | `AppDialog`   | `AnimationHost` |
 
-""
+---
+
+## ⛔ What Not To Do
+
+* ❌ Do not use Dispatcher for loaders or state-based widgets
+* ❌ Do not mix UI overlays with BlocBuilder content
+* ❌ Do not put animation or UI logic in `OverlayUIEntry` directly — only in `AnimationHost`
+
+---
+
+## ⏭️ Next Section: `User-Driven Overlay Flow`
+
+*Coming soon — documents manual overlays shown from UI interaction (FABs, gestures, etc.)*

@@ -4,13 +4,9 @@ import '../conflicts_strategy/conflicts_strategy.dart';
 import '../../presentation/overlay_presets/overlay_presets.dart';
 import '../../presentation/widgets/app_banner.dart';
 import '../../presentation/widgets/app_dialog.dart';
-import '../../presentation/widgets/app_loader.dart';
 import '../../presentation/widgets/app_snackbar.dart';
-import '../../presentation/widgets/app_custom_overlay.dart';
 
-part 'custom_overlay_entry.dart';
 part 'dialog_overlay_entry.dart';
-part 'loader_overlay_entry.dart';
 part 'snackbar_overlay_entry.dart';
 part 'banner_overlay_entry.dart';
 

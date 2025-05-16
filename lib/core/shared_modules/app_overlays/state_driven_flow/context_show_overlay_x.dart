@@ -1,31 +1,21 @@
 import 'package:flutter/material.dart';
 import '../../../app_config/bootstrap/di_container.dart';
 import '../../app_errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
-import 'conflicts_strategy/conflicts_strategy.dart';
 import 'conflicts_strategy/police_resolver.dart';
 import 'overlay_entries/_overlay_entries.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';
 import 'overlay_dispatcher/overlay_dispatcher_interface.dart';
 
-/// 🎯 [OverlayContextX] — Unified extension for overlay DSL and dispatcher access
+/// 🎯 [ContextXForStateDrivenOverlayFlow] — Unified extension for overlay DSL and dispatcher access
 /// ✅ Use `context.showSnackbar(...)` / `context.showBanner(...)` directly
 /// ✅ No need to use intermediate `OverlayController`
 //-------------------------------------------------------------
 
-extension OverlayContextX on BuildContext {
+extension ContextXForStateDrivenOverlayFlow on BuildContext {
   //
   /// 🔌 Direct access to [IOverlayDispatcher] from DI
   IOverlayDispatcher get overlayDispatcher => di<IOverlayDispatcher>();
-
-  ///
-  /// ⏳ Shows a loader that must be dismissed manually (persistent)
-  void showPersistentLoader() {
-    final entry = const LoaderOverlayEntry(
-      duration: Duration.zero, // 👈 stay until dismiss()
-      dismissPolicy: OverlayDismissPolicy.persistent,
-    );
-    overlayDispatcher.enqueueRequest(this, entry);
-  }
+  //
 
   /// 🪧 Shows a platform-aware banner (iOS/Android) using optional preset
   void showBanner({
@@ -86,22 +76,6 @@ extension OverlayContextX on BuildContext {
       preset: preset,
       isError: isError,
       isInfoDialog: isInfoDialog,
-      dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
-    );
-    overlayDispatcher.enqueueRequest(this, entry);
-  }
-
-  /// 🧱 Shows any custom widget inside overlay (platform-aware container)
-  void showCustomOverlay({
-    required Widget child,
-    Duration duration = const Duration(seconds: 2),
-    bool isDismissible = true,
-    bool isError = false,
-  }) {
-    final entry = CustomOverlayEntry(
-      child: child,
-      duration: duration,
-      isError: isError,
       dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
     );
     overlayDispatcher.enqueueRequest(this, entry);
