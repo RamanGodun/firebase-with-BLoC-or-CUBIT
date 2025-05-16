@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'animation_engine_interface.dart';
+import '__animation_engine_interface.dart';
 
 /// 🧩 [BannerAnimationService] — centralized fade + scale animation logic
 /// 🌀 Designed to replicate AnimatedBanner behavior cleanly and safely
@@ -7,7 +7,7 @@ import 'animation_engine_interface.dart';
 ///----------------------------------------------------------------------------
 
 /// 🌀 Concrete implementation of [IAnimationEngine]
-final class IOSAnimationBannerBannerEngine implements IAnimationEngine {
+final class IOSAnimationBannerEngine implements IAnimationEngine {
   ///
   static const _defaultDuration = Duration(milliseconds: 600);
   AnimationController? _controller;
@@ -34,45 +34,24 @@ final class IOSAnimationBannerBannerEngine implements IAnimationEngine {
 
   /// 🎞️ Triggers the animation forward
   @override
-  void play({Duration? durationOverride}) {
-    if (_controller == null) {
-      throw StateError('BannerAnimationEngine not initialized.');
-    }
-    _controller!.forward(from: 0);
-  }
-
-  /// 🎛️ Getters for external binding (FadeTransition, ScaleTransition)
-  @override
-  Animation<double> get opacity {
-    _ensureInitialized();
-    return _opacity;
-  }
+  void play({Duration? durationOverride}) => _controller!.forward(from: 0);
 
   ///
   @override
-  Animation<double> get scale {
-    _ensureInitialized();
-    return _scale;
-  }
+  Future<void> reverse() async => _controller!.reverse();
+
+  /// 🎛️ Getters for external binding (FadeTransition, ScaleTransition)
+  @override
+  Animation<double> get opacity => _opacity;
+
+  @override
+  Animation<double> get scale => _scale;
 
   /// 🛑 Safely disposes animation controller
   @override
   void dispose() {
-    _controller?.stop();
     _controller?.dispose();
     _controller = null;
-  }
-
-  /// 🔍 Checks if animation is running
-  void _ensureInitialized() {
-    if (_controller == null) {
-      throw StateError('BannerAnimationEngine has not been initialized.');
-    }
-  }
-
-  @override
-  Future<void> reverse() {
-    throw UnimplementedError();
   }
 
   ///

@@ -1,27 +1,14 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        Animation,
+        AnimationController,
+        CurveTween,
+        Curves,
+        TickerProvider,
+        Tween;
+import '__animation_engine_interface.dart';
 
-import 'animation_engine_interface.dart' show IAnimationEngine;
-
-// === OVERLAY TYPES ===
-enum OverlayType {
-  banner,
-  dialog,
-  snackbar,
-  // tooltip,
-  // toast,
-  // systemNotification,
-}
-
-// enum AnimationTargetType {
-//   banner,
-//   dialog,
-//   snackbar,
-//   // tooltip,
-//   // toast,
-//   // systemNotification,
-// }
-
-enum AnimationPlatform { android, ios, adaptive }
+// === ANIMATION ENGINE ===
 
 final class AnimationEngine implements IAnimationEngine {
   static const _defaultDuration = Duration(milliseconds: 600);
@@ -59,24 +46,5 @@ final class AnimationEngine implements IAnimationEngine {
   void dispose() {
     _controller?.dispose();
     _controller = null;
-  }
-}
-
-// === FACTORY ===
-final class AnimationEngineFactory {
-  const AnimationEngineFactory._();
-
-  static IAnimationEngine create({
-    required OverlayType targetType,
-    required TickerProvider vsync,
-    AnimationPlatform platform = AnimationPlatform.adaptive,
-  }) {
-    final engine = switch (targetType) {
-      OverlayType.banner => AnimationEngine(),
-      OverlayType.snackbar => AnimationEngine(),
-      OverlayType.dialog => AnimationEngine(),
-    };
-    engine.initialize(vsync);
-    return engine;
   }
 }

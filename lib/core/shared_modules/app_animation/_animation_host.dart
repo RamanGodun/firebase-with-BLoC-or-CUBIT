@@ -1,25 +1,19 @@
-// === FIXED AnimationHost with platform awareness and decoupled animation engine ===
-
 import 'package:flutter/material.dart';
-import 'animation_engine_factory.dart';
-import 'animation_engine_interface.dart';
+import '../animation_engines/_animation_engine_factory.dart';
+import '../animation_engines/__animation_engine_interface.dart';
 
-/// ✅ [AnimationHost] — centralized animation container
-/// - Accepts resolved platform and target
-/// - Provides IAnimationEngine instance via builder
-/// - Manages animation lifecycle and auto-dismiss
 class AnimationHost extends StatefulWidget {
-  final OverlayType target;
-  final TargetPlatform platform;
-  final Widget Function(IAnimationEngine engine) builder;
+  final UserDrivenOverlayType overlayType;
+  final AnimationPlatform platform;
   final Duration displayDuration;
   final VoidCallback? onDismiss;
+  final Widget Function(IAnimationEngine engine) builderWithEngine;
 
   const AnimationHost({
     super.key,
-    required this.target,
+    required this.overlayType,
     required this.platform,
-    required this.builder,
+    required this.builderWithEngine,
     this.displayDuration = const Duration(seconds: 2),
     this.onDismiss,
   });
@@ -36,18 +30,20 @@ class _AnimationHostState extends State<AnimationHost>
   void initState() {
     super.initState();
     _engine = AnimationEngineFactory.create(
-      targetType: widget.target,
+      platform: widget.platform,
+      target: widget.overlayType,
       vsync: this,
     );
     _engine.play();
-    _autoDismiss();
+    if (widget.displayDuration > Duration.zero) {
+      _autoDismiss();
+    }
   }
 
   void _autoDismiss() {
     Future.delayed(widget.displayDuration, () async {
       await _engine.reverse();
       widget.onDismiss?.call();
-      if (mounted) Navigator.of(context).pop();
     });
   }
 
@@ -58,5 +54,5 @@ class _AnimationHostState extends State<AnimationHost>
   }
 
   @override
-  Widget build(BuildContext context) => widget.builder(_engine);
+  Widget build(BuildContext context) => widget.builderWithEngine(_engine);
 }

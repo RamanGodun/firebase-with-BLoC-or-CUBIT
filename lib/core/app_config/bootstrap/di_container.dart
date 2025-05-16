@@ -19,8 +19,8 @@ import '../../../features/profile/data/_profile_repo_impl.dart';
 import '../../../features/profile/domain/profile_repository.dart';
 import '../../../features/profile/domain/load_profile_use_case.dart';
 
-import '../../shared_modules/app_animation/animation_engine_interface.dart';
-import '../../shared_modules/app_animation/service_for_ios_banner_animation.dart';
+import '../../shared_modules/animation_engines/__animation_engine_interface.dart';
+import '../../shared_modules/animation_engines/ios_banner_animation_engine.dart';
 import '../../shared_modules/app_loggers/crash_analytics_logger.dart';
 import '../../shared_modules/app_loggers/i_logger_contract.dart';
 import '../../shared_modules/app_overlays/state_driven_flow/overlay_dispatcher/overlay_dispatcher.dart';
@@ -55,7 +55,7 @@ final class AppDI {
         () => OverlayDispatcher(),
       )
       ..registerLazySingletonIfAbsent<IAnimationEngine>(
-        () => IOSAnimationBannerBannerEngine(),
+        () => IOSAnimationBannerEngine(),
       )
       ..registerLazySingleton(() => OverlayQueueManager());
   }

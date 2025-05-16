@@ -45,13 +45,33 @@ final class BannerOverlayEntry extends OverlayUIEntry {
   /// Called by Dispatcher during overlay insertion
   @override
   Widget build(BuildContext context) {
-    final props = preset?.resolve() ?? const OverlayInfoUIPreset().resolve();
+    final resolvedProps =
+        preset?.resolve() ?? const OverlayInfoUIPreset().resolve();
+    final animationPlatform = context.platform.toAnimationPlatform();
 
-    return AppBanner(
-      message: message,
-      icon: icon ?? props.icon,
-      props: props,
-      platform: context.platform,
+    return AnimationHost(
+      overlayType: UserDrivenOverlayType.banner,
+      displayDuration: duration,
+      platform: animationPlatform,
+      onDismiss: onDismiss,
+      builderWithEngine:
+          (engine) => switch (animationPlatform) {
+            AnimationPlatform.ios ||
+            AnimationPlatform.adaptive => IOSBannerCard(
+              message: message,
+              icon: icon ?? resolvedProps.icon,
+              engine: engine,
+              props: resolvedProps,
+            ),
+            AnimationPlatform.android => AndroidBannerCard(
+              message: message,
+              icon: icon ?? resolvedProps.icon,
+              engine: engine as ISlideAnimationEngine,
+              props: resolvedProps,
+            ),
+          },
     );
   }
+
+  ///
 }

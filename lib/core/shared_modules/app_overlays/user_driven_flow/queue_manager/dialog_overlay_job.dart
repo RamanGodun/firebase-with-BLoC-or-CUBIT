@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import '../../../app_animation/animation_engine_factory.dart';
+import '../../../animation_engines/_animation_engine_factory.dart';
 import '../../presentation/widgets/app_dialog.dart';
 import '../../presentation/overlay_presets/preset_props.dart';
-import 'job_interface.dart';
+import '_job_interface.dart';
 
 final class DialogOverlayJob extends OverlayJob {
   final BuildContext context;
@@ -31,7 +31,7 @@ final class DialogOverlayJob extends OverlayJob {
   });
 
   @override
-  OverlayType get type => OverlayType.dialog;
+  UserDrivenOverlayType get type => UserDrivenOverlayType.dialog;
 
   @override
   Duration get duration => const Duration(milliseconds: 0); // unused

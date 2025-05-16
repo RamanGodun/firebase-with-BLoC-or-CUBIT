@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'animation_engine_interface.dart';
+import '__animation_engine_interface.dart';
 
 /// 🎯 [AndroidBannerAnimationEngine] — fade + slide animation
 /// 🎞️ Designed for Material-style overlays (e.g. banners, snackbars)

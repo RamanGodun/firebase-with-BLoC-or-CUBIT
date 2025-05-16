@@ -4,8 +4,8 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extens
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
 import '../../../../shared_presentation/shared_widgets/text_widget.dart';
-import '../../../app_animation/animation_engine_interface.dart';
-import '../../../app_animation/service_for_android_banner_animation.dart';
+import '../../../animation_engines/__animation_engine_interface.dart';
+import '../../../animation_engines/android_banner_animation_engine.dart';
 import '../overlay_presets/preset_props.dart';
 
 /// 🎭 [IOSBannerCard] — Stateless widget that builds animated glass UI
