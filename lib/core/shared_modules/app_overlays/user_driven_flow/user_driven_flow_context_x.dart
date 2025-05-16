@@ -67,3 +67,12 @@ extension ContextXForUserDrivenOverlayFlow on BuildContext {
     );
   }
 }
+
+extension OverlayContextX on BuildContext {
+  /// Inserts [entry] into root overlay.
+  /// Equivalent to: `Overlay.of(context, rootOverlay: true).insert(entry);`
+  void insertOverlayEntry(OverlayEntry entry) {
+    final overlay = Overlay.of(this, rootOverlay: true);
+    overlay.insert(entry);
+  }
+}

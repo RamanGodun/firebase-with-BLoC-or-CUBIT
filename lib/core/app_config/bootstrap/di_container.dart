@@ -19,8 +19,6 @@ import '../../../features/profile/data/_profile_repo_impl.dart';
 import '../../../features/profile/domain/profile_repository.dart';
 import '../../../features/profile/domain/load_profile_use_case.dart';
 
-import '../../shared_modules/animation_engines/__animation_engine_interface.dart';
-import '../../shared_modules/animation_engines/engines_for_ios_platform/ios_banner_animation_engine.dart';
 import '../../shared_modules/app_loggers/crash_analytics_logger.dart';
 import '../../shared_modules/app_loggers/i_logger_contract.dart';
 import '../../shared_modules/app_overlays/state_driven_flow/overlay_dispatcher/overlay_dispatcher.dart';
@@ -28,18 +26,19 @@ import '../../shared_modules/app_overlays/state_driven_flow/overlay_dispatcher/o
 import '../../shared_modules/app_overlays/user_driven_flow/_queue_manager.dart';
 import '../../shared_modules/app_theme/theme_cubit/theme_cubit.dart';
 
-/// 💠 Global instance of GetIt DI container
+/// 💠 Global [GetIt] instance used as service locator across the app
 final di = GetIt.instance;
 
 /// 🚀 [AppDI] — Centralized class for dependency registration
 /// ✅ Separates responsibilities by layers: Services, DataSources, UseCases, Blocs
 ///-----------------------------------------------------------------------------
-final class AppDI {
+abstract final class AppDI {
   AppDI._();
 
   /// 🎯 Entry point — call once in `main()`
   static Future<void> init() async {
-    _registerSharedModules();
+    _registerAppLogger();
+    _registerOverlaysHandlers();
     _registerFirebase();
     _registerDataSources();
     _registerRepositories();
@@ -47,15 +46,16 @@ final class AppDI {
     _registerBlocs();
   }
 
-  /// 🔍 Registers global  services
-  static void _registerSharedModules() {
+  ///
+  static void _registerAppLogger() {
+    di.registerLazySingletonIfAbsent<ILogger>(() => CrashlyticsLogger());
+  }
+
+  /// 🔍 Registers overlay handlers
+  static void _registerOverlaysHandlers() {
     di
-      ..registerLazySingletonIfAbsent<ILogger>(() => CrashlyticsLogger())
       ..registerLazySingletonIfAbsent<IOverlayDispatcher>(
         () => OverlayDispatcher(),
-      )
-      ..registerLazySingletonIfAbsent<IAnimationEngine>(
-        () => IOSAnimationBannerEngine(),
       )
       ..registerLazySingleton(() => OverlayQueueManager());
   }

@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_animation/target_platform_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_overlays/user_driven_flow/user_driven_flow_context_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 import '../../../animation_engines/__animation_engine_interface.dart';
 import '../../../animation_engines/_animation_engine_factory.dart';
+import '../../../app_animation/enums_for_animation_module.dart';
 import '../../presentation/overlay_presets/overlay_presets.dart';
 import '../../presentation/widgets/android_dialog.dart';
 import '../../presentation/overlay_presets/preset_props.dart';
@@ -112,7 +114,8 @@ final class DialogOverlayTask extends OverlayTask {
     );
 
     /// Injects the dialog into root overlay and starts animation
-    Overlay.of(context, rootOverlay: true).insert(entry);
+    // Overlay.of(context, rootOverlay: true).insert(entry); // ? bellow alt syntaxes, check it
+    context.insertOverlayEntry(entry);
     engine.play();
     return completer.future;
   }

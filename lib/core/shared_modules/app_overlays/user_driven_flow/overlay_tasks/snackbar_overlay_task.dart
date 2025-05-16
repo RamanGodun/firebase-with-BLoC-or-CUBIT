@@ -1,10 +1,11 @@
 import 'dart:async' show Completer;
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_overlays/user_driven_flow/user_driven_flow_context_x.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_animation/target_platform_x.dart';
-import '../../../animation_engines/_animation_engine_factory.dart';
 import '../../../animation_engines/__animation_engine_interface.dart';
 import '../../../app_animation/_animation_host.dart';
+import '../../../app_animation/enums_for_animation_module.dart';
 import '../../presentation/overlay_presets/overlay_presets.dart';
 import '../../presentation/overlay_presets/preset_props.dart';
 import '../../presentation/widgets/android_snackbar.dart';
@@ -82,7 +83,8 @@ final class SnackbarOverlayTask extends OverlayTask {
     );
 
     /// Injects snackbar into root overlay
-    Overlay.of(context, rootOverlay: true).insert(entry);
+    // Overlay.of(context, rootOverlay: true).insert(entry);  // ? bellow alt syntaxes, check it
+    context.insertOverlayEntry(entry);
     return completer.future;
   }
 
