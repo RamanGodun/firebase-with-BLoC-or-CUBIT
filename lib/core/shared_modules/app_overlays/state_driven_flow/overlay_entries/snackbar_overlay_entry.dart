@@ -44,17 +44,36 @@ final class SnackbarOverlayEntry extends OverlayUIEntry {
     category: isError ? OverlayCategory.error : OverlayCategory.snackbar,
   );
 
-  /// 🏗️ Builds a platform-aware snackbar widget with resolved props
-  /// Called by Dispatcher during overlay insertion
+  /// 🏗️ Builds animated platform-aware snackbar
   @override
   Widget build(BuildContext context) {
-    final props = preset?.resolve() ?? const OverlayInfoUIPreset().resolve();
+    final resolvedProps =
+        preset?.resolve() ?? const OverlayInfoUIPreset().resolve();
+    final animationPlatform = context.platform.toAnimationPlatform();
 
-    return AppSnackbarWidget(
-      message: message,
-      icon: icon ?? props.icon,
-      props: props,
-      platform: context.platform,
+    return AnimationHost(
+      overlayType: UserDrivenOverlayType.snackbar,
+      displayDuration: duration,
+      platform: animationPlatform,
+      onDismiss: onDismiss,
+      builderWithEngine:
+          (engine) => switch (animationPlatform) {
+            AnimationPlatform.ios ||
+            AnimationPlatform.adaptive => IOSSnackbarCard(
+              message: message,
+              icon: icon ?? resolvedProps.icon,
+              engine: engine,
+              props: resolvedProps,
+            ),
+            AnimationPlatform.android => AndroidSnackbarCard(
+              message: message,
+              icon: icon ?? resolvedProps.icon,
+              engine: engine as ISlideAnimationEngine,
+              props: resolvedProps,
+            ),
+          },
     );
   }
+
+  ////
 }

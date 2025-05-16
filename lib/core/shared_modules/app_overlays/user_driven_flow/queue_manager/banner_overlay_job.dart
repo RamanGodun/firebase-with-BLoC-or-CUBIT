@@ -6,7 +6,7 @@ import '../../../animation_engines/_animation_engine_factory.dart';
 import '../../../animation_engines/__animation_engine_interface.dart';
 import '../../../app_animation/_animation_host.dart';
 import '../../presentation/overlay_presets/overlay_presets.dart';
-import '../../presentation/widgets/banner_card.dart';
+import '../../presentation/widgets/app_banners.dart';
 import '_job_interface.dart';
 
 final class BannerOverlayJob extends OverlayJob {

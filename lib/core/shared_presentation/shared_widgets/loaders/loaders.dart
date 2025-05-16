@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../shared_presentation/shared_widgets/app_loader.dart';
+import 'app_loader.dart';
 
 /// 🔄 [LoaderWidget] — Flexible loader, used for splash-screen or in build
 //----------------------------------------------------------------
