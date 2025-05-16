@@ -46,6 +46,7 @@ final class ThemeToggleIcon extends StatelessWidget {
 
     // 🌟 Show overlay with correct message and icon
     context.showUserBanner(message, icon);
+
     //
   }
 

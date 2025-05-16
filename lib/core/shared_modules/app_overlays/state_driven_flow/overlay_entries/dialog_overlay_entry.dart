@@ -3,7 +3,7 @@ part of '_overlay_entries.dart';
 /// 💬 [DialogOverlayEntry] — Overlay entry for platform-adaptive dialogs
 /// - Acts as a configuration object for [OverlayDispatcher]
 /// - Encapsulates conflict strategy, interaction callbacks, and style
-/// - Builds a ready-to-render [AppDialog] widget
+/// - Builds a ready-to-render animated dialog via [AnimationHost]
 // ----------------------------------------------------------------------
 
 final class DialogOverlayEntry extends OverlayUIEntry {
@@ -49,22 +49,50 @@ final class DialogOverlayEntry extends OverlayUIEntry {
     category: isError ? OverlayCategory.error : OverlayCategory.dialog,
   );
 
-  /// 🏗️ Builds a platform-aware dialog widget with resolved props
-  /// Called by Dispatcher during overlay insertion
+  /// 🏗️ Builds a platform-aware dialog widget with resolved props using [AnimationHost]
   @override
   Widget build(BuildContext context) {
     final props = preset?.resolve() ?? const OverlayInfoUIPreset().resolve();
+    final animationPlatform = context.platform.toAnimationPlatform();
 
-    return AppDialog(
-      title: title,
-      content: content,
-      confirmText: confirmText,
-      cancelText: cancelText,
-      onConfirm: onConfirm,
-      onCancel: onCancel,
-      presetProps: props,
-      platform: context.platform,
-      isInfoDialog: isInfoDialog,
+    fallbackDismiss() => di<IOverlayDispatcher>().dismissCurrent();
+
+    return AnimationHost(
+      overlayType: UserDrivenOverlayType.dialog,
+      displayDuration: duration,
+      platform: animationPlatform,
+      onDismiss: onDismiss,
+      builderWithEngine:
+          (engine) => switch (animationPlatform) {
+            AnimationPlatform.ios || AnimationPlatform.adaptive => IOSAppDialog(
+              title: title,
+              content: content,
+              confirmText: confirmText,
+              cancelText: cancelText,
+              onConfirm: onConfirm,
+              onCancel: onCancel,
+              presetProps: props,
+              isInfoDialog: isInfoDialog,
+              isFromUserFlow: false,
+              engine: engine,
+              onAnimatedDismiss: fallbackDismiss,
+            ),
+            AnimationPlatform.android => AndroidAppDialog(
+              title: title,
+              content: content,
+              confirmText: confirmText,
+              cancelText: cancelText,
+              onConfirm: onConfirm,
+              onCancel: onCancel,
+              presetProps: props,
+              isInfoDialog: isInfoDialog,
+              isFromUserFlow: false,
+              engine: engine,
+              onAnimatedDismiss: fallbackDismiss,
+            ),
+          },
     );
   }
+
+  ///
 }
