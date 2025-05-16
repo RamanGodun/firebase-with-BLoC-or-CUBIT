@@ -1,10 +1,11 @@
 part of '_overlay_entries.dart';
 
-/// 🪧 [BannerOverlayEntry] — Overlay entry for platform-adaptive banners
-/// - Acts as a configuration object for [OverlayDispatcher]
-/// - Encapsulates conflict strategy and dismiss rules
-/// - Builds a ready-to-render [AppBanner] widget
-// ----------------------------------------------------------------------
+/// 🪧 [BannerOverlayEntry] — State-driven platform-aware banner
+/// - Used by [OverlayDispatcher] for automatic banner rendering
+/// - Defines conflict strategy, priority, and dismissibility
+/// - Renders animated [AppBanner] via [AnimationHost]
+/// - Called by Dispatcher during overlay insertion
+// --------------------------------------------------------------
 
 final class BannerOverlayEntry extends OverlayUIEntry {
   final String message;
@@ -41,29 +42,34 @@ final class BannerOverlayEntry extends OverlayUIEntry {
     category: isError ? OverlayCategory.error : OverlayCategory.banner,
   );
 
-  /// 🏗️ Builds a platform-aware banner widget with resolved props
-  /// Called by Dispatcher during overlay insertion
+  /// 🧱 Builds and animates the banner via [AnimationHost]
   @override
   Widget build(BuildContext context) {
+    //
+    /// Internally resolves props
     final resolvedProps =
         preset?.resolve() ?? const OverlayInfoUIPreset().resolve();
+
+    // Selects [AnimationPlatform] (iOS/Android)
     final animationPlatform = context.platform.toAnimationPlatform();
 
+    /// [AnimationHost] invokes [engine.play] and auto-dismiss logic
     return AnimationHost(
       overlayType: UserDrivenOverlayType.banner,
       displayDuration: duration,
       platform: animationPlatform,
       onDismiss: onDismiss,
+
+      /// 🎯 Builds the banner widget with platform-specific animation engine
       builderWithEngine:
           (engine) => switch (animationPlatform) {
-            AnimationPlatform.ios ||
-            AnimationPlatform.adaptive => IOSBannerCard(
+            AnimationPlatform.ios || AnimationPlatform.adaptive => IOSBanner(
               message: message,
               icon: icon ?? resolvedProps.icon,
               engine: engine,
               props: resolvedProps,
             ),
-            AnimationPlatform.android => AndroidBannerCard(
+            AnimationPlatform.android => AndroidBanner(
               message: message,
               icon: icon ?? resolvedProps.icon,
               engine: engine as ISlideAnimationEngine,
@@ -73,5 +79,5 @@ final class BannerOverlayEntry extends OverlayUIEntry {
     );
   }
 
-  ///
+  //
 }

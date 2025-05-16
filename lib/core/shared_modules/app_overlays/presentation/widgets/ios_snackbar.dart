@@ -4,6 +4,10 @@ import '../../../../shared_presentation/shared_widgets/text_widget.dart';
 import '../../../animation_engines/__animation_engine_interface.dart';
 import '../overlay_presets/preset_props.dart';
 
+/// 🍎 [IOSSnackbarCard] — Cupertino-style snackbar for iOS/macOS
+/// - Glassmorphic UI with fade + scale animation via [IAnimationEngine]
+/// - Used by [AnimationHost] in user- or state-driven flows
+/// - Renders bottom-aligned snackbar with custom style and layout
 final class IOSSnackbarCard extends StatelessWidget {
   final String message;
   final IconData icon;
@@ -18,10 +22,12 @@ final class IOSSnackbarCard extends StatelessWidget {
     required this.engine,
   });
 
+  /// 🧱 Builds the animated snackbar widget with glass effect and props
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.bottomCenter,
+      // Animates opacity and scale using the provided engine
       child: FadeTransition(
         opacity: engine.opacity,
         child: ScaleTransition(
@@ -62,59 +68,6 @@ final class IOSSnackbarCard extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-final class AndroidSnackbarCard extends StatelessWidget {
-  final String message;
-  final IconData icon;
-  final OverlayUIPresetProps props;
-  final ISlideAnimationEngine engine;
-
-  const AndroidSnackbarCard({
-    super.key,
-    required this.message,
-    required this.icon,
-    required this.props,
-    required this.engine,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: SlideTransition(
-        position: engine.slide,
-        child: FadeTransition(
-          opacity: engine.opacity,
-          child: Material(
-            elevation: 6,
-            borderRadius: BorderRadius.circular(8),
-            color: props.color.withOpacity(0.95),
-            child: Padding(
-              padding: props.contentPadding,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(icon, color: Colors.white),
-                  const SizedBox(width: 8),
-                  Flexible(
-                    child: TextWidget(
-                      message,
-                      TextType.bodyMedium,
-                      color: Colors.white,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      isTextOnFewStrings: true,
-                    ),
-                  ),
-                ],
               ),
             ),
           ),

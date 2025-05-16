@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import '__animation_engine_interface.dart';
+import '../__animation_engine_interface.dart';
 
+/// 🤖 [AndroidDialogAnimationEngine] — slide + fade + scale animation for dialogs
+/// 🎞️ Used for Material-style dialogs (state- or user-driven)
+/// ✅ Combines opacity, subtle scale, and upward slide on entry
 final class AndroidDialogAnimationEngine implements ISlideAnimationEngine {
   static const _duration = Duration(milliseconds: 400);
   AnimationController? _controller;
@@ -8,6 +11,10 @@ final class AndroidDialogAnimationEngine implements ISlideAnimationEngine {
   late final Animation<double> _scale;
   late final Animation<Offset> _slide;
 
+  /// Initializes the engine with Android-style animation curves
+  /// - Opacity: fade in
+  /// - Scale: slight pop
+  /// - Slide: vertical from bottom
   @override
   void initialize(TickerProvider vsync) {
     dispose();
@@ -26,21 +33,27 @@ final class AndroidDialogAnimationEngine implements ISlideAnimationEngine {
     ).animate(CurvedAnimation(parent: _controller!, curve: Curves.easeOut));
   }
 
+  /// Starts the forward animation from 0
   @override
   void play({Duration? durationOverride}) => _controller?.forward(from: 0);
 
+  /// Reverses the animation and returns a future when complete
   @override
   Future<void> reverse() async => _controller?.reverse();
 
+  /// Opacity animation (fade in/out)
   @override
   Animation<double> get opacity => _opacity;
 
+  /// Scale animation (95% → 100%)
   @override
   Animation<double> get scale => _scale;
 
+  /// Slide animation (from offset (0, 0.12) to center)
   @override
   Animation<Offset> get slide => _slide;
 
+  /// Disposes the internal animation controller
   @override
   void dispose() {
     _controller?.dispose();

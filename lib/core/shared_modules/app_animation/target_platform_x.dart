@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'enums_for_animation_module.dart';
 
-import '../animation_engines/_animation_engine_factory.dart';
-
+/// 🔁 [AnimationPlatformX] — Extension to map [TargetPlatform] to [AnimationPlatform]
+/// - Used by overlay system to resolve platform-specific animation behavior
 extension AnimationPlatformX on TargetPlatform {
+  /// Maps Flutter's [TargetPlatform] to internal [AnimationPlatform] enum
+  /// - Defaults to Android for unknown platforms
   AnimationPlatform toAnimationPlatform() {
     return switch (this) {
       TargetPlatform.iOS => AnimationPlatform.ios,

@@ -5,11 +5,19 @@ import 'package:flutter/material.dart';
 import '../../../animation_engines/__animation_engine_interface.dart';
 import '../../../animation_engines/_animation_engine_factory.dart';
 import '../../presentation/overlay_presets/overlay_presets.dart';
-import '../../presentation/widgets/app_dialog.dart';
+import '../../presentation/widgets/android_dialog.dart';
 import '../../presentation/overlay_presets/preset_props.dart';
-import '_job_interface.dart';
+import '../../presentation/widgets/ios_dialog.dart';
+import '_task_interface.dart';
 
-final class DialogOverlayJob extends OverlayJob {
+/// 💬 [DialogOverlayTask] — User-driven platform-aware dialog
+/// - Triggered manually via `context.showUserDialog(...)`
+/// - Queued and managed by [OverlayQueueManager]
+/// - Uses [AnimationHost] for entry/exit transitions and dismissal
+/// - Inserts [AppDialog] via [OverlayEntry] at runtime
+// ----------------------------------------------------------------------
+
+final class DialogOverlayTask extends OverlayTask {
   final BuildContext context;
   final String title;
   final String content;
@@ -21,7 +29,7 @@ final class DialogOverlayJob extends OverlayJob {
   final TargetPlatform? platform;
   final bool isInfoDialog;
 
-  DialogOverlayJob({
+  DialogOverlayTask({
     required this.context,
     required this.title,
     required this.content,
@@ -37,31 +45,39 @@ final class DialogOverlayJob extends OverlayJob {
   @override
   UserDrivenOverlayType get type => UserDrivenOverlayType.dialog;
 
+  /// ⏳ Dialogs don’t auto-dismiss (manual interaction required)
   @override
   Duration get duration => Duration.zero;
 
+  /// 🧱 Builds and shows dialog via [AnimationHost]
+  /// Triggered by queue processor in [OverlayQueueManager]
   @override
   Future<void> show() async {
     final completer = Completer<void>();
+    // Selects [AnimationPlatform] (iOS/Android/adaptive)
     final animationPlatform =
         (platform ?? context.platform).toAnimationPlatform();
+    // Resolves styling and behavior props
     final resolvedProps = presetProps ?? const OverlayInfoUIPreset().resolve();
-
+    //
     late final OverlayEntry entry;
     late final IAnimationEngine engine;
 
+    /// Creates animation engine for dialog transitions
     engine = AnimationEngineFactory.create(
       platform: animationPlatform,
       target: UserDrivenOverlayType.dialog,
       vsync: Navigator.of(context),
     );
 
+    /// Runs reverse animation and removes entry
     void animatedDismiss() async {
       await engine.reverse();
       entry.remove();
       completer.complete();
     }
 
+    /// Builds dialog via [AnimationHost] and injects into Overlay
     entry = OverlayEntry(
       builder: (_) {
         return switch (animationPlatform) {
@@ -78,7 +94,7 @@ final class DialogOverlayJob extends OverlayJob {
             engine: engine,
             onAnimatedDismiss: animatedDismiss,
           ),
-          AnimationPlatform.android => AndroidAppDialog(
+          AnimationPlatform.android => AndroidDialog(
             title: title,
             content: content,
             confirmText: confirmText,
@@ -95,8 +111,11 @@ final class DialogOverlayJob extends OverlayJob {
       },
     );
 
+    /// Injects the dialog into root overlay and starts animation
     Overlay.of(context, rootOverlay: true).insert(entry);
     engine.play();
     return completer.future;
   }
+
+  ///
 }

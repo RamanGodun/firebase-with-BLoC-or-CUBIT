@@ -125,7 +125,7 @@ Does not access raw `Failure`.
 * Visual feedback is delegated to `OverlayDispatcher`:
   ```dart
   final model = state.failure?.consume();
-  if (model != null) context.overlay.showError(model);
+  if (model != null) context.showError(model);
   ```
 
 > This keeps UI layer stateless, reactive, testable, and internationalized.
@@ -185,7 +185,7 @@ sequenceDiagram
 | **UseCase**           | Delegates logic and returns result       | Standard: `ResultFuture<T>` = `Future<Either<Failure, T>>`; pure, framework-free |
 | **Cubit / Notifier**  | Handles result and emits state           | Uses `.fold()` for simple flows, DSL handler for UX feedback & chaining          |
 | **UI Layer**          | Displays feedback based on state         | Observes `Consumable<FailureUIModel>`, triggers overlay if `.consume() != null`  |
-| **OverlayDispatcher** | Renders visual feedback centrally        | Uses `context.overlay.showError(...)` with `FailureUIModel`                      |
+| **OverlayDispatcher** | Renders visual feedback centrally        | Uses `context.showError(...)` with `FailureUIModel`                      |
 
 ---
 
@@ -214,7 +214,7 @@ sequenceDiagram
 | Result shape                | ✅ `ResultFuture<T>` everywhere     | Standardized async result format in all layers                     |
 | Exception handling          | ✅ `safeCall()` or `safeCallVoid()` | Captures and maps low-level errors to AZER                         |
 | Failure-to-UI mapping       | ✅ `.toUIModel()`                   | Produces consistent UI-ready error with icon & translation support |
-| UI delivery trigger         | ✅ `context.overlay.showError(...)` | Unified mechanism for showing user-facing errors                   |
+| UI delivery trigger         | ✅ `context.showError(...)` | Unified mechanism for showing user-facing errors                   |
 | Feedback one-time handling  | ✅ `Consumable<FailureUIModel>`     | Ensures overlays shown once per failure emission                   |
 
 ---

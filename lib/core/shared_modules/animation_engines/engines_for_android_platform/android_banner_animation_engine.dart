@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '__animation_engine_interface.dart';
+import '../__animation_engine_interface.dart';
 
 /// 🎯 [AndroidBannerAnimationEngine] — fade + slide animation
 /// 🎞️ Designed for Material-style overlays (e.g. banners, snackbars)
@@ -9,8 +9,9 @@ final class AndroidBannerAnimationEngine implements ISlideAnimationEngine {
   AnimationController? _controller;
   late final Animation<double> _opacity;
   late final Animation<double> _scale;
-  late final Animation<Offset> _slide; // optional if needed
+  late final Animation<Offset> _slide; // ↕️ Vertical entrance slide
 
+  /// Initializes controller and animations
   @override
   void initialize(TickerProvider vsync) {
     dispose();
@@ -32,21 +33,27 @@ final class AndroidBannerAnimationEngine implements ISlideAnimationEngine {
     ).animate(CurvedAnimation(parent: _controller!, curve: Curves.easeOut));
   }
 
+  /// Plays entrance animation from start
   @override
   void play({Duration? durationOverride}) => _controller?.forward(from: 0);
 
+  /// Reverses animation for exit
   @override
   Future<void> reverse() async => _controller?.reverse();
 
+  /// Opacity animation (fade in/out)
   @override
   Animation<double> get opacity => _opacity;
 
+  /// Scale animation (zoom effect)
   @override
   Animation<double> get scale => _scale;
 
+  /// Slide animation (vertical entrance)
   @override
   Animation<Offset> get slide => _slide;
 
+  /// Disposes the animation controller
   @override
   void dispose() {
     _controller?.dispose();

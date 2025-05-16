@@ -6,58 +6,69 @@ import '../../../animation_engines/_animation_engine_factory.dart';
 import '../../../animation_engines/__animation_engine_interface.dart';
 import '../../../app_animation/_animation_host.dart';
 import '../../presentation/overlay_presets/overlay_presets.dart';
-import '../../presentation/overlay_presets/preset_props.dart';
-import '../../presentation/widgets/app_snackbar.dart';
-import '_job_interface.dart';
+import '../../presentation/widgets/android_banner.dart';
+import '../../presentation/widgets/ios_banner.dart';
+import '_task_interface.dart';
 
-final class SnackbarOverlayJob extends OverlayJob {
+/// 🪧 [BannerOverlayTask] — User-driven platform-aware banner
+/// - Triggered manually via `context.showUserBanner(...)`
+/// - Queued and managed by [OverlayQueueManager]
+/// - Uses [AnimationHost] for entrance animation and auto-dismiss
+/// - Inserts [AppBanner] via [OverlayEntry] at runtime
+// ----------------------------------------------------------------------
+
+final class BannerOverlayTask extends OverlayTask {
   final BuildContext context;
   final String message;
   final IconData icon;
-  final OverlayUIPresetProps? presetProps;
-  final TargetPlatform? platform;
 
-  SnackbarOverlayJob({
+  BannerOverlayTask({
     required this.context,
     required this.message,
     required this.icon,
-    this.presetProps,
-    this.platform,
   });
 
   @override
-  UserDrivenOverlayType get type => UserDrivenOverlayType.snackbar;
+  UserDrivenOverlayType get type => UserDrivenOverlayType.banner;
 
+  /// ⏱️ Banner auto-dismisses after fixed duration
   @override
-  Duration get duration => presetProps?.duration ?? const Duration(seconds: 2);
+  Duration get duration => const Duration(seconds: 2);
 
+  /// 🧱 Builds and shows the banner via [AnimationHost]
+  /// Triggered by queue processor in [OverlayQueueManager]
   @override
   Future<void> show() async {
     final completer = Completer<void>();
-    final resolvedProps = presetProps ?? const OverlayInfoUIPreset().resolve();
+    // Resolves style preset for animation & colors
+    final resolvedProps = const OverlayInfoUIPreset().resolve();
+    // Selects [AnimationPlatform] (iOS/Android/adaptive)
     final animationPlatform = context.platform.toAnimationPlatform();
-
+    // Creates overlay entry with animated banner content
     late final OverlayEntry entry;
+
+    ///
     entry = OverlayEntry(
       builder:
           (_) => AnimationHost(
-            overlayType: UserDrivenOverlayType.snackbar,
+            overlayType: UserDrivenOverlayType.banner,
             displayDuration: duration,
             platform: animationPlatform,
             onDismiss: () {
               entry.remove();
               completer.complete();
             },
+            // 🎯 Builds platform-specific banner with resolved props & engine
             builderWithEngine:
                 (engine) => switch (animationPlatform) {
                   AnimationPlatform.ios ||
-                  AnimationPlatform.adaptive => IOSSnackbarCard(
+                  AnimationPlatform.adaptive => IOSBanner(
                     message: message,
                     icon: icon,
                     engine: engine,
                     props: resolvedProps,
                   ),
-                  AnimationPlatform.android => AndroidSnackbarCard(
+                  AnimationPlatform.android => AndroidBanner(
                     message: message,
                     icon: icon,
                     engine: engine as ISlideAnimationEngine,
@@ -67,7 +78,10 @@ final class SnackbarOverlayJob extends OverlayJob {
           ),
     );
 
+    /// Inserts entry into root overlay
     Overlay.of(context, rootOverlay: true).insert(entry);
     return completer.future;
   }
+
+  ///
 }

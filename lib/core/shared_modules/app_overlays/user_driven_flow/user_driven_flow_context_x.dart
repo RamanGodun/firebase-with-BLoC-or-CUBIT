@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import '../../../app_config/bootstrap/di_container.dart';
 import '../presentation/overlay_presets/preset_props.dart';
-import 'queue_manager/banner_overlay_job.dart';
-import 'queue_manager/_queue_manager.dart';
-import 'queue_manager/dialog_overlay_job.dart';
-import 'queue_manager/snackbar_overlay_job.dart';
+import 'overlay_tasks/banner_overlay_task.dart';
+import '_queue_manager.dart';
+import 'overlay_tasks/dialog_overlay_task.dart';
+import 'overlay_tasks/snackbar_overlay_task.dart';
+
+/// 🧭 [ContextXForUserDrivenOverlayFlow] — Extension for user-initiated overlays
+/// - Dispatches overlay tasks (dialog, banner, snackbar) via [OverlayQueueManager]
+/// - Safe to use from button taps, gestures, or inline UI triggers
+/// - Each task is queued and animated using [AnimationHost]
+// ----------------------------------------------------------------------
 
 extension ContextXForUserDrivenOverlayFlow on BuildContext {
+  //
+  /// 🪧 Shows a banner overlay triggered manually by user
   void showUserBanner(String message, IconData icon) {
     di<OverlayQueueManager>().enqueue(
-      BannerOverlayJob(context: this, message: message, icon: icon),
+      BannerOverlayTask(context: this, message: message, icon: icon),
     );
   }
 
+  /// 🍞 Shows a snackbar overlay with optional [presetProps] and platform override
   void showUserSnackbar({
     required String message,
     required IconData icon,
@@ -20,7 +29,7 @@ extension ContextXForUserDrivenOverlayFlow on BuildContext {
     TargetPlatform? platform,
   }) {
     di<OverlayQueueManager>().enqueue(
-      SnackbarOverlayJob(
+      SnackbarOverlayTask(
         context: this,
         message: message,
         icon: icon,
@@ -30,6 +39,7 @@ extension ContextXForUserDrivenOverlayFlow on BuildContext {
     );
   }
 
+  /// 💬 Shows a platform-adaptive dialog with optional confirm/cancel logic
   void showUserDialog({
     required String title,
     required String content,
@@ -42,7 +52,7 @@ extension ContextXForUserDrivenOverlayFlow on BuildContext {
     bool isInfoDialog = false,
   }) {
     di<OverlayQueueManager>().enqueue(
-      DialogOverlayJob(
+      DialogOverlayTask(
         context: this,
         title: title,
         content: content,

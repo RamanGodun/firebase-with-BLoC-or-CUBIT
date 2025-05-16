@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '__animation_engine_interface.dart';
+import '../__animation_engine_interface.dart';
 
+/// 🍞 [AndroidSnackbarAnimationEngine] — fade + slide animation engine for snackbars
+/// - Optimized for Material-style overlays on Android
+/// - Combines opacity, scale, and upward slide transitions
 final class AndroidSnackbarAnimationEngine implements ISlideAnimationEngine {
   static const _defaultDuration = Duration(milliseconds: 450);
   AnimationController? _controller;
@@ -9,6 +12,8 @@ final class AndroidSnackbarAnimationEngine implements ISlideAnimationEngine {
   late final Animation<double> _scale;
   late final Animation<Offset> _slide;
 
+  /// Initializes animations for opacity, scale, and slide
+  /// - Called once with a [TickerProvider] for vsync binding
   @override
   void initialize(TickerProvider vsync) {
     dispose();
@@ -30,21 +35,27 @@ final class AndroidSnackbarAnimationEngine implements ISlideAnimationEngine {
     ).animate(CurvedAnimation(parent: _controller!, curve: Curves.easeOut));
   }
 
+  /// Plays the entrance animation from the beginning
   @override
   void play({Duration? durationOverride}) => _controller?.forward(from: 0);
 
+  /// Reverses the animation for smooth exit transition
   @override
   Future<void> reverse() async => _controller?.reverse();
 
+  /// Current opacity animation
   @override
   Animation<double> get opacity => _opacity;
 
+  /// Current scale animation
   @override
   Animation<double> get scale => _scale;
 
+  /// Current slide animation (Y-axis offset)
   @override
   Animation<Offset> get slide => _slide;
 
+  /// Cleans up the controller and frees resources
   @override
   void dispose() {
     _controller?.dispose();

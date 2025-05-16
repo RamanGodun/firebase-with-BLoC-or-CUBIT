@@ -1,9 +1,10 @@
 part of '_overlay_entries.dart';
 
-/// 🍞 [SnackbarOverlayEntry] — Overlay entry for platform-adaptive snackbars
-/// - Acts as a configuration object for [OverlayDispatcher]
-/// - Encapsulates conflict strategy and dismiss behavior
-/// - Builds a ready-to-render [AppSnackbarWidget] widget
+/// 🍞 [SnackbarOverlayEntry] — State-driven platform-aware snackbar
+/// - Used by [OverlayDispatcher] for automatic snackbar rendering
+/// - Encapsulates priority, dismiss policy, and visual props
+/// - Built via [AnimationHost] and animated per platform
+/// - Called by Dispatcher during overlay insertion
 // ----------------------------------------------------------------------
 
 final class SnackbarOverlayEntry extends OverlayUIEntry {
@@ -44,18 +45,24 @@ final class SnackbarOverlayEntry extends OverlayUIEntry {
     category: isError ? OverlayCategory.error : OverlayCategory.snackbar,
   );
 
-  /// 🏗️ Builds animated platform-aware snackbar
+  /// 🧱 Builds and animates the snackbar via [AnimationHost]
   @override
   Widget build(BuildContext context) {
+    //
+    /// Internally resolves props
     final resolvedProps =
         preset?.resolve() ?? const OverlayInfoUIPreset().resolve();
+
+    // Selects [AnimationPlatform] (iOS/Android)
     final animationPlatform = context.platform.toAnimationPlatform();
 
+    /// [AnimationHost] invokes [engine.play] and auto-dismiss logic
     return AnimationHost(
       overlayType: UserDrivenOverlayType.snackbar,
       displayDuration: duration,
       platform: animationPlatform,
       onDismiss: onDismiss,
+      // 🎯 Builds the snackbar widget with platform-specific animation engine
       builderWithEngine:
           (engine) => switch (animationPlatform) {
             AnimationPlatform.ios ||
@@ -75,5 +82,5 @@ final class SnackbarOverlayEntry extends OverlayUIEntry {
     );
   }
 
-  ////
+  //
 }

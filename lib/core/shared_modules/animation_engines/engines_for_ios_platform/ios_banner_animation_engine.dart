@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import '__animation_engine_interface.dart';
+import '../__animation_engine_interface.dart';
 
 /// 🧩 [BannerAnimationService] — centralized fade + scale animation logic
 /// 🌀 Designed to replicate AnimatedBanner behavior cleanly and safely
 /// ✅ Supports DI and multiple lifecycle scenarios (overlay, widget tree)
-///----------------------------------------------------------------------------
-
 /// 🌀 Concrete implementation of [IAnimationEngine]
+//------------------------------------------------------------------------
+
 final class IOSAnimationBannerEngine implements IAnimationEngine {
-  ///
   static const _defaultDuration = Duration(milliseconds: 600);
   AnimationController? _controller;
   late final Animation<double> _opacity;
@@ -32,27 +31,26 @@ final class IOSAnimationBannerEngine implements IAnimationEngine {
     ).chain(CurveTween(curve: Curves.elasticOut)).animate(_controller!);
   }
 
-  /// 🎞️ Triggers the animation forward
+  /// ▶️ Plays the animation forward from the beginning
   @override
   void play({Duration? durationOverride}) => _controller!.forward(from: 0);
 
-  ///
+  /// ⏪ Reverses the animation (typically for dismissal)
+  /// Returns a Future that completes when the reverse animation finishes
   @override
   Future<void> reverse() async => _controller!.reverse();
 
-  /// 🎛️ Getters for external binding (FadeTransition, ScaleTransition)
+  /// 🎛️ Getters for external binding (e.g., FadeTransition, ScaleTransition)
   @override
   Animation<double> get opacity => _opacity;
 
   @override
   Animation<double> get scale => _scale;
 
-  /// 🛑 Safely disposes animation controller
+  /// 🛑 Safely disposes the animation controller
   @override
   void dispose() {
     _controller?.dispose();
     _controller = null;
   }
-
-  ///
 }

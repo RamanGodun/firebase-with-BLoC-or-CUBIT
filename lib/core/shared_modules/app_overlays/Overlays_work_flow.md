@@ -160,6 +160,161 @@ BlocListener<MyCubit, MyState>(
 
 ---
 
-## ⏭️ Next Section: `User-Driven Overlay Flow`
 
-*Coming soon — documents manual overlays shown from UI interaction (FABs, gestures, etc.)*
+
+
+
+
+
+## 🧭 User-Driven Overlay Flow
+
+### 🎯 Purpose
+
+Manages overlays triggered **manually** by user interactions (e.g. tapping a button, gesture, etc.).
+These overlays are not connected to application state and are **queued separately** to ensure UX consistency and predictability.
+
+---
+
+### 🚀 Entry Point
+
+```dart
+context.showUserDialog(...);
+context.showUserSnackbar(...);
+context.showUserBanner(...);
+```
+
+These methods enqueue a job in the `OverlayQueueManager`, which manages queue lifecycles **per overlay type** (banner, snackbar, dialog).
+
+---
+
+## 🧩 Core Architecture
+
+### 📦 Components
+
+| Component             | Responsibility                                         |
+| --------------------- | ------------------------------------------------------ |
+| `OverlayQueueManager` | Queues overlay jobs per type, ensures one-at-a-time    |
+| `OverlayJob`          | Represents a queued task to render an overlay          |
+| `DialogOverlayJob`    | Creates animated dialog and inserts via `OverlayEntry` |
+| `SnackbarOverlayJob`  | Renders platform-aware snackbar                        |
+| `BannerOverlayJob`    | Displays animated banners                              |
+| `AnimationHost`       | Executes entry/exit animations and cleanup             |
+
+---
+
+### 📌 Workflow Summary
+
+1. `BuildContext.showUserDialog(...)` is called
+2. Job is created: `DialogOverlayJob`
+3. `OverlayQueueManager.enqueue(job)`
+4. If no active job of that type: `job.show()` is called
+5. `OverlayEntry` is created and inserted via `Overlay.of(context)`
+6. `AnimationEngine.play()` starts entrance animation
+7. On dismiss, `AnimationEngine.reverse()` is called
+8. Entry is removed, and next job in queue is processed
+
+---
+
+## 🧠 OverlayQueueManager
+
+* Maintains a **separate FIFO queue per overlay type**
+* Ensures only one banner/snackbar/dialog is shown at a time
+* Automatically proceeds to next item once the current one is dismissed
+
+```dart
+final _queues = <UserDrivenOverlayType, Queue<OverlayJob>>{...};
+final _active = <UserDrivenOverlayType, bool>{...};
+```
+
+---
+
+## 🧱 OverlayJob Interface
+
+Every job implements:
+
+```dart
+abstract class OverlayJob {
+  UserDrivenOverlayType get type;
+  Duration get duration;
+  Future<void> show();
+}
+```
+
+This keeps the API clean, flexible, and consistent with all job types.
+
+---
+
+## 🖼️ Animation & Dismiss
+
+All jobs use `AnimationHost`:
+
+```dart
+AnimationHost(
+  overlayType: UserDrivenOverlayType.dialog,
+  displayDuration: Duration.zero,
+  platform: animationPlatform,
+  onDismiss: () {
+    entry.remove();
+    completer.complete();
+  },
+  builderWithEngine: (engine) => AndroidAppDialog(...),
+)
+```
+
+> `AnimationHost` ensures **smooth transitions**, **timed auto-dismiss** (for banners/snackbars), and correct cleanup.
+
+---
+
+## ✅ Summary: User-Driven Overlay Flow
+
+| Action      | API Used                     | Queue Manager | UI Layer      | Animates via    |
+| ----------- | ---------------------------- | ------------- | ------------- | --------------- |
+| Banner      | `context.showUserBanner()`   | ✅ Yes         | `AppBanner`   | `AnimationHost` |
+| Snackbar    | `context.showUserSnackbar()` | ✅ Yes         | `AppSnackbar` | `AnimationHost` |
+| Info Dialog | `context.showUserDialog()`   | ✅ Yes         | `AppDialog`   | `AnimationHost` |
+
+---
+
+## ✍️ Notes
+
+* ❗ Dialogs require **manual user dismissal**, unless customized
+* ✅ Banner/snackbar overlays auto-dismiss using `displayDuration`
+* 🚫 This system is completely **independent** from `OverlayDispatcher`
+* 🔄 Can be safely used **in parallel** with State-Driven flow
+
+---
+
+## 🧩 Extending the Flow
+
+To add a new user-driven overlay:
+
+1. Create a new `OverlayJob` subclass
+2. Register it in `OverlayQueueManager` enum
+3. Trigger it via `context.showUser...()` extension
+
+---
+
+## 🧪 Example: FAB-triggered Overlay
+
+```dart
+FloatingActionButton(
+  onPressed: () => context.showUserDialog(
+    title: 'Delete item?',
+    content: Text('Are you sure you want to delete this item?'),
+    confirmText: 'Yes',
+    cancelText: 'No',
+  ),
+);
+```
+
+Will queue and show a platform-aware dialog via `AnimationHost`.
+
+---
+
+## 🧷 Final Tip
+
+> Always prefer **State-Driven** overlays for side-effects and logic errors,
+> and **User-Driven** overlays for user-initiated UI flows.
+
+This clear separation enforces UX predictability and better testability.
+

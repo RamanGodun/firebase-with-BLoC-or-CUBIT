@@ -1,9 +1,10 @@
 part of '_overlay_entries.dart';
 
-/// 💬 [DialogOverlayEntry] — Overlay entry for platform-adaptive dialogs
-/// - Acts as a configuration object for [OverlayDispatcher]
-/// - Encapsulates conflict strategy, interaction callbacks, and style
-/// - Builds a ready-to-render animated dialog via [AnimationHost]
+/// 💬 [DialogOverlayEntry] — State-driven platform-aware dialog
+/// - Used by [OverlayDispatcher] for error/info dialogs from state
+/// - Defines conflict strategy, priority, and interactivity
+/// - Uses [AnimationHost] for transitions and cleanup
+/// - Called by Dispatcher during overlay insertion
 // ----------------------------------------------------------------------
 
 final class DialogOverlayEntry extends OverlayUIEntry {
@@ -49,19 +50,28 @@ final class DialogOverlayEntry extends OverlayUIEntry {
     category: isError ? OverlayCategory.error : OverlayCategory.dialog,
   );
 
-  /// 🏗️ Builds a platform-aware dialog widget with resolved props using [AnimationHost]
+  /// 🧱 Builds and animates the dialog via [AnimationHost]
+  /// 🧱 Builds and animates the dialog via [AnimationHost]
   @override
   Widget build(BuildContext context) {
+    //
+    /// Internally resolves props
     final props = preset?.resolve() ?? const OverlayInfoUIPreset().resolve();
+
+    // Selects [AnimationPlatform] (iOS/Android)
     final animationPlatform = context.platform.toAnimationPlatform();
 
+    // Fallback dismiss logic (e.g. external close)
     fallbackDismiss() => di<IOverlayDispatcher>().dismissCurrent();
 
+    /// [AnimationHost] invokes [engine.play] and handles cleanup
     return AnimationHost(
       overlayType: UserDrivenOverlayType.dialog,
       displayDuration: duration,
       platform: animationPlatform,
       onDismiss: onDismiss,
+
+      /// 🎯 Builds the dialog widget with platform-specific animation engine
       builderWithEngine:
           (engine) => switch (animationPlatform) {
             AnimationPlatform.ios || AnimationPlatform.adaptive => IOSAppDialog(
@@ -77,7 +87,7 @@ final class DialogOverlayEntry extends OverlayUIEntry {
               engine: engine,
               onAnimatedDismiss: fallbackDismiss,
             ),
-            AnimationPlatform.android => AndroidAppDialog(
+            AnimationPlatform.android => AndroidDialog(
               title: title,
               content: content,
               confirmText: confirmText,
@@ -94,5 +104,5 @@ final class DialogOverlayEntry extends OverlayUIEntry {
     );
   }
 
-  ///
+  //
 }
