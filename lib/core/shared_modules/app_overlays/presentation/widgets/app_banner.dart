@@ -1,13 +1,12 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../shared_presentation/shared_widgets/text_widget.dart';
+import '../../../app_animation/banner_host.dart';
 import '../overlay_presets/preset_props.dart';
-import 'banner_animated.dart';
 
 /// 🪧 [AppBanner] — Platform-adaptive banner widget
 /// - Renders banner UI for [BannerOverlayEntry]
-/// - Uses material design on Android, [AnimatedBanner] on iOS/macOS
+/// - Uses material design on Android, [BannerCard] on iOS/macOS
 ///----------------------------------------------------------------------------
 
 class AppBanner extends StatelessWidget {
@@ -30,7 +29,7 @@ class AppBanner extends StatelessWidget {
       //
       // 🍎 iOS/macOS style: uses custom animated widget
       TargetPlatform.iOS ||
-      TargetPlatform.macOS => AnimatedBanner(message: message, icon: icon),
+      TargetPlatform.macOS => OverlayBannerHost(message: message, icon: icon),
 
       // 🤖 Android/Web/Windows/Linux: Material-styled banner
       _ => Align(
