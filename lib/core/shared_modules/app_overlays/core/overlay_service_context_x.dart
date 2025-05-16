@@ -1,15 +1,36 @@
 import 'package:flutter/material.dart';
-
+import '../../../app_config/bootstrap/di_container.dart';
 import '../presentation/overlay_presets/preset_props.dart';
-import 'overlay_service.dart';
+import 'queue_manager/overlay_job.dart';
+import 'queue_manager/queue_manager.dart';
+import 'queue_manager/dialog_overlay_job.dart';
+import 'queue_manager/snackbar_overlay_job.dart';
 
 extension UserOverlayContextX on BuildContext {
-  /// 🔁 Replaces active banner with a new one
-  void showUserBanner(String message, IconData icon) =>
-      OverlayService.showBanner(this, message, icon);
+  void showUserBanner(String message, IconData icon) {
+    di<OverlayQueueManager>().enqueue(
+      BannerOverlayJob(context: this, message: message, icon: icon),
+    );
+  }
 
-  /// 🧾 Shows a dialog with optional confirm/cancel actions
-  Future<void> showUserDialog({
+  void showUserSnackbar({
+    required String message,
+    required IconData icon,
+    OverlayUIPresetProps? presetProps,
+    TargetPlatform? platform,
+  }) {
+    di<OverlayQueueManager>().enqueue(
+      SnackbarOverlayJob(
+        context: this,
+        message: message,
+        icon: icon,
+        presetProps: presetProps,
+        platform: platform,
+      ),
+    );
+  }
+
+  void showUserDialog({
     required String title,
     required String content,
     String confirmText = 'OK',
@@ -19,30 +40,20 @@ extension UserOverlayContextX on BuildContext {
     OverlayUIPresetProps? presetProps,
     TargetPlatform? platform,
     bool isInfoDialog = false,
-  }) => OverlayService.showAppDialog(
-    this,
-    title: title,
-    content: content,
-    confirmText: confirmText,
-    cancelText: cancelText,
-    onConfirm: onConfirm,
-    onCancel: onCancel,
-    presetProps: presetProps,
-    platform: platform,
-    isInfoDialog: isInfoDialog,
-  );
-
-  /// 🍞 Shows a snackbar styled per platform
-  void showUserSnackbar({
-    required String message,
-    required IconData icon,
-    OverlayUIPresetProps? presetProps,
-    TargetPlatform? platform,
-  }) => OverlayService.showSnackbar(
-    this,
-    message: message,
-    icon: icon,
-    presetProps: presetProps,
-    platform: platform,
-  );
+  }) {
+    di<OverlayQueueManager>().enqueue(
+      DialogOverlayJob(
+        context: this,
+        title: title,
+        content: content,
+        confirmText: confirmText,
+        cancelText: cancelText,
+        onConfirm: onConfirm,
+        onCancel: onCancel,
+        presetProps: presetProps,
+        platform: platform,
+        isInfoDialog: isInfoDialog,
+      ),
+    );
+  }
 }

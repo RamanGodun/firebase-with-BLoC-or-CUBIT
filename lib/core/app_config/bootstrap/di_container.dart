@@ -20,11 +20,12 @@ import '../../../features/profile/domain/profile_repository.dart';
 import '../../../features/profile/domain/load_profile_use_case.dart';
 
 import '../../shared_modules/app_animation/animation_engine_interface.dart';
-import '../../shared_modules/app_animation/banner_animation_service.dart';
+import '../../shared_modules/app_animation/service_for_ios_banner_animation.dart';
 import '../../shared_modules/app_loggers/crash_analytics_logger.dart';
 import '../../shared_modules/app_loggers/i_logger_contract.dart';
 import '../../shared_modules/app_overlays/core/overlay_dispatcher/overlay_dispatcher.dart';
 import '../../shared_modules/app_overlays/core/overlay_dispatcher/overlay_dispatcher_interface.dart';
+import '../../shared_modules/app_overlays/core/queue_manager/queue_manager.dart';
 import '../../shared_modules/app_theme/theme_cubit/theme_cubit.dart';
 
 /// 💠 Global instance of GetIt DI container
@@ -54,8 +55,9 @@ final class AppDI {
         () => OverlayDispatcher(),
       )
       ..registerLazySingletonIfAbsent<IAnimationEngine>(
-        () => BannerAnimationEngine(),
-      );
+        () => IOSAnimationBannerBannerEngine(),
+      )
+      ..registerLazySingleton(() => OverlayQueueManager());
   }
 
   /// 🔗 Registers core Firebase dependencies

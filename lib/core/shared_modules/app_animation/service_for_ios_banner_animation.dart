@@ -7,7 +7,7 @@ import 'animation_engine_interface.dart';
 ///----------------------------------------------------------------------------
 
 /// 🌀 Concrete implementation of [IAnimationEngine]
-final class BannerAnimationEngine implements IAnimationEngine {
+final class IOSAnimationBannerBannerEngine implements IAnimationEngine {
   ///
   static const _defaultDuration = Duration(milliseconds: 600);
   AnimationController? _controller;
@@ -68,6 +68,11 @@ final class BannerAnimationEngine implements IAnimationEngine {
     if (_controller == null) {
       throw StateError('BannerAnimationEngine has not been initialized.');
     }
+  }
+
+  @override
+  Future<void> reverse() {
+    throw UnimplementedError();
   }
 
   ///

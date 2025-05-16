@@ -48,5 +48,13 @@ final class RootProviders extends StatelessWidget {
 }
 
 /*
+⏱ 
+
+
+ 	1.	Реалізую універсальний OverlayHost<T> (для banner/snackbar/dialog)
+	2.	Підключу AnimationEngineFactory всередині хоста
+	3.	Додам dismiss() API з reverse animation + onDismiss callback
+	4.	Оновлю OverlayService, щоб використовував новий хост
+
 
  */

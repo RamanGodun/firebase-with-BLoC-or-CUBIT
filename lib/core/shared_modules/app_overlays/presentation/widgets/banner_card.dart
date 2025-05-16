@@ -5,20 +5,24 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extens
 import 'package:flutter/material.dart';
 import '../../../../shared_presentation/shared_widgets/text_widget.dart';
 import '../../../app_animation/animation_engine_interface.dart';
+import '../../../app_animation/service_for_android_banner_animation.dart';
+import '../overlay_presets/preset_props.dart';
 
-/// 🎭 [BannerCard] — Stateless widget that builds animated glass UI
+/// 🎭 [IOSBannerCard] — Stateless widget that builds animated glass UI
 /// - Uses provided [IAnimationEngine] for fade + scale transitions
 ///----------------------------------------------------------------------------
-final class BannerCard extends StatelessWidget {
+final class IOSBannerCard extends StatelessWidget {
   final String message;
   final IconData icon;
+  final OverlayUIPresetProps props;
   final IAnimationEngine engine;
 
-  const BannerCard({
+  const IOSBannerCard({
     super.key,
     required this.message,
     required this.icon,
     required this.engine,
+    required this.props,
   });
 
   @override
@@ -77,6 +81,64 @@ final class BannerCard extends StatelessWidget {
                 ),
               ),
             ).withPaddingHorizontal(AppSpacing.xl),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// 🎭 [AndroidBannerCard] — Material-style banner with smooth animation
+/// Uses fade + slide + subtle scale effect via [AndroidBannerAnimationEngine]
+final class AndroidBannerCard extends StatelessWidget {
+  final String message;
+  final IconData icon;
+  final OverlayUIPresetProps props;
+  final ISlideAnimationEngine engine;
+
+  const AndroidBannerCard({
+    super.key,
+    required this.message,
+    required this.icon,
+    required this.props,
+    required this.engine,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: SlideTransition(
+        position: engine.slide,
+        child: FadeTransition(
+          opacity: engine.opacity,
+          child: ScaleTransition(
+            scale: engine.scale,
+            child: Material(
+              elevation: 10,
+              borderRadius: BorderRadius.circular(12),
+              color: props.color.withOpacity(0.9),
+              child: Padding(
+                padding: props.contentPadding,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(icon, color: Colors.white),
+                    const SizedBox(width: 8),
+                    Flexible(
+                      child: TextWidget(
+                        message,
+                        TextType.bodyMedium,
+                        color: context.colorScheme.primary,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        isTextOnFewStrings: true,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       ),
