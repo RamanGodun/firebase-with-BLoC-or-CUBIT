@@ -18,5 +18,8 @@ abstract interface class IOverlayDispatcher {
   /// Whether current overlay can be dismissed externally.
   bool get canBeDismissedExternally;
 
+  /// Obtain  getter, that can interrupt user-driven overlays flow
+  bool get isOverlayActive;
+
   ///
 }

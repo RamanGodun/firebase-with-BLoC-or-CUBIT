@@ -12,14 +12,14 @@ enum OverlayType {
   // systemNotification,
 }
 
-enum AnimationTargetType {
-  banner,
-  dialog,
-  snackbar,
-  // tooltip,
-  // toast,
-  // systemNotification,
-}
+// enum AnimationTargetType {
+//   banner,
+//   dialog,
+//   snackbar,
+//   // tooltip,
+//   // toast,
+//   // systemNotification,
+// }
 
 enum AnimationPlatform { android, ios, adaptive }
 
@@ -67,14 +67,14 @@ final class AnimationEngineFactory {
   const AnimationEngineFactory._();
 
   static IAnimationEngine create({
-    required AnimationTargetType targetType,
+    required OverlayType targetType,
     required TickerProvider vsync,
     AnimationPlatform platform = AnimationPlatform.adaptive,
   }) {
     final engine = switch (targetType) {
-      AnimationTargetType.banner => AnimationEngine(),
-      AnimationTargetType.snackbar => AnimationEngine(),
-      AnimationTargetType.dialog => AnimationEngine(),
+      OverlayType.banner => AnimationEngine(),
+      OverlayType.snackbar => AnimationEngine(),
+      OverlayType.dialog => AnimationEngine(),
     };
     engine.initialize(vsync);
     return engine;

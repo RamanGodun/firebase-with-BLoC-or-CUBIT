@@ -1,7 +1,7 @@
 import 'dart:collection' show Queue;
 import 'dart:collection';
-
 import '../../../app_animation/animation_engine_factory.dart';
+import 'job_interface.dart';
 
 // === QUEUE MANAGER ===
 
@@ -29,10 +29,4 @@ final class OverlayQueueManager {
       _processNext(type);
     });
   }
-}
-
-abstract base class OverlayJob {
-  OverlayType get type;
-  Duration get duration;
-  Future<void> show();
 }

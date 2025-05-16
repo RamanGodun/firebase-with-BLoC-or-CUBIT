@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../app_config/bootstrap/di_container.dart';
 import '../presentation/overlay_presets/preset_props.dart';
-import 'queue_manager/overlay_job.dart';
-import 'queue_manager/queue_manager.dart';
+import 'queue_manager/banner_overlay_job.dart';
+import 'queue_manager/_queue_manager.dart';
 import 'queue_manager/dialog_overlay_job.dart';
 import 'queue_manager/snackbar_overlay_job.dart';
 

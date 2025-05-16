@@ -23,9 +23,9 @@ import '../../shared_modules/app_animation/animation_engine_interface.dart';
 import '../../shared_modules/app_animation/service_for_ios_banner_animation.dart';
 import '../../shared_modules/app_loggers/crash_analytics_logger.dart';
 import '../../shared_modules/app_loggers/i_logger_contract.dart';
-import '../../shared_modules/app_overlays/core/overlay_dispatcher/overlay_dispatcher.dart';
-import '../../shared_modules/app_overlays/core/overlay_dispatcher/overlay_dispatcher_interface.dart';
-import '../../shared_modules/app_overlays/core/queue_manager/queue_manager.dart';
+import '../../shared_modules/app_overlays/state_driven_flow/overlay_dispatcher/overlay_dispatcher.dart';
+import '../../shared_modules/app_overlays/state_driven_flow/overlay_dispatcher/overlay_dispatcher_interface.dart';
+import '../../shared_modules/app_overlays/user_driven_flow/queue_manager/_queue_manager.dart';
 import '../../shared_modules/app_theme/theme_cubit/theme_cubit.dart';
 
 /// 💠 Global instance of GetIt DI container

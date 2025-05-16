@@ -9,8 +9,8 @@ import 'animation_engine_interface.dart';
 /// - Provides IAnimationEngine instance via builder
 /// - Manages animation lifecycle and auto-dismiss
 class AnimationHost extends StatefulWidget {
-  final AnimationTargetType target;
-  final TargetPlatform platform; // 👈 passed externally
+  final OverlayType target;
+  final TargetPlatform platform;
   final Widget Function(IAnimationEngine engine) builder;
   final Duration displayDuration;
   final VoidCallback? onDismiss;

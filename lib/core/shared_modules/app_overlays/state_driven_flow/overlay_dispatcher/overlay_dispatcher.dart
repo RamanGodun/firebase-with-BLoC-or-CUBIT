@@ -2,7 +2,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import '../../../app_loggers/_app_error_logger.dart';
 import '../overlay_entries/_overlay_entries.dart';
-import '../tap_through_overlay_barrier.dart';
+import '../../core/tap_through_overlay_barrier.dart';
 import '../conflicts_strategy/police_resolver.dart';
 import '../conflicts_strategy/conflicts_strategy.dart';
 import 'overlay_dispatcher_interface.dart';
@@ -27,6 +27,9 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   OverlayUIEntry? _activeRequest;
   // 🚦 Whether an overlay is currently being inserted
   bool _isProcessing = false;
+  // Obtain  getter, that can interrupt user-driven overlays flow
+  @override
+  bool get isOverlayActive => _activeEntry != null;
   // 🔓 Whether the current overlay can be dismissed externally.
   @override
   bool get canBeDismissedExternally =>

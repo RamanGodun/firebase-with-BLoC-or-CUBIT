@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart' show debugPrint;
 import '../../app_config/bootstrap/di_container.dart' show di;
 import '../app_errors_handling/failures_for_domain_and_presentation/failure_for_domain.dart';
-import '../app_overlays/core/overlay_entries/_overlay_entries.dart';
+import '../app_overlays/state_driven_flow/overlay_entries/_overlay_entries.dart';
 import '../app_localization/keys/translation_key_interface.dart';
 import 'i_logger_contract.dart';
 

@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-
 import '../../../app_animation/animation_engine_factory.dart';
 import '../../presentation/widgets/app_dialog.dart';
 import '../../presentation/overlay_presets/preset_props.dart';
-import 'queue_manager.dart';
+import 'job_interface.dart';
 
 final class DialogOverlayJob extends OverlayJob {
   final BuildContext context;

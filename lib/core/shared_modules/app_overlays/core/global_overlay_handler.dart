@@ -2,8 +2,8 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extens
 import 'package:flutter/material.dart';
 
 import '../../../app_config/bootstrap/di_container.dart';
-import 'overlay_dispatcher/overlay_dispatcher.dart';
-import 'overlay_dispatcher/overlay_dispatcher_interface.dart';
+import '../state_driven_flow/overlay_dispatcher/overlay_dispatcher.dart';
+import '../state_driven_flow/overlay_dispatcher/overlay_dispatcher_interface.dart';
 
 /// 🧩 [GlobalOverlayHandler] — Universal gesture wrapper for screen-wide UX improvements:
 /// - 📱 Automatically dismisses keyboard when user taps outside input
