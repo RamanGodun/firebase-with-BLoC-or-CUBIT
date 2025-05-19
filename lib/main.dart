@@ -46,3 +46,11 @@ final class RootProviders extends StatelessWidget {
     );
   }
 }
+
+/*
+	•	Винести весь AppStrings у JSON-и
+	•	Згенерувати locale_keys.g.dart
+	•	Очистити модуль локалізації до потрібного складу
+	•	Перевести всі .tl() → .tr() або видалити при non-i18n
+	•	Перевірити AppLocalizer.t() — лишити лише потрібне
+ */

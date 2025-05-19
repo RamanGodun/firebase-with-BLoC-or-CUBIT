@@ -6,57 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_localization/app_strings.dart';
 import '../../shared_presentation/constants/_app_constants.dart' show AppIcons;
+import 'core/localization_config.dart';
 import 'keys/tr_keys.dart';
 import 'keys/translation_factory.dart';
 
 /// 🌐 [LanguageToggleIcon] — toggles between supported app languages
-// final class LanguageToggleIcon extends StatefulWidget {
-//   const LanguageToggleIcon({super.key});
-
-//   @override
-//   State<LanguageToggleIcon> createState() => _LanguageToggleIconState();
-// }
-
-// final class _LanguageToggleIconState extends State<LanguageToggleIcon> {
-//   @override
-//   Widget build(BuildContext context) {
-//     final currentLocale = context.locale;
-//     final isEnglish = currentLocale.languageCode == 'en';
-
-//     final icon = isEnglish ? AppIcons.languageUk : AppIcons.languageEn;
-//     final tooltip =
-//         isEnglish
-//             ? AppStrings.languageSwitchToUa
-//             : AppStrings.languageSwitchToEn;
-
-//     return Padding(
-//       padding: const EdgeInsets.only(right: 8),
-//       child: IconButton(
-//         icon: Icon(icon, color: context.colorScheme.primary),
-//         tooltip: tooltip.tl(),
-//         onPressed: () => _toggleLanguage(isEnglish),
-//       ),
-//     );
-//   }
-
-//   void _toggleLanguage(bool isEnglish) async {
-//     final newLocale = Locale(isEnglish ? 'uk' : 'en');
-//     await context.setLocale(newLocale);
-
-//     if (!mounted) return;
-
-//     final key =
-//         isEnglish
-//             ? AppTranslationKeys.languageSwitchedToUa
-//             : AppTranslationKeys.languageSwitchedToEn;
-
-//     final localizedMessage = key.localize(context);
-
-//     context.showUserBanner(localizedMessage, AppIcons.language);
-//   }
-
-//   //
-// }
 
 final class LanguageToggleIcon extends StatefulWidget {
   const LanguageToggleIcon({super.key});
@@ -66,16 +20,11 @@ final class LanguageToggleIcon extends StatefulWidget {
 }
 
 final class _LanguageToggleIconState extends State<LanguageToggleIcon> {
-  static final _locales = [
-    const Locale('en'),
-    const Locale('uk'),
-    const Locale('pl'),
-  ];
-
   @override
   Widget build(BuildContext context) {
     final current = context.locale;
-    final nextLocale = _getNextLocale(current);
+    final supported = AppLocalization.supportedLocales;
+    final nextLocale = _getNextLocale(current, supported);
 
     final icon = switch (current.languageCode) {
       'en' => AppIcons.languageUk,
@@ -88,7 +37,7 @@ final class _LanguageToggleIconState extends State<LanguageToggleIcon> {
       'uk' => AppStrings.languageSwitchToUa,
       'pl' => AppStrings.languageSwitchToPl,
       'en' => AppStrings.languageSwitchToEn,
-      _ => 'language was changed',
+      _ => 'Change language',
     };
 
     return IconButton(
@@ -98,12 +47,12 @@ final class _LanguageToggleIconState extends State<LanguageToggleIcon> {
     ).withPaddingOnly(right: 16);
   }
 
-  Locale _getNextLocale(Locale current) {
-    final index = _locales.indexWhere(
+  Locale _getNextLocale(Locale current, List<Locale> locales) {
+    final index = locales.indexWhere(
       (l) => l.languageCode == current.languageCode,
     );
-    final nextIndex = (index + 1) % _locales.length;
-    return _locales[nextIndex];
+    final nextIndex = (index + 1) % locales.length;
+    return locales[nextIndex];
   }
 
   Future<void> _toggleLanguage(Locale nextLocale) async {

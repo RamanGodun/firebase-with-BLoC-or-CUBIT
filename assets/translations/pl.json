@@ -1,8 +1,23 @@
 {
-  "failure": {
+  "app": {
+    "title": "Firebase z BLoC/Cubit"
+  },
+
+  "buttons": {
+    "ok": "OK",
+    "sign_in": "Zaloguj się",
+    "sign_up": "Zarejestruj się",
+    "submit_tag": "Wyślij",
+    "to_sign_in": "Masz już konto? Zaloguj się!",
+    "to_sign_up": "Nie masz konta? Zarejestruj się!"
+  },
+
+  "errors": {
+    "unexpected": "Coś poszło nie tak",
+    "no_internet": "Brak połączenia z internetem",
     "network": {
       "no_connection": "Brak połączenia z internetem",
-      "timeout": "Upłynął limit czasu połączenia. Spróbuj ponownie później."
+      "timeout": "Upłynął limit czasu połączenia. Spróbuj później."
     },
     "auth": {
       "unauthorized": "Nie jesteś zalogowany. Zaloguj się."
@@ -15,22 +30,62 @@
     },
     "unknown": "Wystąpił nieznany błąd.",
     "plugin": {
-      "missing": "Brakuje wymaganego pluginu lub nie został zainicjalizowany."
+      "missing": "Wymagany plugin jest brakujący lub nie został zainicjalizowany."
+    },
+    "timeout": "Przekroczono limit czasu. Spróbuj ponownie."
+  },
+
+  "form": {
+    "confirm_password": "Potwierdź hasło",
+    "email": "Email",
+    "name": "Imię",
+    "password": "Hasło"
+  },
+
+  "info": {
+    "bloc_slogan": "Bloc to świetna\nbiblioteka zarządzania stanem\ndla Fluttera!"
+  },
+
+  "languages": {
+    "switched_to_pl": "Język zmieniony na 🇵🇱 Polski",
+    "switched_to_en": "Język zmieniony na 🇬🇧 Angielski",
+    "switched_to_ua": "Język zmieniony na 🇺🇦 Ukraiński"
+  },
+
+  "overlays": {
+    "success": {
+      "saved": "Zapisano pomyślnie",
+      "deleted": "Element został usunięty"
     }
   },
-  "overlay": {
-    "success": {
-      "saved": "Pomyślnie zapisano",
-      "deleted": "Element został usunięty"
-    },
-    "error": {
-      "unexpected": "Coś poszło nie tak",
-      "no_internet": "Brak połączenia z internetem",
-      "timeout": "Przekroczono limit czasu. Spróbuj ponownie."
-    },
-    "theme": {
-      "light_enabled": "Tryb jasny został włączony",
-      "dark_enabled": "Tryb ciemny został włączony"
-    }
+
+  "pages": {
+    "change_password": "Zmień hasło",
+    "error_dialog": "Wystąpił błąd",
+    "go_to_home": "Na stronę główną",
+    "home": "     Strona główna",
+    "not_found_message": "Ups! Strona, której szukasz, nie istnieje.",
+    "not_found_title": "Nie znaleziono strony",
+    "profile": "Profil",
+    "reset_password": "Zresetuj hasło",
+    "verify_email": "Zweryfikuj email"
+  },
+
+  "profile": {
+    "email": "📧 Email:",
+    "error": "Ups!\nCoś poszło nie tak.",
+    "id": "🆔 ID:",
+    "name": "👤 Imię:",
+    "points": "📊 Punkty:",
+    "rank": "🏆 Ranga:"
+  },
+
+  "routes": {
+    "home": "/home"
+  },
+
+  "theme": {
+    "dark_enabled": "Tryb ciemny włączony",
+    "light_enabled": "Tryb jasny włączony"
   }
 }
