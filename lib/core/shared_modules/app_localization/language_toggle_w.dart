@@ -53,6 +53,5 @@ final class _LanguageToggleIconState extends State<LanguageToggleIcon> {
     context.showUserBanner(localizedMessage, AppIcons.language);
   }
 
-  /// spider create -p ./directory/path/for/config
-// lib/core/app_config
+  //
 }

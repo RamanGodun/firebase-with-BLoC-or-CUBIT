@@ -18,7 +18,7 @@ final class _UserProfileCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           FadeInImage.assetNetwork(
-            placeholder: 'assets/images/loading.gif',
+            placeholder: ImagesPaths.loading,
             image: user.profileImage,
             width: double.infinity,
             height: 200,
@@ -75,7 +75,7 @@ final class _ErrorContent extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image(image: AssetImage('assets/images/error.png'), width: 75),
+          Image(image: AssetImage(ImagesPaths.error), width: 75),
           SizedBox(height: AppSpacing.s),
           TextWidget(AppStrings.profileErrorMessage, TextType.error),
         ],

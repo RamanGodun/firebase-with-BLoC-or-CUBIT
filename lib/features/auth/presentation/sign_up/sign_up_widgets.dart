@@ -9,10 +9,7 @@ final class _LogoImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Hero(
       tag: 'Logo',
-      child: Image(
-        image: AssetImage('assets/images/flutter_logo.png'),
-        height: 150,
-      ),
+      child: Image(image: AssetImage(ImagesPaths.flutterLogo), height: 150),
     );
   }
 }

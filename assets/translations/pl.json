@@ -1,0 +1,36 @@
+{
+  "failure": {
+    "network": {
+      "no_connection": "Brak połączenia z internetem",
+      "timeout": "Upłynął limit czasu połączenia. Spróbuj ponownie później."
+    },
+    "auth": {
+      "unauthorized": "Nie jesteś zalogowany. Zaloguj się."
+    },
+    "firebase": {
+      "generic": "Wystąpił błąd Firebase. Spróbuj ponownie."
+    },
+    "format": {
+      "error": "Nieprawidłowy format danych."
+    },
+    "unknown": "Wystąpił nieznany błąd.",
+    "plugin": {
+      "missing": "Brakuje wymaganego pluginu lub nie został zainicjalizowany."
+    }
+  },
+  "overlay": {
+    "success": {
+      "saved": "Pomyślnie zapisano",
+      "deleted": "Element został usunięty"
+    },
+    "error": {
+      "unexpected": "Coś poszło nie tak",
+      "no_internet": "Brak połączenia z internetem",
+      "timeout": "Przekroczono limit czasu. Spróbuj ponownie."
+    },
+    "theme": {
+      "light_enabled": "Tryb jasny został włączony",
+      "dark_enabled": "Tryb ciemny został włączony"
+    }
+  }
+}

@@ -7,6 +7,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_localization
 import 'package:firebase_with_bloc_or_cubit/features/auth/presentation/auth_bloc/auth_bloc.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widgets/custom_app_bar.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widgets/text_widget.dart';
+import '../../app_config/spider/images_paths.dart';
 import '../../shared_modules/app_navigation/_imports_for_router.dart'
     show RoutesNames;
 
@@ -36,7 +37,7 @@ final class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: AppSpacing.m,
               children: [
-                Image.asset(AppStrings.blocLogoPath, width: imageWidth),
+                Image.asset(ImagesPaths.blocLogoFull, width: imageWidth),
                 const TextWidget(
                   AppStrings.blocSlogan,
                   TextType.titleMedium,
