@@ -49,10 +49,6 @@ final class RootProviders extends StatelessWidget {
 
 /*
 
-	•	Згенерувати locale_keys.g.dart
-	•	Очистити модуль локалізації до потрібного складу (перевести всі .tl() → .tr() або видалити при non-i18n)
-	•	Перевірити AppLocalizer.t() — лишити лише потрібне
-
    ! logging of possible problems
 	•	запропонувати extension на FailureKey, який одразу видає fallback зі FallbackKeysWhenNoLocalization,
 	•	автоматично логувати, коли fallback спрацював (наприклад, в dev-mode через debugPrint).
