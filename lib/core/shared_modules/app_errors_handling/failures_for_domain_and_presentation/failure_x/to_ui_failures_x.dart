@@ -1,6 +1,6 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_errors_handling/failures_for_domain_and_presentation/failure_x/failure_diagnostics_x.dart';
 import 'package:flutter/material.dart';
-import '../../../app_localization/core/app_localizer.dart';
+import '../../../app_localization/when_no_localization/_app_localizer.dart';
 import '../../../app_loggers/_app_error_logger.dart';
 import '../enums.dart';
 import '../failure_for_domain.dart';

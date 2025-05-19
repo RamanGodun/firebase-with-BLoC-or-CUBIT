@@ -8,7 +8,7 @@ import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget;
 import '../../../../core/app_config/spider/images_paths.dart';
 import '../../../../core/shared_presentation/constants/_app_constants.dart'
     show AppSpacing;
-import '../../../../core/shared_modules/app_localization/app_strings.dart'
+import '../../../../core/shared_modules/app_localization/when_no_localization/app_strings.dart'
     show AppStrings;
 import '../../../../core/shared_presentation/shared_widgets/text_button.dart';
 import '../../../../core/shared_modules/form_fields/use_auth_focus_nodes.dart';

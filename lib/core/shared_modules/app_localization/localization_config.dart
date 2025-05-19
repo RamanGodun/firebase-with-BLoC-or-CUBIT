@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
+import 'generated/codegen_loader.g.dart';
+
 abstract final class AppLocalization {
   AppLocalization._();
 
@@ -23,6 +25,7 @@ abstract final class AppLocalization {
       supportedLocales: supportedLocales,
       path: localizationPath,
       fallbackLocale: fallbackLocale,
+      assetLoader: const CodegenLoader(),
       child: child,
     );
   }

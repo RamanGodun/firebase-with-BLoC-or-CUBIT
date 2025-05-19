@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import '../../../../core/app_config/spider/images_paths.dart';
 import '../../../../core/shared_presentation/constants/_app_constants.dart' show AppSpacing;
-import '../../../../core/shared_modules/app_localization/app_strings.dart';
+import '../../../../core/shared_modules/app_localization/when_no_localization/app_strings.dart';
 import '../../../../core/shared_modules/form_fields/use_auth_focus_nodes.dart';
 import '../../../../core/shared_modules/form_fields/widgets/_fields_factory.dart';
 import '../../../../core/shared_modules/form_fields/widgets/password_visibility_icon.dart';

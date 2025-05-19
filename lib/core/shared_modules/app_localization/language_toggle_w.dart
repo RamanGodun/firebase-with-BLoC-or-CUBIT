@@ -1,13 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_localization/extensions/string_tr_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_overlays/user_driven_flow/user_driven_flow_context_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_localization/app_strings.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_localization/when_no_localization/app_strings.dart';
 import '../../shared_presentation/constants/_app_constants.dart' show AppIcons;
-import 'core/localization_config.dart';
-import 'fallbacks_keys_when_no_localization/tr_keys.dart';
+import 'localization_config.dart';
+import 'when_no_localization/fallback_keys.dart';
 
 /// 🌐 [LanguageToggleIcon] — toggles between supported app languages
 
@@ -41,7 +40,7 @@ final class _LanguageToggleIconState extends State<LanguageToggleIcon> {
 
     return IconButton(
       icon: Icon(icon, color: context.colorScheme.primary),
-      tooltip: tooltip.tl(),
+      tooltip: tooltip,
       onPressed: () => _toggleLanguage(nextLocale),
     ).withPaddingOnly(right: 16);
   }

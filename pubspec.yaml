@@ -21,7 +21,6 @@ dependencies:
   flutter_dotenv: ^5.2.1
   flutter_hooks: ^0.21.2
   formz: ^0.8.0
-  freezed_annotation: ^3.0.0
   get_it: ^8.0.3
   go_router: ^15.1.1
   google_fonts: ^6.2.1
@@ -38,8 +37,7 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  freezed: ^3.0.4
-  json_serializable: ^6.9.4
+  json_serializable: ^6.7.1
 
 flutter:
   uses-material-design: true
@@ -111,4 +109,4 @@ spider:
   groups:
     - path: assets/images
       class_name: Images
-      types: [ .png, .jpg, .jpeg, .webp, .webm, .bmp ]
+      types: [.png, .jpg, .jpeg, .webp, .webm, .bmp]

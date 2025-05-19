@@ -3,7 +3,7 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extens
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/constants/_app_constants.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_localization/app_strings.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_localization/when_no_localization/app_strings.dart';
 import 'package:firebase_with_bloc_or_cubit/features/auth/presentation/auth_bloc/auth_bloc.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widgets/custom_app_bar.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widgets/text_widget.dart';

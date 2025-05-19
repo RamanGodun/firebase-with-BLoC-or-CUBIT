@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../shared_presentation/constants/_app_constants.dart';
-import '../../app_localization/app_strings.dart';
+import '../../app_localization/when_no_localization/app_strings.dart';
 import '../../../shared_presentation/constants/app_keys.dart';
 import 'app_text_field.dart';
 
