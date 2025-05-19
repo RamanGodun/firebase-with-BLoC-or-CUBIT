@@ -76,6 +76,7 @@ abstract final class AppStrings {
   // ─────────────────────────────────────────────
   static const String languageSwitchToUa = 'Switch to Ukrainian';
   static const String languageSwitchToEn = 'Switch to English';
+  static const String languageSwitchToPl = 'Przełącz na polski';
 
   static const String languageSwitchedToUa =
       'Language switched to 🇺🇦 Ukrainian';

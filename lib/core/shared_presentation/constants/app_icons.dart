@@ -23,6 +23,7 @@ final class AppIcons {
   // 🌐 Language toggle icons
   static const IconData languageEn = Icons.language;
   static const IconData languageUk = Icons.g_translate;
+  static const IconData languagePl = Icons.language;
   static const IconData language = Icons.language;
 
   ///
