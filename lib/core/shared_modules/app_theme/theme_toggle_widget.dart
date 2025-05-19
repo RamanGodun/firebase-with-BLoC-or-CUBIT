@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../shared_presentation/constants/_app_constants.dart' show AppIcons;
 import '../app_localization/app_strings.dart' show AppStrings;
-import '../app_localization/keys/tr_keys.dart';
+import '../app_localization/fallbacks_keys_when_no_localization/tr_keys.dart';
 import 'theme_cubit/theme_cubit.dart' show AppThemeCubit;
 
 /// 🌗 [ThemeToggleIcon] - Toggles between light and dark mode.
@@ -40,8 +40,8 @@ final class ThemeToggleIcon extends StatelessWidget {
 
     final message =
         isDarkMode
-            ? AppTranslationKeys.lightModeEnabled.localize(context)
-            : AppTranslationKeys.darkModeEnabled.localize(context);
+            ? FallbackKeysWhenNoLocalization.lightModeEnabled
+            : FallbackKeysWhenNoLocalization.darkModeEnabled;
     final icon = isDarkMode ? AppIcons.lightMode : AppIcons.darkMode;
 
     // 🌟 Show overlay with correct message and icon

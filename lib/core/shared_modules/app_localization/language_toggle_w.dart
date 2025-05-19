@@ -7,8 +7,7 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extens
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_localization/app_strings.dart';
 import '../../shared_presentation/constants/_app_constants.dart' show AppIcons;
 import 'core/localization_config.dart';
-import 'keys/tr_keys.dart';
-import 'keys/translation_factory.dart';
+import 'fallbacks_keys_when_no_localization/tr_keys.dart';
 
 /// 🌐 [LanguageToggleIcon] — toggles between supported app languages
 
@@ -60,18 +59,12 @@ final class _LanguageToggleIconState extends State<LanguageToggleIcon> {
     if (!mounted) return;
 
     final messageKey = switch (nextLocale.languageCode) {
-      'uk' => AppTranslationKeys.languageSwitchedToUa,
-      'pl' => TranslatableFactory.simple(
-        'overlay.language.switched_to_pl',
-        fallback: 'Przełączono na język polski',
-      ),
-      'en' => AppTranslationKeys.languageSwitchedToEn,
-      _ => TranslatableFactory.simple(
-        'overlay.language.changed',
-        fallback: 'Language changed',
-      ),
+      'uk' => FallbackKeysWhenNoLocalization.languageSwitchedToUa,
+      'pl' => FallbackKeysWhenNoLocalization.languageSwitchedToPl,
+      'en' => FallbackKeysWhenNoLocalization.languageSwitchedToEn,
+      _ => FallbackKeysWhenNoLocalization.languageSwitchedToEn,
     };
 
-    context.showUserBanner(messageKey.localize(context), AppIcons.language);
+    context.showUserBanner(messageKey, AppIcons.language);
   }
 }

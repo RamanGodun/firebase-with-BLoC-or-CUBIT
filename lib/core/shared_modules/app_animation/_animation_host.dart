@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../animation_engines/__animation_engine_interface.dart';
-import '../animation_engines/_animation_engine_factory.dart';
+import 'animation_engines/__animation_engine_interface.dart';
+import 'animation_engines/_animation_engine_factory.dart';
 import 'enums_for_animation_module.dart';
 
 /// 🎞️ [AnimationHost] — Wrapper widget for overlay entry animations

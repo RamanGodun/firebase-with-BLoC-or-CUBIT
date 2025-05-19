@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart' show debugPrint;
 import '../../app_config/bootstrap/di_container.dart' show di;
 import '../app_errors_handling/failures_for_domain_and_presentation/failure_for_domain.dart';
 import '../app_overlays/state_driven_flow/overlay_entries/_overlay_entries.dart';
-import '../app_localization/keys/translation_key_interface.dart';
 import 'i_logger_contract.dart';
 
 /// 🧭 [AppLogger] — Centralized logger for all application-level telemetry.
@@ -101,11 +100,11 @@ abstract final class AppLogger {
   // ───────────────────────────────────── Localization ─────────────────────────────────────
 
   /// 🌐 Logs when a translation key is missing and fallback is used.
-  static void logMissingTranslation(ITranslationKey key) {
-    debugPrint(
-      '[Localization] Missing → "${key.translationKey}". Fallback used: "${key.fallback}"',
-    );
-  }
+  // static void logMissingTranslation(ITranslationKey key) {
+  //   debugPrint(
+  //     '[Localization] Missing → "${key.translationKey}". Fallback used: "${key.fallback}"',
+  //   );
+  // }
 
   /// 🌐 Logs when `.tl()` is called and string fallback is returned.
   static void logStringFallback(String key, String fallback) {

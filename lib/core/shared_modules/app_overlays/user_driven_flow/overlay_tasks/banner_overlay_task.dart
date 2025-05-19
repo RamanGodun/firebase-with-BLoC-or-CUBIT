@@ -3,7 +3,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_overlays/use
 import 'package:flutter/material.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_animation/target_platform_x.dart';
-import '../../../animation_engines/__animation_engine_interface.dart';
+import '../../../app_animation/animation_engines/__animation_engine_interface.dart';
 import '../../../app_animation/_animation_host.dart';
 import '../../../app_animation/enums_for_animation_module.dart';
 import '../../presentation/overlay_presets/overlay_presets.dart';

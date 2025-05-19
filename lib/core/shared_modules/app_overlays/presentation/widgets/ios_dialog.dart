@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '../../../../shared_presentation/constants/_app_constants.dart';
 import '../../../../shared_presentation/shared_widgets/text_widget.dart';
 import '../overlay_presets/preset_props.dart';
-import '../../../animation_engines/__animation_engine_interface.dart';
+import '../../../app_animation/animation_engines/__animation_engine_interface.dart';
 
 /// 🍎 [IOSAppDialog] — Animated glass-style Cupertino dialog for iOS/macOS
 /// - Triggered from user-driven or state-driven flows

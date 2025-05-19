@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../app_animation/enums_for_animation_module.dart';
+import '../enums_for_animation_module.dart';
 import '__animation_engine_interface.dart' show IAnimationEngine;
 import 'engines_for_android_platform/android_banner_animation_engine.dart';
 import 'engines_for_android_platform/android_dialog_animation_engine.dart';

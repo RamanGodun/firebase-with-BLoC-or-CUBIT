@@ -4,7 +4,7 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extens
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
 import '../../../../shared_presentation/shared_widgets/text_widget.dart';
-import '../../../animation_engines/__animation_engine_interface.dart';
+import '../../../app_animation/animation_engines/__animation_engine_interface.dart';
 import '../overlay_presets/preset_props.dart';
 
 /// 🪧 [IOSBanner] — iOS-style animated banner with glassmorphism

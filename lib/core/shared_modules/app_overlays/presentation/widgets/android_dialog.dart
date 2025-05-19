@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../shared_presentation/shared_widgets/text_widget.dart';
 import '../overlay_presets/preset_props.dart';
-import '../../../animation_engines/__animation_engine_interface.dart';
+import '../../../app_animation/animation_engines/__animation_engine_interface.dart';
 
 /// 💬 [AndroidDialog] — Platform-aware Material dialog with animation
 /// - Built for Android: uses [AlertDialog] + entrance animation via [IAnimationEngine]

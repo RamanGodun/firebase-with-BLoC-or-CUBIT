@@ -3,8 +3,8 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_animation/ta
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_overlays/user_driven_flow/user_driven_flow_context_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
-import '../../../animation_engines/__animation_engine_interface.dart';
-import '../../../animation_engines/_animation_engine_factory.dart';
+import '../../../app_animation/animation_engines/__animation_engine_interface.dart';
+import '../../../app_animation/animation_engines/_animation_engine_factory.dart';
 import '../../../app_animation/enums_for_animation_module.dart';
 import '../../presentation/overlay_presets/overlay_presets.dart';
 import '../../presentation/widgets/android_dialog.dart';

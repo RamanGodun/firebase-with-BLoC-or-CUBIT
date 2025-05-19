@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 import '../../../../shared_presentation/shared_widgets/text_widget.dart';
-import '../../../animation_engines/__animation_engine_interface.dart';
+import '../../../app_animation/animation_engines/__animation_engine_interface.dart';
 import '../overlay_presets/preset_props.dart';
 
 /// 🪧 [AndroidBanner] — Android-style animated banner (Material)
