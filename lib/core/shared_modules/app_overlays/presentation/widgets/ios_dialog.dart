@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../../shared_presentation/constants/_app_constants.dart';
-import '../../../../shared_presentation/shared_widgets/text_widget.dart';
+import '../../../app_localization/when_no_localization/text_widget.dart';
 import '../overlay_presets/preset_props.dart';
 import '../../../app_animation/animation_engines/__animation_engine_interface.dart';
 

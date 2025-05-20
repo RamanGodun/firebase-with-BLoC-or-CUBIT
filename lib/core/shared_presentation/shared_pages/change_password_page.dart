@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widgets/custom_app_bar.dart';
-import '../../shared_modules/app_localization/when_no_localization/app_strings.dart';
+import '../../shared_modules/app_localization/generated/locale_keys.g.dart';
 
 /// 🔐 Page for changing user password.
 final class ChangePasswordPage extends StatelessWidget {
@@ -9,7 +10,7 @@ final class ChangePasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: AppStrings.changePasswordPageTitle),
+      appBar: CustomAppBar(title: LocaleKeys.pages_change_password.tr()),
       body: Container(),
     );
   }

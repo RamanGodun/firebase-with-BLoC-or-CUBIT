@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../constants/_app_constants.dart';
-import '../../utils/extensions/context_extensions/_context_extensions.dart';
+import '../../../shared_presentation/constants/_app_constants.dart';
+import '../../../utils/extensions/context_extensions/_context_extensions.dart';
 
 /// 📝 [TextWidget] — Custom Text widget with dynamic styling options.
 /// Supports all native typography variants + additional decorations.

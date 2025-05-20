@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../shared_presentation/constants/_app_constants.dart' show AppColors, AppSpacing;
-import '../../../shared_presentation/shared_widgets/text_widget.dart';
+import '../../app_localization/when_no_localization/text_widget.dart';
 
 /// 🌍 [CustomButtonForGoRouter] styled full-width button,
 /// that performs either GoRouter navigation or custom action.

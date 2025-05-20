@@ -6,15 +6,15 @@ abstract final class AppStrings {
   /// ===============================
   /// * 🏠 App Titles
   // ===============================
-  static const String appTitle = 'Firebase with BLoC/Cubit';
-  static const String changePasswordPageTitle = 'Change Password';
-  static const String resetPasswordPageTitle = 'Reset Password';
-  static const String verifyEmailPageTitle = 'Verify Email';
+  // static const String appTitle = 'Firebase with BLoC/Cubit';
+  // static const String changePasswordPageTitle = 'Change Password';
+  // static const String resetPasswordPageTitle = 'Reset Password';
+  // static const String verifyEmailPageTitle = 'Verify Email';
 
   /// ────────────────────────────────────────────────────────────────────
   /// * 🏠 Titles
   // ────────────────────────────────────────────────────────────────────
-  static const String homePageTitle = '     Home Page';
+  // static const String homePageTitle = '     Home Page';
   static const String profilePageTitle = 'Profile';
   static const String errorDialogTitle = 'Error occurs';
 
@@ -65,23 +65,6 @@ abstract final class AppStrings {
   static const String profilePointsLabel = '📊 Points:';
   static const String profileRankLabel = '🏆 Rank:';
   static const String profileErrorMessage = 'Oops!\nSomething went wrong.';
-
-  /// ────────────────────────────────────────────────────────────────────
-  /// * 🔍 ROUTES
-  // ────────────────────────────────────────────────────────────────────
-  static const String homeRoute = '/home';
-
-  // ─────────────────────────────────────────────
-  // * 🌍 Language Switch
-  // ─────────────────────────────────────────────
-  static const String languageSwitchToUa = 'Switch to Ukrainian';
-  static const String languageSwitchToEn = 'Switch to English';
-  static const String languageSwitchToPl = 'Przełącz na polski';
-
-  static const String languageSwitchedToUa =
-      'Language switched to 🇺🇦 Ukrainian';
-  static const String languageSwitchedToEn =
-      'Language switched to 🇬🇧 English';
 
   /// ────────────────────────────────────────────────────────────────────
   /// * 🔍 OTHERS

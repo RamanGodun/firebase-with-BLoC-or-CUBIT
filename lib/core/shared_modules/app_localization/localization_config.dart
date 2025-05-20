@@ -7,17 +7,17 @@ import 'generated/codegen_loader.g.dart';
 abstract final class AppLocalization {
   AppLocalization._();
 
-  /// 🌐 Supported locales for the app
+  /// 🌐🌍 Supported locales for the app
   static final supportedLocales = [
     const Locale('en'),
     const Locale('uk'),
     const Locale('pl'),
   ];
 
-  /// 🌐 Localization path in assets
+  /// 🌐🌍 Localization path in assets
   static const localizationPath = 'assets/translations';
 
-  /// 🌐 Fallback locale for the app
+  /// 🌐🌍 Fallback locale for the app
   static const fallbackLocale = Locale('en');
 
   ///

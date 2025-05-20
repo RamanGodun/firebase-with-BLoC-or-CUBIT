@@ -228,33 +228,33 @@ static const Map<String,dynamic> _en = {
     "success": {
       "saved": "Saved successfully",
       "deleted": "Item deleted"
-    },
-    "pages": {
-      "change_password": "Change Password",
-      "error_dialog": "Error occurs",
-      "go_to_home": "To Home Page",
-      "home": "     Home Page",
-      "not_found_message": "Oops! The page you’re looking for does not exist.",
-      "not_found_title": "Page Not Found",
-      "profile": "Profile",
-      "reset_password": "Reset Password",
-      "verify_email": "Verify Email"
-    },
-    "profile": {
-      "email": "📧 Email:",
-      "error": "Oops!\nSomething went wrong.",
-      "id": "🆔 ID:",
-      "name": "👤 Name:",
-      "points": "📊 Points:",
-      "rank": "🏆 Rank:"
-    },
-    "routes": {
-      "home": "/home"
-    },
-    "theme": {
-      "dark_enabled": "now is  \"Dark Mode\"",
-      "light_enabled": "now is  \"Light Mode\""
     }
+  },
+  "pages": {
+    "change_password": "Change Password",
+    "error_dialog": "Error occurs",
+    "go_to_home": "To Home Page",
+    "home": "     Home Page",
+    "not_found_message": "Oops! The page you’re looking for does not exist.",
+    "not_found_title": "Page Not Found",
+    "profile": "Profile",
+    "reset_password": "Reset Password",
+    "verify_email": "Verify Email"
+  },
+  "profile": {
+    "email": "📧 Email:",
+    "error": "Oops!\nSomething went wrong.",
+    "id": "🆔 ID:",
+    "name": "👤 Name:",
+    "points": "📊 Points:",
+    "rank": "🏆 Rank:"
+  },
+  "routes": {
+    "home": "/home"
+  },
+  "theme": {
+    "dark_enabled": "now is  \"Dark Mode\"",
+    "light_enabled": "now is  \"Light Mode\""
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"pl": _pl, "uk": _uk, "en": _en};

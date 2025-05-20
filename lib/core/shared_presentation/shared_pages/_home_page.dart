@@ -1,19 +1,19 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/constants/_app_constants.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_localization/when_no_localization/app_strings.dart';
 import 'package:firebase_with_bloc_or_cubit/features/auth/presentation/auth_bloc/auth_bloc.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widgets/custom_app_bar.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widgets/text_widget.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_localization/when_no_localization/text_widget.dart';
 import '../../app_config/spider/images_paths.dart';
+import '../../shared_modules/app_localization/generated/locale_keys.g.dart';
 import '../../shared_modules/app_navigation/_imports_for_router.dart'
     show RoutesNames;
 
 /// 🏠 [HomePage] is shown after successful login.
 final class HomePage extends StatelessWidget {
-  static const String routeName = AppStrings.homeRoute;
   const HomePage({super.key});
 
   @override
@@ -24,7 +24,7 @@ final class HomePage extends StatelessWidget {
       canPop: false,
       child: Scaffold(
         appBar: CustomAppBar(
-          title: AppStrings.homePageTitle,
+          title: LocaleKeys.pages_home.tr(),
           actionIcons: const [AppIcons.profile, AppIcons.logout],
           actionCallbacks: [
             () => context.pushToNamed(RoutesNames.profile),
@@ -38,8 +38,8 @@ final class HomePage extends StatelessWidget {
               spacing: AppSpacing.m,
               children: [
                 Image.asset(ImagesPaths.blocLogoFull, width: imageWidth),
-                const TextWidget(
-                  AppStrings.blocSlogan,
+                TextWidget(
+                  LocaleKeys.info_bloc_slogan.tr(),
                   TextType.titleMedium,
                   alignment: TextAlign.center,
                 ),

@@ -4,7 +4,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/constants/_
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_localization/when_no_localization/app_strings.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_navigation/widgets/button_for_go_router.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widgets/custom_app_bar.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widgets/text_widget.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_localization/when_no_localization/text_widget.dart';
 
 import '../../shared_modules/app_navigation/_imports_for_router.dart'
     show RoutesNames;

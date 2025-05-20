@@ -56,7 +56,8 @@
     "success": {
       "saved": "Saved successfully",
       "deleted": "Item deleted"
-    },
+    }
+  },
 
   "pages": {
     "change_password": "Change Password",
@@ -82,10 +83,12 @@
   "routes": {
     "home": "/home"
   },
+  
 
   "theme": {
     "dark_enabled": "now is  \"Dark Mode\"",
     "light_enabled": "now is  \"Light Mode\""
      }
-  }
+
+
 }

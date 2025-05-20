@@ -8,7 +8,7 @@ import '../../../core/shared_modules/app_localization/when_no_localization/app_s
 import '../../../core/shared_presentation/shared_widgets/app_loaders.dart';
 import '../../shared/shared_domain/shared_entities/_user.dart';
 import '../../../core/shared_presentation/shared_widgets/custom_app_bar.dart';
-import '../../../core/shared_presentation/shared_widgets/text_widget.dart';
+import '../../../core/shared_modules/app_localization/when_no_localization/text_widget.dart';
 import '../../../core/shared_modules/app_theme/theme_toggle_widget.dart';
 import 'cubit/profile_page_cubit.dart';
 
