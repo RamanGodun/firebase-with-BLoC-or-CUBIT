@@ -42,7 +42,7 @@ final class SignInPageView extends HookWidget {
                   ListView(
                     shrinkWrap: true,
                     padding: const EdgeInsets.symmetric(
-                      horizontal: AppSpacing.xl,
+                      horizontal: AppSpacing.l,
                     ),
                     children: [
                       /// 🖼️ Logo with Hero animation for smooth transitions

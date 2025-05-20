@@ -1,6 +1,6 @@
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import '../../../shared_presentation/constants/_app_constants.dart';
-import '../../app_localization/when_no_localization/app_strings.dart';
 import '../../../shared_presentation/constants/app_keys.dart';
 import 'app_text_field.dart';
 
@@ -39,7 +39,7 @@ final class InputFieldFactory {
       InputFieldType.name => AppTextField(
         key: AppKeys.nameField,
         focusNode: focusNode,
-        label: AppStrings.name,
+        label: LocaleKeys.form_name,
         icon: AppIcons.name,
         obscure: false,
         errorText: errorText,
@@ -52,7 +52,7 @@ final class InputFieldFactory {
       InputFieldType.email => AppTextField(
         key: AppKeys.emailField,
         focusNode: focusNode,
-        label: AppStrings.email,
+        label: LocaleKeys.form_email,
         icon: AppIcons.email,
         obscure: false,
         errorText: errorText,
@@ -65,7 +65,7 @@ final class InputFieldFactory {
       InputFieldType.password => AppTextField(
         key: AppKeys.passwordField,
         focusNode: focusNode,
-        label: AppStrings.password,
+        label: LocaleKeys.form_password,
         icon: AppIcons.password,
         obscure: isObscure,
         suffixIcon: suffixIcon,
@@ -78,7 +78,7 @@ final class InputFieldFactory {
       InputFieldType.confirmPassword => AppTextField(
         key: AppKeys.confirmPasswordField,
         focusNode: focusNode,
-        label: AppStrings.confirmPassword,
+        label: LocaleKeys.form_confirm_password,
         icon: AppIcons.confirmPassword,
         obscure: isObscure,
         suffixIcon: suffixIcon,

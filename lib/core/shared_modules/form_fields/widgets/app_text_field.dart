@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../app_localization/code_base_for_both_options/_app_localizer.dart';
+
 /// 🧱 [AppTextField] — Reusable, styled text input field used across the app.
 /// Supports:
 /// - label & prefix icon
@@ -13,6 +15,7 @@ class AppTextField extends StatelessWidget {
   final Key? fieldKey;
   final FocusNode focusNode;
   final String label;
+  final String? fallback;
   final IconData icon;
   final bool obscure;
   final String? errorText;
@@ -26,6 +29,7 @@ class AppTextField extends StatelessWidget {
     this.fieldKey,
     required this.focusNode,
     required this.label,
+    this.fallback,
     required this.icon,
     required this.obscure,
     this.suffixIcon,
@@ -38,6 +42,8 @@ class AppTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final resolvedLabel = _resolveLabel(label, fallback);
+
     return TextField(
       key: fieldKey,
       focusNode: focusNode,
@@ -51,7 +57,7 @@ class AppTextField extends StatelessWidget {
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
         filled: true,
-        labelText: label,
+        labelText: resolvedLabel,
         prefixIcon: Icon(icon),
         suffixIcon: suffixIcon,
         errorText: errorText,
@@ -59,6 +65,17 @@ class AppTextField extends StatelessWidget {
       onChanged: onChanged,
       onSubmitted: (_) => onSubmitted?.call(),
     );
+  }
+
+  /// 🔤 Resolves [label] as localization key if applicable.
+  /// - Uses [AppLocalizer.t] if initialized and key-like (contains '.')
+  /// - Falls back to [fallback] or raw label
+  String _resolveLabel(String raw, String? fallback) {
+    final isLocalCaseKey = raw.contains('.');
+    if (isLocalCaseKey && AppLocalizer.isInitialized) {
+      return AppLocalizer.t(raw, fallback: fallback ?? raw);
+    }
+    return raw;
   }
 
   ///

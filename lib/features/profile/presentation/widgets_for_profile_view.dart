@@ -32,25 +32,25 @@ final class _UserProfileCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWidget(
-                    '${AppStrings.profileNameLabel} ${user.name}',
+                    '${LocaleKeys.profile_name} ${user.name}',
                     TextType.titleMedium,
                   ),
                   const SizedBox(height: AppSpacing.xs),
                   TextWidget(
-                    '${AppStrings.profileIdLabel} ${user.id}',
+                    '${LocaleKeys.profile_id} ${user.id}',
                     TextType.titleSmall,
                   ),
                   TextWidget(
-                    '${AppStrings.profileEmailLabel} ${user.email}',
+                    '${LocaleKeys.profile_email} ${user.email}',
                     TextType.titleSmall,
                   ),
                   const SizedBox(height: AppSpacing.m),
                   TextWidget(
-                    '${AppStrings.profilePointsLabel} ${user.point}',
+                    '${LocaleKeys.profile_points} ${user.point}',
                     TextType.bodyMedium,
                   ),
                   TextWidget(
-                    '${AppStrings.profileRankLabel} ${user.rank}',
+                    '${LocaleKeys.profile_rank} ${user.rank}',
                     TextType.bodyMedium,
                   ),
                 ],
@@ -77,7 +77,7 @@ final class _ErrorContent extends StatelessWidget {
         children: [
           Image(image: AssetImage(ImagesPaths.error), width: 75),
           SizedBox(height: AppSpacing.s),
-          TextWidget(AppStrings.profileErrorMessage, TextType.error),
+          TextWidget(LocaleKeys.profile_error, TextType.error),
         ],
       ),
     );
