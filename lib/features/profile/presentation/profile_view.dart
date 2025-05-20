@@ -5,7 +5,7 @@ import '../../../core/shared_modules/app_localization/toggle_w/toggle_button.dar
 import '../../../core/shared_presentation/constants/_app_constants.dart'
     show AppSpacing;
 import '../../../core/shared_modules/app_localization/when_no_localization/app_strings.dart';
-import '../../../core/shared_presentation/shared_widgets/loaders/loaders.dart';
+import '../../../core/shared_presentation/shared_widgets/app_loaders.dart';
 import '../../shared/shared_domain/shared_entities/_user.dart';
 import '../../../core/shared_presentation/shared_widgets/custom_app_bar.dart';
 import '../../../core/shared_presentation/shared_widgets/text_widget.dart';

@@ -6,11 +6,12 @@ abstract final class AppLocalizer {
   /// 🌐 Resolves a translation key or returns fallback
   static String t(String key, {String? fallback}) {
     final value = _resolver?.call(key);
-    if (value == null || value == key) {
+    final resolved = (value == null || value == key);
+    if (resolved) {
       AppLogger.logStringFallback(key, fallback ?? key);
       return fallback ?? key;
     }
-    return (value == key) ? (fallback ?? key) : value;
+    return value;
   }
 
   /// 🧩 Initializes the resolver (once)

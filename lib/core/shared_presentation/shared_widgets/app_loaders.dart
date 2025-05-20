@@ -1,6 +1,31 @@
+import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
+
+/// 🔄 [LoaderWidget] — Flexible loader, used for splash-screen or in build
+//----------------------------------------------------------------
+
+final class LoaderWidget extends StatelessWidget {
+  final bool wrapInMaterialApp;
+  final TargetPlatform? platformOverride;
+  final Color? backgroundColor;
+
+  const LoaderWidget({
+    super.key,
+    this.wrapInMaterialApp = false,
+    this.platformOverride,
+    this.backgroundColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final loader = Center(child: AppLoader(platformOverride: platformOverride));
+
+    return wrapInMaterialApp
+        ? MaterialApp(home: loader)
+        : Material(type: MaterialType.transparency, child: loader);
+  }
+}
 
 /// 🔄 [AppLoader] — Platform-adaptive loading spinner
 /// - Renders circular loader with styled background

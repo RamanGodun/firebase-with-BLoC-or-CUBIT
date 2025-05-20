@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../shared_widgets/loaders/loaders.dart';
+import '../shared_widgets/app_loaders.dart';
 
 /// ⏳ Initial splash screen shown during app startup.
 /// ⏳ [SplashPage] — Displays a loading indicator while auth is resolving

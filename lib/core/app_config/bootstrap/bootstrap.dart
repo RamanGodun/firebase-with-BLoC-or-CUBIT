@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
 import 'package:path_provider/path_provider.dart';
 import '../../shared_modules/app_localization/when_no_localization/_app_localizer.dart';
+import '../../shared_modules/app_loggers/_app_error_logger.dart';
 import '../env.dart';
 import '../../shared_modules/app_loggers/app_bloc_observer.dart';
 
@@ -44,13 +45,19 @@ final class AppBootstrap {
 
   /// 🌍 Ensures EasyLocalization is initialized before `runApp`
   static Future<void> _initLocalization() async {
-    await EasyLocalization.ensureInitialized();
-    AppLocalizer.init(
-      resolver: (key) => key.tr(),
-    ); // ? when app with localization
+    try {
+      await EasyLocalization.ensureInitialized();
+      AppLocalizer.init(
+        resolver: (key) => key.tr(),
+      ); // ? when app with localization
+      //
+      // ! when app without localization, then instead previous method use next:
+      // AppLocalizer.init(resolver: (key) => LocalesFallbackMapper.fallbackMap[key] ?? key)
+    } catch (e, s) {
+      AppLogger.logException(e, s);
+      rethrow;
+    }
   }
-
-  // AppLocalizer.init(resolver: (key) => key); // ? when app without localization
 }
 
 /// 🔥 Initializes Firebase SDK (core only — used by all Firebase services)

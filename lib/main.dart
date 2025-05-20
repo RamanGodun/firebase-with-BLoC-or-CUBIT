@@ -5,7 +5,7 @@ import 'app_view.dart';
 import 'core/app_config/bootstrap/bootstrap.dart';
 import 'core/app_config/bootstrap/di_container.dart';
 import 'core/shared_modules/app_localization/localization_config.dart';
-import 'core/shared_presentation/shared_widgets/loaders/loaders.dart';
+import 'core/shared_presentation/shared_widgets/app_loaders.dart';
 import 'features/auth/presentation/auth_bloc/auth_bloc.dart';
 import 'core/shared_modules/app_theme/theme_cubit/theme_cubit.dart';
 
@@ -49,7 +49,9 @@ final class RootProviders extends StatelessWidget {
 
 /*
 
-   ! logging of possible problems
-	•	запропонувати extension на FailureKey, який одразу видає fallback зі FallbackKeysWhenNoLocalization,
-	•	автоматично логувати, коли fallback спрацював (наприклад, в dev-mode через debugPrint).
+! OVERLAYS
+- Dispatcher into Queue Manager
+_ Global Overlay Handler for user-driven flow
+
+
  */
