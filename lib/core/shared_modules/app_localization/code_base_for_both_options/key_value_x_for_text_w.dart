@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'text_widget.dart';
 
 /// 🔑 [KeyValueTextWidget] — Combines a localized key with a dynamic value in a single line,
-/// with baseline alignment for visual consistency across label-value pairs.
+/// with baseline alignment and columnar spacing for visual consistency.
 ///----------------------------------------------------------------
 
 final class KeyValueTextWidget extends StatelessWidget {
@@ -26,23 +26,25 @@ final class KeyValueTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 6),
+      padding: const EdgeInsets.only(bottom: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.baseline,
         textBaseline: TextBaseline.alphabetic,
 
         children: [
-          /// 🏷️ Localized label
-          TextWidget(
-            labelKey,
-            labelTextType,
-            alignment: TextAlign.start,
-            fontWeight: FontWeight.w300,
+          /// 🏷️ Localized label (intrinsic width)
+          IntrinsicWidth(
+            child: TextWidget(
+              labelKey,
+              labelTextType,
+              alignment: TextAlign.start,
+              fontWeight: FontWeight.w300,
+            ),
           ),
 
-          const SizedBox(width: 8),
+          const SizedBox(width: 12),
 
-          /// 🧾 Dynamic value
+          /// 🧾 Dynamic value (flexible & aligned)
           Expanded(
             child: TextWidget(
               value,

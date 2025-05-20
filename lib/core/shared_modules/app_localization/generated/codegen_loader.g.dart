@@ -80,12 +80,12 @@ class CodegenLoader extends AssetLoader{
     "verify_email": "Zweryfikuj email"
   },
   "profile": {
-    "error": "Ups!\nCoś poszło nie tak.",
-    "email": "📧 Email     ",
-    "id": "🆔 ID:         ",
-    "name": "👤 Imię:      ",
-    "points": "📊 Punkty:  ",
-    "rank": "🏆 Ranga:   "
+    "name": "👤 Imię:       ",
+    "id": "🆔 ID:           ",
+    "email": "📧 Email:     ",
+    "points": "📊 Punkty:   ",
+    "rank": "🏆 Ranga:    ",
+    "error": "Ups!\nCoś poszło nie tak."
   },
   "routes": {
     "home": "/home"
@@ -161,12 +161,12 @@ static const Map<String,dynamic> _uk = {
     "verify_email": "Підтвердити пошту"
   },
   "profile": {
-    "error": "Ой!\nЩось пішло не так.",
-    "email": "📧 Пошта: ",
-    "id": "🆔 ID:        ",
-    "name": "👤 Ім'я:     ",
-    "points": "📊 Бали:   ",
-    "rank": "🏆 Ранг:   "
+    "name": "👤 Ім'я:       ",
+    "id": "🆔 ID:          ",
+    "email": "📧 Пошта:  ",
+    "points": "📊 Бали:     ",
+    "rank": "🏆 Ранг:      ",
+    "error": "Ой!\nЩось пішло не так."
   },
   "routes": {
     "home": "/home"
@@ -243,8 +243,8 @@ static const Map<String,dynamic> _en = {
   },
   "profile": {
     "name": "👤 Name:   ",
-    "email": "📧 Email:   ",
-    "id": "🆔 ID:        ",
+    "id": "🆔 ID:         ",
+    "email": "📧 Email:    ",
     "points": "📊 Points:  ",
     "rank": "🏆 Rank:    ",
     "error": "Oops!\nSomething went wrong."
