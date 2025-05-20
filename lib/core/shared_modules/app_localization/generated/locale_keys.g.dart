@@ -53,8 +53,8 @@ abstract class  LocaleKeys {
   static const pages_reset_password = 'pages.reset_password';
   static const pages_verify_email = 'pages.verify_email';
   static const pages = 'pages';
-  static const profile_email = 'profile.email';
   static const profile_error = 'profile.error';
+  static const profile_email = 'profile.email';
   static const profile_id = 'profile.id';
   static const profile_name = 'profile.name';
   static const profile_points = 'profile.points';

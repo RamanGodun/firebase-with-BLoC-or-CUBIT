@@ -71,14 +71,15 @@
     "verify_email": "Zweryfikuj email"
   },
 
-  "profile": {
-    "email": "📧 Email:",
-    "error": "Ups!\nCoś poszło nie tak.",
-    "id": "🆔 ID:",
-    "name": "👤 Imię:",
-    "points": "📊 Punkty:",
-    "rank": "🏆 Ranga:"
-  },
+"profile": {
+  "error": "Ups!\nCoś poszło nie tak.",
+
+  "email":  "📧 Email     ",
+  "id":     "🆔 ID:         ",
+  "name":   "👤 Imię:      ",
+  "points": "📊 Punkty:  ",
+  "rank":   "🏆 Ranga:   "
+},
 
   "routes": {
     "home": "/home"

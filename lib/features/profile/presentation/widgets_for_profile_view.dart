@@ -25,33 +25,46 @@ final class _UserProfileCard extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           Padding(
-            padding: const EdgeInsets.all(AppSpacing.xs),
+            padding: const EdgeInsets.all(AppSpacing.l),
             child: DefaultTextStyle(
               style: const TextStyle(fontSize: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextWidget(
-                    '${LocaleKeys.profile_name} ${user.name}',
-                    TextType.titleMedium,
+                  /// 👤 Name
+                  KeyValueTextWidget(
+                    labelKey: LocaleKeys.profile_name,
+                    value: user.name,
+                    labelTextType: TextType.bodySmall,
                   ),
-                  const SizedBox(height: AppSpacing.xs),
-                  TextWidget(
-                    '${LocaleKeys.profile_id} ${user.id}',
-                    TextType.titleSmall,
+
+                  /// 🆔 ID
+                  KeyValueTextWidget(
+                    labelKey: LocaleKeys.profile_id,
+                    value: user.id,
+                    labelTextType: TextType.bodySmall,
+                    valueTextType: TextType.bodySmall,
                   ),
-                  TextWidget(
-                    '${LocaleKeys.profile_email} ${user.email}',
-                    TextType.titleSmall,
+
+                  /// 📧 Email
+                  KeyValueTextWidget(
+                    labelKey: LocaleKeys.profile_email,
+                    value: user.email,
+                    labelTextType: TextType.bodySmall,
                   ),
-                  const SizedBox(height: AppSpacing.m),
-                  TextWidget(
-                    '${LocaleKeys.profile_points} ${user.point}',
-                    TextType.bodyMedium,
+
+                  /// 📊 Points
+                  KeyValueTextWidget(
+                    labelKey: LocaleKeys.profile_points,
+                    value: user.point.toString(),
+                    labelTextType: TextType.bodySmall,
                   ),
-                  TextWidget(
-                    '${LocaleKeys.profile_rank} ${user.rank}',
-                    TextType.bodyMedium,
+
+                  /// 🏆 Rank
+                  KeyValueTextWidget(
+                    labelKey: LocaleKeys.profile_rank,
+                    value: user.rank,
+                    labelTextType: TextType.bodySmall,
                   ),
                 ],
               ),
