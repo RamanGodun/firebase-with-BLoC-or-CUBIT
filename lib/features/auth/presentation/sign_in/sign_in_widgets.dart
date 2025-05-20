@@ -9,10 +9,7 @@ final class _LogoImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Hero(
       tag: 'Logo',
-      child: Image(
-        image: AssetImage(ImagesPaths.flutterLogo),
-        width: 250,
-      ),
+      child: Image(image: AssetImage(ImagesPaths.flutterLogo), width: 250),
     );
   }
 }
@@ -92,7 +89,7 @@ final class _SubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormSubmitButton<SignInCubit, SignInPageState>(
-      text: AppStrings.signInButton,
+      text: LocaleKeys.buttons_sign_in,
       onSubmit: (context) {
         context.unfocusKeyboard;
         context.read<SignInCubit>().submit();
@@ -115,7 +112,7 @@ final class _RedirectToSignUpButton extends StatelessWidget {
       selector: (state) => state.status.isSubmissionInProgress,
       builder: (context, isLoading) {
         return RedirectTextButton(
-          label: AppStrings.redirectToSignUp,
+          label: LocaleKeys.buttons_to_sign_up,
           isDisabled: isLoading,
           onPressed: () => context.pushToNamed(RoutesNames.signUp),
         );

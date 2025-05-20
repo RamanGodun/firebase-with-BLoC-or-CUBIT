@@ -140,7 +140,7 @@ final class _SubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormSubmitButton<SignUpCubit, SignUpState>(
-      text: AppStrings.signUpButton,
+      text: LocaleKeys.buttons_sign_up,
       onSubmit: (context) {
         context.unfocusKeyboard;
         context.read<SignUpCubit>().submit();
@@ -162,7 +162,7 @@ final class _RedirectToSignInButton extends StatelessWidget {
       selector: (state) => state.status.isSubmissionInProgress,
       builder: (context, isLoading) {
         return RedirectTextButton(
-          label: AppStrings.redirectToSignIn,
+          label: LocaleKeys.buttons_to_sign_in,
           isDisabled: isLoading,
           onPressed: () => context.popView(),
         );

@@ -15,17 +15,17 @@ abstract final class AppStrings {
   /// * 🏠 Titles
   // ────────────────────────────────────────────────────────────────────
   // static const String homePageTitle = '     Home Page';
-  static const String profilePageTitle = 'Profile';
-  static const String errorDialogTitle = 'Error occurs';
+  // static const String profilePageTitle = 'Profile';
+
 
   /// ────────────────────────────────────────────────────────────────────
   /// * 🆗 Buttons texts
   // ────────────────────────────────────────────────────────────────────
-  static const String okButton = 'OK';
-  static const String signUpButton = 'Sign Up';
-  static const String redirectToSignIn = 'Already a member? Sign In!';
-  static const String signInButton = 'Sign In';
-  static const String redirectToSignUp = 'Not a member? Sign Up!';
+  // static const String okButton = 'OK';
+  // static const String signUpButton = 'Sign Up';
+  // static const String redirectToSignIn = 'Already a member? Sign In!';
+  // static const String signInButton = 'Sign In';
+  // static const String redirectToSignUp = 'Not a member? Sign Up!';
   static const submitButtonTag = 'submit';
 
   /// ────────────────────────────────────────────────────────────────────

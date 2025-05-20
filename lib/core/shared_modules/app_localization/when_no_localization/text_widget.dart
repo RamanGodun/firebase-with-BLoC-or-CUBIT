@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../shared_presentation/constants/_app_constants.dart';
 import '../../../utils/extensions/context_extensions/_context_extensions.dart';
+import '_app_localizer.dart';
 
 /// 📝 [TextWidget] — Custom Text widget with dynamic styling options.
 /// Supports all native typography variants + additional decorations.
@@ -8,8 +9,9 @@ import '../../../utils/extensions/context_extensions/_context_extensions.dart';
 
 final class TextWidget extends StatelessWidget {
   ///
-  final String text;
+  final String value;
   final TextType? textType;
+  final String? fallback;
   final Color? color;
   final TextAlign? alignment;
   final FontWeight? fontWeight;
@@ -23,9 +25,10 @@ final class TextWidget extends StatelessWidget {
   final bool? isUnderlined;
 
   const TextWidget(
-    this.text,
+    this.value,
     this.textType, {
     super.key,
+    this.fallback,
     this.color,
     this.alignment,
     this.fontWeight,
@@ -41,6 +44,7 @@ final class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String text = _resolveText(value, fallback);
     final textTheme = context.textTheme;
     final colorScheme = context.colorScheme;
     final isMultiLine = isTextOnFewStrings ?? false;
@@ -136,6 +140,19 @@ final class TextWidget extends StatelessWidget {
         return buildText(textTheme.bodyMedium);
     }
   }
+
+  /// Resolves [raw] as a localized key if possible.
+  /// Returns translated text via [AppLocalizer] if initialized and key-like.
+  /// Falls back to [fallback] or [raw] if translation is unavailable.
+  String _resolveText(String raw, String? fallback) {
+    final isLocalCaseKey = raw.contains('.');
+    if (isLocalCaseKey && AppLocalizer.isInitialized) {
+      return AppLocalizer.t(raw, fallback: fallback ?? raw);
+    }
+    return raw;
+  }
+
+  ///
 }
 
 /// 🧹 Enum for text style presets used by [TextWidget]

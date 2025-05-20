@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,7 @@ final class HomePage extends StatelessWidget {
       canPop: false,
       child: Scaffold(
         appBar: CustomAppBar(
-          title: LocaleKeys.pages_home.tr(),
+          title: LocaleKeys.pages_home,
           actionIcons: const [AppIcons.profile, AppIcons.logout],
           actionCallbacks: [
             () => context.pushToNamed(RoutesNames.profile),
@@ -38,8 +37,8 @@ final class HomePage extends StatelessWidget {
               spacing: AppSpacing.m,
               children: [
                 Image.asset(ImagesPaths.blocLogoFull, width: imageWidth),
-                TextWidget(
-                  LocaleKeys.info_bloc_slogan.tr(),
+                const TextWidget(
+                  LocaleKeys.info_bloc_slogan,
                   TextType.titleMedium,
                   alignment: TextAlign.center,
                 ),

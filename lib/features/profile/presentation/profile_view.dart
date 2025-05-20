@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/app_config/spider/images_paths.dart';
+import '../../../core/shared_modules/app_localization/generated/locale_keys.g.dart';
 import '../../../core/shared_modules/app_localization/toggle_w/toggle_button.dart';
 import '../../../core/shared_presentation/constants/_app_constants.dart'
     show AppSpacing;
@@ -28,7 +29,7 @@ final class ProfileView extends StatelessWidget {
       appBar:
       ///
       const CustomAppBar(
-        title: AppStrings.profilePageTitle,
+        title: LocaleKeys.pages_profile,
         actionWidgets: [ThemeToggleIcon(), LanguageToggleButton()],
       ),
 

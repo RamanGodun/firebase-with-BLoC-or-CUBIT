@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/shared_widgets/custom_app_bar.dart';
 import '../../shared_modules/app_localization/generated/locale_keys.g.dart';
@@ -10,7 +9,7 @@ final class ResetPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: LocaleKeys.pages_reset_password.tr()),
+      appBar: const CustomAppBar(title: LocaleKeys.pages_reset_password),
       body: Container(),
     );
   }
