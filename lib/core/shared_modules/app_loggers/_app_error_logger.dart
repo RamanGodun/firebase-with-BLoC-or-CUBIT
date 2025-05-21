@@ -25,7 +25,7 @@ abstract final class AppLogger {
     final strategy = request.strategy;
     debugPrint(
       '[Overlay][$type] Show → '
-      'duration: ${request.duration.inMilliseconds}ms, '
+      // 'duration: ${request.duration.inMilliseconds}ms, '
       'priority: ${strategy.priority.name}, '
       'category: ${strategy.category.name}, '
       'policy: ${strategy.policy.name}, '

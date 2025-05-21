@@ -1,14 +1,11 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:async' show Completer;
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_overlays/user_driven_flow/user_driven_flow_context_x.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_animation/target_platform_x.dart';
-import '../../../app_animation/animation_engines/__animation_engine_interface.dart';
-import '../../../app_animation/_animation_host.dart';
 import '../../../app_animation/enums_for_animation_module.dart';
 import '../../presentation/overlay_presets/overlay_presets.dart';
-import '../../presentation/widgets/android_banner.dart';
-import '../../presentation/widgets/ios_banner.dart';
 import '_task_interface.dart';
 
 /// 🪧 [BannerOverlayTask] — User-driven platform-aware banner
@@ -48,40 +45,40 @@ final class BannerOverlayTask extends OverlayTask {
     // Creates overlay entry with animated banner content
     late final OverlayEntry entry;
 
-    ///
-    entry = OverlayEntry(
-      builder:
-          (_) => AnimationHost(
-            overlayType: UserDrivenOverlayType.banner,
-            displayDuration: duration,
-            platform: animationPlatform,
-            onDismiss: () {
-              entry.remove();
-              completer.complete();
-            },
-            // 🎯 Builds platform-specific banner with resolved props & engine
-            builderWithEngine:
-                (engine) => switch (animationPlatform) {
-                  AnimationPlatform.ios ||
-                  AnimationPlatform.adaptive => IOSBanner(
-                    message: message,
-                    icon: icon,
-                    engine: engine,
-                    props: resolvedProps,
-                  ),
-                  AnimationPlatform.android => AndroidBanner(
-                    message: message,
-                    icon: icon,
-                    engine: engine as ISlideAnimationEngine,
-                    props: resolvedProps,
-                  ),
-                },
-          ),
-    );
+    // ///
+    // entry = OverlayEntry(
+    //   builder:
+    //       (_) => AnimationHost(
+    //         overlayType: UserDrivenOverlayType.banner,
+    //         displayDuration: duration,
+    //         platform: animationPlatform,
+    //         onDismiss: () {
+    //           entry.remove();
+    //           completer.complete();
+    //         },
+    //         // 🎯 Builds platform-specific banner with resolved props & engine
+    //         builderWithEngine:
+    //             (engine) => switch (animationPlatform) {
+    //               AnimationPlatform.ios ||
+    //               AnimationPlatform.adaptive => IOSBanner(
+    //                 message: message,
+    //                 icon: icon,
+    //                 engine: engine,
+    //                 props: resolvedProps,
+    //               ),
+    //               AnimationPlatform.android => AndroidBanner(
+    //                 message: message,
+    //                 icon: icon,
+    //                 engine: engine as ISlideAnimationEngine,
+    //                 props: resolvedProps,
+    //               ),
+    //             },
+    //       ),
+    // );
 
     /// Inserts entry into root overlay
     // Overlay.of(context, rootOverlay: true).insert(entry); // ? bellow alt syntaxes, check it
-    context.insertOverlayEntry(entry);
+    // context.insertOverlayEntry(entry);
     return completer.future;
   }
 

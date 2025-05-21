@@ -2,10 +2,10 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import '../../../app_animation/animation_overlay_handler.dart';
 import '../../../app_loggers/_app_error_logger.dart';
+import '../../core/overlay_enums.dart';
 import '../overlay_entries/_overlay_entries.dart';
 import '../../core/tap_through_overlay_barrier.dart';
 import '../conflicts_strategy/police_resolver.dart';
-import '../conflicts_strategy/conflicts_strategy.dart';
 import 'overlay_dispatcher_interface.dart';
 
 /// 🧠 [OverlayDispatcher] – Handles overlay lifecycle:
@@ -13,7 +13,7 @@ import 'overlay_dispatcher_interface.dart';
 /// - Resolving conflicts
 /// - Managing overlay insertion & dismissal
 /// - Centralized logging
-///----------------------------------------------------------------
+///--------------------------------------------------
 
 final class OverlayDispatcher implements IOverlayDispatcher {
   OverlayDispatcher._();
@@ -30,9 +30,11 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   OverlayAnimationHandle? _activeHandle;
   // 🚦 Whether an overlay is currently being inserted
   bool _isProcessing = false;
+
   // Obtain  getter, that can interrupt user-driven overlays flow
   @override
   bool get isOverlayActive => _activeEntry != null;
+
   // 🔓 Whether the current overlay can be dismissed externally.
   @override
   bool get canBeDismissedExternally =>
@@ -104,9 +106,21 @@ final class OverlayDispatcher implements IOverlayDispatcher {
                 dismissCurrent();
               }
             },
-            child: Builder(
-              builder: (overlayCtx) => item.request.build(overlayCtx),
-            ),
+            child: Container(),
+
+            //  Builder(
+            //               builder:
+            //                   (overlayCtx) => AnimationHost(
+            //                     displayDuration: item.request.autoDismissDuration,
+            //                     platform: platform,
+            //                     onDismiss: () => dismissCurrent(force: true),
+            //                     builderWithEngine:
+            //                         (engine) => item.request.buildWidget(
+            //                           engine: engine,
+            //                           platform: platform,
+            //                         ),
+            //                   ),
+            //             ),
           ),
     );
 
@@ -114,7 +128,7 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     AppLogger.logOverlayInserted(_activeRequest);
 
     // Automatically schedules dismissal after [duration].
-    final delay = item.request.duration;
+    final delay = Duration.zero;
     if (delay > Duration.zero) {
       Future.delayed(delay, () async {
         await _dismissEntry();
@@ -147,7 +161,6 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     }
 
     _activeEntry?.remove();
-    _activeRequest?.onDismiss?.call();
     AppLogger.logOverlayDismiss(_activeRequest);
 
     _activeEntry = null;

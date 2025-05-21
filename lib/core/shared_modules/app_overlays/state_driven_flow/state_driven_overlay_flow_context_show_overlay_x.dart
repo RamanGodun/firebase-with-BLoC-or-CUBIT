@@ -1,6 +1,12 @@
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_animation/new_engines/context_x_for_engines.dart';
+import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 import '../../../app_config/bootstrap/di_container.dart';
+import '../../app_animation/animated_overlay_wrapper.dart';
 import '../../app_errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
+import '../core/overlay_enums.dart';
+import '../presentation/widgets/android_dialog.dart';
+import '../presentation/widgets/ios_dialog.dart';
 import 'conflicts_strategy/police_resolver.dart';
 import 'overlay_entries/_overlay_entries.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';
@@ -65,19 +71,63 @@ extension ContextXForStateDrivenOverlayFlow on BuildContext {
     bool isError = false,
     bool isDismissible = true,
     bool isInfoDialog = false,
+    Duration autoDismissDuration = Duration.zero,
   }) {
-    final entry = DialogOverlayEntry(
-      title,
-      content,
-      confirmText: confirmText ?? 'OK',
-      cancelText: cancelText ?? 'Cancel',
-      onConfirm: onConfirm,
-      onCancel: onCancel,
-      preset: preset,
-      isError: isError,
-      isInfoDialog: isInfoDialog,
-      dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
+    final engine = getEngine(OverlayCategory.dialog);
+
+    final dialogWidget = switch (platform) {
+      TargetPlatform.iOS => IOSAppDialog(
+        title: title,
+        content: content,
+        confirmText: confirmText ?? 'OK',
+        cancelText: cancelText ?? 'Cancel',
+        onConfirm: onConfirm,
+        onCancel: onCancel,
+        presetProps: preset.resolve(),
+        isInfoDialog: isInfoDialog,
+        isFromUserFlow: false,
+        engine: engine,
+      ),
+      TargetPlatform.android => AndroidDialog(
+        title: title,
+        content: content,
+        confirmText: confirmText ?? 'OK',
+        cancelText: cancelText ?? 'Cancel',
+        onConfirm: onConfirm,
+        onCancel: onCancel,
+        presetProps: preset.resolve(),
+        isInfoDialog: isInfoDialog,
+        isFromUserFlow: false,
+        engine: engine,
+      ),
+      // fallback
+      _ => IOSAppDialog(
+        title: title,
+        content: content,
+        confirmText: confirmText ?? 'OK',
+        cancelText: cancelText ?? 'Cancel',
+        onConfirm: onConfirm,
+        onCancel: onCancel,
+        presetProps: preset.resolve(),
+        isInfoDialog: isInfoDialog,
+        isFromUserFlow: false,
+        engine: engine,
+      ),
+    };
+
+    /// 🎬 Wraps with [AnimatedOverlayWrapper] that controls lifecycle and animation
+    final animatedDialog = AnimatedOverlayWrapper(
+      engine: engine,
+      displayDuration: autoDismissDuration,
+      builder: (_) => dialogWidget,
     );
+
+    final entry = DialogOverlayEntry(
+      widget: animatedDialog,
+      dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
+      isError: isError,
+    );
+
     overlayDispatcher.enqueueRequest(this, entry);
   }
 

@@ -2,6 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extens
 import 'package:flutter/cupertino.dart';
 import '../../../../app_config/bootstrap/di_container.dart';
 import '../../../../shared_presentation/constants/_app_constants.dart';
+import '../../../app_animation/new_engines/_animation_engine.dart';
 import '../../../app_localization/code_base_for_both_options/text_widget.dart';
 import '../../state_driven_flow/overlay_dispatcher/overlay_dispatcher_interface.dart';
 import '../overlay_presets/preset_props.dart';
@@ -21,10 +22,10 @@ final class IOSAppDialog extends StatelessWidget {
   final String cancelText;
   final VoidCallback? onConfirm;
   final VoidCallback? onCancel;
-  final OverlayUIPresetProps? presetProps;
+  final OverlayUIPresetProps? presetProps; // 🎨 Optional style preset
   final bool isInfoDialog;
   final bool isFromUserFlow;
-  final IAnimationEngine engine;
+  final DialogAnimationEngine engine;
 
   const IOSAppDialog({
     super.key,
@@ -63,7 +64,11 @@ final class IOSAppDialog extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextWidget(title, TextType.titleMedium),
+                  TextWidget(
+                    title,
+                    TextType.titleMedium,
+                    isTextOnFewStrings: true,
+                  ),
                   if (icon != null)
                     Icon(
                       icon,
