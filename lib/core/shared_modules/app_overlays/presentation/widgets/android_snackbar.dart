@@ -1,6 +1,7 @@
+import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
+import '../../../app_animation/animation_engines/_animation_engine.dart';
 import '../../../app_localization/code_base_for_both_options/text_widget.dart';
-import '../../../app_animation/animation_engines/__animation_engine_interface.dart';
 import '../overlay_presets/preset_props.dart';
 
 /// 🍞 [AndroidSnackbarCard] — Animated Material snackbar for Android
@@ -13,7 +14,7 @@ final class AndroidSnackbarCard extends StatelessWidget {
   final String message;
   final IconData icon;
   final OverlayUIPresetProps props;
-  final ISlideAnimationEngine engine;
+  final AnimationEngine engine;
 
   const AndroidSnackbarCard({
     super.key,
@@ -26,42 +27,47 @@ final class AndroidSnackbarCard extends StatelessWidget {
   ///
   @override
   Widget build(BuildContext context) {
-    /// 🧱 Composed snackbar with animated slide & fade
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: SlideTransition(
-        position: engine.slide,
-        child: FadeTransition(
-          opacity: engine.opacity,
-          child: Material(
-            elevation: 6,
-            borderRadius: BorderRadius.circular(8),
-            color: props.color.withOpacity(0.95),
-            child: Padding(
-              padding: props.contentPadding,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(icon, color: Colors.white),
-                  const SizedBox(width: 8),
-                  Flexible(
-                    child: TextWidget(
-                      message,
-                      TextType.bodyMedium,
-                      color: Colors.white,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      isTextOnFewStrings: true,
-                    ),
+    final content = FadeTransition(
+      opacity: engine.opacity,
+      child: ScaleTransition(
+        scale: engine.scale,
+        child: Material(
+          elevation: 10,
+          borderRadius: BorderRadius.circular(12),
+          color: props.color.withOpacity(0.9),
+          child: Padding(
+            padding: props.contentPadding,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(icon, color: Colors.white),
+                const SizedBox(width: 8),
+                Flexible(
+                  child: TextWidget(
+                    message,
+                    TextType.bodyMedium,
+                    color: context.colorScheme.primary,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    isTextOnFewStrings: true,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
+
+    return Align(
+      alignment: Alignment.topCenter,
+      child:
+          engine.slide != null
+              ? SlideTransition(position: engine.slide!, child: content)
+              : content,
+    );
+    //
   }
 
-  //
+  ///
 }

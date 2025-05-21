@@ -4,8 +4,6 @@ import 'dart:async';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_animation/target_platform_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
-import '../../../app_animation/animation_engines/__animation_engine_interface.dart';
-import '../../../app_animation/animation_engines/_animation_engine_factory.dart';
 import '../../../app_animation/enums_for_animation_module.dart';
 import '../../presentation/overlay_presets/overlay_presets.dart';
 import '../../presentation/overlay_presets/preset_props.dart';
@@ -62,14 +60,14 @@ final class DialogOverlayTask extends OverlayTask {
     final resolvedProps = presetProps ?? const OverlayInfoUIPreset().resolve();
     //
     late final OverlayEntry entry;
-    late final IAnimationEngine engine;
+    // late final IAnimationEngine engine;
 
     /// Creates animation engine for dialog transitions
-    engine = AnimationEngineFactory.create(
-      platform: animationPlatform,
-      target: UserDrivenOverlayType.dialog,
-      vsync: Navigator.of(context),
-    );
+    // engine = AnimationEngineFactory.create(
+    //   platform: animationPlatform,
+    //   target: UserDrivenOverlayType.dialog,
+    //   vsync: Navigator.of(context),
+    // );
 
     /// Runs reverse animation and removes entry
     // void animatedDismiss() async {
@@ -115,7 +113,7 @@ final class DialogOverlayTask extends OverlayTask {
     /// Injects the dialog into root overlay and starts animation
     // Overlay.of(context, rootOverlay: true).insert(entry); // ? bellow alt syntaxes, check it
     // context.insertOverlayEntry(entry);
-    engine.play();
+    // engine.play();
     return completer.future;
   }
 

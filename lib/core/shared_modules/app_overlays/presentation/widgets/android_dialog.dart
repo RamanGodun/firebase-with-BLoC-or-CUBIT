@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../../app_config/bootstrap/di_container.dart';
-import '../../../app_animation/new_engines/_animation_engine.dart';
+import '../../../app_animation/animation_engines/_animation_engine.dart';
 import '../../../app_localization/code_base_for_both_options/text_widget.dart';
 import '../../state_driven_flow/overlay_dispatcher/overlay_dispatcher_interface.dart';
 import '../overlay_presets/preset_props.dart';
-import '../../../app_animation/animation_engines/__animation_engine_interface.dart';
 
 /// 💬 [AndroidDialog] — Platform-aware Material dialog with animation
 /// - Built for Android: uses [AlertDialog] + entrance animation via [IAnimationEngine]
@@ -22,7 +21,7 @@ final class AndroidDialog extends StatelessWidget {
   final OverlayUIPresetProps? presetProps;
   final bool isInfoDialog;
   final bool isFromUserFlow;
-  final DialogAnimationEngine engine;
+  final AnimationEngine engine;
 
   const AndroidDialog({
     super.key,

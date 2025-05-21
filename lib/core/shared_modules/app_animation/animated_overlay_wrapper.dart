@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'new_engines/_animation_engine.dart';
+import 'animation_engines/_animation_engine.dart';
 
 /// 🧱 [AnimatedOverlayWrapper] — universal animation container for overlay widgets
 /// ✅ Initializes engine with TickerProvider
@@ -8,10 +8,10 @@ import 'new_engines/_animation_engine.dart';
 /// ✅ Calls [onDismiss] after reverse animation completes
 class AnimatedOverlayWrapper extends StatefulWidget {
   /// 💡 Platform-aware engine with pre-resolved animation type
-  final DialogAnimationEngine engine;
+  final AnimationEngine engine;
 
   /// 🧱 Widget to render inside the overlay (e.g., AndroidDialog / IOSDialog)
-  final Widget Function(DialogAnimationEngine engine) builder;
+  final Widget Function(AnimationEngine engine) builder;
 
   /// ⏳ Duration before auto-dismiss (set to Duration.zero for manual closing)
   final Duration displayDuration;
@@ -33,7 +33,7 @@ class AnimatedOverlayWrapper extends StatefulWidget {
 
 class _AnimatedOverlayWrapperState extends State<AnimatedOverlayWrapper>
     with TickerProviderStateMixin {
-  late final DialogAnimationEngine _engine;
+  late final AnimationEngine _engine;
 
   ///
   @override

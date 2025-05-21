@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_overlays/presentation/widgets/ios_dialog.dart'
     show IOSAppDialog;
 import 'package:flutter/material.dart';
-import '../../app_animation/new_engines/_animation_engine.dart';
+import '../../app_animation/animation_engines/_animation_engine.dart';
 import '../presentation/overlay_presets/preset_props.dart';
 import '../presentation/widgets/android_dialog.dart';
 
@@ -11,7 +11,7 @@ abstract final class PlatformMapper {
   ///
   static Widget resolveAppDialog({
     required TargetPlatform platform,
-    required DialogAnimationEngine engine,
+    required AnimationEngine engine,
     required String title,
     required String content,
     required String confirmText,

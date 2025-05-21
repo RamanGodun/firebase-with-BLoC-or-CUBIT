@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_animation/new_engines/context_x_for_engines.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_animation/animation_engines/_context_x_for_engines.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 import '../../../app_config/bootstrap/di_container.dart';

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-part 'android_dialog_engine.dart';
-part 'ios_dialog_engine.dart';
+part 'dialogs_engines.dart';
+part 'banners_engines.dart';
+part 'fallback_engine.dart';
+part 'snackbars_engines.dart';
 
-/// 🎯 [DialogAnimationEngine] — base class for platform-specific dialog animations
+/// 🎯 [AnimationEngine] — base class for platform-specific dialog animations
 /// ✅ Used in overlays to drive platform-native transitions
 /// ✅ Provides core animation lifecycle and properties
-sealed class DialogAnimationEngine {
+sealed class AnimationEngine {
   /// 🎛️ Must initialize controllers & tweens with proper [TickerProvider]
   void initialize(TickerProvider vsync);
 

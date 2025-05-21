@@ -2,11 +2,10 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extens
 import 'package:flutter/cupertino.dart';
 import '../../../../app_config/bootstrap/di_container.dart';
 import '../../../../shared_presentation/constants/_app_constants.dart';
-import '../../../app_animation/new_engines/_animation_engine.dart';
+import '../../../app_animation/animation_engines/_animation_engine.dart';
 import '../../../app_localization/code_base_for_both_options/text_widget.dart';
 import '../../state_driven_flow/overlay_dispatcher/overlay_dispatcher_interface.dart';
 import '../overlay_presets/preset_props.dart';
-import '../../../app_animation/animation_engines/__animation_engine_interface.dart';
 
 /// 🍎 [IOSAppDialog] — Animated glass-style Cupertino dialog for iOS/macOS
 /// - Triggered from user-driven or state-driven flows
@@ -25,7 +24,7 @@ final class IOSAppDialog extends StatelessWidget {
   final OverlayUIPresetProps? presetProps; // 🎨 Optional style preset
   final bool isInfoDialog;
   final bool isFromUserFlow;
-  final DialogAnimationEngine engine;
+  final AnimationEngine engine;
 
   const IOSAppDialog({
     super.key,

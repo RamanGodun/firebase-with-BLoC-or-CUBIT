@@ -3,8 +3,8 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/constants/_
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/material.dart';
+import '../../../app_animation/animation_engines/_animation_engine.dart';
 import '../../../app_localization/code_base_for_both_options/text_widget.dart';
-import '../../../app_animation/animation_engines/__animation_engine_interface.dart';
 import '../overlay_presets/preset_props.dart';
 
 /// 🪧 [IOSBanner] — iOS-style animated banner with glassmorphism
@@ -17,7 +17,7 @@ final class IOSBanner extends StatelessWidget {
   final String message;
   final IconData icon;
   final OverlayUIPresetProps props;
-  final IAnimationEngine engine;
+ final AnimationEngine engine;
 
   const IOSBanner({
     super.key,

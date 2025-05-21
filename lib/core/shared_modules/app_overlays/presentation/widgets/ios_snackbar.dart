@@ -1,7 +1,7 @@
 import 'dart:ui' show ImageFilter;
 import 'package:flutter/material.dart';
+import '../../../app_animation/animation_engines/_animation_engine.dart';
 import '../../../app_localization/code_base_for_both_options/text_widget.dart';
-import '../../../app_animation/animation_engines/__animation_engine_interface.dart';
 import '../overlay_presets/preset_props.dart';
 
 /// 🍎 [IOSSnackbarCard] — Cupertino-style snackbar for iOS/macOS
@@ -12,7 +12,7 @@ final class IOSSnackbarCard extends StatelessWidget {
   final String message;
   final IconData icon;
   final OverlayUIPresetProps props;
-  final IAnimationEngine engine;
+  final AnimationEngine engine;
 
   const IOSSnackbarCard({
     super.key,
