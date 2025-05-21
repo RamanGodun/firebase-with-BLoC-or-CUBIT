@@ -5,9 +5,8 @@ import '../../../app_config/bootstrap/di_container.dart';
 import '../../app_animation/animated_overlay_wrapper.dart';
 import '../../app_errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
 import '../core/overlay_enums.dart';
-import '../presentation/widgets/android_dialog.dart';
-import '../presentation/widgets/ios_dialog.dart';
 import 'conflicts_strategy/police_resolver.dart';
+import 'platform_mapper.dart';
 import 'overlay_entries/_overlay_entries.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';
 import 'overlay_dispatcher/overlay_dispatcher_interface.dart';
@@ -22,6 +21,57 @@ extension ContextXForStateDrivenOverlayFlow on BuildContext {
   /// 🔌 Direct access to [IOverlayDispatcher] from DI
   IOverlayDispatcher get overlayDispatcher => di<IOverlayDispatcher>();
   //
+
+  /// 💬 Shows a short platform-adaptive dialog (iOS/Android)
+  void showDialog({
+    required String title,
+    required String content,
+    String? confirmText,
+    String? cancelText,
+    VoidCallback? onConfirm,
+    VoidCallback? onCancel,
+    OverlayUIPresets preset = const OverlayInfoUIPreset(),
+    bool isError = false,
+    bool isDismissible = true,
+    bool isInfoDialog = false,
+    Duration autoDismissDuration = Duration.zero,
+  }) {
+    //
+    final engine = getEngine(OverlayCategory.dialog);
+
+    //
+    final dialogWidget = PlatformMapper.resolveAppDialog(
+      platform: platform,
+      engine: engine,
+      title: title,
+      content: content,
+      confirmText: confirmText ?? 'OK',
+      cancelText: cancelText ?? 'Cancel',
+      onConfirm: onConfirm,
+      onCancel: onCancel,
+      presetProps: preset.resolve(),
+      isInfoDialog: isInfoDialog,
+      isFromUserFlow: false,
+    );
+
+    // 🎬 Wraps with [AnimatedOverlayWrapper] that controls lifecycle and animation
+    final animatedDialog = AnimatedOverlayWrapper(
+      engine: engine,
+      displayDuration: autoDismissDuration,
+      builder: (_) => dialogWidget,
+    );
+
+    ///
+    final entry = DialogOverlayEntry(
+      widget: animatedDialog,
+      dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
+      isError: isError,
+    );
+
+    overlayDispatcher.enqueueRequest(this, entry);
+  }
+
+  ///
 
   /// 🪧 Shows a platform-aware banner (iOS/Android) using optional preset
   // void showBanner({
@@ -58,78 +108,6 @@ extension ContextXForStateDrivenOverlayFlow on BuildContext {
   //   );
   //   overlayDispatcher.enqueueRequest(this, entry);
   // }
-
-  /// 💬 Shows a short platform-adaptive dialog (iOS/Android)
-  void showDialog({
-    required String title,
-    required String content,
-    String? confirmText,
-    String? cancelText,
-    VoidCallback? onConfirm,
-    VoidCallback? onCancel,
-    OverlayUIPresets preset = const OverlayInfoUIPreset(),
-    bool isError = false,
-    bool isDismissible = true,
-    bool isInfoDialog = false,
-    Duration autoDismissDuration = Duration.zero,
-  }) {
-    final engine = getEngine(OverlayCategory.dialog);
-
-    final dialogWidget = switch (platform) {
-      TargetPlatform.iOS => IOSAppDialog(
-        title: title,
-        content: content,
-        confirmText: confirmText ?? 'OK',
-        cancelText: cancelText ?? 'Cancel',
-        onConfirm: onConfirm,
-        onCancel: onCancel,
-        presetProps: preset.resolve(),
-        isInfoDialog: isInfoDialog,
-        isFromUserFlow: false,
-        engine: engine,
-      ),
-      TargetPlatform.android => AndroidDialog(
-        title: title,
-        content: content,
-        confirmText: confirmText ?? 'OK',
-        cancelText: cancelText ?? 'Cancel',
-        onConfirm: onConfirm,
-        onCancel: onCancel,
-        presetProps: preset.resolve(),
-        isInfoDialog: isInfoDialog,
-        isFromUserFlow: false,
-        engine: engine,
-      ),
-      // fallback
-      _ => IOSAppDialog(
-        title: title,
-        content: content,
-        confirmText: confirmText ?? 'OK',
-        cancelText: cancelText ?? 'Cancel',
-        onConfirm: onConfirm,
-        onCancel: onCancel,
-        presetProps: preset.resolve(),
-        isInfoDialog: isInfoDialog,
-        isFromUserFlow: false,
-        engine: engine,
-      ),
-    };
-
-    /// 🎬 Wraps with [AnimatedOverlayWrapper] that controls lifecycle and animation
-    final animatedDialog = AnimatedOverlayWrapper(
-      engine: engine,
-      displayDuration: autoDismissDuration,
-      builder: (_) => dialogWidget,
-    );
-
-    final entry = DialogOverlayEntry(
-      widget: animatedDialog,
-      dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
-      isError: isError,
-    );
-
-    overlayDispatcher.enqueueRequest(this, entry);
-  }
 
   /// 🧠 Handles displaying [FailureUIModel] as banner/snackbar/dialog
   /// 📌 Uses [OverlayUIPresets] and [ShowErrorAs] to configure appearance and behavior

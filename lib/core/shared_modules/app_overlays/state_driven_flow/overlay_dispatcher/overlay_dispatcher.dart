@@ -1,6 +1,6 @@
 import 'dart:collection';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_animation/animated_overlay_wrapper.dart';
 import 'package:flutter/material.dart';
-import '../../../app_animation/animation_overlay_handler.dart';
 import '../../../app_loggers/_app_error_logger.dart';
 import '../../core/overlay_enums.dart';
 import '../overlay_entries/_overlay_entries.dart';
@@ -22,12 +22,13 @@ final class OverlayDispatcher implements IOverlayDispatcher {
 
   // 📦 Queue to hold pending overlay requests
   final Queue<_OverlayQueueItem> _queue = Queue();
+
   // 🎯 Currently visible overlay entry in the widget tree
   OverlayEntry? _activeEntry;
+
   // 📄 Metadata of the currently shown overlay (used for decisions)
   OverlayUIEntry? _activeRequest;
-  // 🔁 Controls animation lifecycle (binds to platform-specific engine)
-  OverlayAnimationHandle? _activeHandle;
+
   // 🚦 Whether an overlay is currently being inserted
   bool _isProcessing = false;
 
@@ -92,8 +93,16 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     final item = _queue.removeFirst();
     _activeRequest = item.request;
 
-    // 🔁 Creates animation handle to externally control animation
-    _activeHandle = OverlayAnimationHandle();
+    final widget = item.request.buildWidget();
+
+    // 🧠 Apply centralized dismiss handling if AnimatedOverlayWrapper is used
+    final processedWidget = widget.withDispatcherOverlayControl(
+      onDismiss: () {
+        dismissCurrent(force: true);
+        _isProcessing = false;
+        _tryProcessQueue();
+      },
+    );
 
     // Inserts new OverlayEntry with tap-through barrier.
     _activeEntry = OverlayEntry(
@@ -106,38 +115,12 @@ final class OverlayDispatcher implements IOverlayDispatcher {
                 dismissCurrent();
               }
             },
-            child: Container(),
-
-            //  Builder(
-            //               builder:
-            //                   (overlayCtx) => AnimationHost(
-            //                     displayDuration: item.request.autoDismissDuration,
-            //                     platform: platform,
-            //                     onDismiss: () => dismissCurrent(force: true),
-            //                     builderWithEngine:
-            //                         (engine) => item.request.buildWidget(
-            //                           engine: engine,
-            //                           platform: platform,
-            //                         ),
-            //                   ),
-            //             ),
+            child: processedWidget,
           ),
     );
 
     item.overlay.insert(_activeEntry!);
     AppLogger.logOverlayInserted(_activeRequest);
-
-    // Automatically schedules dismissal after [duration].
-    final delay = Duration.zero;
-    if (delay > Duration.zero) {
-      Future.delayed(delay, () async {
-        await _dismissEntry();
-        _isProcessing = false;
-        _tryProcessQueue();
-      });
-    } else {
-      _isProcessing = false;
-    }
   }
 
   /// ❌ Dismisses current overlay and clears queue if needed.
@@ -152,20 +135,14 @@ final class OverlayDispatcher implements IOverlayDispatcher {
 
   /// 🧹 Internal: removes entry, handles animation and resets state.
   Future<void> _dismissEntry({bool force = false}) async {
-    if (_activeHandle != null) {
-      try {
-        await _activeHandle!.reverse(fast: force);
-      } catch (_) {
-        AppLogger.logOverlayDismissAnimationError(_activeRequest);
-      }
+    try {
+      _activeEntry?.remove();
+      AppLogger.logOverlayDismiss(_activeRequest);
+    } catch (_) {
+      AppLogger.logOverlayDismissAnimationError(_activeRequest);
     }
-
-    _activeEntry?.remove();
-    AppLogger.logOverlayDismiss(_activeRequest);
-
     _activeEntry = null;
     _activeRequest = null;
-    _activeHandle = null;
   }
 
   /// 🔁 Removes pending duplicates by type & category to avoid stacking

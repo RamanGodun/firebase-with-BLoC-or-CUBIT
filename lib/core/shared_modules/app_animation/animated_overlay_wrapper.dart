@@ -5,7 +5,7 @@ import 'new_engines/_animation_engine.dart';
 /// ✅ Initializes engine with TickerProvider
 /// ✅ Automatically plays animation
 /// ✅ Optionally auto-dismisses after [displayDuration]
-/// ✅ Calls [onDismiss] after reverse animation
+/// ✅ Calls [onDismiss] after reverse animation completes
 class AnimatedOverlayWrapper extends StatefulWidget {
   /// 💡 Platform-aware engine with pre-resolved animation type
   final DialogAnimationEngine engine;
@@ -35,6 +35,7 @@ class _AnimatedOverlayWrapperState extends State<AnimatedOverlayWrapper>
     with TickerProviderStateMixin {
   late final DialogAnimationEngine _engine;
 
+  ///
   @override
   void initState() {
     super.initState();
@@ -50,22 +51,35 @@ class _AnimatedOverlayWrapperState extends State<AnimatedOverlayWrapper>
     }
   }
 
+  ///
+  @override
+  Widget build(BuildContext context) => widget.builder(_engine);
+
+  ///
   @override
   void dispose() {
     _engine.dispose();
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) => widget.builder(_engine);
+  //
 }
 
 ///
+
+///
 extension OverlayWidgetX on Widget {
-  Duration? get autoDismissDuration {
+  /// 🧠 Injects dismiss logic into AnimatedOverlayWrapper
+  Widget withDispatcherOverlayControl({required VoidCallback onDismiss}) {
     if (this is AnimatedOverlayWrapper) {
-      return (this as AnimatedOverlayWrapper).displayDuration;
+      final wrapper = this as AnimatedOverlayWrapper;
+      return AnimatedOverlayWrapper(
+        engine: wrapper.engine,
+        builder: wrapper.builder,
+        displayDuration: wrapper.displayDuration,
+        onDismiss: onDismiss,
+      );
     }
-    return null;
+    return this;
   }
 }
