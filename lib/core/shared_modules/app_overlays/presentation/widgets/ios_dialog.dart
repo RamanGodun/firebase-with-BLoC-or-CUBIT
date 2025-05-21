@@ -1,7 +1,9 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
 import 'package:flutter/cupertino.dart';
+import '../../../../app_config/bootstrap/di_container.dart';
 import '../../../../shared_presentation/constants/_app_constants.dart';
 import '../../../app_localization/code_base_for_both_options/text_widget.dart';
+import '../../state_driven_flow/overlay_dispatcher/overlay_dispatcher_interface.dart';
 import '../overlay_presets/preset_props.dart';
 import '../../../app_animation/animation_engines/__animation_engine_interface.dart';
 
@@ -23,7 +25,6 @@ final class IOSAppDialog extends StatelessWidget {
   final bool isInfoDialog;
   final bool isFromUserFlow;
   final IAnimationEngine engine;
-  final VoidCallback onAnimatedDismiss;
 
   const IOSAppDialog({
     super.key,
@@ -37,15 +38,15 @@ final class IOSAppDialog extends StatelessWidget {
     required this.isInfoDialog,
     required this.isFromUserFlow,
     required this.engine,
-    required this.onAnimatedDismiss,
   });
 
   /// ➟ Cancel action handler
-  VoidCallback get _handleCancel => onCancel ?? onAnimatedDismiss;
+  VoidCallback get _handleCancel =>
+      onCancel ?? () => di<IOverlayDispatcher>().dismissCurrent();
 
   /// ➟ Confirm action handler
-  VoidCallback get _handleConfirm => onConfirm ?? onAnimatedDismiss;
-
+  VoidCallback get _handleConfirm =>
+      onConfirm ?? () => di<IOverlayDispatcher>().dismissCurrent();
   @override
   Widget build(BuildContext context) {
     final icon = presetProps?.icon;

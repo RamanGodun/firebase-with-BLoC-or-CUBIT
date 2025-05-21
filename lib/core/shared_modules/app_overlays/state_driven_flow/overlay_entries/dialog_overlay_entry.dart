@@ -17,8 +17,6 @@ final class DialogOverlayEntry extends OverlayUIEntry {
   final OverlayUIPresets? preset; // 🎨 Optional style preset
   final bool isError; // ❗ Marks as an error (affects strategy and priority)
   final bool isInfoDialog;
-
-  // 🔐 Dismiss policy (persistent or dismissible)
   @override
   final OverlayDismissPolicy dismissPolicy;
 
@@ -61,9 +59,6 @@ final class DialogOverlayEntry extends OverlayUIEntry {
     // Selects [AnimationPlatform] (iOS/Android)
     final animationPlatform = context.platform.toAnimationPlatform();
 
-    // Fallback dismiss logic (e.g. external close)
-    fallbackDismiss() => di<IOverlayDispatcher>().dismissCurrent();
-
     /// [AnimationHost] invokes [engine.play] and handles cleanup
     return AnimationHost(
       overlayType: UserDrivenOverlayType.dialog,
@@ -85,7 +80,6 @@ final class DialogOverlayEntry extends OverlayUIEntry {
               isInfoDialog: isInfoDialog,
               isFromUserFlow: false,
               engine: engine,
-              onAnimatedDismiss: fallbackDismiss,
             ),
             AnimationPlatform.android => AndroidDialog(
               title: title,
@@ -98,7 +92,6 @@ final class DialogOverlayEntry extends OverlayUIEntry {
               isInfoDialog: isInfoDialog,
               isFromUserFlow: false,
               engine: engine,
-              onAnimatedDismiss: fallbackDismiss,
             ),
           },
     );

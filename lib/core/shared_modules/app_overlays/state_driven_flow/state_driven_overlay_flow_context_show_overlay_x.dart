@@ -18,40 +18,40 @@ extension ContextXForStateDrivenOverlayFlow on BuildContext {
   //
 
   /// 🪧 Shows a platform-aware banner (iOS/Android) using optional preset
-  void showBanner({
-    required String message,
-    IconData? icon,
-    OverlayUIPresets preset = const OverlayInfoUIPreset(),
-    bool isError = false,
-    bool isDismissible = true,
-  }) {
-    final entry = BannerOverlayEntry(
-      message,
-      preset: preset,
-      isError: isError,
-      icon: icon,
-      dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
-    );
-    overlayDispatcher.enqueueRequest(this, entry);
-  }
+  // void showBanner({
+  //   required String message,
+  //   IconData? icon,
+  //   OverlayUIPresets preset = const OverlayInfoUIPreset(),
+  //   bool isError = false,
+  //   bool isDismissible = true,
+  // }) {
+  //   final entry = BannerOverlayEntry(
+  //     message,
+  //     preset: preset,
+  //     isError: isError,
+  //     icon: icon,
+  //     dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
+  //   );
+  //   overlayDispatcher.enqueueRequest(this, entry);
+  // }
 
   /// 🍞 Shows a platform-aware snackbar (iOS/Android) using optional preset
-  void showSnackbar({
-    required String message,
-    OverlayUIPresets preset = const OverlayInfoUIPreset(),
-    bool isError = false,
-    IconData? icon,
-    bool isDismissible = true,
-  }) {
-    final entry = SnackbarOverlayEntry(
-      message,
-      preset: preset,
-      isError: isError,
-      icon: icon,
-      dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
-    );
-    overlayDispatcher.enqueueRequest(this, entry);
-  }
+  // void showSnackbar({
+  //   required String message,
+  //   OverlayUIPresets preset = const OverlayInfoUIPreset(),
+  //   bool isError = false,
+  //   IconData? icon,
+  //   bool isDismissible = true,
+  // }) {
+  //   final entry = SnackbarOverlayEntry(
+  //     message,
+  //     preset: preset,
+  //     isError: isError,
+  //     icon: icon,
+  //     dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
+  //   );
+  //   overlayDispatcher.enqueueRequest(this, entry);
+  // }
 
   /// 💬 Shows a short platform-adaptive dialog (iOS/Android)
   void showDialog({
@@ -85,7 +85,7 @@ extension ContextXForStateDrivenOverlayFlow on BuildContext {
   /// 📌 Uses [OverlayUIPresets] and [ShowErrorAs] to configure appearance and behavior
   void showError(
     FailureUIModel model, {
-    ShowErrorAs showAs = ShowErrorAs.snackbar,
+    ShowErrorAs showAs = ShowErrorAs.infoDialog,
     OverlayUIPresets preset = const OverlayErrorUIPreset(),
     bool isDismissible = false,
   }) {
@@ -93,25 +93,25 @@ extension ContextXForStateDrivenOverlayFlow on BuildContext {
 
     switch (showAs) {
       //
-      case ShowErrorAs.banner:
-        showBanner(
-          message: model.localizedMessage,
-          icon: model.icon,
-          preset: preset,
-          isError: true,
-          isDismissible: isDismissible,
-        );
-        break;
-      //
-      case ShowErrorAs.snackbar:
-        showSnackbar(
-          message: model.localizedMessage,
-          preset: preset,
-          isError: true,
-          icon: model.icon,
-          isDismissible: isDismissible,
-        );
-        break;
+      // case ShowErrorAs.banner:
+      //   showBanner(
+      //     message: model.localizedMessage,
+      //     icon: model.icon,
+      //     preset: preset,
+      //     isError: true,
+      //     isDismissible: isDismissible,
+      //   );
+      //   break;
+      // //
+      // case ShowErrorAs.snackbar:
+      //   showSnackbar(
+      //     message: model.localizedMessage,
+      //     preset: preset,
+      //     isError: true,
+      //     icon: model.icon,
+      //     isDismissible: isDismissible,
+      //   );
+      //   break;
       //
       case ShowErrorAs.dialog:
         showDialog(
@@ -147,4 +147,8 @@ extension ContextXForStateDrivenOverlayFlow on BuildContext {
 
 ///
 /// 📌 Specifies how to display an error in UI
-enum ShowErrorAs { banner, snackbar, dialog, infoDialog }
+enum ShowErrorAs {
+  // banner, snackbar,
+  dialog,
+  infoDialog,
+}

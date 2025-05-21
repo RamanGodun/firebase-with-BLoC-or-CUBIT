@@ -37,9 +37,19 @@ final class AndroidBannerAnimationEngine implements ISlideAnimationEngine {
   @override
   void play({Duration? durationOverride}) => _controller?.forward(from: 0);
 
-  /// Reverses animation for exit
+  /// ⏪ Reverses animation for exit
+  /// Supports [fast] override for instant dismissal in conflict cases
   @override
-  Future<void> reverse() async => _controller?.reverse();
+  Future<void> reverse({bool fast = false}) async {
+    if (fast) {
+      await _controller?.animateBack(
+        0.0,
+        duration: const Duration(milliseconds: 160),
+      );
+    } else {
+      await _controller?.reverse();
+    }
+  }
 
   /// Opacity animation (fade in/out)
   @override

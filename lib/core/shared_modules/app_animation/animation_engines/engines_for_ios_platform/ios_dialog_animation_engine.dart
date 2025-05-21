@@ -33,9 +33,19 @@ final class IOSDialogAnimationEngine implements IAnimationEngine {
   /// ▶️ Triggers forward animation from start
   void play({Duration? durationOverride}) => _controller?.forward(from: 0);
 
-  @override
   /// ⏪ Reverses animation (used before dismiss)
-  Future<void> reverse() async => _controller?.reverse();
+  /// Supports [fast] override for quick collapse transition
+  @override
+  Future<void> reverse({bool fast = false}) async {
+    if (fast) {
+      await _controller?.animateBack(
+        0.0,
+        duration: const Duration(milliseconds: 180),
+      );
+    } else {
+      await _controller?.reverse();
+    }
+  }
 
   @override
   /// 🎛️ Opacity animation (for FadeTransition)

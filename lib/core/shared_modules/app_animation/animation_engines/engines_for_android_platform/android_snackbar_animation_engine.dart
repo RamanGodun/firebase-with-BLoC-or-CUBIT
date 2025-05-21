@@ -39,9 +39,19 @@ final class AndroidSnackbarAnimationEngine implements ISlideAnimationEngine {
   @override
   void play({Duration? durationOverride}) => _controller?.forward(from: 0);
 
-  /// Reverses the animation for smooth exit transition
+  /// ⏪ Reverses the animation for smooth exit transition
+  /// Supports [fast] mode for abrupt interruption
   @override
-  Future<void> reverse() async => _controller?.reverse();
+  Future<void> reverse({bool fast = false}) async {
+    if (fast) {
+      await _controller?.animateBack(
+        0.0,
+        duration: const Duration(milliseconds: 160),
+      );
+    } else {
+      await _controller?.reverse();
+    }
+  }
 
   /// Current opacity animation
   @override

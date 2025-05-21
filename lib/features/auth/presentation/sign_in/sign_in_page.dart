@@ -51,7 +51,7 @@ final class _SignInListenerWrapper extends StatelessWidget {
         final model = state.failure?.consume();
         print('[🔥 showError listener] model: $model');
         if (model != null) {
-          context.showError(model, showAs: ShowErrorAs.infoDialog);
+          context.showError(model);
           context.read<SignInCubit>()
             ..resetStatus()
             ..clearFailure();

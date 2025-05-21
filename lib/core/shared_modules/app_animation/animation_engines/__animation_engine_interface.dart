@@ -9,15 +9,21 @@ import 'package:flutter/material.dart';
 abstract interface class IAnimationEngine {
   /// Initializes engine with [TickerProvider] (usually from `State`)
   void initialize(TickerProvider vsync);
-  // Plays the forward animation (fade/scale in)
+
+  /// Plays the forward animation (fade/scale in)
   void play({Duration? durationOverride});
-  // Reverses the animation (fade/scale out)
-  Future<void> reverse();
-  // Disposes animation controllers
+
+  /// Reverses the animation (fade/scale out)
+  /// If [fast] is true, uses a faster collapse animation if supported
+  Future<void> reverse({bool fast = false});
+
+  /// Disposes animation controllers
   void dispose();
-  // 🔁 Opacity animation (0 → 1)
+
+  /// 🔁 Opacity animation (0 → 1)
   Animation<double> get opacity;
-  // 🔁 Scale animation (0.9 → 1)
+
+  /// 🔁 Scale animation (0.9 → 1)
   Animation<double> get scale;
 }
 

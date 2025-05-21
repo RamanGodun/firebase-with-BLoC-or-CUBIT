@@ -37,9 +37,19 @@ final class AndroidDialogAnimationEngine implements ISlideAnimationEngine {
   @override
   void play({Duration? durationOverride}) => _controller?.forward(from: 0);
 
-  /// Reverses the animation and returns a future when complete
+  /// ⏪ Reverses the animation and returns a future when complete
+  /// Supports [fast] override for instant collapse in conflict flows
   @override
-  Future<void> reverse() async => _controller?.reverse();
+  Future<void> reverse({bool fast = false}) async {
+    if (fast) {
+      await _controller?.animateBack(
+        0.0,
+        duration: const Duration(milliseconds: 180),
+      );
+    } else {
+      await _controller?.reverse();
+    }
+  }
 
   /// Opacity animation (fade in/out)
   @override

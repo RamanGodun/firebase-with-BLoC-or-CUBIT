@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'animation_engines/__animation_engine_interface.dart';
 import 'animation_engines/_animation_engine_factory.dart';
+import 'animation_overlay_handler.dart';
 import 'enums_for_animation_module.dart';
 
 /// 🎞️ [AnimationHost] — Wrapper widget for overlay entry animations
@@ -20,6 +21,8 @@ class AnimationHost extends StatefulWidget {
   final VoidCallback? onDismiss;
   // Builder that provides the active [IAnimationEngine] to the widget
   final Widget Function(IAnimationEngine engine) builderWithEngine;
+  //
+  final OverlayAnimationHandle? handle;
 
   const AnimationHost({
     super.key,
@@ -28,6 +31,7 @@ class AnimationHost extends StatefulWidget {
     required this.builderWithEngine,
     this.displayDuration = const Duration(seconds: 2),
     this.onDismiss,
+    this.handle,
   });
 
   @override
@@ -49,6 +53,7 @@ class _AnimationHostState extends State<AnimationHost>
       target: widget.overlayType,
       vsync: this,
     );
+    widget.handle?.bind(_engine);
     _engine.play();
     // If duration is non-zero, auto-dismiss after timeout
     if (widget.displayDuration > Duration.zero) {

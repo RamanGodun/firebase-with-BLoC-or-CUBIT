@@ -29,6 +29,9 @@ final class FallbackAnimationEngine implements IAnimationEngine {
   void play({Duration? durationOverride}) {}
 
   /// 🚫 No reverse animation (immediate future completion)
+  /// Ignores [fast] as it's a no-op engine
   @override
-  Future<void> reverse() async {}
+  Future<void> reverse({bool fast = false}) async {}
+
+  //
 }

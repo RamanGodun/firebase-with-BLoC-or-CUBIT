@@ -1,6 +1,8 @@
 import 'dart:collection' show Queue;
 import 'dart:collection';
+import '../../../app_config/bootstrap/di_container.dart';
 import '../../app_animation/enums_for_animation_module.dart';
+import '../state_driven_flow/overlay_dispatcher/overlay_dispatcher_interface.dart';
 import 'overlay_tasks/_task_interface.dart';
 
 /// 🧠 [OverlayQueueManager] — Manages user-driven overlay queues by type
@@ -32,6 +34,15 @@ final class OverlayQueueManager {
 
     final task = _queues[type]!.removeFirst();
     _active[type] = true;
+
+    final dispatcher = di<IOverlayDispatcher>();
+    if (dispatcher.isOverlayActive) {
+      _active[type] = false;
+      Future.delayed(const Duration(milliseconds: 300), () {
+        _processNext(type);
+      });
+      return;
+    }
 
     task.show().then((_) {
       _active[type] = false;

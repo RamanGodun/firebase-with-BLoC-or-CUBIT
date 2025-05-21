@@ -36,9 +36,18 @@ final class IOSAnimationBannerEngine implements IAnimationEngine {
   void play({Duration? durationOverride}) => _controller!.forward(from: 0);
 
   /// ⏪ Reverses the animation (typically for dismissal)
-  /// Returns a Future that completes when the reverse animation finishes
+  /// Supports [fast] variant for instant interruption
   @override
-  Future<void> reverse() async => _controller!.reverse();
+  Future<void> reverse({bool fast = false}) async {
+    if (fast) {
+      await _controller?.animateBack(
+        0.0,
+        duration: const Duration(milliseconds: 160),
+      );
+    } else {
+      await _controller?.reverse();
+    }
+  }
 
   /// 🎛️ Getters for external binding (e.g., FadeTransition, ScaleTransition)
   @override

@@ -74,6 +74,12 @@ abstract final class AppLogger {
     debugPrint('[➕ Added to queue] length = $length');
   }
 
+  /// ⚠️ Logs when dismiss animation fails unexpectedly.
+  static void logOverlayDismissAnimationError(OverlayUIEntry? request) {
+    final type = request?.runtimeType.toString() ?? 'Unknown';
+    debugPrint('[Overlay][$type] ❌ Failed to reverse dismiss animation.');
+  }
+
   // ───────────────────────────────────── Failures ─────────────────────────────────────
 
   /// ❗ Logs uncaught SDK/API exceptions before mapping.

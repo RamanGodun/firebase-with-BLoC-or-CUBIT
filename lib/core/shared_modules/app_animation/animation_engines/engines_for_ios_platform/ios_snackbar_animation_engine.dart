@@ -39,9 +39,19 @@ final class IOSSnackbarAnimationEngine implements IAnimationEngine {
   @override
   void play({Duration? durationOverride}) => _controller?.forward(from: 0);
 
-  /// Reverses the animation (used for dismissal)
+  /// ⏪ Reverses the animation (used for dismissal)
+  /// Supports [fast] override for abrupt collapse
   @override
-  Future<void> reverse() async => _controller?.reverse();
+  Future<void> reverse({bool fast = false}) async {
+    if (fast) {
+      await _controller?.animateBack(
+        0.0,
+        duration: const Duration(milliseconds: 160),
+      );
+    } else {
+      await _controller?.reverse();
+    }
+  }
 
   /// Provides the current opacity animation
   @override

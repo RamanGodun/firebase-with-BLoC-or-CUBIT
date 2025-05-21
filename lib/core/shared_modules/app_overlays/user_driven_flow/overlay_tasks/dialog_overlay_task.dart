@@ -73,11 +73,11 @@ final class DialogOverlayTask extends OverlayTask {
     );
 
     /// Runs reverse animation and removes entry
-    void animatedDismiss() async {
-      await engine.reverse();
-      entry.remove();
-      completer.complete();
-    }
+    // void animatedDismiss() async {
+    //   await engine.reverse();
+    //   entry.remove();
+    //   completer.complete();
+    // }
 
     /// Builds dialog via [AnimationHost] and injects into Overlay
     entry = OverlayEntry(
@@ -94,7 +94,7 @@ final class DialogOverlayTask extends OverlayTask {
             isInfoDialog: isInfoDialog,
             isFromUserFlow: true,
             engine: engine,
-            onAnimatedDismiss: animatedDismiss,
+            // onAnimatedDismiss: animatedDismiss,
           ),
           AnimationPlatform.android => AndroidDialog(
             title: title,
@@ -107,7 +107,7 @@ final class DialogOverlayTask extends OverlayTask {
             isInfoDialog: isInfoDialog,
             isFromUserFlow: true,
             engine: engine,
-            onAnimatedDismiss: animatedDismiss,
+            // onAnimatedDismiss: animatedDismiss,
           ),
         };
       },

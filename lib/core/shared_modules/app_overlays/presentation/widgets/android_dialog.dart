@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../../app_config/bootstrap/di_container.dart';
 import '../../../app_localization/code_base_for_both_options/text_widget.dart';
+import '../../state_driven_flow/overlay_dispatcher/overlay_dispatcher_interface.dart';
 import '../overlay_presets/preset_props.dart';
 import '../../../app_animation/animation_engines/__animation_engine_interface.dart';
 
@@ -20,7 +22,6 @@ final class AndroidDialog extends StatelessWidget {
   final bool isInfoDialog;
   final bool isFromUserFlow;
   final IAnimationEngine engine;
-  final VoidCallback onAnimatedDismiss;
 
   const AndroidDialog({
     super.key,
@@ -34,14 +35,15 @@ final class AndroidDialog extends StatelessWidget {
     required this.isInfoDialog,
     required this.isFromUserFlow,
     required this.engine,
-    required this.onAnimatedDismiss,
   });
 
   /// 🧭 Resolves cancel action: fallback to [onAnimatedDismiss] if [onCancel] is null
-  VoidCallback get _handleCancel => onCancel ?? onAnimatedDismiss;
+  VoidCallback get _handleCancel =>
+      onCancel ?? () => di<IOverlayDispatcher>().dismissCurrent();
 
   /// 🧭 Resolves confirm action: fallback to [onAnimatedDismiss] if [onConfirm] is null
-  VoidCallback get _handleConfirm => onConfirm ?? onAnimatedDismiss;
+  VoidCallback get _handleConfirm =>
+      onConfirm ?? () => di<IOverlayDispatcher>().dismissCurrent();
 
   ///
   @override

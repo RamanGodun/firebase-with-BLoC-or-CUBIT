@@ -16,6 +16,9 @@ import '__animation_engine_interface.dart';
 
 final class AnimationEngine implements IAnimationEngine {
   static const _defaultDuration = Duration(milliseconds: 600);
+  static const _fastDuration = Duration(
+    milliseconds: 180,
+  ); // ⚡️ Fast collapse duration
 
   AnimationController? _controller;
   late final Animation<double> _opacity;
@@ -41,8 +44,14 @@ final class AnimationEngine implements IAnimationEngine {
   void play({Duration? durationOverride}) => _controller?.forward(from: 0);
 
   /// Plays reverse animation (fade out & scale down)
+  /// If [fast] is true, uses faster duration override
   @override
-  Future<void> reverse() async => _controller?.reverse();
+  Future<void> reverse({bool fast = false}) async {
+    if (_controller == null) return;
+    if (fast) _controller!.duration = _fastDuration;
+    await _controller!.reverse();
+    _controller!.duration = _defaultDuration; // Restore default
+  }
 
   /// Provides opacity animation (0 → 1)
   @override
