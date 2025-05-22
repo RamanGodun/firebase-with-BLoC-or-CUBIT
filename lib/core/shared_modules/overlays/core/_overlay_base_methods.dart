@@ -15,9 +15,6 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extens
 
 extension OverlayBaseMethods on BuildContext {
   //
-  /// ✅ Indicates if any overlay is currently active in the app
-  bool get isAnyOverlayActive => dispatcher.isOverlayActive;
-
   /// 5️⃣  📥 Adds a new request to the [IOverlayDispatcher]
   void addOverlayRequest(OverlayUIEntry entry) {
     dispatcher.enqueueRequest(this, entry);

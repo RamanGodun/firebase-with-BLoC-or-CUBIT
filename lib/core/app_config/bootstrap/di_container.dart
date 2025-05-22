@@ -53,8 +53,12 @@ abstract final class AppDI {
   /// 🔍 Registers overlay handlers
   static void _registerOverlaysHandlers() {
     di
-      ..registerLazySingleton<OverlayDispatcher>(() => OverlayDispatcher())
-      ..registerLazySingleton(() => OverlayStatusCubit());
+      ..registerLazySingleton(() => OverlayStatusCubit())
+      ..registerLazySingleton(
+        () => OverlayDispatcher(
+          onOverlayStateChanged: di<OverlayStatusCubit>().updateStatus,
+        ),
+      );
   }
 
   /// 🔗 Registers core Firebase dependencies

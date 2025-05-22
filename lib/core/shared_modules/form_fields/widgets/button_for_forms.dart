@@ -5,11 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import '../../../../features/auth/presentation/sign_in/cubit/sign_in_page_cubit.dart';
 import '../../../shared_presentation/constants/_app_constants.dart';
 import '../../../utils/typedef.dart';
 import '../../localization/code_base_for_both_options/text_widget.dart';
 import '../../../shared_presentation/constants/app_keys.dart';
+import '../../overlays/core/overlay_core_types.dart';
 
 /// ✅ [FormSubmitButton] — A reusable submit button with validation logic and animated loading indicator
 class FormSubmitButton<Cubit extends StateStreamable<State>, State>
@@ -31,8 +31,8 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
 
   @override
   Widget build(BuildContext context) {
-    final isOverlayActive = context.select<SignInCubit, bool>(
-      (cubit) => cubit.state.isOverlayActive,
+    final isOverlayActive = context.select<OverlayStatusCubit, bool>(
+      (cubit) => cubit.state,
     );
     final colorScheme = context.colorScheme;
 

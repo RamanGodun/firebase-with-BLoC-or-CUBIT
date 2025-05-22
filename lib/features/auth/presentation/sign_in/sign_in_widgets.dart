@@ -101,19 +101,25 @@ final class _SubmitButton extends StatelessWidget {
 }
 
 /// 🔁 [_RedirectToSignUpButton] — Button to navigate to the sign-up screen
-/// ✅ Disabled during form submission
+/// ✅ Disabled during form submission or overlay
 //----------------------------------------------------------------
 final class _RedirectToSignUpButton extends StatelessWidget {
   const _RedirectToSignUpButton();
 
   @override
   Widget build(BuildContext context) {
+    final isOverlayActive = context.select<OverlayStatusCubit, bool>(
+      (cubit) => cubit.state,
+    );
+
     return BlocSelector<SignInCubit, SignInPageState, bool>(
       selector: (state) => state.status.isSubmissionInProgress,
       builder: (context, isLoading) {
+        final isDisabled = isLoading || isOverlayActive;
+
         return RedirectTextButton(
           label: LocaleKeys.buttons_to_sign_up,
-          isDisabled: isLoading,
+          isDisabled: isDisabled,
           onPressed: () => context.pushToNamed(RoutesNames.signUp),
         );
       },

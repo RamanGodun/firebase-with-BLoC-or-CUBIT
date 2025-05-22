@@ -1,8 +1,5 @@
-import 'dart:async' show StreamSubscription;
-
 import 'package:flutter/material.dart' show BuildContext, OverlayState;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../overlay_dispatcher/overlay_state_bridge.dart';
 import '../overlay_entries/_overlay_entries_registry.dart';
 
 /// 📦 [OverlayQueueItem] — Internal holder for enqueued overlays.
@@ -16,17 +13,9 @@ final class OverlayQueueItem {
 /// 🧩 [OverlayStatusCubit] — Manages current overlay visibility state.
 /// ✅ Used to propagate `isOverlayActive` from [OverlayDispatcher] to UI logic (e.g., disabling buttons).
 final class OverlayStatusCubit extends Cubit<bool> {
-  late final StreamSubscription _sub;
+  OverlayStatusCubit() : super(false);
 
-  OverlayStatusCubit() : super(false) {
-    _sub = OverlayStateBridge.stream.listen((event) => emit(event));
-  }
-
-  @override
-  Future<void> close() async {
-    await _sub.cancel();
-    return super.close();
-  }
+  void updateStatus(bool isActive) => emit(isActive);
 }
 
 /// 🧠 [OverlayStatusX] — Extension for accessing overlay activity status from [BuildContext].

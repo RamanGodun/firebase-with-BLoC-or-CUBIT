@@ -151,19 +151,25 @@ final class _SubmitButton extends StatelessWidget {
   }
 }
 
-/// 🔁 [_RedirectToSignInButton] — Disabled if submitting
+/// 🔁 [_RedirectToSignInButton] — Disabled if submitting or overlay active
 //----------------------------------------------------------------
 final class _RedirectToSignInButton extends StatelessWidget {
   const _RedirectToSignInButton();
 
   @override
   Widget build(BuildContext context) {
+    final isOverlayActive = context.select<OverlayStatusCubit, bool>(
+      (cubit) => cubit.state,
+    );
+
     return BlocSelector<SignUpCubit, SignUpState, bool>(
       selector: (state) => state.status.isSubmissionInProgress,
       builder: (context, isLoading) {
+        final isDisabled = isLoading || isOverlayActive;
+
         return RedirectTextButton(
           label: LocaleKeys.buttons_to_sign_in,
-          isDisabled: isLoading,
+          isDisabled: isDisabled,
           onPressed: () => context.popView(),
         );
       },

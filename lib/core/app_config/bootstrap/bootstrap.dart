@@ -7,7 +7,6 @@ import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
 import 'package:path_provider/path_provider.dart';
 import '../../shared_modules/localization/code_base_for_both_options/_app_localizer.dart';
 import '../../shared_modules/logging/_app_error_logger.dart';
-import '../../shared_modules/overlays/overlay_dispatcher/overlay_state_bridge.dart';
 import '../env.dart';
 import '../../shared_modules/logging/app_bloc_observer.dart';
 
@@ -26,11 +25,6 @@ final class AppBootstrap {
     await _initFirebase();
     await _initHydratedStorage();
     await _initLocalization();
-  }
-
-  ///  [AppBootstrap] disposing
-  static Future<void> dispose() async {
-    await OverlayStateBridge.dispose();
   }
 
   /// 📄 Loads `.env.{environment}` config file based on current environment mode

@@ -5,6 +5,7 @@ import 'app_view.dart';
 import 'core/app_config/bootstrap/bootstrap.dart';
 import 'core/app_config/bootstrap/di_container.dart';
 import 'core/shared_modules/localization/localization_config.dart';
+import 'core/shared_modules/overlays/core/overlay_core_types.dart';
 import 'core/shared_presentation/shared_widgets/app_loaders.dart';
 import 'features/auth/presentation/auth_bloc/auth_bloc.dart';
 import 'core/shared_modules/theme/theme_cubit/theme_cubit.dart';
@@ -28,11 +29,6 @@ void main() async {
   /// 🚀 Run App
   runApp(AppLocalization.wrap(const RootProviders()));
 
-  /// 📦 Dispose resources AFTER app fully mounted (first frame)
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    AppBootstrap.dispose();
-  });
-
   ///
 }
 
@@ -46,6 +42,7 @@ final class RootProviders extends StatelessWidget {
       providers: [
         BlocProvider.value(value: di<AuthBloc>()), // 🔐 Auth State
         BlocProvider.value(value: di<AppThemeCubit>()), // 🎨 Theme State
+        BlocProvider.value(value: di<OverlayStatusCubit>()),
       ],
       child: const AppRootView(),
     );
