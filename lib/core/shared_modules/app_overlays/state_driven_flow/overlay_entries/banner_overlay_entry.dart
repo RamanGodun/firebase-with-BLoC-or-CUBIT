@@ -14,7 +14,7 @@ final class BannerOverlayEntry extends OverlayUIEntry {
   @override
   final OverlayDismissPolicy? dismissPolicy;
 
-  const BannerOverlayEntry({
+   BannerOverlayEntry({
     required this.widget,
     this.isError = false,
     this.dismissPolicy = OverlayDismissPolicy.dismissible,
@@ -39,7 +39,7 @@ final class BannerOverlayEntry extends OverlayUIEntry {
   ///
   @override
   void onAutoDismissed() {
-    // 🎯 Make some actions after dissmiss or
+    // 🎯 Make some actions after dismiss or
     // Track/log auto-dismissed overlay if needed
   }
   //

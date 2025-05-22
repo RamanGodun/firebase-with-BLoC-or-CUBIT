@@ -10,7 +10,7 @@ final class DialogOverlayEntry extends OverlayUIEntry {
   @override
   final OverlayDismissPolicy? dismissPolicy;
 
-  const DialogOverlayEntry({
+   DialogOverlayEntry({
     required this.widget,
     this.isError = false,
     this.dismissPolicy = OverlayDismissPolicy.dismissible,
@@ -35,7 +35,7 @@ final class DialogOverlayEntry extends OverlayUIEntry {
 
   @override
   void onAutoDismissed() {
-    // 🎯 Make some actions after dissmiss or
+    // 🎯 Make some actions after dismiss or
     // Track/log auto-dismissed overlay if needed
   }
 

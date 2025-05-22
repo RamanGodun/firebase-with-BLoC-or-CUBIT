@@ -39,11 +39,19 @@ final class AndroidDialog extends StatelessWidget {
 
   /// 🧭 Resolves cancel action: fallback to [onAnimatedDismiss] if [onCancel] is null
   VoidCallback get _handleCancel =>
-      onCancel ?? () => di<IOverlayDispatcher>().dismissCurrent();
+      onCancel ??
+      () {
+        di<IOverlayDispatcher>().dismissCurrent(force: true);
+        onCancel?.call();
+      };
 
   /// 🧭 Resolves confirm action: fallback to [onAnimatedDismiss] if [onConfirm] is null
   VoidCallback get _handleConfirm =>
-      onConfirm ?? () => di<IOverlayDispatcher>().dismissCurrent();
+      onConfirm ??
+      () {
+        di<IOverlayDispatcher>().dismissCurrent(force: true);
+        onConfirm?.call();
+      };
 
   ///
   @override

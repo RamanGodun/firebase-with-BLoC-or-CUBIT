@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart' show Uuid;
 import '../../core/overlay_enums.dart';
 import '../conflicts_strategy/conflicts_strategy.dart';
 
@@ -13,7 +14,9 @@ part 'snackbar_overlay_entry.dart';
 //--------------------------------------------------------------------------------
 
 sealed class OverlayUIEntry {
-  const OverlayUIEntry();
+  // Uniq id generator, if id not given manually
+  OverlayUIEntry({String? id}) : id = id ?? const Uuid().v4();
+  final String id;
 
   /// ⛓️ Overlay replacement policy, priority, and category
   OverlayConflictStrategy get strategy;
@@ -27,7 +30,7 @@ sealed class OverlayUIEntry {
   /// 🧱 Builds the overlay widget for rendering
   Widget buildWidget();
 
-  /// 🎯 Make some actions after [OverlayUIEntry] dissmiss
+  /// 🎯 Make some actions after [OverlayUIEntry] dismiss
   void onAutoDismissed() {}
 
   ///

@@ -45,6 +45,7 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   @override
   void enqueueRequest(BuildContext context, OverlayUIEntry request) async {
     AppLogger.logOverlayShow(request);
+
     final overlay = Overlay.of(context, rootOverlay: true);
 
     if (_activeRequest != null) {
@@ -54,7 +55,6 @@ final class OverlayDispatcher implements IOverlayDispatcher {
       final isSameType =
           request.runtimeType == _activeRequest.runtimeType &&
           request.strategy.policy == OverlayReplacePolicy.dropIfSameType;
-
       if (isSameType) {
         AppLogger.logOverlayDroppedSameType();
         return;
@@ -65,7 +65,6 @@ final class OverlayDispatcher implements IOverlayDispatcher {
         request,
         _activeRequest!,
       );
-
       if (shouldReplace) {
         AppLogger.logOverlayReplacing();
         await dismissCurrent(force: true);
@@ -97,10 +96,10 @@ final class OverlayDispatcher implements IOverlayDispatcher {
 
     // 🧠 Apply centralized dismiss handling if AnimatedOverlayWrapper is used
     final processedWidget = widget.withDispatcherOverlayControl(
-      onDismiss: () {
+      onDismiss: () async {
         AppLogger.logOverlayAutoDismiss(_activeRequest);
         _activeRequest?.onAutoDismissed();
-        dismissCurrent(force: true);
+        await dismissCurrent(force: true);
         _isProcessing = false;
         _tryProcessQueue();
       },
@@ -133,6 +132,8 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   }) async {
     await _dismissEntry(force: force);
     if (clearQueue) _queue.clear();
+    _isProcessing = false;
+    _tryProcessQueue();
   }
 
   /// 🧹 Internal: removes entry, handles animation and resets state.
@@ -152,7 +153,8 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     _queue.removeWhere(
       (item) =>
           item.request.runtimeType == request.runtimeType &&
-          item.request.strategy.category == request.strategy.category,
+          item.request.strategy.category == request.strategy.category &&
+          item.request.id == request.id,
     );
   }
 

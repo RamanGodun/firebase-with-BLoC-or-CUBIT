@@ -10,7 +10,7 @@ abstract interface class IOverlayDispatcher {
   void enqueueRequest(BuildContext context, OverlayUIEntry request);
 
   /// 🚫 Dismisses the currently active overlay and optionally clears the queue
-  Future<void> dismissCurrent({bool clearQueue = false});
+  Future<void> dismissCurrent({bool clearQueue = false, bool force = false});
 
   /// 🧼 Clears all pending overlay requests from the queue
   void clearAll();

@@ -14,7 +14,7 @@ final class SnackbarOverlayEntry extends OverlayUIEntry {
   @override
   final OverlayDismissPolicy dismissPolicy;
 
-  const SnackbarOverlayEntry({
+  SnackbarOverlayEntry({
     required this.widget,
     this.isError = false,
     this.dismissPolicy = OverlayDismissPolicy.dismissible,
@@ -41,7 +41,7 @@ final class SnackbarOverlayEntry extends OverlayUIEntry {
 
   @override
   void onAutoDismissed() {
-    // 🎯 Make some actions after dissmiss or
+    // 🎯 Make some actions after dismiss or
     // Track/log auto-dismissed overlay if needed
   }
   //

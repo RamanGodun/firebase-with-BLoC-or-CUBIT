@@ -42,11 +42,17 @@ final class IOSAppDialog extends StatelessWidget {
 
   /// ➟ Cancel action handler
   VoidCallback get _handleCancel =>
-      onCancel ?? () => di<IOverlayDispatcher>().dismissCurrent();
+      onCancel ??
+      () {
+        di<IOverlayDispatcher>().dismissCurrent(force: true);
+        onConfirm?.call();
+      };
 
   /// ➟ Confirm action handler
-  VoidCallback get _handleConfirm =>
-      onConfirm ?? () => di<IOverlayDispatcher>().dismissCurrent();
+  VoidCallback get _handleConfirm => () {
+    di<IOverlayDispatcher>().dismissCurrent(force: true);
+    onConfirm?.call();
+  };
   @override
   Widget build(BuildContext context) {
     final icon = presetProps?.icon;
