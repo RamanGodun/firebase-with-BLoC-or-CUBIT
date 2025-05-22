@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-
-part 'dialogs_engines.dart';
-part 'banners_engines.dart';
 part 'fallback_engine.dart';
-part 'snackbars_engines.dart';
+part '_animation_base_engine.dart';
 
 /// 🎯 [AnimationEngine] — base class for platform-specific dialog animations
 /// ✅ Used in overlays to drive platform-native transitions
 /// ✅ Provides core animation lifecycle and properties
+///----------------------------------------------------------------
+
 sealed class AnimationEngine {
   /// 🎛️ Must initialize controllers & tweens with proper [TickerProvider]
   void initialize(TickerProvider vsync);

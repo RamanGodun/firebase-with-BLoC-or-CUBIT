@@ -64,3 +64,6 @@ enum OverlayReplacePolicy {
   forceIfLowerPriority, // 🔁 Replace only if new has higher priority
   dropIfSameType, // 🚫 Ignore if same type already visible
 }
+
+/// 📌 Specifies how to display an error in UI
+enum ShowAs { banner, snackbar, dialog, infoDialog }

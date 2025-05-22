@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'animation_engines/_animation_engine.dart';
+import '../animation_engines/__animation_engine.dart';
 
 /// 🧱 [AnimatedOverlayWrapper] — universal animation container for overlay widgets
 /// ✅ Initializes engine with TickerProvider
 /// ✅ Automatically plays animation
 /// ✅ Optionally auto-dismisses after [displayDuration]
 /// ✅ Calls [onDismiss] after reverse animation completes
+///----------------------------------------------------------------
+
 class AnimatedOverlayWrapper extends StatefulWidget {
   /// 💡 Platform-aware engine with pre-resolved animation type
   final AnimationEngine engine;
@@ -35,7 +37,6 @@ class _AnimatedOverlayWrapperState extends State<AnimatedOverlayWrapper>
     with TickerProviderStateMixin {
   late final AnimationEngine _engine;
 
-  ///
   @override
   void initState() {
     super.initState();
@@ -44,42 +45,26 @@ class _AnimatedOverlayWrapperState extends State<AnimatedOverlayWrapper>
     _engine.play();
 
     if (widget.displayDuration > Duration.zero) {
-      Future.delayed(widget.displayDuration, () async {
-        await _engine.reverse();
-        widget.onDismiss?.call();
-      });
+      scheduleAutoDismiss();
     }
   }
 
-  ///
+  /// ⏳ Starts delayed reverse animation with optional callback
+  void scheduleAutoDismiss() {
+    Future.delayed(widget.displayDuration, () async {
+      await _engine.reverse();
+      if (mounted) widget.onDismiss?.call();
+    });
+  }
+
   @override
   Widget build(BuildContext context) => widget.builder(_engine);
 
-  ///
   @override
   void dispose() {
     _engine.dispose();
     super.dispose();
   }
-
-  //
 }
 
 ///
-
-///
-extension OverlayWidgetX on Widget {
-  /// 🧠 Injects dismiss logic into AnimatedOverlayWrapper
-  Widget withDispatcherOverlayControl({required VoidCallback onDismiss}) {
-    if (this is AnimatedOverlayWrapper) {
-      final wrapper = this as AnimatedOverlayWrapper;
-      return AnimatedOverlayWrapper(
-        engine: wrapper.engine,
-        builder: wrapper.builder,
-        displayDuration: wrapper.displayDuration,
-        onDismiss: onDismiss,
-      );
-    }
-    return this;
-  }
-}

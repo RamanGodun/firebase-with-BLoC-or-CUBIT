@@ -6,8 +6,6 @@ import '../overlay_dispatcher/_overlay_dispatcher.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';
 import 'overlay_core_types.dart';
 
-/// 📌 Specifies how to display an error in UI
-enum ShowAs { banner, snackbar, dialog, infoDialog }
 
 /// 🎯 [ContextXForOverlays] — Unified extension for overlay DSL and dispatcher access
 /// ✅ Use `context.showSnackbar(...)` / `context.showBanner(...)` directly
