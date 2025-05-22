@@ -1,83 +1,46 @@
-// part of '_overlay_entries.dart';
+part of '_overlay_entries.dart';
 
-// /// 🪧 [BannerOverlayEntry] — State-driven platform-aware banner
-// /// - Used by [OverlayDispatcher] for automatic banner rendering
-// /// - Defines conflict strategy, priority, and dismissibility
-// /// - Renders animated [AppBanner] via [AnimationHost]
-// /// - Called by Dispatcher during overlay insertion
-// // --------------------------------------------------------------
+/// 🪧 [BannerOverlayEntry] — State-driven platform-aware banner
+/// - Used by [OverlayDispatcher] for automatic banner rendering
+/// - Defines conflict strategy, priority, and dismissibility
+/// - Renders animated [AppBanner] via [AnimationHost]
+/// - Called by Dispatcher during overlay insertion
+// --------------------------------------------------------------
 
-// final class BannerOverlayEntry extends OverlayUIEntry {
-//   final String message;
-//   final OverlayUIPresets? preset; // 🎨 Optional style preset
-//   final bool isError; // ❗ Marks as an error (affects priority & category)
-//   final IconData? icon;
+final class BannerOverlayEntry extends OverlayUIEntry {
+  final Widget widget;
+  final bool isError; // ❗ Marks as an error (affects priority & category)
+  // 🔐 Dismiss policy (persistent or dismissible)
+  @override
+  final OverlayDismissPolicy? dismissPolicy;
 
-//   // 🔐 Dismiss policy (persistent or dismissible)
-//   @override
-//   final OverlayDismissPolicy dismissPolicy;
+  const BannerOverlayEntry({
+    required this.widget,
+    this.isError = false,
+    this.dismissPolicy = OverlayDismissPolicy.dismissible,
+  });
 
-//   const BannerOverlayEntry(
-//     this.message, {
-//     this.preset,
-//     this.isError = false,
-//     this.icon,
-//     this.dismissPolicy = OverlayDismissPolicy.dismissible,
-//   });
+  /// ⚙️ Defines how this entry behaves in conflict scenarios
+  @override
+  OverlayConflictStrategy get strategy => OverlayConflictStrategy(
+    priority: isError ? OverlayPriority.critical : OverlayPriority.normal,
+    policy: OverlayReplacePolicy.forceIfSameCategory,
+    category: isError ? OverlayCategory.error : OverlayCategory.banner,
+  );
 
-//   /// ⏱️ Determines how long the banner remains on screen
-//   @override
-//   Duration get duration =>
-//       preset?.resolve().duration ?? const Duration(seconds: 2);
+  /// 🫥 Enables tap passthrough to UI underneath (non-blocking UX)
+  @override
+  bool get tapPassthroughEnabled => true;
 
-//   /// 🫥 Enables tap passthrough to UI underneath (non-blocking UX)
-//   @override
-//   bool get tapPassthroughEnabled => true;
+  /// 🧱 Builds and animates the banner via [AnimationEngine]
+  @override
+  Widget buildWidget() => widget;
 
-//   /// ⚙️ Defines how this entry behaves in conflict scenarios
-//   @override
-//   OverlayConflictStrategy get strategy => OverlayConflictStrategy(
-//     priority: isError ? OverlayPriority.critical : OverlayPriority.normal,
-//     policy: OverlayReplacePolicy.forceIfSameCategory,
-//     category: isError ? OverlayCategory.error : OverlayCategory.banner,
-//   );
-
-//   /// 🧱 Builds and animates the banner via [AnimationHost]
-//   @override
-//   Widget build(BuildContext context) {
-//     //
-//     /// Internally resolves props
-//     final resolvedProps =
-//         preset?.resolve() ?? const OverlayInfoUIPreset().resolve();
-
-//     // Selects [AnimationPlatform] (iOS/Android)
-//     final animationPlatform = context.platform.toAnimationPlatform();
-
-//     /// [AnimationHost] invokes [engine.play] and auto-dismiss logic
-//     return AnimationHost(
-//       overlayType: UserDrivenOverlayType.banner,
-//       displayDuration: duration,
-//       platform: animationPlatform,
-//       onDismiss: onDismiss,
-
-//       /// 🎯 Builds the banner widget with platform-specific animation engine
-//       builderWithEngine:
-//           (engine) => switch (animationPlatform) {
-//             AnimationPlatform.ios || AnimationPlatform.adaptive => IOSBanner(
-//               message: message,
-//               icon: icon ?? resolvedProps.icon,
-//               engine: engine,
-//               props: resolvedProps,
-//             ),
-//             AnimationPlatform.android => AndroidBanner(
-//               message: message,
-//               icon: icon ?? resolvedProps.icon,
-//               engine: engine as ISlideAnimationEngine,
-//               props: resolvedProps,
-//             ),
-//           },
-//     );
-//   }
-
-//   //
-// }
+  ///
+  @override
+  void onAutoDismissed() {
+    // 🎯 Make some actions after dissmiss or
+    // Track/log auto-dismissed overlay if needed
+  }
+  //
+}

@@ -1,4 +1,4 @@
-import '../../../app_animation/enums_for_animation_module.dart';
+import '../../../app_animation/for_tasks/enums_for_animation_module.dart';
 
 /// 🧩 [OverlayTask] — Abstract base for user-driven overlays
 /// - Represents an executable overlay operation (snackbar, dialog, etc.)

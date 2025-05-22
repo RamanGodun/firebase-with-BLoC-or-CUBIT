@@ -25,7 +25,6 @@ abstract final class AppLogger {
     final strategy = request.strategy;
     debugPrint(
       '[Overlay][$type] Show → '
-      // 'duration: ${request.duration.inMilliseconds}ms, '
       'priority: ${strategy.priority.name}, '
       'category: ${strategy.category.name}, '
       'policy: ${strategy.policy.name}, '
@@ -78,6 +77,18 @@ abstract final class AppLogger {
   static void logOverlayDismissAnimationError(OverlayUIEntry? request) {
     final type = request?.runtimeType.toString() ?? 'Unknown';
     debugPrint('[Overlay][$type] ❌ Failed to reverse dismiss animation.');
+  }
+
+  /// ⏳ Logs when overlay auto-dismisses after timeout or animation reverse.
+  static void logOverlayAutoDismiss(OverlayUIEntry? request) {
+    final type = request?.runtimeType.toString() ?? 'Unknown';
+    final strategy = request?.strategy;
+    debugPrint(
+      '[Overlay][$type] ⏳ AutoDismissed → '
+      'priority: ${strategy?.priority.name ?? 'n/a'}, '
+      'category: ${strategy?.category.name ?? 'n/a'}, '
+      'policy: ${strategy?.policy.name ?? 'n/a'}',
+    );
   }
 
   // ───────────────────────────────────── Failures ─────────────────────────────────────

@@ -6,8 +6,8 @@ import '../../app_animation/animated_overlay_wrapper.dart';
 import '../../app_errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
 import '../core/overlay_enums.dart';
 import 'conflicts_strategy/police_resolver.dart';
-import 'platform_mapper.dart';
 import 'overlay_entries/_overlay_entries.dart';
+import 'platform_mapper.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';
 import 'overlay_dispatcher/overlay_dispatcher_interface.dart';
 
@@ -74,40 +74,80 @@ extension ContextXForStateDrivenOverlayFlow on BuildContext {
   ///
 
   /// 🪧 Shows a platform-aware banner (iOS/Android) using optional preset
-  // void showBanner({
-  //   required String message,
-  //   IconData? icon,
-  //   OverlayUIPresets preset = const OverlayInfoUIPreset(),
-  //   bool isError = false,
-  //   bool isDismissible = true,
-  // }) {
-  //   final entry = BannerOverlayEntry(
-  //     message,
-  //     preset: preset,
-  //     isError: isError,
-  //     icon: icon,
-  //     dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
-  //   );
-  //   overlayDispatcher.enqueueRequest(this, entry);
-  // }
+  void showBanner({
+    required String message,
+    IconData? icon,
+    OverlayUIPresets preset = const OverlayInfoUIPreset(),
+    bool isError = false,
+    bool isDismissible = true,
+    Duration autoDismissDuration = const Duration(seconds: 3),
+  }) {
+    //
+    // 1️⃣ Get engine for banner based on platform
+    final engine = getEngine(OverlayCategory.banner);
+
+    // 2️⃣ Resolve platform-specific banner widget
+    final bannerWidget = PlatformMapper.resolveAppBanner(
+      platform: platform,
+      engine: engine,
+      message: message,
+      icon: icon ?? Icons.info,
+      presetProps: preset.resolve(),
+    );
+
+    // 3️⃣ Wrap banner with animation lifecycle
+    final animatedBanner = AnimatedOverlayWrapper(
+      engine: engine,
+      displayDuration: autoDismissDuration,
+      builder: (_) => bannerWidget,
+    );
+
+    // 4️⃣ Create overlay entry
+    final entry = BannerOverlayEntry(
+      widget: animatedBanner,
+      dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
+      isError: isError,
+    );
+
+    // 5️⃣ Enqueue
+    overlayDispatcher.enqueueRequest(this, entry);
+  }
+
+  ///
 
   /// 🍞 Shows a platform-aware snackbar (iOS/Android) using optional preset
-  // void showSnackbar({
-  //   required String message,
-  //   OverlayUIPresets preset = const OverlayInfoUIPreset(),
-  //   bool isError = false,
-  //   IconData? icon,
-  //   bool isDismissible = true,
-  // }) {
-  //   final entry = SnackbarOverlayEntry(
-  //     message,
-  //     preset: preset,
-  //     isError: isError,
-  //     icon: icon,
-  //     dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
-  //   );
-  //   overlayDispatcher.enqueueRequest(this, entry);
-  // }
+  void showSnackbar({
+    required String message,
+    IconData? icon,
+    OverlayUIPresets preset = const OverlayInfoUIPreset(),
+    bool isError = false,
+    bool isDismissible = true,
+    Duration autoDismissDuration = const Duration(seconds: 3),
+  }) {
+    final engine = getEngine(OverlayCategory.snackbar);
+
+    final snackbarWidget = PlatformMapper.resolveAppSnackbar(
+      platform: platform,
+      engine: engine,
+      message: message,
+      icon: icon ?? Icons.info,
+      presetProps: preset.resolve(),
+    );
+
+    final animatedSnackbar = AnimatedOverlayWrapper(
+      engine: engine,
+      displayDuration: autoDismissDuration,
+      builder: (_) => snackbarWidget,
+    );
+
+    final entry = SnackbarOverlayEntry(
+      widget: animatedSnackbar,
+      dismissPolicy: OverlayPolicyResolver.resolveDismissPolicy(isDismissible),
+      isError: isError,
+    );
+
+    overlayDispatcher.enqueueRequest(this, entry);
+  }
 
   /// 🧠 Handles displaying [FailureUIModel] as banner/snackbar/dialog
   /// 📌 Uses [OverlayUIPresets] and [ShowErrorAs] to configure appearance and behavior
@@ -121,25 +161,25 @@ extension ContextXForStateDrivenOverlayFlow on BuildContext {
 
     switch (showAs) {
       //
-      // case ShowErrorAs.banner:
-      //   showBanner(
-      //     message: model.localizedMessage,
-      //     icon: model.icon,
-      //     preset: preset,
-      //     isError: true,
-      //     isDismissible: isDismissible,
-      //   );
-      //   break;
-      // //
-      // case ShowErrorAs.snackbar:
-      //   showSnackbar(
-      //     message: model.localizedMessage,
-      //     preset: preset,
-      //     isError: true,
-      //     icon: model.icon,
-      //     isDismissible: isDismissible,
-      //   );
-      //   break;
+      case ShowErrorAs.banner:
+        showBanner(
+          message: model.localizedMessage,
+          icon: model.icon,
+          preset: preset,
+          isError: true,
+          isDismissible: isDismissible,
+        );
+        break;
+      //
+      case ShowErrorAs.snackbar:
+        showSnackbar(
+          message: model.localizedMessage,
+          preset: preset,
+          isError: true,
+          icon: model.icon,
+          isDismissible: isDismissible,
+        );
+        break;
       //
       case ShowErrorAs.dialog:
         showDialog(
@@ -175,8 +215,4 @@ extension ContextXForStateDrivenOverlayFlow on BuildContext {
 
 ///
 /// 📌 Specifies how to display an error in UI
-enum ShowErrorAs {
-  // banner, snackbar,
-  dialog,
-  infoDialog,
-}
+enum ShowErrorAs { banner, snackbar, dialog, infoDialog }

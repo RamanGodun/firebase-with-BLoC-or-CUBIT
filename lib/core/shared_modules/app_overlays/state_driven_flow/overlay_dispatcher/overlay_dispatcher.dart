@@ -98,6 +98,8 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     // 🧠 Apply centralized dismiss handling if AnimatedOverlayWrapper is used
     final processedWidget = widget.withDispatcherOverlayControl(
       onDismiss: () {
+        AppLogger.logOverlayAutoDismiss(_activeRequest);
+        _activeRequest?.onAutoDismissed();
         dismissCurrent(force: true);
         _isProcessing = false;
         _tryProcessQueue();

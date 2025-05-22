@@ -33,5 +33,11 @@ final class DialogOverlayEntry extends OverlayUIEntry {
     return widget;
   }
 
+  @override
+  void onAutoDismissed() {
+    // 🎯 Make some actions after dissmiss or
+    // Track/log auto-dismissed overlay if needed
+  }
+
   ///
 }

@@ -1,7 +1,7 @@
 import 'dart:collection' show Queue;
 import 'dart:collection';
 import '../../../app_config/bootstrap/di_container.dart';
-import '../../app_animation/enums_for_animation_module.dart';
+import '../../app_animation/for_tasks/enums_for_animation_module.dart';
 import '../state_driven_flow/overlay_dispatcher/overlay_dispatcher_interface.dart';
 import 'overlay_tasks/_task_interface.dart';
 

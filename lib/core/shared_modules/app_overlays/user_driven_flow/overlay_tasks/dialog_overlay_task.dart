@@ -1,10 +1,10 @@
 // ignore_for_file: unused_local_variable
 
 import 'dart:async';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_animation/target_platform_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_animation/for_tasks/target_platform_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
-import '../../../app_animation/enums_for_animation_module.dart';
+import '../../../app_animation/for_tasks/enums_for_animation_module.dart';
 import '../../presentation/overlay_presets/overlay_presets.dart';
 import '../../presentation/overlay_presets/preset_props.dart';
 import '_task_interface.dart';
