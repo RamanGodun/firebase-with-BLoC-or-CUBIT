@@ -4,7 +4,7 @@ import '../../../../app_config/bootstrap/di_container.dart';
 import '../../../../shared_presentation/constants/_app_constants.dart';
 import '../../../animation/animation_engines/_animation_engine.dart';
 import '../../../localization/code_base_for_both_options/text_widget.dart';
-import '../../overlay_dispatcher/overlay_dispatcher_interface.dart';
+import '../../overlay_dispatcher/_overlay_dispatcher.dart';
 import '../overlay_presets/preset_props.dart';
 
 /// 🍎 [IOSAppDialog] — Animated glass-style Cupertino dialog for iOS/macOS
@@ -44,13 +44,13 @@ final class IOSAppDialog extends StatelessWidget {
   VoidCallback get _handleCancel =>
       onCancel ??
       () {
-        di<IOverlayDispatcher>().dismissCurrent(force: true);
+        di<OverlayDispatcher>().dismissCurrent(force: true);
         onConfirm?.call();
       };
 
   /// ➟ Confirm action handler
   VoidCallback get _handleConfirm => () {
-    di<IOverlayDispatcher>().dismissCurrent(force: true);
+    di<OverlayDispatcher>().dismissCurrent(force: true);
     onConfirm?.call();
   };
   @override

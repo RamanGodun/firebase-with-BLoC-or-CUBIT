@@ -28,6 +28,11 @@ void main() async {
   /// 🚀 Run App
   runApp(AppLocalization.wrap(const RootProviders()));
 
+  /// 📦 Dispose resources AFTER app fully mounted (first frame)
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    AppBootstrap.dispose();
+  });
+
   ///
 }
 

@@ -1,7 +1,6 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/_context_x_for_overlays.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
-import '../overlay_dispatcher/_overlay_dispatcher.dart';
 
 /// 🧩 [GlobalOverlayHandler] — Universal gesture wrapper for screen-wide UX improvements:
 /// - 📱 Automatically dismisses keyboard when user taps outside input
@@ -36,8 +35,7 @@ final class GlobalOverlayHandler extends StatelessWidget {
         // 🔕 Dismiss overlay if allowed
         if (dismissOverlay) {
           final dispatcher = context.dispatcher;
-          if (dispatcher is OverlayDispatcher &&
-              dispatcher.canBeDismissedExternally) {
+          if (dispatcher.canBeDismissedExternally) {
             await dispatcher.dismissCurrent();
           }
         }

@@ -2,7 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/_o
 import 'package:flutter/material.dart';
 import '../../../app_config/bootstrap/di_container.dart';
 import '../../errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
-import '../overlay_dispatcher/overlay_dispatcher_interface.dart';
+import '../overlay_dispatcher/_overlay_dispatcher.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';
 import 'overlay_core_types.dart.dart';
 
@@ -14,7 +14,7 @@ enum ShowAs { banner, snackbar, dialog, infoDialog }
 //-------------------------------------------------------------
 extension ContextXForOverlays on BuildContext {
   /// 🔌 Lazily access the shared [IOverlayDispatcher] via DI container
-  IOverlayDispatcher get dispatcher => di<IOverlayDispatcher>();
+  OverlayDispatcher get dispatcher => di<OverlayDispatcher>();
 
   //
   /// 🧠 Handles displaying [FailureUIModel] as banner/snackbar/dialog

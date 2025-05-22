@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../app_config/bootstrap/di_container.dart';
 import '../../../animation/animation_engines/_animation_engine.dart';
 import '../../../localization/code_base_for_both_options/text_widget.dart';
-import '../../overlay_dispatcher/overlay_dispatcher_interface.dart';
+import '../../overlay_dispatcher/_overlay_dispatcher.dart';
 import '../overlay_presets/preset_props.dart';
 
 /// 💬 [AndroidDialog] — Platform-aware Material dialog with animation
@@ -41,7 +41,7 @@ final class AndroidDialog extends StatelessWidget {
   VoidCallback get _handleCancel =>
       onCancel ??
       () {
-        di<IOverlayDispatcher>().dismissCurrent(force: true);
+        di<OverlayDispatcher>().dismissCurrent(force: true);
         onCancel?.call();
       };
 
@@ -49,7 +49,7 @@ final class AndroidDialog extends StatelessWidget {
   VoidCallback get _handleConfirm =>
       onConfirm ??
       () {
-        di<IOverlayDispatcher>().dismissCurrent(force: true);
+        di<OverlayDispatcher>().dismissCurrent(force: true);
         onConfirm?.call();
       };
 

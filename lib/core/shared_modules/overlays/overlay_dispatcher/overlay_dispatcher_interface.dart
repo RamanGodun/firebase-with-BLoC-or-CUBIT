@@ -1,25 +1,25 @@
-import 'package:flutter/material.dart';
-import '../overlay_entries/_overlay_entries.dart';
+// import 'package:flutter/material.dart';
+// import '../overlay_entries/_overlay_entries.dart';
 
-/// 📄 [IOverlayDispatcher] — Contract for the centralized overlay queue manager
-/// ✅ Used by both the real and mock implementations to abstract dispatch logic
-//-------------------------------------------------------------
+// /// 📄 [IOverlayDispatcher] — Contract for the centralized overlay queue manager
+// /// ✅ Used by both the real and mock implementations to abstract dispatch logic
+// //-------------------------------------------------------------
 
-abstract interface class IOverlayDispatcher {
-  /// 🧩 Adds a request to the queue and initiates processing if idle
-  void enqueueRequest(BuildContext context, OverlayUIEntry request);
+// abstract interface class IOverlayDispatcher {
+//   /// 🧩 Adds a request to the queue and initiates processing if idle
+//   void enqueueRequest(BuildContext context, OverlayUIEntry request);
 
-  /// 🚫 Dismisses the currently active overlay and optionally clears the queue
-  Future<void> dismissCurrent({bool clearQueue = false, bool force = false});
+//   /// 🚫 Dismisses the currently active overlay and optionally clears the queue
+//   Future<void> dismissCurrent({bool clearQueue = false, bool force = false});
 
-  /// 🧼 Clears all pending overlay requests from the queue
-  void clearAll();
+//   /// 🧼 Clears all pending overlay requests from the queue
+//   void clearAll();
 
-  /// Whether current overlay can be dismissed externally.
-  bool get canBeDismissedExternally;
+//   /// Whether current overlay can be dismissed externally.
+//   bool get canBeDismissedExternally;
 
-  /// Obtain  getter, that can interrupt user-driven overlays flow
-  bool get isOverlayActive;
+//   /// Obtain  getter, that can interrupt user-driven overlays flow
+//   bool get isOverlayActive;
 
-  ///
-}
+//   ///
+// }

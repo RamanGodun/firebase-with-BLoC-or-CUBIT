@@ -6,7 +6,6 @@ import '../overlay_entries/_overlay_entries.dart';
 import 'overlay_core_types.dart.dart';
 import 'platform_mapper.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';
-import '../overlay_dispatcher/overlay_dispatcher_interface.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/animation/_context_x_for_engines.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 

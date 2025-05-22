@@ -23,7 +23,6 @@ import '../../shared_modules/logging/crash_analytics_logger.dart';
 import '../../shared_modules/logging/i_logger_contract.dart';
 import '../../shared_modules/overlays/core/overlay_core_types.dart.dart';
 import '../../shared_modules/overlays/overlay_dispatcher/_overlay_dispatcher.dart';
-import '../../shared_modules/overlays/overlay_dispatcher/overlay_dispatcher_interface.dart';
 import '../../shared_modules/theme/theme_cubit/theme_cubit.dart';
 
 /// 💠 Global [GetIt] instance used as service locator across the app
@@ -43,7 +42,7 @@ abstract final class AppDI {
     _registerDataSources();
     _registerRepositories();
     _registerUseCases();
-    _registerBlocs();
+    _registerOthers();
   }
 
   ///
@@ -53,13 +52,9 @@ abstract final class AppDI {
 
   /// 🔍 Registers overlay handlers
   static void _registerOverlaysHandlers() {
-    di.registerLazySingleton(() => OverlayStatusCubit());
-
-    di.registerLazySingleton<IOverlayDispatcher>(
-      () => OverlayDispatcher(
-        onOverlayStateChanged: di<OverlayStatusCubit>().updateStatus,
-      ),
-    );
+    di
+      ..registerLazySingleton<OverlayDispatcher>(() => OverlayDispatcher())
+      ..registerLazySingleton(() => OverlayStatusCubit());
   }
 
   /// 🔗 Registers core Firebase dependencies
@@ -104,7 +99,7 @@ abstract final class AppDI {
   }
 
   /// 🎛️ Registers all Cubits and BLoCs (presentation layer)
-  static void _registerBlocs() {
+  static void _registerOthers() {
     di
       ..registerLazySingleton(
         () => AuthBloc(

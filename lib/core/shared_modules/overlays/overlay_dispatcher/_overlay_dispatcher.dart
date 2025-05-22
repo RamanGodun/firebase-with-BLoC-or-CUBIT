@@ -6,7 +6,7 @@ import '../../logging/_app_error_logger.dart';
 import '../core/overlay_core_types.dart.dart';
 import '../overlay_entries/_overlay_entries.dart';
 import '../core/tap_through_overlay_barrier.dart';
-import 'overlay_dispatcher_interface.dart';
+import 'overlay_state_bridge.dart';
 
 part 'policy_resolver.dart';
 
@@ -15,15 +15,10 @@ part 'policy_resolver.dart';
 /// - Resolving conflicts
 /// - Managing overlay insertion & dismissal
 /// - Centralized logging
-///--------------------------------------------------
+///---------------------------------------------
 
-final class OverlayDispatcher implements IOverlayDispatcher {
-  /// 🧠 Callback to notify overlay activity (for UI sync)
-  final void Function(bool isActive)? onOverlayStateChanged;
-
-  OverlayDispatcher({this.onOverlayStateChanged}) {
-    print('[OverlayDispatcher] Constructor called');
-  }
+final class OverlayDispatcher {
+   OverlayDispatcher();
 
   // 📦 Queue to hold pending overlay requests
   final Queue<OverlayQueueItem> _queue = Queue();
@@ -38,16 +33,17 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   bool _isProcessing = false;
 
   // Obtain  getter, that can interrupt user-driven overlays flow
-  @override
   bool get isOverlayActive => _activeEntry != null;
 
   // 🔓 Whether the current overlay can be dismissed externally.
-  @override
   bool get canBeDismissedExternally =>
       _activeRequest?.dismissPolicy == OverlayDismissPolicy.dismissible;
 
+  void _notify(bool isActive) {
+    OverlayStateBridge.notify(isActive);
+  }
+
   /// 📥 Adds a new request to the queue, resolves replacement/drop strategy
-  @override
   void enqueueRequest(BuildContext context, OverlayUIEntry request) async {
     if (!context.mounted) return; // ✅ avoid insertion if context is dead
     AppLogger.logOverlayShow(request);
@@ -100,8 +96,7 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     final item = _queue.removeFirst();
     _activeRequest = item.request;
 
-    // 🧠 Notify listeners overlay is shown
-    onOverlayStateChanged?.call(true);
+    _notify(true); // 🧠 Notify listeners overlay is shown
 
     final widget = item.request.buildWidget();
 
@@ -136,7 +131,6 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   }
 
   /// ❌ Dismisses current overlay and clears queue if needed.
-  @override
   Future<void> dismissCurrent({
     bool clearQueue = false,
     bool force = false,
@@ -157,8 +151,8 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     }
     _activeEntry = null;
     _activeRequest = null;
-    // 🧠 Notify listeners overlay was dismissed
-    onOverlayStateChanged?.call(false);
+
+    _notify(true); // 🧠 Notify listeners overlay was dismissed
   }
 
   /// 🔁 Removes pending duplicates by type & category to avoid stacking
@@ -172,7 +166,6 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   }
 
   /// ❌ Clears entire queue.
-  @override
   void clearAll() => _queue.clear();
 
   //
