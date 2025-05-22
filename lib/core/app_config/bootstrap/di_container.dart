@@ -19,12 +19,12 @@ import '../../../features/profile/data/_profile_repo_impl.dart';
 import '../../../features/profile/domain/profile_repository.dart';
 import '../../../features/profile/domain/load_profile_use_case.dart';
 
-import '../../shared_modules/app_loggers/crash_analytics_logger.dart';
-import '../../shared_modules/app_loggers/i_logger_contract.dart';
-import '../../shared_modules/app_overlays/state_driven_flow/overlay_dispatcher/overlay_dispatcher.dart';
-import '../../shared_modules/app_overlays/state_driven_flow/overlay_dispatcher/overlay_dispatcher_interface.dart';
-import '../../shared_modules/app_overlays/user_driven_flow/_queue_manager.dart';
-import '../../shared_modules/app_theme/theme_cubit/theme_cubit.dart';
+import '../../shared_modules/logging/crash_analytics_logger.dart';
+import '../../shared_modules/logging/i_logger_contract.dart';
+import '../../shared_modules/overlays/state_driven_flow/overlay_dispatcher/overlay_dispatcher.dart';
+import '../../shared_modules/overlays/state_driven_flow/overlay_dispatcher/overlay_dispatcher_interface.dart';
+import '../../shared_modules/overlays/user_driven_flow/_queue_manager.dart';
+import '../../shared_modules/theme/theme_cubit/theme_cubit.dart';
 
 /// 💠 Global [GetIt] instance used as service locator across the app
 final di = GetIt.instance;

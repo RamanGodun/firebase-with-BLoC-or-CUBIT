@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/app_localization/generated/locale_keys.g.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/localization/generated/locale_keys.g.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/form_fields/extensions/formz_status_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/_general_extensions.dart';
@@ -11,7 +11,7 @@ import '../../../../core/shared_presentation/constants/_app_constants.dart'
 import '../../../../core/shared_modules/form_fields/use_auth_focus_nodes.dart';
 import '../../../../core/shared_modules/form_fields/widgets/_fields_factory.dart';
 import '../../../../core/shared_modules/form_fields/widgets/password_visibility_icon.dart';
-import '../../../../core/shared_modules/app_navigation/_imports_for_router.dart'
+import '../../../../core/shared_modules/navigation/_imports_for_router.dart'
     show RoutesNames;
 import '../../../../core/shared_modules/form_fields/widgets/button_for_forms.dart';
 import '../../../../core/shared_presentation/shared_widgets/text_button.dart';
