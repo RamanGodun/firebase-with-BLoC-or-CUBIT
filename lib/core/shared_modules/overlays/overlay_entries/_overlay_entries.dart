@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart' show Uuid;
-import '../core/overlay_enums.dart';
-import '../overlay_dispatcher/conflicts_strategy.dart';
+import '../core/overlay_core_types.dart.dart';
 
 part 'banner_overlay_entry.dart';
 part 'dialog_overlay_entry.dart';

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../app_config/bootstrap/di_container.dart';
 import '../../errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
 import '../overlay_dispatcher/overlay_dispatcher_interface.dart';
-import 'overlay_enums.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';
+import 'overlay_core_types.dart.dart';
 
 /// 📌 Specifies how to display an error in UI
 enum ShowAs { banner, snackbar, dialog, infoDialog }

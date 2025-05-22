@@ -1,12 +1,14 @@
 import 'dart:collection';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/animation/animated_overlay_wrapper.dart';
 import 'package:flutter/material.dart';
+import '../../../utils/debouncer.dart';
 import '../../logging/_app_error_logger.dart';
-import '../core/overlay_enums.dart';
+import '../core/overlay_core_types.dart.dart';
 import '../overlay_entries/_overlay_entries.dart';
 import '../core/tap_through_overlay_barrier.dart';
-import 'police_resolver.dart';
 import 'overlay_dispatcher_interface.dart';
+
+part 'policy_resolver.dart';
 
 /// 🧠 [OverlayDispatcher] – Handles overlay lifecycle:
 /// - Queueing requests
@@ -24,7 +26,7 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   }
 
   // 📦 Queue to hold pending overlay requests
-  final Queue<_OverlayQueueItem> _queue = Queue();
+  final Queue<OverlayQueueItem> _queue = Queue();
 
   // 🎯 Currently visible overlay entry in the widget tree
   OverlayEntry? _activeEntry;
@@ -85,7 +87,7 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   /// 🧱 Finalizes the enqueue logic after replacement/drop resolution
   void _finalizeEnqueue(OverlayState overlay, OverlayUIEntry request) {
     _removeDuplicateInQueue(request);
-    _queue.add(_OverlayQueueItem(overlay: overlay, request: request));
+    _queue.add(OverlayQueueItem(overlay: overlay, request: request));
     AppLogger.logOverlayAddedToQueue(_queue.length);
     _tryProcessQueue();
   }
@@ -174,11 +176,4 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   void clearAll() => _queue.clear();
 
   //
-}
-
-/// 📦 Internal data holder for enqueued overlays, binds [OverlayState] to a specific [OverlayUIEntry] request
-final class _OverlayQueueItem {
-  final OverlayState overlay;
-  final OverlayUIEntry request;
-  const _OverlayQueueItem({required this.overlay, required this.request});
 }

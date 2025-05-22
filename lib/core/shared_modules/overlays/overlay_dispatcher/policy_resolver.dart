@@ -1,6 +1,4 @@
-import '../../../utils/debouncer.dart';
-import '../core/overlay_enums.dart';
-import '../overlay_entries/_overlay_entries.dart';
+part of '_overlay_dispatcher.dart';
 
 /// 🎯 [OverlayPolicyResolver] — Static resolver for overlay conflict and dismiss policies
 /// ✅ Centralizes logic for priority-based replacement and dismissibility behavior
