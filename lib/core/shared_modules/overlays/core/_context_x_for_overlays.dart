@@ -1,6 +1,8 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/overlay_base_methods.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/_overlay_base_methods.dart';
 import 'package:flutter/material.dart';
+import '../../../app_config/bootstrap/di_container.dart';
 import '../../errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
+import '../overlay_dispatcher/overlay_dispatcher_interface.dart';
 import 'overlay_enums.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';
 
@@ -11,6 +13,9 @@ enum ShowAs { banner, snackbar, dialog, infoDialog }
 /// ✅ Use `context.showSnackbar(...)` / `context.showBanner(...)` directly
 //-------------------------------------------------------------
 extension ContextXForOverlays on BuildContext {
+  /// 🔌 Lazily access the shared [IOverlayDispatcher] via DI container
+  IOverlayDispatcher get dispatcher => di<IOverlayDispatcher>();
+
   //
   /// 🧠 Handles displaying [FailureUIModel] as banner/snackbar/dialog
   /// 📌 Uses [OverlayUIPresets] and [ShowAs] to configure appearance and behavior

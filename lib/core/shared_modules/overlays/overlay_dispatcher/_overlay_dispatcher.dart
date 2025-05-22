@@ -1,11 +1,11 @@
 import 'dart:collection';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/animation/animated_overlay_wrapper.dart';
 import 'package:flutter/material.dart';
-import '../../../logging/_app_error_logger.dart';
-import '../../core/overlay_enums.dart';
+import '../../logging/_app_error_logger.dart';
+import '../core/overlay_enums.dart';
 import '../overlay_entries/_overlay_entries.dart';
-import '../../core/tap_through_overlay_barrier.dart';
-import '../conflicts_strategy/police_resolver.dart';
+import '../core/tap_through_overlay_barrier.dart';
+import 'police_resolver.dart';
 import 'overlay_dispatcher_interface.dart';
 
 /// 🧠 [OverlayDispatcher] – Handles overlay lifecycle:
@@ -16,9 +16,12 @@ import 'overlay_dispatcher_interface.dart';
 ///--------------------------------------------------
 
 final class OverlayDispatcher implements IOverlayDispatcher {
-  OverlayDispatcher._();
-  static final OverlayDispatcher _instance = OverlayDispatcher._();
-  factory OverlayDispatcher() => _instance;
+  /// 🧠 Callback to notify overlay activity (for UI sync)
+  final void Function(bool isActive)? onOverlayStateChanged;
+
+  OverlayDispatcher({this.onOverlayStateChanged}) {
+    print('[OverlayDispatcher] Constructor called');
+  }
 
   // 📦 Queue to hold pending overlay requests
   final Queue<_OverlayQueueItem> _queue = Queue();
@@ -44,6 +47,7 @@ final class OverlayDispatcher implements IOverlayDispatcher {
   /// 📥 Adds a new request to the queue, resolves replacement/drop strategy
   @override
   void enqueueRequest(BuildContext context, OverlayUIEntry request) async {
+    if (!context.mounted) return; // ✅ avoid insertion if context is dead
     AppLogger.logOverlayShow(request);
 
     final overlay = Overlay.of(context, rootOverlay: true);
@@ -68,7 +72,9 @@ final class OverlayDispatcher implements IOverlayDispatcher {
       if (shouldReplace) {
         AppLogger.logOverlayReplacing();
         await dismissCurrent(force: true);
-        _finalizeEnqueue(overlay, request);
+        OverlayPolicyResolver.getDebouncer(request.strategy.category).run(() {
+          _finalizeEnqueue(overlay, request);
+        });
         return;
       }
     }
@@ -91,6 +97,9 @@ final class OverlayDispatcher implements IOverlayDispatcher {
 
     final item = _queue.removeFirst();
     _activeRequest = item.request;
+
+    // 🧠 Notify listeners overlay is shown
+    onOverlayStateChanged?.call(true);
 
     final widget = item.request.buildWidget();
 
@@ -146,6 +155,8 @@ final class OverlayDispatcher implements IOverlayDispatcher {
     }
     _activeEntry = null;
     _activeRequest = null;
+    // 🧠 Notify listeners overlay was dismissed
+    onOverlayStateChanged?.call(false);
   }
 
   /// 🔁 Removes pending duplicates by type & category to avoid stacking
@@ -169,6 +180,5 @@ final class OverlayDispatcher implements IOverlayDispatcher {
 final class _OverlayQueueItem {
   final OverlayState overlay;
   final OverlayUIEntry request;
-
   const _OverlayQueueItem({required this.overlay, required this.request});
 }

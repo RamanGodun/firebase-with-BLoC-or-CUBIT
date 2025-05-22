@@ -1,4 +1,5 @@
-import '../../core/overlay_enums.dart';
+import '../../../utils/debouncer.dart';
+import '../core/overlay_enums.dart';
 import '../overlay_entries/_overlay_entries.dart';
 
 /// 🎯 [OverlayPolicyResolver] — Static resolver for overlay conflict and dismiss policies
@@ -51,6 +52,27 @@ final class OverlayPolicyResolver {
       isDismissible
           ? OverlayDismissPolicy.dismissible
           : OverlayDismissPolicy.persistent;
+
+  // 🔁 Map of debounce instances by overlay category
+  // Ensures that banners/snackbars/dialogs debounce independently.
+  static final Map<OverlayCategory, Debouncer> _categoryDebouncers = {};
+
+  // ⏱️ Predefined debounce durations for categories
+  // Banners/snackbars usually need small delays; dialogs — instant.
+  static final _defaultDebounceDurations = {
+    OverlayCategory.banner: const Duration(milliseconds: 500),
+    OverlayCategory.snackbar: const Duration(milliseconds: 400),
+    OverlayCategory.dialog: Duration.zero,
+  };
+
+  // 🔁 Retrieves or creates a debouncer for given overlay category.
+  // Used to prevent rapid re-triggering of overlays like banners/snackbars.
+  static Debouncer getDebouncer(OverlayCategory category) {
+    return _categoryDebouncers.putIfAbsent(
+      category,
+      () => Debouncer(_defaultDebounceDurations[category] ?? Duration.zero),
+    );
+  }
 
   ///
 }

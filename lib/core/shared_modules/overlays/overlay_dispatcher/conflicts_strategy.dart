@@ -1,4 +1,4 @@
-import '../../core/overlay_enums.dart';
+import '../core/overlay_enums.dart';
 
 /// 🧠 [OverlayConflictStrategy] — Strategy object for each overlay that
 /// defines its replacement logic and category identification.

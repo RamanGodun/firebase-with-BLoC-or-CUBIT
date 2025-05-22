@@ -1,12 +1,12 @@
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/_context_x_for_overlays.dart';
 import 'package:flutter/material.dart';
-import '../../../app_config/bootstrap/di_container.dart';
 import '../../animation/animated_overlay_wrapper.dart';
-import '../core/overlay_enums.dart';
-import '../core/platform_mapper.dart';
-import 'conflicts_strategy/police_resolver.dart';
-import 'overlay_entries/_overlay_entries.dart';
+import 'overlay_enums.dart';
+import '../overlay_dispatcher/police_resolver.dart';
+import '../overlay_entries/_overlay_entries.dart';
+import 'platform_mapper.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';
-import 'overlay_dispatcher/overlay_dispatcher_interface.dart';
+import '../overlay_dispatcher/overlay_dispatcher_interface.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/animation/animation_engines/_context_x_for_engines.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 
@@ -16,11 +16,11 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extens
 
 extension OverlayBaseMethods on BuildContext {
   //
+  /// ✅ Indicates if any overlay is currently active in the app
+  bool get isAnyOverlayActive => dispatcher.isOverlayActive;
 
   /// 5️⃣  📥 Adds a new request to the [IOverlayDispatcher]
   void addOverlayRequest(OverlayUIEntry entry) {
-    /// 🔌 Direct access to [IOverlayDispatcher] from DI
-    final dispatcher = di<IOverlayDispatcher>();
     dispatcher.enqueueRequest(this, entry);
   }
 

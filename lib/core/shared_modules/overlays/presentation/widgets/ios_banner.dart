@@ -17,7 +17,7 @@ final class IOSBanner extends StatelessWidget {
   final String message;
   final IconData icon;
   final OverlayUIPresetProps props;
- final AnimationEngine engine;
+  final AnimationEngine engine;
 
   const IOSBanner({
     super.key,
@@ -72,17 +72,15 @@ final class IOSBanner extends StatelessWidget {
                     ],
                   ),
                   child: Row(
-                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(icon, color: textColor, size: 24),
                       const SizedBox(width: 12),
-                      Expanded(
-                        child: TextWidget(
-                          message,
-                          TextType.titleMedium,
-                          color: textColor,
-                        ),
+                      TextWidget(
+                        message,
+                        TextType.titleSmall,
+                        color: textColor,
                       ),
+                      const Spacer(),
                     ],
                   ),
                 ),

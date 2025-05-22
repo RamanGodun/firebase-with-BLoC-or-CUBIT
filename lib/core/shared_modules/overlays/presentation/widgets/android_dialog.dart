@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../app_config/bootstrap/di_container.dart';
 import '../../../animation/animation_engines/_animation_engine.dart';
 import '../../../localization/code_base_for_both_options/text_widget.dart';
-import '../../state_driven_flow/overlay_dispatcher/overlay_dispatcher_interface.dart';
+import '../../overlay_dispatcher/overlay_dispatcher_interface.dart';
 import '../overlay_presets/preset_props.dart';
 
 /// 💬 [AndroidDialog] — Platform-aware Material dialog with animation

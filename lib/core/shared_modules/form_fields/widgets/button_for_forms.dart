@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import '../../../../features/auth/presentation/sign_in/cubit/sign_in_page_cubit.dart';
 import '../../../shared_presentation/constants/_app_constants.dart';
 import '../../../utils/typedef.dart';
 import '../../localization/code_base_for_both_options/text_widget.dart';
@@ -30,6 +31,9 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
 
   @override
   Widget build(BuildContext context) {
+    final isOverlayActive = context.select<SignInCubit, bool>(
+      (cubit) => cubit.state.isOverlayActive,
+    );
     final colorScheme = context.colorScheme;
 
     return BlocBuilder<Cubit, State>(
@@ -47,7 +51,7 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
           child: ElevatedButton(
             // 🚀 Trigger submit when form is valid and ready
             onPressed:
-                (status.canSubmit && isValidated)
+                (status.canSubmit && isValidated && !isOverlayActive)
                     ? () => onSubmit(context)
                     : null,
 

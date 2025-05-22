@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart' show debugPrint;
 import '../../app_config/bootstrap/di_container.dart' show di;
 import '../errors_handling/failures_for_domain_and_presentation/failure_for_domain.dart';
-import '../overlays/state_driven_flow/overlay_entries/_overlay_entries.dart';
+import '../overlays/overlay_entries/_overlay_entries.dart';
 import 'i_logger_contract.dart';
 
 /// 🧭 [AppLogger] — Centralized logger for all application-level telemetry.

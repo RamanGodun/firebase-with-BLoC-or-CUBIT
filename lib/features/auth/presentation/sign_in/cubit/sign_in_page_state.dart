@@ -11,6 +11,7 @@ class SignInPageState extends Equatable {
   final bool isValid;
   final Consumable<FailureUIModel>? failure;
   final bool isPasswordObscure;
+  final bool isOverlayActive;
 
   // 🧱 Initial constructor with default values
   const SignInPageState({
@@ -20,6 +21,7 @@ class SignInPageState extends Equatable {
     this.isValid = false,
     this.failure,
     this.isPasswordObscure = true,
+    this.isOverlayActive = false,
   });
 
   // 🔁 Returns new instance with optional overridden fields
@@ -30,6 +32,7 @@ class SignInPageState extends Equatable {
     final bool? isValid,
     final Consumable<FailureUIModel>? failure,
     final bool? isPasswordObscure,
+    final bool? isOverlayActive,
   }) {
     return SignInPageState(
       email: email ?? this.email,
@@ -38,6 +41,7 @@ class SignInPageState extends Equatable {
       isValid: isValid ?? this.isValid,
       failure: failure ?? this.failure,
       isPasswordObscure: isPasswordObscure ?? this.isPasswordObscure,
+      isOverlayActive: isOverlayActive ?? false,
     );
   }
 
@@ -49,6 +53,7 @@ class SignInPageState extends Equatable {
     isValid,
     failure,
     isPasswordObscure,
+    isOverlayActive,
   ];
 
   ///

@@ -7,6 +7,7 @@ import 'package:formz/formz.dart';
 import '../../../../../core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
 import '../../../../../core/shared_modules/errors_handling/utils/dsl_result_handler_async.dart';
 import '../../../../../core/shared_modules/form_fields/input_validation/_inputs_validation.dart';
+import '../../../../../core/shared_modules/overlays/overlay_status_cubit.dart';
 import '../../services/sign_in_service.dart';
 import '../../../../../core/utils/debouncer.dart';
 
@@ -19,9 +20,19 @@ part 'sign_in_state_validation_x.dart';
 
 class SignInCubit extends Cubit<SignInPageState> {
   final SignInService _signInService;
+  final OverlayStatusCubit _overlayStatusCubit;
+  late final StreamSubscription _overlaySub;
   final _debouncer = Debouncer(const Duration(milliseconds: 200));
 
-  SignInCubit(this._signInService) : super(const SignInPageState());
+  SignInCubit(
+    this._signInService, {
+    required OverlayStatusCubit overlayStatusCubit,
+  }) : _overlayStatusCubit = overlayStatusCubit,
+       super(const SignInPageState()) {
+    _overlaySub = _overlayStatusCubit.stream.listen((isOverlayActive) {
+      emit(state.copyWith(isOverlayActive: isOverlayActive));
+    });
+  }
 
   /// 📧 Handles email field changes with debounce and validation
   void emailChanged(String value) {
@@ -91,6 +102,13 @@ class SignInCubit extends Cubit<SignInPageState> {
 
   /// 🧽 Resets failure after consumption
   void clearFailure() => emit(state.copyWith(failure: null));
+
+  /// Cansel subscription, avoid memory leaks
+  @override
+  Future<void> close() async {
+    await _overlaySub.cancel();
+    return super.close();
+  }
 
   ///
 }

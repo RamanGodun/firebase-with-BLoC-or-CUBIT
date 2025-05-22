@@ -21,9 +21,9 @@ import '../../../features/profile/domain/load_profile_use_case.dart';
 
 import '../../shared_modules/logging/crash_analytics_logger.dart';
 import '../../shared_modules/logging/i_logger_contract.dart';
-import '../../shared_modules/overlays/state_driven_flow/overlay_dispatcher/overlay_dispatcher.dart';
-import '../../shared_modules/overlays/state_driven_flow/overlay_dispatcher/overlay_dispatcher_interface.dart';
-import '../../shared_modules/overlays/user_driven_flow/_queue_manager.dart';
+import '../../shared_modules/overlays/overlay_dispatcher/_overlay_dispatcher.dart';
+import '../../shared_modules/overlays/overlay_dispatcher/overlay_dispatcher_interface.dart';
+import '../../shared_modules/overlays/overlay_status_cubit.dart';
 import '../../shared_modules/theme/theme_cubit/theme_cubit.dart';
 
 /// 💠 Global [GetIt] instance used as service locator across the app
@@ -53,11 +53,13 @@ abstract final class AppDI {
 
   /// 🔍 Registers overlay handlers
   static void _registerOverlaysHandlers() {
-    di
-      ..registerLazySingletonIfAbsent<IOverlayDispatcher>(
-        () => OverlayDispatcher(),
-      )
-      ..registerLazySingleton(() => OverlayQueueManager());
+    di.registerLazySingleton(() => OverlayStatusCubit());
+
+    di.registerLazySingleton<IOverlayDispatcher>(
+      () => OverlayDispatcher(
+        onOverlayStateChanged: di<OverlayStatusCubit>().updateStatus,
+      ),
+    );
   }
 
   /// 🔗 Registers core Firebase dependencies
