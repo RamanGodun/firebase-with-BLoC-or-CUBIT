@@ -1,116 +1,171 @@
-# 🧭 Overlay Conflict Strategies in Flutter
+# 🧠 Overlay Conflict Resolution & Interaction Policy
 
-This guide describes two professional architectural strategies for managing overlay conflict resolution in a scalable Flutter application.
-
----
-
-## 🧩 Problem Context
-
-When building UI overlays (SnackBars, Dialogs, Loaders, Banners) in a queued system, we often need to define **how new overlays interact with currently active ones**:
-
-* Should the new overlay wait its turn?
-* Should it cancel the current one?
-* What if it's a more critical message (like an error)?
-
-This problem leads us to define **Overlay Conflict Resolution Strategies**.
+This document explains the **Overlay Conflict Strategy**, **Dismissal Policy**, and **Interaction Behavior** used in the current Flutter application. It reflects the latest implementation of the overlay system, built with centralized dispatching, animation engines, and debounced queuing.
 
 ---
 
-## ✅ Strategy 1 — `sealed class + conflictStrategy getter`
+## 🧩 System Architecture Overview
 
-### 📄 Overview
+The overlay flow is orchestrated through these layers:
 
-Each `OverlayUIEntry` subclass defines its conflict logic via a `conflictStrategy` getter inside the class itself.
+* `OverlayDispatcher`: manages queue, conflict resolution, entry lifecycle
+* `OverlayUIEntry`: abstract entry (Dialog/Banner/Snackbar), describes strategy, dismissibility
+* `AnimatedOverlayWrapper`: handles animation and auto-dismiss
+* `TapThroughOverlayBarrier`: enables interaction pass-through
+* `OverlayStatusCubit`: provides `isOverlayActive` signal for UI logic
 
-### 🛠 Example
+Each overlay request is enqueued and inserted via `context.addOverlayRequest(...)`. Final rendering passes through:
 
 ```dart
-final class SnackbarOverlayEntry extends OverlayUIEntry {
-  @override
-  OverlayConflictStrategy get conflictStrategy => const OverlayConflictStrategy(
-    priority: OverlayPriority.normal,
-    policy: OverlayReplacePolicy.waitQueue,
-  );
-}
+OverlayEntry(
+  builder: (context) => TapThroughOverlayBarrier(
+    enablePassthrough: true | false,
+    onTapOverlay: () => dismiss(),
+    child: AnimatedOverlayWrapper(...),
+  ),
+);
 ```
-
-### ✅ Pros
-
-* **Encapsulation**: each class owns its own behavior.
-* **Modular**: adding/removing overlays doesn't touch shared logic.
-* **Open/Closed**: Dispatcher remains untouched.
-
-### ❌ Cons
-
-* **Scattered configuration**: conflict rules spread across many files.
-* **Harder bulk updates**: changing a rule (e.g., for all SnackBars) requires touching all entries.
-* **Some duplication**: same strategy can repeat across entries.
 
 ---
 
-## ✅ Strategy 2 — `abstract class + OverlayConflictResolver`
+## 🧭 Conflict Strategy Resolution
 
-### 📄 Overview
+Each `OverlayUIEntry` defines a `OverlayConflictStrategy`, which controls whether it:
 
-Each `OverlayUIEntry` subclass implements an abstract base class, while a centralized resolver defines logic for each overlay type.
+* **Replaces** the current overlay
+* **Waits** until the current one is dismissed
+* **Is ignored** if duplicate
 
-### 🛠 Example
+### `OverlayConflictStrategy`
 
 ```dart
-abstract class OverlayUIEntry {
-  OverlayConflictStrategy get conflictStrategy =>
-    OverlayConflictResolver.resolve(this);
-}
-
-final class BannerOverlayEntry extends OverlayUIEntry {
-  // no need to define strategy manually
-}
-
-final class OverlayConflictResolver {
-  static OverlayConflictStrategy resolve(OverlayUIEntry entry) {
-    return switch (entry) {
-      SnackbarOverlayEntry => OverlayConflictStrategy(...),
-      DialogOverlayEntry => OverlayConflictStrategy(...),
-      _ => const OverlayConflictStrategy(),
-    };
-  }
-}
+OverlayConflictStrategy(
+  priority: OverlayPriority.high,
+  policy: OverlayReplacePolicy.forceIfLowerPriority,
+  category: OverlayCategory.dialog,
+);
 ```
 
-### ✅ Pros
+### 🔺 `OverlayPriority`
 
-* **Centralized**: All conflict rules live in one place.
-* **Easy to refactor**: Changing logic for all banners/snackbars is simple.
-* **Cleaner UIEntry classes**: less boilerplate.
+| Priority     | Purpose                       |
+| ------------ | ----------------------------- |
+| `userDriven` | Voluntary actions (e.g. info) |
+| `normal`     | Default UX overlays           |
+| `high`       | Errors, required user actions |
+| `critical`   | Blocking critical UI          |
 
-### ❌ Cons
+### 🔁 `OverlayReplacePolicy`
 
-* **Indirect behavior**: hard to know an entry's behavior without checking the resolver.
-* **Violates inversion slightly**: external component determines behavior of UIEntry.
-
----
-
-## 🧪 Summary Comparison
-
-| Feature                         | Strategy 1 (sealed + getter) | Strategy 2 (resolver) |
-| ------------------------------- | ---------------------------- | --------------------- |
-| Open/Close principle            | ✅                            | ✅                     |
-| Encapsulation in OverlayUIEntry | ✅                            | ❌                     |
-| Centralized configuration       | ❌                            | ✅                     |
-| Ease of global refactor         | ❌                            | ✅                     |
-| Local readability (in class)    | ✅                            | ❌                     |
-| Modularity                      | ✅                            | ✅                     |
+| Policy                 | Behavior Description                                          |
+| ---------------------- | ------------------------------------------------------------- |
+| `forceReplace`         | Always replaces any active overlay                            |
+| `forceIfSameCategory`  | Replaces current if both are same category (e.g. two dialogs) |
+| `forceIfLowerPriority` | Replaces only if new overlay has **higher** priority          |
+| `dropIfSameType`       | Silently skips if same overlay type already visible           |
+| `waitQueue`            | Queues until current one is dismissed                         |
 
 ---
 
-## 🧭 Decision
+## 🔄 Queue Management Logic
 
-> We choose **Strategy 2 (resolver-based)** for now due to its scalability and centralized configuration. This makes global changes, policy testing, and feature experimentation significantly easier.
+1. New overlay request arrives via `dispatcher.enqueueRequest(...)`
+2. If no active overlay → it’s shown immediately
+3. If active overlay exists → conflict policy is checked
+4. Based on result:
+
+   * ✅ Replaced immediately (force)
+   * ⏳ Debounced & queued
+   * 🚫 Dropped silently
 
 ---
 
-## 🔮 Future Consideration
+## 🧼 Dismissal Policy
 
-If at any point code readability or per-entry customization becomes more critical than central control, **Strategy 1** could be reintroduced incrementally, starting with priority overlays.
+Dismiss control is defined via `OverlayDismissPolicy`:
+
+| Policy        | Description                                 |
+| ------------- | ------------------------------------------- |
+| `dismissible` | User can tap outside to close the overlay   |
+| `persistent`  | Overlay can only be closed programmatically |
+
+### Mapping
+
+```dart
+OverlayPolicyResolver.resolveDismissPolicy(bool isDismissible)
+```
+
+Used consistently in Dialog/Banner/Snackbar APIs.
 
 ---
+
+## 🫥 Tap-Through Barrier Support (`TapThroughOverlayBarrier`)
+
+All overlays are wrapped inside `TapThroughOverlayBarrier`, which allows or blocks user interaction with the UI beneath, based on `tapPassthroughEnabled`:
+
+```dart
+@override
+bool get tapPassthroughEnabled => true; // for banners/snackbars
+```
+
+| Component | Passthrough | Use Case                 |
+| --------- | ----------- | ------------------------ |
+| Banner    | ✅           | User can continue typing |
+| Snackbar  | ✅           | Non-blocking info        |
+| Dialog    | ❌           | Blocks interaction       |
+
+When `tapPassthroughEnabled = true`, interaction (e.g., button clicks) **is allowed through** the overlay layer. Otherwise, overlay acts as modal.
+
+---
+
+## ⏱️ Debounce Mechanism
+
+Debouncing ensures overlays aren’t spammed too frequently. Applied per category via `OverlayPolicyResolver.getDebouncer(...)`:
+
+| Category   | Debounce Duration |
+| ---------- | ----------------- |
+| `banner`   | 500 ms            |
+| `snackbar` | 400 ms            |
+| `dialog`   | 0 ms (instant)    |
+
+Each category has its own `Debouncer` instance to avoid race conditions across unrelated overlay types.
+
+---
+
+## 🔁 AutoDismiss Behavior
+
+* Handled inside `AnimatedOverlayWrapper`
+* Configurable via `displayDuration`
+* On timeout: calls `OverlayDispatcher.dismissCurrent()`
+* `OverlayUIEntry.onAutoDismissed()` can be overridden for cleanup
+
+---
+
+## 📶 UI Interaction With OverlayStatusCubit
+
+To block actions (like form submission) while an overlay is active:
+
+```dart
+final isOverlayActive = context.select<OverlayStatusCubit, bool>((c) => c.state);
+```
+
+This is especially useful for disabling buttons (e.g. `SignUp`) during transitions.
+
+---
+
+## ✅ Summary
+
+| Feature             | Behavior                                                    |
+| ------------------- | ----------------------------------------------------------- |
+| Conflict resolution | Centralized per overlay type via strategy                   |
+| Dismissibility      | Controlled via policy, passed from API to overlay entry     |
+| Debounce            | Ensures overlays aren’t triggered too frequently            |
+| Tap-through         | Enabled selectively (banners/snackbars), blocked in dialogs |
+| Auto-dismiss        | Declarative timeout via AnimatedOverlayWrapper              |
+| Status sync         | `OverlayStatusCubit` used to reflect visibility in UI logic |
+
+---
+
+## 🧪 Recommendation
+
+> This architecture supports high modularity, platform adaptation, animation decoupling, and consistent UX behavior. All new overlays must define a conflict strategy and be wrapped in `AnimatedOverlayWrapper` for lifecycle consistency.
