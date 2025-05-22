@@ -3,7 +3,7 @@ import 'dart:async' show StreamSubscription;
 import 'package:flutter/material.dart' show BuildContext, OverlayState;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../overlay_dispatcher/overlay_state_bridge.dart';
-import '../overlay_entries/_overlay_entries.dart';
+import '../overlay_entries/_overlay_entries_registry.dart';
 
 /// 📦 [OverlayQueueItem] — Internal holder for enqueued overlays.
 /// ✅ Binds [OverlayState] with a specific [OverlayUIEntry] for insertion.

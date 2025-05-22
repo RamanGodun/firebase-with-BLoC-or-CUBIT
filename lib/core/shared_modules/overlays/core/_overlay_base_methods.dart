@@ -2,8 +2,8 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/_c
 import 'package:flutter/material.dart';
 import '../../animation/animated_overlay_wrapper.dart';
 import '../overlay_dispatcher/_overlay_dispatcher.dart';
-import '../overlay_entries/_overlay_entries.dart';
-import 'overlay_core_types.dart.dart';
+import '../overlay_entries/_overlay_entries_registry.dart';
+import 'overlay_core_types.dart';
 import 'platform_mapper.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/animation/_context_x_for_engines.dart';

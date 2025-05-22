@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../overlays/core/overlay_core_types.dart.dart';
+import '../overlays/core/overlay_core_types.dart';
 import 'animation_engines/_animation_engine.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 

@@ -1,4 +1,4 @@
-part of '_overlay_entries.dart';
+part of '_overlay_entries_registry.dart';
 
 /// 🍞 [SnackbarOverlayEntry] — State-driven platform-aware snackbar
 /// - Used by [OverlayDispatcher] for automatic snackbar rendering

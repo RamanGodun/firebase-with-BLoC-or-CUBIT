@@ -1,4 +1,4 @@
-part of '_overlay_entries.dart';
+part of '_overlay_entries_registry.dart';
 
 /// 💬 [DialogOverlayEntry] — DTO for Info/Error dialogs in state-driven flows
 /// ✅ Used by [OverlayDispatcher] to build animated platform dialogs

@@ -21,7 +21,7 @@ import '../../../features/profile/domain/load_profile_use_case.dart';
 
 import '../../shared_modules/logging/crash_analytics_logger.dart';
 import '../../shared_modules/logging/i_logger_contract.dart';
-import '../../shared_modules/overlays/core/overlay_core_types.dart.dart';
+import '../../shared_modules/overlays/core/overlay_core_types.dart';
 import '../../shared_modules/overlays/overlay_dispatcher/_overlay_dispatcher.dart';
 import '../../shared_modules/theme/theme_cubit/theme_cubit.dart';
 

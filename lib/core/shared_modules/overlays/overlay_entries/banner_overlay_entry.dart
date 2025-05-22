@@ -1,4 +1,4 @@
-part of '_overlay_entries.dart';
+part of '_overlay_entries_registry.dart';
 
 /// 🪧 [BannerOverlayEntry] — State-driven platform-aware banner
 /// - Used by [OverlayDispatcher] for automatic banner rendering

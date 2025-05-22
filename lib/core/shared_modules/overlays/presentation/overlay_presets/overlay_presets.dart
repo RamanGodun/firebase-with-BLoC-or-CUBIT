@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'preset_props.dart';
+import 'overlay_preset_props.dart';
 
 /// 🎨 [OverlayUIPresets] — Abstract base for UI styling presets
 /// - Returns resolved [OverlayUIPresetProps] used by overlays (banners, dialogs, etc.)
