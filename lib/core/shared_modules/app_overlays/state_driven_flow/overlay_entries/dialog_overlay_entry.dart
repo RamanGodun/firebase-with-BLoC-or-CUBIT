@@ -9,21 +9,25 @@ final class DialogOverlayEntry extends OverlayUIEntry {
   final bool isError; // ❗ Marks as an error (affects strategy and priority)
   @override
   final OverlayDismissPolicy? dismissPolicy;
+  final OverlayPriority priority;
 
-   DialogOverlayEntry({
+  DialogOverlayEntry({
     required this.widget,
     this.isError = false,
     this.dismissPolicy = OverlayDismissPolicy.dismissible,
+    required this.priority,
   });
 
   /// ⚙️ Defines how this entry behaves in conflict scenarios
   @override
   OverlayConflictStrategy get strategy => OverlayConflictStrategy(
-    priority: isError ? OverlayPriority.critical : OverlayPriority.normal,
-    policy:
-        isError
-            ? OverlayReplacePolicy.forceReplace
-            : OverlayReplacePolicy.waitQueue,
+    priority: priority,
+    policy: switch (priority) {
+      OverlayPriority.critical => OverlayReplacePolicy.forceReplace,
+      OverlayPriority.high => OverlayReplacePolicy.forceIfLowerPriority,
+      OverlayPriority.normal => OverlayReplacePolicy.forceIfSameCategory,
+      OverlayPriority.userDriven => OverlayReplacePolicy.waitQueue,
+    },
     category: isError ? OverlayCategory.error : OverlayCategory.dialog,
   );
 

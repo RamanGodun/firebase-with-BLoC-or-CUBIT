@@ -7,30 +7,30 @@ part 'banner_overlay_entry.dart';
 part 'dialog_overlay_entry.dart';
 part 'snackbar_overlay_entry.dart';
 
-/// 🎯 [OverlayUIEntry] — Pure DTO for describing overlay behavior in overlay flow
-/// ✅ Dispatcher uses this data to:
-///    - Handle queueing and replacement logic
-///    - Manage dismissibility and passthrough
+/// 🧩 [OverlayUIEntry] — Abstract descriptor for a UI overlay entry
+/// - Used in queue management and conflict resolution
+/// - Holds config such as dismiss policy, priority, and platform-aware widget
+/// - Each entry is uniquely identified by [id] (used to avoid duplicate insertion)
 //--------------------------------------------------------------------------------
 
 sealed class OverlayUIEntry {
-  // Uniq id generator, if id not given manually
+  /// 🆔 Unique entry identifier (auto-generated via UUID if not provided)
   OverlayUIEntry({String? id}) : id = id ?? const Uuid().v4();
   final String id;
 
-  /// ⛓️ Overlay replacement policy, priority, and category
+  /// 🎛️ Conflict resolution strategy: priority, replacement policy, category
   OverlayConflictStrategy get strategy;
 
-  /// 🔐 Can this overlay be dismissed via background tap
+  /// 🔓 Whether user can dismiss overlay via tap on background
   OverlayDismissPolicy? get dismissPolicy;
 
-  /// ☁️ Should taps pass through overlay background
+  /// ☁️ Whether overlay allows taps to pass through background
   bool get tapPassthroughEnabled => false;
 
-  /// 🧱 Builds the overlay widget for rendering
+  /// 🧱 Builds the overlay widget (platform-specific with animation engine inside)
   Widget buildWidget();
 
-  /// 🎯 Make some actions after [OverlayUIEntry] dismiss
+  /// 🧼 Called when overlay is auto-dismissed (e.g. timeout)
   void onAutoDismissed() {}
 
   ///

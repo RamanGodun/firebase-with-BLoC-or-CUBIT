@@ -7,7 +7,7 @@ library;
 /// 🔺 Priority levels for overlays (used for conflict resolution)
 // ⬇️ Least important, can be dropped easily
 // 🔼 Important, takes precedence over lower ones
-enum OverlayPriority { normal, high, critical }
+enum OverlayPriority {userDriven, normal, high, critical }
 
 /// 🏷️ Categorizes overlays by their visual or functional purpose
 enum OverlayCategory { banner, dialog, snackbar, error }

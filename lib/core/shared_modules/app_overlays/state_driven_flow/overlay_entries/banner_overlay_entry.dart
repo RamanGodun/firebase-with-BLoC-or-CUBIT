@@ -13,18 +13,25 @@ final class BannerOverlayEntry extends OverlayUIEntry {
   // 🔐 Dismiss policy (persistent or dismissible)
   @override
   final OverlayDismissPolicy? dismissPolicy;
+  final OverlayPriority priority;
 
-   BannerOverlayEntry({
+  BannerOverlayEntry({
     required this.widget,
     this.isError = false,
     this.dismissPolicy = OverlayDismissPolicy.dismissible,
+    required this.priority,
   });
 
   /// ⚙️ Defines how this entry behaves in conflict scenarios
   @override
   OverlayConflictStrategy get strategy => OverlayConflictStrategy(
-    priority: isError ? OverlayPriority.critical : OverlayPriority.normal,
-    policy: OverlayReplacePolicy.forceIfSameCategory,
+    priority: priority,
+    policy: switch (priority) {
+      OverlayPriority.critical => OverlayReplacePolicy.forceReplace,
+      OverlayPriority.high => OverlayReplacePolicy.forceIfLowerPriority,
+      OverlayPriority.normal => OverlayReplacePolicy.forceIfSameCategory,
+      OverlayPriority.userDriven => OverlayReplacePolicy.waitQueue,
+    },
     category: isError ? OverlayCategory.error : OverlayCategory.banner,
   );
 
