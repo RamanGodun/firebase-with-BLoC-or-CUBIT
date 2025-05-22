@@ -8,7 +8,7 @@ import '../animation_engines/__animation_engine.dart';
 /// ✅ Calls [onDismiss] after reverse animation completes
 ///----------------------------------------------------------------
 
-class AnimatedOverlayWrapper extends StatefulWidget {
+final class AnimatedOverlayWrapper extends StatefulWidget {
   /// 💡 Platform-aware engine with pre-resolved animation type
   final AnimationEngine engine;
 
