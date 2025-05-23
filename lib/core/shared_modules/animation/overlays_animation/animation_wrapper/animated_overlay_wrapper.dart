@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
 import '../animation_engines/__animation_engine.dart';
 
-/// 🧱 [AnimatedOverlayWrapper] — universal animation container for overlay widgets
-/// ✅ Initializes engine with TickerProvider
-/// ✅ Automatically plays animation
-/// ✅ Optionally auto-dismisses after [displayDuration]
-/// ✅ Calls [onDismiss] after reverse animation completes
-///----------------------------------------------------------------
-
+/// 🧱 [AnimatedOverlayWrapper] — Universal animation container for overlay widgets.
+/// ✅ Safely initializes the animation engine with [TickerProvider].
+/// ✅ Automatically triggers the forward animation on mount.
+/// ✅ Optionally auto-dismisses after [displayDuration].
+/// ✅ Invokes [onDismiss] callback after reverse animation completes.
 final class AnimatedOverlayWrapper extends StatefulWidget {
-  /// 💡 Platform-aware engine with pre-resolved animation type
   final AnimationEngine engine;
-
-  /// 🧱 Widget to render inside the overlay (e.g., AndroidDialog / IOSDialog)
   final Widget Function(AnimationEngine engine) builder;
-
-  /// ⏳ Duration before auto-dismiss (set to Duration.zero for manual closing)
   final Duration displayDuration;
-
-  /// 🔁 Called after reverse animation completes
   final VoidCallback? onDismiss;
+  final Widget? placeholder;
 
   const AnimatedOverlayWrapper({
     super.key,
@@ -27,6 +19,7 @@ final class AnimatedOverlayWrapper extends StatefulWidget {
     required this.builder,
     required this.displayDuration,
     this.onDismiss,
+    this.placeholder,
   });
 
   @override
@@ -35,36 +28,49 @@ final class AnimatedOverlayWrapper extends StatefulWidget {
 
 class _AnimatedOverlayWrapperState extends State<AnimatedOverlayWrapper>
     with TickerProviderStateMixin {
-  late final AnimationEngine _engine;
+  bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    _engine = widget.engine;
-    _engine.initialize(this);
-    _engine.play();
 
-    if (widget.displayDuration > Duration.zero) {
-      scheduleAutoDismiss();
-    }
+    // ✅ Надійно захищає від late errors після dispose
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return; // ⛔️ Вийти, якщо вже dispose
+
+      widget.engine.initialize(this);
+      widget.engine.play();
+
+      if (widget.displayDuration > Duration.zero) {
+        scheduleAutoDismiss();
+      }
+
+      if (mounted) {
+        setState(() => _isInitialized = true);
+      }
+    });
   }
 
-  /// ⏳ Starts delayed reverse animation with optional callback
+  /// ⏱️ Auto-dismiss overlay after delay
   void scheduleAutoDismiss() {
     Future.delayed(widget.displayDuration, () async {
-      await _engine.reverse();
+      if (!mounted) return;
+      await widget.engine.reverse();
       if (mounted) widget.onDismiss?.call();
     });
   }
 
   @override
-  Widget build(BuildContext context) => widget.builder(_engine);
+  Widget build(BuildContext context) {
+    // ⛔ Prevent build until engine is ready
+    if (!_isInitialized) return widget.placeholder ?? const SizedBox.shrink();
+
+    return widget.builder(widget.engine);
+  }
 
   @override
   void dispose() {
-    _engine.dispose();
+    widget.engine.dispose(); // 🧼 Cleanup engine
     super.dispose();
   }
 }
-
-///

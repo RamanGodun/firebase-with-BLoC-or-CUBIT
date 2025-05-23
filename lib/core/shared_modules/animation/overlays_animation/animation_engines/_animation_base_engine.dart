@@ -6,43 +6,58 @@ part of '__animation_engine.dart';
 ///----------------------------------------------------------------
 
 abstract class BaseAnimationEngine extends AnimationEngine {
-  late final AnimationController controller;
+  AnimationController? _controller;
+  bool _isInitialized = false;
+
+  /// 🔐 Safe getter for controller — throws if accessed before init.
+  AnimationController get controller {
+    assert(
+      _controller != null,
+      '❗ BaseAnimationEngine: controller accessed before initialize() was called',
+    );
+    return _controller!;
+  }
 
   @override
   void initialize(TickerProvider vsync, {Duration? duration}) {
-    dispose();
-    controller = AnimationController(
+    if (_isInitialized) return;
+
+    _controller = AnimationController(
       vsync: vsync,
       duration: duration ?? defaultDuration,
     );
     setupAnimations();
+    _isInitialized = true;
   }
 
-  /// Defines tweens and assigns them to exposed animation fields.
+  /// 🔧 Hook for defining tweens, called after controller created.
   void setupAnimations();
 
   @override
   void play({Duration? durationOverride}) {
-    if (durationOverride != null) {
-      controller.duration = durationOverride;
-    }
+    if (!_isInitialized || _controller == null) return;
+    if (durationOverride != null) controller.duration = durationOverride;
     controller.forward(from: 0);
   }
 
   @override
   Future<void> reverse({bool fast = false}) async {
+    if (!_isInitialized) return;
+
     final d = fast ? fastReverseDuration : controller.duration;
     await controller.animateBack(0.0, duration: d);
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    _controller?.dispose();
+    _controller = null;
+    _isInitialized = false;
   }
 
-  /// Override in subclasses to provide default duration.
+  /// ⏱️ Default duration for animations
   Duration get defaultDuration;
 
-  /// Override for fast reverse (e.g., dismissal).
+  /// ⏩ Duration for fast reverse
   Duration get fastReverseDuration => const Duration(milliseconds: 150);
 }
