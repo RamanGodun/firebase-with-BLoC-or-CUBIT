@@ -1,9 +1,11 @@
-import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
-import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/material.dart';
+import '../../utils/extensions/context_extensions/_context_extensions.dart';
+import '../../utils/extensions/extension_on_widget/_widget_x.dart';
 
-/// 🔄 [LoaderWidget] — Flexible loader, used for splash-screen or in build
-//----------------------------------------------------------------
+/// 🔄 [LoaderWidget] — Flexible root-level loader, used for:
+/// - showing loader during bootstrap (wrapInMaterialApp = true)
+/// - loading states in UI (wrapInMaterialApp = false)
+//---------------------------------------------------
 
 final class LoaderWidget extends StatelessWidget {
   final bool wrapInMaterialApp;
@@ -19,60 +21,95 @@ final class LoaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loader = Center(child: AppLoader(platformOverride: platformOverride));
+    final loader = AppLoader(
+      platformOverride: platformOverride,
+      backgroundColor: backgroundColor,
+    );
 
     return wrapInMaterialApp
-        ? MaterialApp(home: loader)
+        ? LoaderAppShell(child: loader)
         : Material(type: MaterialType.transparency, child: loader);
   }
 }
 
-/// 🔄 [AppLoader] — Platform-adaptive loading spinner
-/// - Renders circular loader with styled background
-/// - Uses custom decoration on Android/iOS, fallback adaptive loader elsewhere
-/// - Used by [LoaderOverlayEntry] as final visual widget
-///----------------------------------------------------------------------------
+/// 🧱 Shell for displaying loader before actual [MaterialApp] loads.
+final class LoaderAppShell extends StatelessWidget {
+  final Widget child;
+  const LoaderAppShell({super.key, required this.child});
 
+  @override
+  Widget build(BuildContext context) => MaterialApp(home: child);
+}
+
+/// 🔄 Adaptive loader with styled platform visuals
 final class AppLoader extends StatelessWidget {
-  // 📱 Target platform to determine visual styling
   final TargetPlatform? platformOverride;
+  final Color? backgroundColor;
 
-  const AppLoader({this.platformOverride, super.key});
+  const AppLoader({super.key, this.platformOverride, this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
     final platform = platformOverride ?? context.platform;
+    final color =
+        backgroundColor ?? context.colorScheme.secondary.withOpacity(0.1);
 
     return switch (platform) {
-      //
-      // 🤖 Android: loader inside circular background with shadow
-      TargetPlatform.android => Center(
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: context.colorScheme.secondary.withOpacity(0.1),
-            shape: BoxShape.circle,
-            boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 10)],
-          ),
-          child: const CircularProgressIndicator(),
-        ),
+      TargetPlatform.android => _LoaderContainerWidget(
+        shape: BoxShape.circle,
+        color: color,
+        shadow: const [BoxShadow(color: Colors.black26, blurRadius: 10)],
+        padding: const EdgeInsets.all(16),
+        child: const CircularProgressIndicator(),
       ),
-
-      // 🍎 iOS: loader inside rounded rectangle
-      TargetPlatform.iOS => Center(
-        child: Container(
-          width: 64,
-          height: 64,
-          decoration: BoxDecoration(
-            color: context.colorScheme.secondary.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: const Center(child: CircularProgressIndicator.adaptive()),
-        ),
+      TargetPlatform.iOS => _LoaderContainerWidget(
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(12),
+        color: color,
+        size: const Size(64, 64),
+        child: const CircularProgressIndicator.adaptive(),
       ),
-
-      // 🖥️ Other platforms: default adaptive loader centered
       _ => const CircularProgressIndicator.adaptive().centered(),
     };
+  }
+}
+
+/// 🧱 [_LoaderContainerWidget] — Visual container for loader content.
+/// Supports flexible layout for Android / iOS styles.
+final class _LoaderContainerWidget extends StatelessWidget {
+  final Widget child;
+  final Color color;
+  final BoxShape shape;
+  final BorderRadius? borderRadius;
+  final List<BoxShadow>? shadow;
+  final EdgeInsetsGeometry padding;
+  final Size? size;
+
+  const _LoaderContainerWidget({
+    required this.child,
+    required this.color,
+    required this.shape,
+    this.borderRadius,
+    this.shadow,
+    this.padding = const EdgeInsets.all(16),
+    this.size,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        width: size?.width,
+        height: size?.height,
+        padding: padding,
+        decoration: BoxDecoration(
+          color: color,
+          shape: shape,
+          borderRadius: borderRadius,
+          boxShadow: shadow,
+        ),
+        child: child,
+      ),
+    );
   }
 }

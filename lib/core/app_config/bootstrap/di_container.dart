@@ -78,8 +78,7 @@ abstract final class AppDI {
           userStream: di<AuthRemoteDataSource>().user,
         ),
       )
-      ..registerLazySingleton(() => LoadProfileUseCase(di())) // 📄 Get profile
-      ..registerLazySingleton(() => AppThemeCubit());
+      ..registerLazySingleton(() => LoadProfileUseCase(di())); // 📄 Get profile
   }
 
   /// 🧠 Registers domain-level use cases
