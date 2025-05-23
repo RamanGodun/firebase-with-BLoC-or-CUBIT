@@ -1,4 +1,4 @@
-part of '_context_extensions.dart';
+import 'package:flutter/material.dart';
 
 /// 🎨 [ContextThemeX] — Theme-related extensions on [BuildContext]
 /// ✅ Simplifies access to [ThemeData], [ColorScheme], [TextTheme], and brightness

@@ -1,4 +1,5 @@
-import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/navigation/extansions/navigation_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/theme/extensions/theme_x.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../shared_presentation/constants/_app_constants.dart' show AppColors, AppSpacing;
 import '../../localization/code_base_for_both_options/text_widget.dart';

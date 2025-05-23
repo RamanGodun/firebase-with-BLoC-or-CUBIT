@@ -10,7 +10,7 @@ import '../../../core/shared_presentation/shared_widgets/app_loaders.dart';
 import '../../shared/shared_domain/shared_entities/_user.dart';
 import '../../../core/shared_presentation/shared_widgets/custom_app_bar.dart';
 import '../../../core/shared_modules/localization/code_base_for_both_options/text_widget.dart';
-import '../../../core/shared_modules/theme/components/theme_toggle_widget.dart';
+import '../../../core/shared_modules/theme/toggle_theme_w/theme_toggle_widget.dart';
 import 'cubit/profile_page_cubit.dart';
 
 part 'widgets_for_profile_view.dart';

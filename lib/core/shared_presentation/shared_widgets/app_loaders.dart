@@ -1,5 +1,5 @@
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/theme/extensions/theme_x.dart';
 import 'package:flutter/material.dart';
-import '../../utils/extensions/context_extensions/_context_extensions.dart';
 import '../../utils/extensions/extension_on_widget/_widget_x.dart';
 
 /// 🔄 [LoaderWidget] — Flexible root-level loader, used for:

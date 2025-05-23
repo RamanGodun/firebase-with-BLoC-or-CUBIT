@@ -1,0 +1,115 @@
+lib
+lib/__for_each_project
+lib/__for_each_project/__code_base
+lib/__for_each_project/_docs
+lib/__for_each_project/_docs/App core modules
+lib/__for_each_project/_docs/App core modules/Animation
+lib/__for_each_project/_docs/App core modules/Form fields
+lib/__for_each_project/_docs/App core modules/Navigation
+lib/__for_each_project/_docs/Architecture Issues
+lib/__for_each_project/_docs/Architecture Issues/Layers
+lib/__for_each_project/_docs/Architecture Issues/MY OWN
+lib/__for_each_project/_docs/Architecture Issues/Patterns
+lib/__for_each_project/_docs/Architecture Issues/x others
+lib/__for_each_project/_docs/Data bases
+lib/__for_each_project/_docs/Data bases/Local databases
+lib/__for_each_project/_docs/Data bases/Remote databases
+lib/__for_each_project/_docs/Optimization
+lib/__for_each_project/_docs/Project Settings
+lib/__for_each_project/_docs/State Managers
+lib/__for_each_project/_docs/State Managers/BLoC
+lib/__for_each_project/_docs/State Managers/Riverpod
+lib/__for_each_project/_docs/State Managers/Riverpod/lifehacks
+lib/__for_each_project/_docs/State Managers/Riverpod/providers
+lib/__for_each_project/.vscode
+lib/__for_each_project/assets
+lib/__for_each_project/assets/fonts
+lib/__for_each_project/assets/fonts/aeonik
+lib/__for_each_project/assets/fonts/poppins
+lib/__for_each_project/assets/fonts/sf_fonts
+lib/__for_each_project/assets/icons
+lib/__for_each_project/assets/images
+lib/__for_each_project/assets/translations
+lib/__for_each_project/assets/translations/translations
+lib/__for_each_project/assets/translations/translations/translations
+lib/__for_each_project/assets/translations/translations/translations/translations
+lib/__for_each_project/assets/vectors
+lib/__for_each_project/firebase
+lib/core
+lib/core/app_config
+lib/core/app_config/bootstrap
+lib/core/app_config/spider
+lib/core/shared_modules
+lib/core/shared_modules/animation
+lib/core/shared_modules/animation/overlays_animation
+lib/core/shared_modules/animation/overlays_animation/animation_engines
+lib/core/shared_modules/animation/overlays_animation/animation_wrapper
+lib/core/shared_modules/errors_handling
+lib/core/shared_modules/errors_handling/either_for_data
+lib/core/shared_modules/errors_handling/either_for_data/either_x
+lib/core/shared_modules/errors_handling/failures_for_domain_and_presentation
+lib/core/shared_modules/errors_handling/loggers_for_errors_handling_module
+lib/core/shared_modules/errors_handling/utils
+lib/core/shared_modules/form_fields
+lib/core/shared_modules/form_fields/extensions
+lib/core/shared_modules/form_fields/input_validation
+lib/core/shared_modules/form_fields/widgets
+lib/core/shared_modules/localization
+lib/core/shared_modules/localization/code_base_for_both_options
+lib/core/shared_modules/localization/generated
+lib/core/shared_modules/localization/language_toggle_widget
+lib/core/shared_modules/logging
+lib/core/shared_modules/navigation
+lib/core/shared_modules/navigation/extansions
+lib/core/shared_modules/navigation/utils
+lib/core/shared_modules/navigation/widgets
+lib/core/shared_modules/overlays
+lib/core/shared_modules/overlays/core
+lib/core/shared_modules/overlays/overlay_dispatcher
+lib/core/shared_modules/overlays/overlay_entries
+lib/core/shared_modules/overlays/presentation
+lib/core/shared_modules/overlays/presentation/overlay_presets
+lib/core/shared_modules/overlays/presentation/widgets
+lib/core/shared_modules/overlays/presentation/widgets/android
+lib/core/shared_modules/overlays/presentation/widgets/ios
+lib/core/shared_modules/theme
+lib/core/shared_modules/theme/components
+lib/core/shared_modules/theme/config
+lib/core/shared_modules/theme/text_theme
+lib/core/shared_modules/theme/theme_cubit
+lib/core/shared_presentation
+lib/core/shared_presentation/constants
+lib/core/shared_presentation/shared_pages
+lib/core/shared_presentation/shared_widgets
+lib/core/utils
+lib/core/utils/extensions
+lib/core/utils/extensions/context_extensions
+lib/core/utils/extensions/extension_on_widget
+lib/core/utils/extensions/general_extensions
+lib/features
+lib/features/auth
+lib/features/auth/data
+lib/features/auth/domain
+lib/features/auth/domain/repositories
+lib/features/auth/domain/use_cases
+lib/features/auth/presentation
+lib/features/auth/presentation/auth_bloc
+lib/features/auth/presentation/services
+lib/features/auth/presentation/sign_in
+lib/features/auth/presentation/sign_in/cubit
+lib/features/auth/presentation/sign_up
+lib/features/auth/presentation/sign_up/cubit
+lib/features/profile
+lib/features/profile/data
+lib/features/profile/domain
+lib/features/profile/presentation
+lib/features/profile/presentation/cubit
+lib/features/shared
+lib/features/shared/shared_data
+lib/features/shared/shared_data/shared_data_transfer_objects
+lib/features/shared/shared_data/shared_sources
+lib/features/shared/shared_data/shared_sources/remote
+lib/features/shared/shared_domain
+lib/features/shared/shared_domain/repo_contracts
+lib/features/shared/shared_domain/shared_entities
+lib/features/shared/shared_domain/use_cases_contracts

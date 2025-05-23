@@ -4,7 +4,7 @@ import '../../localization/generated/locale_keys.g.dart';
 import 'app_material_theme.dart';
 import '../app_themes.dart';
 import '../theme_cubit/theme_cubit.dart';
-import '../components/theming_enums.dart';
+import '../theming_enums.dart';
 
 /// 🎛️ [AppConfig] — Provides dynamic [AppThemeConfig] based on current state
 /// ✅ Used to create `MaterialApp` config from [AppThemeState]

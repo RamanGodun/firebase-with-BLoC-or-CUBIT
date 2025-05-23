@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../components/theming_enums.dart';
+import '../theming_enums.dart';
 
 part 'text_styles_factory.dart';
 part 'typography_factory.dart';
