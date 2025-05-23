@@ -1,4 +1,4 @@
-part of '_general_extensions.dart';
+part of '_widget_x.dart';
 
 /// 🎯 [WidgetAlignX] — Easily align widgets in common positions
 //----------------------------------------------------------------

@@ -1,4 +1,4 @@
-part of '_general_extensions.dart';
+import 'package:flutter/material.dart' show ThemeMode;
 
 /// 🌓 [ThemeModeX] — Extensions for working with [ThemeMode]
 /// ✅ Enables toggling & inspecting theme state

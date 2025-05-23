@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/general_extensions/get_it_safe_di_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/app_config/bootstrap/get_it_safe_di_x.dart';
 import 'package:get_it/get_it.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

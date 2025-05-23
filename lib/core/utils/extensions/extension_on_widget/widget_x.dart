@@ -1,4 +1,6 @@
-part of '_general_extensions.dart';
+part of '_widget_x.dart';
+
+
 
 /// 👁️ [WidgetVisibilityX] — Hides widget conditionally (used for UI logic)
 //----------------------------------------------------------------
@@ -20,4 +22,3 @@ extension TapX on Widget {
     child: this,
   );
 }
-

@@ -1,4 +1,4 @@
-part of '_general_extensions.dart';
+import 'package:flutter/material.dart';
 
 /// 🎨 [TextStyleX] — Utilities to modify [TextStyle] fluently
 /// ✅ Enables fluent, chainable style adjustments:

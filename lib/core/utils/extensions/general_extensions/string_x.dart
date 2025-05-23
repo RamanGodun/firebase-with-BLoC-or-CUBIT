@@ -26,4 +26,3 @@ extension StringX on String {
 
   ///
 }
-

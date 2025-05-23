@@ -1,4 +1,4 @@
-part of '_general_extensions.dart';
+import 'package:flutter/material.dart';
 
 /// 🌀 [AnimateX] — Widget animation helpers
 /// ✅ Provides common animated entrance effects for widgets:

@@ -98,4 +98,26 @@ Future<void> safeFirebaseInit() async {
   debugPrint('✅ Firebase initialized');
 }
 
+
+/// 🧩 [FirebaseUtils] — helper for Firebase state checks & logging
+//----------------------------------------------------------------//
+
+@immutable
+final class FirebaseUtils {
+  const FirebaseUtils._();
+
+  /// ✅ Checks if [DEFAULT] Firebase app is initialized
+  static bool get isDefaultAppInitialized {
+    return Firebase.apps.any((app) => app.name == defaultFirebaseAppName);
+  }
+
+  /// 🧾 Logs all initialized Firebase apps
+  static void logAllApps() {
+    for (final app in Firebase.apps) {
+      debugPrint('🧩 Firebase App: ${app.name} (${app.options.projectId})');
+    }
+  }
+}
+
+
  */

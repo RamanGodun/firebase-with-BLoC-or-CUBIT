@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../shared_presentation/constants/_app_constants.dart';
 import 'text_theme/_text_styles.dart';
-import 'theming_enums.dart';
+import 'components/theming_enums.dart';
 
 part '_themes_factory.dart';
 
