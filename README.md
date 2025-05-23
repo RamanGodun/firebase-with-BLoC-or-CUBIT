@@ -1,137 +1,158 @@
-# 📦 Firebase with BLoC/Cubit
+# 📦 firebase_with_bloc_or_cubit
 
-A test-task project showcasing a Firebase integration in Flutter,
-built with Clean Architecture and BLoC/Cubit state management.
+A **modular Firebase starter project** powered by **Flutter + BLoC/Cubit**, Clean Architecture. Might be as
+base for little apps with built-in support for **localization**, **themability**, **GoRouter navigation**, and more.
 
 ---
 
 ## ✨ Overview
 
-This app demonstrates a robust authentication flow using **Firebase Auth** + **Cloud Firestore**, structured using
-**Clean Architecture**, scalable **BLoC/Cubit** state management, and **GoRouter** for declarative navigation.
+This project acts as a robust foundation for Flutter apps that require:
+
+- ✅ Firebase Authentication (Email/Password)
+- ✅ Profile creation and storage in Firestore
+- ✅ Fully structured Clean Architecture
+- ✅ BLoC/Cubit state management with separation of concerns
+- ✅ Ready-to-use systems: overlay, theming, localization, error handling
+- ✅ Scalable modularity and dependency injection via GetIt
+
+> Perfect for rapid prototyping or extending into a complex production app.
 
 ---
 
 ## 🔥 Features
 
-- ✅ Firebase Email/Password Authentication
-- ☁️ User profile creation & persistence in Firestore
-- 🔐 AuthBloc + SignInCubit / SignUpCubit for auth state
-- 🧠 Clean Architecture (Core / Data / Features / Presentation)
-- 🎨 Theme switching with ThemeCubit (light/dark)
-- 🧭 GoRouter navigation with auth-aware redirection
-- 💡 Centralized validation, error handling, overlays
-- 📁 Modular file structure with dependency injection
-- 🧪 Firebase initialized via `.env` + `flutter_dotenv`
-- 🧰 macOS M1/M2/M3 ready (prebuilt Firestore SDK optional)
+- 🔐 **Authentication**: Email/Password SignIn & SignUp
+- 📄 **User Profile**: Saved and fetched from Firestore
+- 🎯 **State Management**: Cubit + BlocObserver lifecycle tracking
+- 🎨 **Theme System**: SF Pro Text, dark/light theme, persistent state
+- 🌐 **Localization**: Code-generated with `easy_localization`
+- 🧭 **Navigation**: `GoRouter` with auth-aware redirect
+- 🧰 **Overlays**: Snackbars, dialogs, banners via overlay engine
+- 🛠 **Form System**: Validated, declarative inputs with custom field factory
+- 🧱 **Core Modules**: Logging, routing, DI, overlays, error handling
+- 🧪 **Firebase Config**: via `.env` + `flutter_dotenv`
+- 🧬 **Code Generation**: `Freezed`, `JsonSerializable`, `Spider`, `EasyLocalization`, etc.
 
 ---
 
 ## 🧠 Architecture
 
-The project follows **Clean Architecture principles**:
+The app is built with strict **Clean Architecture**, following AMC principles:
 
-```bash
+```
 lib/
-├── core/           # App-wide configs, DI, routing, theming, utilities
-├── data/           # Firebase access, DTOs, Repositories
-├── features/       # Feature-based Cubits, AuthBloc, Profile
-├── presentation/   # Shared widgets and screens
+├── core/                     # Global systems (di, overlays, navigation, theme, etc)
+│   └── shared_modules/       # Reusable modules: errors, localization, form, etc
+├── features/                 # Feature-driven modular structure (auth, profile...)
+│   └── feature_name/         # Follows Domain → Data → Presentation layering
+├── resources/                # Spider-generated assets paths
+└── main.dart                 # App entry point with DI + observers setup
 ```
 
-### Key Principles
+### Key Architectural Contracts
 
-- ❌ No business logic in UI layer
-- ✅ `core/di/` provides dependency injection via GetIt
-- ✅ Cubits and BLoCs receive repositories via constructor injection
-- ✅ `data/` layer isolates Firebase APIs behind abstractions
+| Layer            | Responsibility                                                |
+| ---------------- | ------------------------------------------------------------- |
+| **Presentation** | Stateless views, Cubit listeners, overlay flows only          |
+| **Domain**       | Entities, UseCases, repository interfaces                     |
+| **Data**         | DTOs, repositories, data sources, Firebase/firestore handling |
+
+> All Cubits use UseCases only. No direct repo or data access.
 
 ---
 
-## 🚀 Getting Started
+## ⚙️ Firebase Configuration
 
-### 1. Clone the Repo
+1. **Set up Firebase project** in [console](https://console.firebase.google.com)
+2. Add **Android/iOS** apps
+3. Add platform-specific files:
 
-```bash
-git clone https://github.com/RamanGodun/firebase-with-BLoC-or-CUBIT
-cd firebase-with-BLoC-or-CUBIT
-```
+   - `google-services.json` → `android/app/`
+   - `GoogleService-Info.plist` → `ios/Runner/`
 
-### 2. Set Up Firebase
-
-- Create a Firebase project in [Firebase Console](https://console.firebase.google.com)
-- Add Android and iOS apps
-- Download and place platform configs:
-  - `google-services.json` for Android → `android/app/`
-  - `GoogleService-Info.plist` for iOS → `ios/Runner/`
-
-### 3. Configure `.env`
-
-Create an `.env` file with your Firebase credentials:
+4. Create `.env` file:
 
 ```env
 FIREBASE_API_KEY=...
 FIREBASE_APP_ID=...
 FIREBASE_PROJECT_ID=...
-FIREBASE_STORAGE_BUCKET=...
 FIREBASE_MESSAGING_SENDER_ID=...
+FIREBASE_STORAGE_BUCKET=...
 FIREBASE_AUTH_DOMAIN=...
 FIREBASE_IOS_BUNDLE_ID=...
 ```
 
-### 4. Run Firebase Configure
+5. Install deps and configure:
 
 ```bash
 flutter pub get
-flutterfire configure --project=firebase-with-bloc-or-cubit
-```
-
-This generates `lib/firebase_options.dart`
-
-> 💡 To improve iOS build speed (optional):
-> Use [Invertase Firestore iOS SDK](https://github.com/invertase/firestore-ios-sdk-frameworks) via Podfile override.
-
-### 5. Run the App
-
-```bash
-flutter run
+flutterfire configure --project=<your_project_id>
 ```
 
 ---
 
 ## 🧩 Tech Stack
 
-| Layer      | Technology                          |
-| ---------- | ----------------------------------- |
-| State      | `flutter_bloc`, `hydrated_bloc`     |
-| Firebase   | `firebase_auth`, `cloud_firestore`  |
-| Routing    | `go_router`                         |
-| DI         | `get_it`                            |
-| Theming    | `ThemeCubit`, `SF Pro Text`         |
-| Validation | `formz`, custom validators          |
-| UI/UX      | Cupertino-style, Hero, OverlayEntry |
-| Env Config | `flutter_dotenv`, `.env` loader     |
+| Layer        | Library / Tool                            |
+| ------------ | ----------------------------------------- |
+| State        | `flutter_bloc`, `hydrated_bloc`           |
+| Routing      | `go_router`                               |
+| Overlay      | Custom overlay engine with context mixins |
+| Theming      | `ThemeCubit`, `SFProText`, `GoogleFonts`  |
+| Validation   | `formz`, custom `Input` classes           |
+| Localization | `easy_localization`, `.json` + `.g.dart`  |
+| Firebase     | `firebase_auth`, `cloud_firestore`        |
+| DI           | `get_it` + safe registration extensions   |
+| Codegen      | `freezed`, `json_serializable`, `spider`  |
 
 ---
 
-## 📁 Folder Highlights
+## 📄 Highlights
 
-- `lib/core/navigation/router.dart` → Declarative GoRouter with auth redirects
-- `lib/features/auth_bloc/` → Global authentication state
-- `lib/features/sign_in/` & `sign_up/` → Auth forms and Cubits
-- `lib/data/repositories/` → Firebase logic decoupled via repositories
-- `lib/core/config/env.dart` → Environment switching & secrets loader
-- `lib/core/utils_and_services/` → Error dialogs, debounce, overlays
+- 🧠 **`core/shared_modules/`** — overlay, theme, error, form, localization engines
+- 📁 **`core/app_config/bootstrap/di_container.dart`** — centralized GetIt setup
+- 🧭 **`core/navigation/app_router.dart`** — GoRouter setup + redirect logic
+- ✨ **`features/profile/`**, **`features/auth/`** — full BLoC + UseCase examples
+- 🧰 **`form_fields/widgets/`** — reusable input components with validation
 
 ---
 
-## 🧪 Testing & Quality
+## 🧪 Testing Strategy
 
-While automated tests were not required for the test task, the structure is ready for:
+Designed with the testing pyramid in mind:
 
-- ✅ Unit testing of Cubits and Repositories
-- ✅ Mocking via injected interfaces
-- ✅ Golden/UI testing for presentation layer
+- ✅ **Unit tests**: UseCases, Repos, Cubits (via injected mocks)
+- 🧩 **Widget tests**: Stateless widgets & UI behavior
+- 🔁 **Integration tests**: Can be added progressively
+
+---
+
+## 🧾 ADR / Architecture Philosophy
+
+See [`ADR.md`](./ADR.md) for:
+
+- Clean Architecture rationale
+- Why overlays never live in Cubit/UseCase
+- DI via GetIt vs Riverpod discussion
+- Testing strategies & best practices
+
+---
+
+## 🛠 Getting Started
+
+```bash
+git clone https://github.com/yourname/firebase_with_bloc_or_cubit.git
+cd firebase_with_bloc_or_cubit
+flutter pub get
+flutter run
+```
+
+For localization/codegen:
+
+```bash
+flutter pub run build_runner build --delete-conflicting-outputs
+```
 
 ---
 
@@ -139,6 +160,4 @@ While automated tests were not required for the test task, the structure is read
 
 [MIT License](./LICENSE) © 2025 [Roman Godun](mailto:4l.roman.godun@gmail.com)
 
-## need to do
-
-! @injectable через injectable_generator
+> Built with ❤️ for clean, scalable Flutter apps.

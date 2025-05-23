@@ -2,104 +2,113 @@
 
 ## 🧠 Context
 
-This document summarizes architectural decisions made during the development of the
-**`firebase_with_bloc_or_cubit`** project — a test-task showcasing a scalable Flutter app integrated with Firebase.
+This document outlines key architectural choices made in the project **`firebase_with_bloc_or_cubit`**
+— a Flutter foundation for apps powered by Firebase, Clean Architecture, and modular design.
+It includes overlay handling, localization, theming, form validation, and state management out-of-the-box.
 
 ---
 
-## 🔨 Decision: Clean Architecture (Layered)
+## 🔨 Decision: Clean Architecture (Stateless + UseCase-Driven)
 
 ### Rationale
 
-- ♻️ Promotes maintainable **separation of concerns**
-- 🧪 Enables **unit testing** of business logic
-- 📈 Scales with future **feature growth**
-- ♻️ Follows the "dependency rule": inner layers never depend on outer ones
-- ↺ Ensures clear flow: [UI → Cubit → Repository → Firebase]
+- ✅ Full adherence to **SOLID principles**
+- ♻️ **Separation of Concerns** across Domain, Data, and UI
+- 🔌 **Use Cases** decouple business logic from Cubits
+- 🔁 Facilitates feature-level modularity and testability
+- 🧪 UseCase classes allow isolated unit testing without side effects
 
 ### Structure Overview
 
 ```bash
 lib/
-├── core/         # Global configs: routing, DI, constants
-├── data/         # Firebase access layer (DTOs, repositories)
-├── features/     # UI + state logic (BLoCs, Cubits)
-├── presentation/ # Shared widgets and screens
+├── core/                # App-wide modules: DI, navigation, theme, overlays
+├── features/            # Feature modules (SignIn, SignUp, Profile)
+│   ├── domain/          # Entities, UseCases, Abstract Repos
+│   ├── data/            # DTOs, Repos, DataSources
+│   └── presentation/    # Cubits, Views, Widgets
+├── shared/              # Shared domain entities, DTOs, extensions
 ```
 
 ---
 
-## 🔐 Decision: Firebase Auth + Firestore
+## 🔐 Decision: Firebase Auth + Firestore (with Sealed Failures)
 
-- Firebase Auth handles **sign-in/sign-up** and session management
-- Firestore stores **user profile data** (e.g. name, rank, points)
-- Repositories:
-  - `AuthRepository` → authentication logic
-  - `ProfileRepository` → Firestore user profile access
-- Firebase instances injected via **constructor DI**, not used globally
-
----
-
-## 📆 Decision: State Management via BLoC/Cubit
-
-- 🌐 `AuthBloc` manages global authentication state
-- ✍️ `SignInCubit`, `SignUpCubit`, `ThemeCubit` handle local form logic
-- ✅ Input validation via `Formz`
-- 🥒 Debouncing implemented for performance
-- 📂 Theme state persisted via `HydratedBloc`
-- 🧹 Local Cubits instantiated per screen (short-lived)
-- ❌ Avoids `BlocProvider.value` for non-singletons to preserve dispose logic
+- 🔐 FirebaseAuth handles sign-in/up, session management
+- ☁️ Firestore stores user profiles (`usersCollection`)
+- 🔁 `ProfileRemoteDataSource` fetches DTOs → mapped to entities
+- 🔐 Failures are encapsulated and surfaced to UI via `FailureUIModel`
+- 🔧 FirebaseOptions are loaded from `.env` via `flutter_dotenv`
 
 ---
 
-## 🤭 Decision: GoRouter for Navigation
+## 📦 Decision: State Management via Cubit + Formz
 
-- Single source of truth for route definitions
-- 🚦 Auth-aware redirection using `AuthBloc.state`
-- Declarative structure with support for nested routes
-
----
-
-## 🥩 Decision: Dependency Injection (GetIt)
-
-- All services registered via `initDependencies()`
-- Keeps UI layers **clean**, **pure**, and **testable**
-- Ensures **decoupling** and supports mocking for unit tests
+- 🔁 Stateless Cubits with injected UseCases per feature
+- 🧼 All validation handled via `Formz` (custom inputs)
+- 🧠 Domain state only — overlays/dialogs triggered via presentation layer
+- ⏱️ Debounced field validation for email/name inputs
+- ♻️ `Consumable<T>` used for one-time error delivery
+- ✅ `HydratedBloc` used for persistent theme state
 
 ---
 
-## 🧱 Design & UX Decisions
+## 🧭 Decision: Navigation via GoRouter
 
-- 🧊 Glassmorphism overlays for iOS/macOS feel
-- 🎨 Cupertino-style dialogs for Apple platforms
-- 📀 Responsive layout via `LayoutBuilder` & `MediaQuery`
-- 🌙 Theme toggling via `ThemeCubit`
-- ♿️ Accessibility supported (contrast, typography, tap targets)
+- 🧩 Typed route names via strongly defined constants
+- 🔐 Auth-aware redirect guards
+- 📦 Routing logic isolated in `core/navigation/`
+- 🧼 Navigation driven declaratively via context extensions
 
 ---
 
-## ⚙️ Environment & Configuration
+## 🧩 Decision: Dependency Injection with GetIt
 
-- 🔐 Secrets managed via `.env`, loaded by `flutter_dotenv`
-- 📲 Firebase initialized using `EnvFirebaseOptions`
-  - Platform-aware init for iOS/Android/Web
-- 🔧 Supports `.env.dev`, `.env.staging`, `.env` (prod)
+- 🧠 DI container `AppDI` provides feature-based registration
+- ✅ Only DI layer knows about concrete implementations
+- 🔄 SafeRegistration extensions to prevent hot-reload conflicts
+- 🔌 Feature modules register: Cubits, UseCases, Repositories, DataSources
+
+---
+
+## 🧰 Decision: Shared Core Modules
+
+- ✳️ `OverlayEngine` — reusable entry for dialogs/snackbars/banner feedback
+- 🈯️ `LocalizationModule` — supports codegen via `easy_localization`
+- 🎨 `AppThemes` — Cupertino-like themes using `SFProText`, glassmorphism
+- 🔠 `TextType`, `TextWidget`, `Spacing`, `ImagesPaths` all generated via `Spider`
+- 🧱 Reusable form system (factory fields, validation logic, focus nodes)
+
+---
+
+## 🧪 Testing Strategy (TDD-Ready)
+
+- ✅ Unit tests planned for all UseCases, Repos, Input Validations
+- 💬 `mockito` used for abstract dependency mocking
+- 📦 Architecture allows widget/golden tests without business logic entanglement
+- ⚙️ CI-ready structure with `very_good_analysis`
+
+---
+
+## 📲 Firebase Environment via `.env`
+
+- 🔒 `flutter_dotenv` loads credentials from `.env`
+- 🌐 `EnvFirebaseOptions.currentPlatform` provides platform-aware init
+- 🧰 Supports `.env`, `.env.dev`, `.env.staging`, `.env.prod`
 
 ---
 
 ## ✅ Summary
 
-This test project demonstrates:
+The project delivers:
 
-- ✅ **Scalable Clean Architecture** for real-world Flutter apps
-- ✅ **Firebase integration** using DI & abstraction
-- ✅ **BLoC/Cubit-based state** with debounced validation and Formz
-- ✅ **GoRouter** navigation with dynamic redirect logic
-- ✅ **Modern UX**: dark mode, overlays, platform-specific dialogs
-- ✅ **Environment-based config** for staging/production setups
+- ✅ **Fully decoupled Clean Architecture foundation**
+- ✅ **Firebase integration (auth + Firestore)** via abstraction and DI
+- ✅ **Cubit state with Formz + failure overlays**
+- ✅ **Glassmorphism theming** with Cupertino UX
+- ✅ **GoRouter navigation**, responsive layout, and error feedback system
+- ✅ **Modular, test-friendly foundation** for scaling features
 
-### 🔮 Possible Extensions
+---
 
-- 🌍 Localization
-- 🔐 Firestore rules enforcement
-- 🧪 Integration testing with mocks and CI coverage
+> 📌 See `README.md` for full module list and setup instructions.
