@@ -3,7 +3,7 @@ import 'dart:async' show FutureOr;
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either_for_data/either_x/either_getters_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 
-import '../../../logging/_app_logger.dart';
+import '../../loggers_for_errors_handling_module/errors_logger.dart';
 import '../either.dart';
 import '../../failures_for_domain_and_presentation/failure_for_domain.dart';
 import '../../utils/dsl_result_handler.dart';
@@ -23,7 +23,7 @@ extension ResultFutureX<T> on Future<Either<Failure, T>> {
     final result = await this;
     return result.fold(
       (f) async {
-        AppLogger.logFailure(f, stack);
+        ErrorsLogger.failure(f, stack);
         await onFailure(f);
       },
       (r) async {

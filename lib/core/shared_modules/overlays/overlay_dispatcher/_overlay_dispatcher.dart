@@ -1,11 +1,11 @@
 import 'dart:collection';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/animation/overlays_animation/animation_wrapper/animation_x_for_wdget.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/animation/overlays_animation/animation_wrapper/animation_x_for_widget.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/overlay_logger.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/debouncer.dart';
-import '../../logging/_app_logger.dart';
-import '../core/overlay_core_types.dart';
+import '../core/overlay_core_objects.dart';
 import '../overlay_entries/_overlay_entries_registry.dart';
-import '../core/tap_through_overlay_barrier.dart';
+import '../tap_through_overlay_barrier.dart';
 
 part 'policy_resolver.dart';
 
@@ -41,19 +41,17 @@ final class OverlayDispatcher {
   /// 📥 Adds a new request to the queue, resolves replacement/drop strategy
   void enqueueRequest(BuildContext context, OverlayUIEntry request) async {
     if (!context.mounted) return; // ✅ avoid insertion if context is dead
-    AppLogger.logOverlayShow(request);
-
+    OverlayLogger.show(request);
     final overlay = Overlay.of(context, rootOverlay: true);
 
     if (_activeRequest != null) {
-      AppLogger.logOverlayActiveExists(_activeRequest);
-
+      OverlayLogger.activeExists(_activeRequest);
       // 🚫 Drop if strategy disallows same-type duplicates
       final isSameType =
           request.runtimeType == _activeRequest.runtimeType &&
           request.strategy.policy == OverlayReplacePolicy.dropIfSameType;
       if (isSameType) {
-        AppLogger.logOverlayDroppedSameType();
+        OverlayLogger.droppedSameType();
         return;
       }
 
@@ -63,7 +61,7 @@ final class OverlayDispatcher {
         _activeRequest!,
       );
       if (shouldReplace) {
-        AppLogger.logOverlayReplacing();
+        OverlayLogger.replacing();
         await dismissCurrent(force: true);
         OverlayPolicyResolver.getDebouncer(request.strategy.category).run(() {
           _finalizeEnqueue(overlay, request);
@@ -79,7 +77,7 @@ final class OverlayDispatcher {
   void _finalizeEnqueue(OverlayState overlay, OverlayUIEntry request) {
     _removeDuplicateInQueue(request);
     _queue.add(OverlayQueueItem(overlay: overlay, request: request));
-    AppLogger.logOverlayAddedToQueue(_queue.length);
+    OverlayLogger.addedToQueue(_queue.length);
     _tryProcessQueue();
   }
 
@@ -99,7 +97,7 @@ final class OverlayDispatcher {
     // 🧠 Apply centralized dismiss handling if AnimatedOverlayWrapper is used
     final processedWidget = widget.withDispatcherOverlayControl(
       onDismiss: () async {
-        AppLogger.logOverlayAutoDismiss(_activeRequest);
+        OverlayLogger.autoDismissed(_activeRequest);
         _activeRequest?.onAutoDismissed();
         await dismissCurrent(force: true);
         _isProcessing = false;
@@ -123,7 +121,7 @@ final class OverlayDispatcher {
     );
 
     item.overlay.insert(_activeEntry!);
-    AppLogger.logOverlayInserted(_activeRequest);
+    OverlayLogger.inserted(_activeRequest);
   }
 
   /// ❌ Dismisses current overlay and clears queue if needed.
@@ -141,9 +139,9 @@ final class OverlayDispatcher {
   Future<void> _dismissEntry({bool force = false}) async {
     try {
       _activeEntry?.remove();
-      AppLogger.logOverlayDismiss(_activeRequest);
+      OverlayLogger.dismissed(_activeRequest);
     } catch (_) {
-      AppLogger.logOverlayDismissAnimationError(_activeRequest);
+      OverlayLogger.dismissAnimationError(_activeRequest);
     }
     _activeEntry = null;
     _activeRequest = null;

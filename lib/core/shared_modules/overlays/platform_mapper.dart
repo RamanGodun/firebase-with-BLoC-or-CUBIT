@@ -1,13 +1,13 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/presentation/widgets/ios/ios_dialog.dart'
     show IOSAppDialog;
 import 'package:flutter/material.dart';
-import '../../animation/overlays_animation/animation_engines/__animation_engine.dart';
-import '../presentation/overlay_presets/overlay_preset_props.dart';
-import '../presentation/widgets/android/android_banner.dart';
-import '../presentation/widgets/android/android_dialog.dart';
-import '../presentation/widgets/android/android_snackbar.dart';
-import '../presentation/widgets/ios/ios_banner.dart';
-import '../presentation/widgets/ios/ios_snackbar.dart';
+import '../animation/overlays_animation/animation_engines/__animation_engine.dart';
+import 'presentation/overlay_presets/overlay_preset_props.dart';
+import 'presentation/widgets/android/android_banner.dart';
+import 'presentation/widgets/android/android_dialog.dart';
+import 'presentation/widgets/android/android_snackbar.dart';
+import 'presentation/widgets/ios/ios_banner.dart';
+import 'presentation/widgets/ios/ios_snackbar.dart';
 
 abstract final class PlatformMapper {
   PlatformMapper._();

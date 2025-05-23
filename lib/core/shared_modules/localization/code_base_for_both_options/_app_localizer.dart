@@ -1,4 +1,4 @@
-import '../../logging/_app_logger.dart';
+import 'localization_logger.dart';
 
 abstract final class AppLocalizer {
   static String Function(String key)? _resolver;
@@ -8,7 +8,7 @@ abstract final class AppLocalizer {
     final value = _resolver?.call(key);
     final resolved = (value == null || value == key);
     if (resolved) {
-      AppLogger.logStringFallback(key, fallback ?? key);
+      LocalizationLogger.fallbackUsed(key, fallback ?? key);
       return fallback ?? key;
     }
     return value;

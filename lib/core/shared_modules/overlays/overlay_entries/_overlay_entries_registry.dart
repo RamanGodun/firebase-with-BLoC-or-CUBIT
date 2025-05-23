@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart' show Uuid;
-import '../core/overlay_core_types.dart';
+import '../core/overlay_core_objects.dart';
 
 part 'banner_overlay_entry.dart';
 part 'dialog_overlay_entry.dart';

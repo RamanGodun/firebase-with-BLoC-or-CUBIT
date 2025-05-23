@@ -2,7 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_x/failure_diagnostics_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import '../../failures_for_domain_and_presentation/failure_for_domain.dart';
-import '../../../logging/_app_logger.dart';
+import '../../loggers_for_errors_handling_module/errors_logger.dart';
 
 /// 🧩 [ResultX<T>] — Sync sugar for `Either<Failure, T>`
 /// ✅ Enables fallback values, failure access, and folding logic
@@ -19,7 +19,7 @@ extension ResultX<T> on Either<Failure, T> {
   }) {
     fold(
       (f) {
-        AppLogger.logFailure(f, stack);
+        ErrorsLogger.failure(f, stack);
         onFailure(f);
       },
       (r) {

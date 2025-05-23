@@ -1,7 +1,7 @@
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/loggers_for_errors_handling_module/errors_logger.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either_for_data/_eithers_facade.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/logging/_app_logger.dart';
-import '../errors_handling/failures_for_domain_and_presentation/failure_for_domain.dart';
+import '../failures_for_domain_and_presentation/failure_for_domain.dart';
 
 /// 📦 [ResultLoggerExt<T>] — Unified logging extensions for Either and [Future<Either>]
 /// ✅ Supports logging, tracking, and success/failure diagnostics
@@ -10,7 +10,7 @@ import '../errors_handling/failures_for_domain_and_presentation/failure_for_doma
 extension ResultLoggerExt<T> on Either<Failure, T> {
   /// 🪵 Logs failure if result is Left
   Either<Failure, T> log([StackTrace? stack]) {
-    if (isLeft) AppLogger.logFailure(leftOrNull!, stack);
+    if (isLeft) ErrorsLogger.failure(leftOrNull!, stack);
     return this;
   }
 
@@ -34,7 +34,7 @@ extension FutureResultLoggerExt<T> on Future<Either<Failure, T>> {
   /// 🪵 Logs failure if result is Left
   Future<Either<Failure, T>> log([StackTrace? stack]) async {
     final result = await this;
-    if (result.isLeft) AppLogger.logFailure(result.leftOrNull!, stack);
+    if (result.isLeft) ErrorsLogger.failure(result.leftOrNull!, stack);
     return result;
   }
 

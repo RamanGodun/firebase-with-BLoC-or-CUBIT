@@ -1,151 +1,205 @@
-# 📘 Loggers Module — README for Error Logging System
+## 📘 Flutter Logging Architecture Manual (EN)
+
+This manual outlines three main architectural patterns for logging in Flutter applications. Each suits a different goal: debugging, testability, scalability, and centralized analytics.
 
 ---
 
-## 🧭 Purpose
+### 1️⃣ **Sealed Events + AppLogger (Advanced Architecture)**
 
-This module provides a **centralized, scalable, and pluggable error logging system** across the entire Flutter application. It encapsulates all exception and `Failure` logging — from raw SDK errors to mapped domain errors and Bloc/Cubit lifecycle exceptions.
+> **Best for:** large apps, centralized analytics/logging, type safety, testability
 
-> ✅ SOLID-compliant, DI-compatible, and Crashlytics-ready.
+#### 📦 Structure:
 
----
+* `ILogger` — base abstraction
+* `AppLogger` — central logger, DI-registered with log type routing
+* `OverlayLogger` — module-specific implementation
+* `OverlayLogEvent` — sealed event class for structured logs
+* `overlay_logging.dart` — extension-based syntactic sugar
 
-## 🗂 Files Included
-
-```bash
-loggers/
-├── i_logger_contract.dart          # Abstract logging interface
-├── crash_analytics_logger.dart     # Crashlytics-based implementation
-├── app_error_logger.dart           # Static entrypoint for all layers
-├── app_bloc_observer.dart          # BLoC lifecycle observer with logging
-├── failure_logger_x.dart           # Extensions for `Failure.log()` and raw errors
-└── README.md                       # This file
-```
-
-
----
-
-
-
-## 🔌 How to Connect (Dependency Injection)
-
-### 1️⃣ Register `ILogger` in DI
-
-Register the logger inside your DI container class `AppDI`:
+#### 📊 Example Usage:
 
 ```dart
-void _registerLoggers() {
-  di.registerLazySingletonIfAbsent<ILogger>(() => CrashlyticsLogger());
+AppLogger.log(LogType.overlay, OverlayLogEventInserted(entry));
+```
+
+Or via extension:
+
+```dart
+AppLogger.inserted(entry);
+```
+
+#### ✅ Pros:
+
+* Strong typing via sealed classes
+* Clean DI-driven modular expansion
+* Testable via mocks/spies
+* Future-proof for analytics (e.g., Crashlytics, Sentry)
+
+#### ⚠️ Cons:
+
+* Requires 3–4 steps per new event
+* Higher learning curve and verbosity
+
+#### 🔹 Real Example:
+
+##### `OverlayLogEvent` (sealed log events)
+
+```dart
+sealed class OverlayLogEvent {
+  const OverlayLogEvent();
+}
+
+final class OverlayLogEventInserted extends OverlayLogEvent {
+  final OverlayUIEntry entry;
+  const OverlayLogEventInserted(this.entry);
 }
 ```
 
-Make sure this happens early — ideally before using `AppErrorLogger` or logging any exceptions.
-
-### 2️⃣ Set up `AppBlocObserver` in `AppBootstrap`
-
-To capture and log `Cubit`/`Bloc`-related errors, initialize the observer in your `AppBootstrap` class:
+##### `OverlayLogger` (event handling)
 
 ```dart
-static void _initBlocObserver() {
-  Bloc.observer = const AppBlocObserver();
+final class OverlayLogger implements ILogger {
+  const OverlayLogger();
+
+  @override
+  void log(Object event, {StackTrace? stackTrace}) {
+    if (event is! OverlayLogEvent) return;
+
+    switch (event) {
+      case OverlayLogEventInserted(:final entry):
+        _log("Inserted", entry);
+        break;
+    }
+  }
+
+  void _log(String label, OverlayUIEntry entry) {
+    debugPrint('[Overlay][${entry.runtimeType}] $label');
+  }
 }
 ```
 
-This observer will automatically route all state-layer errors to `AppErrorLogger.logBlocError(...)`.
-
-### 3️⃣ Finalize in `main()`
-
-Ensure both DI and Bloc observer initialization happen in `main()`:
+##### `overlay_logging.dart` (extension)
 
 ```dart
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  await AppBootstrap.initialize(); // 👁️ Initializes BlocObserver
-  await AppDI.init();              // 🔧 Registers ILogger + dependencies
-
-  runApp(const RootProviders());
+extension OverlayLoggerX on AppLogger {
+  static void inserted(OverlayUIEntry entry) =>
+    AppLogger.log(LogType.overlay, OverlayLogEventInserted(entry));
 }
 ```
 
-
----
-
-
-
-## 🛠 Usage Guide
-
-### 🔁 In `FailureMapper`
+##### `AppLogger`
 
 ```dart
-RawErrorLogger.log(error, stackTrace);
-```
+final class AppLogger {
+  static final _modules = <LogType, ILogger>{};
 
-### 🧱 In Domain/Presentation Layers
+  static void register(LogType type, ILogger module) {
+    _modules[type] = module;
+  }
 
-```dart
-failure.log();
-```
-
-### 🧨 In `BlocObserver`
-
-```dart
-AppErrorLogger.logBlocError(
-  error: error,
-  stackTrace: stackTrace,
-  origin: bloc.runtimeType.toString(),
-);
-```
-
----
-
-## 🔍 Integration Points by Layer
-
-| Layer        | Integration Example                                                      |
-| ------------ | ------------------------------------------------------------------------ |
-| Data Layer   | `FailureMapper.from(exception)` logs raw exceptions via `RawErrorLogger` |
-| Domain Layer | Any `Failure` calls `.log()` directly                                    |
-| State Layer  | Bloc/Cubit errors logged inside `AppBlocObserver.onError()`              |
-| UI Layer     | Optional: trigger `Failure.log()` manually in critical paths             |
-
----
-
-## 🧩 Example: Logging in Cubit
-
-```dart
-try {
-  final user = await fetchUserFromApi();
-  emit(Success(user));
-} catch (e, s) {
-  final failure = FailureMapper.from(e, s);
-  failure.log();
-  emit(Error(failure));
+  static void log(LogType type, Object event, {StackTrace? stackTrace}) {
+    _modules[type]?.log(event, stackTrace: stackTrace);
+  }
 }
 ```
 
 ---
 
-## ✅ Benefits
+### 2️⃣ **Lazy Singleton + DI (Central Injection)**
 
-| Feature         | Advantage                                                     |
-| --------------- | ------------------------------------------------------------- |
-| 🔄 Centralized  | Unified entry point for all logging                           |
-| 🔒 Clean Arch   | No logic duplication or scattered `debugPrint`                |
-| 🧪 Testable     | `ILogger` easily mockable                                     |
-| 📡 Remote Ready | Crashlytics support + extensibility for Sentry, Remote APIs   |
-| 🔄 Maintainable | Open/Closed for future destinations (email logger, file etc.) |
+> **Best for:** mid-sized projects, flexible injection, minimal overhead
+
+#### 📦 Structure:
+
+* One `OverlayLogger` class with concrete methods
+* Registered via GetIt: `di.registerLazySingleton(() => OverlayLogger())`
+
+#### 📊 Example:
+
+```dart
+di<OverlayLogger>().inserted(entry);
+```
+
+#### ✅ Pros:
+
+* Centralized and replaceable
+* Testable via DI
+* Easier to manage than sealed pattern
+
+#### ⚠️ Cons:
+
+* No strict type safety
+* Less modular and reusable than sealed variant
 
 ---
 
-## 🚀 Future Extensions
+### 3️⃣ **Static Utility Class (Simple Logger)**
 
-* [ ] Add console-only logger for unit tests
-* [ ] Add `logWarning()`/`logInfo()` levels
-* [ ] Add retry queue for offline log persistence
-* [ ] Add remote log dashboard exporter
+> **Best for:** quick debug logs, throwaway logs, non-testable usage
+
+#### 📦 Structure:
+
+* Single file like `OverlayLogger` with static methods
+* Private constructor to prevent instantiation
+
+#### 📊 Example:
+
+```dart
+final class OverlayLogger {
+  const OverlayLogger._();
+
+  static void inserted(OverlayUIEntry entry) {
+    debugPrint('[Overlay][${entry.runtimeType}] Inserted');
+  }
+}
+
+// Usage:
+OverlayLogger.inserted(entry);
+```
+
+#### ✅ Pros:
+
+* Zero overhead
+* Easiest to implement
+* No dependencies
+
+#### ⚠️ Cons:
+
+* Not injectable or replaceable
+* Not testable
+* No event structure/type safety
 
 ---
 
-> 💡 **Tip**: Keep `FailureMapper` focused on conversion — logging belongs to this logger module.
+## 🔍 Comparison Table
 
-Happy debugging! 🐞
+| Feature                | Sealed Events + AppLogger | Lazy Singleton + DI | Static Utility Class |
+| ---------------------- | ------------------------- | ------------------- | -------------------- |
+| 🧠 Type safety         | ✅ Yes                     | ❌ No                | ❌ No                 |
+| 🔄 Replaceable         | ✅ Via DI                  | ✅ Via DI            | ❌ No                 |
+| 🔮 Testable            | ✅ Yes                     | ✅ Yes               | ❌ No                 |
+| 🛋 Simplicity          | ❌ Complex                 | ⚪ Medium            | ✅ Simple             |
+| 📊 Performance         | ✅ Good (DI cache)         | ✅ Good (DI)         | ✅ Best               |
+| 📂 Extensibility       | ✅ High                    | ⚪ Limited           | ❌ Minimal            |
+| 📄 Centralized Logging | ✅ Full                    | ✅ Partial           | ❌ Manual only        |
+
+---
+
+## ✅ Recommended Usage
+
+| Scenario                                | Recommendation              |
+| --------------------------------------- | --------------------------- |
+| Using Crashlytics or Sentry             | Sealed Events + AppLogger ✅ |
+| Need for mocking in tests               | Lazy Singleton + DI ✅       |
+| Pure debugPrint only                    | Static Utility Class ✅      |
+| High-performance, non-test environments | Static Utility Class ✅      |
+
+---
+
+## 📌 Final Summary
+
+> If you just want quick console prints without testing/mocking: **use static utility classes**.
+>
+> If you need structure, reusability, or test coverage: **use DI with sealed events or simple injectable loggers.**
+>
+> This guide ensures you can **scale your logging pattern** later when needed without reworking the architecture.

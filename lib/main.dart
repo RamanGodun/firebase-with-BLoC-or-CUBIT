@@ -5,7 +5,7 @@ import 'app_view.dart';
 import 'core/app_config/bootstrap/bootstrap.dart';
 import 'core/app_config/bootstrap/di_container.dart';
 import 'core/shared_modules/localization/localization_config.dart';
-import 'core/shared_modules/overlays/core/overlay_core_types.dart';
+import 'core/shared_modules/overlays/core/overlay_core_objects.dart';
 import 'core/shared_presentation/shared_widgets/app_loaders.dart';
 import 'features/auth/presentation/auth_bloc/auth_bloc.dart';
 import 'core/shared_modules/theme/theme_cubit/theme_cubit.dart';

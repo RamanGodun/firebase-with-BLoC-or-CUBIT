@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
-import '../../logging/failure_logger_x.dart' show RawErrorLogger;
+import '../loggers_for_errors_handling_module/errors_logger.dart';
 import '../failures_for_domain_and_presentation/enums.dart';
 import '../failures_for_domain_and_presentation/failure_for_domain.dart';
 
@@ -16,7 +16,7 @@ final class FailureMapper {
 
   /// 🛡️ Converts any caught error into domain-level [Failure].
   static Failure from(dynamic error, [StackTrace? stackTrace]) {
-    RawErrorLogger.log(error, stackTrace);
+    ErrorsLogger.log(error, stackTrace);
 
     if (error is Failure) return error;
 

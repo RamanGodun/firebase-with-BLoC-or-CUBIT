@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/app_config/bootstrap/get_it_safe_di_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/app_config/bootstrap/di_safe_registration_x.dart';
 import 'package:get_it/get_it.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,9 +19,7 @@ import '../../../features/profile/data/_profile_repo_impl.dart';
 import '../../../features/profile/domain/profile_repository.dart';
 import '../../../features/profile/domain/load_profile_use_case.dart';
 
-import '../../shared_modules/logging/crash_analytics_logger.dart';
-import '../../shared_modules/logging/i_logger_contract.dart';
-import '../../shared_modules/overlays/core/overlay_core_types.dart';
+import '../../shared_modules/overlays/core/overlay_core_objects.dart';
 import '../../shared_modules/overlays/overlay_dispatcher/_overlay_dispatcher.dart';
 import '../../shared_modules/theme/theme_cubit/theme_cubit.dart';
 
@@ -36,7 +34,6 @@ abstract final class AppDI {
 
   /// 🎯 Entry point — call once in `main()`
   static Future<void> init() async {
-    _registerAppLogger();
     _registerOverlaysHandlers();
     _registerTheme();
 
@@ -45,11 +42,6 @@ abstract final class AppDI {
     _registerUseCases();
     _registerRepositories();
     _registerDataSources();
-  }
-
-  ///
-  static void _registerAppLogger() {
-    di.registerLazySingletonIfAbsent<ILogger>(() => CrashlyticsLogger());
   }
 
   /// 🔍 Registers overlay handlers
