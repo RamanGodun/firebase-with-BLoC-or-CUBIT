@@ -38,11 +38,13 @@ abstract final class AppDI {
   static Future<void> init() async {
     _registerAppLogger();
     _registerOverlaysHandlers();
+    _registerTheme();
+
     _registerFirebase();
-    _registerDataSources();
-    _registerRepositories();
+    _registerProfile();
     _registerUseCases();
-    _registerOthers();
+    _registerRepositories();
+    _registerDataSources();
   }
 
   ///
@@ -61,6 +63,11 @@ abstract final class AppDI {
       );
   }
 
+  /// 🎨 Registers theme
+  static void _registerTheme() {
+    di.registerLazySingleton(() => AppThemeCubit());
+  }
+
   /// 🔗 Registers core Firebase dependencies
   static void _registerFirebase() {
     di
@@ -70,24 +77,17 @@ abstract final class AppDI {
       );
   }
 
-  /// 📡 Registers all remote data sources
-  static void _registerDataSources() {
+  /// 🎛️ Registers all Cubits and BLoCs (presentation layer)
+  static void _registerProfile() {
     di
-      ..registerLazySingleton<AuthRemoteDataSource>(
-        () => AuthRemoteDataSourceImpl(di(), di()),
+      ..registerLazySingleton(
+        () => AuthBloc(
+          signOutUseCase: di(),
+          userStream: di<AuthRemoteDataSource>().user,
+        ),
       )
-      ..registerLazySingleton<ProfileRemoteDataSource>(
-        () => ProfileRemoteDataSourceImpl(di()),
-      );
-  }
-
-  /// 🗂️ Registers concrete repositories (data layer)
-  static void _registerRepositories() {
-    di
-      ..registerLazySingleton<AuthRepo>(() => AuthRepositoryImpl(di()))
-      ..registerLazySingleton<ProfileRepository>(
-        () => ProfileRepositoryImpl(di()),
-      );
+      ..registerLazySingleton(() => LoadProfileUseCase(di())) // 📄 Get profile
+      ..registerLazySingleton(() => AppThemeCubit());
   }
 
   /// 🧠 Registers domain-level use cases
@@ -98,20 +98,24 @@ abstract final class AppDI {
       ..registerLazySingleton(() => SignOutUseCase(di()))
       ..registerLazySingleton(
         () => EnsureUserProfileCreatedUseCase(di()),
-      ) // 👤 Firestore sync
-      ..registerLazySingleton(() => LoadProfileUseCase(di())); // 📄 Get profile
+      ); // 👤 Firestore sync
   }
 
-  /// 🎛️ Registers all Cubits and BLoCs (presentation layer)
-  static void _registerOthers() {
+  /// 🗂️ Registers concrete repositories (data layer)
+  static void _registerRepositories() {
     di
-      ..registerLazySingleton(
-        () => AuthBloc(
-          signOutUseCase: di(),
-          userStream: di<AuthRemoteDataSource>().user,
-        ),
-      )
-      ..registerLazySingleton(() => AppThemeCubit());
+      ..registerLazySingleton<AuthRepo>(() => AuthRepoImpl(di()))
+      ..registerLazySingleton<ProfileRepo>(() => ProfileRepoImpl(di()));
+  }
+
+  /// 📡 Registers all remote data sources
+  static void _registerDataSources() {
+    di.registerLazySingleton<AuthRemoteDataSource>(
+      () => AuthRemoteDataSourceImpl(di(), di()),
+    );
+    di.registerLazySingleton<ProfileRemoteDataSource>(
+      () => ProfileRemoteDataSourceImpl(di()),
+    );
   }
 
   ///

@@ -7,7 +7,7 @@ import '../../shared/shared_domain/shared_entities/_user.dart';
 //----------------------------------------------------------------
 
 final class LoadProfileUseCase extends UseCaseWithParams<User, String> {
-  final ProfileRepository _repository;
+  final ProfileRepo _repository;
 
   const LoadProfileUseCase(this._repository);
 

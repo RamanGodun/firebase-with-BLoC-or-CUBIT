@@ -1,4 +1,4 @@
-import '../../logging/_app_error_logger.dart';
+import '../../logging/_app_logger.dart';
 
 abstract final class AppLocalizer {
   static String Function(String key)? _resolver;

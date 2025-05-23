@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_x/failure_diagnostics_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import '../errors_handling/failures_for_domain_and_presentation/failure_for_domain.dart';
-import '_app_error_logger.dart';
+import '_app_logger.dart';
 
 /// 🪵 [FailureLogger] — provides Crashlytics/debug logging.
 /// ✅ Use `failure.log()` to record and trace errors.

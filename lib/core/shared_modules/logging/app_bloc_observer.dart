@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '_app_error_logger.dart';
+import '_app_logger.dart';
 
 /// 🔍 [AppBlocObserver] — Global observer for BLoC/Cubit lifecycle events.
 /// Logs key transitions to help debug and track state changes, includes:

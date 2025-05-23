@@ -1,31 +1,35 @@
-# 📦 Dependency Injection Pattern with GetIt (Flutter Clean Architecture)
+# 📦 Dependency Injection Guide with GetIt (Clean Architecture)
 
 ---
 
 ## 🌟 Purpose
 
-Provide a **modular**, **scalable**, and **safe** way to register dependencies in Flutter projects using GetIt.
-Ensures adherence to **Clean Architecture** principles and avoids duplicate registrations via extension helpers.
+Provide a **modular**, **scalable**, and **testable** way to manage dependencies using `GetIt`,
+aligned with **Clean Architecture**, **SOLID**, and **Global Scoping** principles.
+This guide ensures compatibility with Bloc, Cubit, and Provider patterns.
 
 ---
 
-## 🧱 Base Structure
+Only the DI container knows about concrete implementations. All other layers depend solely on abstractions.
+DI is your enforcer of boundaries, not just a registry.
+
+---
+
+## 🧱 Folder Structure
 
 ```txt
 lib/
 ├── core/
-│   └── injection/
-│       └── injection_container.dart
+│   ├── app_config/bootstrap/di_container.dart  // <-- Main entry point
+│   ├── utils/typedef.dart
+│   └── shared_modules/logging/...
 ├── features/
-│   └── feature_name/
-│       ├── data/
-│       ├── domain/
-│       └── presentation/
+│   └──
 ```
 
 ---
 
-## 🔧 Extension: SafeRegistration
+## 🔁 Safe Registration Extension
 
 ```dart
 extension SafeRegistration on GetIt {
@@ -45,303 +49,164 @@ extension SafeRegistration on GetIt {
 
 ---
 
-## 🚀 Entry Point for DI
+## 🚀 Entry Point: `AppDI`
 
 ```dart
-final sl = GetIt.instance;
+final di = GetIt.instance;
 
-Future<void> initDIContainer() async {
-  await _initOnBoardingModule();
-  await _initAuthModule();
-  // add more modules here as needed
+abstract final class AppDI {
+  static Future<void> init() async {
+    _registerAppLogger();
+    _registerOverlaysHandlers();
+    _registerTheme();
+    // ...
+    _registerUseCases();
+    _registerRepositories();
+    _registerDataSources();
+    // ...
+  }
 }
 ```
 
 ---
 
-## 📦 Pattern: Feature Module Setup
+## 🧩 Module Registration Pattern
 
-Each feature module follows the **Presentation → Domain → Data** order:
-
-### ✅ Example: `_initAuthModule()`
+### ✅ Example: Auth Module
 
 ```dart
-Future<void> _initAuthModule() async {
-  sl
+void _registerAuthModule() {
+  di
     // Presentation
-    ..registerFactoryIfAbsent<AuthBloc>(() => AuthBloc(
-        signInUseCase: sl(),
-        signUpUseCase: sl(),
-        forgotPasswordUseCase: sl(),
-        updateUserUseCase: sl(),
-      ))
+    ..registerLazySingleton(() => AuthBloc(signOutUseCase: di(), userStream: di<AuthRemoteDataSource>().user))
 
-    // Domain
-    ..registerLazySingletonIfAbsent(() => SignInUseCase(sl()))
-    ..registerLazySingletonIfAbsent(() => SignUpUseCase(sl()))
-    ..registerLazySingletonIfAbsent(() => ForgotPasswordUseCase(sl()))
-    ..registerLazySingletonIfAbsent(() => UpdateUserUseCase(sl()))
+    // Domain UseCases
+    ..registerLazySingleton(() => SignInUseCase(di()))
+    ..registerLazySingleton(() => SignUpUseCase(di()))
+    ..registerLazySingleton(() => SignOutUseCase(di()))
+    ..registerLazySingleton(() => EnsureUserProfileCreatedUseCase(di()))
 
-    // Domain-Data Bridge
-    ..registerLazySingletonIfAbsent<AuthRepo>(() => AuthRepoImpl(sl()))
+    // Repositories
+    ..registerLazySingleton<AuthRepo>(() => AuthRepoImpl(di()))
 
-    // Data
-    ..registerLazySingletonIfAbsent<AuthRemoteDataSource>(
-      () => AuthRemoteDataSourceImpl(
-        authClient: sl(),
-        cloudStoreClient: sl(),
-        dbClient: sl(),
-      ),
-    )
-
-    // External
-    ..registerLazySingletonIfAbsent(() => FirebaseAuth.instance)
-    ..registerLazySingletonIfAbsent(() => FirebaseFirestore.instance)
-    ..registerLazySingletonIfAbsent(() => FirebaseStorage.instance);
+    // DataSources
+    ..registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(di(), di()));
 }
 ```
 
-### ✅ Example: `_initOnBoardingModule()`
+---
+
+## 🌐 Global vs Local Scope
+
+### 🧭 Global Scope via DI (Best Practice)
+
+Used for shared Cubits/Providers across the app lifecycle:
 
 ```dart
-Future<void> _initOnBoardingModule() async {
-  final prefs = await SharedPreferences.getInstance();
-
-  sl
-    // Presentation
-    ..registerFactoryIfAbsent(() => OnBoardingCubit(
-        cacheFirstTimerUseCase: sl(),
-        checkUserFirstLaunchStatusUseCase: sl(),
-      ))
-
-    // Domain
-    ..registerLazySingletonIfAbsent(() => CacheFirstTimerUseCase(sl()))
-    ..registerLazySingletonIfAbsent(() => CheckUserFirstLaunchStatusUseCase(sl()))
-
-    // Domain-Data Bridge
-    ..registerLazySingletonIfAbsent<OnBoardingRepo>(
-      () => OnBoardingRepoImpl(sl()),
-    )
-
-    // Data
-    ..registerLazySingletonIfAbsent<OnBoardingLocalDataSource>(
-      () => OnBoardingLocalDataSrcImpl(sl()),
-    )
-
-    // External
-    ..registerLazySingletonIfAbsent(() => prefs);
-}
+MultiBlocProvider(
+  providers: [
+    BlocProvider.value(value: di<AuthBloc>()),
+    BlocProvider.value(value: di<AppThemeCubit>()),
+    BlocProvider.value(value: di<OverlayStatusCubit>()),
+  ],
+  child: AppRootView(),
+)
 ```
 
----
+### 📦 Local Scope (Recommended for Feature-Specific State)
 
-## 🛍️ Guidelines
-
-### ✅ Register in order:
-
-1. **Presentation** (Bloc, Cubit, Provider)
-2. **Domain** (UseCases, Repository Contracts)
-3. **Data** (RepoImpl, DataSources)
-4. **External clients** (Dio, Firebase, SharedPreferences)
-
-### ✅ Use `IfAbsent` methods
-
-- Prevent accidental duplicate registrations
-- Supports safe hot reloads
-
-### ✅ One method per module
-
-- Keeps SRP and separation by feature
-
-### ✅ Use factory for UI
-
-- Avoids persistent Bloc instances
-
-### ✅ Use lazySingleton for UseCases
-
-- Optimized resource usage
-
----
-
-## 🧰 Abstract Example
+For isolated feature logic:
 
 ```dart
-Future<void> _initExampleModule() async {
-  sl
-    ..registerFactoryIfAbsent(() => ExampleCubit(sl()))
-    ..registerLazySingletonIfAbsent(() => DoSomethingUseCase(sl()))
-    ..registerLazySingletonIfAbsent<ExampleRepo>(() => ExampleRepoImpl(sl()))
-    ..registerLazySingletonIfAbsent<ExampleDataSource>(() => ExampleDataSourceImpl(sl()));
-}
+BlocProvider(
+  create: (_) => LocalCubit(),
+  child: FeatureView(),
+)
 ```
 
 ---
 
-## 📂 Injectable + GetIt (Alternative)
+## 🧠 Why Register UseCases?
 
-If you're using code generation:
+Registering `UseCase` as `lazySingleton` gives:
+
+- Predictable memory usage (shared, cached, not recreated)
+- Easy mocking in tests
+- Respect to **SRP** and **DIP**
+- Reusability across multiple Cubits/Features
+
+```dart
+class SignInUseCase {
+  final AuthRepo _repo;
+  const SignInUseCase(this._repo);
+
+  ResultFuture<UserCredential> call({ required String email, required String password }) {
+    return _repo.signIn(email: email, password: password);
+  }
+}
+```
+
+✅ This class has **no UI knowledge** and is perfectly decoupled.
+
+---
+
+## 🧪 Unit Test Setup
+
+```dart
+setUp(() {
+  di.registerLazySingleton<AuthRepo>(() => MockAuthRepo());
+  di.registerLazySingleton(() => SignInUseCase(di()));
+});
+```
+
+---
+
+## 🔁 Alternative: Injectable + GetIt
+
+If you use code generation:
 
 ```dart
 @InjectableInit()
 Future<void> configureDependencies() async => getIt.init();
 ```
 
-Use `@injectable`, `@lazySingleton`, `@module` to define dependencies:
+Use annotations:
 
 ```dart
 @lazySingleton
 class AuthService {
-  final Dio client;
-  AuthService(this.client);
+  final Dio dio;
+  AuthService(this.dio);
 }
 ```
 
-```dart
-@module
-abstract class RegisterModule {
-  @lazySingleton
-  Dio get dio => Dio(BaseOptions(...));
-}
-```
+Pros:
 
-Then generate with:
+- Less boilerplate
+- Auto-generated
 
-```bash
-flutter pub run build_runner build --delete-conflicting-outputs
-```
+Cons:
 
-**Pros:**
-
-- Clean & automatic
-- No boilerplate for manual `register...`
-
-**Cons:**
-
-- Harder to debug
-- Slower iteration cycles
+- Debugging less transparent
+- Slower iterations
 
 ---
 
-## 📃 Summary
+## ✅ Benefits Summary
 
-| Level | Layer               | Example                        |
-| ----- | ------------------- | ------------------------------ |
-| 1     | UI                  | `AuthBloc`, `OnBoardingCubit`  |
-| 2     | Use Case            | `SignInUseCase`                |
-| 3     | Repo Contract       | `AuthRepo`, `OnBoardingRepo`   |
-| 4     | Repo Implementation | `AuthRepoImpl`                 |
-| 5     | Data Source         | `AuthRemoteDataSource`         |
-| 6     | External Clients    | `FirebaseAuth`, `Dio`, `Prefs` |
-
-> 🧠 Use this pattern across all features to maintain clarity, scalability and testability.
-
-# 📦 Dependency Injection Setup — Clean Architecture
+| Feature              | Benefit                                 |
+| -------------------- | --------------------------------------- |
+| SafeRegistration     | Prevents hot-reload conflicts           |
+| Layered Registration | Aligns with Clean Architecture          |
+| Global Scope via DI  | Centralized logic reuse                 |
+| Testability          | Easy mocking and isolation              |
+| Abstraction-only use | Fully respects **Dependency Inversion** |
 
 ---
 
-## 🎯 Purpose
+## 🧠 Final Thought
 
-Establish a scalable, modular, and testable dependency graph using `GetIt`, following **Clean Architecture** and **Dependency Inversion Principle**.
+Use GetIt not just to wire things together, but to **enforce boundaries**, **decouple logic**, and **scale safely**
+— especially in BLoC/Provider layers. In Riverpod environments, skip GetIt in favor of Riverpod's native providers.
 
----
-
-## 🧱 Structure by Layers
-
-```text
-Presentation  <-- depends on --  UseCases (Domain)  <-- depends on --  Abstractions (Interfaces)
-                                                       ^
-                                                       |
-                                                Implementations (Data)
-```
-
----
-
-## ⚙️ DI Initialization (`init()`)
-
-```dart
-final di = GetIt.instance;
-
-Future<void> init() async {
-  di
-    // 🧩 Cubit / State Management
-    ..registerFactoryIfAbsent<AuthenticationCubit>(
-      () => AuthenticationCubit(
-        createUser: di(),
-        getUsers: di(),
-      ),
-    )
-
-    // 🧩 UseCases (Domain)
-    ..registerLazySingletonIfAbsent<CreateUserUseCase>(
-      () => CreateUserUseCase(di()),
-    )
-    ..registerLazySingletonIfAbsent<GetUsersUseCase>(
-      () => GetUsersUseCase(di()),
-    )
-
-    // 🧩 Repositories (Data)
-    ..registerLazySingletonIfAbsent<AuthenticationRepository>(
-      () => AuthRepositoryImplementation(di()),
-    )
-
-    // 🧩 Remote Data Source (Data)
-    ..registerLazySingletonIfAbsent<AuthRemoteDataSource>(
-      () => AuthRemoteDataSrcImplementation(di()),
-    )
-
-    // 🧩 External dependencies
-    ..registerLazySingletonIfAbsent<http.Client>(() => http.Client());
-}
-```
-
----
-
-## 🔁 Extension for Safe Registration
-
-```dart
-extension SafeRegistration on GetIt {
-  void registerLazySingletonIfAbsent<T extends Object>(T Function() factory) {
-    if (!isRegistered<T>()) {
-      registerLazySingleton<T>(factory);
-    }
-  }
-
-  void registerFactoryIfAbsent<T extends Object>(T Function() factory) {
-    if (!isRegistered<T>()) {
-      registerFactory<T>(factory);
-    }
-  }
-
-  void registerSingletonIfAbsent<T extends Object>(T instance) {
-    if (!isRegistered<T>()) {
-      registerSingleton<T>(instance);
-    }
-  }
-}
-```
-
----
-
-## ✅ Benefits
-
-- **Separation of concerns** (no cross-layer knowledge)
-- **Easy mocking** for unit tests
-- **Flexible & decoupled** infrastructure
-- **Automatic reusability** across features
-
----
-
-## 🧪 Example (Unit Test)
-
-```dart
-setUp(() {
-  di.registerLazySingleton<AuthenticationRepository>(() => MockAuthRepo());
-  di.registerLazySingleton(() => CreateUserUseCase(di()));
-});
-```
-
----
-
-## 📦 Summary
-
-> Only the DI container knows about concrete implementations. All other layers rely on abstractions.
+> ✅ Clean. Predictable. Professional.

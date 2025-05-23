@@ -10,9 +10,6 @@ built with Clean Architecture and BLoC/Cubit state management.
 This app demonstrates a robust authentication flow using **Firebase Auth** + **Cloud Firestore**, structured using
 **Clean Architecture**, scalable **BLoC/Cubit** state management, and **GoRouter** for declarative navigation.
 
-The codebase simulates a real-world setup to validate **Flutter engineering skills**
-through modularity, maintainability, and production-level conventions.
-
 ---
 
 ## 🔥 Features
@@ -142,6 +139,6 @@ While automated tests were not required for the test task, the structure is read
 
 [MIT License](./LICENSE) © 2025 [Roman Godun](mailto:4l.roman.godun@gmail.com)
 
-
 ## need to do
+
 ! @injectable через injectable_generator

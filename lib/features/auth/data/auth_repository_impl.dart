@@ -3,13 +3,13 @@ import 'package:firebase_with_bloc_or_cubit/core/utils/typedef.dart';
 import '../domain/repositories/auth_repo.dart';
 import 'data_source_contract.dart';
 
-/// 🧩 [AuthRepositoryImpl] — Implements [AuthRepo] using [AuthRemoteDataSource]
+/// 🧩 [AuthRepoImpl] — Implements [AuthRepo] using [AuthRemoteDataSource]
 /// ✅ Handles authentication operations and delegates to data source
 //----------------------------------------------------------------
 
-final class AuthRepositoryImpl implements AuthRepo {
+final class AuthRepoImpl implements AuthRepo {
   final AuthRemoteDataSource _remoteDataSource;
-  const AuthRepositoryImpl(this._remoteDataSource);
+  const AuthRepoImpl(this._remoteDataSource);
 
   /// 📡 Stream of currently authenticated [fb_auth.User]
   @override

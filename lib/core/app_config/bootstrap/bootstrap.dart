@@ -6,7 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
 import 'package:path_provider/path_provider.dart';
 import '../../shared_modules/localization/code_base_for_both_options/_app_localizer.dart';
-import '../../shared_modules/logging/_app_error_logger.dart';
+import '../../shared_modules/logging/_app_logger.dart';
 import '../env.dart';
 import '../../shared_modules/logging/app_bloc_observer.dart';
 

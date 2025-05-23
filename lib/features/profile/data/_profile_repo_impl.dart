@@ -5,14 +5,14 @@ import 'package:firebase_with_bloc_or_cubit/features/profile/domain/profile_repo
 
 import 'data_source_contract.dart';
 
-/// 🧩 [ProfileRepositoryImpl] — Concrete implementation using remote data source
+/// 🧩 [ProfileRepoImpl] — Concrete implementation using remote data source
 /// ✅ Maps [UserDTO] → [User] via `.toEntity()`
 //----------------------------------------------------------------
 
-final class ProfileRepositoryImpl implements ProfileRepository {
+final class ProfileRepoImpl implements ProfileRepo {
   final ProfileRemoteDataSource remote;
 
-  ProfileRepositoryImpl(this.remote);
+  ProfileRepoImpl(this.remote);
 
   @override
   ResultFuture<User> getProfile({required String uid}) async {
