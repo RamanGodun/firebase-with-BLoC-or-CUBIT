@@ -9,15 +9,19 @@ import 'core/shared_modules/localization/code_base_for_both_options/_app_localiz
 import 'core/app_configs/firebase/env.dart';
 import 'core/shared_modules/logging/bloc_observer.dart';
 
-/// 🚀✅ [StartUpHandler] — Handles platform & app core initialization, loads environment config,
-/// sets up Firebase, Bloc observer, HydratedBloc persistence, and localization
-//-----------------------------------------------------------------------------
-
+///🚀✅ Handles startup initialization: env, Firebase, BLoC, HydratedStorage, localization
+// ✅ Loads `.env`, sets up Firebase, HydratedBloc, and EasyLocalization
+///─────────────────────────────────────────────────────────────
 final class StartUpHandler {
   StartUpHandler._();
 
-  /// 🎯 Entry point — must be called before `runApp`
-  static Future<void> initialize() async {
+  ///
+
+  ///🎯 Entry point — must be called before `runApp()`
+  // ✅ Sequentially initializes all core services
+  ///──────────────────────────────────────────────
+  static Future<void> bootstrap() async {
+    //
     WidgetsFlutterBinding.ensureInitialized();
     _initBlocObserver();
     await _initEnv();
@@ -26,8 +30,12 @@ final class StartUpHandler {
     await _initLocalization();
   }
 
-  /// 📄 Loads `.env.{environment}` config file based on current environment mode
+  ///📄 Loads environment variables from `.env.{env}`
+  // ✅ Detects current environment: dev, staging, prod
+  // ✅ Loads the correct `.env` config file
+  ///──────────────────────────────────────────────
   static Future<void> _initEnv() async {
+    //
     final envFile = switch (EnvConfig.currentEnv) {
       Environment.dev => '.env.dev',
       Environment.staging => '.env.staging',
@@ -37,13 +45,18 @@ final class StartUpHandler {
     debugPrint('✅ Loaded env: $envFile');
   }
 
-  /// 👁️ Attaches a global observer to watch Bloc events and transitions
+  ///👁️ Registers Bloc observer for global event tracking
+  ///────────────────────────────────────────────
   static void _initBlocObserver() {
+    //
     Bloc.observer = const AppBlocObserver();
   }
 
-  /// 🌍 Ensures EasyLocalization is initialized before `runApp`
+  ///🌍 Initializes localization engine (EasyLocalization)
+  // ✅ Sets up `AppLocalizer` resolver
+  ///────────────────────────────────────────────
   static Future<void> _initLocalization() async {
+    //
     await EasyLocalization.ensureInitialized();
     // ? when app with localization, use this:
     AppLocalizer.init(resolver: (key) => key.tr());
@@ -52,13 +65,18 @@ final class StartUpHandler {
   }
 }
 
-/// 🔥 Initializes Firebase SDK (core only — used by all Firebase services)
+///🔥 Initializes Firebase SDK
+// ✅ Sets up Firebase for analytics, auth, Firestore, etc.
+///────────────────────────────────────────────
 Future<void> _initFirebase() async {
+  //
   await Firebase.initializeApp();
 }
 
-/// 💾 Configures persistent local storage (HydratedBloc)
+///💾 Configures HydratedBloc persistent storage
+///────────────────────────────────────────────
 Future<void> _initHydratedStorage() async {
+  //
   final storage = await HydratedStorage.build(
     storageDirectory:
         kIsWeb

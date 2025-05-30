@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'core/shared_modules/overlays/core/overlay_status_cubit.dart';
 import 'root_widget.dart';
 import 'start_up_handler.dart';
 import 'core/di_container/di_container.dart';
 import 'core/shared_modules/localization/localization_config.dart';
-import 'core/shared_modules/overlays/core/overlay_core_objects.dart';
 import 'core/shared_layers/shared_presentation/shared_widgets/app_loaders.dart';
 import 'features/auth/presentation/auth_bloc/auth_bloc.dart';
 import 'core/shared_modules/theme/theme_cubit/theme_cubit.dart';
@@ -18,7 +18,7 @@ void main() async {
   runApp(const LoaderWidget(wrapInMaterialApp: true));
 
   /// 🔌 Firebase + HydratedBloc + Bloc Observer
-  await StartUpHandler.initialize();
+  await StartUpHandler.bootstrap();
 
   /// 📦 Initializes all app dependencies via GetIt
   await AppDI.init();

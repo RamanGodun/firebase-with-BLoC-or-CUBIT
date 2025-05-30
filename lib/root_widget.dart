@@ -13,6 +13,7 @@ final class AppRootBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ? Theme memoization
     return BlocBuilder<AppThemeCubit, AppThemeState>(
       buildWhen: (prev, curr) => prev != curr,
       builder: (context, state) {
@@ -53,6 +54,8 @@ final class _AppRootView extends StatelessWidget {
 
       // 🧩 Overlay handlings
       builder: (context, child) => GlobalOverlayHandler(child: child!),
+
+      ///
     );
   }
 }

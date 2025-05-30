@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart' show BuildContext, OverlayState;
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart' show OverlayState;
 import '../overlay_entries/_overlay_entries_registry.dart';
 
 /// 📦 [OverlayQueueItem] — Internal holder for enqueued overlays.
@@ -8,20 +7,6 @@ final class OverlayQueueItem {
   final OverlayState overlay;
   final OverlayUIEntry request;
   const OverlayQueueItem({required this.overlay, required this.request});
-}
-
-/// 🧩 [OverlayStatusCubit] — Manages current overlay visibility state.
-/// ✅ Used to propagate `isOverlayActive` from [OverlayDispatcher] to UI logic (e.g., disabling buttons).
-final class OverlayStatusCubit extends Cubit<bool> {
-  OverlayStatusCubit() : super(false);
-
-  void updateStatus(bool isActive) => emit(isActive);
-}
-
-/// 🧠 [OverlayStatusX] — Extension for accessing overlay activity status from [BuildContext].
-/// ⚠️ Note: For read-only checks only. For reactive usage, prefer listening to [OverlayStatusCubit] via BlocBuilder.
-extension OverlayStatusX on BuildContext {
-  bool get overlayStatus => read<OverlayStatusCubit>().state;
 }
 
 /// 🎯 Defines core strategy types for overlay conflict resolution,
