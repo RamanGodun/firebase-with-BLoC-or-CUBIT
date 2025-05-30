@@ -45,12 +45,10 @@ final class AppBootstrap {
   /// 🌍 Ensures EasyLocalization is initialized before `runApp`
   static Future<void> _initLocalization() async {
     await EasyLocalization.ensureInitialized();
-    AppLocalizer.init(
-      resolver: (key) => key.tr(),
-    ); // ? when app with localization
-    //
+    // ? when app with localization, use this:
+    AppLocalizer.init(resolver: (key) => key.tr());
     // ! when app without localization, then instead previous method use next:
-    // AppLocalizer.init(resolver: (key) => LocalesFallbackMapper.fallbackMap[key] ?? key)
+    // AppLocalizer.initWithFallback();
   }
 }
 

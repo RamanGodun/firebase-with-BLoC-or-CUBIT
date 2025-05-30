@@ -20,7 +20,7 @@ final class AppConfig {
       title: LocaleKeys.app_title.tr(),
       debugShowCheckedModeBanner: false,
       theme: AppThemes.resolve(AppThemeType.light),
-      darkTheme: AppThemes.resolve(AppThemeType.amoled),
+      darkTheme: AppThemes.resolve(AppThemeType.dark),
       themeMode: state.isDarkTheme ? ThemeMode.dark : ThemeMode.light,
     );
   }

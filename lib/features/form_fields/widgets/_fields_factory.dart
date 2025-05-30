@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import '../../../shared_presentation/constants/_app_constants.dart';
-import '../../../shared_presentation/constants/app_keys.dart';
+import '../../../core/shared_layers/shared_presentation/constants/_app_constants.dart';
+import '../../../core/shared_layers/shared_presentation/constants/app_keys.dart';
 import 'app_text_field.dart';
 
 /// 🔠 Supported input types for signup & login forms

@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_presentation/constants/_app_constants.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_layers/shared_presentation/constants/_app_constants.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/localization/code_base_for_both_options/text_widget.dart';
 import 'package:flutter/material.dart';
 import '../generated/locale_keys.g.dart';

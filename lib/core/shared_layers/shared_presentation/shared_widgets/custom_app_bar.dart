@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../shared_modules/localization/code_base_for_both_options/text_widget.dart';
+import '../../../shared_modules/localization/code_base_for_both_options/text_widget.dart';
 
 /// 🎨 CustomAppBar with flexible icon/widgets in actions
 final class CustomAppBar extends StatelessWidget

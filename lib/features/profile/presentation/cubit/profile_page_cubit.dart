@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/consumable.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures_for_domain_and_presentation/to_ui_failures_x.dart';
-import '../../../shared/shared_domain/shared_entities/_user.dart';
+import '../../../../core/shared_layers/shared_domain/shared_entities/_user.dart';
 import '../../domain/load_profile_use_case.dart';
 
 part 'profile_page_state.dart';

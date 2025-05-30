@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../localization/code_base_for_both_options/_app_localizer.dart';
+import '../../../core/shared_modules/localization/code_base_for_both_options/_app_localizer.dart';
 
 /// 🧱 [AppTextField] — Reusable, styled text input field used across the app.
 /// Supports:

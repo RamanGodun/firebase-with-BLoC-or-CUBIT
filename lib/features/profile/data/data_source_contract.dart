@@ -1,5 +1,5 @@
 import '../../../core/utils/typedef.dart';
-import '../../shared/shared_data/shared_data_transfer_objects/_user_dto.dart';
+import '../../../core/shared_layers/shared_data/shared_data_transfer_objects/_user_dto.dart';
 
 /// 📡 [ProfileRemoteDataSource] — Contract for accessing user data from remote source
 abstract interface class ProfileRemoteDataSource {

@@ -3,7 +3,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/_c
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/theme/extensions/theme_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/material.dart';
-import '../../../shared_presentation/constants/_app_constants.dart'
+import '../../../shared_layers/shared_presentation/constants/_app_constants.dart'
     show AppIcons;
 import 'language_option.dart';
 

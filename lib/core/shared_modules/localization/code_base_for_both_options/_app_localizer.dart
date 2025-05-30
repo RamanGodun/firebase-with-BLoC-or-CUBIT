@@ -1,3 +1,4 @@
+import 'fallback_keys.dart';
 import 'localization_logger.dart';
 
 abstract final class AppLocalizer {
@@ -18,6 +19,14 @@ abstract final class AppLocalizer {
   static void init({required String Function(String key) resolver}) {
     if (_resolver != null) return; // ⛔ prevent double initialization
     _resolver = resolver;
+  }
+
+  /// ✅ Use this instead of [AppLocalizer.init] when EasyLocalization is not available
+  /// 🔁 All missing keys will fall back to [LocalesFallbackMapper]
+  static void initWithFallback() {
+    AppLocalizer.init(
+      resolver: (key) => LocalesFallbackMapper.resolveFallback(key),
+    );
   }
 
   /// 🔁 Forcefully overrides the resolver (used in testing or switching at runtime)
