@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/_context_x_for_overlays.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/app_config/bootstrap/di_container.dart';
+import '../../../../core/di_container/di_container.dart';
 import '../services/sign_up_service.dart';
 import '../../../form_fields/extensions/formz_status_x.dart';
 import '../../domain/use_cases/sign_up.dart';

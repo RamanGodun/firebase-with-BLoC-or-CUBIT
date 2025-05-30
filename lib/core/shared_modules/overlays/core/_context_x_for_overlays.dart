@@ -1,6 +1,6 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/_overlay_base_methods.dart';
 import 'package:flutter/material.dart';
-import '../../../app_config/bootstrap/di_container.dart';
+import '../../../di_container/di_container.dart';
 import '../../errors_handling/failures_for_domain_and_presentation/failure_ui_model.dart';
 import '../overlay_dispatcher/_overlay_dispatcher.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';

@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import '../../app_config/bootstrap/di_container.dart';
+import '../../di_container/di_container.dart';
 import '../../../features/auth/presentation/auth_bloc/auth_bloc.dart';
 import '../../../features/profile/presentation/profile_page.dart';
 import '../../../features/auth/presentation/sign_in/sign_in_page.dart';

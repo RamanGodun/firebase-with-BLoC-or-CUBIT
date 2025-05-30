@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/navigation/extansions/navigation_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/navigation/extensions/navigation_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_layers/shared_presentati
 import 'package:firebase_with_bloc_or_cubit/features/auth/presentation/auth_bloc/auth_bloc.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_layers/shared_presentation/shared_widgets/custom_app_bar.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/localization/code_base_for_both_options/text_widget.dart';
-import '../../../app_config/spider/images_paths.dart';
+import '../../../utils/spider/images_paths.dart';
 import '../../../shared_modules/localization/generated/locale_keys.g.dart';
 import '../../../shared_modules/navigation/_imports_for_router.dart'
     show RoutesNames;

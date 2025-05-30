@@ -1,5 +1,5 @@
 import '_user.dart';
-import '../../shared_data/shared_data_transfer_objects/_user_dto.dart';
+import '../../shared_data_transfer_objects/_user_dto.dart';
 
 /// 🔁 [UserExt] — Extension on [User] with transformation and utility methods
 extension UserExt on User {

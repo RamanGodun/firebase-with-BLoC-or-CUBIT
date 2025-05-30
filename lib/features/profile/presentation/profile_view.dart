@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/app_config/spider/images_paths.dart';
+import '../../../core/utils/spider/images_paths.dart';
 import '../../../core/shared_modules/localization/code_base_for_both_options/key_value_x_for_text_w.dart';
 import '../../../core/shared_modules/localization/generated/locale_keys.g.dart';
 import '../../../core/shared_modules/localization/language_toggle_widget/_toggle_button.dart';

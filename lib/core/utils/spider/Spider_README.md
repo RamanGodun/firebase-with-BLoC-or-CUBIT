@@ -22,7 +22,7 @@ brew install spider
 ### Create a configuration file in custom directory (recommended):
 
 ```bash
-spider create -p ./lib/core/app_config/spider
+spider create -p ./lib/core/utils/spider
 ```
 
 This creates: `lib/core/app_config/spider/spider.yaml`
@@ -53,13 +53,13 @@ groups:
 ### Run build manually:
 
 ```bash
-spider -p ./lib/core/app_config/spider/spider.yaml build
+spider -p ./lib/core/utils/spider/spider.yaml build
 ```
 
 ### Optional: Watch for file changes
 
 ```bash
-spider -p ./lib/core/app_config/spider/spider.yaml build --watch
+spider -p ./lib/core/utils/spider/spider.yaml build --watch
 ```
 
 ---

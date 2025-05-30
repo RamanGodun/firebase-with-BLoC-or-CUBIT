@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../../utils/typedef.dart';
+import '../../utils/typedef.dart';
 import '_user_dto.dart';
 
 /// 🧰 [UserDTOUtilsX] — Static utilities for creating [UserDTO]

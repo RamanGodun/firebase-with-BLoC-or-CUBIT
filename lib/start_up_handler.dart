@@ -5,16 +5,16 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
 import 'package:path_provider/path_provider.dart';
-import '../../shared_modules/localization/code_base_for_both_options/_app_localizer.dart';
-import '../env.dart';
-import 'bloc_observer.dart';
+import 'core/shared_modules/localization/code_base_for_both_options/_app_localizer.dart';
+import 'core/app_configs/firebase/env.dart';
+import 'core/shared_modules/logging/bloc_observer.dart';
 
-/// 🚀✅ [AppBootstrap] — Handles platform & app core initialization, loads environment config,
+/// 🚀✅ [StartUpHandler] — Handles platform & app core initialization, loads environment config,
 /// sets up Firebase, Bloc observer, HydratedBloc persistence, and localization
 //-----------------------------------------------------------------------------
 
-final class AppBootstrap {
-  AppBootstrap._();
+final class StartUpHandler {
+  StartUpHandler._();
 
   /// 🎯 Entry point — must be called before `runApp`
   static Future<void> initialize() async {
@@ -69,47 +69,3 @@ Future<void> _initHydratedStorage() async {
   );
   HydratedBloc.storage = storage;
 }
-
-///
-/*
-! can use next (then delete ❌ GoogleService-Info.plist google-services.json)
-await Firebase.initializeApp(options: EnvFirebaseOptions.currentPlatform);
-
-! then, also use this: 
-Future<void> safeFirebaseInit() async {
-  if (Firebase.apps.isNotEmpty) {
-    debugPrint('⚠️ Firebase already initialized');
-    return;
-  }
-
-   if (kIsWeb) {
-    await Firebase.initializeApp(options: EnvFirebaseOptions.currentPlatform);
-  } else {
-    await Firebase.initializeApp(); 
-  }
-  debugPrint('✅ Firebase initialized');
-}
-
-
-/// 🧩 [FirebaseUtils] — helper for Firebase state checks & logging
-//----------------------------------------------------------------//
-
-@immutable
-final class FirebaseUtils {
-  const FirebaseUtils._();
-
-  /// ✅ Checks if [DEFAULT] Firebase app is initialized
-  static bool get isDefaultAppInitialized {
-    return Firebase.apps.any((app) => app.name == defaultFirebaseAppName);
-  }
-
-  /// 🧾 Logs all initialized Firebase apps
-  static void logAllApps() {
-    for (final app in Firebase.apps) {
-      debugPrint('🧩 Firebase App: ${app.name} (${app.options.projectId})');
-    }
-  }
-}
-
-
- */

@@ -3,7 +3,7 @@ import '../../shared_layers/shared_presentation/constants/_app_constants.dart';
 import 'text_theme/_text_styles.dart';
 import 'theming_enums.dart';
 
-part '_themes_factory.dart';
+part 'themes_factory.dart';
 
 /// 🎨 [AppThemes] — Scalable theme generator for the app
 /// Used to build [ThemeData] for MaterialApp based on:

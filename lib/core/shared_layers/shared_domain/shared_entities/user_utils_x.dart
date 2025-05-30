@@ -1,4 +1,4 @@
-import '../../shared_data/shared_data_transfer_objects/_user_dto.dart';
+import '../../shared_data_transfer_objects/_user_dto.dart';
 import '_user.dart';
 
 /// 🧩 [UserUtilsExt] — Static-like utilities related to [User] creation
