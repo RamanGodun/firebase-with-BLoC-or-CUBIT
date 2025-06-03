@@ -52,3 +52,12 @@ enum OverlayReplacePolicy {
 
 /// 📌 Specifies how to display an error in UI
 enum ShowAs { banner, snackbar, dialog, infoDialog }
+
+/// 🎚️ [OverlayBlurLevel] — Custom blur intensity levels for overlays
+/// - Can override default blur defined via [ShowAs]
+/// ────────────────────────────────────────────────────────────────
+enum OverlayBlurLevel {
+  soft, // Light blur, minimal distraction
+  medium, // Balanced blur for dialogs/snackbars
+  strong, // Strong blur for attention-grabbing modals
+}

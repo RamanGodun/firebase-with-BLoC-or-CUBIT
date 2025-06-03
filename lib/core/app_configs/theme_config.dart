@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../shared_modules/theme/app_themes.dart';
+import '../shared_modules/theme/core/app_themes.dart';
 import '../shared_modules/theme/theme_cubit/theme_cubit.dart';
-import '../shared_modules/theme/theming_enums.dart';
+import '../shared_modules/theme/core/theming_enums.dart';
 
 /// 🎛️ [ThemeConfig] — Factory for constructing theming configuration.
 /// ✅ Resolves light/dark theme based on the selected [ThemeMode].

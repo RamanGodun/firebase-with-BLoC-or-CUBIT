@@ -18,7 +18,7 @@ final class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageWidth = context.screenWidth * UIConstants.sizeF08;
+    final imageWidth = context.screenWidth * 0.8;
 
     return PopScope(
       canPop: false,

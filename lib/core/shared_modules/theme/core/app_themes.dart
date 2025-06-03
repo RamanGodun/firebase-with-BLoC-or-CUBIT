@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../shared_layers/shared_presentation/constants/_app_constants.dart';
-import 'text_theme/_text_styles.dart';
+import '../../../shared_layers/shared_presentation/constants/_app_constants.dart';
+import '../text_theme/_text_styles.dart';
+import 'app_colors.dart';
 import 'theming_enums.dart';
 
 part 'themes_factory.dart';
