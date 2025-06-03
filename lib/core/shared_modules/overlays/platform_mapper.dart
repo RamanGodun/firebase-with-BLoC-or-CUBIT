@@ -75,7 +75,7 @@ abstract final class PlatformMapper {
     required OverlayUIPresetProps presetProps,
   }) {
     return switch (platform) {
-      TargetPlatform.iOS => IOSBanner(
+      TargetPlatform.iOS => IOSToastBubble(
         message: message,
         icon: icon,
         engine: engine,
@@ -87,7 +87,7 @@ abstract final class PlatformMapper {
         props: presetProps,
         engine: engine,
       ),
-      _ => IOSBanner(
+      _ => IOSToastBubble(
         message: message,
         icon: icon,
         engine: engine,
