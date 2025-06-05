@@ -55,14 +55,16 @@ final class _ThemeFactory {
       );
 
   /// 🟦 Card theming
-  CardTheme _buildCardTheme() => CardTheme(
-    color: variant.cardColor,
-    shape: const RoundedRectangleBorder(
-      borderRadius: UIConstants.commonBorderRadius,
-    ),
-    shadowColor: AppColors.shadow,
-    elevation: 5,
-  );
+  CardThemeData _buildCardTheme() {
+    return const CardThemeData().copyWith(
+      color: variant.cardColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: UIConstants.commonBorderRadius,
+      ),
+      shadowColor: AppColors.shadow,
+      elevation: 5,
+    );
+  }
 
   /// 🧩 Easily extendable: add more `_buildXTheme()` methods to style additional widgets
 

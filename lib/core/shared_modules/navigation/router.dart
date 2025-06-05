@@ -36,7 +36,7 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: '/${RoutesNames.splash}',
       name: RoutesNames.splash,
-      pageBuilder: (_, __) => AppTransitions.fade(const SplashPage()),
+      pageBuilder: (_, _) => AppTransitions.fade(const SplashPage()),
     ),
 
     /// 🧱 Shell Layout (Main App Scaffold)

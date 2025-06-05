@@ -10,7 +10,7 @@ final class AppTransitions {
     return CustomTransitionPage<T>(
       child: child,
       transitionDuration: const Duration(milliseconds: 250),
-      transitionsBuilder: (_, animation, __, child) {
+      transitionsBuilder: (_, animation, _, child) {
         return FadeTransition(opacity: animation, child: child);
       },
     );
