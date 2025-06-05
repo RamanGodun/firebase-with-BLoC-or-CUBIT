@@ -12,6 +12,27 @@ extension FailureToUIModelX on Failure {
   ///
   FailureUIModel toUIModel() {
     final resolvedText =
+        (translationKey?.isNotEmpty ?? false)
+            ? AppLocalizer.t(translationKey!, fallback: message)
+            : message;
+
+    if (translationKey != null && resolvedText == message) {
+      ErrorsLogger.failure(this, StackTrace.current);
+    }
+
+    return FailureUIModel(
+      localizedMessage: resolvedText,
+      formattedCode: safeCode,
+      icon: _resolveIcon(),
+    );
+  }
+
+  /* 
+    ? old option 
+extension FailureToUIModelX on Failure {
+  ///
+  FailureUIModel toUIModel() {
+    final resolvedText =
         translationKey != null
             ? AppLocalizer.t(translationKey!, fallback: message)
             : message;
@@ -26,6 +47,7 @@ extension FailureToUIModelX on Failure {
       icon: _resolveIcon(),
     );
   }
+ */
 
   /// 🖼️ Internal: Icon depending on failure type
   IconData _resolveIcon() => switch (this) {
