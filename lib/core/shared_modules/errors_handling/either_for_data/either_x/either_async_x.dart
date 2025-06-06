@@ -4,9 +4,9 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/
 import 'package:flutter/foundation.dart' show debugPrint;
 
 import '../../loggers_for_errors_handling_module/errors_logger.dart';
+import '../../utils/dsl.dart';
 import '../either.dart';
 import '../../failures_for_domain_and_presentation/failure_for_domain.dart';
-import '../../utils/dsl_result_handler.dart';
 
 /// 🧩 [ResultFutureX<T>] — Async sugar for `Future<Either<Failure, T>>`
 /// ✅ Unified access to async chaining, fallback and message handling
