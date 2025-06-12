@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../shared_modules/errors_handling/either_for_data/either.dart';
 import '../shared_modules/errors_handling/failures_for_domain_and_presentation/failure_for_domain.dart';
 import '../shared_modules/errors_handling/utils/dsl.dart';
-import '../shared_modules/overlays/presentation/overlay_presets/overlay_presets.dart';
+import '../shared_modules/overlays/overlays_presentation/overlay_presets/overlay_presets.dart';
 
 /// 🧩 [ResultFuture] — Represents async result with [Either<Failure, T>]
 typedef ResultFuture<T> = Future<Either<Failure, T>>;
