@@ -2,20 +2,21 @@ part of '_overlay_entries_registry.dart';
 
 /// 💬 [DialogOverlayEntry] — DTO for Info/Error dialogs in state-driven flows
 /// ✅ Used by [OverlayDispatcher] to build animated platform dialogs
-// ----------------------------------------------------------------------
 
 final class DialogOverlayEntry extends OverlayUIEntry {
+  // -------------------------------------------------
+
   final Widget widget;
   final bool isError; // ❗ Marks as an error (affects strategy and priority)
+  final OverlayPriority priority;
   @override
   final OverlayDismissPolicy? dismissPolicy;
-  final OverlayPriority priority;
 
   DialogOverlayEntry({
     required this.widget,
     this.isError = false,
-    this.dismissPolicy = OverlayDismissPolicy.dismissible,
     required this.priority,
+    this.dismissPolicy = OverlayDismissPolicy.dismissible,
   });
 
   /// ⚙️ Defines how this entry behaves in conflict scenarios
@@ -43,5 +44,5 @@ final class DialogOverlayEntry extends OverlayUIEntry {
     // Track/log auto-dismissed overlay if needed
   }
 
-  ///
+  //
 }

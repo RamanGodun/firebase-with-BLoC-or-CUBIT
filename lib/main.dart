@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'core/shared_modules/overlays/core/overlay_status_cubit.dart';
+import 'core/shared_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import 'root_widget.dart';
 import 'start_up_handler.dart';
 import 'core/di_container/di_container.dart';

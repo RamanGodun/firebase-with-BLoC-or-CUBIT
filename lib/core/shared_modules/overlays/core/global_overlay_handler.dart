@@ -7,10 +7,11 @@ import 'package:flutter/material.dart';
 /// - 🔕 Automatically hides currently active overlay (e.g. toast/banner)
 /// - ✅ Use to wrap full screens, scrollable areas, or forms
 /// - ✅ Respects external dismiss policy before closing overlay
-///----------------------------------------------------------------------------
 
 final class GlobalOverlayHandler extends StatelessWidget {
-  // 📦 The child widget to wrap (usually a full screen or form)
+  //------------------------------------------------------
+
+  /// 📦 The child widget to wrap (usually a full screen or form)
   final Widget child;
   // 🧯 Whether to dismiss the keyboard on tap outside
   final bool dismissKeyboard;

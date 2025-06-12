@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import '../../../core/shared_modules/overlays/core/overlay_status_cubit.dart';
+import '../../../core/shared_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import '../../../core/shared_modules/theme/core/app_colors.dart';
 import '../../../core/utils/typedef.dart';
 import '../../../core/shared_modules/localization/code_base_for_both_options/text_widget.dart';

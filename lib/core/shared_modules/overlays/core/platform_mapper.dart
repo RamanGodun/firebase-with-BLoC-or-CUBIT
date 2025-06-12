@@ -9,8 +9,13 @@ import '../presentation/widgets/android/android_snackbar.dart';
 import '../presentation/widgets/ios/ios_banner.dart';
 import '../presentation/widgets/ios/ios_snackbar.dart';
 
+/// 🧭📱 [PlatformMapper] — Resolves platform-specific overlay components
+/// based on platform and [ShowAs] intention (dialog/snackbar/banner).
+/// Used internally by [OverlayDispatcher] system.
+
 abstract final class PlatformMapper {
   PlatformMapper._();
+  //------------------------------
 
   ///
   static Widget resolveAppDialog({
@@ -75,7 +80,7 @@ abstract final class PlatformMapper {
     required OverlayUIPresetProps presetProps,
   }) {
     return switch (platform) {
-      TargetPlatform.iOS => IOSToastBubble(
+      TargetPlatform.iOS => IOSBanner(
         message: message,
         icon: icon,
         engine: engine,
@@ -87,7 +92,7 @@ abstract final class PlatformMapper {
         props: presetProps,
         engine: engine,
       ),
-      _ => IOSToastBubble(
+      _ => IOSBanner(
         message: message,
         icon: icon,
         engine: engine,
@@ -105,7 +110,7 @@ abstract final class PlatformMapper {
     required OverlayUIPresetProps presetProps,
   }) {
     return switch (platform) {
-      TargetPlatform.iOS => IOSSnackbarCard(
+      TargetPlatform.iOS => IOSToastBubble(
         message: message,
         icon: icon,
         engine: engine,
@@ -117,7 +122,7 @@ abstract final class PlatformMapper {
         engine: engine,
         props: presetProps,
       ),
-      _ => IOSSnackbarCard(
+      _ => IOSToastBubble(
         message: message,
         icon: icon,
         engine: engine,

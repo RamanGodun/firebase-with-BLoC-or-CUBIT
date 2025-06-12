@@ -3,18 +3,18 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/theme/extensions
 import 'package:flutter/material.dart';
 import '../../animation/overlays_animation/animation_wrapper/animated_overlay_wrapper.dart';
 import '../overlay_dispatcher/_overlay_dispatcher.dart';
-import '../overlay_entries/_overlay_entries_registry.dart';
-import 'overlay_core_objects.dart';
+import '../overlay_dispatcher/overlay_entries/_overlay_entries_registry.dart';
+import 'enums_for_overlay_module.dart';
 import 'platform_mapper.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/animation/overlays_animation/animation_engines/_context_x_for_engines.dart';
 
 /// 🎯 [OverlayBaseMethods] — Unified extension for low-level overlay
 ///  rendering methods (showBanner, showDialog, showSnackbar)
-//-------------------------------------------------------------
 
 extension OverlayBaseMethods on BuildContext {
-  //
+  //------------------------------------------
+
   /// 5️⃣  📥 Adds a new request to the [IOverlayDispatcher]
   void addOverlayRequest(OverlayUIEntry entry) {
     dispatcher.enqueueRequest(this, entry);

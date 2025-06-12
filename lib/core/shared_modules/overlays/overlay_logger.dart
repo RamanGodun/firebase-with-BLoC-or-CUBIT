@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'overlay_entries/_overlay_entries_registry.dart';
+import 'overlay_dispatcher/overlay_entries/_overlay_entries_registry.dart';
 
 /// 🧾 [OverlayLogger] – Utility class for logging overlay lifecycle events.
 //---------------------------------------------------------------------

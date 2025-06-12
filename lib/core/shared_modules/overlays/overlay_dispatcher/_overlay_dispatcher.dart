@@ -3,8 +3,8 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/animation/overla
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/overlay_logger.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/debouncer.dart';
-import '../core/overlay_core_objects.dart';
-import '../overlay_entries/_overlay_entries_registry.dart';
+import '../core/enums_for_overlay_module.dart';
+import 'overlay_entries/_overlay_entries_registry.dart';
 import '../core/tap_through_overlay_barrier.dart';
 
 part 'policy_resolver.dart';
@@ -14,12 +14,11 @@ part 'policy_resolver.dart';
 /// - Resolving conflicts
 /// - Managing overlay insertion & dismissal
 /// - Centralized logging
-///---------------------------------------------
 
 final class OverlayDispatcher {
   final void Function(bool isActive)? onOverlayStateChanged;
   OverlayDispatcher({this.onOverlayStateChanged});
-  //
+  //----------------------------------------------
 
   // 📦 Queue to hold pending overlay requests
   final Queue<OverlayQueueItem> _queue = Queue();

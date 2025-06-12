@@ -1,32 +1,3 @@
-import 'package:flutter/material.dart' show OverlayState;
-import '../overlay_entries/_overlay_entries_registry.dart';
-
-/// 📦 [OverlayQueueItem] — Internal holder for enqueued overlays.
-/// ✅ Binds [OverlayState] with a specific [OverlayUIEntry] for insertion.
-final class OverlayQueueItem {
-  final OverlayState overlay;
-  final OverlayUIEntry request;
-  const OverlayQueueItem({required this.overlay, required this.request});
-}
-
-/// 🎯 Defines core strategy types for overlay conflict resolution,
-/// used to determine behavior when multiple overlays are triggered.
-///----------------------------------------------------------------
-
-/// 🧠 [OverlayConflictStrategy] — Strategy object for each overlay that
-/// defines its replacement logic and category identification.
-class OverlayConflictStrategy {
-  final OverlayPriority priority;
-  final OverlayReplacePolicy policy;
-  final OverlayCategory category;
-
-  const OverlayConflictStrategy({
-    required this.priority,
-    required this.policy,
-    required this.category,
-  });
-}
-
 /// 🔺 Priority levels for overlays (used for conflict resolution)
 // ⬇️ Least important, can be dropped easily
 // 🔼 Important, takes precedence over lower ones
@@ -55,7 +26,6 @@ enum ShowAs { banner, snackbar, dialog, infoDialog }
 
 /// 🎚️ [OverlayBlurLevel] — Custom blur intensity levels for overlays
 /// - Can override default blur defined via [ShowAs]
-/// ────────────────────────────────────────────────────────────────
 enum OverlayBlurLevel {
   soft, // Light blur, minimal distraction
   medium, // Balanced blur for dialogs/snackbars

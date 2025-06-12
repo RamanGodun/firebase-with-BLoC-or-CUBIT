@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../overlays/core/overlay_core_objects.dart';
+import '../../../overlays/core/enums_for_overlay_module.dart';
 import '__animation_engine.dart';
 import 'engine_configs.dart';
 

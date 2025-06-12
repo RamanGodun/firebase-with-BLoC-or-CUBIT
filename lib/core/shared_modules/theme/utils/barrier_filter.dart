@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../../../shared_modules/overlays/core/overlay_core_objects.dart';
-import '../../../shared_modules/theme/core/app_colors.dart';
+import '../../overlays/core/enums_for_overlay_module.dart';
+import '../core/app_colors.dart';
 
 /// 🧊 [OverlayBarrierFilter] — Consistent blurred overlay backgrounds
 /// - Used in: dialogs, banners, snackbars (iOS + Android)

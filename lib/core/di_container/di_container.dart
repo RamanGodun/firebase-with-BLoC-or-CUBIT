@@ -19,7 +19,7 @@ import '../../features/profile/data/_profile_repo_impl.dart';
 import '../../features/profile/domain/profile_repository.dart';
 import '../../features/profile/domain/load_profile_use_case.dart';
 
-import '../shared_modules/overlays/core/overlay_status_cubit.dart';
+import '../shared_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import '../shared_modules/overlays/overlay_dispatcher/_overlay_dispatcher.dart';
 import '../shared_modules/theme/theme_cubit/theme_cubit.dart';
 

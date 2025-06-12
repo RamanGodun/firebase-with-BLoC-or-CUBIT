@@ -1,6 +1,6 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/theme/extensions/theme_x.dart';
 import 'package:flutter/material.dart';
-import '../../../overlays/core/overlay_core_objects.dart';
+import '../../../overlays/core/enums_for_overlay_module.dart';
 import '__animation_engine.dart';
 import 'ios_animation_engine.dart';
 import 'android_animation_engine.dart';

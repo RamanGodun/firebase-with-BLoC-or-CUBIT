@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' show Border, BorderSide, BoxDecoration;
 
-import '../constants/_app_constants.dart';
-import '../../../shared_modules/theme/core/app_colors.dart';
+import '../../../shared_layers/shared_presentation/constants/_app_constants.dart';
+import '../core/app_colors.dart';
 
 /// 🎨 [IOSBannerDecoration] — macOS/iOS-style banners with glassmorphism
 /// 🍏 Includes blur, border, shadows for light/dark modes
