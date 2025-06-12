@@ -11,6 +11,7 @@ import 'core/shared_modules/theme/theme_cubit/theme_cubit.dart';
 
 /// 🏁 Entry point of the application.
 /// ✅ Performs synchronous bootstrapping and launches the app.
+
 void main() async {
   //
   /// Splash loader till the app init end

@@ -8,7 +8,10 @@ import 'core/shared_modules/theme/theme_cubit/theme_cubit.dart';
 
 /// 🌳🧩 [AppRootBuilder] — Top-level reactive widget listening to [AppThemeCubit].
 /// ✅ Delegates config creation to [AppRootConfig.from].
+
 final class AppRootBuilder extends StatelessWidget {
+  ///----------------------------------------------
+
   const AppRootBuilder({super.key});
 
   @override
@@ -24,10 +27,14 @@ final class AppRootBuilder extends StatelessWidget {
   }
 }
 
+///
+
 /// 📱🧱 [_AppRootView] — Final wrapper for MaterialApp.router
 ///   ✅ Configured from [AppRootConfig].
-//------------------------------------------------------------
+
 final class _AppRootView extends StatelessWidget {
+  ///----------------------------------------------
+
   final AppRootConfig config;
   const _AppRootView({required this.config});
 
@@ -55,7 +62,7 @@ final class _AppRootView extends StatelessWidget {
       // 🧩 Overlay handlings
       builder: (context, child) => GlobalOverlayHandler(child: child!),
 
-      ///
+      //
     );
   }
 }
