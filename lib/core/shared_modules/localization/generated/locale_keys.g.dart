@@ -6,6 +6,7 @@ abstract class  LocaleKeys {
   static const app_title = 'app.title';
   static const app = 'app';
   static const buttons_ok = 'buttons.ok';
+  static const buttons_cancel = 'buttons.cancel';
   static const buttons_sign_in = 'buttons.sign_in';
   static const buttons_sign_up = 'buttons.sign_up';
   static const buttons_submit_tag = 'buttons.submit_tag';
@@ -13,6 +14,7 @@ abstract class  LocaleKeys {
   static const buttons_to_sign_up = 'buttons.to_sign_up';
   static const buttons = 'buttons';
   static const errors_unexpected = 'errors.unexpected';
+  static const errors_errors_general_title = 'errors.errors_general_title';
   static const errors_no_internet = 'errors.no_internet';
   static const errors_network_no_connection = 'errors.network.no_connection';
   static const errors_network_timeout = 'errors.network.timeout';

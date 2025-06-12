@@ -192,13 +192,13 @@ flutter pub add --dev build_runner
 ```bash
 flutter pub run easy_localization:generate \
   -S assets/translations \
-  -O lib/core/shared_modules/app_localization/generated \
+  -O lib/core/shared_modules/localization/generated \
   -o codegen_loader.g.dart
 
 flutter pub run easy_localization:generate \
   -f keys \
   -S assets/translations \
-  -O lib/core/shared_modules/app_localization/generated \
+  -O lib/core/shared_modules/localization/generated \
   -o locale_keys.g.dart
 ```
 
@@ -259,7 +259,7 @@ Use `AppStrings` in tests for static values.
 
 ## 🏁 Final Notes
 
-> This module ensures a **resilient**, **developer-friendly**, and **future-proof** 
-localization system that works regardless of setup.
+> This module ensures a **resilient**, **developer-friendly**, and **future-proof**
+> localization system that works regardless of setup.
 
 Use it in all apps that prioritize quality UX, clean code, and safe i18n support.

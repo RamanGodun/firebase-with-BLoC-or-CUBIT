@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/shared_modules/overlays/core/overlay_status_cubit.dart';
 import 'root_widget.dart';
@@ -19,12 +18,6 @@ void main() async {
 
   /// 🔌 Firebase + HydratedBloc + Bloc Observer
   await StartUpHandler.bootstrap();
-
-  /// 📦 Initializes all app dependencies via GetIt
-  await AppDI.init();
-
-  /// 🌈 Enables debug painting for layout visualization (repaint regions)
-  debugRepaintRainbowEnabled = false;
 
   /// 🚀 Run App
   runApp(AppLocalization.wrap(const RootProviders()));

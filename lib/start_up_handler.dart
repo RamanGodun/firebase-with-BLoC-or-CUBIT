@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/rendering.dart' show debugRepaintRainbowEnabled;
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
 import 'package:path_provider/path_provider.dart';
+import 'core/di_container/di_container.dart';
 import 'core/shared_modules/localization/code_base_for_both_options/_app_localizer.dart';
 import 'core/app_configs/firebase/env.dart';
 import 'core/shared_modules/logging/bloc_observer.dart';
@@ -28,6 +30,11 @@ final class StartUpHandler {
     await _initFirebase();
     await _initHydratedStorage();
     await _initLocalization();
+    // 🌈 Enables debug painting for layout visualization (repaint regions)
+    debugRepaintRainbowEnabled = false;
+
+    /// 📦 Initializes app dependencies via GetIt
+    await AppDI.init();
   }
 
   ///📄 Loads environment variables from `.env.{env}`

@@ -5,6 +5,7 @@
 
   "buttons": {
     "ok": "OK",
+    "cancel": "Cancel",
     "sign_in": "Sign In",
     "sign_up": "Sign Up",
     "submit_tag": "Submit",
@@ -14,6 +15,7 @@
 
   "errors": {
     "unexpected": "Something went wrong",
+    "errors_general_title": "An error occurred",
     "no_internet": "No internet connection",
     "network": {
       "no_connection": "No internet connection",

@@ -20,6 +20,7 @@ class CodegenLoader extends AssetLoader{
   },
   "buttons": {
     "ok": "OK",
+    "cancel": "Anuluj",
     "sign_in": "Zaloguj się",
     "sign_up": "Zarejestruj się",
     "submit_tag": "Wyślij",
@@ -28,6 +29,7 @@ class CodegenLoader extends AssetLoader{
   },
   "errors": {
     "unexpected": "Coś poszło nie tak",
+    "errors_general_title": "Wystąpił błąd",
     "no_internet": "Brak połączenia z internetem",
     "network": {
       "no_connection": "Brak połączenia z internetem",
@@ -101,6 +103,7 @@ static const Map<String,dynamic> _uk = {
   },
   "buttons": {
     "ok": "ОК",
+    "cancel": "Скасувати",
     "sign_in": "Увійти",
     "sign_up": "Зареєструватися",
     "submit_tag": "Відправити",
@@ -109,6 +112,7 @@ static const Map<String,dynamic> _uk = {
   },
   "errors": {
     "unexpected": "Щось пішло не так",
+    "errors_general_title": "Виникла помилка",
     "no_internet": "Немає підключення до інтернету",
     "network": {
       "no_connection": "Немає підключення до інтернету",
@@ -182,6 +186,7 @@ static const Map<String,dynamic> _en = {
   },
   "buttons": {
     "ok": "OK",
+    "cancel": "Cancel",
     "sign_in": "Sign In",
     "sign_up": "Sign Up",
     "submit_tag": "Submit",
@@ -190,6 +195,7 @@ static const Map<String,dynamic> _en = {
   },
   "errors": {
     "unexpected": "Something went wrong",
+    "errors_general_title": "An error occurred",
     "no_internet": "No internet connection",
     "network": {
       "no_connection": "No internet connection",

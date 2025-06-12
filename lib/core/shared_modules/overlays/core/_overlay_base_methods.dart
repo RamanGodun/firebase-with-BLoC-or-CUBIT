@@ -5,7 +5,7 @@ import '../../animation/overlays_animation/animation_wrapper/animated_overlay_wr
 import '../overlay_dispatcher/_overlay_dispatcher.dart';
 import '../overlay_entries/_overlay_entries_registry.dart';
 import 'overlay_core_objects.dart';
-import '../platform_mapper.dart';
+import 'platform_mapper.dart';
 import '../presentation/overlay_presets/overlay_presets.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/animation/overlays_animation/animation_engines/_context_x_for_engines.dart';
 

@@ -5,6 +5,7 @@
 
   "buttons": {
     "ok": "OK",
+    "cancel": "Anuluj",
     "sign_in": "Zaloguj się",
     "sign_up": "Zarejestruj się",
     "submit_tag": "Wyślij",
@@ -14,6 +15,7 @@
 
   "errors": {
     "unexpected": "Coś poszło nie tak",
+    "errors_general_title": "Wystąpił błąd",
     "no_internet": "Brak połączenia z internetem",
     "network": {
       "no_connection": "Brak połączenia z internetem",

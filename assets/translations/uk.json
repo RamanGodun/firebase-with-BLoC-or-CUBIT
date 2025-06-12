@@ -5,6 +5,7 @@
 
   "buttons": {
     "ok": "ОК",
+    "cancel": "Скасувати",
     "sign_in": "Увійти",
     "sign_up": "Зареєструватися",
     "submit_tag": "Відправити",
@@ -14,6 +15,7 @@
 
   "errors": {
     "unexpected": "Щось пішло не так",
+    "errors_general_title": "Виникла помилка",
     "no_internet": "Немає підключення до інтернету",
     "network": {
       "no_connection": "Немає підключення до інтернету",
