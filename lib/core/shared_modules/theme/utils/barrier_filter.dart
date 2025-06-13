@@ -6,9 +6,10 @@ import '../core/app_colors.dart';
 /// 🧊 [OverlayBarrierFilter] — Consistent blurred overlay backgrounds
 /// - Used in: dialogs, banners, snackbars (iOS + Android)
 /// - Supports [ShowAs] or override with [OverlayBlurLevel]
-/// ────────────────────────────────────────────────────────────────
+
 final class OverlayBarrierFilter {
   const OverlayBarrierFilter._();
+  // ───────────────────────────
 
   /// 📦 Main resolver: theme + type + optional [level] override
   static Widget resolve({
@@ -26,10 +27,17 @@ final class OverlayBarrierFilter {
     final color =
         isDark ? AppColors.overlayDarkBarrier : AppColors.overlayLightBarrier;
 
-    return _build(sigmaX: sigmaX, sigmaY: sigmaY, color: color);
+    return Positioned.fill(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: sigmaX, sigmaY: sigmaY),
+        child: Container(color: color),
+      ),
+    );
+
+    //
   }
 
-  // ────────────────────────────────────────────────────────────────
+  ///
 
   /// 🎚️ Theme + [ShowAs]-based blur config
   static (double, double) _resolveSigma(ShowAs? type, bool isDark) {
@@ -41,33 +49,5 @@ final class OverlayBarrierFilter {
     };
   }
 
-  /// 🔨 Widget builder
-  static Widget _build({
-    required double sigmaX,
-    required double sigmaY,
-    required Color color,
-  }) {
-    return Positioned.fill(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: sigmaX, sigmaY: sigmaY),
-        child: Container(color: color),
-      ),
-    );
-  }
-
-  // ────────────────────────────────────────────────────────────────
-
-  /// ☀️ Shortcut: Light preset for dialogs
-  static final Widget dialogLight = _build(
-    sigmaX: 3,
-    sigmaY: 3,
-    color: AppColors.overlayLightBarrier,
-  );
-
-  /// 🌙 Shortcut: Dark preset for banners
-  static final Widget bannerDark = _build(
-    sigmaX: 12,
-    sigmaY: 12,
-    color: AppColors.overlayDarkBarrier,
-  );
+  //
 }

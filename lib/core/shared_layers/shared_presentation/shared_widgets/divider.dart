@@ -2,7 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/theme/extensions
 import 'package:flutter/material.dart';
 
 import '../../../shared_modules/theme/core/app_colors.dart';
-import '../constants/_app_constants.dart' show AppSpacing;
+import '../../../shared_modules/theme/core/constants/_app_constants.dart' show AppSpacing;
 
 /// 🧊 [GlassTileDivider] — Subtle glass-style divider between dialog content and buttons.
 /// Used in dialogs with translucent backgrounds and blurred layers.

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../shared_modules/theme/core/app_colors.dart';
+import '../app_colors.dart';
 
 part 'app_icons.dart';
 part 'app_spacing.dart';

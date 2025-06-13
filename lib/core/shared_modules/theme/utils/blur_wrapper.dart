@@ -1,25 +1,26 @@
 import 'dart:ui';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/theme/extensions/theme_x.dart';
 import 'package:flutter/material.dart';
+import '../core/constants/_app_constants.dart';
 import '../../overlays/core/enums_for_overlay_module.dart';
 
 /// 🧊 [BlurContainer] — Glassmorphism wrapper with built-in blur & rounding
 /// - Wraps child with ClipRRect + BackdropFilter
 /// - Uses `ShowAs` to resolve σX/σY or accepts direct override
 /// - Rounded by default to 14 (DLS-consistent)
-/// ────────────────────────────────────────────────────────────────
+
 final class BlurContainer extends StatelessWidget {
+  /// ────────────────────────────────────────────
+
   final Widget child;
+  final BorderRadius borderRadius;
 
   /// Optional override blur strength
   final double? sigmaX;
   final double? sigmaY;
 
-  /// Optional DLS type (used if sigma not provided)
+  /// Optional type (used if sigma not provided)
   final ShowAs? overlayType;
-
-  /// Border radius — defaults to DLS 14
-  final BorderRadius borderRadius;
 
   const BlurContainer({
     super.key,
@@ -27,11 +28,14 @@ final class BlurContainer extends StatelessWidget {
     this.sigmaX,
     this.sigmaY,
     this.overlayType,
-    this.borderRadius = const BorderRadius.all(Radius.circular(14)),
+    this.borderRadius = UIConstants.commonBorderRadius,
   });
+
+  ///
 
   @override
   Widget build(BuildContext context) {
+    //
     final isDark = context.isDarkMode;
 
     final resolvedX = sigmaX ?? _resolveSigmaX(overlayType, isDark);
@@ -46,7 +50,7 @@ final class BlurContainer extends StatelessWidget {
     );
   }
 
-  // ─────────────────────────────────────────────────────────────────────────────
+  ///
 
   /// Resolves σX based on [ShowAs] and theme
   double _resolveSigmaX(ShowAs? type, bool isDark) {

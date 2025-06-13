@@ -2,9 +2,10 @@ import 'package:flutter/material.dart' show ThemeMode;
 
 /// 🌓 [ThemeModeX] — Extensions for working with [ThemeMode]
 /// ✅ Enables toggling & inspecting theme state
-//----------------------------------------------------------------
 
 extension ThemeModeX on ThemeMode {
+  //------------------------------
+
   /// 🔁 Toggles between [ThemeMode.dark] ↔ [ThemeMode.light]
   ThemeMode toggle() =>
       this == ThemeMode.dark ? ThemeMode.light : ThemeMode.dark;
@@ -18,5 +19,5 @@ extension ThemeModeX on ThemeMode {
   /// ⚙️ True if [ThemeMode.system]
   bool get isSystem => this == ThemeMode.system;
 
-  ///
+  //
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../shared_layers/shared_presentation/constants/_app_constants.dart';
+import 'constants/_app_constants.dart';
 import '../text_theme/_text_styles.dart';
 import 'app_colors.dart';
-import 'theming_enums.dart';
+import 'enums/_app_theme_type.dart.dart';
 
 part 'themes_factory.dart';
 
@@ -10,16 +10,17 @@ part 'themes_factory.dart';
 /// Used to build [ThemeData] for MaterialApp based on:
 /// - Selected [AppThemeType]
 /// - Optional custom font (e.g. for dynamic switching)
-//----------------------------------------------------------------
 
 abstract interface class AppThemes {
+  //------------------------------
+
   /// 🧬 Resolves a complete [ThemeData] from a available theme type options
-  static ThemeData resolve(AppThemeType variant, {FontFamilyType? font}) =>
-      _ThemeFactory(variant).build(font: font);
+  static ThemeData resolve(AppThemeType type, {FontFamilyType? font}) =>
+      _ThemeFactory(type).build(font: font);
 
   /// 🧪 Previews light/dark theme (used in toggles or previews)
   static ThemeData preview({bool isDark = false}) =>
       _ThemeFactory(isDark ? AppThemeType.dark : AppThemeType.light).build();
 
-  ///
+  //
 }

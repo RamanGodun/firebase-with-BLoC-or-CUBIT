@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget;
 import '../../../../core/shared_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import '../../../../core/utils/spider/images_paths.dart';
-import '../../../../core/shared_layers/shared_presentation/constants/_app_constants.dart'
+import '../../../../core/shared_modules/theme/core/constants/_app_constants.dart'
     show AppSpacing;
 import '../../../../core/shared_layers/shared_presentation/shared_widgets/text_button.dart';
 import '../../../form_fields/use_auth_focus_nodes.dart';

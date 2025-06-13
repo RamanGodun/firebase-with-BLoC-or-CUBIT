@@ -28,3 +28,9 @@ final class AppIcons {
 
   ///
 }
+
+///
+extension ThemeIconX on IconData {
+  IconData get toggled =>
+      this == AppIcons.darkMode ? AppIcons.lightMode : AppIcons.darkMode;
+}

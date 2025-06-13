@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../core/theming_enums.dart';
+import '../core/enums/_app_theme_type.dart.dart';
 
 part 'text_styles_factory.dart';
 part 'typography_factory.dart';
 
 /// 🧩 [AppTextStyles] — Entry point for accessing themed [TextTheme] & [CupertinoTextThemeData]
 /// ✅ Centralized typography resolver used across both Material & Cupertino widgets
-//----------------------------------------------------------------
 
 abstract final class AppTextStyles {
+  //-------------------------------
+
   /// 🎨 Returns themed [TextTheme],
   /// based on selected [AppThemeMode] + optional [FontFamilyType]
   static TextTheme getTextTheme(AppThemeMode mode, {FontFamilyType? font}) =>

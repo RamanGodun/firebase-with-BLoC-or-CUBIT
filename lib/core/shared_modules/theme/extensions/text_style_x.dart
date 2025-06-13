@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 /// 🎨 [TextStyleX] — Utilities to modify [TextStyle] fluently
 /// ✅ Enables fluent, chainable style adjustments:
-///----------------------------------------------------------------
 
 extension TextStyleX on TextStyle {
+  ///-----------------------------
+
   /// 🏋️ Sets font weight
   TextStyle withWeight(FontWeight weight) => copyWith(fontWeight: weight);
 
@@ -26,5 +27,5 @@ extension TextStyleX on TextStyle {
   /// ⬛ Makes font bold
   TextStyle bold() => copyWith(fontWeight: FontWeight.bold);
 
-  ///
+  //
 }

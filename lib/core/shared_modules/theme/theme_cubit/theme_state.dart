@@ -2,9 +2,10 @@ part of 'theme_cubit.dart';
 
 /// 🎨 [AppThemeState] — Represents current theme mode (light/dark)
 /// ✅ Immutable + equatable state for [AppThemeCubit]
-//------------------------------------------------------------------------------
 
 final class AppThemeState extends Equatable {
+  //----------------------------------------
+
   /// 🌙 Whether dark mode is enabled
   final bool isDarkTheme;
 
@@ -22,5 +23,5 @@ final class AppThemeState extends Equatable {
   @override
   List<Object> get props => [isDarkTheme];
 
-  ///
+  //
 }
