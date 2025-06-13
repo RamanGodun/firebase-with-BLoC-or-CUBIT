@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-/// 🌀 [AnimateX] — Widget animation helpers
+/// 🌀 [WidgetAnimationX] — Widget animation helpers
 /// ✅ Provides common animated entrance effects for widgets:
 /// - fadeIn, scaleIn, slideInFromBottom, etc.
 /// - Uses `TweenAnimationBuilder` / `AnimatedOpacity`
-///----------------------------------------------------------------
 
-extension AnimateX on Widget {
+extension WidgetAnimationX on Widget {
+  ///---------------------------------
+
   /// 🔶 Fades in the widget with opacity animation
   Widget fadeIn({
     Duration duration = const Duration(milliseconds: 400),
@@ -110,5 +111,5 @@ extension AnimateX on Widget {
     child: this,
   );
 
-  ///
+  //
 }

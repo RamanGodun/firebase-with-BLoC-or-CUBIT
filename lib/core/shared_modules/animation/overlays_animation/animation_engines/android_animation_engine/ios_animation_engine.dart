@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../overlays/core/enums_for_overlay_module.dart';
-import '__animation_engine.dart';
-import 'engine_configs.dart';
+import '../../../../overlays/core/enums_for_overlay_module.dart';
+import '../_animation_engine.dart';
+import '../engine_configs.dart';
 
 /// 🍎 [IOSOverlayAnimationEngine] — shared animation engine for all iOS overlays
 /// ✅ Uses category-based configuration to generate platform-consistent animations

@@ -1,25 +1,36 @@
 import 'package:flutter/material.dart';
-import '../../../overlays/core/enums_for_overlay_module.dart';
-import '__animation_engine.dart';
-import 'engine_configs.dart';
+import '../../../../overlays/core/enums_for_overlay_module.dart';
+import '../_animation_engine.dart';
+import '../engine_configs.dart';
 
 /// 🌟 [AndroidOverlayAnimationEngine] — unified animation engine for all Android overlays
 /// ✅ Centralized engine supporting dialog, banner, snackbar animations via [ShowAs] config
-///----------------------------------------------------------------
+
 final class AndroidOverlayAnimationEngine extends BaseAnimationEngine {
+  ///----------------------------------------------------------------
+
+  // 🧩 Overlay type used to resolve animation config
+  final ShowAs overlayType;
+  // ⚙️ Resolved animation config based on [overlayType]
+  final AndroidOverlayAnimationConfig _config;
+  // 💫 Opacity animation
+  late final Animation<double> _opacity;
+  // 🔍 Scale animation
+  late final Animation<double> _scale;
+  // ↕ Slide animation (nullable)
+  Animation<Offset>? _slide;
+
+  /// 🏗️ Constructor, that initializes config from type
   AndroidOverlayAnimationEngine(this.overlayType)
     : _config = _resolveConfig(overlayType);
 
-  final ShowAs overlayType;
-  final AndroidOverlayAnimationConfig _config;
-
-  late final Animation<double> _opacity;
-  late final Animation<double> _scale;
-  Animation<Offset>? _slide;
+  ///
 
   /// 🧠 Resolves preset animation configuration based on [ShowAs]
   static AndroidOverlayAnimationConfig _resolveConfig(ShowAs type) {
+    //
     return switch (type) {
+      //
       ShowAs.banner => const AndroidOverlayAnimationConfig(
         duration: Duration(milliseconds: 400),
         fastDuration: Duration(milliseconds: 160),
@@ -29,6 +40,7 @@ final class AndroidOverlayAnimationEngine extends BaseAnimationEngine {
         slideCurve: Curves.easeOut,
         slideOffset: Offset(0, -0.06),
       ),
+
       ShowAs.snackbar => const AndroidOverlayAnimationConfig(
         duration: Duration(milliseconds: 450),
         fastDuration: Duration(milliseconds: 160),
@@ -38,6 +50,7 @@ final class AndroidOverlayAnimationEngine extends BaseAnimationEngine {
         slideCurve: Curves.easeOut,
         slideOffset: Offset(0, 0.1),
       ),
+
       ShowAs.dialog || ShowAs.infoDialog => const AndroidOverlayAnimationConfig(
         duration: Duration(milliseconds: 400),
         fastDuration: Duration(milliseconds: 180),
@@ -50,12 +63,15 @@ final class AndroidOverlayAnimationEngine extends BaseAnimationEngine {
     };
   }
 
+  /// ⏱️ Default animation duration
   @override
   Duration get defaultDuration => _config.duration;
 
+  /// ⏩ Fast reverse duration (e.g. for dismiss)
   @override
   Duration get fastReverseDuration => _config.fastDuration;
 
+  /// ⚙️ Sets up tweens for all animations
   @override
   void setupAnimations() {
     _opacity = Tween(
@@ -76,12 +92,17 @@ final class AndroidOverlayAnimationEngine extends BaseAnimationEngine {
     }
   }
 
+  /// 🌫️ Fade transition animation
   @override
   Animation<double> get opacity => _opacity;
 
+  /// 🔍 Scale transition animation
   @override
   Animation<double> get scale => _scale;
 
+  /// ↕ Slide transition animation (nullable)
   @override
   Animation<Offset>? get slide => _slide;
+
+  //
 }

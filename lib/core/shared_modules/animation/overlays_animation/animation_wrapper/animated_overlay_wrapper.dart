@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import '../animation_engines/__animation_engine.dart';
+import '../animation_engines/_animation_engine.dart';
 
 /// 🧱 [AnimatedOverlayWrapper] — Universal animation container for overlay widgets.
 /// ✅ Safely initializes the animation engine with [TickerProvider].
 /// ✅ Automatically triggers the forward animation on mount.
 /// ✅ Optionally auto-dismisses after [displayDuration].
 /// ✅ Invokes [onDismiss] callback after reverse animation completes.
+
 final class AnimatedOverlayWrapper extends StatefulWidget {
+  ///-----------------------------------------------------
+
   final AnimationEngine engine;
   final Widget Function(AnimationEngine engine) builder;
   final Duration displayDuration;
@@ -26,39 +29,41 @@ final class AnimatedOverlayWrapper extends StatefulWidget {
   State<AnimatedOverlayWrapper> createState() => _AnimatedOverlayWrapperState();
 }
 
+///
+
 class _AnimatedOverlayWrapperState extends State<AnimatedOverlayWrapper>
     with TickerProviderStateMixin {
+  //
   bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
 
-    // ✅ Надійно захищає від late errors після dispose
+    // ✅ Protection from late errors after dispose
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return; // ⛔️ Вийти, якщо вже dispose
+      if (!mounted) return; // ⛔️ Exit, if already dispose
 
       widget.engine.initialize(this);
       widget.engine.play();
 
-      if (widget.displayDuration > Duration.zero) {
-        scheduleAutoDismiss();
-      }
+      if (widget.displayDuration > Duration.zero) _scheduleAutoDismiss();
+      if (mounted) setState(() => _isInitialized = true);
 
-      if (mounted) {
-        setState(() => _isInitialized = true);
-      }
+      //
     });
   }
 
   /// ⏱️ Auto-dismiss overlay after delay
-  void scheduleAutoDismiss() {
+  void _scheduleAutoDismiss() {
     Future.delayed(widget.displayDuration, () async {
       if (!mounted) return;
       await widget.engine.reverse();
       if (mounted) widget.onDismiss?.call();
     });
   }
+
+  ///
 
   @override
   Widget build(BuildContext context) {
@@ -73,4 +78,6 @@ class _AnimatedOverlayWrapperState extends State<AnimatedOverlayWrapper>
     widget.engine.dispose(); // 🧼 Cleanup engine
     super.dispose();
   }
+
+  //
 }

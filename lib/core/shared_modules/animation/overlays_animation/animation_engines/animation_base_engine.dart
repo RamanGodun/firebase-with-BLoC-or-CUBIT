@@ -1,15 +1,17 @@
-part of '__animation_engine.dart';
+part of '_animation_engine.dart';
 
 /// ✅ \[BaseAnimationEngine] — General base realization  of Engine
 /// 🔁 Incapsulates logic of `initialize`, `play`, `reverse`, `dispose`
-/// 🔧 Allows  override  tween'and through methods
-///----------------------------------------------------------------
+/// 🔧 Allows  override  tween and through methods
 
 abstract class BaseAnimationEngine extends AnimationEngine {
+  ///-------------------------------------------------------
+
   AnimationController? _controller;
   bool _isInitialized = false;
 
-  /// 🔐 Safe getter for controller — throws if accessed before init.
+  /// 🎛️ [controller] — Safe getter for animation controller
+  // Throws assert if accessed before `initialize()` was called
   AnimationController get controller {
     assert(
       _controller != null,
@@ -18,6 +20,8 @@ abstract class BaseAnimationEngine extends AnimationEngine {
     return _controller!;
   }
 
+  /// 🛠️ Initializes the animation engine with [TickerProvider]
+  // Creates controller and triggers setup of tweens
   @override
   void initialize(TickerProvider vsync, {Duration? duration}) {
     if (_isInitialized) return;
@@ -33,6 +37,8 @@ abstract class BaseAnimationEngine extends AnimationEngine {
   /// 🔧 Hook for defining tweens, called after controller created.
   void setupAnimations();
 
+  /// ▶️ Plays forward animation from start
+  // Optional override of duration for custom speed
   @override
   void play({Duration? durationOverride}) {
     if (!_isInitialized || _controller == null) return;
@@ -40,6 +46,8 @@ abstract class BaseAnimationEngine extends AnimationEngine {
     controller.forward(from: 0);
   }
 
+  /// ⏪ Reverses animation (with optional fast collapse)
+  // Used for dismiss transitions
   @override
   Future<void> reverse({bool fast = false}) async {
     if (!_isInitialized) return;
@@ -48,6 +56,14 @@ abstract class BaseAnimationEngine extends AnimationEngine {
     await controller.animateBack(0.0, duration: d);
   }
 
+  /// ⏱️ Default duration for animations
+  Duration get defaultDuration;
+
+  /// ⏩ Duration for fast reverse
+  Duration get fastReverseDuration => const Duration(milliseconds: 150);
+
+  /// 🧼 Disposes the animation controller
+  // Releases internal resources and resets state
   @override
   void dispose() {
     _controller?.dispose();
@@ -55,9 +71,5 @@ abstract class BaseAnimationEngine extends AnimationEngine {
     _isInitialized = false;
   }
 
-  /// ⏱️ Default duration for animations
-  Duration get defaultDuration;
-
-  /// ⏩ Duration for fast reverse
-  Duration get fastReverseDuration => const Duration(milliseconds: 150);
+  //
 }

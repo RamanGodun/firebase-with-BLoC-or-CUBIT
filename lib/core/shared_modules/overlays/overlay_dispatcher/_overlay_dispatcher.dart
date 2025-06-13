@@ -1,5 +1,5 @@
 import 'dart:collection';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/animation/overlays_animation/animation_wrapper/animation_x_for_widget.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/animation/overlays_animation/animation_wrapper/overlay_animation_x_for_widget.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/observers/overlay_logger.dart';
 import 'package:flutter/material.dart';
 import '../../../general_utils/debouncer.dart';
