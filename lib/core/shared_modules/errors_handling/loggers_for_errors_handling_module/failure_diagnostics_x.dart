@@ -1,5 +1,5 @@
-import '../failures_for_domain_and_presentation/enums.dart';
-import '../failures_for_domain_and_presentation/failure_for_domain.dart';
+import '../utils/enums.dart';
+import '../failures/failure_for_domain.dart';
 
 /// 🧭 [FailureDiagnosticsX] — Diagnostic utilities for `Failure`
 /// ✅ Includes type checkers, casting, logging helpers, and fallback-safe metadata access.

@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart' show debugPrint;
-import '../failures_for_domain_and_presentation/failure_for_domain.dart';
+import '../failures/failure_for_domain.dart';
 
 /// 🧭 [ErrorsLogger] — Centralized logger for all application-level telemetry.
 /// 🔍 Supports runtime exceptions and domain-level failures

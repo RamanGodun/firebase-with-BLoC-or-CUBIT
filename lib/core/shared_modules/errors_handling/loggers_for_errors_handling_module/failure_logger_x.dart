@@ -1,6 +1,6 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/loggers_for_errors_handling_module/failure_diagnostics_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
-import '../failures_for_domain_and_presentation/failure_for_domain.dart';
+import '../failures/failure_for_domain.dart';
 import 'errors_logger.dart';
 
 /// 🧩 Extensions for `Failure`: logging, diagnostics, analytics

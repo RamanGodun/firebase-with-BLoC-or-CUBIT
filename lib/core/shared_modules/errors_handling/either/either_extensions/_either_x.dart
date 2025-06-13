@@ -1,14 +1,15 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either_for_data/either_x/_eithers_facade.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either/either_extensions/__eithers_facade.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/loggers_for_errors_handling_module/failure_diagnostics_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
-import '../../failures_for_domain_and_presentation/failure_for_domain.dart';
+import '../../failures/failure_for_domain.dart';
 import '../../loggers_for_errors_handling_module/errors_logger.dart';
 
 /// 🧩 [ResultX<T>] — Sync sugar for `Either<Failure, T>`
 /// ✅ Enables fallback values, failure access, and folding logic
-//-------------------------------------------------------------------------
 
 extension ResultX<T> on Either<Failure, T> {
+  //---------------------------------------
+
   /// 🔁 Match (fold) sync logic — now chainable
   /// ✅ Auto-logs failure and tracks success
   Either<Failure, T> match({
@@ -40,10 +41,14 @@ extension ResultX<T> on Either<Failure, T> {
   /// 🔁 Maps right value
   Either<Failure, R> mapRight<R>(R Function(T value) transform) =>
       mapRight(transform);
+  // Either<Failure, R> mapRight<R>(R Function(T value) transform) =>
+  // fold((l) => Left(l), (r) => Right(transform(r)));
 
   /// 🔁 Maps left value
   Either<Failure, T> mapLeft(Failure Function(Failure failure) transform) =>
       mapLeft(transform);
+  // Either<Failure, T> mapLeft(Failure Function(Failure failure) transform) =>
+  //     fold((l) => Left(transform(l)), (r) => Right(r));
 
   /// 🔍 True if failure is Unauthorized
   bool get isUnauthorizedFailure => switch (this) {
@@ -61,5 +66,5 @@ extension ResultX<T> on Either<Failure, T> {
     fold(emitFailure, emitSuccess);
   }
 
-  ///
+  //
 }

@@ -51,7 +51,7 @@ final class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     final result = await signOutUseCase();
-    DSLLikeResultHandler(result).onFailure((f) {
+    ResultHandler(result).onFailure((f) {
       // emit error state або show overlay
       // emit(state.copyWith(...));
     }).log();

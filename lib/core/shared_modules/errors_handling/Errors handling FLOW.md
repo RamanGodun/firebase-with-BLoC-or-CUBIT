@@ -24,7 +24,7 @@ Implements a **hybrid strategy** combining two mechanisms:
   - External/system/SDK errors (e.g. `DioError`, `FirebaseException`, `PlatformException`, `SocketException`, etc.) are **thrown**
   - These are caught and mapped in the repository
 
-* **AZER** (App-Zone Expected Result):
+* **Either** (App-Zone Expected Result):
   - Anticipated logical outcomes (e.g. cache miss, duplicate, validation error) are returned as `Either<Failure, T>` without throwing
 
 > This approach ensures traceability for unexpected exceptions while cleanly separating known domain errors.
@@ -35,14 +35,14 @@ Implements a **hybrid strategy** combining two mechanisms:
 
 ### ✅ Repository Layer
 
-Serves as the **central error boundary**, converting all outcomes to the unified AZER format. Inherits from `BaseRepository`.
+Serves as the **central error boundary**, converting all outcomes to the unified Either format. Inherits from `BaseRepository`.
 
 * For thrown exceptions (ASTRODES):
   - Catches errors
   - Maps to domain-level `Failure` using `FailureMapper`
-  - Returns as `Left(Failure)` via AZER
+  - Returns as `Left(Failure)` via Either
 
-* For expected failures (AZER-style):
+* For expected failures (Either-style):
   - Forwards the `Either<Failure, T>` result directly, returns them **as-is**
 
 > Every public method returns a standardized shape:  
@@ -157,10 +157,10 @@ sequenceDiagram
     Cubit->>UseCase: call use case
     UseCase->>Repo: request data
     Repo->>DataSource: fetch/compute result
-    DataSource-->>Repo: Either (AZER) or throw (ASTRODES)
+    DataSource-->>Repo: Either (Either) or throw (ASTRODES)
     Repo->>Repo: catch + map → `FailureMapper`
     Repo-->>UseCase: Left(Failure) or Right(Data)
-    UseCase-->>Cubit: propagate result (AZER)
+    UseCase-->>Cubit: propagate result (Either)
     Cubit-->>UI: emit state + `FailureUIModel`
     UI->>UI: show overlay if `.consume()` is not null
 ```
@@ -179,8 +179,8 @@ sequenceDiagram
 
 | Layer / Component     | Role                                     | Best Practice                                                                    |
 | --------------------- | ---------------------------------------- | -------------------------------------------------------------------------------- |
-| **DataSource**        | Accesses raw data (SDK, API, platform)   | Hybrid approach: `throw` for ASTRODES, return `Either<Failure, T>` for AZER      |
-| **Repository**        | Converts outcomes to AZER format         | Wraps calls via `safeCall` / `safeCallVoid`, uses `FailureMapper` for exceptions |
+| **DataSource**        | Accesses raw data (SDK, API, platform)   | Hybrid approach: `throw` for ASTRODES, return `Either<Failure, T>` for Either      |
+| **Repository**        | Converts outcomes to Either format         | Wraps calls via `safeCall` / `safeCallVoid`, uses `FailureMapper` for exceptions |
 | **FailureMapper**     | Converts exceptions into domain failures | Central mapping layer; supports Crashlytics, debug logging                       |
 | **UseCase**           | Delegates logic and returns result       | Standard: `ResultFuture<T>` = `Future<Either<Failure, T>>`; pure, framework-free |
 | **Cubit / Notifier**  | Handles result and emits state           | Uses `.fold()` for simple flows, DSL handler for UX feedback & chaining          |
@@ -210,9 +210,9 @@ sequenceDiagram
 | Complex UX flows            | ✅ `DSLLikeResultHandler`           | Fluent control for logs, side effects, fallback, or retry chains   |
 | Basic success/failure logic | ✅ `.fold()` / `.match()`           | Simple, concise, readable                                          |
 | SDK/API/Platform errors     | ✅ ASTRODES                         | Thrown, then caught in repo and mapped via `FailureMapper`         |
-| Known domain failures       | ✅ AZER                             | Returned as `Either<Failure, T>` without throwing                  |
+| Known domain failures       | ✅ Either                             | Returned as `Either<Failure, T>` without throwing                  |
 | Result shape                | ✅ `ResultFuture<T>` everywhere     | Standardized async result format in all layers                     |
-| Exception handling          | ✅ `safeCall()` or `safeCallVoid()` | Captures and maps low-level errors to AZER                         |
+| Exception handling          | ✅ `safeCall()` or `safeCallVoid()` | Captures and maps low-level errors to Either                         |
 | Failure-to-UI mapping       | ✅ `.toUIModel()`                   | Produces consistent UI-ready error with icon & translation support |
 | UI delivery trigger         | ✅ `context.showError(...)` | Unified mechanism for showing user-facing errors                   |
 | Feedback one-time handling  | ✅ `Consumable<FailureUIModel>`     | Ensures overlays shown once per failure emission                   |

@@ -1,11 +1,12 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either_for_data/either_x/_eithers_facade.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either/either_extensions/__eithers_facade.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/loggers_for_errors_handling_module/failure_diagnostics_x.dart';
-import '../../failures_for_domain_and_presentation/failure_for_domain.dart';
+import '../../failures/failure_for_domain.dart';
 
 /// 🧪 [ResultFutureTestX] — Fluent test helpers for async Either
-//-------------------------------------------------------------------------
 
 extension ResultFutureTestX<T> on Future<Either<Failure, T>> {
+  ///--------------------------------------------------------
+
   /// ✅ Expect that future resolves to Right with [expected] value
   Future<void> expectSuccess(T expected) async {
     final result = await this;
@@ -33,4 +34,6 @@ extension ResultFutureTestX<T> on Future<Either<Failure, T>> {
       );
     }
   }
+
+  //
 }

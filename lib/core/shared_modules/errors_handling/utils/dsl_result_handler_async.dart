@@ -1,26 +1,26 @@
 import 'dart:async' show FutureOr;
 
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either_for_data/either_x/either_getters_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either/either_extensions/either_getters_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/loggers_for_errors_handling_module/failure_logger_x.dart';
 
-import '../either_for_data/either.dart';
-import '../failures_for_domain_and_presentation/failure_for_domain.dart';
+import '../either/either.dart';
+import '../failures/failure_for_domain.dart';
 
 /// 🧩 [ResultHandlerAsync<T>] — async wrapper around `Either<Failure, T>`
 /// ✅ Provides clean async result handling with chainable syntax.
 /// Useful for services, use-cases, and UI layers (e.g. after API calls).
 //-------------------------------------------------------------------------
 
-class DSLLikeResultHandlerAsync<T> {
+class ResultHandlerAsync<T> {
   final Either<Failure, T> result;
-  const DSLLikeResultHandlerAsync(this.result);
+  const ResultHandlerAsync(this.result);
 
   // ──────────────────────────────────────────────────────────────────────
   // 🔹 Async Callbacks
   // ──────────────────────────────────────────────────────────────────────
 
   /// 🔹 Runs [handler] if result is Right (success)
-  Future<DSLLikeResultHandlerAsync<T>> onSuccessAsync(
+  Future<ResultHandlerAsync<T>> onSuccessAsync(
     FutureOr<void> Function(T value) handler,
   ) async {
     if (result.isRight) await handler(result.rightOrNull as T);
@@ -28,7 +28,7 @@ class DSLLikeResultHandlerAsync<T> {
   }
 
   /// 🔹 Runs [handler] if result is Left (failure)
-  Future<DSLLikeResultHandlerAsync<T>> onFailureAsync(
+  Future<ResultHandlerAsync<T>> onFailureAsync(
     FutureOr<void> Function(Failure failure) handler,
   ) async {
     if (result.isLeft) await handler(result.leftOrNull!);
@@ -65,7 +65,7 @@ class DSLLikeResultHandlerAsync<T> {
   // ──────────────────────────────────────────────────────────────────────
 
   /// 🐞 Logs failure (Crashlytics or debugPrint)
-  Future<DSLLikeResultHandlerAsync<T>> logAsync() async {
+  Future<ResultHandlerAsync<T>> logAsync() async {
     result.leftOrNull?.log();
     return this;
   }

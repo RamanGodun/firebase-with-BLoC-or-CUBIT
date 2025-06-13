@@ -22,6 +22,6 @@ final class ProfileLoaded extends ProfileState {
 }
 
 final class ProfileError extends ProfileState {
-  final Consumable<FailureUIModel> failure;
+  final Consumable<FailureForUI> failure;
   const ProfileError(this.failure);
 }

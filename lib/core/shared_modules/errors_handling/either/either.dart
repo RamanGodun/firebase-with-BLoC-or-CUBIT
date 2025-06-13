@@ -1,12 +1,15 @@
-library;
+import 'package:meta/meta.dart' show immutable;
+
+part 'either_primitives.dart';
 
 /// 🎯 [Either] — Functional construct for wrapping a result:
 /// ✅ [Left] for failure, [Right] for success
 /// ✅ Immutable, composable, and testable
-//-------------------------------------------------------------------------
 
+@immutable
 sealed class Either<L, R> {
   const Either();
+  //-------------
 
   /// 🔍 True if value is [Left] (failure)
   bool get isLeft => this is Left<L, R>;
@@ -50,16 +53,6 @@ sealed class Either<L, R> {
     Left(:final value) => Left(value),
     Right(:final value) => mapR(value),
   };
-}
 
-/// 📦 [Left] — Represents failure value of [Either]
-final class Left<L, R> extends Either<L, R> {
-  const Left(this.value);
-  final L value;
-}
-
-/// 📦 [Right] — Represents success value of [Either]
-final class Right<L, R> extends Either<L, R> {
-  const Right(this.value);
-  final R value;
+  //
 }

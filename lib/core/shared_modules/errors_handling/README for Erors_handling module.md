@@ -6,14 +6,14 @@
 
 This module implements a **unified, scalable error handling system** that supports two alternative paradigms:
 
-* 🧨 **AZER** — Classic, explicit and readable error flow using `Either<Failure, T>` and `.fold(...)`
+* 🧨 **Either** — Classic, explicit and readable error flow using `Either<Failure, T>` and `.fold(...)`
 * 🔗 **DSL-like** — Declarative, chainable alternative inspired by functional programming, using `DSLLikeResultHandler`, `.match()` and `.matchAsync()` extensions
 
 Each approach is interchangeable and can be selected per feature or team preference.
 
 ---
 
-## 🤁 AZER: Explicit (Classic) Style
+## 🤁 Either: Explicit (Classic) Style
 
 ### ✅ When to Use:
 
@@ -83,7 +83,7 @@ await getUserUseCase()
 
 ## 🧹 Integration in Cubit
 
-### 🧨 AZER-style Cubit Example:
+### 🧨 Either-style Cubit Example:
 
 ```dart
 Future<void> fetchUser() async {
@@ -151,14 +151,14 @@ errors_handling/
 
 ## 📊 When to Choose Which
 
-| Criteria                        | AZER (Classic) | DSL-like Handler     |
-| ------------------------------- | -------------- | -------------------- |
-| ✅ Predictable and explicit      | ✔️ Yes         | ❌ Less explicit      |
+| Criteria                        | Either (Classic)| DSL-like Handler     |
+| ------------------------------- | --------------- | -------------------- |
+| ✅ Predictable and explicit      | ✔️ Yes          | ❌ Less explicit      |
 | ✅ Declarative & chainable       | ❌ No           | ✔️ Yes               |
-| ✅ Requires no extra wrappers    | ✔️ Yes         | ❌ Needs `.then(...)` |
+| ✅ Requires no extra wrappers    | ✔️ Yes          | ❌ Needs `.then(...)` |
 | ✅ Team prefers functional style | ❌ Maybe        | ✔️ Perfect fit       |
 
-> 🧠 **Recommendation:** Use AZER by default for UI state management (Cubit/BLoC). DSL-style is best for expressive chains and functional flows.
+> 🧠 **Recommendation:** Use Either by default for UI state management (Cubit/BLoC). DSL-style is best for expressive chains and functional flows.
 
 ---
 

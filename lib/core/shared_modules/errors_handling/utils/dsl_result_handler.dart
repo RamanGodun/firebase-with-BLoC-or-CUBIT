@@ -1,28 +1,28 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either_for_data/either_x/either_getters_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either/either_extensions/either_getters_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/loggers_for_errors_handling_module/failure_logger_x.dart';
 import 'package:flutter/material.dart';
-import '../either_for_data/either.dart';
-import '../failures_for_domain_and_presentation/failure_for_domain.dart';
+import '../either/either.dart';
+import '../failures/failure_for_domain.dart';
 
 /// 🧩 [ResultHandler<T>] — wrapper around `Either<Failure, T>`
 /// ✅ Clean, chainable, and readable result API for Cubits, Providers, UseCases.
 @immutable
-final class DSLLikeResultHandler<T> {
+final class ResultHandler<T> {
   final Either<Failure, T> result;
-  const DSLLikeResultHandler(this.result);
+  const ResultHandler(this.result);
 
   // ──────────────────────────────────────────────────────────────────────
   // 🔹 Success / Failure Callbacks
   // ──────────────────────────────────────────────────────────────────────
 
   /// 🔹 Executes handler if result is success
-  DSLLikeResultHandler<T> onSuccess(void Function(T value) handler) {
+  ResultHandler<T> onSuccess(void Function(T value) handler) {
     if (result.isRight) handler(result.rightOrNull as T);
     return this;
   }
 
   /// 🔹 Executes handler if result is failure
-  DSLLikeResultHandler<T> onFailure(void Function(Failure failure) handler) {
+  ResultHandler<T> onFailure(void Function(Failure failure) handler) {
     if (result.isLeft) handler(result.leftOrNull!);
     return this;
   }
@@ -63,7 +63,7 @@ final class DSLLikeResultHandler<T> {
   // ──────────────────────────────────────────────────────────────────────
 
   /// 🐞 Logs failure (debug or Crashlytics)
-  DSLLikeResultHandler<T> log() {
+  ResultHandler<T> log() {
     result.leftOrNull?.log();
     return this;
   }

@@ -2,15 +2,15 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/
 import 'package:flutter/material.dart';
 import '../../localization/code_base_for_both_options/_app_localizer.dart';
 import '../loggers_for_errors_handling_module/errors_logger.dart';
-import 'enums.dart';
+import '../utils/enums.dart';
 import 'failure_for_domain.dart';
 import '../utils/consumable.dart';
-import 'failure_ui_model.dart';
+import '_failure_ui_entity.dart';
 
-/// ✅ [FailureToUIModelX] — Maps [Failure] to [FailureUIModel] without localization context
+/// ✅ [FailureToUIModelX] — Maps [Failure] to [FailureForUI] without localization context
 extension FailureToUIModelX on Failure {
   ///
-  FailureUIModel toUIModel() {
+  FailureForUI toUIModel() {
     final resolvedText =
         (translationKey?.isNotEmpty ?? false)
             ? AppLocalizer.t(translationKey!, fallback: message)
@@ -20,7 +20,7 @@ extension FailureToUIModelX on Failure {
       ErrorsLogger.failure(this, StackTrace.current);
     }
 
-    return FailureUIModel(
+    return FailureForUI(
       localizedMessage: resolvedText,
       formattedCode: safeCode,
       icon: _resolveIcon(),
@@ -67,7 +67,7 @@ extension FailureToUIModelX on Failure {
   };
 
   /// 🎯 One-shot wrapper for state management
-  Consumable<FailureUIModel> asConsumableUIModel() => Consumable(toUIModel());
+  Consumable<FailureForUI> asConsumableUIModel() => Consumable(toUIModel());
 
   ///
 

@@ -1,5 +1,5 @@
-import '../../../shared_modules/errors_handling/either_for_data/either.dart';
-import '../../../shared_modules/errors_handling/failures_for_domain_and_presentation/failure_for_domain.dart';
+import '../../../shared_modules/errors_handling/either/either.dart';
+import '../../../shared_modules/errors_handling/failures/failure_for_domain.dart';
 import '../../../shared_modules/errors_handling/utils/failure_mapper.dart';
 
 /// 🧩 [BaseRepository] — Common abstraction for handling safe async calls.

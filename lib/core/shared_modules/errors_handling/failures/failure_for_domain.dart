@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'enums.dart';
+import '../utils/enums.dart';
 
 /// 🔥 [Failure] — Domain abstraction for all app-level errors.
 /// ✅ Used throughout AZER: [Either<Failure, T>]
