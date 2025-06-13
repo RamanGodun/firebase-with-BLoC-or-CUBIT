@@ -1,13 +1,12 @@
 import '../utils/enums.dart';
-import '../failures/failure_for_domain.dart';
+import '../failures/failure_entity.dart';
 
 /// 🧭 [FailureDiagnosticsX] — Diagnostic utilities for `Failure`
 /// ✅ Includes type checkers, casting, logging helpers, and fallback-safe metadata access.
 /// ✅ Used in logging, Crashlytics, result handlers, and advanced failure branching.
-// ──────────────────────────────────────────────────────────────────────
 
 extension FailureDiagnosticsX on Failure {
-  //
+  // ────────────────────────────────────
 
   /// 🔌 Source & Type Diagnostics
 
@@ -52,5 +51,5 @@ extension FailureDiagnosticsX on Failure {
   /// Developer-friendly label combining code and message
   String get label => '$safeCode — $message';
 
-  ///
+  //
 }

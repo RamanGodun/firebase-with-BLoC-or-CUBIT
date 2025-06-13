@@ -21,7 +21,7 @@ extension SignInStateValidationX on SignInPageState {
     final EmailInputValidation? email,
     final PasswordInput? password,
     final FormzSubmissionStatus? status,
-    final Consumable<FailureForUI>? failure,
+    final Consumable<FailureUIEntity>? failure,
     final bool? isPasswordObscure,
   }) {
     final updated = copyWith(

@@ -4,9 +4,9 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
-import '../loggers_for_errors_handling_module/errors_logger.dart';
+import '../observers/loggers/errors_log_util.dart';
 import 'enums.dart';
-import '../failures/failure_for_domain.dart';
+import '../failures/failure_entity.dart';
 
 /// 🧰 [FailureMapper] — centralized converter for raw exceptions to domain-level [Failure].
 /// ✅ Converts ASTRODES into structured [Failure] types.

@@ -1,12 +1,13 @@
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/observers/failure_diagnostics_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
-import '../failures/failure_for_domain.dart';
+import '../../failures/failure_entity.dart';
 
 /// 🧭 [ErrorsLogger] — Centralized logger for all application-level telemetry.
 /// 🔍 Supports runtime exceptions and domain-level failures
-///-----------------------------------------------------------------------------
 
 abstract final class ErrorsLogger {
   const ErrorsLogger._();
+  //------------------
 
   /// ❗ Logs any raw [Exception] or [Error].
   static void exception(Object error, [StackTrace? stackTrace]) {
@@ -16,7 +17,7 @@ abstract final class ErrorsLogger {
 
   /// 🧱 Logs a domain-level [Failure].
   static void failure(Failure failure, [StackTrace? stackTrace]) {
-    debugPrint('[Failure] ${failure.runtimeType}: $failure');
+    debugPrint('[Failure] ${failure.label}');
     if (stackTrace case final trace?) debugPrint(trace.toString());
   }
 
@@ -24,5 +25,5 @@ abstract final class ErrorsLogger {
     ErrorsLogger.exception(error, stackTrace);
   }
 
-  ///
+  //
 }

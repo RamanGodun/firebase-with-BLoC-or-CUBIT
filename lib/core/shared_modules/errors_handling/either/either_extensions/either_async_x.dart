@@ -1,10 +1,10 @@
 import 'dart:async' show FutureOr;
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either/either_extensions/either_getters_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
-import '../../loggers_for_errors_handling_module/errors_logger.dart';
+import '../../observers/loggers/errors_log_util.dart';
 import '../../utils/dsl_result_handler_async.dart';
 import '../either.dart';
-import '../../failures/failure_for_domain.dart';
+import '../../failures/failure_entity.dart';
 
 /// 🧩 [ResultFutureX<T>] — Async sugar for `Future<Either<Failure, T>>`
 /// ✅ Unified access to async chaining, fallback and message handling

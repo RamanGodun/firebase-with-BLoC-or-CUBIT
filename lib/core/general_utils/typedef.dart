@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../shared_modules/errors_handling/either/either.dart';
-import '../shared_modules/errors_handling/failures/failure_for_domain.dart';
+import '../shared_modules/errors_handling/failures/failure_entity.dart';
 import '../shared_modules/errors_handling/utils/dsl_result_handler.dart';
 import '../shared_modules/overlays/overlays_presentation/overlay_presets/overlay_presets.dart';
 

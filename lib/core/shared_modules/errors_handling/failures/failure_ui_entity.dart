@@ -2,15 +2,15 @@ import 'package:equatable/equatable.dart' show Equatable;
 import 'package:flutter/material.dart';
 
 /// ✅ Used in Cubit to map raw Failure into UI-ready format (icons, kinds, keys)
-/// 🧩 [FailureForUI] — Stateless model for representing a failure in the UI
+/// 🧩 [FailureUIEntity] — Stateless model for representing a failure in the UI
 /// ✅ Used in presentation layer instead of [Failure]
 
-final class FailureForUI extends Equatable {
+final class FailureUIEntity extends Equatable {
   final String localizedMessage;
   final String? formattedCode;
   final IconData icon;
 
-  const FailureForUI({
+  const FailureUIEntity({
     required this.localizedMessage,
     required this.icon,
     this.formattedCode,

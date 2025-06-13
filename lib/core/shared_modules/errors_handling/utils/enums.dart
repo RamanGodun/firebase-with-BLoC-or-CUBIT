@@ -23,23 +23,32 @@ enum ErrorPlugin {
 }
 
 enum FailureKey {
+  //
   networkNoConnection,
   networkTimeout,
   unauthorized,
   firebaseGeneric,
+  firebaseDocMissing,
   formatError,
   unknown,
-  missingPlugin
+  firebaseInvalidCredential,
+  firebaseUserNotFound,
+  firebaseWrongPassword,
+  missingPlugin;
+
   // other cases
-  ;
 
   String get translationKey => switch (this) {
     networkNoConnection => 'failure.network.no_connection',
     networkTimeout => 'failure.network.timeout',
     unauthorized => 'failure.auth.unauthorized',
     firebaseGeneric => 'failure.firebase.generic',
+    firebaseDocMissing => 'failure.firebase.doc_missing',
     formatError => 'failure.format.error',
     unknown => 'failure.unknown',
+    firebaseInvalidCredential => 'failure.firebase.invalid_credential',
+    firebaseUserNotFound => 'failure.firebase.user_not_found',
+    firebaseWrongPassword => 'failure.firebase.wrong_password',
     missingPlugin => 'failure.plugin.missing',
   };
 }

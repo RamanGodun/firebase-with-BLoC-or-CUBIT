@@ -1,8 +1,8 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either/either_extensions/either_getters_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/loggers_for_errors_handling_module/failure_logger_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/observers/loggers/failure_logger_x.dart';
 import 'package:flutter/material.dart';
 import '../either/either.dart';
-import '../failures/failure_for_domain.dart';
+import '../failures/failure_entity.dart';
 
 /// 🧩 [ResultHandler<T>] — wrapper around `Either<Failure, T>`
 /// ✅ Clean, chainable, and readable result API for Cubits, Providers, UseCases.
