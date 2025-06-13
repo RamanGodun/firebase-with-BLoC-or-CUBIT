@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:firebase_with_bloc_or_cubit/core/shared_layers/shared_data_transfer_objects/user_dto_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_layers/shared_domain/repo_contracts/base_repo.dart';
-import '../../../core/utils/typedef.dart';
+import '../../../core/general_utils/typedef.dart';
 import '../../../core/shared_layers/shared_data_transfer_objects/user_dto_utils_x.dart';
 import '../../../core/app_configs/firebase/data_source_constants.dart';
 import 'data_source_contract.dart';

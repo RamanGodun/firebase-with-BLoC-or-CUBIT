@@ -30,12 +30,12 @@ base class CustomButtonForGoRouter extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: AppSpacing.xl,
-        vertical: AppSpacing.s,
+        vertical: AppSpacing.xxxs,
       ),
       child: SizedBox(
         width: double.infinity,
         child: CupertinoButton(
-          padding: const EdgeInsets.symmetric(vertical: AppSpacing.m),
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.xxxm),
           borderRadius: BorderRadius.circular(14),
           color: AppColors.primary85,
           disabledColor: AppColors.primary30,

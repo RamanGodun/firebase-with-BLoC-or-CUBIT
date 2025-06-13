@@ -27,13 +27,13 @@ final class RedirectTextButton extends StatelessWidget {
           const Expanded(
             child: Divider(thickness: 0.5, color: AppColors.caption),
           ),
-          const SizedBox(width: AppSpacing.m),
+          const SizedBox(width: AppSpacing.xxxm),
           TextWidget(
             label,
             TextType.bodyMedium,
             color: context.colorScheme.primary,
           ),
-          const SizedBox(width: AppSpacing.m),
+          const SizedBox(width: AppSpacing.xxxm),
           const Expanded(
             child: Divider(thickness: 0.5, color: AppColors.caption),
           ),

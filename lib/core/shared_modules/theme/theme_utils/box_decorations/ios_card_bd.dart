@@ -14,7 +14,7 @@ final class IOSCardsDecoration {
     border: Border.fromBorderSide(
       BorderSide(color: AppColors.overlayLightBorder12, width: 1),
     ),
-    boxShadow: AppShadows.forIOSLightThemeBanner,
+    boxShadow: AppShadows.forLightThemeCard,
   );
 
   static const BoxDecoration _darkThemeDecoration = BoxDecoration(
@@ -23,7 +23,7 @@ final class IOSCardsDecoration {
     border: Border.fromBorderSide(
       BorderSide(color: AppColors.overlayDarkBorder10, width: 1),
     ),
-    boxShadow: AppShadows.forIOSDarkThemeBanner,
+    boxShadow: AppShadows.forDarkThemeCard,
   );
 
   // 📦 Memoized lookup map

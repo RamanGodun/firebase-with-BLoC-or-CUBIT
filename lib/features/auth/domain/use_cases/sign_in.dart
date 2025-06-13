@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
-import 'package:firebase_with_bloc_or_cubit/core/utils/typedef.dart';
+import 'package:firebase_with_bloc_or_cubit/core/general_utils/typedef.dart';
 
 import '../repositories/auth_repo.dart';
 

@@ -1,10 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/_context_x_for_overlays.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/theme/extensions/theme_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/extension_on_widget/_widget_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/general_utils/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/material.dart';
-import '../../theme/core/constants/_app_constants.dart'
-    show AppIcons;
+import '../../theme/core/constants/_app_constants.dart' show AppIcons;
 import 'language_option.dart';
 
 /// 🌐🌍 [LanguageToggleButton] — macOS-style drop-down with flag + native text

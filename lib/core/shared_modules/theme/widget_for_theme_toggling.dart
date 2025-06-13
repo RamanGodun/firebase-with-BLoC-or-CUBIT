@@ -2,11 +2,11 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/_c
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/theme/extensions/theme_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'constants/_app_constants.dart'
+import 'core/constants/_app_constants.dart'
     show AppIcons;
-import '../../localization/generated/locale_keys.g.dart';
-import '../../localization/code_base_for_both_options/_app_localizer.dart';
-import '../theme_cubit/theme_cubit.dart' show AppThemeCubit;
+import '../localization/generated/locale_keys.g.dart';
+import '../localization/code_base_for_both_options/_app_localizer.dart';
+import 'theme_cubit/theme_cubit.dart' show AppThemeCubit;
 
 /// 🌗 [ThemeToggleIcon] — toggles between light and dark mode and shows localized message.
 

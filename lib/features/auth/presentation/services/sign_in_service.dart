@@ -5,7 +5,7 @@ import '../../domain/use_cases/ensure_profile_created.dart';
 import '../../domain/use_cases/sign_in.dart';
 import '../../../../core/shared_modules/errors_handling/either_for_data/either.dart';
 import '../../../../core/shared_modules/errors_handling/failures_for_domain_and_presentation/failure_for_domain.dart';
-import '../../../../core/utils/typedef.dart';
+import '../../../../core/general_utils/typedef.dart';
 
 /// 🧩 [SignInService] — Handles sign-in logic and profile creation
 /// ✅ Combines [SignInUseCase] and [EnsureUserProfileCreatedUseCase] into one flow

@@ -91,7 +91,7 @@ final class _ErrorContent extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Image(image: AssetImage(ImagesPaths.error), width: 75),
-          SizedBox(height: AppSpacing.s),
+          SizedBox(height: AppSpacing.xxxs),
           TextWidget(LocaleKeys.profile_error, TextType.error),
         ],
       ),

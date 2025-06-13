@@ -2,8 +2,8 @@ part of '_app_constants.dart';
 
 abstract final class AppShadows {
   const AppShadows._();
+  //-----------------
 
-  ///
   /// 🍏 Dialog-specific shadows
   static const List<BoxShadow> forIOSLightThemeDialog = [
     BoxShadow(
@@ -19,25 +19,6 @@ abstract final class AppShadows {
       color: AppColors.overlayDarkShadow,
       blurRadius: 12,
       spreadRadius: 0.4,
-      offset: Offset(0, 3),
-    ),
-  ];
-
-  /// 🍏 Banner-specific shadows
-  static const List<BoxShadow> forIOSLightThemeBanner = [
-    BoxShadow(
-      color: AppColors.overlayLightShadow,
-      blurRadius: 8,
-      spreadRadius: 0.5,
-      offset: Offset(0, 3),
-    ),
-  ];
-
-  static const List<BoxShadow> forIOSDarkThemeBanner = [
-    BoxShadow(
-      color: AppColors.overlayDarkShadow,
-      blurRadius: 18,
-      spreadRadius: 0.5,
       offset: Offset(0, 3),
     ),
   ];
@@ -61,5 +42,24 @@ abstract final class AppShadows {
     ),
   ];
 
-  ///
+  /// 🍏 Card-specific shadows
+  static const List<BoxShadow> forLightThemeCard = [
+    BoxShadow(
+      color: AppColors.overlayLightShadow,
+      blurRadius: 8,
+      spreadRadius: 0.5,
+      offset: Offset(0, 3),
+    ),
+  ];
+
+  static const List<BoxShadow> forDarkThemeCard = [
+    BoxShadow(
+      color: AppColors.overlayDarkShadow,
+      blurRadius: 18,
+      spreadRadius: 0.5,
+      offset: Offset(0, 3),
+    ),
+  ];
+
+  //
 }

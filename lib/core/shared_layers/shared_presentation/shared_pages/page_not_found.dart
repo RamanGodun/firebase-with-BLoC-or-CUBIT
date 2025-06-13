@@ -1,5 +1,5 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/localization/generated/locale_keys.g.dart';
-import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/extension_on_widget/_widget_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/general_utils/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/theme/core/constants/_app_constants.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/navigation/widgets/button_for_go_router.dart';
@@ -29,7 +29,7 @@ final class PageNotFound extends StatelessWidget {
             TextType.error,
             alignment: TextAlign.center,
           ),
-          const SizedBox(height: AppSpacing.m),
+          const SizedBox(height: AppSpacing.xxxm),
           const CustomButtonForGoRouter(
             title: LocaleKeys.pages_go_to_home,
             routeName: RoutesNames.home,

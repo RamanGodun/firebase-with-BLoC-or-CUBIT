@@ -2,7 +2,7 @@ import 'dart:collection';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/animation/overlays_animation/animation_wrapper/animation_x_for_widget.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/observers/overlay_logger.dart';
 import 'package:flutter/material.dart';
-import '../../../utils/debouncer.dart';
+import '../../../general_utils/debouncer.dart';
 import '../core/enums_for_overlay_module.dart';
 import 'overlay_entries/_overlay_entries_registry.dart';
 import '../core/tap_through_overlay_barrier.dart';

@@ -1,5 +1,5 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/_context_x_for_overlays.dart';
-import 'package:firebase_with_bloc_or_cubit/core/utils/extensions/context_extensions/_context_extensions.dart';
+import 'package:firebase_with_bloc_or_cubit/core/general_utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:flutter/material.dart';
 
 /// 🧩 [GlobalOverlayHandler] — Universal gesture wrapper for screen-wide UX improvements:

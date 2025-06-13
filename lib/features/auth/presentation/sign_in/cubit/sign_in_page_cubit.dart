@@ -8,7 +8,7 @@ import '../../../../../core/shared_modules/errors_handling/failures_for_domain_a
 import '../../../../../core/shared_modules/errors_handling/utils/dsl_result_handler_async.dart';
 import '../../../../form_fields/input_validation/_inputs_validation.dart';
 import '../../services/sign_in_service.dart';
-import '../../../../../core/utils/debouncer.dart';
+import '../../../../../core/general_utils/debouncer.dart';
 
 part 'sign_in_page_state.dart';
 part 'sign_in_state_validation_x.dart';

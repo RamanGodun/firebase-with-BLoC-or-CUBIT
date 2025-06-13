@@ -9,7 +9,7 @@ import '../../../../../core/shared_modules/errors_handling/failures_for_domain_a
 import '../../../../../core/shared_modules/errors_handling/utils/dsl_result_handler_async.dart';
 import '../../../../form_fields/input_validation/_inputs_validation.dart';
 import '../../services/sign_up_service.dart';
-import '../../../../../core/utils/debouncer.dart';
+import '../../../../../core/general_utils/debouncer.dart';
 import '../../../../form_fields/extensions/formz_status_x.dart';
 
 part 'sign_up_page_state.dart';

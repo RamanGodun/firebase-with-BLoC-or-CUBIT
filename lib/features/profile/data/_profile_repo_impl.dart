@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/utils/typedef.dart';
+import 'package:firebase_with_bloc_or_cubit/core/general_utils/typedef.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_layers/shared_data_transfer_objects/user_dto_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_layers/shared_domain/shared_entities/_user.dart';
 import 'package:firebase_with_bloc_or_cubit/features/profile/domain/profile_repository.dart';

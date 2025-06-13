@@ -3,18 +3,20 @@ import '../app_colors.dart';
 
 part 'app_icons.dart';
 part 'app_spacing.dart';
-part 'app_shadow.dart';
+part 'app_shadows.dart';
 
 /// 📦 [UIConstants] — centralized place for static constants used across the app.
+
 abstract final class UIConstants {
   const UIConstants._();
+  //-------------------
 
   /// 🎯 Common border radius for UI elements (e.g. buttons, cards)
   static const BorderRadius commonBorderRadius = BorderRadius.all(
-    Radius.circular(13),
+    Radius.circular(AppSpacing.xm),
   );
   static const BorderRadius borderRadius6 = BorderRadius.all(
-    Radius.circular(6),
+    Radius.circular(AppSpacing.xxs),
   );
 
   /// 🎯 Card paddings
@@ -37,6 +39,8 @@ abstract final class UIConstants {
     BorderSide(color: AppColors.overlayLightBorder50, width: 0.6),
   );
 
-  /// ───────────────────────────────────────────────────────────────────
   /// * Other constants...
+  /// ─────────────────────
+
+  //
 }

@@ -1,4 +1,4 @@
-import '../../../../core/utils/typedef.dart';
+import '../../../../core/general_utils/typedef.dart';
 import '../repositories/auth_repo.dart';
 
 /// 📝 [SignUpUseCase]
