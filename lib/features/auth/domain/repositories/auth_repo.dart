@@ -3,9 +3,10 @@ import '../../../../core/general_utils/typedef.dart';
 
 /// 🔐 [AuthRepo] — Abstract contract for authentication-related operations
 /// Defines interaction points for remote auth layer (e.g., Firebase)
-//----------------------------------------------------------------
 
 abstract interface class AuthRepo {
+  //------------------------------
+
   /// 🔄 Stream of the currently authenticated Firebase user
   Stream<fb_auth.User?> get user;
 

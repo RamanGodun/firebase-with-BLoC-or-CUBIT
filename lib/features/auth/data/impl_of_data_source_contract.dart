@@ -9,10 +9,11 @@ import 'data_source_contract.dart';
 
 /// 🧩 [AuthRemoteDataSourceImpl] — concrete implementation using Firebase
 /// ✅ Handles auth & Firestore profile creation
-//----------------------------------------------------------------
 
 final class AuthRemoteDataSourceImpl extends BaseRepository
     implements AuthRemoteDataSource {
+  //--------------------------------
+
   final fb_auth.FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firestore;
   const AuthRemoteDataSourceImpl(this._firebaseAuth, this._firestore);

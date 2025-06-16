@@ -5,9 +5,10 @@ import '../repositories/auth_repo.dart';
 
 /// 🔐 [SignInUseCase]
 /// ✅ Handles user sign-in with email & password
-//----------------------------------------------------------------
 
 final class SignInUseCase {
+  //----------------------
+
   final AuthRepo _repo;
   const SignInUseCase(this._repo);
 
@@ -18,4 +19,6 @@ final class SignInUseCase {
   }) {
     return _repo.signIn(email: email, password: password);
   }
+
+  //
 }

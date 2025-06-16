@@ -23,13 +23,15 @@ part 'sign_in_widgets.dart';
 
 /// 🔐 [SignInPageView] — Main UI layout for the sign-in form
 /// ✅ Uses HookWidget for managing focus nodes & rebuild optimization
-//----------------------------------------------------------------
 
 final class SignInPageView extends HookWidget {
+  //------------------------------
+
   const SignInPageView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    //
     // 📌 Initialize and memoize focus nodes for fields
     final focusNodes = useAuthFocusNodes();
 
@@ -77,5 +79,5 @@ final class SignInPageView extends HookWidget {
     );
   }
 
-  ///
+  //
 }

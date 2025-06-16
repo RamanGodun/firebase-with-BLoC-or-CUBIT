@@ -10,10 +10,10 @@ import '../../../../core/general_utils/typedef.dart';
 /// 🧩 [SignInService] — Handles sign-in logic and profile creation
 /// ✅ Combines [SignInUseCase] and [EnsureUserProfileCreatedUseCase] into one flow
 /// 🔐 Used in `submit()` logic to ensure clean separation of responsibilities
-//----------------------------------------------------------------
 
 final class SignInService {
-  ///
+  //---------------------
+
   final SignInUseCase _signIn;
   final EnsureUserProfileCreatedUseCase _ensureProfile;
 
@@ -49,5 +49,5 @@ final class SignInService {
     return profileResult;
   }
 
-  ///
+  //
 }

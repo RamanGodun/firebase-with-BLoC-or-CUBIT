@@ -1,12 +1,15 @@
 part of 'sign_in_view.dart';
 
 /// 🖼️ [_LogoImage] — Displays Flutter logo with hero animation
-//----------------------------------------------------------------
+
 final class _LogoImage extends StatelessWidget {
+  //---------------
+
   const _LogoImage();
 
   @override
   Widget build(BuildContext context) {
+    //
     return const Hero(
       tag: 'Logo',
       child: Image(image: AssetImage(ImagesPaths.flutterLogo), width: 250),
@@ -14,10 +17,16 @@ final class _LogoImage extends StatelessWidget {
   }
 }
 
+////
+
+////
+
 /// 📧 [_EmailField] — Email input field with validation & focus handling
 /// ✅ Rebuilds only when `email.uiError` changes
-//----------------------------------------------------------------
+
 final class _EmailField extends StatelessWidget {
+  //--------------------------------------------
+
   final FocusNode focusNode;
   final FocusNode nextFocus;
 
@@ -25,6 +34,7 @@ final class _EmailField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
     return BlocSelector<SignInCubit, SignInPageState, String?>(
       selector: (state) => state.email.uiError,
       builder: (context, errorText) {
@@ -40,16 +50,23 @@ final class _EmailField extends StatelessWidget {
   }
 }
 
+////
+
+////
+
 /// 🔒 [_PasswordField] — Password field with toggle visibility logic
 /// ✅ Rebuilds only when password error or visibility state changes
-//----------------------------------------------------------------
+
 final class _PasswordField extends StatelessWidget {
+  //----------------------
+
   final FocusNode focusNode;
 
   const _PasswordField({required this.focusNode});
 
   @override
   Widget build(BuildContext context) {
+    //
     return BlocSelector<
       SignInCubit,
       SignInPageState,
@@ -80,14 +97,21 @@ final class _PasswordField extends StatelessWidget {
   }
 }
 
+////
+
+////
+
 /// 🚀 [_SubmitButton] — Button for triggering sign-in logic
 /// ✅ Uses [FormSubmitButton] for automatic loading state binding
-//----------------------------------------------------------------
+
 final class _SubmitButton extends StatelessWidget {
+  //---------------------------------------------
+
   const _SubmitButton();
 
   @override
   Widget build(BuildContext context) {
+    //
     return FormSubmitButton<SignInCubit, SignInPageState>(
       text: LocaleKeys.buttons_sign_in,
       onSubmit: (context) {
@@ -100,14 +124,21 @@ final class _SubmitButton extends StatelessWidget {
   }
 }
 
+////
+
+////
+
 /// 🔁 [_RedirectToSignUpButton] — Button to navigate to the sign-up screen
 /// ✅ Disabled during form submission or overlay
-//----------------------------------------------------------------
+
 final class _RedirectToSignUpButton extends StatelessWidget {
+  //-------------------------------------------------------
+
   const _RedirectToSignUpButton();
 
   @override
   Widget build(BuildContext context) {
+    //
     final isOverlayActive = context.select<OverlayStatusCubit, bool>(
       (cubit) => cubit.state,
     );

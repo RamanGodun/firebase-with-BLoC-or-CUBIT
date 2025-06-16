@@ -2,9 +2,10 @@ part of 'sign_in_page_cubit.dart';
 
 /// 📄 [SignInPageState] — Stores form field values and validation status
 /// ✅ Used by [SignInCubit] to manage UI state reactively
-//----------------------------------------------------------------
 
 class SignInPageState extends Equatable {
+  //------------------------------------
+
   final EmailInputValidation email;
   final PasswordInput password;
   final FormzSubmissionStatus status;
@@ -51,5 +52,5 @@ class SignInPageState extends Equatable {
     isPasswordObscure,
   ];
 
-  ///
+  //
 }

@@ -15,10 +15,10 @@ part 'sign_in_state_validation_x.dart';
 
 /// 🔐 [SignInCubit] — Manages Sign In logic, validation, submission.
 /// ✅ Leverages via DI [SignInService] and uses DSL-like result handler.
-//----------------------------------------------------------------------------
 
 class SignInCubit extends Cubit<SignInPageState> {
-  //
+  //---------------------------------------------
+
   final SignInService _signInService;
   final _debouncer = Debouncer(const Duration(milliseconds: 200));
   SignInCubit(this._signInService) : super(const SignInPageState());
@@ -92,5 +92,5 @@ class SignInCubit extends Cubit<SignInPageState> {
   /// 🧽 Resets failure after consumption
   void clearFailure() => emit(state.copyWith(failure: null));
 
-  ///
+  //
 }

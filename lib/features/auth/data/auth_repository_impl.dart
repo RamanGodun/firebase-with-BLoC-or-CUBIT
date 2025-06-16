@@ -5,9 +5,10 @@ import 'data_source_contract.dart';
 
 /// 🧩 [AuthRepoImpl] — Implements [AuthRepo] using [AuthRemoteDataSource]
 /// ✅ Handles authentication operations and delegates to data source
-//----------------------------------------------------------------
 
 final class AuthRepoImpl implements AuthRepo {
+  //----------------------------------------
+
   final AuthRemoteDataSource _remoteDataSource;
   const AuthRepoImpl(this._remoteDataSource);
 
@@ -39,5 +40,5 @@ final class AuthRepoImpl implements AuthRepo {
   ResultFuture<void> ensureUserProfileCreated(fb_auth.User user) =>
       _remoteDataSource.ensureUserProfileCreated(user);
 
-  ///
+  //
 }

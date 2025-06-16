@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import '../../../core/general_utils/typedef.dart';
 
 /// 📜 [AuthRemoteDataSource] — contract for Firebase auth operations
-//----------------------------------------------------------------
+
 abstract interface class AuthRemoteDataSource {
+  //-----------------------------------------
+
   /// 📡 Stream of authentication user changes
   Stream<fb_auth.User?> get user;
 
@@ -26,5 +28,5 @@ abstract interface class AuthRemoteDataSource {
   /// 🧱 Ensure profile exists in Firestore after sign in/up
   ResultFuture<void> ensureUserProfileCreated(fb_auth.User user);
 
-  ///
+  //
 }
