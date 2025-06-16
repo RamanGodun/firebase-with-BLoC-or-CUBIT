@@ -8,8 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import '../../../../../core/shared_modules/errors_handling/failures/failure_ui_entity.dart';
 import '../../../../../core/shared_modules/errors_handling/utils/for_bloc/result_handler_async.dart';
+import '../../../../form_fields/input_validation/__form_validation_service.dart';
 import '../../../../form_fields/input_validation/_inputs_validation.dart';
-import '../../services/sign_up_service.dart';
+import '../../../domain/use_cases/sign_up.dart';
 import '../../../../../core/general_utils/timing_control/debouncer.dart';
 import '../../../../form_fields/extensions/formz_status_x.dart';
 
@@ -22,18 +23,21 @@ part 'sign_up_state_validation_x.dart';
 final class SignUpCubit extends Cubit<SignUpState> {
   //-----------------------------------------------
 
-  final SignUpService _signUpService;
-  // ⏱️ Debounce short delays for inputs (e.g., email, name)
+  final SignUpUseCase _signUpUseCase;
+  final FormValidationService _validation;
+
   final _debouncer = Debouncer(const Duration(milliseconds: 200));
-  // ⏱️ Debounce submission to prevent spam-tapping
   final _submitDebouncer = Debouncer(const Duration(milliseconds: 600));
 
-  SignUpCubit(this._signUpService) : super(const SignUpState());
+  SignUpCubit(this._signUpUseCase, this._validation)
+    : super(const SignUpState());
+
+  ///
 
   /// 👤 Handles name input with trimming & debounce
   void onNameChanged(String value) {
     _debouncer.run(() {
-      final input = NameInputValidation.dirty(value.trim());
+      final input = _validation.validateName(value.trim());
       emit(state.updateWith(name: input));
     });
   }
@@ -41,21 +45,21 @@ final class SignUpCubit extends Cubit<SignUpState> {
   /// 📧 Handles email input with debounce
   void onEmailChanged(String value) {
     _debouncer.run(() {
-      final email = EmailInputValidation.dirty(value);
+      final email = _validation.validateEmail(value.trim());
       emit(state.updateWith(email: email));
     });
   }
 
   /// 🔒 Handles password input and updates confirm sync
   void onPasswordChanged(String value) {
-    final password = PasswordInput.dirty(value);
+    final password = _validation.validatePassword(value.trim());
     final confirm = state.confirmPassword.updatePassword(password.value);
     emit(state.updateWith(password: password, confirmPassword: confirm));
   }
 
   /// 🔐 Handles confirm password input and validates match
   void onConfirmPasswordChanged(String value) {
-    final input = ConfirmPasswordInput.dirty(
+    final input = _validation.validateConfirmPassword(
       password: state.password.value,
       value: value,
     );
@@ -74,7 +78,7 @@ final class SignUpCubit extends Cubit<SignUpState> {
     );
   }
 
-  /// 🚀 Triggers sign-up process (via [SignUpService]), if form is valid
+  /// 🚀/// ✅ Delegates actual sign-up to [SignUpUseCase], if form is valid
   Future<void> submit() async {
     if (!state.isValid || isClosed || state.status.isSubmissionInProgress) {
       return;
@@ -83,7 +87,7 @@ final class SignUpCubit extends Cubit<SignUpState> {
     _submitDebouncer.run(() async {
       emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
 
-      final result = await _signUpService.execute(
+      final result = await _signUpUseCase(
         name: state.name.value,
         email: state.email.value,
         password: state.password.value,

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import '../../../../../core/shared_modules/errors_handling/failures/failure_ui_entity.dart';
 import '../../../../../core/shared_modules/errors_handling/utils/for_bloc/result_handler_async.dart';
+import '../../../../form_fields/input_validation/__form_validation_service.dart';
 import '../../../../form_fields/input_validation/_inputs_validation.dart';
 import '../../services/sign_in_service.dart';
 import '../../../../../core/general_utils/timing_control/debouncer.dart';
@@ -21,22 +22,26 @@ class SignInCubit extends Cubit<SignInPageState> {
   //---------------------------------------------
 
   final SignInService _signInService;
+  final FormValidationService _validationService;
   final _debouncer = Debouncer(const Duration(milliseconds: 200));
   final _submitDebouncer = Debouncer(const Duration(milliseconds: 600));
 
-  SignInCubit(this._signInService) : super(const SignInPageState());
+  SignInCubit(this._signInService, this._validationService)
+    : super(const SignInPageState());
+
+  ///
 
   /// 📧 Handles email field changes with debounce and validation
   void emailChanged(String value) {
     _debouncer.run(() {
-      final email = EmailInputValidation.dirty(value);
+      final email = _validationService.validateEmail(value.trim());
       emit(state.updateWith(email: email));
     });
   }
 
   /// 🔒 Handles password field changes and form revalidation
   void passwordChanged(String value) {
-    final password = PasswordInput.dirty(value);
+    final password = _validationService.validatePassword(value.trim());
     emit(state.updateWith(password: password));
   }
 

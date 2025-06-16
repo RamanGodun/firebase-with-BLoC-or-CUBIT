@@ -2,7 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/_c
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/di_container/di_container.dart';
-import '../services/sign_up_service.dart';
+import '../../../form_fields/input_validation/__form_validation_service.dart';
 import '../../../form_fields/extensions/formz_status_x.dart';
 import '../../domain/use_cases/sign_up.dart';
 import 'cubit/sign_up_page_cubit.dart';
@@ -20,7 +20,8 @@ final class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     //
     return BlocProvider(
-      create: (_) => SignUpCubit(SignUpService(di<SignUpUseCase>())),
+      create:
+          (_) => SignUpCubit(di<SignUpUseCase>(), di<FormValidationService>()),
       child: const _SignUpListenerWrapper(),
     );
   }

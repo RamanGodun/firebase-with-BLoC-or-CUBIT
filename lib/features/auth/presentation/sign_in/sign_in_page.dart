@@ -3,6 +3,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/en
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/di_container/di_container.dart';
+import '../../../form_fields/input_validation/__form_validation_service.dart';
 import '../services/sign_in_service.dart';
 import '../../../form_fields/extensions/formz_status_x.dart';
 import '../../domain/use_cases/ensure_profile_created.dart';
@@ -14,8 +15,9 @@ import 'sign_in_view.dart';
 /// ✅ Provides scoped Cubit with injected services
 
 final class SignInPage extends StatelessWidget {
+  //-------------------------------------------
+
   const SignInPage({super.key});
-  //--------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ final class SignInPage extends StatelessWidget {
               di<SignInUseCase>(),
               di<EnsureUserProfileCreatedUseCase>(),
             ),
+            di<FormValidationService>(),
           ),
       child: const _SignInListenerWrapper(),
     );
@@ -41,8 +44,9 @@ final class SignInPage extends StatelessWidget {
 /// ✅ Uses `Consumable<FailureUIModel>` for single-use error overlays.
 
 final class _SignInListenerWrapper extends StatelessWidget {
+  //-------------------------------------------------------
+
   const _SignInListenerWrapper();
-  //---------------------------
 
   @override
   Widget build(BuildContext context) {
