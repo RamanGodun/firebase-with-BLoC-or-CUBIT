@@ -1,9 +1,10 @@
 import 'dart:async';
 
 /// ⏱️ [Debouncer] — Utility to delay execution until a pause in user input
-///----------------------------------------------------------------
 
 final class Debouncer {
+  ///-----------------
+
   /// ⏳ Duration to wait before triggering action
   final Duration duration;
 
@@ -22,5 +23,5 @@ final class Debouncer {
   /// 🧹 Manually cancel any pending action
   void cancel() => _timer?.cancel();
 
-  ///
+  //
 }

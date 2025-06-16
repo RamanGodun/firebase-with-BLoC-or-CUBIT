@@ -22,13 +22,15 @@ part 'sign_up_widgets.dart';
 
 /// 🧾 [SignUpView] — Full UI layout for Sign Up screen
 /// ✅ Includes all form fields, interactions, and field focus handling
-//----------------------------------------------------------------
 
 final class SignUpView extends HookWidget {
+  //--------------------------------------
+
   const SignUpView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    //
     // 📌 Shared focus nodes for form fields
     final focusNodes = useAuthFocusNodes();
 

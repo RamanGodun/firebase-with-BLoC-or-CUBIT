@@ -4,10 +4,13 @@ part of 'auth_bloc.dart';
 /// - `unknown`: Initial state (e.g. splash screen)
 /// - `authenticated`: User is signed in
 /// - `unauthenticated`: User is signed out
+
 enum AuthStatus { unknown, authenticated, unauthenticated }
 
 /// 🧾 [AuthState] — Bloc state that holds current auth status & user
+
 final class AuthState extends Equatable {
+  //------------------------------------
   final AuthStatus authStatus;
   final fb_auth.User? user;
 
@@ -33,5 +36,5 @@ final class AuthState extends Equatable {
   @override
   String toString() => 'AuthState(authStatus: $authStatus, user: $user)';
 
-  ///
+  //
 }

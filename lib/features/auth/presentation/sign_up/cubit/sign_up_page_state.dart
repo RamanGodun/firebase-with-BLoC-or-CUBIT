@@ -2,9 +2,10 @@ part of 'sign_up_page_cubit.dart';
 
 /// 🗞 [SignUpState] — Holds all field values and form status for [SignUpCubit]
 /// ✅ Centralized state object for validation, UI, and submission status
-//----------------------------------------------------------------
 
 final class SignUpState extends Equatable {
+  //--------------------------------------
+
   final NameInputValidation name;
   final EmailInputValidation email;
   final PasswordInput password;
@@ -66,5 +67,5 @@ final class SignUpState extends Equatable {
     isConfirmPasswordObscure,
   ];
 
-  ///
+  //
 }

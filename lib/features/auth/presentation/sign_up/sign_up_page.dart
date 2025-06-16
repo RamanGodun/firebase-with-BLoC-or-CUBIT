@@ -10,13 +10,15 @@ import 'sign_up_view.dart';
 
 /// 🧾 [SignUpPage] — Entry point for the sign-up feature
 /// ✅ Provides scoped Cubit with injected service
-//----------------------------------------------------------------
 
 final class SignUpPage extends StatelessWidget {
+  //-------------------------------------------
+
   const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    //
     return BlocProvider(
       create: (_) => SignUpCubit(SignUpService(di<SignUpUseCase>())),
       child: const _SignUpListenerWrapper(),
@@ -24,11 +26,16 @@ final class SignUpPage extends StatelessWidget {
   }
 }
 
+////
+
+////
+
 /// 🔄 [_SignUpListenerWrapper] — Bloc listener for one-shot error feedback.
 /// ✅ Uses `Consumable<FailureUIModel>` for single-use error overlays.
-//----------------------------------------------------------------
 
 final class _SignUpListenerWrapper extends StatelessWidget {
+  //-------------------------------------------------------
+
   const _SignUpListenerWrapper();
 
   @override
@@ -43,7 +50,7 @@ final class _SignUpListenerWrapper extends StatelessWidget {
       listener: (context, state) {
         final model = state.failure?.consume();
         if (model != null) {
-          context.showError( model);
+          context.showError(model);
           context.read<SignUpCubit>()
             ..resetStatus()
             ..clearFailure();

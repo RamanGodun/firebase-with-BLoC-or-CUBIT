@@ -5,9 +5,10 @@ import '../../../../core/general_utils/typedef.dart';
 
 /// 🧩 [SignUpService] — Handles full sign-up flow with logging
 /// ✅ Wraps [SignUpUseCase] to encapsulate clean business logic
-//----------------------------------------------------------------
 
 final class SignUpService {
+  //----------------------
+
   final SignUpUseCase _signUp;
   const SignUpService(this._signUp);
 
@@ -25,5 +26,5 @@ final class SignUpService {
     return result;
   }
 
-  ///
+  //
 }

@@ -10,9 +10,10 @@ part 'auth_state.dart';
 
 /// 🔐 [AuthBloc] — Manages auth state using Firebase user stream and [SignOutUseCase]
 /// ✅ Emits `authenticated` / `unauthenticated` states and handles logout
-//----------------------------------------------------------------
 
 final class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  //----------------------------------------------------
+
   final SignOutUseCase signOutUseCase;
   final Stream<fb_auth.User?> userStream;
   late final StreamSubscription<fb_auth.User?> _authSubscription;
@@ -64,5 +65,5 @@ final class AuthBloc extends Bloc<AuthEvent, AuthState> {
     return super.close();
   }
 
-  ///
+  //
 }

@@ -2,13 +2,14 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/to_ui_failures_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/for_bloc/consumable.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/observers/loggers/failure_logger_x.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import '../../../../../core/shared_modules/errors_handling/failures/failure_ui_entity.dart';
 import '../../../../../core/shared_modules/errors_handling/utils/for_bloc/result_handler_async.dart';
 import '../../../../form_fields/input_validation/_inputs_validation.dart';
 import '../../services/sign_in_service.dart';
-import '../../../../../core/general_utils/debouncer.dart';
+import '../../../../../core/general_utils/timing_control/debouncer.dart';
 
 part 'sign_in_page_state.dart';
 part 'sign_in_state_validation_x.dart';
@@ -21,6 +22,8 @@ class SignInCubit extends Cubit<SignInPageState> {
 
   final SignInService _signInService;
   final _debouncer = Debouncer(const Duration(milliseconds: 200));
+  final _submitDebouncer = Debouncer(const Duration(milliseconds: 600));
+
   SignInCubit(this._signInService) : super(const SignInPageState());
 
   /// 📧 Handles email field changes with debounce and validation
@@ -45,28 +48,32 @@ class SignInCubit extends Cubit<SignInPageState> {
   /// 🚀 Triggers form submission via [SignInService]
   Future<void> submit() async {
     if (!state.isValid || isClosed) return;
-    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
 
-    final result = await _signInService.execute(
-      email: state.email.value,
-      password: state.password.value,
-    );
+    _submitDebouncer.run(() async {
+      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
 
-    if (isClosed) return;
+      final result = await _signInService.execute(
+        email: state.email.value,
+        password: state.password.value,
+      );
 
-    ResultHandlerAsync(result)
-      ..onFailureAsync((f) {
-        emit(
-          state.copyWith(
-            status: FormzSubmissionStatus.failure,
-            failure: f.asConsumableUIEntity(),
-          ),
-        );
-      })
-      ..onSuccessAsync((_) {
-        emit(state.copyWith(status: FormzSubmissionStatus.success));
-      })
-      ..logAsync();
+      if (isClosed) return;
+
+      ResultHandlerAsync(result)
+        ..onFailureAsync((f) {
+          emit(
+            state.copyWith(
+              status: FormzSubmissionStatus.failure,
+              failure: f.asConsumableUIEntity(),
+            ),
+          );
+          f.log();
+        })
+        ..onSuccessAsync((_) {
+          emit(state.copyWith(status: FormzSubmissionStatus.success));
+        })
+        ..logAsync();
+    });
   }
   /*
 ? Alternative syntax: classic fold version for direct mapping: 
@@ -87,7 +94,11 @@ class SignInCubit extends Cubit<SignInPageState> {
       emit(state.copyWith(status: FormzSubmissionStatus.initial));
 
   /// 🧼 Resets the entire form to initial state
-  void resetForm() => emit(const SignInPageState());
+  void resetForm() {
+    _debouncer.cancel(); // 🧯 prevent delayed emit from old email input
+    _submitDebouncer.cancel(); // 🧯 prevent accidental double submit
+    emit(const SignInPageState());
+  }
 
   /// 🧽 Resets failure after consumption
   void clearFailure() => emit(state.copyWith(failure: null));

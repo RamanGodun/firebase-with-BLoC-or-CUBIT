@@ -3,9 +3,10 @@ part of 'sign_up_page_cubit.dart';
 /// 🥉 [SignUpStateValidationX] — Adds validation and update utilities to [SignUpState]
 /// ✅ Simplifies state mutation and ensures validation is always up-to-date
 /// 🔐 Used in `SignUpCubit` for field-level updates with validation
-//----------------------------------------------------------------------------
 
 extension SignUpStateValidationX on SignUpState {
+  //--------------------------------------------
+
   /// ✅ Validates form fields using Formz
   /// 📅 Accepts optional overrides; falls back to current state values
   bool validateWith({
@@ -47,5 +48,5 @@ extension SignUpStateValidationX on SignUpState {
     return updated.copyWith(isValid: updated.validateWith());
   }
 
-  ///
+  //
 }
