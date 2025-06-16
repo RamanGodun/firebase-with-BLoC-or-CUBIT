@@ -1,9 +1,9 @@
-import '../../shared_data_transfer_objects/_user_dto.dart';
+import '../../data/shared_data_transfer_objects/_user_dto.dart';
 import '_user.dart';
 
-/// 🧩 [UserUtilsExt] — Static-like utilities related to [UserEntity] creation
+/// 🧩 [UserEntityFactoryExtension] — Static-like utilities related to [UserEntity] creation
 
-extension UserUtilsExt on UserEntity {
+extension UserEntityFactoryExtension on UserEntity {
   //---------------------------------
 
   /// 🔰 Returns a predefined empty [UserEntity] placeholder

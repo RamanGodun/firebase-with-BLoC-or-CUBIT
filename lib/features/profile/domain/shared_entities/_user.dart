@@ -2,9 +2,10 @@ import 'package:equatable/equatable.dart';
 
 /// 👤 [UserEntity] — Domain Entity representing a user in the system
 /// ✅ Immutable, comparable via [Equatable], used only in domain layer
-//----------------------------------------------------------------
 
 class UserEntity extends Equatable {
+  //------------------------------
+
   final String id;
   final String name;
   final String email;

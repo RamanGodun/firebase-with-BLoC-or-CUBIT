@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../general_utils/typedef.dart';
+import '../../../../core/general_utils/typedef.dart';
 import '_user_dto.dart';
 
-/// 🧰 [UserDTOUtilsX] — Static utilities for creating [UserDTO]
+/// 🧰 [UserDTOFactoryExtension] — Static utilities for creating [UserDTO]
 /// ✅ Use case: Firestore mapping, default user creation
 
-extension UserDTOUtilsX on UserDTO {
+extension UserDTOFactoryExtension on UserDTO {
   //-------------------------------
 
   /// 🔄 Creates [UserDTO] from Firestore document snapshot

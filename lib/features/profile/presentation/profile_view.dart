@@ -8,7 +8,7 @@ import '../../../core/shared_modules/localization/language_toggle_widget/_toggle
 import '../../../core/shared_modules/theme/core/constants/_app_constants.dart'
     show AppSpacing;
 import '../../../core/shared_layers/shared_presentation/shared_widgets/app_loaders.dart';
-import '../../../core/shared_layers/shared_domain/shared_entities/_user.dart';
+import '../domain/shared_entities/_user.dart';
 import '../../../core/shared_layers/shared_presentation/shared_widgets/custom_app_bar.dart';
 import '../../../core/shared_modules/localization/code_base_for_both_options/text_widget.dart';
 import '../../../core/shared_modules/theme/widget_for_theme_toggling.dart';
@@ -18,26 +18,23 @@ part 'widgets_for_profile_view.dart';
 
 /// 📄 [ProfileView] — Handles state for loading, error, and loaded profile states
 /// ✅ Reacts to [ProfileCubit] and shows appropriate UI
-//----------------------------------------------------------------
 
 final class ProfileView extends StatelessWidget {
+  //--------------------------------------------
+
   const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    //
     return Scaffold(
-      ///
-      appBar:
-      ///
-      const CustomAppBar(
+      appBar: const CustomAppBar(
         title: LocaleKeys.pages_profile,
         actionWidgets: [ThemeToggleIcon(), LanguageToggleButton()],
       ),
 
       ///
-      body:
-      ///
-      BlocBuilder<ProfileCubit, ProfileState>(
+      body: BlocBuilder<ProfileCubit, ProfileState>(
         builder:
             (context, state) => switch (state) {
               ProfileInitial() => const SizedBox.shrink(),

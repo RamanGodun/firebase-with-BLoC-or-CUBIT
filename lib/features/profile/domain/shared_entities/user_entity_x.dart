@@ -1,8 +1,11 @@
 import '_user.dart';
-import '../../shared_data_transfer_objects/_user_dto.dart';
+import '../../data/shared_data_transfer_objects/_user_dto.dart';
 
-/// 🔁 [UserExt] — Extension on [UserEntity] with transformation and utility methods
-extension UserExt on UserEntity {
+/// 🔁 [UserEntityExtension] — Extension on [UserEntity] with transformation and utility methods
+
+extension UserEntityExtension on UserEntity {
+  //----------------------------------------
+
   /// 🧱 Converts [UserEntity] → [UserDTO] (for persistence or transfer)
   UserDTO toDTO() => UserDTO(
     id: id,
@@ -37,4 +40,6 @@ extension UserExt on UserEntity {
 
   /// ✅ Opposite of [isEmpty]
   bool get isNotEmpty => id.isNotEmpty;
+
+  //
 }

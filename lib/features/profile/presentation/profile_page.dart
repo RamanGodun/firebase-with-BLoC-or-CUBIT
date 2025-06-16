@@ -9,9 +9,10 @@ import 'profile_view.dart';
 
 /// 👤 [ProfilePage] — Shows user profile details fetched from backend
 /// ✅ Uses [AuthBloc] to obtain UID and loads profile via [ProfileCubit]
-//----------------------------------------------------------------
 
 class ProfilePage extends StatelessWidget {
+  //--------------------------------------
+
   const ProfilePage({super.key});
 
   @override
@@ -29,15 +30,21 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
+////
+
+////
+
 /// 🔄 [_ProfileListenerWrapper] — Bloc listener for one-shot error feedback.
 /// ✅ Uses `Consumable<FailureUIModel>` for single-use error overlays.
-//----------------------------------------------------------------
 
 final class _ProfileListenerWrapper extends StatelessWidget {
+  //--------------------------------------------------------
+
   const _ProfileListenerWrapper();
 
   @override
   Widget build(BuildContext context) {
+    //
     return BlocListener<ProfileCubit, ProfileState>(
       ///
       listenWhen: (prev, curr) => prev is! ProfileError && curr is ProfileError,

@@ -8,6 +8,13 @@ import 'package:equatable/equatable.dart';
 final class UserDTO with EquatableMixin {
   //------------------------------------
 
+  final String id;
+  final String name;
+  final String email;
+  final String profileImage;
+  final int point;
+  final String rank;
+
   const UserDTO({
     required this.id,
     required this.name,
@@ -16,13 +23,6 @@ final class UserDTO with EquatableMixin {
     required this.point,
     required this.rank,
   });
-
-  final String id;
-  final String name;
-  final String email;
-  final String profileImage;
-  final int point;
-  final String rank;
 
   /// 🧪 Equatable props for value comparison
   @override
