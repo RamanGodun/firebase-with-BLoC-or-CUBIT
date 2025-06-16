@@ -4,7 +4,7 @@ part of 'profile_view.dart';
 //----------------------------------------------------------------
 
 final class _UserProfileCard extends StatelessWidget {
-  final User user;
+  final UserEntity user;
   const _UserProfileCard({required this.user});
 
   @override

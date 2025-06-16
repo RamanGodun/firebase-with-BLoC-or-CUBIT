@@ -6,7 +6,7 @@ import 'package:firebase_with_bloc_or_cubit/features/profile/domain/profile_repo
 import 'data_source_contract.dart';
 
 /// 🧩 [ProfileRepoImpl] — Concrete implementation using remote data source
-/// ✅ Maps [UserDTO] → [User] via `.toEntity()`
+/// ✅ Maps [UserDTO] → [UserEntity] via `.toEntity()`
 //----------------------------------------------------------------
 
 final class ProfileRepoImpl implements ProfileRepo {
@@ -15,7 +15,7 @@ final class ProfileRepoImpl implements ProfileRepo {
   ProfileRepoImpl(this.remote);
 
   @override
-  ResultFuture<User> getProfile({required String uid}) async {
+  ResultFuture<UserEntity> getProfile({required String uid}) async {
     final result = await remote.getUserDTO(uid);
     return result.mapRight((dto) => dto.toEntity());
   }

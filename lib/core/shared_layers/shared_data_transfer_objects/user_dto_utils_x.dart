@@ -4,9 +4,10 @@ import '_user_dto.dart';
 
 /// 🧰 [UserDTOUtilsX] — Static utilities for creating [UserDTO]
 /// ✅ Use case: Firestore mapping, default user creation
-//----------------------------------------------------------------
 
 extension UserDTOUtilsX on UserDTO {
+  //-------------------------------
+
   /// 🔄 Creates [UserDTO] from Firestore document snapshot
   static UserDTO fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data();
@@ -45,5 +46,5 @@ extension UserDTOUtilsX on UserDTO {
     rank: 'bronze',
   );
 
-  ///
+  //
 }

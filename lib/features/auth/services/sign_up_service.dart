@@ -1,5 +1,5 @@
-import '../../domain/use_cases/sign_up.dart';
-import '../../../../core/general_utils/typedef.dart';
+import '../domain/use_cases/sign_up.dart';
+import '../../../core/general_utils/typedef.dart';
 
 /// ⚠️ Currently unused: retained for potential future orchestration
 

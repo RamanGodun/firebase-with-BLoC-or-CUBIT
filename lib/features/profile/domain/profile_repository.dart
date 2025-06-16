@@ -5,5 +5,5 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_layers/shared_domain/sha
 //----------------------------------------------------------------
 
 abstract interface class ProfileRepo {
-  ResultFuture<User> getProfile({required String uid});
+  ResultFuture<UserEntity> getProfile({required String uid});
 }

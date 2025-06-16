@@ -4,9 +4,10 @@ import 'package:equatable/equatable.dart';
 /// ✅ Represents user data from remote source (Firestore)
 /// ✅ Used in data layer only — no logic inside
 /// ✅ Immutable, comparable, debug-friendly
-//----------------------------------------------------------------
 
 final class UserDTO with EquatableMixin {
+  //------------------------------------
+
   const UserDTO({
     required this.id,
     required this.name,
@@ -32,5 +33,5 @@ final class UserDTO with EquatableMixin {
   String toString() =>
       'UserDTO(id: $id, name: $name, email: $email, point: $point, rank: $rank)';
 
-  ///
+  //
 }

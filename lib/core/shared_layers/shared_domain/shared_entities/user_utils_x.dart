@@ -1,10 +1,13 @@
 import '../../shared_data_transfer_objects/_user_dto.dart';
 import '_user.dart';
 
-/// 🧩 [UserUtilsExt] — Static-like utilities related to [User] creation
-extension UserUtilsExt on User {
-  /// 🔰 Returns a predefined empty [User] placeholder
-  static User empty() => const User(
+/// 🧩 [UserUtilsExt] — Static-like utilities related to [UserEntity] creation
+
+extension UserUtilsExt on UserEntity {
+  //---------------------------------
+
+  /// 🔰 Returns a predefined empty [UserEntity] placeholder
+  static UserEntity empty() => const UserEntity(
     id: '',
     name: '',
     email: '',
@@ -13,8 +16,8 @@ extension UserUtilsExt on User {
     rank: '',
   );
 
-  /// 🔄 Converts [UserDTO] to [User] entity (factory-style)
-  static User fromDTO(UserDTO dto) => User(
+  /// 🔄 Converts [UserDTO] to [UserEntity] entity (factory-style)
+  static UserEntity fromDTO(UserDTO dto) => UserEntity(
     id: dto.id,
     name: dto.name,
     email: dto.email,
@@ -24,8 +27,8 @@ extension UserUtilsExt on User {
   );
 
   /// 🔁 Mass conversion from DTO list to entity list
-  static List<User> fromDTOList(List<UserDTO> list) =>
+  static List<UserEntity> fromDTOList(List<UserDTO> list) =>
       list.map(fromDTO).toList();
 
-  ///
+  //
 }

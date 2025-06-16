@@ -6,11 +6,12 @@ import '../../../core/shared_layers/shared_domain/shared_entities/_user.dart';
 /// 🧩 [LoadProfileUseCase] — Gets user profile from repository by UID
 //----------------------------------------------------------------
 
-final class LoadProfileUseCase extends UseCaseWithParams<User, String> {
+final class LoadProfileUseCase
+    extends BaseUseCaseWithParams<UserEntity, String> {
   final ProfileRepo _repository;
 
   const LoadProfileUseCase(this._repository);
 
   @override
-  ResultFuture<User> call(String uid) => _repository.getProfile(uid: uid);
+  ResultFuture<UserEntity> call(String uid) => _repository.getProfile(uid: uid);
 }

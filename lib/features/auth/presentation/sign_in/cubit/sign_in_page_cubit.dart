@@ -9,7 +9,7 @@ import '../../../../../core/shared_modules/errors_handling/failures/failure_ui_e
 import '../../../../../core/shared_modules/errors_handling/utils/for_bloc/result_handler_async.dart';
 import '../../../../form_fields/_form_validation_service.dart';
 import '../../../../form_fields/enums_for_form_fields_module.dart';
-import '../../services/sign_in_service.dart';
+import '../../../services/sign_in_service.dart';
 import '../../../../../core/general_utils/timing_control/debouncer.dart';
 
 part 'sign_in_page_state.dart';

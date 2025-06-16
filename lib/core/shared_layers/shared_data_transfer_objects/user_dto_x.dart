@@ -5,11 +5,12 @@ import '../shared_domain/shared_entities/_user.dart';
 
 /// 🔄 [UserDTOExt] — Instance-level helpers for [UserDTO]
 /// ✅ Converts to entity or JSON (for logic or API usage)
-//----------------------------------------------------------------
 
 extension UserDTOExt on UserDTO {
-  /// 🔄 Converts [UserDTO] → Domain [User] entity
-  User toEntity() => User(
+  //----------------------------
+
+  /// 🔄 Converts [UserDTO] → Domain [UserEntity] entity
+  UserEntity toEntity() => UserEntity(
     id: id,
     name: name,
     email: email,
@@ -35,14 +36,21 @@ extension UserDTOExt on UserDTO {
 
   /// ✅ Negated [isEmpty]
   bool get isNotEmpty => !isEmpty;
+
+  //
 }
 
-/// 🔁 [UserDTOListExt] — List-level helper for [UserDTO] → [User]
+////
+
+////
+
+/// 🔁 [UserDTOListExt] — List-level helper for [UserDTO] → [UserEntity]
 /// ✅ Useful for bulk transformations
-//----------------------------------------------------------------
 
 extension UserDTOListExt on List<UserDTO> {
-  List<User> toEntities() => map((dto) => dto.toEntity()).toList();
+  //--------------------------------------
 
-  ///
+  List<UserEntity> toEntities() => map((dto) => dto.toEntity()).toList();
+
+  //
 }
