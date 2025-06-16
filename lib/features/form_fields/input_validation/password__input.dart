@@ -1,9 +1,10 @@
-part of '_inputs_validation.dart';
+part of '../enums_for_form_fields_module.dart';
 
 /// 🔒 [PasswordInput] — Validates presence and minimum password length.
-//-------------------------------------------------------------------------
 
 final class PasswordInput extends FormzInput<String, PasswordValidationError> {
+  //-------------------------------------------------------------------------
+
   const PasswordInput.pure() : super.pure('');
   const PasswordInput.dirty([super.value = '']) : super.dirty();
 
@@ -26,5 +27,5 @@ final class PasswordInput extends FormzInput<String, PasswordValidationError> {
   /// 🔁 Used by widgets to show message only when needed
   String? get uiError => isPure || isValid ? null : errorText;
 
-  ///
+  //
 }

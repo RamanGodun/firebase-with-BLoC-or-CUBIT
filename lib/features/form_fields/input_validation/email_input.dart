@@ -1,10 +1,12 @@
-part of '_inputs_validation.dart';
-
+part of '../enums_for_form_fields_module.dart';
 
 /// 📧 [EmailInputValidation] — Formz input for validating user email.
 /// Checks for non-empty input and valid email format.
-//--------------------------------------------------------------------------------
-final class EmailInputValidation extends FormzInput<String, EmailValidationError> {
+
+final class EmailInputValidation
+    extends FormzInput<String, EmailValidationError> {
+  //-------------------------------------------------
+
   const EmailInputValidation.pure() : super.pure('');
   const EmailInputValidation.dirty([super.value = '']) : super.dirty();
 
@@ -25,4 +27,6 @@ final class EmailInputValidation extends FormzInput<String, EmailValidationError
 
   /// 🔁 [uiError] — Used by widgets to show validation message or nothing
   String? get uiError => isPure || isValid ? null : errorText;
+
+  //
 }

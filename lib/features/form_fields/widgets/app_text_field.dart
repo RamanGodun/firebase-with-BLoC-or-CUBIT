@@ -9,9 +9,10 @@ import '../../../core/shared_modules/localization/code_base_for_both_options/_ap
 /// - focus control
 /// - submit action
 /// - obscured (e.g. password) mode
-//-------------------------------------------------------------------------
 
 class AppTextField extends StatelessWidget {
+  //---------------------------------------
+
   final Key? fieldKey;
   final FocusNode focusNode;
   final String label;
@@ -24,7 +25,6 @@ class AppTextField extends StatelessWidget {
   final VoidCallback? onSubmitted;
   final Widget? suffixIcon;
 
-  ///
   const AppTextField({
     this.fieldKey,
     required this.focusNode,
@@ -40,8 +40,11 @@ class AppTextField extends StatelessWidget {
     super.key,
   });
 
+  ///
+
   @override
   Widget build(BuildContext context) {
+    //
     final resolvedLabel = _resolveLabel(label, fallback);
 
     return TextField(
@@ -78,5 +81,5 @@ class AppTextField extends StatelessWidget {
     return raw;
   }
 
-  ///
+  //
 }

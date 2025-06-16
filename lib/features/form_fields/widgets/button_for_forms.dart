@@ -1,5 +1,5 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/animation/widget_animation_x.dart';
-import 'package:firebase_with_bloc_or_cubit/features/form_fields/extensions/formz_status_x.dart';
+import 'package:firebase_with_bloc_or_cubit/features/form_fields/formz_status_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/theme/extensions/theme_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/general_utils/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,9 +12,13 @@ import '../../../core/general_utils/typedef.dart';
 import '../../../core/shared_modules/localization/code_base_for_both_options/text_widget.dart';
 import '../../../core/shared_modules/theme/core/constants/app_keys.dart';
 
-/// ✅ [FormSubmitButton] — A reusable submit button with validation logic and animated loading indicator
+/// ✅ [FormSubmitButton] — A reusable submit button
+/// with validation logic and animated loading indicator
+
 class FormSubmitButton<Cubit extends StateStreamable<State>, State>
     extends StatelessWidget {
+  //---------------------------------------------------
+
   final String text;
   final SubmitCallback onSubmit;
   final FormzSubmissionStatus Function(State) statusSelector;
@@ -30,8 +34,11 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
     this.style,
   });
 
+  ///
+
   @override
   Widget build(BuildContext context) {
+    //
     final isOverlayActive = context.select<OverlayStatusCubit, bool>(
       (cubit) => cubit.state,
     );

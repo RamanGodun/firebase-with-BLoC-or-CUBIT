@@ -13,7 +13,7 @@ import '../../features/auth/domain/use_cases/sign_out.dart';
 import '../../features/auth/domain/use_cases/sign_up.dart';
 import '../../features/auth/presentation/auth_bloc/auth_bloc.dart';
 
-import '../../features/form_fields/input_validation/__form_validation_service.dart';
+import '../../features/form_fields/_form_validation_service.dart';
 import '../../features/profile/data/data_source_contract.dart';
 import '../../features/profile/data/impl_of_data_source_contract.dart';
 import '../../features/profile/data/_profile_repo_impl.dart';

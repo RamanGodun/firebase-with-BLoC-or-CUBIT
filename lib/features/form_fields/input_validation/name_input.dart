@@ -1,10 +1,11 @@
-part of '_inputs_validation.dart';
+part of '../enums_for_form_fields_module.dart';
 
 /// 👤 [NameInputValidation] — Formz input for validating user's full name.
 /// Ensures non-empty input and minimum character length.
-//-------------------------------------------------------------------------
 
-final class NameInputValidation extends FormzInput<String, NameValidationError> {
+final class NameInputValidation
+    extends FormzInput<String, NameValidationError> {
+  //---------------------------------------------------
   const NameInputValidation.pure() : super.pure('');
   const NameInputValidation.dirty([super.value = '']) : super.dirty();
 
@@ -25,4 +26,6 @@ final class NameInputValidation extends FormzInput<String, NameValidationError> 
 
   /// 🔁 [uiError] — Used by widgets to show validation message or nothing
   String? get uiError => isPure || isValid ? null : errorText;
+
+  //
 }

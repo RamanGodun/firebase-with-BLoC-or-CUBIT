@@ -7,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import '../../../../../core/shared_modules/errors_handling/failures/failure_ui_entity.dart';
 import '../../../../../core/shared_modules/errors_handling/utils/for_bloc/result_handler_async.dart';
-import '../../../../form_fields/input_validation/__form_validation_service.dart';
-import '../../../../form_fields/input_validation/_inputs_validation.dart';
+import '../../../../form_fields/_form_validation_service.dart';
+import '../../../../form_fields/enums_for_form_fields_module.dart';
 import '../../services/sign_in_service.dart';
 import '../../../../../core/general_utils/timing_control/debouncer.dart';
 

@@ -2,25 +2,14 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_modules/localization/gen
 import 'package:flutter/material.dart';
 import '../../../core/shared_modules/theme/core/constants/_app_constants.dart';
 import '../../../core/shared_modules/theme/core/constants/app_keys.dart';
+import '../enums_for_form_fields_module.dart';
 import 'app_text_field.dart';
-
-/// 🔠 Supported input types for signup & login forms
-enum InputFieldType {
-  // 👤 User's display name. Used for user registration.
-  name,
-  // 📧 Email address. Used for login and registration.
-  email,
-  // 🔒 Account password. Used in login, signup, and change-password.
-  password,
-  // 🔒🔁 Password confirmation. Used in signup and password reset.
-  confirmPassword,
-}
-
-//---------------------------------------------------------------------------------------
 
 /// 🏗️ Factory method that returns a themed [AppTextField], based on the [InputFieldType].
 /// Ensures consistent look & feel across forms (SignUp/Login).
+
 final class InputFieldFactory {
+  //-------------------------
   InputFieldFactory._();
 
   ///
@@ -87,7 +76,7 @@ final class InputFieldFactory {
         onSubmitted: onSubmitted,
       ),
 
-      ///
+      //
     };
   }
 }

@@ -4,7 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 /// 🧠 [useAuthFocusNodes] — Hook that returns a named record of [FocusNode]s
 /// for use in authentication forms (e.g. sign up, login).
 /// Ensures consistent focus handling across fields.
-//------------------------------------------------------
 
 ({
   FocusNode name,

@@ -1,10 +1,10 @@
 import 'package:formz/formz.dart';
 import 'package:validators/validators.dart';
 
-part 'email_input.dart';
-part 'name_input.dart';
-part 'password__input.dart';
-part 'password_confirm.dart';
+part 'input_validation/email_input.dart';
+part 'input_validation/name_input.dart';
+part 'input_validation/password__input.dart';
+part 'input_validation/password_confirm.dart';
 
 /// 📧 [EmailValidationError] — Enum representing email-specific validation failures.
 enum EmailValidationError {
@@ -38,4 +38,20 @@ enum ConfirmPasswordValidationError {
 
   /// 🔁 Passwords do not match
   mismatch,
+}
+
+////
+
+////
+
+/// 🔠 Supported input types for signup & login forms
+enum InputFieldType {
+  // 👤 User's display name. Used for user registration.
+  name,
+  // 📧 Email address. Used for login and registration.
+  email,
+  // 🔒 Account password. Used in login, signup, and change-password.
+  password,
+  // 🔒🔁 Password confirmation. Used in signup and password reset.
+  confirmPassword,
 }

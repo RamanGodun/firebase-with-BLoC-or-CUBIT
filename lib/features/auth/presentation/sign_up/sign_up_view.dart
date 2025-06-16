@@ -1,5 +1,5 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/localization/generated/locale_keys.g.dart';
-import 'package:firebase_with_bloc_or_cubit/features/form_fields/extensions/formz_status_x.dart';
+import 'package:firebase_with_bloc_or_cubit/features/form_fields/formz_status_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/navigation/extensions/navigation_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/general_utils/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/general_utils/extensions/extension_on_widget/_widget_x.dart';
@@ -11,6 +11,7 @@ import '../../../../core/general_utils/spider/images_paths.dart';
 import '../../../../core/shared_modules/theme/core/constants/_app_constants.dart'
     show AppSpacing;
 import '../../../../core/shared_layers/shared_presentation/shared_widgets/text_button.dart';
+import '../../../form_fields/enums_for_form_fields_module.dart';
 import '../../../form_fields/use_auth_focus_nodes.dart';
 import '../../../form_fields/widgets/_fields_factory.dart';
 import '../../../form_fields/widgets/button_for_forms.dart';
