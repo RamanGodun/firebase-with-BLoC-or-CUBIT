@@ -6,9 +6,9 @@ final class UseCaseFailure extends Failure {
 
   UseCaseFailure({required super.message})
     : super._(
-        statusCode: ErrorPlugin.useCase.code,
+        statusCode: ErrorPlugins.useCase.code,
         code: 'USE_CASE',
-        translationKey: FailureKey.unknown.translationKey,
+        translationKey: FailureKeys.unknown.translationKey,
       );
 }
 
@@ -22,6 +22,6 @@ final class CacheFailure extends Failure {
     : super._(
         statusCode: 'CACHE',
         code: 'CACHE',
-        translationKey: FailureKey.unknown.translationKey,
+        translationKey: FailureKeys.unknown.translationKey,
       );
 }

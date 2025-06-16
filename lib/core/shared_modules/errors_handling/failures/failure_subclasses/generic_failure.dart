@@ -4,13 +4,13 @@ part of '../failure_entity.dart';
 final class GenericFailure extends Failure {
   ///---------------------------------------
 
-  final ErrorPlugin plugin;
+  final ErrorPlugins plugin;
 
   GenericFailure({
     required this.plugin,
     required String super.code,
     required super.message,
-    FailureKey? translationKey,
+    FailureKeys? translationKey,
   }) : super._(
          statusCode: plugin.code,
          translationKey: translationKey?.translationKey,

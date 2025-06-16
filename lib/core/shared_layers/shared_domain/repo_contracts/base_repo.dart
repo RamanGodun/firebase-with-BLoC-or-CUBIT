@@ -1,6 +1,6 @@
 import '../../../shared_modules/errors_handling/either/either.dart';
 import '../../../shared_modules/errors_handling/failures/failure_entity.dart';
-import '../../../shared_modules/errors_handling/utils/failure_mapper.dart';
+import '../../../shared_modules/errors_handling/utils/exceptions_to_failures_mapper/_exceptions_to_failures_mapper.dart';
 
 /// 🧩 [BaseRepository] — Common abstraction for handling safe async calls.
 /// ✅ Eliminates boilerplate try-catch in concrete repositories
@@ -19,7 +19,7 @@ abstract class BaseRepository {
       final result = await operation();
       return Right(result);
     } catch (e, stackTrace) {
-      return Left(FailureMapper.from(e, stackTrace));
+      return Left(ExceptionToFailureMapper.from(e, stackTrace));
     }
   }
 
@@ -35,7 +35,7 @@ abstract class BaseRepository {
       await operation();
       return const Right(null);
     } catch (e, stackTrace) {
-      return Left(FailureMapper.from(e, stackTrace));
+      return Left(ExceptionToFailureMapper.from(e, stackTrace));
     }
   }
 }

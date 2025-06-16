@@ -1,8 +1,8 @@
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/either/either_extensions/__eithers_facade.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/observers/failure_diagnostics_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/observers/failure_diagnostics_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import '../../failures/failure_entity.dart';
-import '../../observers/loggers/errors_log_util.dart';
+import '../../utils/observers/loggers/errors_log_util.dart';
 
 /// 🧩 [ResultX<T>] — Sync sugar for `Either<Failure, T>`
 /// ✅ Enables fallback values, failure access, and folding logic

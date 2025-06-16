@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/observers/failure_diagnostics_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/observers/failure_diagnostics_x.dart';
 import 'package:flutter/material.dart';
 import '../../errors_handling/failures/failure_entity.dart';
 

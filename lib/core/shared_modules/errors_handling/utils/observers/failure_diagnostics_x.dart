@@ -1,5 +1,5 @@
-import '../utils/enums.dart';
-import '../failures/failure_entity.dart';
+import '../../enums/error_plugins.dart';
+import '../../failures/failure_entity.dart';
 
 /// 🧭 [FailureDiagnosticsX] — Diagnostic utilities for `Failure`
 /// ✅ Includes type checkers, casting, logging helpers, and fallback-safe metadata access.
@@ -12,17 +12,17 @@ extension FailureDiagnosticsX on Failure {
 
   /// Returns plugin source identifier (used in logs, analytics, crash reports)
   String get pluginSource => switch (this) {
-    GenericFailure() => statusCode?.toString() ?? ErrorPlugin.unknown.code,
-    ApiFailure() => ErrorPlugin.httpClient.code,
-    FirebaseFailure() => ErrorPlugin.firebase.code,
-    UseCaseFailure() => ErrorPlugin.useCase.code,
+    GenericFailure() => statusCode?.toString() ?? ErrorPlugins.unknown.code,
+    ApiFailure() => ErrorPlugins.httpClient.code,
+    FirebaseFailure() => ErrorPlugins.firebase.code,
+    UseCaseFailure() => ErrorPlugins.useCase.code,
     UnauthorizedFailure() => 'AUTH',
     CacheFailure() => 'CACHE',
-    _ => ErrorPlugin.unknown.code,
+    _ => ErrorPlugins.unknown.code,
   };
 
   /// True if failure is related to network (e.g. no internet, timeout)
-  bool get isNetworkFailure => pluginSource == ErrorPlugin.httpClient.code;
+  bool get isNetworkFailure => pluginSource == ErrorPlugins.httpClient.code;
 
   /// True if failure originated from Firebase
   bool get isFirebaseFailure => this is FirebaseFailure;

@@ -4,9 +4,9 @@ part of '../failure_entity.dart';
 final class NetworkFailure extends Failure {
   ///---------------------------------------
 
-  NetworkFailure({required super.message, required FailureKey translationKey})
+  NetworkFailure({required super.message, required FailureKeys translationKey})
     : super._(
-        statusCode: ErrorPlugin.httpClient.code,
+        statusCode: ErrorPlugins.httpClient.code,
         code: 'NETWORK',
         translationKey: translationKey.translationKey,
       );
@@ -20,7 +20,7 @@ final class UnauthorizedFailure extends Failure {
 
   UnauthorizedFailure({
     required super.message,
-    FailureKey translationKey = FailureKey.unauthorized,
+    FailureKeys translationKey = FailureKeys.unauthorized,
   }) : super._(
          statusCode: 401,
          code: 'UNAUTHORIZED',
@@ -35,5 +35,5 @@ final class ApiFailure extends Failure {
   ///---------------------------------------
 
   ApiFailure({required int super.statusCode, required super.message})
-    : super._(code: 'API', translationKey: FailureKey.unknown.translationKey);
+    : super._(code: 'API', translationKey: FailureKeys.unknown.translationKey);
 }

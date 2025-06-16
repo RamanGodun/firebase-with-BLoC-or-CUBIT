@@ -1,6 +1,6 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/observers/failure_diagnostics_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/observers/failure_diagnostics_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
-import '../../failures/failure_entity.dart';
+import '../../../failures/failure_entity.dart';
 import 'errors_log_util.dart';
 
 /// 🧩 [Failure] extensions — logging, diagnostics, analytics hooks

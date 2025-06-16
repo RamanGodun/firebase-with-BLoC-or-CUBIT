@@ -1,15 +1,17 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/observers/failure_diagnostics_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/observers/failure_diagnostics_x.dart';
 import 'package:flutter/material.dart';
 import '../../../localization/code_base_for_both_options/_app_localizer.dart';
-import '../../observers/loggers/errors_log_util.dart';
-import '../../utils/enums.dart';
+import '../../enums/error_plugins.dart';
+import '../../utils/observers/loggers/errors_log_util.dart';
+import '../../utils/for_bloc/consumable.dart';
 import '../failure_entity.dart';
-import '../../utils/consumable.dart';
 import '../failure_ui_entity.dart';
 
 /// ✅ [FailureToUIEntityX] — Maps [Failure] to [FailureUIEntity] without localization context
 extension FailureToUIEntityX on Failure {
-  ///
+  //
+
+  /// From [Failure] to [FailureUIEntity] mapper
   FailureUIEntity toUIEntity() {
     //
     final resolvedText = switch ((
@@ -28,19 +30,19 @@ extension FailureToUIEntityX on Failure {
     return FailureUIEntity(
       localizedMessage: resolvedText,
       formattedCode: safeCode,
-      icon: _resolveIcon(),
+      icon: resolveIcon(),
     );
   }
 
   /// 🖼️ Icon depending on failure type
-  IconData _resolveIcon() => switch (this) {
+  IconData resolveIcon() => switch (this) {
     ApiFailure() => Icons.cloud_off,
     FirebaseFailure() => Icons.fireplace,
     UseCaseFailure() => Icons.settings,
     GenericFailure(:final plugin) => switch (plugin) {
-      ErrorPlugin.httpClient => Icons.wifi_off,
-      ErrorPlugin.firebase => Icons.fire_extinguisher,
-      ErrorPlugin.useCase => Icons.build,
+      ErrorPlugins.httpClient => Icons.wifi_off,
+      ErrorPlugins.firebase => Icons.fire_extinguisher,
+      ErrorPlugins.useCase => Icons.build,
       _ => Icons.error_outline,
     },
     UnauthorizedFailure() => Icons.lock,
@@ -53,7 +55,5 @@ extension FailureToUIEntityX on Failure {
   Consumable<FailureUIEntity> asConsumableUIEntity() =>
       Consumable(toUIEntity());
 
-  ///
-
-  ///
+  //
 }

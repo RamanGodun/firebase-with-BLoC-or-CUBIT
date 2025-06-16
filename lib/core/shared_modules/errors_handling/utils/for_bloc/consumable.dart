@@ -2,12 +2,14 @@ library;
 
 /// 🧩 [Consumable] — Wraps a value for one-time consumption.
 /// ✅ Prevents repeated UI side-effects (like dialogs/snackbars)
-///----------------------------------------------------------------
 
 final class Consumable<T> {
+  ///---------------------
+
   final T? _value;
   bool _hasBeenConsumed = false;
 
+  /// Creates a new [Consumable] wrapper
   Consumable(T value) : _value = value;
 
   /// Returns value only once (marks as consumed)
@@ -20,13 +22,15 @@ final class Consumable<T> {
   /// Returns value without consuming it
   T? peek() => _value;
 
-  /// Resets consumption state (for testing or re-use cases)
+  /// 🔄 Resets consumption state (useful for tests or reuse)
   void reset() => _hasBeenConsumed = false;
 
-  /// Indicates if value has already been consumed
+  /// ✅ Whether the value has already been consumed /// ✅ Whether the value has already been consumed
   bool get isConsumed => _hasBeenConsumed;
 
   @override
   String toString() =>
       'Consumable(value: $_value, consumed: $_hasBeenConsumed)';
+
+  //
 }

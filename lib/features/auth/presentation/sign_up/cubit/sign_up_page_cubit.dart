@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/failures/extensions/to_ui_failures_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/consumable.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_modules/errors_handling/utils/for_bloc/consumable.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import '../../../../../core/shared_modules/errors_handling/failures/failure_ui_entity.dart';
-import '../../../../../core/shared_modules/errors_handling/utils/dsl_result_handler_async.dart';
+import '../../../../../core/shared_modules/errors_handling/utils/for_bloc/result_handler_async.dart';
 import '../../../../form_fields/input_validation/_inputs_validation.dart';
 import '../../services/sign_up_service.dart';
 import '../../../../../core/general_utils/debouncer.dart';

@@ -6,9 +6,9 @@ final class FirebaseFailure extends Failure {
 
   FirebaseFailure({
     required super.message,
-    FailureKey translationKey = FailureKey.firebaseGeneric,
+    FailureKeys translationKey = FailureKeys.firebaseGeneric,
   }) : super._(
-         statusCode: ErrorPlugin.firebase.code,
+         statusCode: ErrorPlugins.firebase.code,
          code: 'FIREBASE',
          translationKey: translationKey.translationKey,
        );
@@ -23,7 +23,7 @@ final class FirebaseUserMissingFailure extends FirebaseFailure {
   FirebaseUserMissingFailure()
     : super(
         message: 'FirebaseAuth.currentUser is null. User not signed in.',
-        translationKey: FailureKey.firebaseGeneric,
+        translationKey: FailureKeys.firebaseGeneric,
       );
 }
 
@@ -36,6 +36,6 @@ final class FirestoreDocMissingFailure extends FirebaseFailure {
   FirestoreDocMissingFailure()
     : super(
         message: 'Expected document is missing in Firestore.',
-        translationKey: FailureKey.firebaseDocMissing,
+        translationKey: FailureKeys.firebaseDocMissing,
       );
 }

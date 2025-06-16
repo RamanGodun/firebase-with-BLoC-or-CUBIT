@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../shared_modules/errors_handling/either/either.dart';
 import '../shared_modules/errors_handling/failures/failure_entity.dart';
-import '../shared_modules/errors_handling/utils/dsl_result_handler.dart';
+import '../shared_modules/errors_handling/failures/failure_ui_entity.dart';
+import '../shared_modules/errors_handling/utils/for_bloc/result_handler.dart';
 import '../shared_modules/overlays/overlays_presentation/overlay_presets/overlay_presets.dart';
 
 /// 🧩 [ResultFuture] — Represents async result with [Either<Failure, T>]
@@ -25,5 +26,38 @@ typedef FieldUiState = ({String? errorText, bool isObscure});
 /// 📦 Wraps child with EasyLocalization widget
 typedef LocalizationWrapper = Widget Function(Widget child);
 
-///
+/// 📦 Navigation with params
+typedef GoTo =
+    void Function(
+      String routeName, {
+      Map<String, String> pathParameters,
+      Map<String, dynamic> queryParameters,
+    });
+
+/// 🪧 [OverlayBannerFactory] — builds a custom banner for overlay display
+/// Used to render UI based on overlay presets
 typedef OverlayBannerFactory = Widget Function(OverlayUIPresets, String);
+
+/// 💬 [ShowUserSnackbar] — displays a snackbar with optional icon
+/// Commonly used for user feedback and UI actions
+typedef ShowUserSnackbar =
+    void Function({required String message, IconData? icon});
+
+/// ❗ [ErrorDispatcher] — handles UI error display via [FailureUIEntity]
+/// Passes context-bound error handler (e.g., `context.showError`)
+typedef ErrorDispatcher = void Function(FailureUIEntity);
+
+/// 🧩 [VoidResult] — `ResultFuture<void>`, for void  action
+typedef VoidResult = ResultFuture<void>;
+
+/// 🧩 [FailureOr<T>] — Sync `Either<Failure, T>`
+typedef FailureOr<T> = Either<Failure, T>;
+
+/// 🔁 [VoidEither] — Sync `Either<Failure, void>`
+typedef VoidEither = Either<Failure, void>;
+
+/// 📤 [AsyncNotifierFn<T>] — for such methods as `updateSafely(...)`
+typedef AsyncNotifierFn<T> = Future<T> Function();
+
+/// 📡 [ListenFailureCallback] — optional handler when failure is caught
+typedef ListenFailureCallback = void Function(Failure failure);
