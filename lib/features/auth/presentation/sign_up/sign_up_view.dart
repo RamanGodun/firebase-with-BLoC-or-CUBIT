@@ -1,22 +1,22 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/localization/generated/locale_keys.g.dart';
+import 'package:firebase_with_bloc_or_cubit/core/modules_shared/localization/generated/locale_keys.g.dart';
 import 'package:firebase_with_bloc_or_cubit/features/form_fields/formz_status_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/navigation/extensions/navigation_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/general_utils/extensions/context_extensions/_context_extensions.dart';
-import 'package:firebase_with_bloc_or_cubit/core/general_utils/extensions/extension_on_widget/_widget_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/modules_shared/navigation/extensions/navigation_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/context_extensions/_context_extensions.dart';
+import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget;
-import '../../../../core/shared_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
-import '../../../../core/general_utils/spider/images_paths.dart';
-import '../../../../core/shared_modules/theme/core/constants/_app_constants.dart'
+import '../../../../core/modules_shared/overlays/overlay_dispatcher/overlay_status_cubit.dart';
+import '../../../../core/utils_shared/spider/images_paths.dart';
+import '../../../../core/modules_shared/theme/core/constants/_app_constants.dart'
     show AppSpacing;
-import '../../../../core/shared_layers/shared_presentation/shared_widgets/text_button.dart';
+import '../../../../core/layers_shared/presentation_layer_shared/widgets_shared/text_button.dart';
 import '../../../form_fields/enums_for_form_fields_module.dart';
 import '../../../form_fields/use_auth_focus_nodes.dart';
 import '../../../form_fields/widgets/_fields_factory.dart';
 import '../../../form_fields/widgets/button_for_forms.dart';
 import '../../../form_fields/widgets/password_visibility_icon.dart';
-import '../../../../core/general_utils/typedef.dart';
+import '../../../../core/utils_shared/typedef.dart';
 import 'cubit/sign_up_page_cubit.dart';
 
 part 'sign_up_widgets.dart';

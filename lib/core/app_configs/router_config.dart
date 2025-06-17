@@ -1,4 +1,4 @@
-import '../shared_modules/navigation/_imports_for_router.dart';
+import '../modules_shared/navigation/_imports_for_router.dart';
 
 /// 🧭 [AppRouterConfig] — Entry point for GoRouter integration with [MaterialApp.router]
 /// ✅ Used in `MaterialApp.router()`

@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
-import '../../../core/general_utils/typedef.dart';
+import '../../../core/utils_shared/typedef.dart';
 
 /// 📜 [AuthRemoteDataSource] — contract for Firebase auth operations
 

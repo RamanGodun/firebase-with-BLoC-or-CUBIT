@@ -1,16 +1,16 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/animation/widget_animation_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/modules_shared/animation/widget_animation_x.dart';
 import 'package:firebase_with_bloc_or_cubit/features/form_fields/formz_status_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/theme/extensions/theme_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/general_utils/extensions/extension_on_widget/_widget_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/extensions/theme_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import '../../../core/shared_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
-import '../../../core/shared_modules/theme/core/app_colors.dart';
-import '../../../core/general_utils/typedef.dart';
-import '../../../core/shared_modules/localization/code_base_for_both_options/text_widget.dart';
-import '../../../core/shared_modules/theme/core/constants/app_keys.dart';
+import '../../../core/modules_shared/overlays/overlay_dispatcher/overlay_status_cubit.dart';
+import '../../../core/modules_shared/theme/core/app_colors.dart';
+import '../../../core/utils_shared/typedef.dart';
+import '../../../core/modules_shared/localization/widgets/text_widget.dart';
+import '../../../core/modules_shared/theme/core/constants/app_keys.dart';
 
 /// ✅ [FormSubmitButton] — A reusable submit button
 /// with validation logic and animated loading indicator

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart' show BuildContext, immutable;
 import 'package:go_router/go_router.dart' show GoRouter;
-import '../shared_modules/theme/theme_cubit/theme_cubit.dart';
-import 'localization_config.dart';
+import '../modules_shared/theme/theme_cubit/theme_cubit.dart';
+import '../modules_shared/localization/localization_config.dart';
 import 'router_config.dart';
-import '../shared_modules/theme/core/_theme_config.dart';
+import '../modules_shared/theme/core/_theme_config.dart';
 
 /// 🧩 [AppRootConfig] — Immutable object holding all global config required by [MaterialApp].
 /// ✅ Clean separation of logic & widget layer, with convenient factory for Riverpod or Bloc integration.

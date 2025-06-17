@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/shared_modules/errors_handling/utils/for_bloc/result_handler.dart';
+import '../../../../core/modules_shared/errors_handling/utils/for_bloc/result_handler.dart';
 import '../../domain/use_cases/sign_out.dart';
 
 part 'auth_event.dart';

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/shared_modules/theme/theme_utils/blur_wrapper.dart';
-import '../../../core/general_utils/spider/images_paths.dart';
-import '../../../core/shared_modules/localization/code_base_for_both_options/key_value_x_for_text_w.dart';
-import '../../../core/shared_modules/localization/generated/locale_keys.g.dart';
-import '../../../core/shared_modules/localization/language_toggle_widget/_toggle_button.dart';
-import '../../../core/shared_modules/theme/core/constants/_app_constants.dart'
+import '../../../core/modules_shared/theme/theme_utils/blur_wrapper.dart';
+import '../../../core/utils_shared/spider/images_paths.dart';
+import '../../../core/modules_shared/localization/widgets/key_value_x_for_text_w.dart';
+import '../../../core/modules_shared/localization/generated/locale_keys.g.dart';
+import '../../../core/modules_shared/localization/widgets/_toggle_button.dart';
+import '../../../core/modules_shared/theme/core/constants/_app_constants.dart'
     show AppSpacing;
-import '../../../core/shared_layers/shared_presentation/shared_widgets/app_loaders.dart';
+import '../../../core/layers_shared/presentation_layer_shared/widgets_shared/app_loaders.dart';
 import '../domain/shared_entities/_user.dart';
-import '../../../core/shared_layers/shared_presentation/shared_widgets/custom_app_bar.dart';
-import '../../../core/shared_modules/localization/code_base_for_both_options/text_widget.dart';
-import '../../../core/shared_modules/theme/widget_for_theme_toggling.dart';
+import '../../../core/layers_shared/presentation_layer_shared/widgets_shared/custom_app_bar.dart';
+import '../../../core/modules_shared/localization/widgets/text_widget.dart';
+import '../../../core/modules_shared/theme/widget_for_theme_toggling.dart';
 import 'cubit/profile_page_cubit.dart';
 
 part 'widgets_for_profile_view.dart';

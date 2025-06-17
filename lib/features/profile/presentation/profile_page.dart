@@ -1,7 +1,7 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_modules/overlays/core/_context_x_for_overlays.dart';
+import 'package:firebase_with_bloc_or_cubit/core/modules_shared/overlays/core/_context_x_for_overlays.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../core/di_container/di_container.dart';
+import '../../../core/modules_shared/di_container/di_container.dart';
 import '../../auth/presentation/auth_bloc/auth_bloc.dart';
 import '../domain/load_profile_use_case.dart';
 import 'cubit/profile_page_cubit.dart';
