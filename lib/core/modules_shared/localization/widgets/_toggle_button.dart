@@ -30,7 +30,11 @@ final class LanguageToggleButton extends StatelessWidget {
                   .toList(),
       onSelected: (option) {
         final showBanner = context.showUserBanner;
+
+        //  🌐🌍 Change localization
         context.setLocale(option.locale).then((_) {
+          //
+          // 🌟 Show overlay with correct message and icon
           showBanner(message: option.messageKey.tr(), icon: AppIcons.language);
         });
       },

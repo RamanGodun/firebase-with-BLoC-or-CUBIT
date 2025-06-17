@@ -82,13 +82,6 @@ final class AppRoutes {
           (context, state) => AppTransitions.fade(const VerifyEmailPage()),
     ),
 
-    GoRoute(
-      path: '/${RoutesNames.changePassword}',
-      name: RoutesNames.changePassword,
-      pageBuilder:
-          (context, state) => AppTransitions.fade(const ChangePasswordPage()),
-    ),
-
     ///
 
     /// ❌ Error / 404 Page
