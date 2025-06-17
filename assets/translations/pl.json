@@ -37,6 +37,40 @@
     "timeout": "Przekroczono limit czasu. Spróbuj ponownie."
   },
 
+
+"failure": {
+  "firebase": {
+    "doc_missing": "Brak profilu użytkownika.",
+    "wrong_password": "Nieprawidłowe hasło.",
+    "user_not_found": "Użytkownik nie został znaleziony.",
+    "invalid_credential": "Nieprawidłowe dane logowania. Sprawdź poprawność i spróbuj ponownie.",
+    "generic": "Wystąpił błąd Firebase.",
+    "email_in_use": "Ten adres e-mail jest już używany.",
+    "invalid_email": "Nieprawidłowy format adresu e-mail.",
+    "missing_email": "Brak pola e-mail.",
+    "no_current_user": "Brak aktualnie zalogowanego użytkownika.",
+    "operation_not_allowed": "Ta operacja nie jest dozwolona przez Firebase.",
+    "requires_recent_login": "Aby kontynuować, musisz się ponownie zalogować.",
+    "too_many_requests": "Zbyt wiele prób. Spróbuj ponownie później.",
+    "user_disabled": "To konto zostało dezaktywowane.",
+    "weak_password": "Hasło jest zbyt słabe."
+  },
+  "format": {
+    "error": "Odebrano nieprawidłowy format danych."
+  },
+  "network": {
+    "no_connection": "Brak połączenia z Internetem.",
+    "timeout": "Limit czasu połączenia został przekroczony. Spróbuj ponownie później."
+  },
+  "auth": {
+    "unauthorized": "Twoja sesja wygasła. Zaloguj się ponownie."
+  },
+  "plugin": {
+    "missing": "Wykryto brakujący plugin. Skontaktuj się z pomocą techniczną."
+  },
+  "unknown": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie."
+},
+
   "form": {
     "confirm_password": "Potwierdź hasło",
     "email": "Email",
@@ -45,7 +79,7 @@
   },
 
   "info": {
-    "bloc_slogan": "Bloc to świetna\nbiblioteka zarządzania stanem\ndla Fluttera!"
+    "bloc_slogan": "Bloc to świetna biblioteka zarządzania stanem dla Fluttera!"
   },
 
   "languages": {

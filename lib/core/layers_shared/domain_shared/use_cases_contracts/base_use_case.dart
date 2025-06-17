@@ -23,7 +23,7 @@ abstract class BaseUseCaseWithParams<T, Params> {
 // ----------------------------------------
 
 /*
-? or this option, that's is more flexible (for many errors types), when prpject grows
+? or this option, that's is more flexible (for many errors types), when project grows
 abstract class UseCaseWithoutParams<T, F extends Failure> {
   const UseCaseWithoutParams();
 

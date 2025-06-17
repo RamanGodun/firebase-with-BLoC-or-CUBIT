@@ -192,13 +192,13 @@ flutter pub add --dev build_runner
 ```bash
 flutter pub run easy_localization:generate \
   -S assets/translations \
-  -O lib/core/shared_modules/localization/generated \
+  -O lib/core/modules_shared/localization/generated \
   -o codegen_loader.g.dart
 
 flutter pub run easy_localization:generate \
   -f keys \
   -S assets/translations \
-  -O lib/core/shared_modules/localization/generated \
+  -O lib/core/modules_shared/localization/generated \
   -o locale_keys.g.dart
 ```
 

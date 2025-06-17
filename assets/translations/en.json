@@ -37,6 +37,40 @@
     "timeout": "Request timeout. Try again."
   },
 
+
+"failure": {
+  "firebase": {
+    "doc_missing": "User profile is missing.",
+    "wrong_password": "Wrong password.",
+    "user_not_found": "User not found.",
+    "invalid_credential": "Invalid credentials. Please check your input and try again.",
+    "generic": "A Firebase error occurred.",
+    "email_in_use": "Email is already in use.",
+    "invalid_email": "Invalid email format.",
+    "missing_email": "Missing email field.",
+    "no_current_user": "No current user signed in.",
+    "operation_not_allowed": "Operation not allowed by Firebase.",
+    "requires_recent_login": "Please reauthenticate to continue.",
+    "too_many_requests": "Too many attempts. Please try again later.",
+    "user_disabled": "This account is disabled.",
+    "weak_password": "Password is too weak."
+  },
+  "format": {
+    "error": "Invalid data format received."
+  },
+  "network": {
+    "no_connection": "No internet connection.",
+    "timeout": "Connection timed out. Please try again later."
+  },
+  "auth": {
+    "unauthorized": "Your session has expired. Please sign in again."
+  },
+  "plugin": {
+    "missing": "Missing plugin detected. Please contact support."
+  },
+  "unknown": "An unexpected error occurred. Please try again."
+},
+
   "form": {
     "confirm_password": "Confirm Password",
     "email": "Email",
@@ -45,7 +79,7 @@
   },
 
   "info": {
-    "bloc_slogan": "Bloc is an awesome\nstate management library\nfor Flutter!"
+    "bloc_slogan": "Bloc is an awesome state management library for Flutter!"
   },
 
   "languages": {

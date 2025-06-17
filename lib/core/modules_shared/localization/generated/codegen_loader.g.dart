@@ -50,6 +50,38 @@ class CodegenLoader extends AssetLoader{
     },
     "timeout": "Przekroczono limit czasu. Spróbuj ponownie."
   },
+  "failure": {
+    "firebase": {
+      "doc_missing": "Brak profilu użytkownika.",
+      "wrong_password": "Nieprawidłowe hasło.",
+      "user_not_found": "Użytkownik nie został znaleziony.",
+      "invalid_credential": "Nieprawidłowe dane logowania. Sprawdź poprawność i spróbuj ponownie.",
+      "generic": "Wystąpił błąd Firebase.",
+      "email_in_use": "Ten adres e-mail jest już używany.",
+      "invalid_email": "Nieprawidłowy format adresu e-mail.",
+      "missing_email": "Brak pola e-mail.",
+      "no_current_user": "Brak aktualnie zalogowanego użytkownika.",
+      "operation_not_allowed": "Ta operacja nie jest dozwolona przez Firebase.",
+      "requires_recent_login": "Aby kontynuować, musisz się ponownie zalogować.",
+      "too_many_requests": "Zbyt wiele prób. Spróbuj ponownie później.",
+      "user_disabled": "To konto zostało dezaktywowane.",
+      "weak_password": "Hasło jest zbyt słabe."
+    },
+    "format": {
+      "error": "Odebrano nieprawidłowy format danych."
+    },
+    "network": {
+      "no_connection": "Brak połączenia z Internetem.",
+      "timeout": "Limit czasu połączenia został przekroczony. Spróbuj ponownie później."
+    },
+    "auth": {
+      "unauthorized": "Twoja sesja wygasła. Zaloguj się ponownie."
+    },
+    "plugin": {
+      "missing": "Wykryto brakujący plugin. Skontaktuj się z pomocą techniczną."
+    },
+    "unknown": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie."
+  },
   "form": {
     "confirm_password": "Potwierdź hasło",
     "email": "Email",
@@ -57,7 +89,7 @@ class CodegenLoader extends AssetLoader{
     "password": "Hasło"
   },
   "info": {
-    "bloc_slogan": "Bloc to świetna\nbiblioteka zarządzania stanem\ndla Fluttera!"
+    "bloc_slogan": "Bloc to świetna biblioteka zarządzania stanem dla Fluttera!"
   },
   "languages": {
     "switched_to_pl": "Język zmieniony na 🇵🇱 Polski",
@@ -133,6 +165,38 @@ static const Map<String,dynamic> _uk = {
     },
     "timeout": "Час очікування минув. Спробуйте ще раз."
   },
+  "failure": {
+    "firebase": {
+      "doc_missing": "Профіль користувача відсутній.",
+      "wrong_password": "Неправильний пароль.",
+      "user_not_found": "Користувача не знайдено.",
+      "invalid_credential": "Некоректні облікові дані. Будь ласка, перевірте введене і спробуйте ще раз.",
+      "generic": "Сталася помилка Firebase.",
+      "email_in_use": "Ця електронна адреса вже використовується.",
+      "invalid_email": "Некоректний формат електронної пошти.",
+      "missing_email": "Поле електронної пошти відсутнє.",
+      "no_current_user": "Немає поточного авторизованого користувача.",
+      "operation_not_allowed": "Цю дію заборонено налаштуваннями Firebase.",
+      "requires_recent_login": "Для виконання цієї дії потрібно нещодавно увійти до системи.",
+      "too_many_requests": "Забагато запитів. Спробуйте пізніше.",
+      "user_disabled": "Обліковий запис деактивовано.",
+      "weak_password": "Пароль занадто слабкий."
+    },
+    "format": {
+      "error": "Отримано некоректний формат даних."
+    },
+    "network": {
+      "no_connection": "Немає підключення до Інтернету.",
+      "timeout": "Час очікування перевищено. Спробуйте пізніше."
+    },
+    "auth": {
+      "unauthorized": "Сесію завершено. Увійдіть знову."
+    },
+    "plugin": {
+      "missing": "Виявлено відсутній плагін. Зверніться до служби підтримки."
+    },
+    "unknown": "Сталася непередбачувана помилка. Спробуйте пізніше."
+  },
   "form": {
     "confirm_password": "Підтвердження паролю",
     "email": "Електронна пошта",
@@ -140,7 +204,7 @@ static const Map<String,dynamic> _uk = {
     "password": "Пароль"
   },
   "info": {
-    "bloc_slogan": "Bloc — це чудова\nбібліотека управління станом\nдля Flutter!"
+    "bloc_slogan": "Bloc — це чудова бібліотека управління станом для Flutter!"
   },
   "languages": {
     "switched_to_pl": "Мову змінено на 🇵🇱 Польську",
@@ -216,6 +280,38 @@ static const Map<String,dynamic> _en = {
     },
     "timeout": "Request timeout. Try again."
   },
+  "failure": {
+    "firebase": {
+      "doc_missing": "User profile is missing.",
+      "wrong_password": "Wrong password.",
+      "user_not_found": "User not found.",
+      "invalid_credential": "Invalid credentials. Please check your input and try again.",
+      "generic": "A Firebase error occurred.",
+      "email_in_use": "Email is already in use.",
+      "invalid_email": "Invalid email format.",
+      "missing_email": "Missing email field.",
+      "no_current_user": "No current user signed in.",
+      "operation_not_allowed": "Operation not allowed by Firebase.",
+      "requires_recent_login": "Please reauthenticate to continue.",
+      "too_many_requests": "Too many attempts. Please try again later.",
+      "user_disabled": "This account is disabled.",
+      "weak_password": "Password is too weak."
+    },
+    "format": {
+      "error": "Invalid data format received."
+    },
+    "network": {
+      "no_connection": "No internet connection.",
+      "timeout": "Connection timed out. Please try again later."
+    },
+    "auth": {
+      "unauthorized": "Your session has expired. Please sign in again."
+    },
+    "plugin": {
+      "missing": "Missing plugin detected. Please contact support."
+    },
+    "unknown": "An unexpected error occurred. Please try again."
+  },
   "form": {
     "confirm_password": "Confirm Password",
     "email": "Email",
@@ -223,7 +319,7 @@ static const Map<String,dynamic> _en = {
     "password": "Password"
   },
   "info": {
-    "bloc_slogan": "Bloc is an awesome\nstate management library\nfor Flutter!"
+    "bloc_slogan": "Bloc is an awesome state management library for Flutter!"
   },
   "languages": {
     "switched_to_pl": "Language switched to 🇵🇱 Polish",
