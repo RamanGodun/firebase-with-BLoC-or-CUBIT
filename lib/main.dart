@@ -6,7 +6,7 @@ import 'start_up_handler.dart';
 import 'core/modules_shared/di_container/di_container.dart';
 import 'core/modules_shared/localization/app_localization.dart';
 import 'core/layers_shared/presentation_layer_shared/widgets_shared/app_loaders.dart';
-import 'features/auth/presentation/auth_bloc/auth_bloc.dart';
+import 'features/auth/presentation/auth_bloc/auth_cubit.dart';
 import 'core/modules_shared/theme/theme_cubit/theme_cubit.dart';
 
 /// 🏁 Entry point of the application.
@@ -34,7 +34,7 @@ final class RootProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: di<AuthBloc>()), // 🔐 Auth State
+        BlocProvider.value(value: di<AuthCubit>()), // 🔐 Auth State
         BlocProvider.value(value: di<AppThemeCubit>()), // 🎨 Theme State
         BlocProvider.value(value: di<OverlayStatusCubit>()),
       ],

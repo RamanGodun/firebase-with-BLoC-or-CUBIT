@@ -6,7 +6,7 @@ import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extensi
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/core/constants/_app_constants.dart';
-import 'package:firebase_with_bloc_or_cubit/features/auth/presentation/auth_bloc/auth_bloc.dart';
+import 'package:firebase_with_bloc_or_cubit/features/auth/presentation/auth_bloc/auth_cubit.dart';
 import 'package:firebase_with_bloc_or_cubit/core/layers_shared/presentation_layer_shared/widgets_shared/custom_app_bar.dart';
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/localization/widgets/text_widget.dart';
 import '../../../modules_shared/navigation/core/routes_names.dart';
@@ -32,7 +32,7 @@ final class HomePage extends StatelessWidget {
           actionIcons: const [AppIcons.profile, AppIcons.logout],
           actionCallbacks: [
             () => context.pushToNamed(RoutesNames.profile),
-            () => context.read<AuthBloc>().add(SignoutRequestedEvent()),
+            () => context.read<AuthCubit>().signOut(),
           ],
           isNeedPaddingAfterActionIcon: true,
         ),

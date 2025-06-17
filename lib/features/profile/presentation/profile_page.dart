@@ -2,7 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/core/modules_shared/overlays/core/_c
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/modules_shared/di_container/di_container.dart';
-import '../../auth/presentation/auth_bloc/auth_bloc.dart';
+import '../../auth/presentation/auth_bloc/auth_cubit.dart';
 import '../domain/load_profile_use_case.dart';
 import 'cubit/profile_page_cubit.dart';
 import 'profile_view.dart';
@@ -18,7 +18,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //
-    final uid = context.read<AuthBloc>().state.user?.uid;
+    final uid = context.read<AuthCubit>().state.user?.uid;
     // 🛑 Guard: If user is not available, return empty widget
     if (uid == null) return const SizedBox.shrink();
 

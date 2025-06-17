@@ -1,4 +1,6 @@
-part of 'auth_bloc.dart';
+// 📁 auth_state.dart
+
+part of 'auth_cubit.dart';
 
 /// 🔒 [AuthStatus] — Represents current authentication state
 /// - `unknown`: Initial state (e.g. splash screen)
@@ -7,10 +9,11 @@ part of 'auth_bloc.dart';
 
 enum AuthStatus { unknown, authenticated, unauthenticated }
 
-/// 🧾 [AuthState] — Bloc state that holds current auth status & user
+/// 🧾 [AuthState] — Cubit state that holds current auth status & user
 
 final class AuthState extends Equatable {
   //------------------------------------
+
   final AuthStatus authStatus;
   final fb_auth.User? user;
 
@@ -27,7 +30,6 @@ final class AuthState extends Equatable {
       authStatus: authStatus ?? this.authStatus,
       user: user ?? this.user,
     );
-    //
   }
 
   @override

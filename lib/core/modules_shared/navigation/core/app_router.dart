@@ -1,12 +1,12 @@
 import 'package:go_router/go_router.dart';
+import '../../../../features/auth/presentation/auth_bloc/auth_cubit.dart';
 import '../../../layers_shared/presentation_layer_shared/pages_shared/page_not_found.dart';
 import '../../di_container/di_container.dart';
-import '../../../../features/auth/presentation/auth_bloc/auth_bloc.dart';
 import '../utils/overlay_navigation_observer.dart';
 import 'app_routes.dart';
 import 'routes_names.dart';
 import '../utils/router_redirect.dart';
-import 'router_refresher.dart' show GoRouterRefresher;
+import 'router_refresher.dart' show AuthCubitAdapter;
 
 /// 🧭🚦 [goRouter] — Main GoRouter instance for the app
 /// Responsible for:
@@ -29,12 +29,13 @@ final GoRouter goRouter = GoRouter(
   debugLogDiagnostics: true,
 
   /// 🔄 Refresh when auth state changes (listens to AuthBloc stream)
-  refreshListenable: GoRouterRefresher(di<AuthBloc>().stream),
+  // refreshListenable: GoRouterRefresher(di<AuthCubit>().stream),
+  refreshListenable: AuthCubitAdapter(di<AuthCubit>()),
 
   /// 🧭 Redirect logic handled by [RoutesRedirectionService], based on auth state
   redirect:
       (context, state) => AuthRedirectMapper.from(
-        authBloc: di<AuthBloc>(),
+        authCubit: di<AuthCubit>(),
         currentPath: state.matchedLocation,
       ),
 

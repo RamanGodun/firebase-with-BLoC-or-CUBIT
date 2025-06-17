@@ -11,7 +11,7 @@ import '../../../features/auth/domain/use_cases/ensure_profile_created.dart';
 import '../../../features/auth/domain/use_cases/sign_in.dart';
 import '../../../features/auth/domain/use_cases/sign_out.dart';
 import '../../../features/auth/domain/use_cases/sign_up.dart';
-import '../../../features/auth/presentation/auth_bloc/auth_bloc.dart';
+import '../../../features/auth/presentation/auth_bloc/auth_cubit.dart';
 
 import '../../../features/form_fields/_form_validation_service.dart';
 import '../../../features/profile/data/data_source_contract.dart';
@@ -75,7 +75,7 @@ abstract final class AppDI {
   static void _registerProfile() {
     di
       ..registerLazySingleton(
-        () => AuthBloc(
+        () => AuthCubit(
           signOutUseCase: di(),
           userStream: di<AuthRemoteDataSource>().user,
         ),

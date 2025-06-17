@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import '../../../../features/auth/presentation/auth_bloc/auth_bloc.dart';
+import '../../../../features/auth/presentation/auth_bloc/auth_cubit.dart';
 import '../core/routes_names.dart';
 
 /// 🧭🚦 [AuthRedirectMapper] — Handles navigation redirects based on [AuthBloc] state.
@@ -13,11 +13,11 @@ final class AuthRedirectMapper {
   AuthRedirectMapper._();
 
   static String? from({
-    required AuthBloc authBloc,
+    required AuthCubit authCubit,
     required String currentPath,
   }) {
     //
-    final status = authBloc.state.authStatus;
+    final status = authCubit.state.authStatus;
 
     /// 🔍 Auth status flags
     final isAuthenticated = status == AuthStatus.authenticated;
