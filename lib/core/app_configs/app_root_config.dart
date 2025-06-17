@@ -2,7 +2,7 @@ import 'package:flutter/material.dart' show BuildContext, immutable;
 import 'package:go_router/go_router.dart' show GoRouter;
 import '../modules_shared/theme/theme_cubit/theme_cubit.dart';
 import '../modules_shared/localization/localization_config.dart';
-import 'router_config.dart';
+import '../modules_shared/navigation/router_config.dart';
 import '../modules_shared/theme/core/_theme_config.dart';
 
 /// 🧩 [AppRootConfig] — Immutable object holding all global config required by [MaterialApp].
@@ -29,16 +29,23 @@ final class AppRootConfig {
     required BuildContext context,
     required AppThemeState themeState,
   }) {
+    ///
     //
     // ? when use Riverpod state manager, uncomment next:
     // final theme = ThemeConfig.fromMode(ref.watch(themeModeProvider));
     // ? when use BLoC state manager, uncomment next:
     final theme = ThemeConfig.fromBloc(themeState);
 
+    ///
     final localization = LocalizationConfig.fromContext(context);
 
+    ///
+    // ? when use Riverpod state manager, uncomment next:
+    // final router = AppRouterConfig.use(ref);
+    // ? when use BLoC state manager, uncomment next:
     final router = AppRouterConfig.router;
 
+    ///
     return AppRootConfig(
       theme: theme,
       localization: localization,

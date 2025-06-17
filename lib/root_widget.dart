@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/app_configs/app_root_config.dart';
 import 'core/modules_shared/overlays/core/global_overlay_handler.dart';
-import 'core/app_configs/router_config.dart';
+import 'core/modules_shared/navigation/router_config.dart';
 import 'core/modules_shared/theme/theme_cubit/theme_cubit.dart';
 
 /// 🌳🧩 [AppRootBuilder] — Top-level reactive widget listening to [AppThemeCubit].

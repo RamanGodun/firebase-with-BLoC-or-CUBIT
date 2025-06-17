@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import '../../../../features/auth/presentation/auth_bloc/auth_bloc.dart';
-import '../_imports_for_router.dart';
+import '../routes_names.dart';
 
 /// 🔐 [AuthRedirectMapper] — Handles navigation redirects based on [AuthBloc] state.
 /// Used by GoRouter to:

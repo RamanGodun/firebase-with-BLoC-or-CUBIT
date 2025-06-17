@@ -11,10 +11,10 @@ import '../../layers_shared/presentation_layer_shared/pages_shared/password_rese
 import '../../layers_shared/presentation_layer_shared/pages_shared/splash_page.dart';
 import '../../layers_shared/presentation_layer_shared/pages_shared/verify_email_page.dart';
 import '../overlays/core/observers/overlay_navigation_observer.dart';
+import 'routes_names.dart';
 import 'widgets/app_scaffold.dart';
 import 'utils/page_transition.dart';
 import 'utils/router_redirect.dart';
 import 'utils/router_refresher.dart' show GoRouterRefresher;
 
-part 'routes_names.dart';
 part 'router.dart';

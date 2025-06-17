@@ -110,3 +110,20 @@ final GoRouter goRouter = GoRouter(
 
   ///
 );
+
+/*
+
+
+redirect: (context, state) {
+  final status = di<AuthBloc>().state.authStatus;
+  return AuthRedirectMapper.from(
+    isAuthenticated: status == AuthStatus.authenticated,
+    isVerified: di<AuthBloc>().state.isVerified,
+    isLoading: status == AuthStatus.unknown,
+    isError: false,
+    currentPath: state.matchedLocation,
+  );
+}
+
+
+ */
