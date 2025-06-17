@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_with_bloc_or_cubit/features/profile/data/shared_data_transfer_objects/user_dto_factory_x.dart';
+import 'package:firebase_with_bloc_or_cubit/features/profile/data/shared_data_transfer_objects/user_dto_factories_x.dart';
 import '../../../core/shared_modules/errors_handling/failures/failure_entity.dart';
 import '../../../core/general_utils/typedef.dart';
 import 'shared_data_transfer_objects/_user_dto.dart';
@@ -30,7 +30,7 @@ final class ProfileRemoteDataSourceImpl extends BaseRepository
       throw FirebaseFailure(message: 'User document not found in Firestore');
     }
 
-    return UserDTOFactoryExtension.fromDoc(doc);
+    return UserDTOFactories.fromDoc(doc);
   });
 
   //

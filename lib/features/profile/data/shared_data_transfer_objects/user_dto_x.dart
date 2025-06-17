@@ -3,10 +3,10 @@ import '../../../../core/general_utils/typedef.dart';
 import '_user_dto.dart';
 import '../../domain/shared_entities/_user.dart';
 
-/// 🔄 [UserDTOExtension] — Instance-level helpers for [UserDTO]
+/// 🔄 [UserDTOX] — Instance-level helpers for [UserDTO]
 /// ✅ Converts to entity or JSON (for logic or API usage)
 
-extension UserDTOExtension on UserDTO {
+extension UserDTOX on UserDTO {
   //----------------------------
 
   /// 🔄 Converts [UserDTO] → Domain [UserEntity] entity

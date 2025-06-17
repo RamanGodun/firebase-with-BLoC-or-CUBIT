@@ -1,10 +1,12 @@
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart' show immutable;
 
 /// 👤 [UserDTO] — Firebase-ready Data Transfer Object for user model
 /// ✅ Represents user data from remote source (Firestore)
 /// ✅ Used in data layer only — no logic inside
 /// ✅ Immutable, comparable, debug-friendly
 
+@immutable
 final class UserDTO with EquatableMixin {
   //------------------------------------
 
