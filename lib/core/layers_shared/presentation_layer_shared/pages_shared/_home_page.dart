@@ -9,11 +9,10 @@ import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/core/const
 import 'package:firebase_with_bloc_or_cubit/features/auth/presentation/auth_bloc/auth_bloc.dart';
 import 'package:firebase_with_bloc_or_cubit/core/layers_shared/presentation_layer_shared/widgets_shared/custom_app_bar.dart';
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/localization/widgets/text_widget.dart';
+import '../../../modules_shared/navigation/core/routes_names.dart';
 import '../../../modules_shared/theme/theme_utils/box_decorations/_box_decorations_factory.dart';
 import '../../../utils_shared/spider/images_paths.dart';
 import '../../../modules_shared/localization/generated/locale_keys.g.dart';
-import '../../../modules_shared/navigation/_imports_for_router.dart'
-    show RoutesNames;
 
 /// 🏠 [HomePage] is shown after successful login.
 final class HomePage extends StatelessWidget {

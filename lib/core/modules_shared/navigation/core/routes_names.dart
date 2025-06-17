@@ -38,8 +38,5 @@ abstract final class RoutesNames {
   /// ❌ Fallback Error Page (e.g. 404)
   static const pageNotFound = 'pageNotFound';
 
-  /// 🚫 Firebase Auth Error Page
-  static const String firebaseError = 'firebaseError';
-
   //
 }

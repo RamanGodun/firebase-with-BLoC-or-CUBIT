@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import '../../../di_container/di_container.dart';
-import '../../overlay_dispatcher/_overlay_dispatcher.dart';
+import '../../di_container/di_container.dart';
+import '../../overlays/overlay_dispatcher/_overlay_dispatcher.dart';
 
 /// 🧭 [OverlayNavigatorObserver] — Clears all overlays on navigation events
 /// ✅ Ensures that overlays (banners, snackbars, dialogs) do not persist
