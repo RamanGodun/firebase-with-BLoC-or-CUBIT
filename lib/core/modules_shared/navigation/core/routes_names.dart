@@ -40,3 +40,16 @@ abstract final class RoutesNames {
 
   //
 }
+
+////
+
+////
+
+abstract final class RoutesPaths {
+  static const splash = '/${RoutesNames.splash}';
+  static const signIn = '/${RoutesNames.signIn}';
+  static const signUp = '/${RoutesNames.signUp}';
+  static const home = '/${RoutesNames.home}';
+  static const resetPassword = '/${RoutesNames.resetPassword}';
+  // тощо
+}

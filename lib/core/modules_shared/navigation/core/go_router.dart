@@ -1,12 +1,12 @@
 import 'package:go_router/go_router.dart';
-import '../../../../features/auth/presentation/auth_bloc/auth_cubit.dart';
+import '../../../layers_shared/domain_shared/auth_state_cubit/auth_cubit.dart';
 import '../../../layers_shared/presentation_layer_shared/pages_shared/page_not_found.dart';
 import '../../di_container/di_container.dart';
 import '../utils/overlay_navigation_observer.dart';
-import 'app_routes.dart';
+import 'routes.dart';
 import 'routes_names.dart';
 import '../utils/router_redirect.dart';
-import 'router_refresher.dart' show AuthCubitAdapter;
+import 'router_refresher.dart' show GoRouterRefresher;
 
 /// 🧭🚦 [goRouter] — Main GoRouter instance for the app
 /// Responsible for:
@@ -24,21 +24,23 @@ final GoRouter goRouter = GoRouter(
   observers: [OverlayNavigatorObserver()],
 
   /// ⏳ Initial route (Splash Screen)
-  initialLocation: '/${RoutesNames.splash}',
+  initialLocation: RoutesPaths.splash,
 
   /// 🐞 Enable GoRouter debug logs (only in debug mode)
   debugLogDiagnostics: true,
 
   /// 🔄 Refresh when auth state changes (listens to AuthBloc stream)
-  // refreshListenable: GoRouterRefresher(di<AuthCubit>().stream),
-  refreshListenable: AuthCubitAdapter(di<AuthCubit>()),
+  refreshListenable: GoRouterRefresher(di<AuthCubit>().stream),
+  // BlocRefresher()..bind(authCubit.stream);
 
   /// 🧭 Redirect logic handled by [RoutesRedirectionService], based on auth state
-  redirect:
-      (context, state) => AuthRedirectMapper.from(
-        authCubit: di<AuthCubit>(),
-        currentPath: state.matchedLocation,
-      ),
+  redirect: (context, state) {
+    final authState = di<AuthCubit>().state;
+    return RoutesRedirectionService.from(
+      authStatus: authState.authStatus,
+      currentPath: state.matchedLocation,
+    );
+  },
 
   /// 🗺️ Route Map — Declare all navigable paths
   routes: AppRoutes.all,
@@ -49,20 +51,3 @@ final GoRouter goRouter = GoRouter(
 
   //
 );
-
-/*
-
-
-redirect: (context, state) {
-  final status = di<AuthBloc>().state.authStatus;
-  return AuthRedirectMapper.from(
-    isAuthenticated: status == AuthStatus.authenticated,
-    isVerified: di<AuthBloc>().state.isVerified,
-    isLoading: status == AuthStatus.unknown,
-    isError: false,
-    currentPath: state.matchedLocation,
-  );
-}
-
-
- */

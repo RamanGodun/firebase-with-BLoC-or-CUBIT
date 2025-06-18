@@ -25,6 +25,8 @@ extension ContextXForOverlays on BuildContext {
     OverlayUIPresets preset = const OverlayErrorUIPreset(),
     bool isDismissible = false,
     OverlayPriority priority = OverlayPriority.high,
+    VoidCallback? onConfirm,
+    VoidCallback? onCancel,
   }) {
     //
 
@@ -57,6 +59,8 @@ extension ContextXForOverlays on BuildContext {
           content: model.localizedMessage,
           confirmText: AppLocalizer.t(LocaleKeys.buttons_ok),
           cancelText: AppLocalizer.t(LocaleKeys.buttons_cancel),
+          onConfirm: onConfirm,
+          onCancel: onCancel,
           preset: preset,
           isError: true,
           isDismissible: isDismissible,
@@ -71,6 +75,8 @@ extension ContextXForOverlays on BuildContext {
           content: model.localizedMessage,
           confirmText: AppLocalizer.t(LocaleKeys.buttons_ok),
           cancelText: AppLocalizer.t(LocaleKeys.buttons_cancel),
+          onConfirm: onConfirm,
+          onCancel: onCancel,
           preset: preset,
           isError: false,
           isDismissible: isDismissible,

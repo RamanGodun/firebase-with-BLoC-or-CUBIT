@@ -1,76 +1,68 @@
-import 'package:flutter/foundation.dart';
-import '../../../../features/auth/presentation/auth_bloc/auth_cubit.dart';
+import '../../../layers_shared/domain_shared/auth_state_cubit/auth_cubit.dart';
 import '../core/routes_names.dart';
 
-/// 🧭🚦 [AuthRedirectMapper] — Handles navigation redirects based on [AuthBloc] state.
+/// 🧭🚦 [RoutesRedirectionService] — Handles navigation redirects based on [AuthBloc] state.
 /// Used by GoRouter to:
 /// - 🧭 Route unauthenticated users to sign-in
 /// - 🧭 Prevent authenticated users from visiting auth pages
 /// - ⏳ Show splash screen while auth status is unknown
 //----------------------------------------------------------------
 
-final class AuthRedirectMapper {
-  AuthRedirectMapper._();
+final class RoutesRedirectionService {
+  //----------------------------------------------
+  RoutesRedirectionService._();
+  //
 
   static String? from({
-    required AuthCubit authCubit,
+    required AuthStatus authStatus,
     required String currentPath,
+    bool isEmailVerified = true,
+    bool isError = false,
+    bool isLoading = false,
   }) {
     //
-    final status = authCubit.state.authStatus;
-
     /// 🔍 Auth status flags
-    final isAuthenticated = status == AuthStatus.authenticated;
-    final isUnauthenticated = status == AuthStatus.unauthenticated;
-    final isUnknown = status == AuthStatus.unknown;
+    final isAuthenticated = authStatus == AuthStatus.authenticated;
+    final isUnauthenticated = authStatus == AuthStatus.unauthenticated;
+    final isUnknown = authStatus == AuthStatus.unknown;
 
     /// 📍 Route flags
-    final isSplash = currentPath == '/${RoutesNames.splash}';
+    final isSplash = currentPath == RoutesPaths.splash;
     final isOnAuthPage = [
-      '/${RoutesNames.signIn}',
-      '/${RoutesNames.signUp}',
-      '/${RoutesNames.resetPassword}',
+      RoutesPaths.signIn,
+      RoutesPaths.signUp,
+      RoutesPaths.resetPassword,
     ].contains(currentPath);
 
     /// ⏳ Still determining auth state → redirect to Splash
     if (isUnknown) {
-      final target = isSplash ? null : '/${RoutesNames.splash}';
-      if (kDebugMode) {
-        debugPrint(
-          '[🔁 Redirect] $currentPath → $target (authStatus: unknown)',
-        );
-      }
-      return target;
+      return isSplash ? null : RoutesPaths.splash;
     }
 
     /// ❌ Unauthenticated → force sign-in (unless already on auth page)
     if (isUnauthenticated) {
-      final target = isOnAuthPage ? null : '/${RoutesNames.signIn}';
-      if (kDebugMode) {
-        debugPrint(
-          '[🔁 Redirect] $currentPath → $target (authStatus: unauthenticated)',
-        );
-      }
-      return target;
+      return isOnAuthPage ? null : RoutesPaths.signIn;
     }
 
     /// ✅ Authenticated → prevent access to splash/auth routes
     if (isAuthenticated && (isSplash || isOnAuthPage)) {
-      const target = '/${RoutesNames.home}';
-      if (kDebugMode) {
-        debugPrint(
-          '[🔁 Redirect] $currentPath → $target (authStatus: authenticated)',
-        );
-      }
-      return target;
+      return RoutesPaths.home;
     }
 
     /// ✅ No redirect needed
-    if (kDebugMode) {
-      debugPrint('[✅ No redirect] $currentPath (authStatus: $status)');
-    }
     return null;
 
     ///
   }
 }
+
+
+/*
+for debugging:
+
+    if (kDebugMode) {
+        debugPrint(
+          '[🔁 Redirect] $currentPath → $target (authStatus: unknown)',
+        );
+      }
+ */

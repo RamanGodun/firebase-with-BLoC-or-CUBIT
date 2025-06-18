@@ -1,14 +1,14 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-
-import '../../../../features/auth/presentation/auth_bloc/auth_cubit.dart';
+import '../../../layers_shared/domain_shared/auth_state_cubit/auth_cubit.dart';
 
 /// 🔄 [GoRouterRefresher] — Triggers GoRouter rebuilds on auth/state changes
 /// ✅ Listens to any `Stream` (e.g. Bloc, Cubit)
 /// 🔔 Calls `notifyListeners()` to update navigation when stream emits
-//--------------------------------------------------------------
 
 base class GoRouterRefresher extends ChangeNotifier {
+  ///-----------------------------------------------
+
   GoRouterRefresher(Stream stream) {
     _subscription = stream.listen((_) => notifyListeners());
   }
@@ -21,6 +21,8 @@ base class GoRouterRefresher extends ChangeNotifier {
     _subscription.cancel();
     super.dispose();
   }
+
+  //
 }
 
 ////
@@ -28,6 +30,8 @@ base class GoRouterRefresher extends ChangeNotifier {
 ////
 
 class AuthCubitAdapter extends ChangeNotifier {
+  ///-----------------------------------------
+
   final AuthCubit cubit;
   late final StreamSubscription _subscription;
 
@@ -40,4 +44,6 @@ class AuthCubitAdapter extends ChangeNotifier {
     super.dispose();
     return _subscription.cancel();
   }
+
+  //
 }

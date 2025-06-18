@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/app_configs/app_root_config.dart';
 import 'core/modules_shared/overlays/core/global_overlay_handler.dart';
-import 'core/modules_shared/navigation/router_config.dart';
+import 'core/modules_shared/navigation/core/_router_config.dart';
 import 'core/modules_shared/theme/theme_cubit/theme_cubit.dart';
 
 /// 🌳🧩 [AppRootBuilder] — Top-level reactive widget listening to [AppThemeCubit].
@@ -19,6 +19,7 @@ final class AppRootBuilder extends StatelessWidget {
     // ? Theme memoization
     return BlocBuilder<AppThemeCubit, AppThemeState>(
       buildWhen: (prev, curr) => prev != curr,
+
       builder: (context, state) {
         final config = AppRootConfig.from(context: context, themeState: state);
         return _AppRootView(config: config);

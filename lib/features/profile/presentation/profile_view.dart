@@ -6,9 +6,9 @@ import '../../../core/modules_shared/localization/widgets/key_value_x_for_text_w
 import '../../../core/modules_shared/localization/generated/locale_keys.g.dart';
 import '../../../core/modules_shared/localization/widgets/_toggle_button.dart';
 import '../../../core/modules_shared/theme/core/constants/_app_constants.dart'
-    show AppSpacing, AppIcons;
+    show AppSpacing;
 import '../../../core/layers_shared/presentation_layer_shared/widgets_shared/app_loaders.dart';
-import '../../auth/presentation/sign_out/sign_out_cubit/sign_out_cubit.dart';
+import '../../auth/presentation/sign_out/sign_out_widget.dart';
 import '../domain/shared_entities/_user.dart';
 import '../../../core/layers_shared/presentation_layer_shared/widgets_shared/custom_app_bar.dart';
 import '../../../core/modules_shared/localization/widgets/text_widget.dart';
@@ -29,15 +29,12 @@ final class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     //
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         title: LocaleKeys.pages_profile,
         actionWidgets: [
-          const ThemeToggleIcon(),
-          const LanguageToggleButton(),
-          IconButton(
-            icon: const Icon(AppIcons.logout),
-            onPressed: () => context.read<SignOutCubit>().signOut(),
-          ),
+          ThemeToggleIcon(),
+          LanguageToggleButton(),
+          SignOutWidget(),
         ],
       ),
 

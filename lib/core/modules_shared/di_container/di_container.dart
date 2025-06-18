@@ -11,7 +11,7 @@ import '../../../features/auth/domain/use_cases/ensure_profile_created.dart';
 import '../../../features/auth/domain/use_cases/sign_in.dart';
 import '../../../features/auth/domain/use_cases/sign_out.dart';
 import '../../../features/auth/domain/use_cases/sign_up.dart';
-import '../../../features/auth/presentation/auth_bloc/auth_cubit.dart';
+import '../../layers_shared/domain_shared/auth_state_cubit/auth_cubit.dart';
 
 import '../../../features/auth/presentation/sign_out/sign_out_cubit/sign_out_cubit.dart';
 import '../../../features/form_fields/_form_validation_service.dart';
