@@ -5,10 +5,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 /// 📦 [EnvFirebaseOptions] — Platform-aware Firebase config via .env variables
 /// ✅ Uses `flutter_dotenv` to inject Firebase credentials at runtime
 /// 🔐 Reads secrets securely from environment-specific .env files
-//----------------------------------------------------------------
 
 final class EnvFirebaseOptions {
+  ///-------------------------
   EnvFirebaseOptions._();
+  //
 
   /// 🧠 Chooses correct [FirebaseOptions] based on platform
   static FirebaseOptions get currentPlatform {
@@ -56,5 +57,5 @@ final class EnvFirebaseOptions {
     storageBucket: dotenv.env['FIREBASE_STORAGE_BUCKET'],
   );
 
-  ///
+  //
 }

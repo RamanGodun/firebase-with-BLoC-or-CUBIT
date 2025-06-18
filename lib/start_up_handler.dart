@@ -21,39 +21,38 @@ final class StartUpHandler {
   ///
 
   ///🎯 Entry point — must be called before `runApp()`
-  // ✅ Sequentially initializes all core servic
+  // ✅ Sequentially initializes all core services
 
   static Future<void> bootstrap() async {
     ///─────────────────────────────────
     //
     _initializeCoreBindings();
-
     await _initLocalization();
-
     await _initEnvFile();
     await _initFirebase();
     await _initHydratedStorage();
-
-    // 📦 Initializes app dependencies via GetIt
-    await AppDI.init();
   }
 
-  ///
+  ////
 
   ///🛠️ Initializes fundamental Flutter bindings and core services
   // ✅ Sets up global Riverpod DI container with overrides
 
-  static void _initializeCoreBindings() {
+  static void _initializeCoreBindings() async {
     /// ─────────────────────────────────
     //
     WidgetsFlutterBinding.ensureInitialized();
-    //👁️ Registers Bloc observer for global event tracking
-    Bloc.observer = const AppBlocObserver();
     // 🌈 Enables debug painting for layout visualization (repaint regions)
     debugRepaintRainbowEnabled = false;
+    //
+    //👁️ Registers Bloc observer for global event tracking
+    Bloc.observer = const AppBlocObserver();
+    //
+    // 📦 Initializes app dependencies via GetIt
+    await AppDI.init();
   }
 
-  ///
+  ////
 
   ///🌍 Initializes localization engine (EasyLocalization)
   // ✅ Sets up `AppLocalizer` resolver
@@ -67,51 +66,53 @@ final class StartUpHandler {
     // ! when app without localization, then instead previous method use next:
     // AppLocalizer.initWithFallback();
   }
-}
 
-///
+  ////
 
-///📄 Loads environment variables from `.env.{env}`
-// ✅ Detects current environment: dev, staging, prod
-// ✅ Loads the correct `.env` config file
+  ///📄 Loads environment variables from `.env.{env}`
+  // ✅ Detects current environment: dev, staging, prod
+  // ✅ Loads the correct `.env` config file
 
-Future<void> _initEnvFile() async {
-  ///────────────────────────────────────
+  static Future<void> _initEnvFile() async {
+    ///────────────────────────────────────
+    //
+    final envFile = switch (EnvConfig.currentEnv) {
+      Environment.dev => '.env.dev',
+      Environment.staging => '.env.staging',
+      Environment.prod => '.env',
+    };
+    await dotenv.load(fileName: envFile);
+    debugPrint('✅ Loaded env: $envFile');
+  }
+
+  ////
+
+  ///🔥 Initializes Firebase SDK
+  // ✅ Sets up Firebase for analytics, auth, Firestore, etc.
+
+  static Future<void> _initFirebase() async {
+    ///──────────────────────────────
+    //
+    await Firebase.initializeApp();
+  }
+
+  ////
+
+  ///💾 Configures HydratedBloc persistent storage
+
+  static Future<void> _initHydratedStorage() async {
+    ///────────────────────────────────────-
+    //
+    final storage = await HydratedStorage.build(
+      storageDirectory:
+          kIsWeb
+              ? HydratedStorageDirectory.web
+              : HydratedStorageDirectory(
+                (await getApplicationDocumentsDirectory()).path,
+              ),
+    );
+    HydratedBloc.storage = storage;
+  }
+
   //
-  final envFile = switch (EnvConfig.currentEnv) {
-    Environment.dev => '.env.dev',
-    Environment.staging => '.env.staging',
-    Environment.prod => '.env',
-  };
-  await dotenv.load(fileName: envFile);
-  debugPrint('✅ Loaded env: $envFile');
-}
-
-///
-
-///🔥 Initializes Firebase SDK
-// ✅ Sets up Firebase for analytics, auth, Firestore, etc.
-
-Future<void> _initFirebase() async {
-  ///──────────────────────────────
-  //
-  await Firebase.initializeApp();
-}
-
-///
-
-///💾 Configures HydratedBloc persistent storage
-
-Future<void> _initHydratedStorage() async {
-  ///────────────────────────────────────-
-  //
-  final storage = await HydratedStorage.build(
-    storageDirectory:
-        kIsWeb
-            ? HydratedStorageDirectory.web
-            : HydratedStorageDirectory(
-              (await getApplicationDocumentsDirectory()).path,
-            ),
-  );
-  HydratedBloc.storage = storage;
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,8 +11,8 @@ class SignOutWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-            icon: const Icon(AppIcons.logout),
-            onPressed: () => context.read<SignOutCubit>().signOut(),
-          );
+      icon: const Icon(AppIcons.logout),
+      onPressed: () => context.read<SignOutCubit>().signOut(),
+    ).withPaddingOnly(right: AppSpacing.m);
   }
 }

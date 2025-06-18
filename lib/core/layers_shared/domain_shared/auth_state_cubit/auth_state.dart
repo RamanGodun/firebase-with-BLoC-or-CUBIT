@@ -1,13 +1,9 @@
-// 📁 auth_state.dart
-
 part of 'auth_cubit.dart';
 
 /// 🔒 [AuthStatus] — Represents current authentication state
 /// - `unknown`: Initial state (e.g. splash screen)
 /// - `authenticated`: User is signed in
 /// - `unauthenticated`: User is signed out
-
-enum AuthStatus { unknown, authenticated, unauthenticated }
 
 /// 🧾 [AuthState] — Cubit state that holds current auth status & user
 
@@ -32,11 +28,17 @@ final class AuthState extends Equatable {
     );
   }
 
+  ///
   @override
   List<Object?> get props => [authStatus, user];
 
+  ///
   @override
   String toString() => 'AuthState(authStatus: $authStatus, user: $user)';
 
   //
 }
+
+////
+
+enum AuthStatus { unknown, authenticated, unauthenticated }

@@ -1,5 +1,9 @@
+library;
+
 /// ⏱️ Commonly used timeout durations
+
 final class TimeoutConstants {
+  ///------------------------
   TimeoutConstants._();
 
   /// ⏱️ Global timeout for network requests
@@ -11,5 +15,5 @@ final class TimeoutConstants {
   /// 💤 Debounce duration for text field validation
   static const Duration debounceDuration = Duration(milliseconds: 350);
 
-  ///
+  //
 }

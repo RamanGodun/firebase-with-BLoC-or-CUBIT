@@ -10,7 +10,7 @@ import '../modules_shared/theme/core/_theme_config.dart';
 
 @immutable
 final class AppRootConfig {
-  ///----------------------
+  ///--------------------
 
   final AppThemeConfig theme;
   final LocalizationConfig localization;
@@ -21,8 +21,7 @@ final class AppRootConfig {
     required this.localization,
     required this.router,
   });
-
-  ///
+  //
 
   /// 🏭 Factory method that builds [AppRootConfig] from Riverpod/Bloc + Flutter context.
   factory AppRootConfig.from({

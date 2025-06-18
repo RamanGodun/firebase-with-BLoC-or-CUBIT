@@ -12,7 +12,7 @@ part 'auth_state.dart';
 /// ✅ signOut логіка винесена в окремий [SignOutCubit]
 
 final class AuthCubit extends Cubit<AuthState> {
-  //----------------------------------------------------
+  ///------------------------------------------
 
   final Stream<fb_auth.User?> userStream;
   late final StreamSubscription<fb_auth.User?> _authSubscription;

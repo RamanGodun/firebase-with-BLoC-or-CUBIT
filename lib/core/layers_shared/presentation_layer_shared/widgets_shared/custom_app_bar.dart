@@ -5,7 +5,8 @@ import '../../../modules_shared/theme/core/constants/_app_constants.dart';
 /// 🎨 CustomAppBar with flexible icon/widgets in actions
 final class CustomAppBar extends StatelessWidget
     implements PreferredSizeWidget {
-  ///
+  ///-----------------------------------------
+
   final String title;
   final IconData? leadingIcon;
   final VoidCallback? onLeadingPressed;
@@ -30,9 +31,11 @@ final class CustomAppBar extends StatelessWidget
     this.isNeedPaddingAfterActionIcon = false,
     this.backgroundColor,
   });
+  //
 
   @override
   Widget build(BuildContext context) {
+    //
     // 🔐 Runtime validation
     if (actionWidgets == null &&
         (actionIcons?.length != actionCallbacks?.length)) {
@@ -71,7 +74,7 @@ final class CustomAppBar extends StatelessWidget
             tooltip:
                 tooltips != null && i < tooltips!.length ? tooltips![i] : null,
           ),
-        if (isNeedPaddingAfterActionIcon) const SizedBox(width: AppSpacing.l),
+        if (isNeedPaddingAfterActionIcon) const SizedBox(width: AppSpacing.xxm),
       ];
     }
 
@@ -81,5 +84,5 @@ final class CustomAppBar extends StatelessWidget
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
-  ///
+  //
 }

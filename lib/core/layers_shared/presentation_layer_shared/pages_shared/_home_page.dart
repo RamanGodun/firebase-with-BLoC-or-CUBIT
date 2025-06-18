@@ -12,9 +12,12 @@ import '../../../modules_shared/theme/theme_utils/box_decorations/_box_decoratio
 import '../../../utils_shared/spider/images_paths.dart';
 import '../../../modules_shared/localization/generated/locale_keys.g.dart';
 
-/// 🏠 [HomePage] is shown after successful login.
+/// 🏠 [HomePage] is shown after successful login
+
 final class HomePage extends StatelessWidget {
+  ///---------------------------------------
   const HomePage({super.key});
+  //
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ final class HomePage extends StatelessWidget {
             IconButton(
               icon: const Icon(AppIcons.profile),
               onPressed: () => context.pushToNamed(RoutesNames.profile),
-            ),
+            ).withPaddingOnly(right: AppSpacing.l),
           ],
         ),
 
@@ -39,28 +42,23 @@ final class HomePage extends StatelessWidget {
           borderRadius: UIConstants.commonBorderRadius,
           child: Container(
             width: double.infinity,
-            margin: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.l,
-              vertical: AppSpacing.huge,
-            ),
-            padding: const EdgeInsets.all(AppSpacing.xl),
+            margin: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
             decoration: BoxDecorationFactory.iosCard(isDark),
-            child:
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  spacing: AppSpacing.xxxm,
-                  children: [
-                    Image.asset(ImagesPaths.blocLogoFull, width: imageWidth),
-                    const TextWidget(
-                      LocaleKeys.info_bloc_slogan,
-                      TextType.titleMedium,
-                      alignment: TextAlign.center,
-                      isTextOnFewStrings: true,
-                    ),
-                    const SizedBox(height: AppSpacing.xxl),
-                  ],
-                ).centered(),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: AppSpacing.xxxm,
+              children: [
+                Image.asset(ImagesPaths.blocLogoFull, width: imageWidth),
+                const TextWidget(
+                  LocaleKeys.info_bloc_slogan,
+                  TextType.titleMedium,
+                  alignment: TextAlign.center,
+                  isTextOnFewStrings: true,
+                ),
+                const SizedBox(height: AppSpacing.xxl),
+              ],
+            ),
           ),
         ),
       ),

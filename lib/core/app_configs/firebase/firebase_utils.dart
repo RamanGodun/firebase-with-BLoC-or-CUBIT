@@ -2,11 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 
 /// 🧩 [FirebaseUtils] — helper for Firebase state checks & logging
-//----------------------------------------------------------------//
 
 @immutable
-final class FirebaseUtils {
+abstract final class FirebaseUtils {
+  ///------------------------------
   const FirebaseUtils._();
+  //
 
   /// ✅ Checks if [DEFAULT] Firebase app is initialized
   static bool get isDefaultAppInitialized {
@@ -20,7 +21,7 @@ final class FirebaseUtils {
     }
   }
 
-  ///
+  //
 }
 
 

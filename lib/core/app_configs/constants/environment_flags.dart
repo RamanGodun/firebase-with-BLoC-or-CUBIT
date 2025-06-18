@@ -1,7 +1,12 @@
+library;
+
 /// 🔧 Runtime environment flags
 /// 📂 Paths, filenames, and fallback environment references
+
 final class AppEnvFlags {
+  ///-------------------
   AppEnvFlags._();
+  //
 
   ///   🧪 Flag for release mode
   static const bool isRelease = bool.fromEnvironment('dart.vm.product');
@@ -24,5 +29,5 @@ final class AppEnvFlags {
   /// 🛠️ Fallback path for .env file (used in tests, CLI)
   static const String defaultEnvFile = '.env';
 
-  ///
+  //
 }

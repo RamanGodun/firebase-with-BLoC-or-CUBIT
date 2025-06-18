@@ -11,15 +11,14 @@ import 'core/modules_shared/theme/theme_cubit/theme_cubit.dart';
 
 final class AppRootBuilder extends StatelessWidget {
   ///----------------------------------------------
-
   const AppRootBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
+    //
     // ? Theme memoization
     return BlocBuilder<AppThemeCubit, AppThemeState>(
       buildWhen: (prev, curr) => prev != curr,
-
       builder: (context, state) {
         final config = AppRootConfig.from(context: context, themeState: state);
         return _AppRootView(config: config);
@@ -28,19 +27,22 @@ final class AppRootBuilder extends StatelessWidget {
   }
 }
 
-///
+////
+
+////
 
 /// 📱🧱 [_AppRootView] — Final wrapper for MaterialApp.router
 ///   ✅ Configured from [AppRootConfig].
 
 final class _AppRootView extends StatelessWidget {
   ///----------------------------------------------
-
   final AppRootConfig config;
   const _AppRootView({required this.config});
+  //
 
   @override
   Widget build(BuildContext context) {
+    //
     return MaterialApp.router(
       title: config.localization.title,
       debugShowCheckedModeBanner: !kReleaseMode,

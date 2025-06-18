@@ -5,9 +5,10 @@ import '../../../utils_shared/extensions/extension_on_widget/_widget_x.dart';
 /// 🔄 [LoaderWidget] — Flexible root-level loader, used for:
 /// - showing loader during bootstrap (wrapInMaterialApp = true)
 /// - loading states in UI (wrapInMaterialApp = false)
-//---------------------------------------------------
 
 final class LoaderWidget extends StatelessWidget {
+  //--------------------------------------------
+
   final bool wrapInMaterialApp;
   final TargetPlatform? platformOverride;
   final Color? backgroundColor;
@@ -18,9 +19,11 @@ final class LoaderWidget extends StatelessWidget {
     this.platformOverride,
     this.backgroundColor,
   });
+  //
 
   @override
   Widget build(BuildContext context) {
+    //
     final loader = AppLoader(
       platformOverride: platformOverride,
       backgroundColor: backgroundColor,
@@ -32,24 +35,40 @@ final class LoaderWidget extends StatelessWidget {
   }
 }
 
-/// 🧱 Shell for displaying loader before actual [MaterialApp] loads.
+////
+
+////
+
+/// 🧱 Shell for displaying loader before actual [MaterialApp] loads
+
 final class LoaderAppShell extends StatelessWidget {
+  ///----------------------------------------------
+
   final Widget child;
   const LoaderAppShell({super.key, required this.child});
+  //
 
   @override
   Widget build(BuildContext context) => MaterialApp(home: child);
+  //
 }
+
+////
+
+////
 
 /// 🔄 Adaptive loader with styled platform visuals
 final class AppLoader extends StatelessWidget {
+  ///-----------------------------------------
+
   final TargetPlatform? platformOverride;
   final Color? backgroundColor;
-
   const AppLoader({super.key, this.platformOverride, this.backgroundColor});
+  //
 
   @override
   Widget build(BuildContext context) {
+    //
     final platform = platformOverride ?? context.platform;
     final color =
         backgroundColor ?? context.colorScheme.secondary.withOpacity(0.1);
@@ -74,9 +93,16 @@ final class AppLoader extends StatelessWidget {
   }
 }
 
+////
+
+////
+
 /// 🧱 [_LoaderContainerWidget] — Visual container for loader content.
-/// Supports flexible layout for Android / iOS styles.
+/// Supports flexible layout for Android / iOS styles
+
 final class _LoaderContainerWidget extends StatelessWidget {
+  ///-----------------------------------------------------
+
   final Widget child;
   final Color color;
   final BoxShape shape;
@@ -94,9 +120,11 @@ final class _LoaderContainerWidget extends StatelessWidget {
     this.padding = const EdgeInsets.all(16),
     this.size,
   });
+  //
 
   @override
   Widget build(BuildContext context) {
+    //
     return Center(
       child: Container(
         width: size?.width,

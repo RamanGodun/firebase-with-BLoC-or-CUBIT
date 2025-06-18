@@ -13,8 +13,8 @@ import 'core/modules_shared/theme/theme_cubit/theme_cubit.dart';
 /// ✅ Performs synchronous bootstrapping and launches the app.
 
 void main() async {
-  //
-  /// Splash loader till the app init end
+  ///
+  // Splash loader till the app init end
   runApp(const LoaderWidget(wrapInMaterialApp: true));
 
   /// 🔌 Firebase + HydratedBloc + Bloc Observer
@@ -26,8 +26,13 @@ void main() async {
   ///
 }
 
+////
+
+////
+
 /// 🌳📦 [RootProviders] — Wraps global Blocs for app-wide access
 final class RootProviders extends StatelessWidget {
+  ///--------------------------------------------
   const RootProviders({super.key});
 
   @override

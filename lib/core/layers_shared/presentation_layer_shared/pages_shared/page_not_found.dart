@@ -7,14 +7,18 @@ import 'package:firebase_with_bloc_or_cubit/core/layers_shared/presentation_laye
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/localization/widgets/text_widget.dart';
 import '../../../modules_shared/navigation/core/routes_names.dart';
 
-/// ❌ Page shown when route is not found.
-final class PageNotFound extends StatelessWidget {
-  final String errorMessage;
+/// ❌ Page shown when route is not found
 
+final class PageNotFound extends StatelessWidget {
+  ///-------------------------------------------
+
+  final String errorMessage;
   const PageNotFound({super.key, required this.errorMessage});
+  //
 
   @override
   Widget build(BuildContext context) {
+    //
     return Scaffold(
       appBar: const CustomAppBar(title: LocaleKeys.pages_not_found_title),
       body: Column(
