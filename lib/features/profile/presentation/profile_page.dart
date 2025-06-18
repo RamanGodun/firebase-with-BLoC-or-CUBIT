@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/modules_shared/di_container/di_container.dart';
 import '../../auth/presentation/auth_bloc/auth_cubit.dart';
+import '../../auth/presentation/sign_out/sign_out_cubit/sign_out_cubit.dart';
 import '../domain/load_profile_use_case.dart';
 import 'cubit/profile_page_cubit.dart';
 import 'profile_view.dart';
 
-/// 👤 [ProfilePage] — Shows user profile details fetched from backend
-/// ✅ Uses [AuthBloc] to obtain UID and loads profile via [ProfileCubit]
+/// 👤 [ProfilePage] — Shows user profile details and allows sign-out
+/// ✅ Uses [AuthCubit] to obtain UID and loads profile via [ProfileCubit]
+/// ✅ Injects [SignOutCubit] to trigger logout
 
 class ProfilePage extends StatelessWidget {
   //--------------------------------------
@@ -22,9 +24,15 @@ class ProfilePage extends StatelessWidget {
     // 🛑 Guard: If user is not available, return empty widget
     if (uid == null) return const SizedBox.shrink();
 
-    // 🧩 Injects [ProfileCubit] with DI and loads profile on init
-    return BlocProvider(
-      create: (_) => ProfileCubit(di<LoadProfileUseCase>())..loadProfile(uid),
+    /// 🧩♻️ Injects [ProfileCubit] and [SignOutCubit] with DI and loads profile on init
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create:
+              (_) => ProfileCubit(di<LoadProfileUseCase>())..loadProfile(uid),
+        ),
+        BlocProvider(create: (_) => di<SignOutCubit>()),
+      ],
       child: const _ProfileListenerWrapper(),
     );
   }

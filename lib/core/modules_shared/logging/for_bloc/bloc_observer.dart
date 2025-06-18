@@ -9,10 +9,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 ///           - ➡️ onTransition (only for BLoC)
 ///           - ❌ onError
 ///           - 🔴 onClose
-///-----------------------------------------------------------------------------
 
 final class AppBlocObserver extends BlocObserver {
+  ///--------------------------------------------
+
   const AppBlocObserver();
+
+  ///
 
   /// 🕒 Returns the current time for consistent log entries.
   String _timestamp() => DateTime.now().toIso8601String();
@@ -67,4 +70,6 @@ final class AppBlocObserver extends BlocObserver {
     debugPrint('🔴 [${_timestamp()}] Closed → ${bloc.runtimeType}');
     super.onClose(bloc);
   }
+
+  //
 }

@@ -15,9 +15,10 @@ import 'router_refresher.dart' show AuthCubitAdapter;
 /// - 🧱 Shell layout scaffolding
 /// - 🗺️ Declarative route definitions
 /// - ❌ Custom error page fallback
-//---------------------------------------------------------------
 
 final GoRouter goRouter = GoRouter(
+  //------------------------------
+
   /// 👁️ Observers — Navigation side-effects
   /// - ✅ Auto-clears overlays on push/pop/replace (OverlayDispatcher)
   observers: [OverlayNavigatorObserver()],

@@ -13,6 +13,7 @@ import '../../../features/auth/domain/use_cases/sign_out.dart';
 import '../../../features/auth/domain/use_cases/sign_up.dart';
 import '../../../features/auth/presentation/auth_bloc/auth_cubit.dart';
 
+import '../../../features/auth/presentation/sign_out/sign_out_cubit/sign_out_cubit.dart';
 import '../../../features/form_fields/_form_validation_service.dart';
 import '../../../features/profile/data/data_source_contract.dart';
 import '../../../features/profile/data/impl_of_data_source_contract.dart';
@@ -39,7 +40,7 @@ abstract final class AppDI {
     _registerTheme();
 
     _registerFirebase();
-    _registerProfile();
+    _authState();
     _registerUseCases();
     _registerRepositories();
     _registerDataSources();
@@ -71,24 +72,21 @@ abstract final class AppDI {
       );
   }
 
-  /// 🎛️ Registers all Cubits and BLoCs (presentation layer)
-  static void _registerProfile() {
-    di
-      ..registerLazySingleton(
-        () => AuthCubit(
-          signOutUseCase: di(),
-          userStream: di<AuthRemoteDataSource>().user,
-        ),
-      )
-      ..registerLazySingleton(() => LoadProfileUseCase(di())); // 📄 Get profile
+  /// 🎛️ Registers Auth State Cubit
+  static void _authState() {
+    di.registerLazySingleton(
+      () => AuthCubit(userStream: di<AuthRemoteDataSource>().user),
+    );
   }
 
   /// 🧠 Registers domain-level use cases
   static void _registerUseCases() {
     di
+      ..registerFactory(() => SignOutCubit(di<SignOutUseCase>()))
       ..registerLazySingleton(() => SignInUseCase(di()))
       ..registerLazySingleton(() => SignUpUseCase(di()))
       ..registerLazySingleton(() => SignOutUseCase(di()))
+      ..registerLazySingleton(() => LoadProfileUseCase(di())) // 📄 Get profile
       ..registerLazySingleton(
         () => EnsureUserProfileCreatedUseCase(di()),
       ); // 👤 Firestore sync

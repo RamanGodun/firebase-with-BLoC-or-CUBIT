@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'core/modules_shared/di_container/di_container.dart';
 import 'core/modules_shared/localization/app_localizer.dart';
 import 'core/app_configs/firebase/env.dart';
-import 'core/modules_shared/logging/bloc_observer.dart';
+import 'core/modules_shared/logging/for_bloc/bloc_observer.dart';
 
 ///🚀✅ Handles startup initialization: env, Firebase, BLoC, HydratedStorage, localization
 // ✅ Loads `.env`, sets up Firebase, HydratedBloc, and EasyLocalization
