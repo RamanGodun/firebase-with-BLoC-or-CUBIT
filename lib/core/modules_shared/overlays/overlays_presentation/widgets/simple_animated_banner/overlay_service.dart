@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/extensions/theme_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-
 import '../../../../localization/widgets/text_widget.dart';
 import '../../../../theme/core/app_colors.dart';
 
@@ -87,6 +86,6 @@ class OverlayNotificationService {
   //
 }
 
-///
+////
 
 enum OverlayPosition { top, center, bottom }

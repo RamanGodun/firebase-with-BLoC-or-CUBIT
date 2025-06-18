@@ -8,6 +8,10 @@ Failure _handleSocket(SocketException error) => NetworkFailure(
   message: 'No Internet connection. Please check your settings.',
 );
 
+////
+
+////
+
 /// ⏳ [_handleTimeout] — maps [TimeoutException] to [NetworkFailure].
 /// ✅ Used for request timeouts or async ops exceeding duration.
 
@@ -15,6 +19,10 @@ Failure _handleTimeout(TimeoutException error) => NetworkFailure(
   translationKey: FailureKeys.networkTimeout,
   message: 'Connection timeout occurred.',
 );
+
+////
+
+////
 
 /// 🌍 [_handleHttp] — maps [HttpException] to [NetworkFailure].
 /// ✅ Covers legacy HTTP errors (non-Dio).

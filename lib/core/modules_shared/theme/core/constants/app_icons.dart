@@ -1,8 +1,9 @@
 part of '_app_constants.dart';
 
 abstract final class AppIcons {
+  /// ──────────────-----------
   const AppIcons._();
-  // ──────────────
+  //
 
   // 🌤 Theme & UI
   static const IconData sun = Icons.sunny;
@@ -32,7 +33,9 @@ abstract final class AppIcons {
   //
 }
 
-///
+////
+
+////
 
 extension ThemeIconX on IconData {
   IconData get toggled =>

@@ -2,9 +2,10 @@ part of '_general_extensions.dart';
 
 /// 💲 [NumFormatX] — Extension for formatting numerical values (currency, percentages, etc.)
 /// ✅ Adds formatting helpers for display-friendly output
-//----------------------------------------------------------------
 
 extension NumFormatX on num {
+  //------------------------
+
   /// 💰 Converts number to currency string (e.g. `1234.5` → `₴1234.50`)
   String toCurrency({String symbol = '₴'}) => '$symbol${toStringAsFixed(2)}';
 
@@ -30,5 +31,5 @@ extension NumFormatX on num {
   String toPrettyCurrency({String symbol = '₴'}) =>
       '$symbol${withThousandsSeparator()}.${(this % 1).toStringAsFixed(2).split('.')[1]}';
 
-  ///
+  //
 }

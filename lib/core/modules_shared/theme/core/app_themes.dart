@@ -13,6 +13,7 @@ part 'themes_factory.dart';
 
 abstract interface class AppThemes {
   //------------------------------
+  AppThemes._();
 
   /// 🧬 Resolves a complete [ThemeData] from a available theme type options
   static ThemeData resolve(AppThemeType type, {FontFamilyType? font}) =>

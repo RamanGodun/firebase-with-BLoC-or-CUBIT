@@ -54,7 +54,9 @@ Failure _handleFirebase(FirebaseException error) => switch (error.code) {
   ),
 };
 
-///
+////
+
+////
 
 /// 🧊 [_handleFirebaseAuth] — edge-case handler for [FirebaseAuthException].
 /// ✅ Covers missing user, disabled accounts, and all other fallbacks.

@@ -10,6 +10,10 @@ Failure _handlePlatform(PlatformException error) => GenericFailure(
   translationKey: FailureKeys.formatError,
 );
 
+////
+
+////
+
 /// 📦 [_handleMissingPlugin] — maps [MissingPluginException] to [GenericFailure].
 /// ✅ Indicates an unregistered or unavailable platform plugin.
 
@@ -20,6 +24,10 @@ Failure _handleMissingPlugin(MissingPluginException error) => GenericFailure(
   translationKey: FailureKeys.missingPlugin,
 );
 
+////
+
+////
+
 /// 🧾 [_handleFormat] — maps [FormatException] to [GenericFailure].
 /// ✅ Used when malformed data is encountered (non-JSON).
 
@@ -29,6 +37,10 @@ Failure _handleFormat(FormatException error) => GenericFailure(
   message: 'Malformed data received.',
   translationKey: FailureKeys.formatError,
 );
+
+////
+
+////
 
 /// 🧬 [_handleJson] — maps [JsonUnsupportedObjectError] to [GenericFailure].
 /// ✅ Indicates issues serializing non-supported JSON types.

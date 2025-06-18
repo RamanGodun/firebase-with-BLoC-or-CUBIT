@@ -8,8 +8,9 @@ part 'either_primitives.dart';
 
 @immutable
 sealed class Either<L, R> {
-  const Either();
   //-------------
+  const Either();
+  //
 
   /// 🔍 True if value is [Left] (failure)
   bool get isLeft => this is Left<L, R>;

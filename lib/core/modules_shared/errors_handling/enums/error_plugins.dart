@@ -10,6 +10,7 @@ enum ErrorPlugins {
   firebase,
   sqlite,
   useCase,
+  emailVerification,
   unknown;
 
   /// 📦 Code used in logs and telemetry (e.g. 'FIREBASE')
@@ -18,6 +19,7 @@ enum ErrorPlugins {
     firebase => 'FIREBASE',
     sqlite => 'SQLITE',
     useCase => 'USE_CASE',
+    emailVerification => 'EMAIL_VERIFICATION',
     unknown => 'UNKNOWN',
   };
 

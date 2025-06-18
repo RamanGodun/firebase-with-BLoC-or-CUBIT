@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 /// - ✅ Guarantees proper UX for overlays that allow interaction below
 
 final class TapThroughOverlayBarrier extends StatelessWidget {
-  //--------------------------------------------------------------------
+  ///-------------------------------------------------------
 
   /// 🧩 The widget to display inside the overlay
   final Widget child;
@@ -21,9 +21,11 @@ final class TapThroughOverlayBarrier extends StatelessWidget {
     this.enablePassthrough = false,
     this.onTapOverlay,
   });
+  //
 
   @override
   Widget build(BuildContext context) {
+    //
     return Listener(
       behavior: HitTestBehavior.translucent,
       onPointerDown: (event) {

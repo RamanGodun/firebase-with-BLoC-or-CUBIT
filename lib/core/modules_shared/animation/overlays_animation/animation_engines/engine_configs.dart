@@ -23,11 +23,13 @@ final class AndroidOverlayAnimationConfig {
     this.slideCurve,
     this.slideOffset,
   });
+
+  //
 }
 
-///
+////
 
-///
+////
 
 /// 🍎 Configuration class for iOS overlay animations
 /// ✅ Defines durations, curves, and scale parameters for each overlay type
@@ -48,4 +50,6 @@ final class IOSOverlayAnimationConfig {
     required this.scaleCurve,
     required this.scaleBegin,
   });
+
+  //
 }

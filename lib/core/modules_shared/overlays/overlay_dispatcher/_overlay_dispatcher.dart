@@ -1,6 +1,6 @@
 import 'dart:collection';
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/animation/overlays_animation/animation_wrapper/overlay_animation_x_for_widget.dart';
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/overlays/core/observers/overlay_logger.dart';
+import 'package:firebase_with_bloc_or_cubit/core/modules_shared/overlays/overlay_dispatcher/overlay_logger.dart';
 import 'package:flutter/material.dart';
 import '../../../utils_shared/timing_control/debouncer.dart';
 import '../core/enums_for_overlay_module.dart';
@@ -16,10 +16,12 @@ part 'policy_resolver.dart';
 /// - Centralized logging
 
 final class OverlayDispatcher {
-  //--------------------------
+  ///------------------------
 
   final void Function(bool isActive)? onOverlayStateChanged;
   OverlayDispatcher({this.onOverlayStateChanged});
+
+  ///
 
   // 📦 Queue to hold pending overlay requests
   final Queue<OverlayQueueItem> _queue = Queue();
@@ -36,7 +38,8 @@ final class OverlayDispatcher {
   // 🔓 Whether the current overlay can be dismissed externally.
   bool get canBeDismissedExternally =>
       _activeRequest?.dismissPolicy == OverlayDismissPolicy.dismissible;
-  //
+
+  ///
 
   /// 📥 Adds a new request to the queue, resolves replacement/drop strategy
   void enqueueRequest(BuildContext context, OverlayUIEntry request) async {
@@ -72,6 +75,8 @@ final class OverlayDispatcher {
 
     _finalizeEnqueue(overlay, request);
   }
+
+  ///
 
   /// 🧱 Finalizes the enqueue logic after replacement/drop resolution
   void _finalizeEnqueue(OverlayState overlay, OverlayUIEntry request) {

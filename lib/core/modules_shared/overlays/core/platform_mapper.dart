@@ -14,8 +14,9 @@ import '../overlays_presentation/widgets/ios/ios_snackbar.dart';
 /// Used internally by [OverlayDispatcher] system.
 
 abstract final class PlatformMapper {
+  ///------------------------------
   PlatformMapper._();
-  //------------------------------
+  //
 
   ///
   static Widget resolveAppDialog({
@@ -31,6 +32,7 @@ abstract final class PlatformMapper {
     required bool isInfoDialog,
     required bool isFromUserFlow,
   }) {
+    ///
     return switch (platform) {
       TargetPlatform.iOS => IOSAppDialog(
         title: title,
@@ -44,6 +46,7 @@ abstract final class PlatformMapper {
         isFromUserFlow: isFromUserFlow,
         engine: engine,
       ),
+
       TargetPlatform.android => AndroidDialog(
         title: title,
         content: content,
@@ -56,6 +59,7 @@ abstract final class PlatformMapper {
         isFromUserFlow: isFromUserFlow,
         engine: engine,
       ),
+
       _ => IOSAppDialog(
         title: title,
         content: content,
@@ -69,7 +73,10 @@ abstract final class PlatformMapper {
         engine: engine,
       ),
     };
+    //
   }
+
+  ///
 
   /// 🪧 Resolves banner per platform
   static Widget resolveAppBanner({
@@ -79,6 +86,7 @@ abstract final class PlatformMapper {
     required IconData icon,
     required OverlayUIPresetProps presetProps,
   }) {
+    ///
     return switch (platform) {
       TargetPlatform.iOS => IOSBanner(
         message: message,
@@ -86,12 +94,14 @@ abstract final class PlatformMapper {
         engine: engine,
         props: presetProps,
       ),
+
       TargetPlatform.android => AndroidBanner(
         message: message,
         icon: icon,
         props: presetProps,
         engine: engine,
       ),
+
       _ => IOSBanner(
         message: message,
         icon: icon,
@@ -99,7 +109,10 @@ abstract final class PlatformMapper {
         props: presetProps,
       ),
     };
+    //
   }
+
+  ///
 
   ///  🪧 Resolves snackbar per platform
   static Widget resolveAppSnackbar({
@@ -109,6 +122,7 @@ abstract final class PlatformMapper {
     required IconData icon,
     required OverlayUIPresetProps presetProps,
   }) {
+    ///
     return switch (platform) {
       TargetPlatform.iOS => IOSToastBubble(
         message: message,
@@ -116,12 +130,14 @@ abstract final class PlatformMapper {
         engine: engine,
         props: presetProps,
       ),
+
       TargetPlatform.android => AndroidSnackbarCard(
         message: message,
         icon: icon,
         engine: engine,
         props: presetProps,
       ),
+
       _ => IOSToastBubble(
         message: message,
         icon: icon,
@@ -129,7 +145,8 @@ abstract final class PlatformMapper {
         props: presetProps,
       ),
     };
+    //
   }
 
-  ///
+  //
 }

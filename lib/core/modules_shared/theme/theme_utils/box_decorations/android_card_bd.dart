@@ -5,8 +5,9 @@ part of '_box_decorations_factory.dart';
 /// Cached internally per theme brightness
 
 final class AndroidCardsDecoration {
+  /// ────────────────────────────--
   const AndroidCardsDecoration._();
-  // ────────────────────────────
+  //
 
   static const BoxDecoration _lightThemeDecoration = BoxDecoration(
     color: AppColors.snackbarLight,

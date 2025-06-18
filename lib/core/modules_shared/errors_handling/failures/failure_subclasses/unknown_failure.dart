@@ -3,7 +3,7 @@ part of '../failure_entity.dart';
 /// ❓ [UnknownFailure] — unhandled, uncategorized fallback
 final class UnknownFailure extends Failure {
   ///---------------------------------------
-
+  ///
   UnknownFailure({
     required super.message,
     FailureKeys translationKey = FailureKeys.unknown,
@@ -11,4 +11,5 @@ final class UnknownFailure extends Failure {
          statusCode: 'UNKNOWN',
          translationKey: translationKey.translationKey,
        );
+  //
 }

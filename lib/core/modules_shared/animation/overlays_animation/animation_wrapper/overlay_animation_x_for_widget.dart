@@ -10,8 +10,8 @@ import 'animated_overlay_wrapper.dart';
 /// Returns [this] if the widget is not an [AnimatedOverlayWrapper].
 
 extension OverlayWidgetX on Widget {
-  ///----------------------------------------------------------------
-
+  ///------------------------------
+  //
   Widget withDispatcherOverlayControl({required VoidCallback onDismiss}) {
     if (this is AnimatedOverlayWrapper) {
       final wrapper = this as AnimatedOverlayWrapper;

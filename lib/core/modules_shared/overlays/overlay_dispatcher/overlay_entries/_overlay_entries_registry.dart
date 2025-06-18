@@ -33,12 +33,12 @@ sealed class OverlayUIEntry {
   /// 🧼 Called when overlay is auto-dismissed (e.g. timeout)
   void onAutoDismissed() {}
 
-  ///
+  //
 }
 
-///
+////
 
-///
+////
 
 /// 🧠 [OverlayConflictStrategy] — Strategy object for each overlay that
 /// defines its replacement logic and category identification.
@@ -56,4 +56,6 @@ class OverlayConflictStrategy {
     required this.policy,
     required this.category,
   });
+
+  //
 }

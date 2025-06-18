@@ -4,8 +4,11 @@ import 'generated/locale_keys.g.dart';
 
 /// 🌍 [LocalizationConfig] — Extracts and holds localization settings from [BuildContext].
 /// ✅ Includes active locale, supported locales and localization delegates.
+
 @immutable
 final class LocalizationConfig {
+  ///--------------------------
+
   final Locale locale;
   final List<Locale> supportedLocales;
   final List<LocalizationsDelegate<dynamic>> delegates;
@@ -15,6 +18,8 @@ final class LocalizationConfig {
     required this.supportedLocales,
     required this.delegates,
   });
+
+  ///
 
   /// 📦 Extracts localization state from Flutter context.
   factory LocalizationConfig.fromContext(BuildContext context) {

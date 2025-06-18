@@ -15,11 +15,11 @@ class _AnimatedOverlayWidget extends HookWidget {
     required this.icon,
     required this.position,
   });
-
-  ///
+  //
 
   @override
   Widget build(BuildContext context) {
+    //
     final animationController = useAnimationController(
       duration: const Duration(milliseconds: 600),
     )..forward();
@@ -107,4 +107,6 @@ class _AnimatedOverlayWidget extends HookWidget {
       ],
     );
   }
+
+  //
 }

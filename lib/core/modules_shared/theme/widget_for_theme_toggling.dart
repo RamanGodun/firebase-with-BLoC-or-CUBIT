@@ -2,8 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/core/modules_shared/overlays/core/_c
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/extensions/theme_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'core/constants/_app_constants.dart'
-    show AppIcons;
+import 'core/constants/_app_constants.dart' show AppIcons;
 import '../localization/generated/locale_keys.g.dart';
 import '../localization/app_localizer.dart';
 import 'theme_cubit/theme_cubit.dart' show AppThemeCubit;
@@ -11,8 +10,9 @@ import 'theme_cubit/theme_cubit.dart' show AppThemeCubit;
 /// 🌗 [ThemeToggleIcon] — toggles between light and dark mode and shows localized message.
 
 final class ThemeToggleIcon extends StatelessWidget {
+  ///----------------------------------------------
   const ThemeToggleIcon({super.key});
-  //--------------------------------
+  //
 
   @override
   Widget build(BuildContext context) {

@@ -5,9 +5,11 @@ part of '_box_decorations_factory.dart';
 /// Optimized for fast retrieval via theme-based caching
 
 final class IOSCardsDecoration {
+  /// ─────────────────────────
   const IOSCardsDecoration._();
-  // ─────────────────────────
+  //
 
+  ///
   static const BoxDecoration _lightThemeDecoration = BoxDecoration(
     color: AppColors.overlayLightBackground70,
     borderRadius: UIConstants.commonBorderRadius,
@@ -17,6 +19,7 @@ final class IOSCardsDecoration {
     boxShadow: AppShadows.forLightThemeCard,
   );
 
+  ///
   static const BoxDecoration _darkThemeDecoration = BoxDecoration(
     color: AppColors.overlayDarkBackground,
     borderRadius: UIConstants.commonBorderRadius,
@@ -26,13 +29,13 @@ final class IOSCardsDecoration {
     boxShadow: AppShadows.forDarkThemeCard,
   );
 
-  // 📦 Memoized lookup map
+  /// 📦 Memoized lookup map
   static final Map<bool, BoxDecoration> _cache = {
     false: _lightThemeDecoration,
     true: _darkThemeDecoration,
   };
 
-  // 📦 Returns appropriate glass box based on theme brightness
+  /// 📦 Returns appropriate glass box based on theme brightness
   static BoxDecoration fromTheme(bool isDark) =>
       _cache[isDark] ?? (throw ArgumentError('Unknown brightness value'));
 

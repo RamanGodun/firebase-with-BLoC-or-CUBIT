@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/extensions/theme_x.dart';
 import 'package:flutter/material.dart';
-import '../core/constants/_app_constants.dart';
 import '../../overlays/core/enums_for_overlay_module.dart';
+import '../core/constants/_app_constants.dart';
 
 /// 🧊 [BlurContainer] — Glassmorphism wrapper with built-in blur & rounding
 /// - Wraps child with ClipRRect + BackdropFilter
@@ -14,12 +14,10 @@ final class BlurContainer extends StatelessWidget {
 
   final Widget child;
   final BorderRadius borderRadius;
-
-  /// Optional override blur strength
+  // Optional override blur strength
   final double? sigmaX;
   final double? sigmaY;
-
-  /// Optional type (used if sigma not provided)
+  // Optional type (used if sigma not provided)
   final ShowAs? overlayType;
 
   const BlurContainer({
@@ -30,14 +28,12 @@ final class BlurContainer extends StatelessWidget {
     this.overlayType,
     this.borderRadius = UIConstants.commonBorderRadius,
   });
-
-  ///
+  //
 
   @override
   Widget build(BuildContext context) {
     //
     final isDark = context.isDarkMode;
-
     final resolvedX = sigmaX ?? _resolveSigmaX(overlayType, isDark);
     final resolvedY = sigmaY ?? _resolveSigmaY(overlayType, isDark);
 

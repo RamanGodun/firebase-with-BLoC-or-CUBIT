@@ -1,9 +1,10 @@
 part of '_general_extensions.dart';
 
 /// 🔤 [StringX] — Utility extensions for string formatting & casing
-//----------------------------------------------------------------
 
 extension StringX on String {
+  //------------------------
+
   /// 🔠 Capitalizes the first letter of the string
   String capitalize() =>
       isEmpty ? this : '${this[0].toUpperCase()}${substring(1)}';
@@ -24,5 +25,5 @@ extension StringX on String {
     return '$username@$domain';
   }
 
-  ///
+  //
 }

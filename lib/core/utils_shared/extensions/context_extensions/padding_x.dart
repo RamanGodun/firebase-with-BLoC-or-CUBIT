@@ -1,8 +1,9 @@
 part of '_context_extensions.dart';
 
 /// 📐 [ContextPaddingX] — Safe area and insets extensions
+
 extension ContextPaddingX on BuildContext {
-  //
+  //--------------------------------------
 
   /// 📐 Top safe area inset (e.g. notch)
   double get topPadding => mediaQuery.padding.top;
@@ -18,5 +19,5 @@ extension ContextPaddingX on BuildContext {
   double get verticalPadding =>
       mediaQuery.padding.top + mediaQuery.padding.bottom;
 
-  ///
+  //
 }

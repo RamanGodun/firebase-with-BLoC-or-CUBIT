@@ -1,10 +1,10 @@
-library;
+part of 'app_routes.dart';
 
 /// 🏷️ [RoutesNames] — Centralized route name constants used across the app
 /// ✅ Used in GoRouter config, navigation logic, and redirection guards
 
 abstract final class RoutesNames {
-  //-----------------------------
+  ///----------------------------
   RoutesNames._();
   //
 
@@ -39,17 +39,4 @@ abstract final class RoutesNames {
   static const pageNotFound = 'pageNotFound';
 
   //
-}
-
-////
-
-////
-
-abstract final class RoutesPaths {
-  static const splash = '/${RoutesNames.splash}';
-  static const signIn = '/${RoutesNames.signIn}';
-  static const signUp = '/${RoutesNames.signUp}';
-  static const home = '/${RoutesNames.home}';
-  static const resetPassword = '/${RoutesNames.resetPassword}';
-  // тощо
 }

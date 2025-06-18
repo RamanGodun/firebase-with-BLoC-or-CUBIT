@@ -1,9 +1,10 @@
 part of '_widget_x.dart';
 
 /// 🎯 [WidgetAlignX] — Easily align widgets in common positions
-//----------------------------------------------------------------
 
 extension WidgetAlignX on Widget {
+  //-------------------------------
+
   /// 🧭 Aligns widget with given [Alignment]
   Widget aligned(Alignment alignment) =>
       Align(alignment: alignment, child: this);
@@ -23,5 +24,5 @@ extension WidgetAlignX on Widget {
   /// 🔽 Aligns to bottom-center
   Widget bottomCenter() => aligned(Alignment.bottomCenter);
 
-  ///
+  //
 }

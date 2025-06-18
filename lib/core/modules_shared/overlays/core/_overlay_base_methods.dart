@@ -13,7 +13,7 @@ import 'package:firebase_with_bloc_or_cubit/core/modules_shared/animation/overla
 ///  rendering methods (showBanner, showDialog, showSnackbar)
 
 extension OverlayBaseMethods on BuildContext {
-  //------------------------------------------
+  ///---------------------------------------
 
   /// 5️⃣  📥 Adds a new request to the [IOverlayDispatcher]
   void addOverlayRequest(OverlayUIEntry entry) {
@@ -73,6 +73,8 @@ extension OverlayBaseMethods on BuildContext {
     addOverlayRequest(entry);
   }
 
+  ///
+
   /// 🪧 Shows a platform-aware banner (iOS/Android) using optional preset
   void showBanner({
     required String message,
@@ -114,6 +116,8 @@ extension OverlayBaseMethods on BuildContext {
     // 5️⃣  📥 Adds a new request to the queue
     addOverlayRequest(entry);
   }
+
+  ///
 
   /// 🍞 Shows a platform-aware snackbar (iOS/Android) using optional preset
   void showSnackbar({

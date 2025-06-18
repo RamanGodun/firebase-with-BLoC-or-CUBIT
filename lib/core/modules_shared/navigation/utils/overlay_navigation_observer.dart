@@ -7,10 +7,12 @@ import '../../overlays/overlay_dispatcher/_overlay_dispatcher.dart';
 /// ✅ Works with GoRouter, Navigator 2.0, or traditional Navigator
 
 final class OverlayNavigatorObserver extends NavigatorObserver {
-  ///-----------------------------------------------------------
+  ///----------------------------------------------------------
 
   /// 📦 Reference to the overlay dispatcher (via GetIt)
   OverlayDispatcher get overlaysDispatcher => di<OverlayDispatcher>();
+
+  ///
 
   /// 🔁 Called when a new route is pushed onto the navigator
   @override

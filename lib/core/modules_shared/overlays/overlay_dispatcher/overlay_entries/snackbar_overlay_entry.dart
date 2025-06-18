@@ -22,6 +22,7 @@ final class SnackbarOverlayEntry extends OverlayUIEntry {
     this.dismissPolicy = OverlayDismissPolicy.dismissible,
     required this.priority,
   });
+  //
 
   /// ⚙️ Defines how this entry behaves in conflict scenarios
   @override

@@ -7,7 +7,9 @@ final class Left<L, R> extends Either<L, R> {
   final L value;
 }
 
-///
+////
+
+////
 
 /// 📦 [Right] — Represents success value of [Either]
 @immutable
@@ -15,6 +17,3 @@ final class Right<L, R> extends Either<L, R> {
   const Right(this.value);
   final R value;
 }
-
-///
-

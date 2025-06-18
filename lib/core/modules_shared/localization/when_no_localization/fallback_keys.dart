@@ -4,10 +4,11 @@ import 'dart:collection' show UnmodifiableMapView;
 /// ✅ Used when localization module (EasyLocalization) is **not initialized**
 /// ✅ Acts as a mini key-value dictionary to resolve known [FailureKey]s
 /// ✅ Complements [AppLocalizer] in "headless" fallback mode
-//---------------------------------------------------------
 
 abstract final class LocalesFallbackMapper {
+  //---------------------------------------
   LocalesFallbackMapper._();
+  //
 
   /// 🗺️ Immutable fallback map of translation keys → hardcoded localized messages
   static final _fallbackMap = UnmodifiableMapView(<String, String>{
@@ -25,15 +26,21 @@ abstract final class LocalesFallbackMapper {
 
   /// 📦 Resolves a translation key to a fallback message (or returns key itself)
   static String resolveFallback(String key) => _fallbackMap[key] ?? key;
+
   //
 }
 
+////
+
+////
+
 /// 🧩 [FallbackKeysForErrors] — fallback keys when localization is not used.
 /// ✅ Serves as simple storage of UI fallback strings.
-//---------------------------------------------------------
 
 abstract final class FallbackKeysForErrors {
+  //---------------------------------------
   const FallbackKeysForErrors._();
+  //
 
   /// ⚠️ Overlay + Failure error messages
   static const unexpected = 'Something went wrong';
@@ -44,5 +51,5 @@ abstract final class FallbackKeysForErrors {
   static const formatError = 'Invalid data format received.';
   static const pluginMissing = 'Required plugin is missing';
 
-  ///
+  //
 }

@@ -2,6 +2,8 @@ import 'when_no_localization/fallback_keys.dart';
 import 'localization_logger.dart';
 
 abstract final class AppLocalizer {
+  ///-----------------------------
+
   static String Function(String key)? _resolver;
 
   /// 🌐 Resolves a translation key or returns fallback
@@ -37,5 +39,5 @@ abstract final class AppLocalizer {
   /// 🧪 Internal check (used in debug/tests)
   static bool get isInitialized => _resolver != null;
 
-  ///
+  //
 }

@@ -9,12 +9,16 @@ import '../../either/either.dart';
 Failure mapToFailure(dynamic error, [StackTrace? stack]) =>
     ExceptionToFailureMapper.from(error, stack);
 
-///
+////
+
+////
 
 /// ✅ [right] — helper for creating successful result in `Either` monad
 Right<Failure, T> right<T>(T value) => Right(value);
 
-///
+////
+
+////
 
 /// ❌ [left] — helper for wrapping a [Failure] into an `Either.left`
 Left<Failure, T> left<T>(Failure failure) => Left(failure);

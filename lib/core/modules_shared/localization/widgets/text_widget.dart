@@ -5,10 +5,10 @@ import '../app_localizer.dart';
 
 /// 📝 [TextWidget] — Custom Text widget with dynamic styling options.
 /// Supports all native typography variants + additional decorations.
-///----------------------------------------------------------------
 
 final class TextWidget extends StatelessWidget {
-  ///
+  ///------------------------------------------
+
   final String value;
   final TextType? textType;
   final String? fallback;
@@ -42,8 +42,11 @@ final class TextWidget extends StatelessWidget {
     this.isUnderlined,
   });
 
+  ///
+
   @override
   Widget build(BuildContext context) {
+    //
     final String text = _resolveText(value, fallback);
     final textTheme = context.textTheme;
     final colorScheme = context.colorScheme;
@@ -155,6 +158,10 @@ final class TextWidget extends StatelessWidget {
   ///
 }
 
+////
+
+////
+
 /// 🧹 Enum for text style presets used by [TextWidget]
 enum TextType {
   displayLarge,
@@ -175,38 +182,4 @@ enum TextType {
   button,
   error,
   caption,
-}
-
-/// 📜 Extension for fast TextWidget creation from string
-extension TextTypeX on String {
-  Widget styled(
-    TextType type, {
-    Color? color,
-    TextAlign? align,
-    FontWeight? weight,
-    double? size,
-    double? spacing,
-    double? height,
-    TextOverflow? overflow,
-    int? maxLines,
-    bool shadow = false,
-    bool? multiline,
-    bool? underline,
-  }) {
-    return TextWidget(
-      this,
-      type,
-      color: color,
-      alignment: align,
-      fontWeight: weight,
-      fontSize: size,
-      letterSpacing: spacing,
-      height: height,
-      overflow: overflow,
-      maxLines: maxLines,
-      enableShadow: shadow,
-      isTextOnFewStrings: multiline,
-      isUnderlined: underline,
-    );
-  }
 }

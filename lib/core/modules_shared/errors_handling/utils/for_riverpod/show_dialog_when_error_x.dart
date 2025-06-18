@@ -1,13 +1,5 @@
 /*
 
-import 'package:firebase_with_riverpod/core/modules_shared/errors_handling/failures/extensions/to_ui_failure_x.dart';
-import 'package:firebase_with_riverpod/core/modules_shared/overlays/core/_context_x_for_overlays.dart';
-import 'package:flutter/material.dart' show BuildContext, VoidCallback;
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../utils_shared/typedef.dart';
-import '../../../overlays/core/enums_for_overlay_module.dart';
-import '../../failures/failure_entity.dart';
-
 /// 🧩 [ContextAsyncValueX] — extension for showing [Failure]s from [AsyncValue]
 
 extension RefFailureListenerX on WidgetRef {
@@ -75,8 +67,5 @@ extension AsyncValueX<T> on AsyncValue<T> {
 
   // /
 }
-
-
-
 
  */

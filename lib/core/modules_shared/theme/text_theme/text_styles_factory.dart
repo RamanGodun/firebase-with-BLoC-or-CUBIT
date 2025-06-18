@@ -7,6 +7,7 @@ final class TextStyleFactory {
 
   final Color color;
   const TextStyleFactory._(this.color);
+  //
 
   static const light = TextStyleFactory._(Colors.black);
   static const dark = TextStyleFactory._(Colors.white);

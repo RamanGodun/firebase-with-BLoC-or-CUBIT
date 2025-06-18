@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/errors_handling/utils/observers/failure_diagnostics_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/modules_shared/errors_handling/failures/extensions/failure_diagnostics_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import '../../../failures/failure_entity.dart';
 
@@ -6,8 +6,9 @@ import '../../../failures/failure_entity.dart';
 /// 🔍 Supports runtime exceptions and domain-level failures
 
 abstract final class ErrorsLogger {
+  //------------------------------
   const ErrorsLogger._();
-  //------------------
+  //
 
   /// ❗ Logs any raw [Exception] or [Error].
   static void exception(Object error, [StackTrace? stackTrace]) {

@@ -6,7 +6,7 @@ import 'start_up_handler.dart';
 import 'core/modules_shared/di_container/di_container.dart';
 import 'core/modules_shared/localization/app_localization.dart';
 import 'core/layers_shared/presentation_layer_shared/widgets_shared/app_loaders.dart';
-import 'core/layers_shared/domain_shared/auth_state_cubit/auth_cubit.dart';
+import 'core/layers_shared/domain_shared/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
 import 'core/modules_shared/theme/theme_cubit/theme_cubit.dart';
 
 /// 🏁 Entry point of the application.

@@ -8,7 +8,7 @@ import 'package:meta/meta.dart' show sealed;
 
 @sealed
 final class FailureUIEntity extends Equatable {
-  //-------------------------------------
+  ///----------------------------------------
 
   final String localizedMessage; //📝 Localized error text for display
   final String? formattedCode; //🔖 Optional code label (e.g., 401, FIREBASE)

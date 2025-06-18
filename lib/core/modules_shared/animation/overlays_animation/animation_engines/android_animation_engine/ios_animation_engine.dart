@@ -5,19 +5,28 @@ import '../engine_configs.dart';
 
 /// 🍎 [IOSOverlayAnimationEngine] — shared animation engine for all iOS overlays
 /// ✅ Uses category-based configuration to generate platform-consistent animations
-///----------------------------------------------------------------
 
 final class IOSOverlayAnimationEngine extends BaseAnimationEngine {
+  ///-------------------------------------------------------------
+
+  // ⚙️ Resolved animation config based on [overlayType]
+  final IOSOverlayAnimationConfig _config;
+  // 💫 Opacity animation
+  late final Animation<double> _opacity;
+  // 🔍 Scale animation
+  late final Animation<double> _scale;
+
+  /// 🏗️ Constructor, that initializes config from type
   IOSOverlayAnimationEngine(ShowAs overlayType)
     : _config = _resolveConfig(overlayType);
 
-  final IOSOverlayAnimationConfig _config;
-  late final Animation<double> _opacity;
-  late final Animation<double> _scale;
+  ///
 
-  /// 🧠 Internal configuration map based on [OverlayCategory]
+  /// 🧠 Resolves preset animation configuration based on [ShowAs]
   static IOSOverlayAnimationConfig _resolveConfig(ShowAs overlayType) {
+    //
     return switch (overlayType) {
+      //
       ShowAs.banner => const IOSOverlayAnimationConfig(
         duration: Duration(milliseconds: 500),
         fastDuration: Duration(milliseconds: 180),
@@ -25,6 +34,7 @@ final class IOSOverlayAnimationEngine extends BaseAnimationEngine {
         scaleBegin: 0.9,
         scaleCurve: Curves.decelerate,
       ),
+
       ShowAs.dialog => const IOSOverlayAnimationConfig(
         duration: Duration(milliseconds: 500),
         fastDuration: Duration(milliseconds: 180),
@@ -32,6 +42,7 @@ final class IOSOverlayAnimationEngine extends BaseAnimationEngine {
         scaleBegin: 0.9,
         scaleCurve: Curves.decelerate,
       ),
+
       ShowAs.infoDialog => const IOSOverlayAnimationConfig(
         duration: Duration(milliseconds: 500),
         fastDuration: Duration(milliseconds: 160),
@@ -39,6 +50,7 @@ final class IOSOverlayAnimationEngine extends BaseAnimationEngine {
         scaleBegin: 0.92,
         scaleCurve: Curves.easeOutBack,
       ),
+
       ShowAs.snackbar => const IOSOverlayAnimationConfig(
         duration: Duration(milliseconds: 600),
         fastDuration: Duration(milliseconds: 160),
@@ -49,12 +61,15 @@ final class IOSOverlayAnimationEngine extends BaseAnimationEngine {
     };
   }
 
+  /// ⏱️ Default animation duration
   @override
   Duration get defaultDuration => _config.duration;
 
+  /// ⏩ Fast reverse duration (e.g. for dismiss)
   @override
   Duration get fastReverseDuration => _config.fastDuration;
 
+  /// ⚙️ Sets up tweens for all animations
   @override
   void setupAnimations() {
     _opacity = Tween(
@@ -68,9 +83,13 @@ final class IOSOverlayAnimationEngine extends BaseAnimationEngine {
     ).chain(CurveTween(curve: _config.scaleCurve)).animate(controller);
   }
 
+  /// 🌫️ Fade transition animation
   @override
   Animation<double> get opacity => _opacity;
 
+  /// 🔍 Scale transition animation
   @override
   Animation<double> get scale => _scale;
+
+  //
 }

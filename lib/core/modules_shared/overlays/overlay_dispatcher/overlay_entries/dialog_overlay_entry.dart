@@ -18,6 +18,7 @@ final class DialogOverlayEntry extends OverlayUIEntry {
     required this.priority,
     this.dismissPolicy = OverlayDismissPolicy.dismissible,
   });
+  //
 
   /// ⚙️ Defines how this entry behaves in conflict scenarios
   @override

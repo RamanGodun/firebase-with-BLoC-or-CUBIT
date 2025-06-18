@@ -4,8 +4,9 @@ part of '_overlay_dispatcher.dart';
 /// ✅ Centralizes logic for priority-based replacement and dismissibility behavior
 
 final class OverlayPolicyResolver {
-  const OverlayPolicyResolver._();
   //-----------------------------
+  const OverlayPolicyResolver._();
+  //
 
   /// 🔁 Determines if the [next] overlay should replace the [current] one
   /// based on the replacement [OverlayReplacePolicy].
@@ -14,6 +15,7 @@ final class OverlayPolicyResolver {
     OverlayUIEntry next,
     OverlayUIEntry current,
   ) {
+    ///
     final n = next.strategy;
     final c = current.strategy;
 
@@ -72,22 +74,23 @@ final class OverlayPolicyResolver {
     );
   }
 
-  ///
+  //
 }
 
-///
+////
 
-///
+////
 
-///
+////
 
 /// 📦 [OverlayQueueItem] — Internal holder for enqueued overlays.
 /// ✅ Binds [OverlayState] with a specific [OverlayUIEntry] for insertion.
 
 final class OverlayQueueItem {
-  //-----------------------------
-
+  ///-----------------------
+  //
   final OverlayState overlay;
   final OverlayUIEntry request;
   const OverlayQueueItem({required this.overlay, required this.request});
+  //
 }

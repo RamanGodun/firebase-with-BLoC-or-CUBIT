@@ -12,10 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 final class AppBlocObserver extends BlocObserver {
   ///--------------------------------------------
-
   const AppBlocObserver();
-
-  ///
+  //
 
   /// 🕒 Returns the current time for consistent log entries.
   String _timestamp() => DateTime.now().toIso8601String();

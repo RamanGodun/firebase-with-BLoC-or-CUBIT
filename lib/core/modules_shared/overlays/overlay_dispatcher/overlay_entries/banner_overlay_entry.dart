@@ -7,7 +7,7 @@ part of '_overlay_entries_registry.dart';
 /// - Called by Dispatcher during overlay insertion
 
 final class BannerOverlayEntry extends OverlayUIEntry {
-  // --------------------------------------------------
+  // -------------------------------------------------
 
   final Widget widget;
   final bool isError; // ❗ Marks as an error (affects priority & category)
@@ -22,6 +22,7 @@ final class BannerOverlayEntry extends OverlayUIEntry {
     required this.priority,
     this.dismissPolicy = OverlayDismissPolicy.dismissible,
   });
+  //
 
   /// ⚙️ Defines how this entry behaves in conflict scenarios
   @override

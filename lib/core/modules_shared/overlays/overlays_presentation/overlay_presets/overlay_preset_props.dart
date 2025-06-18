@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 /// - Passed to UI widgets (e.g. [AppBanner], [AppSnackbarWidget])
 /// - Encapsulates color, shape, icon, spacing, duration, etc.
 
-class OverlayUIPresetProps extends Equatable {
-  ///-----------------------------------------
+@immutable
+final class OverlayUIPresetProps extends Equatable {
+  ///--------------------------------------------
 
   ///🧩 Leading icon for the overlay
   final IconData icon;

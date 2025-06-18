@@ -6,6 +6,8 @@ part of '_exceptions_to_failures_mapper.dart';
 Failure _handleFileSystem(FileSystemException error) =>
     CacheFailure(message: error.message);
 
+////
+
 /// 🧠 [_handleArgument] — maps argument errors to [UseCaseFailure].
 /// ✅ Used for invalid method inputs or domain logic violations.
 

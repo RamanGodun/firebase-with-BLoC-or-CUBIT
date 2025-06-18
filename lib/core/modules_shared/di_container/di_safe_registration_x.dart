@@ -2,9 +2,10 @@ import 'package:get_it/get_it.dart';
 
 /// 🧩 [SafeRegistration] — Extension on [GetIt] for safe DI registration
 /// ✅ Prevents double registration crashes in shared or reloaded environments (like tests, hot reload)
-//----------------------------------------------------------------
 
 extension SafeRegistration on GetIt {
+  ///-------------------------------
+
   /// 💤 Registers a lazy singleton if not already registered
   /// - `T`: the type to register
   void registerLazySingletonIfAbsent<T extends Object>(T Function() factory) {
@@ -23,5 +24,5 @@ extension SafeRegistration on GetIt {
     if (!isRegistered<T>()) registerSingleton<T>(instance);
   }
 
-  ///
+  //
 }

@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/errors_handling/utils/observers/failure_diagnostics_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/modules_shared/errors_handling/failures/extensions/failure_diagnostics_x.dart';
 import 'package:flutter/material.dart';
 import '../../../localization/app_localizer.dart';
 import '../../enums/error_plugins.dart';
@@ -8,8 +8,9 @@ import '../failure_entity.dart';
 import '../failure_ui_entity.dart';
 
 /// ✅ [FailureToUIEntityX] — Maps [Failure] to [FailureUIEntity] without localization context
+
 extension FailureToUIEntityX on Failure {
-  //
+  //------------------------------------
 
   /// From [Failure] to [FailureUIEntity] mapper
   FailureUIEntity toUIEntity() {
@@ -30,12 +31,12 @@ extension FailureToUIEntityX on Failure {
     return FailureUIEntity(
       localizedMessage: resolvedText,
       formattedCode: safeCode,
-      icon: resolveIcon(),
+      icon: _resolveIcon(),
     );
   }
 
   /// 🖼️ Icon depending on failure type
-  IconData resolveIcon() => switch (this) {
+  IconData _resolveIcon() => switch (this) {
     ApiFailure() => Icons.cloud_off,
     FirebaseFailure() => Icons.fireplace,
     UseCaseFailure() => Icons.settings,

@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import '../widgets/text_widget.dart';
 
 /// 📜 Extension for fast TextWidget creation from string
-extension TextWidgetFromSring on String {
-  Widget styled(
+
+extension GetTextWidget on String {
+  ///----------------------------------
+
+  Widget from(
     TextType type, {
     Color? color,
     TextAlign? align,
@@ -34,4 +37,6 @@ extension TextWidgetFromSring on String {
       isUnderlined: underline,
     );
   }
+
+  //
 }

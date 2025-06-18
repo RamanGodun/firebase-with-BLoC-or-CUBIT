@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-part 'fallback_engine.dart';
+
 part 'animation_base_engine.dart';
+part 'fallback_engine.dart';
 
 /// 🎯 [AnimationEngine] — base class for platform-specific dialog animations
 /// ✅ Used in overlays to drive platform-native transitions

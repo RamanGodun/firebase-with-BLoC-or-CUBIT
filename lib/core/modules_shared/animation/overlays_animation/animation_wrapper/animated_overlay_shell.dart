@@ -18,8 +18,7 @@ final class AnimatedOverlayShell extends StatelessWidget {
     required this.engine,
     required this.child,
   });
-
-  ///
+  //
 
   @override
   Widget build(BuildContext context) {

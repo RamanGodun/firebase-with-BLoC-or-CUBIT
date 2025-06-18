@@ -29,11 +29,14 @@ final class AnimatedOverlayWrapper extends StatefulWidget {
   State<AnimatedOverlayWrapper> createState() => _AnimatedOverlayWrapperState();
 }
 
-///
+////
+
+////
 
 class _AnimatedOverlayWrapperState extends State<AnimatedOverlayWrapper>
     with TickerProviderStateMixin {
-  //
+  ///-----------------------------------------------------
+
   bool _isInitialized = false;
 
   @override
@@ -67,6 +70,7 @@ class _AnimatedOverlayWrapperState extends State<AnimatedOverlayWrapper>
 
   @override
   Widget build(BuildContext context) {
+    //
     // ⛔ Prevent build until engine is ready
     if (!_isInitialized) return widget.placeholder ?? const SizedBox.shrink();
 

@@ -1,6 +1,7 @@
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/errors_handling/either/either_extensions/__eithers_facade.dart';
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/errors_handling/utils/observers/failure_diagnostics_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/modules_shared/errors_handling/either/either_extensions/either_getters_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/modules_shared/errors_handling/failures/extensions/failure_diagnostics_x.dart';
 import '../../failures/failure_entity.dart';
+import '../either.dart';
 
 /// 🧪 [ResultFutureTestX] — Fluent test helpers for async Either
 

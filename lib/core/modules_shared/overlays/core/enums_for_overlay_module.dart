@@ -3,14 +3,26 @@
 // 🔼 Important, takes precedence over lower ones
 enum OverlayPriority { userDriven, normal, high, critical }
 
+////
+
+////
+
 /// 🏷️ Categorizes overlays by their visual or functional purpose
 enum OverlayCategory { banner, dialog, snackbar, error }
+
+////
+
+////
 
 /// 🔐 Defines whether overlay can be dismissed externally
 enum OverlayDismissPolicy {
   dismissible, // ✋ Tappable/cancellable
   persistent, // 🔒 Stays until dismissed programmatically
 }
+
+////
+
+////
 
 /// 🤝 Rules for resolving overlay collisions or duplicates
 enum OverlayReplacePolicy {
@@ -21,8 +33,16 @@ enum OverlayReplacePolicy {
   dropIfSameType, // 🚫 Ignore if same type already visible
 }
 
+////
+
+////
+
 /// 📌 Specifies how to display an error in UI
 enum ShowAs { banner, snackbar, dialog, infoDialog }
+
+////
+
+////
 
 /// 🎚️ [OverlayBlurLevel] — Custom blur intensity levels for overlays
 /// - Can override default blur defined via [ShowAs]
