@@ -13,9 +13,9 @@ import 'profile_view.dart';
 /// ✅ Injects [SignOutCubit] to trigger logout
 
 class ProfilePage extends StatelessWidget {
-  //--------------------------------------
-
+  ///------------------------------------
   const ProfilePage({super.key});
+  //
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +46,9 @@ class ProfilePage extends StatelessWidget {
 /// ✅ Uses `Consumable<FailureUIModel>` for single-use error overlays.
 
 final class _ProfileListenerWrapper extends StatelessWidget {
-  //--------------------------------------------------------
-
+  ///------------------------------------------------------
   const _ProfileListenerWrapper();
+  //
 
   @override
   Widget build(BuildContext context) {

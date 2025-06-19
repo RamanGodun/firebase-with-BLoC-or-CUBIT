@@ -9,11 +9,11 @@ import 'data_source_contract.dart';
 /// ✅ Maps [UserDTO] → [UserEntity] via `.toEntity()`
 
 final class ProfileRepoImpl implements ProfileRepo {
-  //-----------------------------------------------
+  ///---------------------------------------------
 
   final ProfileRemoteDataSource remote;
-
   ProfileRepoImpl(this.remote);
+  //
 
   @override
   ResultFuture<UserEntity> getProfile({required String uid}) async {

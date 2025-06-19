@@ -5,10 +5,9 @@ import '../repositories/auth_repo.dart';
 /// ✅ Handles user registration via [AuthRepo]
 
 final class SignUpUseCase {
-  //------------------------
-
+  ///--------------------
+  //
   final AuthRepo _repo;
-
   const SignUpUseCase(this._repo);
 
   /// 🔐 Registers a new user with [name], [email], and [password]

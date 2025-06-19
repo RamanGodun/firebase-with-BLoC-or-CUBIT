@@ -24,6 +24,7 @@ class UserEntity extends Equatable {
     required this.point,
     required this.rank,
   });
+  //
 
   @override
   List<Object?> get props => [id, name, email, profileImage, point, rank];

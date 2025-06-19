@@ -21,9 +21,9 @@ part 'widgets_for_profile_view.dart';
 /// ✅ Reacts to [ProfileCubit] and shows appropriate UI
 
 final class ProfileView extends StatelessWidget {
-  //--------------------------------------------
-
+  ///------------------------------------------
   const ProfileView({super.key});
+  //
 
   @override
   Widget build(BuildContext context) {

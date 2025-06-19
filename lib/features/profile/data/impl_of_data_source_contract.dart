@@ -12,11 +12,11 @@ import 'package:firebase_with_bloc_or_cubit/core/layers_shared/domain_shared/rep
 
 final class ProfileRemoteDataSourceImpl extends BaseRepository
     implements ProfileRemoteDataSource {
-  //----------------------------------------------------------------
+  ///---------------------------------------------------------------
 
   final FirebaseFirestore firestore;
-
   ProfileRemoteDataSourceImpl(this.firestore);
+  //
 
   @override
   ResultFuture<UserDTO> getUserDTO(String uid) => safeCall(() async {

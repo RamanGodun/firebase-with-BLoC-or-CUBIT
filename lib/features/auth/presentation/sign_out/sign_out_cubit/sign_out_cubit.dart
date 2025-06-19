@@ -9,10 +9,9 @@ part 'sign_out_state.dart';
 /// ✅ Stateless for now, emits failure/success status if needed
 
 final class SignOutCubit extends Cubit<SignOutState> {
-  ///------------------------------------------------
+  ///-----------------------------------------------
 
   final SignOutUseCase _signOutUseCase;
-
   SignOutCubit(this._signOutUseCase) : super(const SignOutState());
   //
 

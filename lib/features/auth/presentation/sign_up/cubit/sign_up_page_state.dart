@@ -27,6 +27,7 @@ final class SignUpState extends Equatable {
     this.isPasswordObscure = true,
     this.isConfirmPasswordObscure = true,
   });
+  //
 
   /// 🧱 Clones current state with optional overrides
   SignUpState copyWith({

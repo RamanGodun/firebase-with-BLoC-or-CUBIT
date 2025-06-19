@@ -1,7 +1,7 @@
 part of 'sign_out_cubit.dart';
 
 final class SignOutState extends Equatable {
-  ///--------------------------------------
+  ///-------------------------------------
 
   final SignOutStatus status;
   const SignOutState({this.status = SignOutStatus.initial});

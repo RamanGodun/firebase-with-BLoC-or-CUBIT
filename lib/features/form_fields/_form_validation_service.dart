@@ -5,9 +5,9 @@ import 'enums_for_form_fields_module.dart';
 /// ✅ Centralizes and reuses validation logic across features
 
 final class FormValidationService {
-  //------------------------------
-
+  ///----------------------------
   const FormValidationService();
+  //
 
   /// 📧 Validates and returns updated [EmailInputValidation]
   EmailInputValidation validateEmail(String rawValue) {

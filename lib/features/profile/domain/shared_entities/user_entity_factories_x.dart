@@ -4,7 +4,7 @@ import '_user.dart';
 /// 🧩 [UserEntityFactories] — Static-like utilities related to [UserEntity] creation
 
 extension UserEntityFactories on UserEntity {
-  //---------------------------------
+  ///--------------------------------------
 
   /// 🔰 Returns a predefined empty [UserEntity] placeholder
   static UserEntity empty() => const UserEntity(

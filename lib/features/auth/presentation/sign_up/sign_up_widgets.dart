@@ -3,12 +3,12 @@ part of 'sign_up_view.dart';
 /// 🖼️ [_LogoImage] — Displays logo with hero animation
 
 final class _LogoImage extends StatelessWidget {
-  //-------------------------------------------
-
+  ///-----------------------------------------
   const _LogoImage();
 
   @override
   Widget build(BuildContext context) {
+    //
     return const Hero(
       tag: 'Logo',
       child: Image(image: AssetImage(ImagesPaths.flutterLogo), height: 150),
@@ -27,8 +27,8 @@ final class _NameField extends StatelessWidget {
 
   final FocusNode focusNode;
   final FocusNode nextFocusNode;
-
   const _NameField({required this.focusNode, required this.nextFocusNode});
+  //
 
   @override
   Widget build(BuildContext context) {

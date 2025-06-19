@@ -6,9 +6,12 @@ import '../repositories/auth_repo.dart';
 //----------------------------------------------------------------
 
 final class SignOutUseCase {
+  ///---------------------
+  //
   final AuthRepo _repo;
   const SignOutUseCase(this._repo);
 
   /// 🔐 Signs the user out of Firebase session
   ResultFuture<void> call() => _repo.signOut();
+  //
 }

@@ -15,9 +15,9 @@ import 'sign_in_view.dart';
 /// ✅ Provides scoped Cubit with injected services
 
 final class SignInPage extends StatelessWidget {
-  //-------------------------------------------
-
+  ///----------------------------------------
   const SignInPage({super.key});
+  //
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +44,13 @@ final class SignInPage extends StatelessWidget {
 /// ✅ Uses `Consumable<FailureUIModel>` for single-use error overlays.
 
 final class _SignInListenerWrapper extends StatelessWidget {
-  //-------------------------------------------------------
-
+  ///-----------------------------------------------------
   const _SignInListenerWrapper();
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignInCubit, SignInPageState>(
-      ///
+      //
       listenWhen:
           (prev, curr) =>
               prev.status != curr.status && curr.status.isSubmissionFailure,

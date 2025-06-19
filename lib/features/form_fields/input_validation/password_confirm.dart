@@ -5,7 +5,7 @@ part of '../enums_for_form_fields_module.dart';
 
 final class ConfirmPasswordInput
     extends FormzInput<String, ConfirmPasswordValidationError> {
-  //-------------------------------------------------------------------------
+  ///------------------------------------------------------------------------
 
   final String password;
 
@@ -13,6 +13,7 @@ final class ConfirmPasswordInput
   const ConfirmPasswordInput.dirty({required this.password, String value = ''})
     : super.dirty(value);
 
+  ///
   @override
   ConfirmPasswordValidationError? validator(String value) {
     final trimmed = value.trim();

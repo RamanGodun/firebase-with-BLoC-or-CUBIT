@@ -9,10 +9,9 @@ import 'shared_entities/_user.dart';
 
 final class LoadProfileUseCase
     extends BaseUseCaseWithParams<UserEntity, String> {
-  //----------------------------------------------------------------
+  ///---------------------------------------------------------------
 
   final ProfileRepo _repository;
-
   const LoadProfileUseCase(this._repository);
 
   @override

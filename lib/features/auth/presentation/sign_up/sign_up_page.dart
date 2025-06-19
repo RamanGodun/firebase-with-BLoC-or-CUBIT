@@ -12,8 +12,7 @@ import 'sign_up_view.dart';
 /// ✅ Provides scoped Cubit with injected service
 
 final class SignUpPage extends StatelessWidget {
-  //-------------------------------------------
-
+  ///-----------------------------------------
   const SignUpPage({super.key});
 
   @override
@@ -35,14 +34,13 @@ final class SignUpPage extends StatelessWidget {
 /// ✅ Uses `Consumable<FailureUIModel>` for single-use error overlays.
 
 final class _SignUpListenerWrapper extends StatelessWidget {
-  //-------------------------------------------------------
-
+  ///-----------------------------------------------------
   const _SignUpListenerWrapper();
 
   @override
   Widget build(BuildContext context) {
+    //
     return BlocListener<SignUpCubit, SignUpState>(
-      ///
       listenWhen:
           (prev, curr) =>
               prev.status != curr.status && curr.status.isSubmissionFailure,

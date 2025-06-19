@@ -19,7 +19,7 @@ part 'sign_in_state_validation_x.dart';
 /// ✅ Leverages via DI [SignInService] and uses DSL-like result handler.
 
 class SignInCubit extends Cubit<SignInPageState> {
-  //---------------------------------------------
+  //--------------------------------------------
 
   final SignInService _signInService;
   final FormValidationService _validationService;

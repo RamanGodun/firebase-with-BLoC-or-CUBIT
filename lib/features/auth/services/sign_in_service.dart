@@ -12,12 +12,14 @@ import '../../../core/utils_shared/typedef.dart';
 /// 🔐 Used in `submit()` logic to ensure clean separation of responsibilities
 
 final class SignInService {
-  //---------------------
+  ///--------------------
 
   final SignInUseCase _signIn;
   final EnsureUserProfileCreatedUseCase _ensureProfile;
 
   const SignInService(this._signIn, this._ensureProfile);
+
+  ///
 
   /// 🚀 Executes sign-in and ensures user profile exists in Firestore
   /// 🔍 Logs all failures internally

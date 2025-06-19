@@ -8,10 +8,11 @@ import '../../../core/utils_shared/typedef.dart';
 /// !  [SignUpService] will be needed if sign-up logic grows to include multiple use cases or orchestration
 
 final class SignUpService {
-  //----------------------
+  ///--------------------
 
   final SignUpUseCase _signUp;
   const SignUpService(this._signUp);
+  //
 
   /// 🚀 Executes sign-up and logs any failure
   ResultFuture<void> execute({

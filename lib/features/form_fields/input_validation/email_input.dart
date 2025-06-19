@@ -5,11 +5,12 @@ part of '../enums_for_form_fields_module.dart';
 
 final class EmailInputValidation
     extends FormzInput<String, EmailValidationError> {
-  //-------------------------------------------------
+  ///-------------------------------------------------
 
   const EmailInputValidation.pure() : super.pure('');
   const EmailInputValidation.dirty([super.value = '']) : super.dirty();
 
+  ///
   @override
   EmailValidationError? validator(String value) {
     final trimmed = value.trim();

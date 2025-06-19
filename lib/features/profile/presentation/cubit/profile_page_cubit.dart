@@ -13,11 +13,11 @@ part 'profile_page_state.dart';
 /// ✅ Emits sealed [ProfileState] values following AZER + Clean Architecture.
 
 final class ProfileCubit extends Cubit<ProfileState> {
-  //-------------------------------------------------
+  ///-----------------------------------------------
 
   final LoadProfileUseCase _loadProfile;
-
   ProfileCubit(this._loadProfile) : super(const ProfileInitial());
+  //
 
   /// 🚀 Loads user profile by UID
   Future<void> loadProfile(String uid) async {

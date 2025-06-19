@@ -6,7 +6,7 @@ import '_user_dto.dart';
 /// ✅ Use case: Firestore mapping, default user creation
 
 extension UserDTOFactories on UserDTO {
-  //-------------------------------
+  ///--------------------------------
 
   /// 🔄 Creates [UserDTO] from Firestore document snapshot
   static UserDTO fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {

@@ -5,10 +5,12 @@ part of '../enums_for_form_fields_module.dart';
 
 final class NameInputValidation
     extends FormzInput<String, NameValidationError> {
-  //---------------------------------------------------
+  ///---------------------------------------------------
+
   const NameInputValidation.pure() : super.pure('');
   const NameInputValidation.dirty([super.value = '']) : super.dirty();
 
+  ///
   @override
   NameValidationError? validator(String value) {
     final trimmed = value.trim();

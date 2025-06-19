@@ -3,8 +3,7 @@ part of 'sign_in_view.dart';
 /// 🖼️ [_LogoImage] — Displays Flutter logo with hero animation
 
 final class _LogoImage extends StatelessWidget {
-  //---------------
-
+  ///-----------------------------------------
   const _LogoImage();
 
   @override
@@ -25,12 +24,12 @@ final class _LogoImage extends StatelessWidget {
 /// ✅ Rebuilds only when `email.uiError` changes
 
 final class _EmailField extends StatelessWidget {
-  //--------------------------------------------
+  ///------------------------------------------
 
   final FocusNode focusNode;
   final FocusNode nextFocus;
-
   const _EmailField({required this.focusNode, required this.nextFocus});
+  //
 
   @override
   Widget build(BuildContext context) {
@@ -58,11 +57,11 @@ final class _EmailField extends StatelessWidget {
 /// ✅ Rebuilds only when password error or visibility state changes
 
 final class _PasswordField extends StatelessWidget {
-  //----------------------
+  ///---------------------------------------------
 
   final FocusNode focusNode;
-
   const _PasswordField({required this.focusNode});
+  //
 
   @override
   Widget build(BuildContext context) {
@@ -105,9 +104,9 @@ final class _PasswordField extends StatelessWidget {
 /// ✅ Uses [FormSubmitButton] for automatic loading state binding
 
 final class _SubmitButton extends StatelessWidget {
-  //---------------------------------------------
-
+  ///--------------------------------------------
   const _SubmitButton();
+  //
 
   @override
   Widget build(BuildContext context) {
@@ -132,9 +131,9 @@ final class _SubmitButton extends StatelessWidget {
 /// ✅ Disabled during form submission or overlay
 
 final class _RedirectToSignUpButton extends StatelessWidget {
-  //-------------------------------------------------------
-
+  ///------------------------------------------------------
   const _RedirectToSignUpButton();
+  //
 
   @override
   Widget build(BuildContext context) {

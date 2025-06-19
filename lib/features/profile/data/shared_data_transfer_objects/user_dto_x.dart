@@ -7,7 +7,7 @@ import '../../domain/shared_entities/_user.dart';
 /// ✅ Converts to entity or JSON (for logic or API usage)
 
 extension UserDTOX on UserDTO {
-  //----------------------------
+  ///------------------------
 
   /// 🔄 Converts [UserDTO] → Domain [UserEntity] entity
   UserEntity toEntity() => UserEntity(

@@ -6,9 +6,8 @@ import '_user_dto.dart';
 /// ✅ Useful for bulk transformations
 
 extension UserDTOListX on List<UserDTO> {
-  //--------------------------------------
-
+  ///----------------------------------
+  //
   List<UserEntity> toEntities() => map((dto) => dto.toEntity()).toList();
-
   //
 }
