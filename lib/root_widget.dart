@@ -48,9 +48,9 @@ final class _AppRootView extends StatelessWidget {
       debugShowCheckedModeBanner: !kReleaseMode,
 
       /// 🎨 Theme configuration
-      theme: config.theme.theme,
+      theme: config.theme.light,
       darkTheme: config.theme.darkTheme,
-      themeMode: config.theme.themeMode,
+      themeMode: config.theme.mode,
 
       /// 🔁 GoRouter configuration
       routerDelegate: AppRouterConfig.delegate,

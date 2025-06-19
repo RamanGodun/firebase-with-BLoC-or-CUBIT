@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 /// 🚀 [AppTransitions] — Centralized transitions for GoRouter navigation
 
-final class AppTransitions {
+abstract final class AppTransitions {
   ///----------------------
   AppTransitions._();
   //

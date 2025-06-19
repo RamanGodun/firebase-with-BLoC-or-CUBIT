@@ -12,7 +12,7 @@ import '../modules_shared/theme/core/_theme_config.dart';
 final class AppRootConfig {
   ///--------------------
 
-  final AppThemeConfig theme;
+  final AppThemesScheme theme;
   final LocalizationConfig localization;
   final GoRouter router;
 
@@ -31,9 +31,9 @@ final class AppRootConfig {
     ///
     //
     // ? when use Riverpod state manager, uncomment next:
-    // final theme = ThemeConfig.fromMode(ref.watch(themeModeProvider));
+    // final theme = ThemeConfig.from(ref.watch(themeModeProvider));
     // ? when use BLoC state manager, uncomment next:
-    final theme = ThemeConfig.fromBloc(themeState);
+    final theme = AppThemeBuilder.from(themeState);
 
     ///
     final localization = LocalizationConfig.fromContext(context);

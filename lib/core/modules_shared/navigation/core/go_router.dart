@@ -4,49 +4,44 @@ import '../../../layers_shared/presentation_layer_shared/pages_shared/page_not_f
 import '../../di_container/di_container.dart';
 import '../utils/overlay_navigation_observer.dart';
 import '../app_routes/app_routes.dart';
-import '../utils/router_redirect.dart';
-import '../../../layers_shared/domain_shared/auth_state_refresher/auth_state_refresher.dart' show AuthStateRefresher;
+import '../utils/routes_redirection_service.dart';
+import '../../../layers_shared/domain_shared/auth_state_refresher/auth_state_refresher.dart'
+    show AuthStateRefresher;
 
-/// 🧭🚦 [goRouter] — Main GoRouter instance for the app
-/// Responsible for:
-/// - ✅ Initial route configuration
-/// - 🔄 Handling auth-based redirects
-/// - 🧱 Shell layout scaffolding
-/// - 🗺️ Declarative route definitions
-/// - ❌ Custom error page fallback
+/// 🧭🚦 [goRouter] — GoRouter configuration with global auth-aware redirect
 
 final GoRouter goRouter = GoRouter(
-  //------------------------------
+  ///-----------------------------
 
-  /// 👁️ Observers — Navigation side-effects
-  /// - ✅ Auto-clears overlays on push/pop/replace (OverlayDispatcher)
+  /// 👁️ Observers — navigation side-effects (e.g., dismissing overlays)
   observers: [OverlayNavigatorObserver()],
 
-  /// ⏳ Initial route (Splash Screen)
-  initialLocation: RoutesPaths.splash,
-
-  /// 🐞 Enable GoRouter debug logs (only in debug mode)
+  /// 🐞 Enable verbose logging for GoRouter (only active in debug mode)
   debugLogDiagnostics: true,
 
-  /// 🔄 Refresh when auth state changes (listens to AuthBloc stream)
+  ///
+
+  // ⏳ Initial route shown on app launch (Splash Screen)
+  initialLocation: RoutesPaths.splash,
+
+  /// 🗺️ Route definitions used across the app
+  routes: AppRoutes.all,
+
+  /// ❌ Fallback UI for unknown/unmatched routes
+  errorBuilder:
+      (context, state) => PageNotFound(errorMessage: state.error.toString()),
+
+  ///
+
+  /// 🔁 Triggers route evaluation when `authState` changes
   refreshListenable: AuthStateRefresher(di<AuthCubit>().stream),
   // BlocRefresher()..bind(authCubit.stream);
 
-  /// 🧭 Redirect logic handled by [RoutesRedirectionService], based on auth state
+  /// 🧭 Global redirect handler — routes user depending on auth state
   redirect: (context, state) {
     final authState = di<AuthCubit>().state;
-    return RoutesRedirectionService.from(
-      authStatus: authState.authStatus,
-      currentPath: state.matchedLocation,
-    );
+    return RoutesRedirectionService.from(context, state, authState);
   },
-
-  /// 🗺️ Route Map — Declare all navigable paths
-  routes: AppRoutes.all,
-
-  /// ❌ Wildcard handler for unmatched routes
-  errorBuilder:
-      (context, state) => PageNotFound(errorMessage: state.error.toString()),
 
   //
 );

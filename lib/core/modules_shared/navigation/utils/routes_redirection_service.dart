@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import '../../../layers_shared/domain_shared/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
 import '../app_routes/app_routes.dart';
 
@@ -8,43 +10,49 @@ import '../app_routes/app_routes.dart';
 /// - ⏳ Show splash screen while auth status is unknown
 
 final class RoutesRedirectionService {
-  //----------------------------------------------
+  ///-------------------------------
   RoutesRedirectionService._();
   //
 
-  static String? from({
-    required AuthStatus authStatus,
-    required String currentPath,
-    bool isEmailVerified = true,
-    bool isError = false,
-    bool isLoading = false,
-  }) {
+  /// 🗝️ Publicly accessible routes (no authentication required)
+  static const Set<String> _publicRoutes = {
+    RoutesPaths.signIn,
+    RoutesPaths.signUp,
+    RoutesPaths.resetPassword,
+  };
+
+  ///
+  static String? from(
+    BuildContext context,
+    GoRouterState goRouterState,
+    AuthState authState,
+  ) {
     //
     /// 🔍 Auth status flags
+    final authStatus = authState.authStatus;
     final isAuthenticated = authStatus == AuthStatus.authenticated;
     final isUnauthenticated = authStatus == AuthStatus.unauthenticated;
     final isUnknown = authStatus == AuthStatus.unknown;
 
-    /// 📍 Route flags
-    final isSplash = currentPath == RoutesPaths.splash;
-    final isOnAuthPage = [
-      RoutesPaths.signIn,
-      RoutesPaths.signUp,
-      RoutesPaths.resetPassword,
-    ].contains(currentPath);
+    // 🔄 CurrentPath
+    final currentPath = goRouterState.matchedLocation;
+
+    // 📍 Route flags
+    final isOnPublicPages = _publicRoutes.contains(currentPath);
+    final isOnSplashPage = currentPath == RoutesPaths.splash;
 
     /// ⏳ Still determining auth state → redirect to Splash
     if (isUnknown) {
-      return isSplash ? null : RoutesPaths.splash;
+      return isOnSplashPage ? null : RoutesPaths.splash;
     }
 
     /// ❌ Unauthenticated → force sign-in (unless already on auth page)
     if (isUnauthenticated) {
-      return isOnAuthPage ? null : RoutesPaths.signIn;
+      return isOnPublicPages ? null : RoutesPaths.signIn;
     }
 
     /// ✅ Authenticated → prevent access to splash/auth routes
-    if (isAuthenticated && (isSplash || isOnAuthPage)) {
+    if (isAuthenticated && (isOnSplashPage || isOnPublicPages)) {
       return RoutesPaths.home;
     }
 
