@@ -41,13 +41,14 @@ abstract final class AppDI {
 
   /// 🎯 Entry point — call once in `main()`
   static Future<void> init() async {
+    _registerDataSources();
     _registerTheme();
     _registerRouter();
     _authState();
     _registerFirebase();
     _registerUseCases();
     _registerRepositories();
-    _registerDataSources();
+
     _registerOverlaysHandlers();
     _registerServices();
   }

@@ -46,7 +46,7 @@ final class RootProviders extends StatelessWidget {
 
         BlocProvider.value(value: di<OverlayStatusCubit>()),
       ],
-      child: const AppCheck(),
+      child: const AppRootViewWrapper(),
     );
   }
 }

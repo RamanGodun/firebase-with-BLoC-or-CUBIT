@@ -9,15 +9,6 @@ import 'core/modules_shared/navigation/core/_router_config.dart';
 import 'core/modules_shared/theme/core/_theme_config.dart';
 import 'core/modules_shared/theme/core/theme_cubit.dart';
 
-class AppCheck extends StatelessWidget {
-  const AppCheck({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const AppRootViewWrapper();
-  }
-}
-
 /// 🌳🧩 [AppRootViewWrapper] — Top-level reactive widget listening to [AppThemeCubit].
 /// ✅ Delegates config creation to [AppRootConfig.from].
 
