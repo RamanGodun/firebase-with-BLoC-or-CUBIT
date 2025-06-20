@@ -20,6 +20,7 @@ import '../../../features/profile/data/impl_of_data_source_contract.dart';
 import '../../../features/profile/domain/load_profile_use_case.dart';
 import '../../../features/profile/domain/profile_repository.dart';
 import '../../layers_shared/domain_shared/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
+import '../navigation/core/_router_config.dart';
 import '../overlays/overlay_dispatcher/_overlay_dispatcher.dart';
 import '../overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import '../theme/theme_cubit/theme_cubit.dart';
@@ -41,6 +42,7 @@ abstract final class AppDI {
   /// 🎯 Entry point — call once in `main()`
   static Future<void> init() async {
     _registerTheme();
+    _registerRouter();
     _authState();
     _registerFirebase();
     _registerUseCases();
@@ -55,6 +57,10 @@ abstract final class AppDI {
   /// 🎨 Registers theme
   static void _registerTheme() {
     di.registerLazySingleton(() => AppThemeCubit());
+  }
+
+  static void _registerRouter() {
+    di.registerLazySingleton<RouterCubit>(() => RouterCubit(di<AuthCubit>()));
   }
 
   /// 👤 Registers Auth State Cubit

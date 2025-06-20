@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'core/modules_shared/navigation/core/_router_config.dart';
 import 'core/modules_shared/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import 'root_widget.dart';
 import 'start_up_bootstrap.dart';
@@ -40,10 +41,11 @@ final class RootProviders extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: di<AuthCubit>()), // 🔐 Auth State
+        BlocProvider.value(value: di<RouterCubit>()), // 🧭🚦 Router
         BlocProvider.value(value: di<AppThemeCubit>()), // 🎨 Theme State
         BlocProvider.value(value: di<OverlayStatusCubit>()),
       ],
-      child: const AppRootBuilder(),
+      child: const AppRootViewWrapper(),
     );
   }
 }

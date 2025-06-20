@@ -1,33 +1,57 @@
-import 'go_router.dart';
+import 'package:flutter/foundation.dart' show ChangeNotifier;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import '../../../layers_shared/domain_shared/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
+import '../../../layers_shared/presentation_layer_shared/pages_shared/page_not_found.dart';
+import '../app_routes/app_routes.dart';
+import '../utils/overlay_navigation_observer.dart';
+import '../utils/routes_redirection_service.dart';
 
-/// 🧭 [AppRouterConfig] — Wrapper for router provider.
-/// ✅ Entry point for GoRouter integration with [MaterialApp.router]
-/// ✅ Enables consistent API across Bloc / Riverpod apps.
+class RouterCubit extends Cubit<GoRouter> {
+  RouterCubit(AuthCubit authCubit)
+    : super(
+        GoRouter(
+          /// 👁️ Observers — navigation side-effects (e.g., dismissing overlays)
+          observers: [OverlayNavigatorObserver()],
 
-final class AppRouterConfig {
-  ///------------------------
-  const AppRouterConfig._();
-  //
+          /// 🐞 Enable verbose logging for GoRouter (only active in debug mode)
+          debugLogDiagnostics: true,
 
-  /// 🧩 Global router instance
-  static final router = goRouter;
+          ///
 
-  /// 💡 Access actual GoRouter object for Riverpod (read-only)
-  // static GoRouter use(WidgetRef ref) => ref.watch(goRouterProvider);
+          // ⏳ Initial route shown on app launch (Splash Screen)
+          initialLocation: RoutesPaths.splash,
 
-  /// Provides the core routing components:
-  /// - `routerDelegate`
-  /// - `routeInformationParser`
-  /// - `routeInformationProvider`
+          /// 🗺️ Route definitions used across the app
+          routes: AppRoutes.all,
 
-  /// ✅ Bloc (if you need delegate/parser/provider explicitly)
-  /// Provides the core routing components:
-  /// - `routerDelegate`
-  /// - `routeInformationParser`
-  /// - `routeInformationProvider`
-  static final delegate = goRouter.routerDelegate;
-  static final parser = goRouter.routeInformationParser;
-  static final provider = goRouter.routeInformationProvider;
+          /// ❌ Fallback UI for unknown/unmatched routes
+          errorBuilder:
+              (context, state) =>
+                  PageNotFound(errorMessage: state.error.toString()),
 
-  //
+          ///
+
+          /// 🔁 Triggers route evaluation when `authState` changes
+          refreshListenable: GoRouterRefresher(authCubit.stream),
+
+          /// 🧭 Global redirect handler — routes user depending on auth state
+          redirect: (context, state) {
+            final authState = authCubit.state;
+            return RoutesRedirectionService.from(context, state, authState);
+          },
+
+          //
+        ),
+      );
+}
+
+////
+
+////
+
+class GoRouterRefresher extends ChangeNotifier {
+  GoRouterRefresher(Stream<dynamic> stream) {
+    stream.listen((_) => notifyListeners());
+  }
 }
