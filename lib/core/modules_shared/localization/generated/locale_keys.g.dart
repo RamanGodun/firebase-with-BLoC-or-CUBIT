@@ -90,8 +90,12 @@ abstract class  LocaleKeys {
   static const profile = 'profile';
   static const routes_home = 'routes.home';
   static const routes = 'routes';
-  static const theme_dark_enabled = 'theme.dark_enabled';
   static const theme_light_enabled = 'theme.light_enabled';
+  static const theme_dark_enabled = 'theme.dark_enabled';
+  static const theme_amoled_enabled = 'theme.amoled_enabled';
+  static const theme_light = 'theme.light';
+  static const theme_dark = 'theme.dark';
+  static const theme_amoled = 'theme.amoled';
   static const theme = 'theme';
 
 }

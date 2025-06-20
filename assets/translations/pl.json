@@ -121,7 +121,11 @@
   },
 
   "theme": {
-    "dark_enabled": "Tryb ciemny włączony",
-    "light_enabled": "Tryb jasny włączony"
+    "light_enabled": "Obecnie \"Tryb jasny\"",
+    "dark_enabled": "Obecnie \"Tryb ciemny\"",
+    "amoled_enabled": "Obecnie  \"Amoled Tryb\"",
+    "light": "Motyw jasny",
+    "dark": "Motyw ciemny",
+    "amoled": "Motyw AMOLED"
   }
 }

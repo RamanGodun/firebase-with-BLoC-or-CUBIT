@@ -73,6 +73,13 @@ final class _UserProfileCard extends StatelessWidget {
                         value: user.rank,
                         labelTextType: TextType.bodySmall,
                       ),
+
+                      ///
+                      ThemePicker(
+                        key: ValueKey(
+                          Localizations.localeOf(context).languageCode,
+                        ),
+                      ),
                     ],
                   ),
                 ),
