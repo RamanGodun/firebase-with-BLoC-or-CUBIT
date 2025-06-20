@@ -3,11 +3,20 @@ import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart' show GoRouter;
-import 'core/app_configs/app_root_config.dart';
 import 'core/modules_shared/localization/generated/locale_keys.g.dart';
 import 'core/modules_shared/overlays/core/global_overlay_handler.dart';
 import 'core/modules_shared/navigation/core/_router_config.dart';
-import 'core/modules_shared/theme/theme_cubit/theme_cubit.dart';
+import 'core/modules_shared/theme/core/_theme_config.dart';
+import 'core/modules_shared/theme/core/theme_cubit.dart';
+
+class AppCheck extends StatelessWidget {
+  const AppCheck({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const AppRootViewWrapper();
+  }
+}
 
 /// 🌳🧩 [AppRootViewWrapper] — Top-level reactive widget listening to [AppThemeCubit].
 /// ✅ Delegates config creation to [AppRootConfig.from].
@@ -18,13 +27,19 @@ final class AppRootViewWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
     return BlocSelector<RouterCubit, GoRouter, GoRouter>(
       selector: (router) => router,
       builder: (context, router) {
-        return BlocSelector<AppThemeCubit, AppThemeState, ThemeMode>(
-          selector: (themeState) => themeState.mode,
-          builder: (context, themeMode) {
-            return _AppRootView(router: router, themeMode: themeMode);
+        return BlocSelector<AppThemeCubit, ThemeConfig, ThemeConfig>(
+          selector: (config) => config,
+          builder: (context, config) {
+            return _AppRootView(
+              router: router,
+              lightTheme: config.buildLight(),
+              darkTheme: config.buildDark(),
+              themeMode: config.mode,
+            );
           },
         );
       },
@@ -42,22 +57,25 @@ final class AppRootViewWrapper extends StatelessWidget {
 final class _AppRootView extends StatelessWidget {
   ///----------------------------------------------
 
-  // final ThemeData theme;
-  // final ThemeData darkTheme;
-  final ThemeMode themeMode;
   final GoRouter router;
+  final ThemeData lightTheme;
+  final ThemeData darkTheme;
+  final ThemeMode themeMode;
 
   const _AppRootView({
-    // required this.theme,
-    // required this.darkTheme,
-    required this.themeMode,
     required this.router,
+    required this.lightTheme,
+    required this.darkTheme,
+    required this.themeMode,
   });
   //
 
   @override
   Widget build(BuildContext context) {
     ///
+    print('[🧪 THEME] themeMode: $themeMode');
+    print('[🧪 THEME] light theme: ${lightTheme.brightness}');
+    print('[🧪 THEME] dark theme: ${darkTheme.brightness}');
 
     return MaterialApp.router(
       //
@@ -70,8 +88,8 @@ final class _AppRootView extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
 
       /// 🎨 Theme configuration
-      // theme: theme,
-      // darkTheme: darkTheme,
+      theme: lightTheme,
+      darkTheme: darkTheme,
       themeMode: themeMode,
 
       /// 🔁 GoRouter configuration

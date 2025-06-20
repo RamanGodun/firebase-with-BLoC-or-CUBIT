@@ -1,47 +1,53 @@
 import 'package:flutter/material.dart';
-import '../theme_utils/theme_mode_adapter.dart';
-import 'app_themes.dart';
-import 'enums/_app_theme_type.dart.dart';
+import '../text_theme/text_theme_factory.dart';
+import 'theme_cache_mixin.dart';
+import 'theme_type_enum.dart.dart';
 
-/// 🎯 [AppThemeBuilder] — Unified config builder for both Bloc and Riverpod.
-/// ✅ Converts either ThemeMode (Riverpod) or AppThemeState (Bloc) into AppThemeConfig.
+/// 🎨 [ThemeConfig] — Lightweight configuration for theme and font
+/// ✅ Contains only enums: [ThemeTypes] and [FontFamily]
+/// 🚫 Does not hold ThemeData directly to prevent unnecessary rebuilds
 
 @immutable
-final class AppThemeBuilder {
-  ///----------------------
-  const AppThemeBuilder._();
+final class ThemeConfig with ThemeCacheMixin {
+  ///---------------------------------------
+
+  // Selected theme variant (light, dark, glass, amoled)
+  final ThemeTypes theme;
+  // Selected font family (e.g., SF Pro, Aeonik)
+  final FontFamily font;
+
+  const ThemeConfig({required this.theme, required this.font});
   //
 
-  /// 🧩 Factory from ThemeMode (used in Riverpod)
-  static AppThemesScheme from(IAppThemeState state) {
-    return AppThemesScheme(
-      light: AppThemes.resolve(AppThemeType.light),
-      dark: AppThemes.resolve(AppThemeType.dark),
-      mode: state.mode,
-    );
+  /// Resolves [ThemeMode] based on current theme
+  ThemeMode get mode => theme.isDark ? ThemeMode.dark : ThemeMode.light;
+
+  /// Resolves current theme brightness
+  bool get isDark => theme.isDark;
+
+  /// Returns light [ThemeData] using cache
+  ThemeData buildLight() => cachedTheme(ThemeTypes.light, font);
+
+  /// Returns dark [ThemeData] using cache
+  ThemeData buildDark() => cachedTheme(ThemeTypes.dark, font);
+  //
+
+  /// Creates a copy with updated fields
+  ThemeConfig copyWith({ThemeTypes? theme, FontFamily? font}) {
+    return ThemeConfig(theme: theme ?? this.theme, font: font ?? this.font);
   }
 
-  /// 🧩 Fallback: default system mode
-  static AppThemesScheme fallback() =>
-      from(const ThemeModeAdapter(ThemeMode.system));
+  /// Human-readable label (e.g. "glass · SFProText")
+  String get label => '$theme · ${font.value}';
 
-  //
-}
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ThemeConfig &&
+          runtimeType == other.runtimeType &&
+          theme == other.theme &&
+          font == other.font;
 
-/// 🎨 [AppThemesScheme] — Theme container passed into MaterialApp
-/// ✅ Holds light/dark themes and current ThemeMode.
-
-@immutable
-final class AppThemesScheme {
-  /// ─────-----------------
-
-  final ThemeData light;
-  final ThemeData dark;
-  final ThemeMode mode;
-
-  const AppThemesScheme({
-    required this.light,
-    required this.dark,
-    required this.mode,
-  });
+  @override
+  int get hashCode => Object.hash(theme, font);
 }

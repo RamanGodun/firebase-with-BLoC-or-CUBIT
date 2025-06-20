@@ -1,8 +1,8 @@
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/extensions/theme_x.dart';
 import 'package:flutter/material.dart';
 import '../../../modules_shared/localization/widgets/text_widget.dart';
-import '../../../modules_shared/theme/core/app_colors.dart';
-import '../../../modules_shared/theme/core/constants/_app_constants.dart';
+import '../../../modules_shared/theme/theme_styling/constants/app_colors.dart';
+import '../../../modules_shared/theme/theme_styling/constants/_app_constants.dart';
 
 /// 🔁🌐 [RedirectTextButton] a reusable text button, used for navigation or redirects.
 

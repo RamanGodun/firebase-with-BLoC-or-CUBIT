@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/localization/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-import '../../theme/core/app_colors.dart';
-import '../../theme/core/constants/_app_constants.dart';
+import '../../theme/theme_styling/constants/app_colors.dart';
+import '../../theme/theme_styling/constants/_app_constants.dart';
 import '../generated/locale_keys.g.dart';
 
 /// 🌐🌍 Enum describing supported app languages with metadata

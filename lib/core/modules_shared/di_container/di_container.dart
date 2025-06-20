@@ -23,7 +23,7 @@ import '../../layers_shared/domain_shared/auth_state_refresher/auth_state_cubit/
 import '../navigation/core/_router_config.dart';
 import '../overlays/overlay_dispatcher/_overlay_dispatcher.dart';
 import '../overlays/overlay_dispatcher/overlay_status_cubit.dart';
-import '../theme/theme_cubit/theme_cubit.dart';
+import '../theme/core/theme_cubit.dart';
 
 /// 💠 Global [GetIt] instance used as service locator across the app
 final di = GetIt.instance;

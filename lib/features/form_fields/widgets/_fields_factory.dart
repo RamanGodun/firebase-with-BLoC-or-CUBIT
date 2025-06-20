@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import '../../../core/modules_shared/theme/core/constants/_app_constants.dart';
-import '../../../core/modules_shared/theme/core/constants/app_keys.dart';
+import '../../../core/modules_shared/theme/theme_styling/constants/_app_constants.dart';
+import '../../../core/modules_shared/theme/theme_styling/constants/app_keys.dart';
 import '../enums_for_form_fields_module.dart';
 import 'app_text_field.dart';
 

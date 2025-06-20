@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' show Border, BorderSide, BoxDecoration;
 
-import '../../core/constants/_app_constants.dart';
-import '../../core/app_colors.dart';
+import '../constants/_app_constants.dart';
+import '../constants/app_colors.dart';
 
 part 'ios_card_bd.dart';
 part 'ios_dialog_bd.dart';

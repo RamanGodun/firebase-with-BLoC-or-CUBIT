@@ -27,10 +27,10 @@ final class StartUpHandler {
     ///─────────────────────────────────
     //
     _initializeCoreBindings();
+    await _initHydratedStorage();
     await _initLocalization();
     await _initEnvFile();
     await _initFirebase();
-    await _initHydratedStorage();
   }
 
   ////
