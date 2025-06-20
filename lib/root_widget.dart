@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +18,7 @@ final class AppRootBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     //
     // ? Theme memoization
+    context.locale;
     return BlocBuilder<AppThemeCubit, AppThemeState>(
       buildWhen: (prev, curr) => prev != curr,
       builder: (context, state) {
@@ -49,7 +51,7 @@ final class _AppRootView extends StatelessWidget {
 
       /// 🎨 Theme configuration
       theme: config.theme.light,
-      darkTheme: config.theme.darkTheme,
+      darkTheme: config.theme.dark,
       themeMode: config.theme.mode,
 
       /// 🔁 GoRouter configuration
@@ -69,3 +71,35 @@ final class _AppRootView extends StatelessWidget {
     );
   }
 }
+
+/*
+class AppRouterBuilder extends StatelessWidget {
+  const AppRouterBuilder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<AuthCubit, AuthState, AuthState>(
+      selector: (state) => state,
+      builder: (context, authState) {
+        final goRouter = GoRouter(
+          refreshListenable: AuthStateRefresher(context.read<AuthCubit>().stream),
+          redirect: (context, state) {
+            return RoutesRedirectionService.from(context, state, authState);
+          },
+          routes: AppRoutes.all,
+          observers: [OverlayNavigatorObserver()],
+          errorBuilder: (context, state) =>
+              PageNotFound(errorMessage: state.error.toString()),
+          initialLocation: RoutesPaths.splash,
+          debugLogDiagnostics: true,
+        );
+
+        return MaterialApp.router(
+          routerConfig: goRouter,
+          // ... theme, locale, etc.
+        );
+      },
+    );
+  }
+}
+ */

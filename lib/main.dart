@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/modules_shared/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import 'root_widget.dart';
-import 'start_up_handler.dart';
+import 'start_up_bootstrap.dart';
 import 'core/modules_shared/di_container/di_container.dart';
 import 'core/modules_shared/localization/app_localization.dart';
 import 'core/layers_shared/presentation_layer_shared/widgets_shared/app_loaders.dart';

@@ -12,13 +12,13 @@ import '../modules_shared/theme/core/_theme_config.dart';
 final class AppRootConfig {
   ///--------------------
 
-  final AppThemesScheme theme;
   final LocalizationConfig localization;
+  final AppThemesScheme theme;
   final GoRouter router;
 
   const AppRootConfig({
-    required this.theme,
     required this.localization,
+    required this.theme,
     required this.router,
   });
   //
@@ -29,25 +29,21 @@ final class AppRootConfig {
     required AppThemeState themeState,
   }) {
     ///
-    //
-    // ? when use Riverpod state manager, uncomment next:
-    // final theme = ThemeConfig.from(ref.watch(themeModeProvider));
-    // ? when use BLoC state manager, uncomment next:
-    final theme = AppThemeBuilder.from(themeState);
-
-    ///
     final localization = LocalizationConfig.fromContext(context);
 
     ///
-    // ? when use Riverpod state manager, uncomment next:
-    // final router = AppRouterConfig.use(ref);
-    // ? when use BLoC state manager, uncomment next:
-    final router = AppRouterConfig.router;
+    final theme = AppThemeBuilder.from(themeState); // ? when using BLoC
+    // final theme = AppThemeBuilder.from(
+    //       ThemeModeAdapter(ref.watch(themeModeProvider)), //  ? when using Riverpod
+
+    ///
+    final router = AppRouterConfig.router; // ? when using BLoC
+    //  final router = ref.watch(goRouter); // ? when use Riverpod
 
     ///
     return AppRootConfig(
-      theme: theme,
       localization: localization,
+      theme: theme,
       router: router,
     );
   }

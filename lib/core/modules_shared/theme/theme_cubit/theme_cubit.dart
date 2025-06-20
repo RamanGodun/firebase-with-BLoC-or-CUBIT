@@ -1,5 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart' show ThemeMode;
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+
+import '../theme_utils/theme_mode_adapter.dart';
 
 part 'theme_state.dart';
 
