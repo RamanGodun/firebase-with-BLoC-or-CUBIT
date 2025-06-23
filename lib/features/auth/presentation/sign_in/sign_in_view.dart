@@ -9,7 +9,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import '../../../../core/modules_shared/navigation/app_routes/app_routes.dart';
 import '../../../../core/modules_shared/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import '../../../../core/utils_shared/spider/images_paths.dart';
-import '../../../../core/modules_shared/theme/theme_styling/constants/_app_constants.dart'
+import '../../../../core/modules_shared/theme/theme_styling/ui_constants/_app_constants.dart'
     show AppSpacing;
 import '../../../form_fields/enums_for_form_fields_module.dart';
 import '../../../form_fields/use_auth_focus_nodes.dart';

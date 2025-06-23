@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart' show GoRouter;
 import 'core/modules_shared/localization/generated/locale_keys.g.dart';
 import 'core/modules_shared/overlays/core/global_overlay_handler.dart';
 import 'core/modules_shared/navigation/core/_router_config.dart';
-import 'core/modules_shared/theme/core/_theme_config.dart';
+import 'core/modules_shared/theme/core/_theme_preferences.dart';
 import 'core/modules_shared/theme/core/theme_cubit.dart';
 
 /// 🌳🧩 [AppRootViewWrapper] — Top-level reactive widget listening to [AppThemeCubit].
@@ -22,7 +22,7 @@ final class AppRootViewWrapper extends StatelessWidget {
     return BlocSelector<RouterCubit, GoRouter, GoRouter>(
       selector: (router) => router,
       builder: (context, router) {
-        return BlocSelector<AppThemeCubit, ThemeConfig, ThemeConfig>(
+        return BlocSelector<AppThemeCubit, ThemePreferences, ThemePreferences>(
           selector: (config) => config,
           builder: (context, config) {
             return _AppRootView(

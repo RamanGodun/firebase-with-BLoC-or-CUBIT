@@ -1,12 +1,15 @@
-import 'package:go_router/go_router.dart';
-import '../../../layers_shared/domain_shared/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
-import '../../../layers_shared/presentation_layer_shared/pages_shared/page_not_found.dart';
-import '../../di_container/di_container.dart';
-import '../utils/overlay_navigation_observer.dart';
-import '../app_routes/app_routes.dart';
-import '../utils/routes_redirection_service.dart';
-import '../../../layers_shared/domain_shared/auth_state_refresher/auth_state_refresher.dart'
-    show AuthStateRefresher;
+part of '_router_config.dart';
+
+class GoRouterRefresher extends ChangeNotifier {
+  GoRouterRefresher(Stream<dynamic> stream) {
+    stream.listen((_) => notifyListeners());
+  }
+}
+
+/////
+
+/*
+
 
 /// 🧭🚦 [goRouter] — GoRouter configuration with global auth-aware redirect
 
@@ -45,3 +48,5 @@ final GoRouter goRouter = GoRouter(
 
   //
 );
+
+ */

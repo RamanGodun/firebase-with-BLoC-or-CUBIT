@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-/// 🎨 [ContextThemeX] — Theme-related extensions on [BuildContext]
+/// 🎨 [ThemeXOnContext] — Theme-related extensions on [BuildContext]
 /// ✅ Simplifies access to [ThemeData], [ColorScheme], [TextTheme], and brightness
 
-extension ContextThemeX on BuildContext {
+extension ThemeXOnContext on BuildContext {
   //-----------------------------------
 
   /// 🎨 Full [ThemeData] object

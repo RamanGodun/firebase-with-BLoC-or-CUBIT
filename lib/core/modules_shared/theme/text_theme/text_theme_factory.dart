@@ -10,9 +10,9 @@ abstract final class TextThemeFactory {
   ///────────────────────────────
 
   /// 🎨 Builds TextTheme using color + optional font
-  static TextTheme from(Color color, {FontFamily? font}) {
+  static TextTheme from(Color color, {AppFontFamily? font}) {
     //
-    final fontFamily = (font ?? FontFamily.sfPro).value;
+    final fontFamily = (font ?? AppFontFamily.sfPro).value;
 
     return TextTheme(
       titleLarge: _builder(color, FontWeight.w600, 22, fontFamily),
@@ -43,11 +43,13 @@ abstract final class TextThemeFactory {
   ////
 
   /// 🎨 From brightness shortcut
-  static TextTheme fromBrightness(Brightness brightness, {FontFamily? font}) =>
-      from(
-        brightness == Brightness.dark ? Colors.white : Colors.black,
-        font: font,
-      );
+  static TextTheme fromBrightness(
+    Brightness brightness, {
+    AppFontFamily? font,
+  }) => from(
+    brightness == Brightness.dark ? Colors.white : Colors.black,
+    font: font,
+  );
 
   //
 }

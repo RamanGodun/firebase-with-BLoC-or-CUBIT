@@ -7,6 +7,8 @@ import '../app_routes/app_routes.dart';
 import '../utils/overlay_navigation_observer.dart';
 import '../utils/routes_redirection_service.dart';
 
+part 'go_router.dart';
+
 class RouterCubit extends Cubit<GoRouter> {
   RouterCubit(AuthCubit authCubit)
     : super(
@@ -44,14 +46,4 @@ class RouterCubit extends Cubit<GoRouter> {
           //
         ),
       );
-}
-
-////
-
-////
-
-class GoRouterRefresher extends ChangeNotifier {
-  GoRouterRefresher(Stream<dynamic> stream) {
-    stream.listen((_) => notifyListeners());
-  }
 }

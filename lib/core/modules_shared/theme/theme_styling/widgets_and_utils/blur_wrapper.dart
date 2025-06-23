@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/extensions/theme_x.dart';
 import 'package:flutter/material.dart';
 import '../../../overlays/core/enums_for_overlay_module.dart';
-import '../constants/_app_constants.dart';
+import '../ui_constants/_app_constants.dart';
 
 /// 🧊 [BlurContainer] — Glassmorphism wrapper with built-in blur & rounding
 /// - Wraps child with ClipRRect + BackdropFilter

@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import '../../../core/modules_shared/overlays/overlay_dispatcher/overlay_status_cubit.dart';
-import '../../../core/modules_shared/theme/theme_styling/constants/app_colors.dart';
+import '../../../core/modules_shared/theme/theme_styling/ui_constants/app_colors.dart';
 import '../../../core/utils_shared/typedef.dart';
 import '../../../core/modules_shared/localization/widgets/text_widget.dart';
-import '../../../core/modules_shared/theme/theme_styling/constants/app_keys.dart';
+import '../../../core/modules_shared/theme/theme_styling/ui_constants/app_keys.dart';
 
 /// ✅ [FormSubmitButton] — A reusable submit button
 /// with validation logic and animated loading indicator

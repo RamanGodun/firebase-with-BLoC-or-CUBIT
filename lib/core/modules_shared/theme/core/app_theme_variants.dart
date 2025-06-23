@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import '../text_theme/text_theme_factory.dart';
-import '../theme_styling/constants/app_colors.dart';
-import '../theme_styling/constants/_app_constants.dart';
+import '../theme_styling/ui_constants/app_colors.dart';
+import '../theme_styling/ui_constants/_app_constants.dart';
 
-part 'theme_types_x.dart';
+part 'build_theme_x.dart';
 
-/// 🎨 [ThemeTypes] — Enhanced enum that defines full theme variants
+/// 🎨 [ThemeVariantsEnum] — Enhanced enum that defines full theme variants
 /// ✅ Used to generate [ThemeData] dynamically
 
-enum ThemeTypes {
+enum ThemeVariantsEnum {
   //---------------
 
   light(
@@ -28,7 +28,7 @@ enum ThemeTypes {
       onSurface: AppColors.black,
       error: AppColors.forErrors,
     ),
-    font: FontFamily.sfPro,
+    font: AppFontFamily.sfPro,
   ),
 
   dark(
@@ -48,7 +48,7 @@ enum ThemeTypes {
       onSurface: AppColors.white,
       error: AppColors.forErrors,
     ),
-    font: FontFamily.sfPro,
+    font: AppFontFamily.sfPro,
   ),
 
   amoled(
@@ -68,7 +68,7 @@ enum ThemeTypes {
       onSurface: AppColors.white,
       error: AppColors.forErrors,
     ),
-    font: FontFamily.sfPro,
+    font: AppFontFamily.sfPro,
   );
 
   ////
@@ -79,9 +79,9 @@ enum ThemeTypes {
   final Color cardColor;
   final Color contrastColor;
   final ColorScheme colorScheme;
-  final FontFamily font;
+  final AppFontFamily font;
 
-  const ThemeTypes({
+  const ThemeVariantsEnum({
     required this.brightness,
     required this.background,
     required this.primaryColor,
@@ -98,7 +98,7 @@ enum ThemeTypes {
   ThemeMode get themeMode => isDark ? ThemeMode.dark : ThemeMode.light;
 
   /// 🔤 Selected font family
-  FontFamily get defaultFont => FontFamily.sfPro;
+  AppFontFamily get defaultFont => AppFontFamily.sfPro;
 
   //
 }

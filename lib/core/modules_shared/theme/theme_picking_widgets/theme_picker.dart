@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../localization/app_localizer.dart';
 import '../../localization/generated/locale_keys.g.dart';
 import '../../overlays/core/_context_x_for_overlays.dart';
-import '../core/_theme_config.dart';
+import '../core/_theme_preferences.dart';
 import '../core/theme_cubit.dart';
-import '../core/theme_type_enum.dart.dart';
+import '../core/app_theme_variants.dart';
 
 final class ThemePicker extends StatelessWidget {
   ///--------------------------------------
@@ -14,16 +14,16 @@ final class ThemePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppThemeCubit, ThemeConfig>(
+    return BlocBuilder<AppThemeCubit, ThemePreferences>(
       builder: (context, state) {
-        return DropdownButton<ThemeTypes>(
+        return DropdownButton<ThemeVariantsEnum>(
           key: ValueKey(Localizations.localeOf(context).languageCode),
           value: state.theme,
           icon: const Icon(Icons.arrow_drop_down),
           underline: const SizedBox(),
 
           // 🔄 On theme change
-          onChanged: (ThemeTypes? selected) {
+          onChanged: (ThemeVariantsEnum? selected) {
             if (selected == null) return;
 
             // 🟢 Update theme
@@ -38,8 +38,8 @@ final class ThemePicker extends StatelessWidget {
 
           // 📃 Theme options
           items:
-              ThemeTypes.values.map((type) {
-                return DropdownMenuItem<ThemeTypes>(
+              ThemeVariantsEnum.values.map((type) {
+                return DropdownMenuItem<ThemeVariantsEnum>(
                   value: type,
                   child: Text(
                     _themeLabel(context, type),
@@ -52,24 +52,24 @@ final class ThemePicker extends StatelessWidget {
     );
   }
 
-  String _themeLabel(BuildContext context, ThemeTypes type) {
+  String _themeLabel(BuildContext context, ThemeVariantsEnum type) {
     switch (type) {
-      case ThemeTypes.light:
+      case ThemeVariantsEnum.light:
         return AppLocalizer.t(LocaleKeys.theme_light);
-      case ThemeTypes.dark:
+      case ThemeVariantsEnum.dark:
         return AppLocalizer.t(LocaleKeys.theme_dark);
-      case ThemeTypes.amoled:
+      case ThemeVariantsEnum.amoled:
         return AppLocalizer.t(LocaleKeys.theme_amoled);
     }
   }
 
-  String _chosenThemeLabel(BuildContext context, ThemeTypes type) {
+  String _chosenThemeLabel(BuildContext context, ThemeVariantsEnum type) {
     switch (type) {
-      case ThemeTypes.light:
+      case ThemeVariantsEnum.light:
         return AppLocalizer.t(LocaleKeys.theme_light_enabled);
-      case ThemeTypes.dark:
+      case ThemeVariantsEnum.dark:
         return AppLocalizer.t(LocaleKeys.theme_dark_enabled);
-      case ThemeTypes.amoled:
+      case ThemeVariantsEnum.amoled:
         return AppLocalizer.t(LocaleKeys.theme_amoled_enabled);
     }
   }

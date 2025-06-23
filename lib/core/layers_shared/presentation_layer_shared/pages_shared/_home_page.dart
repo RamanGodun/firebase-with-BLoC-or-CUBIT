@@ -1,10 +1,10 @@
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/navigation/extensions/navigation_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/extensions/theme_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/theme_styling/blur_and_filter/blur_wrapper.dart';
+import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/theme_styling/widgets_and_utils/blur_wrapper.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/theme_styling/constants/_app_constants.dart';
+import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/theme_styling/ui_constants/_app_constants.dart';
 import 'package:firebase_with_bloc_or_cubit/core/layers_shared/presentation_layer_shared/widgets_shared/custom_app_bar.dart';
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/localization/widgets/text_widget.dart';
 import '../../../modules_shared/navigation/app_routes/app_routes.dart';

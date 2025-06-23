@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import '../text_theme/text_theme_factory.dart';
 import 'theme_cache_mixin.dart';
-import 'theme_type_enum.dart.dart';
+import 'app_theme_variants.dart';
 
-/// 🎨 [ThemeConfig] — Lightweight configuration for theme and font
-/// ✅ Contains only enums: [ThemeTypes] and [FontFamily]
+/// 🎨 [ThemePreferences] — Lightweight configuration for theme and font
+/// ✅ Contains only enums: [ThemeVariantsEnum] and [AppFontFamily]
 /// 🚫 Does not hold ThemeData directly to prevent unnecessary rebuilds
 
 @immutable
-final class ThemeConfig with ThemeCacheMixin {
+final class ThemePreferences with ThemeCacheMixin {
   ///---------------------------------------
 
   // Selected theme variant (light, dark, glass, amoled)
-  final ThemeTypes theme;
+  final ThemeVariantsEnum theme;
   // Selected font family (e.g., SF Pro, Aeonik)
-  final FontFamily font;
+  final AppFontFamily font;
 
-  const ThemeConfig({required this.theme, required this.font});
+  const ThemePreferences({required this.theme, required this.font});
   //
 
   /// Resolves [ThemeMode] based on current theme
@@ -26,15 +26,19 @@ final class ThemeConfig with ThemeCacheMixin {
   bool get isDark => theme.isDark;
 
   /// Returns light [ThemeData] using cache
-  ThemeData buildLight() => cachedTheme(ThemeTypes.light, font);
+  ThemeData buildLight() =>
+      cachedTheme(ThemeVariantsEnum.light, ThemeVariantsEnum.light.font);
 
   /// Returns dark [ThemeData] using cache
-  ThemeData buildDark() => cachedTheme(ThemeTypes.dark, font);
+  ThemeData buildDark() => cachedTheme(theme, ThemeVariantsEnum.dark.font);
   //
 
   /// Creates a copy with updated fields
-  ThemeConfig copyWith({ThemeTypes? theme, FontFamily? font}) {
-    return ThemeConfig(theme: theme ?? this.theme, font: font ?? this.font);
+  ThemePreferences copyWith({ThemeVariantsEnum? theme, AppFontFamily? font}) {
+    return ThemePreferences(
+      theme: theme ?? this.theme,
+      font: font ?? this.font,
+    );
   }
 
   /// Human-readable label (e.g. "glass · SFProText")
@@ -43,7 +47,7 @@ final class ThemeConfig with ThemeCacheMixin {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ThemeConfig &&
+      other is ThemePreferences &&
           runtimeType == other.runtimeType &&
           theme == other.theme &&
           font == other.font;

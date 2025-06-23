@@ -1,9 +1,9 @@
 part of 'text_theme_factory.dart';
 
-/// 🔤 [FontFamily] — Enhanced enum for supported fonts
+/// 🔤 [AppFontFamily] — Enhanced enum for supported fonts
 /// 🧩 Can be extended to support Google Fonts in future
 
-enum FontFamily {
+enum AppFontFamily {
   //----------------
 
   sfPro('SFProText');
@@ -12,7 +12,7 @@ enum FontFamily {
   // google => custom dynamic font loading could go here later
 
   final String value;
-  const FontFamily(this.value);
+  const AppFontFamily(this.value);
 
   //
 }
