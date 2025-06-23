@@ -1,4 +1,4 @@
-import 'enums_for_form_fields_module.dart';
+import '../input_validation/_validation_enums.dart';
 
 /// 🧠 [FormValidationService] — Handles input field validation logic.
 /// ✅ Keeps Cubit clean (only state orchestration)

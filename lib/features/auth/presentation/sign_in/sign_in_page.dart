@@ -3,9 +3,9 @@ import 'package:firebase_with_bloc_or_cubit/core/modules_shared/overlays/core/en
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/modules_shared/di_container/di_container.dart';
-import '../../../form_fields/_form_validation_service.dart';
+import '../../../form_fields/utils/_form_validation_service.dart';
 import '../../services/sign_in_service.dart';
-import '../../../form_fields/formz_status_x.dart';
+import '../../../form_fields/input_validation/formz_status_x.dart';
 import '../../domain/use_cases/ensure_profile_created.dart';
 import '../../domain/use_cases/sign_in.dart';
 import 'cubit/sign_in_page_cubit.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' show ThemeData;
 import '../text_theme/text_theme_factory.dart';
-import 'app_theme_variants.dart';
+import '../app_theme_variants.dart';
 
 /// 🧩 [ThemeCacheMixin] — Caches ThemeData by (ThemeTypes, FontFamily) pair
 

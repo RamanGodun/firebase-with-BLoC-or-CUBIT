@@ -1,4 +1,4 @@
-part of '../enums_for_form_fields_module.dart';
+part of '_validation_enums.dart';
 
 /// 📧 [EmailInputValidation] — Formz input for validating user email.
 /// Checks for non-empty input and valid email format.

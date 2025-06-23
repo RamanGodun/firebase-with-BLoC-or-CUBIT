@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../text_theme/text_theme_factory.dart';
-import '../theme_styling/ui_constants/app_colors.dart';
-import '../theme_styling/ui_constants/_app_constants.dart';
+import 'text_theme/text_theme_factory.dart';
+import 'ui_constants/_app_constants.dart';
+import 'ui_constants/app_colors.dart';
 
 part 'build_theme_x.dart';
 

@@ -1,4 +1,4 @@
-part of '../enums_for_form_fields_module.dart';
+part of '_validation_enums.dart';
 
 /// 🔒 [PasswordInput] — Validates presence and minimum password length.
 

@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../../../overlays/core/enums_for_overlay_module.dart';
+import '../../overlays/core/enums_for_overlay_module.dart';
 import '../ui_constants/app_colors.dart';
 
 /// 🧊 [OverlayBarrierFilter] — Consistent blurred overlay backgrounds

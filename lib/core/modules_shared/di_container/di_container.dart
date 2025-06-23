@@ -13,17 +13,17 @@ import '../../../features/auth/domain/use_cases/sign_in.dart';
 import '../../../features/auth/domain/use_cases/sign_out.dart';
 import '../../../features/auth/domain/use_cases/sign_up.dart';
 import '../../../features/auth/presentation/sign_out/sign_out_cubit/sign_out_cubit.dart';
-import '../../../features/form_fields/_form_validation_service.dart';
+import '../../../features/form_fields/utils/_form_validation_service.dart';
 import '../../../features/profile/data/_profile_repo_impl.dart';
 import '../../../features/profile/data/data_source_contract.dart';
 import '../../../features/profile/data/impl_of_data_source_contract.dart';
 import '../../../features/profile/domain/load_profile_use_case.dart';
 import '../../../features/profile/domain/profile_repository.dart';
 import '../../layers_shared/domain_shared/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
-import '../navigation/core/_router_config.dart';
+import '../navigation/core/router_cubit.dart';
 import '../overlays/overlay_dispatcher/_overlay_dispatcher.dart';
 import '../overlays/overlay_dispatcher/overlay_status_cubit.dart';
-import '../theme/core/theme_cubit.dart';
+import '../theme/theme_cubit.dart';
 
 /// 💠 Global [GetIt] instance used as service locator across the app
 final di = GetIt.instance;

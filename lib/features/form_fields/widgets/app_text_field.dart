@@ -47,6 +47,9 @@ class AppTextField extends StatelessWidget {
     //
     final resolvedLabel = _resolveLabel(label, fallback);
 
+    debugPrint('⚠️ label: $label');
+    debugPrint('⚠️ errorText: $errorText');
+
     return TextField(
       key: fieldKey,
       focusNode: focusNode,

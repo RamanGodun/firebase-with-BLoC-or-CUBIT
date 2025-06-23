@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/layers_shared/domain_shared/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
-import 'core/modules_shared/navigation/core/_router_config.dart';
+import 'core/modules_shared/navigation/core/router_cubit.dart';
 import 'core/modules_shared/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import 'root_widget.dart';
 import 'start_up_bootstrap.dart';
 import 'core/modules_shared/di_container/di_container.dart';
 import 'core/modules_shared/localization/app_localization.dart';
 import 'core/layers_shared/presentation_layer_shared/widgets_shared/app_loaders.dart';
-import 'core/modules_shared/theme/core/theme_cubit.dart';
+import 'core/modules_shared/theme/theme_cubit.dart';
 
 /// 🏁 Entry point of the application.
 /// ✅ Performs synchronous bootstrapping and launches the app.

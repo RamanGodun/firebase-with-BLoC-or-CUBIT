@@ -1,4 +1,4 @@
-part of '../enums_for_form_fields_module.dart';
+part of '_validation_enums.dart';
 
 /// 🔐 [ConfirmPasswordInput] — Formz input that validates password confirmation.
 /// Ensures the value is non-empty and matches the original password.

@@ -1,10 +1,10 @@
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/navigation/extensions/navigation_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/extensions/theme_x.dart';
 import 'package:flutter/cupertino.dart';
-import '../../../modules_shared/theme/theme_styling/ui_constants/_app_constants.dart'
+import '../../../modules_shared/theme/ui_constants/_app_constants.dart'
     show AppSpacing;
 import '../../../modules_shared/localization/widgets/text_widget.dart';
-import '../../../modules_shared/theme/theme_styling/ui_constants/app_colors.dart';
+import '../../../modules_shared/theme/ui_constants/app_colors.dart';
 
 /// 🌍 [CustomButtonForGoRouter] styled full-width button,
 /// that performs either GoRouter navigation or custom action.

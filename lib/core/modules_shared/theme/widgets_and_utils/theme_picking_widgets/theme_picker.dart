@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../localization/app_localizer.dart';
-import '../../localization/generated/locale_keys.g.dart';
-import '../../overlays/core/_context_x_for_overlays.dart';
-import '../core/_theme_preferences.dart';
-import '../core/theme_cubit.dart';
-import '../core/app_theme_variants.dart';
+import '../../../localization/app_localizer.dart';
+import '../../../localization/generated/locale_keys.g.dart';
+import '../../../overlays/core/_context_x_for_overlays.dart';
+import '../../_theme_preferences.dart';
+import '../../theme_cubit.dart';
+import '../../app_theme_variants.dart';
 
 final class ThemePicker extends StatelessWidget {
   ///--------------------------------------
