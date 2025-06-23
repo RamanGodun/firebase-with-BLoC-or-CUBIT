@@ -127,7 +127,8 @@
     "amoled_enabled": "now is  \"Amoled Mode\"",
     "light": "Light theme",
     "dark": "Dark theme ",
-    "amoled": "Amoled theme"
+    "amoled": "Amoled theme",
+    "choose_theme": "Choose theme"
      }
 
 

@@ -96,6 +96,7 @@ abstract class  LocaleKeys {
   static const theme_light = 'theme.light';
   static const theme_dark = 'theme.dark';
   static const theme_amoled = 'theme.amoled';
+  static const theme_choose_theme = 'theme.choose_theme';
   static const theme = 'theme';
 
 }

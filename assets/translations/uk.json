@@ -125,6 +125,7 @@
     "amoled_enabled": "Зараз увімкнено  \"Амолед тему\"",
     "light": "Світла тема",
     "dark": "Темна тема",
-    "amoled": "AMOLED тема"
+    "amoled": "AMOLED тема", 
+    "choose_theme": "Оберіть тему"
   }
 }

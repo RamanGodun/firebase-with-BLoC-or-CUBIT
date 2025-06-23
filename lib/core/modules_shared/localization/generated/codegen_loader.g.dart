@@ -130,7 +130,8 @@ class CodegenLoader extends AssetLoader{
     "amoled_enabled": "Obecnie  \"Amoled Tryb\"",
     "light": "Motyw jasny",
     "dark": "Motyw ciemny",
-    "amoled": "Motyw AMOLED"
+    "amoled": "Motyw AMOLED",
+    "choose_theme": "Wybierz motyw"
   }
 };
 static const Map<String,dynamic> _uk = {
@@ -249,7 +250,8 @@ static const Map<String,dynamic> _uk = {
     "amoled_enabled": "Зараз увімкнено  \"Амолед тему\"",
     "light": "Світла тема",
     "dark": "Темна тема",
-    "amoled": "AMOLED тема"
+    "amoled": "AMOLED тема",
+    "choose_theme": "Оберіть тему"
   }
 };
 static const Map<String,dynamic> _en = {
@@ -368,7 +370,8 @@ static const Map<String,dynamic> _en = {
     "amoled_enabled": "now is  \"Amoled Mode\"",
     "light": "Light theme",
     "dark": "Dark theme ",
-    "amoled": "Amoled theme"
+    "amoled": "Amoled theme",
+    "choose_theme": "Choose theme"
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"pl": _pl, "uk": _uk, "en": _en};

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,11 +33,7 @@ final class ProfileView extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBar(
         title: LocaleKeys.pages_profile,
-        actionWidgets: [
-          ThemeToggleIcon(),
-          LanguageToggleButton(),
-          SignOutWidget(),
-        ],
+        actionWidgets: [LanguageToggleButton(), SignOutWidget()],
       ),
 
       ///

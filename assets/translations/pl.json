@@ -126,6 +126,7 @@
     "amoled_enabled": "Obecnie  \"Amoled Tryb\"",
     "light": "Motyw jasny",
     "dark": "Motyw ciemny",
-    "amoled": "Motyw AMOLED"
+    "amoled": "Motyw AMOLED",
+    "choose_theme": "Wybierz motyw"
   }
 }
