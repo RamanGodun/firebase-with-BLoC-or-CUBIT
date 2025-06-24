@@ -17,16 +17,15 @@ final class PasswordInput extends FormzInput<String, PasswordValidationError> {
     return null;
   }
 
-  /// 🧼 Converts enum to readable message
-  String? get errorText => switch (error) {
-    PasswordValidationError.empty => 'Password is required',
-    PasswordValidationError.tooShort =>
-      'Password must be at least 6 characters',
+  /// 🧼 Converts enum to a localizable message key
+  String? get errorKey => switch (error) {
+    PasswordValidationError.empty => LocaleKeys.form_password_required,
+    PasswordValidationError.tooShort => LocaleKeys.form_password_too_short,
     _ => null,
   };
 
-  /// 🔁 Used by widgets to show message only when needed
-  String? get uiError => isPure || isValid ? null : errorText;
+  /// 🔁 Used by UI widgets (returns key only when invalid & dirty)
+  String? get uiErrorKey => isPure || isValid ? null : errorKey;
 
   //
 }

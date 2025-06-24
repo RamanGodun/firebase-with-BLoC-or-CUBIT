@@ -85,10 +85,12 @@ class CodegenLoader extends AssetLoader{
   "form": {
     "confirm_password": "Potwierdź hasło",
     "email": "Email",
+    "email_is_empty": "nie może być puste",
+    "email_is_invalid": "nieprawidłowy format",
     "name": "Imię",
     "password": "Hasło",
-    "email_is_empty": "nie może być puste",
-    "email_is_invalid": "nieprawidłowy format"
+    "password_required": "Hasło jest wymagane",
+    "password_too_short": "Hasło musi mieć co najmniej 6 znaków"
   },
   "info": {
     "bloc_slogan": "Bloc to świetna biblioteka zarządzania stanem dla Fluttera!"
@@ -210,7 +212,9 @@ static const Map<String,dynamic> _uk = {
     "email_is_empty": "не може бути пустою",
     "email_is_invalid": "некоректний формат",
     "name": "Ім'я",
-    "password": "Пароль"
+    "password": "Пароль",
+    "password_required": "потрібно вести пароль",
+    "password_too_short": "має бути щонайменше 6 символів"
   },
   "info": {
     "bloc_slogan": "Bloc — це чудова бібліотека управління станом для Flutter!"
@@ -329,10 +333,12 @@ static const Map<String,dynamic> _en = {
   "form": {
     "confirm_password": "Confirm Password",
     "email": "Email",
+    "email_is_empty": "cannot be empty",
+    "email_is_invalid": "invalid format",
     "name": "Name",
     "password": "Password",
-    "email_is_empty": "cannot be empty",
-    "email_is_invalid": "invalid format"
+    "password_required": "Password is required",
+    "password_too_short": "Password must be at least 6 characters"
   },
   "info": {
     "bloc_slogan": "Bloc is an awesome state management library for Flutter!"

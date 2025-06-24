@@ -58,10 +58,12 @@ abstract class  LocaleKeys {
   static const failure = 'failure';
   static const form_confirm_password = 'form.confirm_password';
   static const form_email = 'form.email';
-  static const form_name = 'form.name';
-  static const form_password = 'form.password';
   static const form_email_is_empty = 'form.email_is_empty';
   static const form_email_is_invalid = 'form.email_is_invalid';
+  static const form_name = 'form.name';
+  static const form_password = 'form.password';
+  static const form_password_required = 'form.password_required';
+  static const form_password_too_short = 'form.password_too_short';
   static const form = 'form';
   static const info_bloc_slogan = 'info.bloc_slogan';
   static const info = 'info';

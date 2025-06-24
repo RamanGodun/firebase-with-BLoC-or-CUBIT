@@ -74,10 +74,12 @@
   "form": {
     "confirm_password": "Confirm Password",
     "email": "Email",
+    "email_is_empty": "cannot be empty",
+    "email_is_invalid": "invalid format",
     "name": "Name",
     "password": "Password",
-    "email_is_empty": "cannot be empty",
-    "email_is_invalid": "invalid format"
+    "password_required": "Password is required",
+    "password_too_short": "Password must be at least 6 characters"
   },
 
   "info": {

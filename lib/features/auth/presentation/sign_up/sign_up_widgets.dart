@@ -100,7 +100,7 @@ final class _PasswordField extends StatelessWidget {
     return BlocSelector<SignUpCubit, SignUpState, FieldUiState>(
       selector:
           (state) => (
-            errorText: state.password.uiError,
+            errorText: state.password.uiErrorKey,
             isObscure: state.isPasswordObscure,
           ),
       builder: (context, field) {

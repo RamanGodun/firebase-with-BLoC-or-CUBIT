@@ -19,7 +19,7 @@ final class EmailInputValidation
     return null;
   }
 
-  /// 🧼 [errorText] — Converts enum error to a human-readable message
+  /// 🧼 Converts enum to a localizable message key
   String? get errorText => switch (error) {
     EmailValidationError.empty => 'Email is required',
     EmailValidationError.invalid => 'Invalid email address',

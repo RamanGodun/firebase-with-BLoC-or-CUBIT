@@ -74,10 +74,12 @@
   "form": {
     "confirm_password": "Potwierdź hasło",
     "email": "Email",
+    "email_is_empty": "nie może być puste",
+    "email_is_invalid": "nieprawidłowy format",
     "name": "Imię",
     "password": "Hasło",
-    "email_is_empty": "nie może być puste",
-    "email_is_invalid": "nieprawidłowy format"  
+    "password_required": "Hasło jest wymagane",
+    "password_too_short": "Hasło musi mieć co najmniej 6 znaków" 
   },
 
   "info": {

@@ -76,7 +76,9 @@
     "email_is_empty": "не може бути пустою",
     "email_is_invalid": "некоректний формат",
     "name": "Ім'я",
-    "password": "Пароль"
+    "password": "Пароль",
+    "password_required": "потрібно вести пароль",
+    "password_too_short": "має бути щонайменше 6 символів"
   },
 
   "info": {
