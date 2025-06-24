@@ -74,12 +74,12 @@ class AppTextField extends StatelessWidget {
   }
 
   /// 🔤 Resolves [label] as localization key if applicable.
-  /// - Uses [AppLocalizer.t] if initialized and key-like (contains '.')
+  /// - Uses [AppLocalizer.translateSafely] if initialized and key-like (contains '.')
   /// - Falls back to [fallback] or raw label
   String _resolveLabel(String raw, String? fallback) {
     final isLocalCaseKey = raw.contains('.');
     if (isLocalCaseKey && AppLocalizer.isInitialized) {
-      return AppLocalizer.t(raw, fallback: fallback ?? raw);
+      return AppLocalizer.translateSafely(raw, fallback: fallback ?? raw);
     }
     return raw;
   }

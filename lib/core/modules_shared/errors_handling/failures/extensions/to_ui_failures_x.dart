@@ -19,8 +19,11 @@ extension FailureToUIEntityX on Failure {
       translationKey?.isNotEmpty,
       message.isNotEmpty,
     )) {
-      (true, true) => AppLocalizer.t(translationKey!, fallback: message),
-      (true, false) => AppLocalizer.t(translationKey!),
+      (true, true) => AppLocalizer.translateSafely(
+        translationKey!,
+        fallback: message,
+      ),
+      (true, false) => AppLocalizer.translateSafely(translationKey!),
       _ => message,
     };
 

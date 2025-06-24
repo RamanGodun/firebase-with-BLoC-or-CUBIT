@@ -7,7 +7,7 @@ abstract final class AppLocalizer {
   static String Function(String key)? _resolver;
 
   /// 🌐 Resolves a translation key or returns fallback
-  static String t(String key, {String? fallback}) {
+  static String translateSafely(String key, {String? fallback}) {
     final value = _resolver?.call(key);
     final resolved = (value == null || value == key);
     if (resolved) {

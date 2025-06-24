@@ -150,7 +150,7 @@ final class TextWidget extends StatelessWidget {
   String _resolveText(String raw, String? fallback) {
     final isLocalCaseKey = raw.contains('.');
     if (isLocalCaseKey && AppLocalizer.isInitialized) {
-      return AppLocalizer.t(raw, fallback: fallback ?? raw);
+      return AppLocalizer.translateSafely(raw, fallback: fallback ?? raw);
     }
     return raw;
   }

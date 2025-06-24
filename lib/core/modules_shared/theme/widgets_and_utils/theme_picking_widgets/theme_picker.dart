@@ -55,22 +55,22 @@ final class ThemePicker extends StatelessWidget {
   String _themeLabel(BuildContext context, ThemeVariantsEnum type) {
     switch (type) {
       case ThemeVariantsEnum.light:
-        return AppLocalizer.t(LocaleKeys.theme_light);
+        return AppLocalizer.translateSafely(LocaleKeys.theme_light);
       case ThemeVariantsEnum.dark:
-        return AppLocalizer.t(LocaleKeys.theme_dark);
+        return AppLocalizer.translateSafely(LocaleKeys.theme_dark);
       case ThemeVariantsEnum.amoled:
-        return AppLocalizer.t(LocaleKeys.theme_amoled);
+        return AppLocalizer.translateSafely(LocaleKeys.theme_amoled);
     }
   }
 
   String _chosenThemeLabel(BuildContext context, ThemeVariantsEnum type) {
     switch (type) {
       case ThemeVariantsEnum.light:
-        return AppLocalizer.t(LocaleKeys.theme_light_enabled);
+        return AppLocalizer.translateSafely(LocaleKeys.theme_light_enabled);
       case ThemeVariantsEnum.dark:
-        return AppLocalizer.t(LocaleKeys.theme_dark_enabled);
+        return AppLocalizer.translateSafely(LocaleKeys.theme_dark_enabled);
       case ThemeVariantsEnum.amoled:
-        return AppLocalizer.t(LocaleKeys.theme_amoled_enabled);
+        return AppLocalizer.translateSafely(LocaleKeys.theme_amoled_enabled);
     }
   }
 }

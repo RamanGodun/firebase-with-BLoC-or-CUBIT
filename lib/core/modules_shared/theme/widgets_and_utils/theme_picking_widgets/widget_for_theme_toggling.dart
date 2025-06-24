@@ -37,7 +37,7 @@ final class ThemeToggleIcon extends StatelessWidget {
               wasDark
                   ? LocaleKeys.theme_light_enabled
                   : LocaleKeys.theme_dark_enabled;
-          final message = AppLocalizer.t(msgKey);
+          final message = AppLocalizer.translateSafely(msgKey);
 
           // 🌟 Show overlay with correct message and icon
           context.showUserBanner(message: message, icon: icon);
