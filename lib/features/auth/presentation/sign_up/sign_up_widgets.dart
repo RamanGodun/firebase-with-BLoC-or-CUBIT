@@ -66,7 +66,7 @@ final class _EmailField extends StatelessWidget {
   Widget build(BuildContext context) {
     //
     return BlocSelector<SignUpCubit, SignUpState, String?>(
-      selector: (state) => state.email.uiError,
+      selector: (state) => state.email.uiErrorKey,
       builder: (context, errorText) {
         return InputFieldFactory.create(
           type: InputFieldType.email,

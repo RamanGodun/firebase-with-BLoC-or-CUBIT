@@ -1,3 +1,4 @@
+import 'package:firebase_with_bloc_or_cubit/core/modules_shared/localization/extensions/string_x.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/modules_shared/localization/app_localizer.dart';
@@ -19,7 +20,7 @@ class AppTextField extends StatelessWidget {
   final String? fallback;
   final IconData icon;
   final bool obscure;
-  final String? errorText;
+  final String? errorKey;
   final TextInputType? keyboardType;
   final void Function(String) onChanged;
   final VoidCallback? onSubmitted;
@@ -33,7 +34,7 @@ class AppTextField extends StatelessWidget {
     required this.icon,
     required this.obscure,
     this.suffixIcon,
-    this.errorText,
+    this.errorKey,
     this.keyboardType,
     required this.onChanged,
     this.onSubmitted,
@@ -48,7 +49,7 @@ class AppTextField extends StatelessWidget {
     final resolvedLabel = _resolveLabel(label, fallback);
 
     debugPrint('⚠️ label: $label');
-    debugPrint('⚠️ errorText: $errorText');
+    debugPrint('⚠️ errorText: $errorKey');
 
     return TextField(
       key: fieldKey,
@@ -66,7 +67,7 @@ class AppTextField extends StatelessWidget {
         labelText: resolvedLabel,
         prefixIcon: Icon(icon),
         suffixIcon: suffixIcon,
-        errorText: errorText,
+        errorText: errorKey?.translateOrNull,
       ),
       onChanged: onChanged,
       onSubmitted: (_) => onSubmitted?.call(),

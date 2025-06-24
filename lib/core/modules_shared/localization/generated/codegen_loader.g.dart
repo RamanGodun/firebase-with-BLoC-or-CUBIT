@@ -86,7 +86,9 @@ class CodegenLoader extends AssetLoader{
     "confirm_password": "Potwierdź hasło",
     "email": "Email",
     "name": "Imię",
-    "password": "Hasło"
+    "password": "Hasło",
+    "email_is_empty": "nie może być puste",
+    "email_is_invalid": "nieprawidłowy format"
   },
   "info": {
     "bloc_slogan": "Bloc to świetna biblioteka zarządzania stanem dla Fluttera!"
@@ -205,6 +207,8 @@ static const Map<String,dynamic> _uk = {
   "form": {
     "confirm_password": "Підтвердження паролю",
     "email": "Електронна пошта",
+    "email_is_empty": "не може бути пустою",
+    "email_is_invalid": "некоректний формат",
     "name": "Ім'я",
     "password": "Пароль"
   },
@@ -326,7 +330,9 @@ static const Map<String,dynamic> _en = {
     "confirm_password": "Confirm Password",
     "email": "Email",
     "name": "Name",
-    "password": "Password"
+    "password": "Password",
+    "email_is_empty": "cannot be empty",
+    "email_is_invalid": "invalid format"
   },
   "info": {
     "bloc_slogan": "Bloc is an awesome state management library for Flutter!"

@@ -8,7 +8,7 @@ import 'app_text_field.dart';
 /// 🏗️ Factory method that returns a themed [AppTextField], based on the [InputFieldType].
 /// Ensures consistent look & feel across forms (SignUp/Login).
 
-final class InputFieldFactory {
+abstract final class InputFieldFactory {
   //-------------------------
   InputFieldFactory._();
 
@@ -31,7 +31,7 @@ final class InputFieldFactory {
         label: LocaleKeys.form_name,
         icon: AppIcons.name,
         obscure: false,
-        errorText: errorText,
+        errorKey: errorText,
         keyboardType: TextInputType.name,
         onChanged: onChanged,
         onSubmitted: onSubmitted,
@@ -44,7 +44,7 @@ final class InputFieldFactory {
         label: LocaleKeys.form_email,
         icon: AppIcons.email,
         obscure: false,
-        errorText: errorText,
+        errorKey: errorText,
         keyboardType: TextInputType.emailAddress,
         onChanged: onChanged,
         onSubmitted: onSubmitted,
@@ -58,7 +58,7 @@ final class InputFieldFactory {
         icon: AppIcons.password,
         obscure: isObscure,
         suffixIcon: suffixIcon,
-        errorText: errorText,
+        errorKey: errorText,
         onChanged: onChanged,
         onSubmitted: onSubmitted,
       ),
@@ -71,7 +71,7 @@ final class InputFieldFactory {
         icon: AppIcons.confirmPassword,
         obscure: isObscure,
         suffixIcon: suffixIcon,
-        errorText: errorText,
+        errorKey: errorText,
         onChanged: onChanged,
         onSubmitted: onSubmitted,
       ),

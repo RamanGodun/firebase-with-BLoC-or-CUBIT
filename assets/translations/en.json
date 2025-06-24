@@ -75,7 +75,9 @@
     "confirm_password": "Confirm Password",
     "email": "Email",
     "name": "Name",
-    "password": "Password"
+    "password": "Password",
+    "email_is_empty": "cannot be empty",
+    "email_is_invalid": "invalid format"
   },
 
   "info": {

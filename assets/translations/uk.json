@@ -73,6 +73,8 @@
   "form": {
     "confirm_password": "Підтвердження паролю",
     "email": "Електронна пошта",
+    "email_is_empty": "не може бути пустою",
+    "email_is_invalid": "некоректний формат",
     "name": "Ім'я",
     "password": "Пароль"
   },

@@ -26,8 +26,16 @@ final class EmailInputValidation
     _ => null,
   };
 
-  /// 🔁 [uiError] — Used by widgets to show validation message or nothing
-  String? get uiError => isPure || isValid ? null : errorText;
+  ///
+  String? get errorKey => switch (error) {
+    EmailValidationError.empty => LocaleKeys.form_email_is_empty,
+    EmailValidationError.invalid => LocaleKeys.form_email_is_invalid,
+    _ => null,
+  };
+
+  /// 🔁 [uiErrorKey] — Used by widgets to show validation message or nothing
+  // String? get uiError => isPure || isValid ? null : errorText;
+  String? get uiErrorKey => isPure || isValid ? null : errorKey;
 
   //
 }

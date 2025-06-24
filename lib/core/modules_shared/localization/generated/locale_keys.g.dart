@@ -60,6 +60,8 @@ abstract class  LocaleKeys {
   static const form_email = 'form.email';
   static const form_name = 'form.name';
   static const form_password = 'form.password';
+  static const form_email_is_empty = 'form.email_is_empty';
+  static const form_email_is_invalid = 'form.email_is_invalid';
   static const form = 'form';
   static const info_bloc_slogan = 'info.bloc_slogan';
   static const info = 'info';

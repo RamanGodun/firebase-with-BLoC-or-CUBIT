@@ -75,7 +75,9 @@
     "confirm_password": "Potwierdź hasło",
     "email": "Email",
     "name": "Imię",
-    "password": "Hasło"
+    "password": "Hasło",
+    "email_is_empty": "nie może być puste",
+    "email_is_invalid": "nieprawidłowy format"  
   },
 
   "info": {
