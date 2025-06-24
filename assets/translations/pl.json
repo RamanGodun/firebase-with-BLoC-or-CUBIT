@@ -72,14 +72,18 @@
 },
 
   "form": {
-    "confirm_password": "Potwierdź hasło",
-    "email": "Email",
-    "email_is_empty": "nie może być puste",
-    "email_is_invalid": "nieprawidłowy format",
-    "name": "Imię",
-    "password": "Hasło",
-    "password_required": "Hasło jest wymagane",
-    "password_too_short": "Hasło musi mieć co najmniej 6 znaków" 
+     "name": "Imię",
+     "name_is_empty": "pole nie może być puste",
+     "name_is_too_short": "musi mieć co najmniej 3 znaki",
+     "email": "Email",
+     "email_is_empty": "nie może być puste",
+     "email_is_invalid": "nieprawidłowy format emaila",
+     "password": "Hasło",
+     "password_required": "wymagane jest hasło",
+     "password_too_short": "musi mieć co najmniej 6 znaków",
+     "confirm_password": "Potwierdź hasło",
+     "confirm_password_is_empty": "musisz ponownie wprowadzić hasło",
+     "confirm_password_mismatch": "hasła nie są zgodne"
   },
 
   "info": {

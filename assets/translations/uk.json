@@ -71,14 +71,18 @@
   },
 
   "form": {
-    "confirm_password": "Підтвердження паролю",
+    "name": "Ім'я",
+    "name_is_empty": "поле не може бути пустим",
+    "name_is_too_short": "щонайменше має бути три символи",
     "email": "Електронна пошта",
     "email_is_empty": "не може бути пустою",
     "email_is_invalid": "некоректний формат",
-    "name": "Ім'я",
     "password": "Пароль",
     "password_required": "потрібно вести пароль",
-    "password_too_short": "має бути щонайменше 6 символів"
+    "password_too_short": "має бути щонайменше 6 символів",
+    "confirm_password": "Підтвердження паролю",
+    "confirm_password_is_empty": "необхідно ще раз ввести пароль",
+    "confirm_password_mismatch": "паролі не співпадають"
   },
 
   "info": {

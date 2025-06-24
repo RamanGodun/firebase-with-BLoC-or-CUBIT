@@ -20,13 +20,6 @@ final class EmailInputValidation
   }
 
   /// 🧼 Converts enum to a localizable message key
-  String? get errorText => switch (error) {
-    EmailValidationError.empty => 'Email is required',
-    EmailValidationError.invalid => 'Invalid email address',
-    _ => null,
-  };
-
-  ///
   String? get errorKey => switch (error) {
     EmailValidationError.empty => LocaleKeys.form_email_is_empty,
     EmailValidationError.invalid => LocaleKeys.form_email_is_invalid,
@@ -34,7 +27,6 @@ final class EmailInputValidation
   };
 
   /// 🔁 [uiErrorKey] — Used by widgets to show validation message or nothing
-  // String? get uiError => isPure || isValid ? null : errorText;
   String? get uiErrorKey => isPure || isValid ? null : errorKey;
 
   //

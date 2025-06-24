@@ -34,7 +34,7 @@ final class _NameField extends StatelessWidget {
   Widget build(BuildContext context) {
     //
     return BlocSelector<SignUpCubit, SignUpState, String?>(
-      selector: (state) => state.name.uiError,
+      selector: (state) => state.name.uiErrorKey,
       builder: (context, errorText) {
         return InputFieldFactory.create(
           type: InputFieldType.name,
@@ -142,7 +142,7 @@ final class _ConfirmPasswordField extends StatelessWidget {
     return BlocSelector<SignUpCubit, SignUpState, FieldUiState>(
       selector:
           (state) => (
-            errorText: state.confirmPassword.uiError,
+            errorText: state.confirmPassword.uiErrorKey,
             isObscure: state.isConfirmPasswordObscure,
           ),
       builder: (context, field) {

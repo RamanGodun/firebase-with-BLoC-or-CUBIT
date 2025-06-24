@@ -72,14 +72,18 @@
 },
 
   "form": {
-    "confirm_password": "Confirm Password",
+    "name": "Name",
+    "name_is_empty": "field cannot be empty",
+    "name_is_too_short": "must be at least 3 characters",
     "email": "Email",
     "email_is_empty": "cannot be empty",
-    "email_is_invalid": "invalid format",
-    "name": "Name",
+    "email_is_invalid": "invalid email format",
     "password": "Password",
-    "password_required": "Password is required",
-    "password_too_short": "Password must be at least 6 characters"
+    "password_required": "password is required",
+    "password_too_short": "must be at least 6 characters",
+    "confirm_password": "Confirm Password",
+    "confirm_password_is_empty": "need to re-enter the password",
+    "confirm_password_mismatch": "passwords do not match"
   },
 
   "info": {

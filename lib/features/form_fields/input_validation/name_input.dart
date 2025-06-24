@@ -15,19 +15,19 @@ final class NameInputValidation
   NameValidationError? validator(String value) {
     final trimmed = value.trim();
     if (trimmed.isEmpty) return NameValidationError.empty;
-    if (trimmed.length < 2) return NameValidationError.tooShort;
+    if (trimmed.length < 3) return NameValidationError.tooShort;
     return null;
   }
 
-  /// 🧼 [errorText] — Converts enum error to user-friendly message
-  String? get errorText => switch (error) {
-    NameValidationError.empty => 'Name is required',
-    NameValidationError.tooShort => 'Name must be at least 2 characters',
+  /// 🧼 [errorKey] — Converts enum error to user-friendly message
+  String? get errorKey => switch (error) {
+    NameValidationError.empty => LocaleKeys.form_name_is_empty,
+    NameValidationError.tooShort => LocaleKeys.form_name_is_too_short,
     _ => null,
   };
 
-  /// 🔁 [uiError] — Used by widgets to show validation message or nothing
-  String? get uiError => isPure || isValid ? null : errorText;
+  /// 🔁 [uiErrorKey] — Used by widgets to show validation message or nothing
+  String? get uiErrorKey => isPure || isValid ? null : errorKey;
 
   //
 }

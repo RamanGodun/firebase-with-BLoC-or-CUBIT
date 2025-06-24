@@ -83,14 +83,18 @@ class CodegenLoader extends AssetLoader{
     "unknown": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie."
   },
   "form": {
-    "confirm_password": "Potwierdź hasło",
+    "name": "Imię",
+    "name_is_empty": "pole nie może być puste",
+    "name_is_too_short": "musi mieć co najmniej 3 znaki",
     "email": "Email",
     "email_is_empty": "nie może być puste",
-    "email_is_invalid": "nieprawidłowy format",
-    "name": "Imię",
+    "email_is_invalid": "nieprawidłowy format emaila",
     "password": "Hasło",
-    "password_required": "Hasło jest wymagane",
-    "password_too_short": "Hasło musi mieć co najmniej 6 znaków"
+    "password_required": "wymagane jest hasło",
+    "password_too_short": "musi mieć co najmniej 6 znaków",
+    "confirm_password": "Potwierdź hasło",
+    "confirm_password_is_empty": "musisz ponownie wprowadzić hasło",
+    "confirm_password_mismatch": "hasła nie są zgodne"
   },
   "info": {
     "bloc_slogan": "Bloc to świetna biblioteka zarządzania stanem dla Fluttera!"
@@ -207,14 +211,18 @@ static const Map<String,dynamic> _uk = {
     "unknown": "Сталася непередбачувана помилка. Спробуйте пізніше."
   },
   "form": {
-    "confirm_password": "Підтвердження паролю",
+    "name": "Ім'я",
+    "name_is_empty": "поле не може бути пустим",
+    "name_is_too_short": "щонайменше має бути три символи",
     "email": "Електронна пошта",
     "email_is_empty": "не може бути пустою",
     "email_is_invalid": "некоректний формат",
-    "name": "Ім'я",
     "password": "Пароль",
     "password_required": "потрібно вести пароль",
-    "password_too_short": "має бути щонайменше 6 символів"
+    "password_too_short": "має бути щонайменше 6 символів",
+    "confirm_password": "Підтвердження паролю",
+    "confirm_password_is_empty": "необхідно ще раз ввести пароль",
+    "confirm_password_mismatch": "паролі не співпадають"
   },
   "info": {
     "bloc_slogan": "Bloc — це чудова бібліотека управління станом для Flutter!"
@@ -331,14 +339,18 @@ static const Map<String,dynamic> _en = {
     "unknown": "An unexpected error occurred. Please try again."
   },
   "form": {
-    "confirm_password": "Confirm Password",
+    "name": "Name",
+    "name_is_empty": "field cannot be empty",
+    "name_is_too_short": "must be at least 3 characters",
     "email": "Email",
     "email_is_empty": "cannot be empty",
-    "email_is_invalid": "invalid format",
-    "name": "Name",
+    "email_is_invalid": "invalid email format",
     "password": "Password",
-    "password_required": "Password is required",
-    "password_too_short": "Password must be at least 6 characters"
+    "password_required": "password is required",
+    "password_too_short": "must be at least 6 characters",
+    "confirm_password": "Confirm Password",
+    "confirm_password_is_empty": "need to re-enter the password",
+    "confirm_password_mismatch": "passwords do not match"
   },
   "info": {
     "bloc_slogan": "Bloc is an awesome state management library for Flutter!"

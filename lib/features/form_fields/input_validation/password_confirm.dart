@@ -22,15 +22,17 @@ final class ConfirmPasswordInput
     return null;
   }
 
-  /// 🧼 Converts enum error to a user-friendly message
-  String? get errorText => switch (error) {
-    ConfirmPasswordValidationError.empty => 'Confirmation required',
-    ConfirmPasswordValidationError.mismatch => 'Passwords do not match',
+  /// 🧼 Converts enum to a localizable message key
+  String? get errorKey => switch (error) {
+    ConfirmPasswordValidationError.empty =>
+      LocaleKeys.form_confirm_password_is_empty,
+    ConfirmPasswordValidationError.mismatch =>
+      LocaleKeys.form_confirm_password_mismatch,
     _ => null,
   };
 
-  /// 🔁 Used by widgets to show validation message or nothing
-  String? get uiError => isPure || isValid ? null : errorText;
+  /// 🔁 [uiErrorKey] — Used by widgets to show validation message or nothing
+  String? get uiErrorKey => isPure || isValid ? null : errorKey;
 
   /// 🧩 Create a copy with updated password reference
   ConfirmPasswordInput updatePassword(String newPassword) =>
