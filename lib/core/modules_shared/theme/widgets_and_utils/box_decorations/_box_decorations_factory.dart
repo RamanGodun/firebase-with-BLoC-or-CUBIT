@@ -7,6 +7,7 @@ part 'ios_card_bd.dart';
 part 'ios_dialog_bd.dart';
 part 'android_dialog_bd.dart';
 part 'android_card_bd.dart';
+part 'ios_buttons_bd.dart';
 
 /// 🧬 [BoxDecorationFactory] — Centralized entry point for theme-based [BoxDecoration]
 /// 📦 Provides access to iOS/Android-specific box decorations

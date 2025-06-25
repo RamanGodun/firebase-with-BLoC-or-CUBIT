@@ -213,11 +213,11 @@ final class _RedirectToSignInButton extends StatelessWidget {
     return BlocSelector<SignUpCubit, SignUpState, bool>(
       selector: (state) => state.status.isSubmissionInProgress,
       builder: (context, isLoading) {
-        final isDisabled = isLoading || isOverlayActive;
+        final isEnabled = !isLoading && !isOverlayActive;
 
-        return RedirectTextButton(
+        return AppTextButton(
           label: LocaleKeys.buttons_to_sign_in,
-          isDisabled: isDisabled,
+          isEnabled: isEnabled,
           onPressed: () => context.popView(),
         );
       },

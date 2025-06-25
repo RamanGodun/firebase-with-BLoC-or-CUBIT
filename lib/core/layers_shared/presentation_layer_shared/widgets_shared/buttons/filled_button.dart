@@ -6,11 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import '../../../core/modules_shared/overlays/overlay_dispatcher/overlay_status_cubit.dart';
-import '../../../core/modules_shared/theme/ui_constants/app_colors.dart';
-import '../../../core/utils_shared/typedef.dart';
-import '../../../core/modules_shared/localization/widgets/text_widget.dart';
-import 'keys_for_widgets.dart';
+import '../../../../modules_shared/overlays/overlay_dispatcher/overlay_status_cubit.dart';
+import '../../../../utils_shared/typedef.dart';
+import '../../../../modules_shared/localization/widgets/text_widget.dart';
+import '../../../../../features/form_fields/widgets/keys_for_widgets.dart';
 
 /// ✅ [FormSubmitButton] — A reusable submit button
 /// with validation logic and animated loading indicator
@@ -56,7 +55,7 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
 
         return Hero(
           tag: 'submit',
-          child: ElevatedButton(
+          child: FilledButton(
             // 🚀 Trigger submit when form is valid and ready
             onPressed:
                 (status.canSubmit && isValidated && !isOverlayActive)
@@ -69,8 +68,8 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
                 ElevatedButton.styleFrom(
                   backgroundColor: colorScheme.primary,
                   foregroundColor: colorScheme.onPrimary,
-                  disabledBackgroundColor: AppColors.buttonDisabledBackground,
-                  disabledForegroundColor: AppColors.buttonDisabledForeground,
+                  // disabledBackgroundColor: AppColors.buttonDisabledBackground,
+                  // disabledForegroundColor: AppColors.buttonDisabledForeground,
                   padding: const EdgeInsets.symmetric(
                     vertical: 14,
                     horizontal: 24,

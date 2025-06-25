@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_with_bloc_or_cubit/core/layers_shared/presentation_layer_shared/widgets_shared/custom_app_bar.dart';
+import 'package:firebase_with_bloc_or_cubit/core/layers_shared/presentation_layer_shared/widgets_shared/app_bar.dart';
 import '../../../modules_shared/localization/generated/locale_keys.g.dart';
 
 /// 🔁 Page for initiating password reset process.

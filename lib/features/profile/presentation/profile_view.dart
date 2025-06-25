@@ -9,10 +9,10 @@ import '../../../core/modules_shared/localization/widgets/key_value_x_for_text_w
 import '../../../core/modules_shared/localization/generated/locale_keys.g.dart';
 import '../../../core/modules_shared/localization/widgets/_toggle_button.dart';
 import '../../../core/modules_shared/theme/ui_constants/_app_constants.dart';
-import '../../../core/layers_shared/presentation_layer_shared/widgets_shared/app_loaders.dart';
+import '../../../core/layers_shared/presentation_layer_shared/widgets_shared/loader.dart';
 import '../../auth/presentation/sign_out/sign_out_widget.dart';
 import '../domain/shared_entities/_user.dart';
-import '../../../core/layers_shared/presentation_layer_shared/widgets_shared/custom_app_bar.dart';
+import '../../../core/layers_shared/presentation_layer_shared/widgets_shared/app_bar.dart';
 import '../../../core/modules_shared/localization/widgets/text_widget.dart';
 import '../../../core/modules_shared/theme/widgets_and_utils/theme_picking_widgets/widget_for_theme_toggling.dart';
 import 'cubit/profile_page_cubit.dart';
@@ -41,7 +41,7 @@ final class ProfileView extends StatelessWidget {
         builder:
             (context, state) => switch (state) {
               ProfileInitial() => const SizedBox.shrink(),
-              ProfileLoading() => const LoaderWidget(),
+              ProfileLoading() => const AppLoader(),
               ProfileError() => const _ErrorContent(),
               ProfileLoaded(:final user) => _UserProfileCard(user: user),
             },

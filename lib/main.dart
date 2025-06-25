@@ -7,7 +7,7 @@ import 'root_widget.dart';
 import 'start_up_bootstrap.dart';
 import 'core/modules_shared/di_container/di_container.dart';
 import 'core/modules_shared/localization/app_localization.dart';
-import 'core/layers_shared/presentation_layer_shared/widgets_shared/app_loaders.dart';
+import 'core/layers_shared/presentation_layer_shared/widgets_shared/loader.dart';
 import 'core/modules_shared/theme/theme_cubit.dart';
 
 /// 🏁 Entry point of the application.
@@ -16,7 +16,7 @@ import 'core/modules_shared/theme/theme_cubit.dart';
 void main() async {
   ///
   // Splash loader till the app init end
-  runApp(const LoaderWidget(wrapInMaterialApp: true));
+  runApp(const AppLoader(wrapInMaterialApp: true));
 
   /// 🔌 Firebase + HydratedBloc + Bloc Observer
   await StartUpHandler.bootstrap();

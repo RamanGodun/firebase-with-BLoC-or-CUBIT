@@ -10,8 +10,8 @@ abstract final class AppShadows {
     BoxShadow(
       color: AppColors.overlayLightShadow,
       blurRadius: 12,
-      spreadRadius: 0.4,
-      offset: Offset(0, 4),
+      spreadRadius: 0.1,
+      offset: Offset(0, 3),
     ),
   ];
 
@@ -19,8 +19,8 @@ abstract final class AppShadows {
     BoxShadow(
       color: AppColors.overlayDarkShadow,
       blurRadius: 12,
-      spreadRadius: 0.4,
-      offset: Offset(0, 3),
+      spreadRadius: 0.0,
+      offset: Offset(0, 2),
     ),
   ];
 
@@ -29,8 +29,8 @@ abstract final class AppShadows {
     BoxShadow(
       color: AppColors.androidDialogShadowDark,
       blurRadius: 14,
-      spreadRadius: 0.2,
-      offset: Offset(0, 4),
+      spreadRadius: 0.1,
+      offset: Offset(0, 3),
     ),
   ];
 
@@ -38,8 +38,8 @@ abstract final class AppShadows {
     BoxShadow(
       color: AppColors.androidDialogShadowLight,
       blurRadius: 10,
-      spreadRadius: 0.1,
-      offset: Offset(0, 3),
+      spreadRadius: 0.0,
+      offset: Offset(0, 2),
     ),
   ];
 
@@ -47,8 +47,8 @@ abstract final class AppShadows {
   static const List<BoxShadow> forLightThemeCard = [
     BoxShadow(
       color: AppColors.overlayLightShadow,
-      blurRadius: 8,
-      spreadRadius: 0.5,
+      blurRadius: 10,
+      spreadRadius: 0.2,
       offset: Offset(0, 3),
     ),
   ];
@@ -57,9 +57,18 @@ abstract final class AppShadows {
     BoxShadow(
       color: AppColors.overlayDarkShadow,
       blurRadius: 18,
-      spreadRadius: 0.5,
-      offset: Offset(0, 3),
+      spreadRadius: 0.1,
+      offset: Offset(0, 2),
     ),
+  ];
+
+  /// 🍏 Button-specific double shadows for iOS/macOS (modern style)
+  static const List<BoxShadow> forIOSLightThemeButton = [
+    BoxShadow(color: AppColors.black5, blurRadius: 20, offset: Offset(0, 2)),
+  ];
+
+  static const List<BoxShadow> forIOSDarkThemeButton = [
+    BoxShadow(color: AppColors.shadow, blurRadius: 20, offset: Offset(0, 2)),
   ];
 
   //

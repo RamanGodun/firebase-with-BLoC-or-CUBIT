@@ -11,7 +11,12 @@ final class AppColors {
   static const Color transparent = Colors.transparent;
   static const Color forErrors = Color(0xFFFF5252); // redAccent
   static const Color white = Color(0xFFFFFFFF);
+  static const Color white5 = Color(0x0DFFFFFF); //5% white
+  static const Color white10 = Color(0x1AFFFFFF); // 10%
+  static const Color white30 = Color(0x4DFFFFFF); // 30%
+  static const Color white24 = Color(0x3DFFFFFF); // 24%
   static const Color black = Color(0xFF000000);
+  static const Color black5 = Color(0x0D000000); // 5% opacity black
   static const Color shadow = Color(0x33000000); // 20% black
   static const Color caption = Color(0x99000000); // approx grey.shade600
   static const Color glassCard = Color(0xAA222222); // Card for glass theme
@@ -27,6 +32,7 @@ final class AppColors {
 
   /// ☀️ Light Theme Colors
   static const Color lightPrimary = Color(0xFF01514B);
+  static const Color lightPrimary08 = Color(0x1401514B); // 0x14 = 8% alpha
   static const Color lightAccent = Color(0xFFA2C4AB);
   static const Color lightBackground = Color(0xFFF2F2F7);
   static const Color lightSurface = Color(0xFFFFFFFF);

@@ -4,7 +4,7 @@ import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/widgets_an
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_with_bloc_or_cubit/core/layers_shared/presentation_layer_shared/widgets_shared/custom_app_bar.dart';
+import 'package:firebase_with_bloc_or_cubit/core/layers_shared/presentation_layer_shared/widgets_shared/app_bar.dart';
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/localization/widgets/text_widget.dart';
 import '../../../modules_shared/navigation/app_routes/app_routes.dart';
 import '../../../modules_shared/theme/ui_constants/_app_constants.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets_shared/app_loaders.dart';
+import '../widgets_shared/loader.dart';
 
 /// ⏳ [SplashPage] — Displays a loading indicator
 
@@ -12,7 +12,7 @@ final class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //
-    return const Scaffold(body: LoaderWidget());
+    return const Scaffold(body: AppLoader());
     //
   }
 }

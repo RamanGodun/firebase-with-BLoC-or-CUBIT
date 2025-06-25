@@ -10,11 +10,11 @@ import '../../../../core/modules_shared/overlays/overlay_dispatcher/overlay_stat
 import '../../../../core/utils_shared/spider/images_paths.dart';
 import '../../../../core/modules_shared/theme/ui_constants/_app_constants.dart'
     show AppSpacing;
-import '../../../../core/layers_shared/presentation_layer_shared/widgets_shared/text_button.dart';
+import '../../../../core/layers_shared/presentation_layer_shared/widgets_shared/buttons/text_button.dart';
 import '../../../form_fields/input_validation/_validation_enums.dart';
 import '../../../form_fields/utils/use_auth_focus_nodes.dart';
 import '../../../form_fields/widgets/_fields_factory.dart';
-import '../../../form_fields/widgets/button_for_forms.dart';
+import '../../../../core/layers_shared/presentation_layer_shared/widgets_shared/buttons/filled_button.dart';
 import '../../../form_fields/widgets/password_visibility_icon.dart';
 import '../../../../core/utils_shared/typedef.dart';
 import 'cubit/sign_up_page_cubit.dart';

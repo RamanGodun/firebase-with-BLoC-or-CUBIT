@@ -20,6 +20,18 @@ abstract final class UIConstants {
     Radius.circular(AppSpacing.xxs),
   );
 
+  static const BorderRadius borderRadius8 = BorderRadius.all(
+    Radius.circular(AppSpacing.xxxs),
+  );
+
+  static const BorderRadius borderRadius10 = BorderRadius.all(
+    Radius.circular(AppSpacing.m),
+  );
+
+  static const BorderRadius borderRadius12 = BorderRadius.all(
+    Radius.circular(AppSpacing.xm),
+  );
+
   /// 🎯 Card paddings
   static const EdgeInsets cardPadding = EdgeInsets.symmetric(
     horizontal: AppSpacing.p16,
