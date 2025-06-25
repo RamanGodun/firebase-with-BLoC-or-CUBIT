@@ -21,7 +21,7 @@ extension ThemeVariantX on ThemeVariantsEnum {
         foregroundColor: contrastColor,
         actionsIconTheme: IconThemeData(color: primaryColor),
         titleTextStyle:
-            TextThemeFactory.fromBrightness(brightness, font: font).titleSmall,
+            TextThemeFactory.from(colorScheme, font: font).titleSmall,
         centerTitle: false,
       ),
 
@@ -49,7 +49,7 @@ extension ThemeVariantX on ThemeVariantsEnum {
         elevation: 1,
       ),
 
-      textTheme: TextThemeFactory.fromBrightness(brightness, font: font),
+      textTheme: TextThemeFactory.from(colorScheme, font: font),
 
       //
     );

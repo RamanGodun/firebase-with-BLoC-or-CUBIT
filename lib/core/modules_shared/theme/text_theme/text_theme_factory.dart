@@ -10,20 +10,21 @@ abstract final class TextThemeFactory {
   ///────────────────────────────
 
   /// 🎨 Builds TextTheme using color + optional font
-  static TextTheme from(Color color, {AppFontFamily? font}) {
+  static TextTheme from(ColorScheme colorScheme, {AppFontFamily? font}) {
     //
+    final color = colorScheme.onSurface;
     final fontFamily = (font ?? AppFontFamily.sfPro).value;
 
     return TextTheme(
-      titleLarge: _builder(color, FontWeight.w600, 22, fontFamily),
-      titleMedium: _builder(color, FontWeight.w500, 19, fontFamily),
-      titleSmall: _builder(color, FontWeight.w400, 16, fontFamily),
-      bodyLarge: _builder(color, FontWeight.w400, 17, fontFamily),
-      bodyMedium: _builder(color, FontWeight.w400, 15, fontFamily),
-      bodySmall: _builder(color, FontWeight.w400, 13, fontFamily),
-      labelLarge: _builder(color, FontWeight.w500, 15, fontFamily),
-      labelMedium: _builder(color, FontWeight.w400, 13, fontFamily),
-      labelSmall: _builder(color, FontWeight.w400, 11, fontFamily),
+      titleLarge: _builder(color, FontWeight.w500, 22, fontFamily),
+      titleMedium: _builder(color, FontWeight.w400, 16, fontFamily),
+      titleSmall: _builder(color, FontWeight.w300, 16, fontFamily),
+      bodyLarge: _builder(color, FontWeight.w400, 15, fontFamily),
+      bodyMedium: _builder(color, FontWeight.w300, 14, fontFamily),
+      bodySmall: _builder(color, FontWeight.w400, 12, fontFamily),
+      labelLarge: _builder(color, FontWeight.w300, 16, fontFamily),
+      labelMedium: _builder(color, FontWeight.w300, 14, fontFamily),
+      labelSmall: _builder(color, FontWeight.w400, 12, fontFamily),
     );
   }
 
@@ -41,15 +42,6 @@ abstract final class TextThemeFactory {
   );
 
   ////
-
-  /// 🎨 From brightness shortcut
-  static TextTheme fromBrightness(
-    Brightness brightness, {
-    AppFontFamily? font,
-  }) => from(
-    brightness == Brightness.dark ? Colors.white : Colors.black,
-    font: font,
-  );
 
   //
 }

@@ -19,7 +19,7 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
     extends StatelessWidget {
   //---------------------------------------------------
 
-  final String text;
+  final String label;
   final SubmitCallback onSubmit;
   final FormzSubmissionStatus Function(State) statusSelector;
   final bool Function(State) isValidatedSelector;
@@ -27,7 +27,7 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
 
   const FormSubmitButton({
     super.key,
-    required this.text,
+    required this.label,
     required this.onSubmit,
     required this.statusSelector,
     required this.isValidatedSelector,
@@ -89,7 +89,7 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
                     )
                     : TextWidget(
                       key: AppKeys.submitButtonText,
-                      text,
+                      label,
                       TextType.titleMedium,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,

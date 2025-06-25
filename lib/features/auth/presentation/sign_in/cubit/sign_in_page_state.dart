@@ -7,7 +7,7 @@ class SignInPageState extends Equatable {
   //------------------------------------
 
   final EmailInputValidation email;
-  final PasswordInput password;
+  final PasswordInputValidation password;
   final FormzSubmissionStatus status;
   final bool isValid;
   final Consumable<FailureUIEntity>? failure;
@@ -16,7 +16,7 @@ class SignInPageState extends Equatable {
   // 🧱 Initial constructor with default values
   const SignInPageState({
     this.email = const EmailInputValidation.pure(),
-    this.password = const PasswordInput.pure(),
+    this.password = const PasswordInputValidation.pure(),
     this.status = FormzSubmissionStatus.initial,
     this.isValid = false,
     this.failure,
@@ -26,7 +26,7 @@ class SignInPageState extends Equatable {
   // 🔁 Returns new instance with optional overridden fields
   SignInPageState copyWith({
     final EmailInputValidation? email,
-    final PasswordInput? password,
+    final PasswordInputValidation? password,
     final FormzSubmissionStatus? status,
     final bool? isValid,
     final Consumable<FailureUIEntity>? failure,

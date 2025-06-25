@@ -12,8 +12,8 @@ extension SignUpStateValidationX on SignUpState {
   bool validateWith({
     final NameInputValidation? name,
     final EmailInputValidation? email,
-    final PasswordInput? password,
-    final ConfirmPasswordInput? confirmPassword,
+    final PasswordInputValidation? password,
+    final ConfirmPasswordInputValidation? confirmPassword,
   }) {
     return Formz.validate([
       name ?? this.name,
@@ -28,8 +28,8 @@ extension SignUpStateValidationX on SignUpState {
   SignUpState updateWith({
     final NameInputValidation? name,
     final EmailInputValidation? email,
-    final PasswordInput? password,
-    final ConfirmPasswordInput? confirmPassword,
+    final PasswordInputValidation? password,
+    final ConfirmPasswordInputValidation? confirmPassword,
     final FormzSubmissionStatus? status,
     final Consumable<FailureUIEntity>? failure,
     final bool? isPasswordObscure,

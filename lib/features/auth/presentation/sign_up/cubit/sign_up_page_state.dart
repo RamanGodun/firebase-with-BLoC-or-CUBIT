@@ -8,8 +8,8 @@ final class SignUpState extends Equatable {
 
   final NameInputValidation name;
   final EmailInputValidation email;
-  final PasswordInput password;
-  final ConfirmPasswordInput confirmPassword;
+  final PasswordInputValidation password;
+  final ConfirmPasswordInputValidation confirmPassword;
   final FormzSubmissionStatus status;
   final bool isValid;
   final Consumable<FailureUIEntity>? failure;
@@ -19,8 +19,8 @@ final class SignUpState extends Equatable {
   const SignUpState({
     this.name = const NameInputValidation.pure(),
     this.email = const EmailInputValidation.pure(),
-    this.password = const PasswordInput.pure(),
-    this.confirmPassword = const ConfirmPasswordInput.pure(),
+    this.password = const PasswordInputValidation.pure(),
+    this.confirmPassword = const ConfirmPasswordInputValidation.pure(),
     this.status = FormzSubmissionStatus.initial,
     this.isValid = false,
     this.failure,
@@ -33,8 +33,8 @@ final class SignUpState extends Equatable {
   SignUpState copyWith({
     final NameInputValidation? name,
     final EmailInputValidation? email,
-    final PasswordInput? password,
-    final ConfirmPasswordInput? confirmPassword,
+    final PasswordInputValidation? password,
+    final ConfirmPasswordInputValidation? confirmPassword,
     final FormzSubmissionStatus? status,
     final bool? isValid,
     final Consumable<FailureUIEntity>? failure,

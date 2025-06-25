@@ -11,7 +11,7 @@ extension SignInStateValidationX on SignInPageState {
   // 📥 Accepts overrides or falls back to current state values
   bool validateWith({
     final EmailInputValidation? email,
-    final PasswordInput? password,
+    final PasswordInputValidation? password,
   }) {
     return Formz.validate([email ?? this.email, password ?? this.password]);
   }
@@ -20,7 +20,7 @@ extension SignInStateValidationX on SignInPageState {
   // 📦 Supports field updates and additional UI flags like status & visibility
   SignInPageState updateWith({
     final EmailInputValidation? email,
-    final PasswordInput? password,
+    final PasswordInputValidation? password,
     final FormzSubmissionStatus? status,
     final Consumable<FailureUIEntity>? failure,
     final bool? isPasswordObscure,

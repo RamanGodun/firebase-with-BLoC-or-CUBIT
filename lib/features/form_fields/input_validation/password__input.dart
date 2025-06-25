@@ -1,12 +1,13 @@
 part of '_validation_enums.dart';
 
-/// 🔒 [PasswordInput] — Validates presence and minimum password length.
+/// 🔒 [PasswordInputValidation] — Validates presence and minimum password length.
 
-final class PasswordInput extends FormzInput<String, PasswordValidationError> {
+final class PasswordInputValidation
+    extends FormzInput<String, PasswordValidationError> {
   ///------------------------------------------------------------------------
 
-  const PasswordInput.pure() : super.pure('');
-  const PasswordInput.dirty([super.value = '']) : super.dirty();
+  const PasswordInputValidation.pure() : super.pure('');
+  const PasswordInputValidation.dirty([super.value = '']) : super.dirty();
 
   ///
   @override

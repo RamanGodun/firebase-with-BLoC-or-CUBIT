@@ -14,9 +14,9 @@ final class FormValidationService {
     return EmailInputValidation.dirty(rawValue.trim());
   }
 
-  /// 🔐 Validates and returns updated [PasswordInput]
-  PasswordInput validatePassword(String rawValue) {
-    return PasswordInput.dirty(rawValue.trim());
+  /// 🔐 Validates and returns updated [PasswordInputValidation]
+  PasswordInputValidation validatePassword(String rawValue) {
+    return PasswordInputValidation.dirty(rawValue.trim());
   }
 
   /// 👤 Validates and returns updated [NameInputValidation]
@@ -24,17 +24,20 @@ final class FormValidationService {
     return NameInputValidation.dirty(rawValue.trim());
   }
 
-  /// 🔁 Validates and returns [ConfirmPasswordInput] based on [password]
-  ConfirmPasswordInput validateConfirmPassword({
+  /// 🔁 Validates and returns [ConfirmPasswordInputValidation] based on [password]
+  ConfirmPasswordInputValidation validateConfirmPassword({
     required String password,
     required String value,
   }) {
-    return ConfirmPasswordInput.dirty(password: password, value: value.trim());
+    return ConfirmPasswordInputValidation.dirty(
+      password: password,
+      value: value.trim(),
+    );
   }
 
   /// 🔁 Syncs confirm password with updated [password]
-  ConfirmPasswordInput syncConfirmWithPassword({
-    required ConfirmPasswordInput currentConfirm,
+  ConfirmPasswordInputValidation syncConfirmWithPassword({
+    required ConfirmPasswordInputValidation currentConfirm,
     required String newPassword,
   }) {
     return currentConfirm.updatePassword(newPassword.trim());
