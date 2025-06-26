@@ -46,7 +46,7 @@ extension ThemeVariantX on ThemeVariantsEnum {
             horizontal: AppSpacing.xxxm,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: UIConstants.borderRadius6,
+            borderRadius: UIConstants.borderRadius8,
             side: BorderSide(
               color: isDark ? AppColors.black5 : AppColors.darkBorder,
               width: isDark ? 0.05 : 0.05,

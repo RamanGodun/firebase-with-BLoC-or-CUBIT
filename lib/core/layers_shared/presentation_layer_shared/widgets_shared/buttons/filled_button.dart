@@ -2,7 +2,6 @@ import 'package:firebase_with_bloc_or_cubit/core/modules_shared/animation/widget
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/extensions/theme_x.dart';
 import 'package:firebase_with_bloc_or_cubit/features/form_fields/input_validation/formz_status_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -10,6 +9,7 @@ import '../../../../modules_shared/overlays/overlay_dispatcher/overlay_status_cu
 import '../../../../utils_shared/typedef.dart';
 import '../../../../modules_shared/localization/widgets/text_widget.dart';
 import '../../../../../features/form_fields/widgets/keys_for_widgets.dart';
+import '../loader.dart';
 
 /// ✅ [FormSubmitButton] — A reusable submit button
 /// with validation logic and animated loading indicator
@@ -52,17 +52,9 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
         final colorScheme = context.colorScheme;
 
         return Hero(
-          tag: 'submit',
-          child: FilledButton(
-            // 🎨 Custom button style or fallback to default
-            style: context.filledButtonTheme.style?.copyWith(
-              textStyle: MaterialStateProperty.all(
-                context.textTheme.titleSmall?.copyWith(
-                  color: colorScheme.primary,
-                ),
-              ),
-            ),
+          tag: 'filled_button',
 
+          child: FilledButton(
             // 🚀 Trigger submit when form is valid and ready
             onPressed:
                 (status.canSubmit && isValidated && !isOverlayActive)
@@ -72,11 +64,10 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
             // 🔁 Loader or animated label
             child:
                 (isLoading
-                    ? const SizedBox(
-                      key: AppKeys.submitButtonLoader,
-                      height: 24,
-                      width: 24,
-                      child: CupertinoActivityIndicator(radius: 12),
+                    ? AppLoader(
+                      size: 20,
+                      cupertinoRadius: 12,
+                      color: colorScheme.onSurface,
                     )
                     : TextWidget(
                       key: AppKeys.submitButtonText,
@@ -90,7 +81,7 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
                           !isValidated ? FontWeight.w400 : FontWeight.w500,
                       letterSpacing: 0.9,
                     ).withAnimationSwitcher()),
-          ).withRoundedCorners(8).withPaddingTop(30),
+          ).withPaddingTop(30),
         );
       },
     );
