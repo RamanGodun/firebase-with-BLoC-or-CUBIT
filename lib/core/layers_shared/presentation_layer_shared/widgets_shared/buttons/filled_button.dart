@@ -1,6 +1,5 @@
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/animation/widget_animation_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/extensions/theme_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/ui_constants/app_colors.dart';
 import 'package:firebase_with_bloc_or_cubit/features/form_fields/input_validation/formz_status_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/cupertino.dart';
@@ -85,7 +84,7 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
                       TextType.titleMedium,
                       color:
                           !isValidated
-                              ? AppColors.darkBorder
+                              ? colorScheme.inverseSurface
                               : colorScheme.onPrimary,
                       fontWeight:
                           !isValidated ? FontWeight.w400 : FontWeight.w500,

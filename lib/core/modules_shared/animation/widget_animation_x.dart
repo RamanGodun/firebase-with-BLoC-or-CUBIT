@@ -111,5 +111,63 @@ extension WidgetAnimationX on Widget {
     child: this,
   );
 
+  /// 🧩 Wraps widget in [AnimatedSize] + [AnimatedSwitcher]
+  /// Good for smooth layout/child transitions
+  Widget withAnimatedSwitcherSize({
+    Duration duration = const Duration(milliseconds: 250),
+    Curve sizeCurve = Curves.easeInOut,
+    Curve switchInCurve = Curves.easeOut,
+    Curve switchOutCurve = Curves.easeIn,
+    AnimatedSwitcherTransitionBuilder? transitionBuilder,
+    AnimatedSwitcherLayoutBuilder? layoutBuilder,
+  }) {
+    return AnimatedSize(
+      duration: duration,
+      curve: sizeCurve,
+      alignment: Alignment.center,
+      child: AnimatedSwitcher(
+        duration: duration,
+        switchInCurve: switchInCurve,
+        switchOutCurve: switchOutCurve,
+        layoutBuilder:
+            layoutBuilder ??
+            (currentChild, previousChildren) => Stack(
+              alignment: Alignment.center,
+              children: [
+                if (currentChild != null) currentChild,
+                ...previousChildren,
+              ],
+            ),
+        transitionBuilder:
+            transitionBuilder ??
+            (child, animation) => FadeTransition(
+              opacity: animation,
+              child: ScaleTransition(scale: animation, child: child),
+            ),
+        child: this,
+      ),
+    );
+  }
+
+  /// ✅ Simple `AnimatedSwitcher` with fade+scale
+  /// Good for quick replacements without layout shifts
+  Widget withSimpleSwitcher({
+    Duration duration = const Duration(milliseconds: 300),
+    Curve switchInCurve = Curves.easeOut,
+    Curve switchOutCurve = Curves.easeIn,
+    AnimatedSwitcherTransitionBuilder? transitionBuilder,
+  }) => AnimatedSwitcher(
+    duration: duration,
+    switchInCurve: switchInCurve,
+    switchOutCurve: switchOutCurve,
+    transitionBuilder:
+        transitionBuilder ??
+        (child, animation) => FadeTransition(
+          opacity: animation,
+          child: ScaleTransition(scale: animation, child: child),
+        ),
+    child: this,
+  );
+
   //
 }

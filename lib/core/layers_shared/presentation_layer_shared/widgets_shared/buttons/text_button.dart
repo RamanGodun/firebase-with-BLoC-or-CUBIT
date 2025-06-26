@@ -23,7 +23,7 @@ class AppTextButton extends StatelessWidget {
     this.isLoading = false,
     this.isEnabled = true,
     this.foregroundColor,
-    this.fontSize,
+    this.fontSize = 15,
     this.fontWeight = FontWeight.w200,
     this.isUnderlined = true,
   });
