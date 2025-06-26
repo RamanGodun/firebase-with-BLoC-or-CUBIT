@@ -66,7 +66,7 @@ final class SignInPageView extends HookWidget {
 
                       /// 🚀 Primary submit button
                       const _SubmitButton(),
-                      const SizedBox(height: AppSpacing.xxxs),
+                      const SizedBox(height: AppSpacing.l),
 
                       /// 🔁 Link to redirect to sign-up screen
                       const _RedirectToSignUpButton(),

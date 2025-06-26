@@ -16,15 +16,30 @@ abstract final class TextThemeFactory {
     final fontFamily = (font ?? AppFontFamily.sfPro).value;
 
     return TextTheme(
+      // DISPLAY
+      displayLarge: _builder(color, FontWeight.w300, 57, fontFamily),
+      displayMedium: _builder(color, FontWeight.w300, 45, fontFamily),
+      displaySmall: _builder(color, FontWeight.w400, 36, fontFamily),
+
+      // HEADLINE
+      headlineLarge: _builder(color, FontWeight.w400, 32, fontFamily),
+      headlineMedium: _builder(color, FontWeight.w400, 28, fontFamily),
+      headlineSmall: _builder(color, FontWeight.w400, 24, fontFamily),
+
+      // TITLE
       titleLarge: _builder(color, FontWeight.w500, 22, fontFamily),
-      titleMedium: _builder(color, FontWeight.w400, 16, fontFamily),
-      titleSmall: _builder(color, FontWeight.w300, 16, fontFamily),
-      bodyLarge: _builder(color, FontWeight.w400, 15, fontFamily),
-      bodyMedium: _builder(color, FontWeight.w300, 14, fontFamily),
+      titleMedium: _builder(color, FontWeight.w500, 16, fontFamily),
+      titleSmall: _builder(color, FontWeight.w500, 14, fontFamily),
+
+      // BODY
+      bodyLarge: _builder(color, FontWeight.w400, 16, fontFamily),
+      bodyMedium: _builder(color, FontWeight.w400, 14, fontFamily),
       bodySmall: _builder(color, FontWeight.w400, 12, fontFamily),
-      labelLarge: _builder(color, FontWeight.w300, 16, fontFamily),
-      labelMedium: _builder(color, FontWeight.w300, 14, fontFamily),
-      labelSmall: _builder(color, FontWeight.w400, 12, fontFamily),
+
+      // LABEL
+      labelLarge: _builder(color, FontWeight.w500, 14, fontFamily),
+      labelMedium: _builder(color, FontWeight.w500, 12, fontFamily),
+      labelSmall: _builder(color, FontWeight.w500, 11, fontFamily),
     );
   }
 

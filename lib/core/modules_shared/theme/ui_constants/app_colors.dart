@@ -17,6 +17,7 @@ final class AppColors {
   static const Color white24 = Color(0x3DFFFFFF); // 24%
   static const Color black = Color(0xFF000000);
   static const Color black5 = Color(0x0D000000); // 5% opacity black
+  static const Color black12 = Color(0x1F000000); // 12%
   static const Color shadow = Color(0x33000000); // 20% black
   static const Color caption = Color(0x99000000); // approx grey.shade600
   static const Color glassCard = Color(0xAA222222); // Card for glass theme

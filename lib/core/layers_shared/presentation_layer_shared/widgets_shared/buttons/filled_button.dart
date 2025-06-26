@@ -1,6 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/animation/widget_animation_x.dart';
-import 'package:firebase_with_bloc_or_cubit/features/form_fields/input_validation/formz_status_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/extensions/theme_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/ui_constants/app_colors.dart';
+import 'package:firebase_with_bloc_or_cubit/features/form_fields/input_validation/formz_status_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,6 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
   final SubmitCallback onSubmit;
   final FormzSubmissionStatus Function(State) statusSelector;
   final bool Function(State) isValidatedSelector;
-  final ButtonStyle? style;
 
   const FormSubmitButton({
     super.key,
@@ -30,7 +30,6 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
     required this.onSubmit,
     required this.statusSelector,
     required this.isValidatedSelector,
-    this.style,
   });
 
   ///
@@ -41,7 +40,6 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
     final isOverlayActive = context.select<OverlayStatusCubit, bool>(
       (cubit) => cubit.state,
     );
-    final colorScheme = context.colorScheme;
 
     return BlocBuilder<Cubit, State>(
       buildWhen:
@@ -52,30 +50,25 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
         final status = statusSelector(state);
         final isValidated = isValidatedSelector(state);
         final isLoading = status.isInProgress;
+        final colorScheme = context.colorScheme;
 
         return Hero(
           tag: 'submit',
           child: FilledButton(
+            // 🎨 Custom button style or fallback to default
+            style: context.filledButtonTheme.style?.copyWith(
+              textStyle: MaterialStateProperty.all(
+                context.textTheme.titleSmall?.copyWith(
+                  color: colorScheme.primary,
+                ),
+              ),
+            ),
+
             // 🚀 Trigger submit when form is valid and ready
             onPressed:
                 (status.canSubmit && isValidated && !isOverlayActive)
                     ? () => onSubmit(context)
                     : null,
-
-            // 🎨 Custom button style or fallback to default
-            style:
-                style ??
-                ElevatedButton.styleFrom(
-                  backgroundColor: colorScheme.primary,
-                  foregroundColor: colorScheme.onPrimary,
-                  // disabledBackgroundColor: AppColors.buttonDisabledBackground,
-                  // disabledForegroundColor: AppColors.buttonDisabledForeground,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 14,
-                    horizontal: 24,
-                  ),
-                  elevation: 2,
-                ),
 
             // 🔁 Loader or animated label
             child:
@@ -90,8 +83,13 @@ class FormSubmitButton<Cubit extends StateStreamable<State>, State>
                       key: AppKeys.submitButtonText,
                       label,
                       TextType.titleMedium,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                      color:
+                          !isValidated
+                              ? AppColors.darkBorder
+                              : colorScheme.onPrimary,
+                      fontWeight:
+                          !isValidated ? FontWeight.w400 : FontWeight.w500,
+                      letterSpacing: 0.9,
                     ).withAnimationSwitcher()),
           ).withRoundedCorners(8).withPaddingTop(30),
         );

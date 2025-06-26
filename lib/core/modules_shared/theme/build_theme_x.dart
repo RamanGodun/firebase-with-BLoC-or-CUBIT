@@ -33,11 +33,13 @@ extension ThemeVariantX on ThemeVariantsEnum {
             isDark ? 0.37 : 0.72,
           ),
           foregroundColor: colorScheme.onPrimary,
-          disabledBackgroundColor: AppColors.white10,
-          disabledForegroundColor: AppColors.white24,
 
+          disabledBackgroundColor:
+              isDark ? AppColors.white10 : AppColors.black12,
+
+          disabledForegroundColor: AppColors.black12,
           surfaceTintColor: AppColors.transparent,
-          shadowColor: AppColors.transparent,
+          shadowColor: AppColors.shadow,
 
           padding: const EdgeInsets.symmetric(
             vertical: AppSpacing.xm,
@@ -46,15 +48,13 @@ extension ThemeVariantX on ThemeVariantsEnum {
           shape: RoundedRectangleBorder(
             borderRadius: UIConstants.borderRadius6,
             side: BorderSide(
-              color: isDark ? AppColors.white24 : AppColors.darkBorder,
+              color: isDark ? AppColors.black5 : AppColors.darkBorder,
               width: isDark ? 0.05 : 0.05,
             ),
           ),
-          textStyle: TextThemeFactory.from(colorScheme, font: font).titleSmall
-              ?.copyWith(letterSpacing: 0.3, color: colorScheme.onPrimary),
           elevation: 0,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          animationDuration: const Duration(milliseconds: 200),
+          animationDuration: const Duration(milliseconds: 250),
           visualDensity: VisualDensity.adaptivePlatformDensity,
           alignment: Alignment.center,
           enableFeedback: true,
