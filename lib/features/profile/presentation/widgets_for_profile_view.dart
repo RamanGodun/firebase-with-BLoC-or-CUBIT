@@ -86,7 +86,7 @@ final class _UserProfileCard extends StatelessWidget {
                           ),
                         ),
                         const ThemeToggleIcon().withPaddingOnly(
-                          left: AppSpacing.xl,
+                          left: AppSpacing.l,
                         ),
                       ],
                     ),

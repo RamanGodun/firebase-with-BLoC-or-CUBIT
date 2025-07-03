@@ -150,7 +150,7 @@ final class _RedirectToSignUpButton extends StatelessWidget {
         return AppTextButton(
           label: LocaleKeys.buttons_to_sign_up,
           isEnabled: isEnabled,
-          onPressed: () => context.pushToNamed(RoutesNames.signUp),
+          onPressed: () => context.goPushTo(RoutesNames.signUp),
         );
       },
     );

@@ -26,7 +26,7 @@ extension NavigationX on BuildContext {
   }
 
   /// ➕ Push a named route onto the stack
-  void pushToNamed(
+  void goPushTo(
     String routeName, {
     Map<String, String> pathParameters = const {},
     Map<String, dynamic> queryParameters = const {},

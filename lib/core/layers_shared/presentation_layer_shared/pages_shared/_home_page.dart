@@ -33,7 +33,7 @@ final class HomePage extends StatelessWidget {
           actionWidgets: [
             IconButton(
               icon: const Icon(AppIcons.profile),
-              onPressed: () => context.pushToNamed(RoutesNames.profile),
+              onPressed: () => context.goPushTo(RoutesNames.profile),
             ).withPaddingOnly(right: AppSpacing.l),
           ],
         ),
