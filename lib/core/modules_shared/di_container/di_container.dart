@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:get_it/get_it.dart';
 
 import 'package:firebase_with_bloc_or_cubit/core/modules_shared/di_container/di_safe_registration_x.dart';
@@ -30,45 +31,58 @@ final di = GetIt.instance;
 
 ////
 
-/// 🚀 [AppDI] — Centralized class for dependency registration
+/// 🚀 [DIContainer] — Centralized class for dependency registration
 /// ✅ Separates responsibilities by layers: Services, DataSources, UseCases, Blocs
 
-abstract final class AppDI {
+abstract final class DIContainer {
   ///---------------------
-  AppDI._();
+  DIContainer._();
+
+  ///
+
+  /// 🎯 Minimal DI — only essential services for splash screen
+  static Future<void> initMinimal() async {
+    ///
+    _registerTheme();
+
+    debugPrint('📦 Minimal DI initialized');
+
+    //
+  }
 
   ///
 
   /// 🎯 Entry point — call once in `main()`
-  static Future<void> init() async {
-    _registerDataSources();
-    _registerTheme();
-    _registerRouter();
-    _authState();
+  static Future<void> initFull() async {
+    ///
+    // _registerTheme();
+
     _registerFirebase();
-    _registerUseCases();
+
+    _registerDataSources();
+
     _registerRepositories();
 
+    _registerUseCases();
+
+    _authState();
+
     _registerOverlaysHandlers();
+
+    _registerRouter();
+
     _registerServices();
+
+    debugPrint('📦 Full DI initialized');
+
+    //
   }
 
   ///
 
   /// 🎨 Registers theme
   static void _registerTheme() {
-    di.registerLazySingleton(() => AppThemeCubit());
-  }
-
-  static void _registerRouter() {
-    di.registerLazySingleton<RouterCubit>(() => RouterCubit(di<AuthCubit>()));
-  }
-
-  /// 👤 Registers Auth State Cubit
-  static void _authState() {
-    di.registerLazySingleton(
-      () => AuthCubit(userStream: di<AuthRemoteDataSource>().user),
-    );
+    di.registerLazySingletonIfAbsent(() => AppThemeCubit());
   }
 
   /// 🔗 Registers core Firebase dependencies
@@ -80,49 +94,62 @@ abstract final class AppDI {
       );
   }
 
-  /// 🧠 Registers domain-level use cases
-  static void _registerUseCases() {
-    di
-      ..registerFactory(() => SignOutCubit(di<SignOutUseCase>()))
-      ..registerLazySingleton(() => SignInUseCase(di()))
-      ..registerLazySingleton(() => SignUpUseCase(di()))
-      ..registerLazySingleton(() => SignOutUseCase(di()))
-      ..registerLazySingleton(() => LoadProfileUseCase(di())) // 📄 Get profile
-      ..registerLazySingleton(
-        () => EnsureUserProfileCreatedUseCase(di()),
-      ); // 👤 Firestore sync
+  /// 📡 Registers all remote data sources
+  static void _registerDataSources() {
+    di.registerLazySingletonIfAbsent<AuthRemoteDataSource>(
+      () => AuthRemoteDataSourceImpl(di(), di()),
+    );
+    di.registerLazySingletonIfAbsent<ProfileRemoteDataSource>(
+      () => ProfileRemoteDataSourceImpl(di()),
+    );
   }
 
   /// 🗂️ Registers concrete repositories (data layer)
   static void _registerRepositories() {
     di
-      ..registerLazySingleton<AuthRepo>(() => AuthRepoImpl(di()))
-      ..registerLazySingleton<ProfileRepo>(() => ProfileRepoImpl(di()));
+      ..registerLazySingletonIfAbsent<AuthRepo>(() => AuthRepoImpl(di()))
+      ..registerLazySingletonIfAbsent<ProfileRepo>(() => ProfileRepoImpl(di()));
   }
 
-  /// 📡 Registers all remote data sources
-  static void _registerDataSources() {
-    di.registerLazySingleton<AuthRemoteDataSource>(
-      () => AuthRemoteDataSourceImpl(di(), di()),
-    );
-    di.registerLazySingleton<ProfileRemoteDataSource>(
-      () => ProfileRemoteDataSourceImpl(di()),
+  /// 🧠 Registers domain-level use cases
+  static void _registerUseCases() {
+    di
+      ..registerLazySingletonIfAbsent(() => SignOutCubit(di<SignOutUseCase>()))
+      ..registerLazySingletonIfAbsent(() => SignInUseCase(di()))
+      ..registerLazySingletonIfAbsent(() => SignUpUseCase(di()))
+      ..registerLazySingletonIfAbsent(() => SignOutUseCase(di()))
+      ..registerLazySingletonIfAbsent(() => LoadProfileUseCase(di()))
+      ..registerLazySingletonIfAbsent(
+        () => EnsureUserProfileCreatedUseCase(di()),
+      ); // 👤 Firestore sync
+  }
+
+  /// 👤 Registers Auth State Cubit
+  static void _authState() {
+    di.registerLazySingletonIfAbsent(
+      () => AuthCubit(userStream: di<AuthRemoteDataSource>().user),
     );
   }
 
   /// 🔍 Registers overlay handlers
   static void _registerOverlaysHandlers() {
     di
-      ..registerLazySingleton(() => OverlayStatusCubit())
-      ..registerLazySingleton(
+      ..registerLazySingletonIfAbsent(() => OverlayStatusCubit())
+      ..registerLazySingletonIfAbsent(
         () => OverlayDispatcher(
           onOverlayStateChanged: di<OverlayStatusCubit>().updateStatus,
         ),
       );
   }
 
+  static void _registerRouter() {
+    di.registerLazySingletonIfAbsent<RouterCubit>(
+      () => RouterCubit(di<AuthCubit>()),
+    );
+  }
+
   static void _registerServices() {
-    di.registerLazySingleton(() => const FormValidationService());
+    di.registerFactoryIfAbsent(() => const FormValidationService());
   }
 
   //

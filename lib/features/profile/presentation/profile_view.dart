@@ -9,7 +9,7 @@ import '../../../core/modules_shared/localization/widgets/key_value_x_for_text_w
 import '../../../core/modules_shared/localization/generated/locale_keys.g.dart';
 import '../../../core/modules_shared/localization/widgets/_toggle_button.dart';
 import '../../../core/modules_shared/theme/ui_constants/_app_constants.dart';
-import '../../../core/layers_shared/presentation_layer_shared/widgets_shared/loader.dart';
+import '../../../core/layers_shared/presentation_layer_shared/widgets_shared/loaders/loader.dart';
 import '../../auth/presentation/sign_out/sign_out_widget.dart';
 import '../domain/shared_entities/_user.dart';
 import '../../../core/layers_shared/presentation_layer_shared/widgets_shared/app_bar.dart';

@@ -9,7 +9,7 @@ import '../../../../modules_shared/overlays/overlay_dispatcher/overlay_status_cu
 import '../../../../utils_shared/typedef.dart';
 import '../../../../modules_shared/localization/widgets/text_widget.dart';
 import '../../../../../features/form_fields/widgets/keys_for_widgets.dart';
-import '../loader.dart';
+import '../loaders/loader.dart';
 
 /// ✅ [FormSubmitButton] — A reusable submit button
 /// with validation logic and animated loading indicator

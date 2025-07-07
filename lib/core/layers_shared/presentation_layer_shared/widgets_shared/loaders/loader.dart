@@ -11,8 +11,6 @@ import 'package:flutter/material.dart';
 class AppLoader extends StatelessWidget {
   ///----------------------------------
 
-  ///  Whether to wrap with [MaterialApp]
-  final bool wrapInMaterialApp;
   // Loader size (for Material spinner).
   final double size;
   // Thickness of the loader stroke (Material only).
@@ -30,7 +28,7 @@ class AppLoader extends StatelessWidget {
 
   const AppLoader({
     super.key,
-    this.wrapInMaterialApp = false,
+    // this.wrapInMaterialApp = false,
     this.size = 24.0,
     this.strokeWidth = 2.8,
     this.cupertinoRadius = 10.0,
@@ -48,7 +46,7 @@ class AppLoader extends StatelessWidget {
     final colorScheme = context.colorScheme;
     final primaryColor = color ?? colorScheme.primary;
 
-    final loader = Align(
+    return Align(
       alignment: alignment,
       child:
           isCupertino
@@ -79,7 +77,7 @@ class AppLoader extends StatelessWidget {
                 ),
               ),
     );
-
-    return wrapInMaterialApp ? MaterialApp(home: loader) : loader;
   }
+
+  ///
 }

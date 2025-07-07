@@ -12,7 +12,10 @@ abstract interface class ILocalStorageStack {
   ///--------------------------------------
   //
   /// Initializes all local storage services (e.g., HydratedBloc, SharedPreferences)
-  Future<void> init();
+  Future<void> initHydratedBloc();
+  //
+  // Optionally: init other storages (e.g., Isar, GetStorage, SharedPreferences)
+  // Future<void> initGetStorage();
   //
 }
 
@@ -27,7 +30,7 @@ final class DefaultLocalStorageStack implements ILocalStorageStack {
   const DefaultLocalStorageStack();
 
   @override
-  Future<void> init() async {
+  Future<void> initHydratedBloc() async {
     debugPrint('💾 Initializing HydratedBloc storage...');
     // Configures HydratedBloc persistent storage (Web or native)
     final storage = await HydratedStorage.build(
@@ -40,7 +43,7 @@ final class DefaultLocalStorageStack implements ILocalStorageStack {
     );
     HydratedBloc.storage = storage;
     debugPrint('💾 HydratedBloc storage initialized.');
-
-    // Optionally: init other storages (e.g., Isar, GetStorage, SharedPreferences)
   }
+
+  //
 }

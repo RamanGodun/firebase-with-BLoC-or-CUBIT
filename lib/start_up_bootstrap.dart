@@ -9,6 +9,9 @@ import 'package:firebase_with_bloc_or_cubit/localization_init.dart'
 import 'package:firebase_with_bloc_or_cubit/others_boostrap.dart'
     show IOthersBootstrap, DefaultOthersBootstrap;
 import 'package:flutter/material.dart';
+import 'core/layers_shared/presentation_layer_shared/widgets_shared/loaders/get_theme_for_initial_loader.dart';
+import 'core/layers_shared/presentation_layer_shared/widgets_shared/loaders/material_app_for_loader.dart';
+import 'core/modules_shared/di_container/di_container.dart';
 
 /// 🧰 [StartUpHandler] — Abstract contract for app startup logic
 
@@ -16,7 +19,12 @@ abstract interface class IStartUpHandler {
   ///----------------------------------
   const IStartUpHandler();
   //
+  /// 🚀 Pre-initialization: Flutter bindings + splash loader + neccessary DI container
+  Future<void> preBootstrap();
+
+  /// 🚀 Main initialization: all services and dependencies
   Future<void> bootstrap();
+  //
 }
 
 ////
@@ -55,15 +63,40 @@ final class DefaultStartUpHandler implements IStartUpHandler {
   ////
   ////
 
+  /// 🚀 Pre-initialization phase: Flutter bindings + splash screen
+  /// ✅ This runs before any async operations to show immediate feedback
+  @override
+  Future<void> preBootstrap() async {
+    ///
+    // Initialize Flutter bindings
+    WidgetsFlutterBinding.ensureInitialized();
+
+    _debugTools.configure();
+    await _debugTools.validatePlatformSupport();
+
+    await _localStorageStack.initHydratedBloc();
+
+    /// 📦 Initializes minimal necessary app dependencies via GetIt (DI container)
+    await DIContainer.initMinimal();
+
+    final theme = await ThemeForInitialLoader.get();
+    // Show splash loader while app initializes
+    runApp(InitLoaderWrapper(initialTheme: theme));
+    debugPrint('🚀 Pre-bootstrap completed: Flutter bindings + splash loader');
+  }
+
+  ////
+
   /// Main entrypoint: sequentially bootstraps all core app services before [runApp]
   @override
   Future<void> bootstrap() async {
     //
-    _debugTools.configure();
-
-    await _localStorageStack.init();
+    /// 📦 Initializes app dependencies via GetIt (DI container)
+    await DIContainer.initFull();
 
     await _localizationStack.init();
+
+    // await _localStorageStack.initHydratedBloc();
 
     await _firebaseStack.init();
 

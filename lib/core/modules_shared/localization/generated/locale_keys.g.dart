@@ -69,7 +69,7 @@ abstract class  LocaleKeys {
   static const form_confirm_password_is_empty = 'form.confirm_password_is_empty';
   static const form_confirm_password_mismatch = 'form.confirm_password_mismatch';
   static const form = 'form';
-  static const info_bloc_slogan = 'info.bloc_slogan';
+  static const info_home_page_info = 'info.home_page_info';
   static const info = 'info';
   static const languages_switched_to_pl = 'languages.switched_to_pl';
   static const languages_switched_to_en = 'languages.switched_to_en';

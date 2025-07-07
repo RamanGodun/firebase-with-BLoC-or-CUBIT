@@ -97,7 +97,7 @@ class CodegenLoader extends AssetLoader{
     "confirm_password_mismatch": "hasła nie są zgodne"
   },
   "info": {
-    "bloc_slogan": "Bloc to świetna biblioteka zarządzania stanem dla Fluttera!"
+    "home_page_info": "Witamy w aplikacji! \n Możesz przejść do strony ustawień profilu"
   },
   "languages": {
     "switched_to_pl": "Język zmieniony na 🇵🇱 Polski",
@@ -225,7 +225,7 @@ static const Map<String,dynamic> _uk = {
     "confirm_password_mismatch": "паролі не співпадають"
   },
   "info": {
-    "bloc_slogan": "Bloc — це чудова бібліотека управління станом для Flutter!"
+    "home_page_info": "Вітаємо в додатку! \n Ви можете перейти на сторінку налаштування профілю"
   },
   "languages": {
     "switched_to_pl": "Мову змінено на 🇵🇱 Польську",
@@ -353,7 +353,7 @@ static const Map<String,dynamic> _en = {
     "confirm_password_mismatch": "passwords do not match"
   },
   "info": {
-    "bloc_slogan": "Bloc is an awesome state management library for Flutter!"
+    "home_page_info": "Welcome to the app! \n You can go to the profile settings page"
   },
   "languages": {
     "switched_to_pl": "Language switched to 🇵🇱 Polish",
