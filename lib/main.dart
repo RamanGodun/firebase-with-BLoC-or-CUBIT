@@ -15,11 +15,22 @@ import 'core/modules_shared/theme/theme_cubit.dart';
 
 void main() async {
   ///
+  WidgetsFlutterBinding.ensureInitialized();
+  //
   // Splash loader till the app init end
   runApp(const AppLoader(wrapInMaterialApp: true));
 
-  /// 🔌 Firebase + HydratedBloc + Bloc Observer
-  await StartUpHandler.bootstrap();
+  // 📦 Initializes app dependencies via GetIt
+  await AppDI.init();
+
+  /// 🚀 Runs all imperative startup logic (localization, Firebase, storage, etc).
+  /// StartupHandler can access DI from globalContainer outside context.
+  final startUpHandler = const DefaultStartUpHandler(
+    // ? Here can be plugged in custom dependencies, e.g.:
+    // firebaseStack: MockFirebaseStack(),
+    // debugTools: FakeDebugTools(),
+  );
+  await startUpHandler.bootstrap();
 
   /// 🚀 Run App
   runApp(AppLocalization.wrap(const RootProviders()));

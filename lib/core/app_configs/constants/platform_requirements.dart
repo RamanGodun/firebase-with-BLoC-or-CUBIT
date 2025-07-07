@@ -10,7 +10,7 @@ final class PlatformConstants {
   static const int minSdkVersion = 24;
 
   /// 📲 Minimum iOS version supported (informational only)
-  static const String minIosVersion = '13.0';
+  static const String minIOSMajorVersion = '14.0';
 
   //
 }

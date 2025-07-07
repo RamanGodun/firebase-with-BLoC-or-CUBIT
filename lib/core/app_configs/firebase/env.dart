@@ -42,3 +42,13 @@ final class EnvConfig {
 ////
 
 enum Environment { dev, staging, prod }
+
+////
+
+extension EnvFileName on Environment {
+  String get fileName => switch (this) {
+    Environment.dev => '.env.dev',
+    Environment.staging => '.env.staging',
+    Environment.prod => '.env',
+  };
+}

@@ -1,117 +1,75 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_with_bloc_or_cubit/debug_tools_init.dart'
+    show IDebugTools, DefaultDebugTools;
+import 'package:firebase_with_bloc_or_cubit/firebase_init.dart'
+    show IFirebaseStack, DefaultFirebaseStack;
+import 'package:firebase_with_bloc_or_cubit/local_storage_init.dart'
+    show ILocalStorageStack, DefaultLocalStorageStack;
+import 'package:firebase_with_bloc_or_cubit/localization_init.dart'
+    show ILocalizationStack, DefaultLocalizationStack;
+import 'package:firebase_with_bloc_or_cubit/others_boostrap.dart'
+    show IOthersBootstrap, DefaultOthersBootstrap;
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/rendering.dart' show debugRepaintRainbowEnabled;
-import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter/foundation.dart' show debugPrint, kIsWeb;
-import 'package:path_provider/path_provider.dart';
-import 'core/modules_shared/di_container/di_container.dart';
-import 'core/modules_shared/localization/app_localizer.dart';
-import 'core/app_configs/firebase/env.dart';
-import 'core/modules_shared/logging/for_bloc/bloc_observer.dart';
 
-///🚀✅ Handles startup initialization: env, Firebase, BLoC, HydratedStorage, localization
-// ✅ Loads `.env`, sets up Firebase, HydratedBloc, and EasyLocalization
+/// 🧰 [StartUpHandler] — Abstract contract for app startup logic
 
-final class StartUpHandler {
-  ///──────────────────────
-  StartUpHandler._();
+abstract interface class IStartUpHandler {
+  ///----------------------------------
+  const IStartUpHandler();
+  //
+  Future<void> bootstrap();
+}
 
-  ///
+////
 
-  ///🎯 Entry point — must be called before `runApp()`
-  // ✅ Sequentially initializes all core services
+////
 
-  static Future<void> bootstrap() async {
-    ///─────────────────────────────────
-    //
-    _initializeCoreBindings();
-    await _initHydratedStorage();
-    await _initLocalization();
-    await _initEnvFile();
-    await _initFirebase();
-  }
+/// 🧰 [DefaultStartUpHandler] — Production [StartUpHandler] implementation for bootstrapping all critical services.
+/// ✅ All dependencies are injectable for testing/mocking.
 
-  ////
+/// 🧰 [DefaultStartUpHandler] — Default production startup logic with injectable stacks.
+final class DefaultStartUpHandler implements IStartUpHandler {
+  ///-------------------------------------------------------
+  //
+  final ILocalizationStack _localizationStack;
+  final IFirebaseStack _firebaseStack;
+  final ILocalStorageStack _localStorageStack;
+  final IDebugTools _debugTools;
+  final IOthersBootstrap _othersBootstrap;
 
-  ///🛠️ Initializes fundamental Flutter bindings and core services
-  // ✅ Sets up global Riverpod DI container with overrides
-
-  static void _initializeCoreBindings() async {
-    /// ─────────────────────────────────
-    //
-    WidgetsFlutterBinding.ensureInitialized();
-    // 🌈 Enables debug painting for layout visualization (repaint regions)
-    debugRepaintRainbowEnabled = false;
-    //
-    //👁️ Registers Bloc observer for global event tracking
-    Bloc.observer = const AppBlocObserver();
-    //
-    // 📦 Initializes app dependencies via GetIt
-    await AppDI.init();
-  }
+  /// Creates a fully-configurable startup handler.
+  /// All dependencies are optional and will default to production implementations.
+  const DefaultStartUpHandler({
+    ILocalizationStack? localizationStack,
+    IFirebaseStack? firebaseStack,
+    ILocalStorageStack? localStorageStack,
+    IDebugTools? debugTools,
+    IOthersBootstrap? othersBootstrap,
+  }) : _localizationStack =
+           localizationStack ?? const DefaultLocalizationStack(),
+       _firebaseStack = firebaseStack ?? const DefaultFirebaseStack(),
+       _localStorageStack =
+           localStorageStack ?? const DefaultLocalStorageStack(),
+       _debugTools = debugTools ?? const DefaultDebugTools(),
+       _othersBootstrap = othersBootstrap ?? const DefaultOthersBootstrap();
 
   ////
-
-  ///🌍 Initializes localization engine (EasyLocalization)
-  // ✅ Sets up `AppLocalizer` resolver
-
-  static Future<void> _initLocalization() async {
-    ///────────────────────────────────────────────
-    //
-    await EasyLocalization.ensureInitialized();
-    // ? when app with localization, use this:
-    AppLocalizer.init(resolver: (key) => key.tr());
-    // ! when app without localization, then instead previous method use next:
-    // AppLocalizer.initWithFallback();
-  }
-
   ////
 
-  ///📄 Loads environment variables from `.env.{env}`
-  // ✅ Detects current environment: dev, staging, prod
-  // ✅ Loads the correct `.env` config file
-
-  static Future<void> _initEnvFile() async {
-    ///────────────────────────────────────
+  /// Main entrypoint: sequentially bootstraps all core app services before [runApp]
+  @override
+  Future<void> bootstrap() async {
     //
-    final envFile = switch (EnvConfig.currentEnv) {
-      Environment.dev => '.env.dev',
-      Environment.staging => '.env.staging',
-      Environment.prod => '.env',
-    };
-    await dotenv.load(fileName: envFile);
-    debugPrint('✅ Loaded env: $envFile');
-  }
+    _debugTools.configure();
 
-  ////
+    await _localStorageStack.init();
 
-  ///🔥 Initializes Firebase SDK
-  // ✅ Sets up Firebase for analytics, auth, Firestore, etc.
+    await _localizationStack.init();
 
-  static Future<void> _initFirebase() async {
-    ///──────────────────────────────
+    await _firebaseStack.init();
+
+    _othersBootstrap.initUrlStrategy();
+
     //
-    await Firebase.initializeApp();
-  }
-
-  ////
-
-  ///💾 Configures HydratedBloc persistent storage
-
-  static Future<void> _initHydratedStorage() async {
-    ///────────────────────────────────────-
-    //
-    final storage = await HydratedStorage.build(
-      storageDirectory:
-          kIsWeb
-              ? HydratedStorageDirectory.web
-              : HydratedStorageDirectory(
-                (await getApplicationDocumentsDirectory()).path,
-              ),
-    );
-    HydratedBloc.storage = storage;
   }
 
   //
