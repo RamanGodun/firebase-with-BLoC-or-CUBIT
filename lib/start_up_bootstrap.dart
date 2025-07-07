@@ -19,10 +19,13 @@ abstract interface class IStartUpHandler {
   ///----------------------------------
   const IStartUpHandler();
   //
-  /// 🚀 Pre-initialization: Flutter bindings + splash loader + neccessary DI container
+  /// Initializes Flutter bindings and debug tools
   Future<void> preBootstrap();
-
-  /// 🚀 Main initialization: all services and dependencies
+  //
+  /// Shows the initial app shell with loader (splash) till full bootstrap.
+  Future<void> showAppInitLoader();
+  //
+  /// Runs all remaining initialization (localization, DI, Firebase, etc).
   Future<void> bootstrap();
   //
 }
@@ -31,10 +34,8 @@ abstract interface class IStartUpHandler {
 
 ////
 
-/// 🧰 [DefaultStartUpHandler] — Production [StartUpHandler] implementation for bootstrapping all critical services.
-/// ✅ All dependencies are injectable for testing/mocking.
+/// 🧰 [DefaultStartUpHandler] — Handles all critical bootstrapping (with injectable stacks for testing/mocks).
 
-/// 🧰 [DefaultStartUpHandler] — Default production startup logic with injectable stacks.
 final class DefaultStartUpHandler implements IStartUpHandler {
   ///-------------------------------------------------------
   //
@@ -44,8 +45,7 @@ final class DefaultStartUpHandler implements IStartUpHandler {
   final IDebugTools _debugTools;
   final IOthersBootstrap _othersBootstrap;
 
-  /// Creates a fully-configurable startup handler.
-  /// All dependencies are optional and will default to production implementations.
+  /// Constructor allows the injection of custom/mock implementations.
   const DefaultStartUpHandler({
     ILocalizationStack? localizationStack,
     IFirebaseStack? firebaseStack,
@@ -59,30 +59,40 @@ final class DefaultStartUpHandler implements IStartUpHandler {
            localStorageStack ?? const DefaultLocalStorageStack(),
        _debugTools = debugTools ?? const DefaultDebugTools(),
        _othersBootstrap = othersBootstrap ?? const DefaultOthersBootstrap();
-
   ////
   ////
 
-  /// 🚀 Pre-initialization phase: Flutter bindings + splash screen
-  /// ✅ This runs before any async operations to show immediate feedback
+  /// 🚀 Pre-initialization phase: Flutter bindings + debug tools
   @override
   Future<void> preBootstrap() async {
     ///
     // Initialize Flutter bindings
     WidgetsFlutterBinding.ensureInitialized();
-
+    //
+    // Setup and validate debug tools/platform.
     _debugTools.configure();
     await _debugTools.validatePlatformSupport();
+    // ... (other debug tools)
+  }
 
-    await _localStorageStack.initHydratedBloc();
+  ////
 
-    /// 📦 Initializes minimal necessary app dependencies via GetIt (DI container)
+  /// ✅ This runs before any async operations to show [AppLoader] (splash screen) immediately
+  @override
+  Future<void> showAppInitLoader() async {
+    ///
+    // Setup HydratedBloc storage (critical for persistent state).
+    await _localStorageStack.initHydratedStorage();
+    //
+    /// 📦  Register only minimal dependencies (currently, [AppThemeCubit]), that required for [AppLoader].
     await DIContainer.initMinimal();
-
+    //
+    /// Try to load theme from storage or fallback to system theme.
     final theme = await ThemeForInitialLoader.get();
-    // Show splash loader while app initializes
-    runApp(InitLoaderWrapper(initialTheme: theme));
-    debugPrint('🚀 Pre-bootstrap completed: Flutter bindings + splash loader');
+    //
+    // Show minimal app shell with loader while app initializes
+    runApp(InitAppLoaderShell(initialTheme: theme));
+    debugPrint('🚀 Init App Loader completed');
   }
 
   ////
@@ -93,15 +103,12 @@ final class DefaultStartUpHandler implements IStartUpHandler {
     //
     /// 📦 Initializes app dependencies via GetIt (DI container)
     await DIContainer.initFull();
-
+    //
     await _localizationStack.init();
-
-    // await _localStorageStack.initHydratedBloc();
-
+    //
     await _firebaseStack.init();
-
+    //
     _othersBootstrap.initUrlStrategy();
-
     //
   }
 

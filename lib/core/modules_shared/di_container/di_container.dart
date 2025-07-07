@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:get_it/get_it.dart';
 
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/di_container/di_safe_registration_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/modules_shared/di_container/get_it_x.dart';
 
 import '../../../features/auth/data/auth_repository_impl.dart';
 import '../../../features/auth/data/data_source_contract.dart';
@@ -30,63 +30,66 @@ import '../theme/theme_cubit.dart';
 final di = GetIt.instance;
 
 ////
+////
 
 /// 🚀 [DIContainer] — Centralized class for dependency registration
-/// ✅ Separates responsibilities by layers: Services, DataSources, UseCases, Blocs
+/// ✅ Separates all responsibilities by layers: Services, DataSources, UseCases, Blocs, etc.
+///    - Call [initMinimal] first for splash/loader dependencies.
+///    - Call [initFull] for all core app dependencies after the splash.
 
 abstract final class DIContainer {
   ///---------------------
   DIContainer._();
+  //
 
-  ///
-
-  /// 🎯 Minimal DI — only essential services for splash screen
+  /// 🎯 Registers only the minimal DI needed for the splash/loader (e.g. theme cubit).
   static Future<void> initMinimal() async {
     ///
     _registerTheme();
-
-    debugPrint('📦 Minimal DI initialized');
-
+    debugPrint('📦 Minimal DI initialized (currently: Theme Cubit... ) ');
     //
   }
 
-  ///
+  ////
 
-  /// 🎯 Entry point — call once in `main()`
+  /// 🎯  Registers all core dependencies for the main app tree
   static Future<void> initFull() async {
     ///
-    // _registerTheme();
-
     _registerFirebase();
-
+    //
     _registerDataSources();
-
+    //
     _registerRepositories();
-
+    //
     _registerUseCases();
-
+    //
     _authState();
-
+    //
     _registerOverlaysHandlers();
-
+    //
     _registerRouter();
-
+    //
     _registerServices();
-
+    //
     debugPrint('📦 Full DI initialized');
-
     //
   }
 
-  ///
+  ////
 
-  /// 🎨 Registers theme
+  ////
+
+  /// 🎨 Registers theme Cubit for loader (and later, the main app).
   static void _registerTheme() {
+    ///
     di.registerLazySingletonIfAbsent(() => AppThemeCubit());
   }
 
+  ////
+
   /// 🔗 Registers core Firebase dependencies
   static void _registerFirebase() {
+    ///
     di
       ..registerLazySingletonIfAbsent<FirebaseAuth>(() => FirebaseAuth.instance)
       ..registerLazySingletonIfAbsent<FirebaseFirestore>(
@@ -94,8 +97,11 @@ abstract final class DIContainer {
       );
   }
 
-  /// 📡 Registers all remote data sources
+  ////
+
+  /// 📡 Registers all remote data sources for auth/profile.
   static void _registerDataSources() {
+    ///
     di.registerLazySingletonIfAbsent<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl(di(), di()),
     );
@@ -104,15 +110,21 @@ abstract final class DIContainer {
     );
   }
 
-  /// 🗂️ Registers concrete repositories (data layer)
+  ////
+
+  /// 🗂️ Registers data layer repositories.
   static void _registerRepositories() {
+    ///
     di
       ..registerLazySingletonIfAbsent<AuthRepo>(() => AuthRepoImpl(di()))
       ..registerLazySingletonIfAbsent<ProfileRepo>(() => ProfileRepoImpl(di()));
   }
 
-  /// 🧠 Registers domain-level use cases
+  ////
+
+  /// 🧠 Registers all domain-level use cases (auth, profile, etc).
   static void _registerUseCases() {
+    ///
     di
       ..registerLazySingletonIfAbsent(() => SignOutCubit(di<SignOutUseCase>()))
       ..registerLazySingletonIfAbsent(() => SignInUseCase(di()))
@@ -124,15 +136,21 @@ abstract final class DIContainer {
       ); // 👤 Firestore sync
   }
 
-  /// 👤 Registers Auth State Cubit
+  ////
+
+  /// 👤 Registers the Auth State Cubit (streams user auth state).
   static void _authState() {
+    ///
     di.registerLazySingletonIfAbsent(
       () => AuthCubit(userStream: di<AuthRemoteDataSource>().user),
     );
   }
 
-  /// 🔍 Registers overlay handlers
+  ////
+
+  /// 🔍 Registers overlays, overlay status Cubit, and dispatcher.
   static void _registerOverlaysHandlers() {
+    ///
     di
       ..registerLazySingletonIfAbsent(() => OverlayStatusCubit())
       ..registerLazySingletonIfAbsent(
@@ -142,14 +160,22 @@ abstract final class DIContainer {
       );
   }
 
+  ////
+
+  /// 🧭🚦 Registers the router Cubit (navigation logic).
   static void _registerRouter() {
+    ///
     di.registerLazySingletonIfAbsent<RouterCubit>(
       () => RouterCubit(di<AuthCubit>()),
     );
   }
 
+  ////
+
+  ///  🔐 Registers form validation service
   static void _registerServices() {
-    di.registerFactoryIfAbsent(() => const FormValidationService());
+    ///
+    di.registerLazySingletonIfAbsent(() => const FormValidationService());
   }
 
   //

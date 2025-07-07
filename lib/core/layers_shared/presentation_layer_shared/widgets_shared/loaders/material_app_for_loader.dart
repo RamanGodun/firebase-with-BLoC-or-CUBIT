@@ -9,12 +9,12 @@ import '../../../../modules_shared/theme/text_theme/text_theme_factory.dart';
 import '../../../../modules_shared/theme/theme_cubit.dart';
 import 'loader.dart';
 
-/// 🌳📦 [InitLoaderWrapper] — Wraps global Blocs for app-wide access
-final class InitLoaderWrapper extends StatelessWidget {
+/// 🌳📦 [InitAppLoaderShell] — Wraps global Blocs for app-wide access
+final class InitAppLoaderShell extends StatelessWidget {
   ///--------------------------------------------
 
   final ThemePreferences initialTheme;
-  const InitLoaderWrapper({
+  const InitAppLoaderShell({
     super.key,
     this.initialTheme = const ThemePreferences(
       theme: ThemeVariantsEnum.dark,
@@ -25,9 +25,11 @@ final class InitLoaderWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //
-
     return MultiBlocProvider(
-      providers: [BlocProvider.value(value: di<AppThemeCubit>())],
+      providers: [
+        BlocProvider.value(value: di<AppThemeCubit>()),
+        // BlocProvider(create: (_) => AppThemeCubit()),
+      ],
       child: MaterialAppForInitLoader(initialTheme: initialTheme),
     );
   }

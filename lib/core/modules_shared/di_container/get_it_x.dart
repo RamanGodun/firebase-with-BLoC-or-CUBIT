@@ -1,3 +1,4 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 /// 🧩 [SafeRegistration] — Extension on [GetIt] for safe DI registration
@@ -25,4 +26,24 @@ extension SafeRegistration on GetIt {
   }
 
   //
+}
+
+/// 🧩 [SafeDispose] — Extension on [GetIt] for safe disposal/unregistration
+extension SafeDispose on GetIt {
+  /// Disposes and unregisters any registered singleton that implements [Closeable]
+  ///
+  /// - T: Type of singleton (Cubit, Bloc, StreamController, etc.)
+  /// - If instance has .close(), calls it and unregisters
+  /// - Safe to call even якщо не було реєстрації
+  Future<void> safeDispose<T extends Object>() async {
+    if (isRegistered<T>()) {
+      final instance = get<T>();
+      if (instance is Cubit) {
+        await instance.close();
+      } else if (instance is BlocBase) {
+        await instance.close();
+      }
+      unregister<T>();
+    }
+  }
 }

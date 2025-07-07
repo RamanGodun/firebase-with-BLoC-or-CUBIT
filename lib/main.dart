@@ -11,6 +11,7 @@ import 'core/modules_shared/localization/app_localization.dart';
 
 void main() async {
   ///
+
   /// StartupHandler can access DI from globalContainer outside context.
   final startUpHandler = const DefaultStartUpHandler(
     // ? Here can be plugged in custom dependencies, e.g.:
@@ -18,34 +19,38 @@ void main() async {
     // debugTools: FakeDebugTools(),
   );
 
-  /// 🚀 Pre-initialization: Flutter bindings + splash loader + neccessary DI container
+  ///  Initialize Flutter bindings, debug tools, etc (minimal pre-bootstrap)
   await startUpHandler.preBootstrap();
 
-  /// 🚀 Runs all imperative startup logic (localization, Firebase, storage, full DI container, etc).
+  ///  Show initial splash loader with necessary dependencies (local storage and theme Cubit)
+  await startUpHandler.showAppInitLoader();
+
+  /// 🚀 Runs all imperative startup logic (localization, Firebase, full DI container, etc).
   await startUpHandler.bootstrap();
 
-  /// 🏁 Launches [runApp]
+  /// 🏁 Launches app
   runApp(AppLocalization.wrap(const GlobalProviders()));
-
-  ///
+  debugPrint('🏁 App fully started');
+  //
 }
 
 ////
 
 ////
 
-/// 🌳📦 [GlobalProviders] — Wraps global Blocs for app-wide access
+/// 🌳📦 [GlobalProviders] — Wraps all global Blocs with providers for the app
 final class GlobalProviders extends StatelessWidget {
   ///--------------------------------------------
   const GlobalProviders({super.key});
 
   @override
   Widget build(BuildContext context) {
+    //
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: di<AuthCubit>()), // 🔐 Auth State
-        BlocProvider.value(value: di<RouterCubit>()), // 🧭🚦 Router
-        BlocProvider.value(value: di<AppThemeCubit>()), // 🎨 Theme State
+        BlocProvider.value(value: di<AuthCubit>()),
+        BlocProvider.value(value: di<RouterCubit>()),
+        BlocProvider.value(value: di<AppThemeCubit>()),
         BlocProvider.value(value: di<OverlayStatusCubit>()),
       ],
       child: const AppRootViewWrapper(),
