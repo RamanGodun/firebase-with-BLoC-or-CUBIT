@@ -1,14 +1,14 @@
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/localization/generated/locale_keys.g.dart';
+import 'package:firebase_with_bloc_or_cubit/core/foundation/localization/generated/locale_keys.g.dart';
 import 'package:firebase_with_bloc_or_cubit/features/form_fields/input_validation/formz_status_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/navigation/extensions/navigation_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/foundation/navigation/extensions/navigation_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget;
-import '../../../../core/modules_shared/overlays/overlay_dispatcher/overlay_status_cubit.dart';
+import '../../../../core/foundation/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import '../../../../core/utils_shared/spider/images_paths.dart';
-import '../../../../core/modules_shared/theme/ui_constants/_app_constants.dart'
+import '../../../../core/foundation/theme/ui_constants/_app_constants.dart'
     show AppSpacing;
 import '../../../../core/layers_shared/presentation_layer_shared/widgets_shared/buttons/text_button.dart';
 import '../../../form_fields/input_validation/_validation_enums.dart';

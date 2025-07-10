@@ -1,5 +1,5 @@
 import 'dart:io' show Platform;
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/extensions/theme_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/foundation/theme/extensions/theme_x.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

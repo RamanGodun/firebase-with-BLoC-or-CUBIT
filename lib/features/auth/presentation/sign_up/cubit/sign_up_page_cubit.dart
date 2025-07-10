@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/errors_handling/failures/extensions/to_ui_failures_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/errors_handling/utils/for_bloc/consumable.dart';
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/errors_handling/utils/observers/loggers/failure_logger_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/foundation/errors_handling/failures/extensions/to_ui_failures_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/foundation/errors_handling/utils/for_bloc/consumable.dart';
+import 'package:firebase_with_bloc_or_cubit/core/foundation/errors_handling/utils/observers/loggers/failure_logger_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import '../../../../../core/modules_shared/errors_handling/failures/failure_ui_entity.dart';
-import '../../../../../core/modules_shared/errors_handling/utils/for_bloc/result_handler_async.dart';
+import '../../../../../core/foundation/errors_handling/failures/failure_ui_entity.dart';
+import '../../../../../core/foundation/errors_handling/utils/for_bloc/result_handler_async.dart';
 import '../../../../form_fields/utils/_form_validation_service.dart';
 import '../../../../form_fields/input_validation/_validation_enums.dart';
 import '../../../domain/use_cases/sign_up.dart';

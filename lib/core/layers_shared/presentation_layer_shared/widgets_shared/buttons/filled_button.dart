@@ -1,13 +1,13 @@
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/animation/widget_animation_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/extensions/theme_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/foundation/animation/widget_animation_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/foundation/theme/extensions/theme_x.dart';
 import 'package:firebase_with_bloc_or_cubit/features/form_fields/input_validation/formz_status_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import '../../../../modules_shared/overlays/overlay_dispatcher/overlay_status_cubit.dart';
+import '../../../../foundation/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import '../../../../utils_shared/typedef.dart';
-import '../../../../modules_shared/localization/widgets/text_widget.dart';
+import '../../../../foundation/localization/widgets/text_widget.dart';
 import '../../../../../features/form_fields/widgets/keys_for_widgets.dart';
 import '../loaders/loader.dart';
 

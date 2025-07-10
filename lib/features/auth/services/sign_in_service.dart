@@ -1,10 +1,10 @@
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/errors_handling/either/either_extensions/either_getters_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/errors_handling/utils/observers/loggers/failure_logger_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/foundation/errors_handling/either/either_extensions/either_getters_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/foundation/errors_handling/utils/observers/loggers/failure_logger_x.dart';
 
 import '../domain/use_cases/ensure_profile_created.dart';
 import '../domain/use_cases/sign_in.dart';
-import '../../../core/modules_shared/errors_handling/either/either.dart';
-import '../../../core/modules_shared/errors_handling/failures/failure_entity.dart';
+import '../../../core/foundation/errors_handling/either/either.dart';
+import '../../../core/foundation/errors_handling/failures/failure_entity.dart';
 import '../../../core/utils_shared/typedef.dart';
 
 /// 🧩 [SignInService] — Handles sign-in logic and profile creation

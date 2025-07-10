@@ -1,7 +1,7 @@
-import 'package:firebase_with_bloc_or_cubit/core/modules_shared/theme/extensions/theme_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/foundation/theme/extensions/theme_x.dart';
 import 'package:flutter/material.dart';
-import '../../../modules_shared/theme/ui_constants/app_colors.dart';
-import '../../../modules_shared/theme/ui_constants/_app_constants.dart'
+import '../../../foundation/theme/ui_constants/app_colors.dart';
+import '../../../foundation/theme/ui_constants/_app_constants.dart'
     show AppSpacing;
 
 /// 🧊 [GlassTileDivider] — Subtle glass-style divider between dialog content and buttons.

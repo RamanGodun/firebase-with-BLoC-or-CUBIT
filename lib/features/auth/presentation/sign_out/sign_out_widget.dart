@@ -2,7 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extensi
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/modules_shared/theme/ui_constants/_app_constants.dart';
+import '../../../../core/foundation/theme/ui_constants/_app_constants.dart';
 import 'sign_out_cubit/sign_out_cubit.dart';
 
 class SignOutWidget extends StatelessWidget {
