@@ -1,30 +1,17 @@
 import 'dart:io' show Platform;
 import 'package:device_info_plus/device_info_plus.dart';
-import '../../core/app_configs/constants/platform_requirements.dart';
+import '../core/app_configs/constants/platform_requirements.dart';
 
-/// 🛡️ [IPlatformValidator] — abstraction for platform/environment pre-checks.
+/// 🛡️ [PlatformValidationUtil] — Util for platform/environment pre-checks.
 
-abstract interface class IPlatformValidator {
-  ///-------------------------------------
-  //
-  /// Validates that current platform version is supported
-  Future<void> validatePlatformSupport();
-  //
-}
-
-////
-
-////
-
-/// 🧪 [PlatformValidationStack] — production implementation.
-
-final class PlatformValidationStack implements IPlatformValidator {
-  ///-----------------------------------------------------
-  const PlatformValidationStack();
+final class PlatformValidationUtil {
+  ///----------------------------
+  const PlatformValidationUtil._();
 
   ///📱 Check minimum platform support (e.g., Android SDK, IOS version)
-  @override
-  Future<void> validatePlatformSupport() async {
+  /// Throws [UnsupportedError] if platform version is below required.
+
+  static Future<void> run() async {
     //
     if (Platform.isAndroid) {
       final androidInfo = await DeviceInfoPlugin().androidInfo;
@@ -52,8 +39,6 @@ final class PlatformValidationStack implements IPlatformValidator {
         );
       }
     }
-    // Add check for Web/other platforms if needed.
+    // Add check for Web/other platforms, if needed.
   }
-
-  //
 }

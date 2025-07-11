@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import '../../../../app_start_up/di_container/di_container.dart';
+import '../../../../app_bootstrap/di_container/di_container.dart';
 import '../../overlays/overlay_dispatcher/_overlay_dispatcher.dart';
 
 /// 🧭 [OverlayNavigatorObserver] — Clears all overlays on navigation events

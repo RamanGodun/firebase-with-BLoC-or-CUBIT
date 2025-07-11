@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:get_it/get_it.dart';
 
-import 'package:firebase_with_bloc_or_cubit/app_start_up/di_container/get_it_x.dart';
+import 'package:firebase_with_bloc_or_cubit/app_bootstrap/di_container/get_it_x.dart';
 
 import '../../features/auth/data/auth_repository_impl.dart';
 import '../../features/auth/data/data_source_contract.dart';
@@ -34,7 +34,7 @@ final di = GetIt.instance;
 
 /// 🚀 [DIContainer] — Centralized class for dependency registration
 /// ✅ Separates all responsibilities by layers: Services, DataSources, UseCases, Blocs, etc.
-///    - Call [initMinimal] first for splash/loader dependencies.
+///    - Call [initNecessaryForAppSplashScreen] first for splash/loader dependencies.
 ///    - Call [initFull] for all core app dependencies after the splash.
 
 abstract final class DIContainer {
@@ -42,19 +42,13 @@ abstract final class DIContainer {
   DIContainer._();
   //
 
-  /// 🎯 Registers only the minimal DI needed for the splash/loader (e.g. theme cubit).
-  static Future<void> initMinimal() async {
-    ///
-    _registerTheme();
-    debugPrint('📦 Minimal DI initialized (currently: Theme Cubit... ) ');
-    //
-  }
-
   ////
 
   /// 🎯  Registers all core dependencies for the main app tree
   static Future<void> initFull() async {
     ///
+    _registerTheme();
+    //
     _registerFirebase();
     //
     _registerDataSources();
@@ -67,10 +61,10 @@ abstract final class DIContainer {
     //
     _registerOverlaysHandlers();
     //
-    _registerRouter();
-    //
     _registerServices();
     //
+    _registerRouter();
+
     debugPrint('📦 Full DI initialized');
     //
   }
@@ -176,6 +170,16 @@ abstract final class DIContainer {
   static void _registerServices() {
     ///
     di.registerLazySingletonIfAbsent(() => const FormValidationService());
+  }
+
+  ////
+
+  /// 🎯 Registers only the minimal DI needed for the splash/loader (e.g. theme cubit).
+  static Future<void> initNecessaryForAppSplashScreen() async {
+    ///
+    _registerTheme();
+    debugPrint('📦 Minimal DI initialized (currently: Theme Cubit) ');
+    //
   }
 
   //

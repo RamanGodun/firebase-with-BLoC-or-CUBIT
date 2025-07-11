@@ -6,28 +6,18 @@ import 'core/foundation/navigation/core/router_cubit.dart';
 import 'core/foundation/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import 'core/foundation/theme/theme_cubit.dart';
 import 'root_view_shell.dart';
-import 'app_start_up/start_up_bootstrap.dart';
-import 'app_start_up/di_container/di_container.dart';
+import 'app_bootstrap/app_bootstrap.dart';
+import 'app_bootstrap/di_container/di_container.dart';
 
 /// 🏁 Entry point of the application
 void main() async {
   ///
-
-  /// Imperative initialization
-  final startUp = const AppStartUp(
-    // ? Here can be plugged in custom dependencies, e.g.:
-    // firebaseStack: MockFirebaseStack(),
-    // debugTools: FakeDebugTools(),
+  final appBootstrap = const AppBootstrap(
+    // ? Here can be plugged in custom dependencies (e.g.  "localStorage: IsarLocalStorage()," )
   );
 
-  ///  Initialize Flutter bindings, debug tools, etc (minimal pre-bootstrap)
-  await startUp.run();
-
-  ///  Show initial splash loader with necessary dependencies (local storage and theme Cubit)
-  await startUp.showAppInitLoader();
-
-  /// 🚀 Runs all imperative startup logic (localization, Firebase, full DI container, etc).
-  await startUp.bootstrap();
+  /// 🚀 Runs all startup logic (localization, Firebase, full DI container, debug tools, local storage, etc).
+  await appBootstrap.initAllServices();
 
   /// 🏁 Launches app
   runApp(const AppLocalizationShell());
@@ -54,7 +44,7 @@ final class AppLocalizationShell extends StatelessWidget {
 
 ////
 
-/// 🧩📦 [GlobalProviders] — Wraps all global Blocs with providers for the app
+/// 📦 [GlobalProviders] — Wraps all global Blocs with providers for the app
 final class GlobalProviders extends StatelessWidget {
   ///--------------------------------------------
   const GlobalProviders({super.key});

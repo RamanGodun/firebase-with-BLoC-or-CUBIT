@@ -67,11 +67,6 @@ final class _AppRootView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ///
-    // Log current theme info for debugging and QA.
-    debugPrint('[🧪 THEME] themeMode: $themeMode');
-    debugPrint('[🧪 THEME] light theme: ${lightTheme.brightness}');
-    debugPrint('[🧪 THEME] dark theme: ${darkTheme.brightness}');
-
     return MaterialApp.router(
       ///
       title: LocaleKeys.app_title.tr(),

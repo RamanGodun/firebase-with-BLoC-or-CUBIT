@@ -1,6 +1,6 @@
 import 'package:firebase_with_bloc_or_cubit/core/foundation/overlays/core/_overlay_base_methods.dart';
 import 'package:flutter/material.dart';
-import '../../../../app_start_up/di_container/di_container.dart';
+import '../../../../app_bootstrap/di_container/di_container.dart';
 import '../../errors_handling/failures/failure_ui_entity.dart';
 import '../../localization/app_localizer.dart';
 import '../../localization/generated/locale_keys.g.dart';

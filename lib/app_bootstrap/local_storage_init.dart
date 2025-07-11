@@ -5,17 +5,15 @@ import 'package:hydrated_bloc/hydrated_bloc.dart'
 import 'package:path_provider/path_provider.dart'
     show getApplicationDocumentsDirectory;
 
-/// 💾 [ILocalStorageStack] — abstraction for local storage initialization.
-/// ✅ Used to decouple local storage startup logic and enable mocking.
+/// 💾 [ILocalStorage] — Abstraction to decouple startup logic and enable mocking in tests.
 
-abstract interface class ILocalStorageStack {
-  ///--------------------------------------
+abstract interface class ILocalStorage {
+  ///--------------------------------
   //
-  /// Initializes all local storage services (e.g., HydratedBloc, SharedPreferences)
-  Future<void> initHydratedStorage();
+  /// Initializes all local storage services
+  Future<void> init();
   //
-  // Optionally: init other storages (e.g., Isar, GetStorage, SharedPreferences)
-  // Future<void> initGetStorage();
+  /// Initialize other storages (e.g., SharedPreferences, Isar, SecureStorage) here, if needed.
   //
 }
 
@@ -23,15 +21,16 @@ abstract interface class ILocalStorageStack {
 
 ////
 
-/// 💾 [LocalStorageStack] — [ILocalStorageStack] implementation.
+/// 🧩📦 [LocalStorage] — Current implementation of [ILocalStorage] with initialization logic.
 
-final class LocalStorageStack implements ILocalStorageStack {
+final class HydratedLocalStorage implements ILocalStorage {
   ///------------------------------------------------------------
-  const LocalStorageStack();
+  const HydratedLocalStorage();
 
   @override
-  Future<void> initHydratedStorage() async {
+  Future<void> init() async {
     debugPrint('💾 Initializing HydratedBloc storage...');
+
     // Configures HydratedBloc persistent storage (Web or native)
     final storage = await HydratedStorage.build(
       storageDirectory:
