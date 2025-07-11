@@ -65,6 +65,7 @@ final class AppBootstrap implements IAppBootstrap {
   @override
   Future<void> initAllServices() async {
     //
+    debugPrint('🚀 [Bootstrap] Starting full initialization...');
     await appStartUp();
     //
     await initGlobalDIContainer(); // 📦  Register dependencies via GetIt
@@ -77,7 +78,9 @@ final class AppBootstrap implements IAppBootstrap {
     //
     /// Initializes remote database (currently, Firebase).
     await initRemoteDataBase();
+    //
     setPathUrlStrategy();
+    debugPrint('✅ [Bootstrap] All services initialized!');
     //
   }
 
@@ -86,7 +89,8 @@ final class AppBootstrap implements IAppBootstrap {
   @override
   Future<void> appStartUp() async {
     //
-    /// Ensures Flutter bindings are ready before any further setup.
+    debugPrint('🟢 [Startup] Flutter bindings and platform checks...');
+    // Ensures Flutter bindings are ready before any further setup.
     WidgetsFlutterBinding.ensureInitialized();
     //
     /// Validates platform (min. OS versions, emulator restrictions, etc).
@@ -95,6 +99,7 @@ final class AppBootstrap implements IAppBootstrap {
     /// Controls visual debugging options (e.g., repaint highlighting).
     debugRepaintRainbowEnabled = false;
     // ... (other debug tools)
+    debugPrint('✅ [Startup] Flutter bindings and platform validation done.');
     //
   }
 
@@ -102,21 +107,39 @@ final class AppBootstrap implements IAppBootstrap {
 
   @override
   Future<void> initGlobalDIContainer() async {
-    /// 📦  Register dependencies via GetIt
+    //
+    debugPrint('📦 [DI] Initializing global dependency container...');
+    // 📦  Register dependencies via GetIt
     await DIContainer.initFull();
+    debugPrint('✅ [DI] Dependency container ready.');
   }
 
   ////
 
   @override
   Future<void> initLocalStorage() async {
-    /// Setup HydratedBloc storage currently
+    //
+    debugPrint('💾 [Storage] Initializing local storage...');
+    // Setup HydratedBloc storage currently
     await _localStorage.init();
+    debugPrint('✅ [Storage] Local storage initialized.');
+  }
+
+  ////
+
+  @override
+  Future<void> initRemoteDataBase() async {
+    //
+    debugPrint('🗄️ [RemoteDB] Initializing remote database...');
+    // Initializes remote database (currently, Firebase).
+    await _remoteDataBase.init();
+    debugPrint('✅ [RemoteDB] Remote database initialized.');
   }
 
   ////
 
   Future<void> initEasyLocalization() async {
+    //
     debugPrint('🌍 Initializing EasyLocalization...');
     await EasyLocalization.ensureInitialized();
     //
@@ -124,16 +147,8 @@ final class AppBootstrap implements IAppBootstrap {
     AppLocalizer.init(resolver: (key) => key.tr());
     // ? when app without localization, then instead previous method use next:
     // AppLocalizer.initWithFallback();
-    debugPrint('🌍 EasyLocalization initialized!');
+    debugPrint('✅ EasyLocalization initialized!');
     //
-  }
-
-  ////
-
-  @override
-  Future<void> initRemoteDataBase() async {
-    /// Initializes remote database (currently, Firebase).
-    await _remoteDataBase.init();
   }
 
   //

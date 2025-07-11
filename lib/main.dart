@@ -27,6 +27,8 @@ void main() async {
 
 ////
 
+////
+
 /// 🌍✅ [AppLocalizationShell] — Ensures the entire app tree is properly localized before rendering the root UI.
 
 final class AppLocalizationShell extends StatelessWidget {
@@ -41,6 +43,8 @@ final class AppLocalizationShell extends StatelessWidget {
     return AppLocalization.configure(const GlobalProviders());
   }
 }
+
+////
 
 ////
 
