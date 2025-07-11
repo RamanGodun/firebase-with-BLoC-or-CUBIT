@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import '../../../layers_shared/domain_shared/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
+import '../../../shared_domain_layer/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
 import '../app_routes/app_routes.dart';
 
 /// 🧭🚦 [RoutesRedirectionService] — Handles navigation redirects based on [AuthBloc] state.

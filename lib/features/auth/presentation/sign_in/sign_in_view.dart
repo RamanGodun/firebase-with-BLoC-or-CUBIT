@@ -15,8 +15,8 @@ import '../../../form_fields/input_validation/_validation_enums.dart';
 import '../../../form_fields/utils/use_auth_focus_nodes.dart';
 import '../../../form_fields/widgets/_fields_factory.dart';
 import '../../../form_fields/widgets/password_visibility_icon.dart';
-import '../../../../core/layers_shared/presentation_layer_shared/widgets_shared/buttons/filled_button.dart';
-import '../../../../core/layers_shared/presentation_layer_shared/widgets_shared/buttons/text_button.dart';
+import '../../../../core/shared_presentation_layer/widgets_shared/buttons/filled_button.dart';
+import '../../../../core/shared_presentation_layer/widgets_shared/buttons/text_button.dart';
 import 'cubit/sign_in_page_cubit.dart';
 
 part 'sign_in_widgets.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart' show ChangeNotifier;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../layers_shared/domain_shared/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
-import '../../../layers_shared/presentation_layer_shared/pages_shared/page_not_found.dart';
+import '../../../shared_domain_layer/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
+import '../../../shared_presentation_layer/pages_shared/page_not_found.dart';
 import '../app_routes/app_routes.dart';
 import '../utils/overlay_navigation_observer.dart';
 import '../utils/routes_redirection_service.dart';

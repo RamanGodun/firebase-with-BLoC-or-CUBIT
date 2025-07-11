@@ -20,7 +20,7 @@ import '../../features/profile/data/data_source_contract.dart';
 import '../../features/profile/data/impl_of_data_source_contract.dart';
 import '../../features/profile/domain/load_profile_use_case.dart';
 import '../../features/profile/domain/profile_repository.dart';
-import '../../core/layers_shared/domain_shared/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
+import '../../core/shared_domain_layer/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
 import '../../core/foundation/navigation/core/router_cubit.dart';
 import '../../core/foundation/overlays/overlay_dispatcher/_overlay_dispatcher.dart';
 import '../../core/foundation/overlays/overlay_dispatcher/overlay_status_cubit.dart';

@@ -3,12 +3,12 @@ import 'package:firebase_with_bloc_or_cubit/core/foundation/theme/extensions/the
 import 'package:firebase_with_bloc_or_cubit/core/foundation/theme/widgets_and_utils/blur_wrapper.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_with_bloc_or_cubit/core/layers_shared/presentation_layer_shared/widgets_shared/app_bar.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_presentation_layer/widgets_shared/app_bar.dart';
 import 'package:firebase_with_bloc_or_cubit/core/foundation/localization/widgets/text_widget.dart';
-import '../../../foundation/navigation/app_routes/app_routes.dart';
-import '../../../foundation/theme/ui_constants/_app_constants.dart';
-import '../../../foundation/theme/widgets_and_utils/box_decorations/_box_decorations_factory.dart';
-import '../../../foundation/localization/generated/locale_keys.g.dart';
+import '../../foundation/navigation/app_routes/app_routes.dart';
+import '../../foundation/theme/ui_constants/_app_constants.dart';
+import '../../foundation/theme/widgets_and_utils/box_decorations/_box_decorations_factory.dart';
+import '../../foundation/localization/generated/locale_keys.g.dart';
 
 /// 🏠 [HomePage] is shown after successful login
 

@@ -1,4 +1,4 @@
-import '../../../utils_shared/typedef.dart';
+import '../../utils_shared/typedef.dart';
 
 /// 🔧 [BaseUseCaseWithoutParams] — Base contract for use cases without parameters
 /// ✅ Used for actions that require no input (e.g. GetCurrentUser)

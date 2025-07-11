@@ -9,10 +9,10 @@ import '../../../core/foundation/localization/widgets/key_value_x_for_text_w.dar
 import '../../../core/foundation/localization/generated/locale_keys.g.dart';
 import '../../../core/foundation/localization/widgets/_toggle_button.dart';
 import '../../../core/foundation/theme/ui_constants/_app_constants.dart';
-import '../../../core/layers_shared/presentation_layer_shared/widgets_shared/loaders/loader.dart';
+import '../../../core/shared_presentation_layer/widgets_shared/loaders/loader.dart';
 import '../../auth/presentation/sign_out/sign_out_widget.dart';
 import '../domain/shared_entities/_user.dart';
-import '../../../core/layers_shared/presentation_layer_shared/widgets_shared/app_bar.dart';
+import '../../../core/shared_presentation_layer/widgets_shared/app_bar.dart';
 import '../../../core/foundation/localization/widgets/text_widget.dart';
 import '../../../core/foundation/theme/widgets_and_utils/theme_picking_widgets/widget_for_theme_toggling.dart';
 import 'cubit/profile_page_cubit.dart';

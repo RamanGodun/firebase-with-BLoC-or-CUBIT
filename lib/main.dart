@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/foundation/localization/app_localization.dart';
-import 'core/layers_shared/domain_shared/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
+import 'core/shared_domain_layer/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
 import 'core/foundation/navigation/core/router_cubit.dart';
 import 'core/foundation/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import 'core/foundation/theme/theme_cubit.dart';
