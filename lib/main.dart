@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'core/foundation/localization/app_localization.dart';
+import 'core/base_modules/localization/app_localization.dart';
 import 'core/shared_domain_layer/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
-import 'core/foundation/navigation/core/router_cubit.dart';
-import 'core/foundation/overlays/overlay_dispatcher/overlay_status_cubit.dart';
-import 'core/foundation/theme/theme_cubit.dart';
+import 'core/base_modules/navigation/core/router_cubit.dart';
+import 'core/base_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
+import 'core/base_modules/theme/theme_cubit.dart';
 import 'root_view_shell.dart';
-import 'app_bootstrap/app_bootstrap.dart';
-import 'app_bootstrap/di_container/di_container.dart';
+import 'app_bootstrap_and_config/app_bootstrap.dart';
+import 'app_bootstrap_and_config/di_container/di_container.dart';
 
 /// 🏁 Entry point of the application
 void main() async {
@@ -21,7 +21,6 @@ void main() async {
 
   /// 🏁 Launches app
   runApp(const AppLocalizationShell());
-  debugPrint('🏁 App fully started');
   //
 }
 

@@ -3,11 +3,11 @@ import 'package:flutter/foundation.dart' show kReleaseMode;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart' show GoRouter;
-import 'core/foundation/localization/generated/locale_keys.g.dart';
-import 'core/foundation/overlays/core/global_overlay_handler.dart';
-import 'core/foundation/navigation/core/router_cubit.dart';
-import 'core/foundation/theme/_theme_preferences.dart';
-import 'core/foundation/theme/theme_cubit.dart';
+import 'core/base_modules/localization/generated/locale_keys.g.dart';
+import 'core/base_modules/overlays/core/global_overlay_handler.dart';
+import 'core/base_modules/navigation/core/router_cubit.dart';
+import 'core/base_modules/theme/_theme_preferences.dart';
+import 'core/base_modules/theme/theme_cubit.dart';
 
 /// 🌳🧩 [AppRootViewShell] — Top-level reactive widget listening to [AppThemeCubit].
 /// ✅ Delegates config creation to [AppRootConfig.from].

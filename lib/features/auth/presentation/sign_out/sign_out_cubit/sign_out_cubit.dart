@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_with_bloc_or_cubit/core/foundation/errors_handling/utils/for_bloc/result_handler.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/utils/for_bloc/result_handler.dart';
 import '../../../domain/use_cases/sign_out.dart';
 
 part 'sign_out_state.dart';

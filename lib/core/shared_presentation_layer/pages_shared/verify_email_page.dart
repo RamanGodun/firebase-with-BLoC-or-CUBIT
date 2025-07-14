@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_presentation_layer/widgets_shared/app_bar.dart';
-import '../../foundation/localization/generated/locale_keys.g.dart';
+import '../../base_modules/localization/generated/locale_keys.g.dart';
 
 /// 📧 Page prompting user to verify their email
 

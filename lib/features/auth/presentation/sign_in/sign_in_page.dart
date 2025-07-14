@@ -1,8 +1,8 @@
-import 'package:firebase_with_bloc_or_cubit/core/foundation/overlays/core/_context_x_for_overlays.dart';
-import 'package:firebase_with_bloc_or_cubit/core/foundation/overlays/core/enums_for_overlay_module.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_context_x_for_overlays.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/enums_for_overlay_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../app_bootstrap/di_container/di_container.dart';
+import '../../../../app_bootstrap_and_config/di_container/di_container.dart';
 import '../../../form_fields/utils/_form_validation_service.dart';
 import '../../services/sign_in_service.dart';
 import '../../../form_fields/input_validation/formz_status_x.dart';

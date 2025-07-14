@@ -4,7 +4,7 @@ import 'package:firebase_with_bloc_or_cubit/features/profile/data/shared_data_tr
 import 'package:firebase_with_bloc_or_cubit/core/shared_domain_layer/repo_contracts/base_repo.dart';
 import '../../../core/utils_shared/typedef.dart';
 import '../../profile/data/shared_data_transfer_objects/user_dto_factories_x.dart';
-import '../../../core/app_configs/firebase/data_source_constants.dart';
+import '../../../app_bootstrap_and_config/app_configs/firebase/data_source_constants.dart';
 import 'data_source_contract.dart';
 
 /// 🧩 [AuthRemoteDataSourceImpl] — concrete implementation using Firebase

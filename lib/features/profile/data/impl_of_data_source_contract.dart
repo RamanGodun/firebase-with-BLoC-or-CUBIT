@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_with_bloc_or_cubit/features/profile/data/shared_data_transfer_objects/user_dto_factories_x.dart';
-import '../../../core/foundation/errors_handling/failures/failure_entity.dart';
+import '../../../core/base_modules/errors_handling/failures/failure_entity.dart';
 import '../../../core/utils_shared/typedef.dart';
 import 'shared_data_transfer_objects/_user_dto.dart';
 import 'data_source_contract.dart';
-import '../../../core/app_configs/firebase/data_source_constants.dart';
+import '../../../app_bootstrap_and_config/app_configs/firebase/data_source_constants.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_domain_layer/repo_contracts/base_repo.dart';
 
 /// 🧩 [ProfileRemoteDataSourceImpl] — Fetches user data from Firestore

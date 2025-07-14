@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../foundation/errors_handling/either/either.dart';
-import '../foundation/errors_handling/failures/failure_entity.dart';
-import '../foundation/errors_handling/failures/failure_ui_entity.dart';
-import '../foundation/errors_handling/utils/for_bloc/result_handler.dart';
-import '../foundation/overlays/overlays_presentation/overlay_presets/overlay_presets.dart';
+import '../base_modules/errors_handling/either/either.dart';
+import '../base_modules/errors_handling/failures/failure_entity.dart';
+import '../base_modules/errors_handling/failures/failure_ui_entity.dart';
+import '../base_modules/errors_handling/utils/for_bloc/result_handler.dart';
+import '../base_modules/overlays/overlays_presentation/overlay_presets/overlay_presets.dart';
 
 /// 🧩 [ResultFuture] — Represents async result with [Either<Failure, T>]
 typedef ResultFuture<T> = Future<Either<Failure, T>>;

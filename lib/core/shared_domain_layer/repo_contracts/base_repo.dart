@@ -1,6 +1,6 @@
-import '../../foundation/errors_handling/either/either.dart';
-import '../../foundation/errors_handling/failures/failure_entity.dart';
-import '../../foundation/errors_handling/utils/exceptions_to_failures_mapper/_exceptions_to_failures_mapper.dart';
+import '../../base_modules/errors_handling/either/either.dart';
+import '../../base_modules/errors_handling/failures/failure_entity.dart';
+import '../../base_modules/errors_handling/utils/exceptions_to_failures_mapper/_exceptions_to_failures_mapper.dart';
 
 /// 🧩 [BaseRepository] — Common abstraction for handling safe async calls.
 /// ✅ Eliminates boilerplate try-catch in concrete repositories
