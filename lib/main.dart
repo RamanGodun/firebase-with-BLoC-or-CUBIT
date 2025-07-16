@@ -48,6 +48,7 @@ final class AppLocalizationShell extends StatelessWidget {
 ////
 
 /// 📦 [GlobalProviders] — Wraps all global Blocs with providers for the app
+
 final class GlobalProviders extends StatelessWidget {
   ///--------------------------------------------
   const GlobalProviders({super.key});

@@ -13,6 +13,52 @@ This module delivers a **robust and scalable localization layer** that:
 
 ---
 
+## 📢 Flutter Widget Localization (DatePicker, Dialogs, etc.)
+
+❗️ System Flutter Widgets (DatePicker, TimePicker, etc.) are NOT localized by EasyLocalization!
+
+By default, only the strings you pass through .tr() are localized via EasyLocalization.
+But system widgets (DatePicker, TimePicker, Material dialogs, built-in banners, SnackBars, etc.) use Flutter’s native internationalization pipeline.
+
+To ensure full localization for such widgets ALWAYS set these fields in MaterialApp:
+
+```dart
+MaterialApp(
+  locale: context.locale, // from EasyLocalization
+  supportedLocales: context.supportedLocales, // or a direct list
+  localizationsDelegates: context.localizationDelegates, // includes both EasyLocalization & Flutter
+  ...
+)
+
+or manually:
+
+MaterialApp(
+  localizationsDelegates: [
+    GlobalMaterialLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    EasyLocalization.of(context)!.delegate,
+  ],
+  supportedLocales: [
+    const Locale('en'),
+    const Locale('uk'),
+    const Locale('pl'),
+  ],
+  ...
+)
+```
+
+📝 Why is this?
+Flutter widgets rely on the standard localizationsDelegates and supportedLocales for all system text.
+EasyLocalization is only a wrapper for explicit .tr() calls and does NOT replace or intercept these delegates.
+
+✅ TL;DR
+
+If your app needs DatePicker/TimePicker/Dialog to be localized, always configure MaterialApp as above.
+Otherwise, you will see only default local for these widgets.
+
+---
+
 ## 🧠 Architecture Summary
 
 ### 🔄 Resolver Modes
@@ -190,12 +236,12 @@ flutter pub add --dev build_runner
 ### 🧬 Run generators
 
 ```bash
-flutter pub run easy_localization:generate \
+dart run easy_localization:generate \
   -S assets/translations \
   -O lib/core/modules_shared/localization/generated \
   -o codegen_loader.g.dart
 
-flutter pub run easy_localization:generate \
+dart run easy_localization:generate \
   -f keys \
   -S assets/translations \
   -O lib/core/modules_shared/localization/generated \
@@ -204,22 +250,26 @@ flutter pub run easy_localization:generate \
 
 ---
 
-## 📁 File Structure
+## 📁 Module files Structure
 
 ```
-app_localization/
-├── code_base_for_both_options/
-│   ├── _app_localizer.dart
-│   ├── fallback_keys.dart
-│   ├── app_strings.dart
-│   ├── text_widget.dart
-│   ├── key_value_x_for_text_w.dart
-├── language_toggle_widget/
-│   ├── _toggle_button.dart
-│   └── language_option.dart
-├── generated/
+├── app_localizer.dart
+├── extensions
+│   └── string_x.dart
+├── generated
 │   ├── codegen_loader.g.dart
 │   └── locale_keys.g.dart
+├── localization_logger.dart
+├── Localization_README.md
+├── localization_wrapper.dart
+├── when_app_without_localization
+│   ├── app_strings.dart
+│   └── fallback_keys.dart
+└── widgets
+    ├── key_value_text_widget.dart
+    ├── language_option.dart
+    ├── language_toggle_button.dart
+    └── text_widget.dart
 ```
 
 ---
