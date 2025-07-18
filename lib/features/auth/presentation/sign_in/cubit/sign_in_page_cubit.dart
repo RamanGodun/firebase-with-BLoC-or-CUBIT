@@ -108,5 +108,21 @@ class SignInCubit extends Cubit<SignInPageState> {
   /// 🧽 Resets failure after consumption
   void clearFailure() => emit(state.copyWith(failure: null));
 
+  ///
+  @override
+  Future<void> close() {
+    _debouncer.cancel();
+    _submitDebouncer.cancel();
+    return super.close();
+  }
+
   //
 }
+
+
+/*
+
+final _debouncer = Debouncer(const Duration(milliseconds: 200));
+Немає dispose() методу в Cubit для cleanup
+
+ */
