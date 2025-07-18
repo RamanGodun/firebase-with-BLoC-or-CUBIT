@@ -3,6 +3,9 @@ description: "A new Flutter project."
 publish_to: "none"
 version: 0.1.0
 
+license: "Proprietary License - All Rights Reserved"
+homepage: "https://github.com/RamanGodun/firebase-with-BLoC-or-CUBIT.git"
+
 environment:
   sdk: ^3.7.2
 
@@ -95,4 +98,4 @@ spider:
   groups:
     - path: assets/images
       class_name: Images
-      types: [ .png, .jpg, .jpeg, .webp, .webm, .bmp ]
+      types: [.png, .jpg, .jpeg, .webp, .webm, .bmp]

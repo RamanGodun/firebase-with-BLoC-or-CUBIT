@@ -19,7 +19,7 @@ final class ProfileRemoteDataSourceImpl extends BaseRepository
   //
 
   @override
-  ResultFuture<UserDTO> getUserDTO(String uid) => safeCall(() async {
+  ResultFuture<UserDTO> getUserDTO(String uid) => executeSafely(() async {
     final doc =
         await firestore
             .collection(DataSourceConstants.usersCollection)

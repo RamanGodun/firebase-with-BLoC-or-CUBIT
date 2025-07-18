@@ -28,7 +28,7 @@ final class AuthRemoteDataSourceImpl extends BaseRepository
     required String email,
     required String password,
   }) {
-    return safeCall(() {
+    return executeSafely(() {
       return _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -43,7 +43,9 @@ final class AuthRemoteDataSourceImpl extends BaseRepository
     required String email,
     required String password,
   }) {
-    return safeCallVoid(() async {
+    // !
+    /// !!!! migrate safeCallVoid ot REPO IMPLEMENTATION
+    return executeSafelyVoid(() async {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -66,7 +68,7 @@ final class AuthRemoteDataSourceImpl extends BaseRepository
   /// 🧱 Ensures Firestore profile exists after login (e.g. from other providers)
   @override
   ResultFuture<void> ensureUserProfileCreated(fb_auth.User user) {
-    return safeCallVoid(() async {
+    return executeSafelyVoid(() async {
       final docRef = _firestore
           .collection(DataSourceConstants.usersCollection)
           .doc(user.uid);
@@ -87,7 +89,7 @@ final class AuthRemoteDataSourceImpl extends BaseRepository
   /// 🚪 Signs out current Firebase user
   @override
   ResultFuture<void> signOut() {
-    return safeCallVoid(() => _firebaseAuth.signOut());
+    return executeSafelyVoid(() => _firebaseAuth.signOut());
   }
 
   //
