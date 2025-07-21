@@ -6,9 +6,9 @@ import 'package:get_it/get_it.dart';
 import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/get_it_x.dart';
 
 import '../../features/auth/data/auth_repository_impl.dart';
-import '../../features/auth/data/data_source_contract.dart';
-import '../../features/auth/data/impl_of_data_source_contract.dart';
-import '../../features/auth/domain/repositories/auth_repo.dart';
+import '../../features/auth/data/i_data_source.dart';
+import '../../features/auth/data/data_source_impl.dart';
+import '../../features/auth/domain/i_repo.dart';
 import '../../features/auth/domain/use_cases/ensure_profile_created.dart';
 import '../../features/auth/domain/use_cases/sign_in.dart';
 import '../../features/auth/domain/use_cases/sign_out.dart';
@@ -18,8 +18,8 @@ import '../../features/form_fields/utils/_form_validation_service.dart';
 import '../../features/profile/data/_profile_repo_impl.dart';
 import '../../features/profile/data/data_source_contract.dart';
 import '../../features/profile/data/impl_of_data_source_contract.dart';
-import '../../features/profile/domain/load_profile_use_case.dart';
-import '../../features/profile/domain/profile_repository.dart';
+import '../../features/profile/domain/fetch_profile_use_case.dart';
+import '../../features/profile/domain/i_repo.dart';
 import '../../core/shared_domain_layer/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
 import '../../core/base_modules/navigation/core/router_cubit.dart';
 import '../../core/base_modules/overlays/overlay_dispatcher/_overlay_dispatcher.dart';
@@ -99,7 +99,7 @@ abstract final class DIContainer {
     di.registerLazySingletonIfAbsent<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl(di(), di()),
     );
-    di.registerLazySingletonIfAbsent<ProfileRemoteDataSource>(
+    di.registerLazySingletonIfAbsent<IProfileRemoteDatabase>(
       () => ProfileRemoteDataSourceImpl(di()),
     );
   }
@@ -110,8 +110,10 @@ abstract final class DIContainer {
   static void _registerRepositories() {
     ///
     di
-      ..registerLazySingletonIfAbsent<AuthRepo>(() => AuthRepoImpl(di()))
-      ..registerLazySingletonIfAbsent<ProfileRepo>(() => ProfileRepoImpl(di()));
+      ..registerLazySingletonIfAbsent<IAuthRepo>(() => AuthRepoImpl(di()))
+      ..registerLazySingletonIfAbsent<IProfileRepo>(
+        () => ProfileRepoImpl(di()),
+      );
   }
 
   ////
@@ -124,7 +126,7 @@ abstract final class DIContainer {
       ..registerLazySingletonIfAbsent(() => SignInUseCase(di()))
       ..registerLazySingletonIfAbsent(() => SignUpUseCase(di()))
       ..registerLazySingletonIfAbsent(() => SignOutUseCase(di()))
-      ..registerLazySingletonIfAbsent(() => LoadProfileUseCase(di()))
+      ..registerLazySingletonIfAbsent(() => FetchProfileUseCase(di()))
       ..registerLazySingletonIfAbsent(
         () => EnsureUserProfileCreatedUseCase(di()),
       ); // 👤 Firestore sync

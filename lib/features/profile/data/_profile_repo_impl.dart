@@ -1,25 +1,31 @@
+import 'package:firebase_auth/firebase_auth.dart' show User;
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/typedef.dart';
 import 'package:firebase_with_bloc_or_cubit/features/profile/data/shared_data_transfer_objects/user_dto_x.dart';
 import 'package:firebase_with_bloc_or_cubit/features/profile/domain/shared_entities/_user.dart';
-import 'package:firebase_with_bloc_or_cubit/features/profile/domain/profile_repository.dart';
+import 'package:firebase_with_bloc_or_cubit/features/profile/domain/i_repo.dart';
 
 import 'data_source_contract.dart';
 
 /// 🧩 [ProfileRepoImpl] — Concrete implementation using remote data source
 /// ✅ Maps [UserDTO] → [UserEntity] via `.toEntity()`
-
-final class ProfileRepoImpl implements ProfileRepo {
+//
+final class ProfileRepoImpl implements IProfileRepo {
   ///---------------------------------------------
-
-  final ProfileRemoteDataSource remote;
-  ProfileRepoImpl(this.remote);
+  //
+  final IProfileRemoteDatabase _remoteDataSource;
+  ProfileRepoImpl(this._remoteDataSource);
   //
 
   @override
   ResultFuture<UserEntity> getProfile({required String uid}) async {
-    final result = await remote.getUserDTO(uid);
+    final result = await _remoteDataSource.getUserDTO(uid);
     return result.mapRight((dto) => dto.toEntity());
   }
+
+  /// 👤 Ensures the user's profile exists in the database after sign-up
+  @override
+  ResultFuture<void> ensureUserProfileCreated(User user) =>
+      _remoteDataSource.ensureUserProfileCreated(user);
 
   //
 }

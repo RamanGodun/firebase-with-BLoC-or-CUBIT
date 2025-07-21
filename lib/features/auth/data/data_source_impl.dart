@@ -5,15 +5,15 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_domain_layer/repo_contra
 import '../../../core/utils_shared/typedef.dart';
 import '../../profile/data/shared_data_transfer_objects/user_dto_factories_x.dart';
 import '../../../app_bootstrap_and_config/app_configs/firebase/data_source_constants.dart';
-import 'data_source_contract.dart';
+import 'i_data_source.dart';
 
 /// 🧩 [AuthRemoteDataSourceImpl] — concrete implementation using Firebase
 /// ✅ Handles auth & Firestore profile creation
-
+//
 final class AuthRemoteDataSourceImpl extends BaseRepository
     implements AuthRemoteDataSource {
-  //--------------------------------
-
+  ///--------------------------------
+  //
   final fb_auth.FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firestore;
   const AuthRemoteDataSourceImpl(this._firebaseAuth, this._firestore);

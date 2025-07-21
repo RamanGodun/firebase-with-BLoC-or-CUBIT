@@ -13,7 +13,7 @@ import 'sign_in_view.dart';
 
 /// 🔐 [SignInPage] — Entry point for the sign-in feature
 /// ✅ Provides scoped Cubit with injected services
-
+//
 final class SignInPage extends StatelessWidget {
   ///----------------------------------------
   const SignInPage({super.key});
@@ -42,7 +42,7 @@ final class SignInPage extends StatelessWidget {
 
 /// 🔄 [_SignInListenerWrapper] — Bloc listener for one-shot error feedback.
 /// ✅ Uses `Consumable<FailureUIModel>` for single-use error overlays.
-
+//
 final class _SignInListenerWrapper extends StatelessWidget {
   ///-----------------------------------------------------
   const _SignInListenerWrapper();

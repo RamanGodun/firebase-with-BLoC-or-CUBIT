@@ -4,7 +4,7 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/fa
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/failures/failure_ui_entity.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/utils/for_bloc/consumable.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/utils/for_bloc/consumable_x.dart';
-import '../../domain/load_profile_use_case.dart';
+import '../../domain/fetch_profile_use_case.dart';
 import '../../domain/shared_entities/_user.dart';
 
 part 'profile_page_state.dart';
@@ -15,7 +15,7 @@ part 'profile_page_state.dart';
 final class ProfileCubit extends Cubit<ProfileState> {
   ///-----------------------------------------------
 
-  final LoadProfileUseCase _loadProfile;
+  final FetchProfileUseCase _loadProfile;
   ProfileCubit(this._loadProfile) : super(const ProfileInitial());
   //
 

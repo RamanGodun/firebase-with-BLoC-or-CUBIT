@@ -1,13 +1,13 @@
 import '../../../../core/utils_shared/typedef.dart';
-import '../repositories/auth_repo.dart';
+import '../i_repo.dart';
 
 /// 📝 [SignUpUseCase]
-/// ✅ Handles user registration via [AuthRepo]
-
+/// ✅ Handles user registration via [IAuthRepo]
+//
 final class SignUpUseCase {
   ///--------------------
   //
-  final AuthRepo _repo;
+  final IAuthRepo _repo;
   const SignUpUseCase(this._repo);
 
   /// 🔐 Registers a new user with [name], [email], and [password]

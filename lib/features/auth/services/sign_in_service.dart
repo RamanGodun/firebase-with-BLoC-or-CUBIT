@@ -23,7 +23,7 @@ final class SignInService {
 
   /// 🚀 Executes sign-in and ensures user profile exists in Firestore
   /// 🔍 Logs all failures internally
-  ResultFuture<void> execute({
+  ResultFuture<void> call({
     required String email,
     required String password,
   }) async {

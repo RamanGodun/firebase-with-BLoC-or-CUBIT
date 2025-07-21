@@ -1,7 +1,7 @@
 part of 'sign_in_view.dart';
 
 /// 🖼️ [_LogoImage] — Displays Flutter logo with hero animation
-
+//
 final class _LogoImage extends StatelessWidget {
   ///-----------------------------------------
   const _LogoImage();
@@ -11,7 +11,7 @@ final class _LogoImage extends StatelessWidget {
     //
     return const Hero(
       tag: 'Logo',
-      child: Image(image: AssetImage(ImagesPaths.flutterLogo), width: 250),
+      child: Image(image: AssetImage(AppImagesPaths.flutterLogo), width: 250),
     );
   }
 }
@@ -55,7 +55,7 @@ final class _EmailField extends StatelessWidget {
 
 /// 🔒 [_PasswordField] — Password field with toggle visibility logic
 /// ✅ Rebuilds only when password error or visibility state changes
-
+//
 final class _PasswordField extends StatelessWidget {
   ///---------------------------------------------
 

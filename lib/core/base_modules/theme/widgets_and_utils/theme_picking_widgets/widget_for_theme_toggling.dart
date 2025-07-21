@@ -7,11 +7,11 @@ import '../../../localization/generated/locale_keys.g.dart';
 import '../../../localization/app_localizer.dart';
 import '../../theme_cubit.dart' show AppThemeCubit;
 
-/// 🌗 [ThemeToggleIcon] — toggles between light and dark mode and shows localized message.
+/// 🌗 [ThemeTogglerIcon] — toggles between light and dark mode and shows localized message.
 
-final class ThemeToggleIcon extends StatelessWidget {
+final class ThemeTogglerIcon extends StatelessWidget {
   ///----------------------------------------------
-  const ThemeToggleIcon({super.key});
+  const ThemeTogglerIcon({super.key});
   //
 
   @override

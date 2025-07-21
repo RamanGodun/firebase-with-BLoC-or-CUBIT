@@ -1,6 +1,6 @@
-class ImagesPaths {
+class AppImagesPaths {
   ///-------------
-  ImagesPaths._();
+  AppImagesPaths._();
   //
 
   static const String blocLogoFull = 'assets/images/bloc_logo_full.png';

@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
-import '../../../../core/utils_shared/typedef.dart';
+import '../../../core/utils_shared/typedef.dart';
 
-/// 🔐 [AuthRepo] — Abstract contract for authentication-related operations
+/// 🔐 [IAuthRepo] — Abstract contract for authentication-related operations
 /// Defines interaction points for remote auth layer (e.g., Firebase)
-
-abstract interface class AuthRepo {
-  //------------------------------
-
+//
+abstract interface class IAuthRepo {
+  ///---------------------------
+  //
   /// 🔄 Stream of the currently authenticated Firebase user
   Stream<fb_auth.User?> get user;
 
