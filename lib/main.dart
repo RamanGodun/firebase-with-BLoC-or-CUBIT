@@ -104,3 +104,323 @@ final class SignInUseCase {
 
 
  */
+
+
+/*
+
+[ERROR:flutter/runtime/dart_vm_initializer.cc(40)] Unhandled Exception: Bad state: ❌ Circular dependency or missing dependencies detected!
+Remaining modules: AuthModule, ProfileModule, NavigationModule, OverlaysModule
+Missing dependencies: FirebaseModule, AuthModule, ThemeModule, NavigationModule
+Registered modules: DIModule
+#0      ModuleManager.registerModules (package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/core/di_module_manager.dart:58:9)
+
+#1      DIContainer.initFull (package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/di_container.dart:30:5)
+
+#2      AppBootstrap.initGlobalDIContainer (package:firebase_with_bloc_or_cubit/app_bootstrap_and
+
+
+
+/// 💠 Global [GetIt] instance used as service locator across the app
+final di = GetIt.instance;
+
+////
+////
+
+/// 🚀 [DIContainer] — Centralized class for dependency registration
+/// ✅ Separates all responsibilities by layers: Services, DataSources, UseCases, Blocs, etc.
+///    - Call [initNecessaryForAppSplashScreen] first for splash/loader dependencies.
+///    - Call [initFull] for all core app dependencies after the splash.
+
+abstract final class DIContainer {
+  ///---------------------
+  DIContainer._();
+  //
+
+  /// 🎯  Registers all core dependencies for the main app tree
+  static Future initFull() async {
+    await ModuleManager.registerModules([
+      //
+      ThemeModule(),
+
+      FirebaseModule(),
+      AuthModule(),
+      ProfileModule(),
+
+      NavigationModule(),
+
+      OverlaysModule(),
+
+      FormFieldsModule(),
+
+      //
+    ]);
+    debugPrint('📦 Full DI initialized with modules');
+  }
+
+  ////
+
+  /// 🎯 Registers only the minimal DI needed for the splash/loader (e.g. theme cubit).
+  static Future initNecessaryForAppSplashScreen() async {
+    await ModuleManager.registerModules([ThemeModule()]);
+    debugPrint('📦 Minimal DI initialized (currently: Theme Cubit) ');
+  }
+
+  //
+}
+
+
+
+
+/// 🎨 Registers theme Cubit for loader (and later, the main app).
+//
+final class ThemeModule implements DIModule {
+  ///-------------------------------------
+  //
+  @override
+  String get name => 'ThemeModule';
+
+  ///
+  @override
+  List get dependencies => const [];
+
+  ///
+  @override
+  Future register() async {
+    di.registerLazySingleton(() => AppThemeCubit());
+  }
+
+  ///
+  @override
+  Future dispose() async {
+    // No resources to dispose for this DI module yet.
+  }
+
+  //
+}
+
+
+
+final class FirebaseModule implements DIModule {
+  ///------------------------------------
+  //
+  @override
+  String get name => 'FirebaseModule';
+
+  ///
+  @override
+  List get dependencies => const [];
+
+  ///
+  @override
+  Future register() async {
+    di.registerLazySingleton(() => FirebaseAuth.instance);
+    di.registerLazySingleton(
+      () => FirebaseFirestore.instance,
+    );
+    di.registerLazySingleton>>(
+      () => FirebaseFirestore.instance.collection('users'),
+    );
+    di.registerLazySingleton>>(
+      () => FirebaseFirestore.instance.collection('users'),
+      instanceName: 'usersCollection',
+    );
+  }
+
+  ///
+  @override
+  Future dispose() async {
+    // No resources to dispose for this DI module yet.
+  }
+
+  //
+}
+
+
+
+final class AuthModule implements DIModule {
+  ///------------------------------------
+  //
+  @override
+  String get name => 'AuthModule';
+
+  ///
+  @override
+  List get dependencies => [FirebaseModule];
+  //
+
+  ///
+  @override
+  Future register() async {
+    //
+    // Data Sources
+    di.registerLazySingleton(
+      () => AuthRemoteDataSourceImpl(),
+    );
+
+    // Repositories
+    di.registerLazySingleton(() => SignInRepoImpl(di()));
+    di.registerLazySingleton(() => SignOutRepoImpl(di()));
+    di.registerLazySingleton(() => SignUpRepoImpl(di()));
+
+    // Use Cases
+    di.registerLazySingleton(() => SignInUseCase(di()));
+    di.registerLazySingleton(() => SignUpUseCase(di()));
+    di.registerLazySingleton(() => SignOutUseCase(di()));
+
+    // AuthStreamCubit
+    di.registerLazySingleton(
+      () => AuthCubit(userStream: di().authStateChanges()),
+    );
+
+    // Sign out Cubit
+    di.registerLazySingleton(() => SignOutCubit(di()));
+    //
+  }
+
+  ////
+
+  ///
+  @override
+  Future dispose() async {
+    // No resources to dispose for this DI module yet.
+  }
+
+  //
+}
+
+
+
+final class ProfileModule implements DIModule {
+  ///---------------------------------------
+  //
+  @override
+  String get name => 'ProfileModule';
+
+  ///
+  @override
+  List get dependencies => [FirebaseModule, AuthModule];
+  //
+
+  ///
+  @override
+  Future register() async {
+    //
+    // Data Sources
+    di.registerLazySingleton(
+      () => ProfileRemoteDataSourceImpl(
+        di>>(),
+      ),
+    );
+
+    // Repositories
+    di.registerLazySingleton(() => ProfileRepoImpl(di()));
+
+    // Use Cases
+    di.registerLazySingleton(() => FetchProfileUseCase(di()));
+
+    //
+  }
+
+  ////
+
+  ///
+  @override
+  Future dispose() async {
+    // No resources to dispose for this DI module yet.
+  }
+
+  //
+}
+
+
+
+/// 🧭🚦 Registers the router Cubit (navigation logic).
+//
+final class NavigationModule implements DIModule {
+  ///------------------------------------
+  //
+  @override
+  String get name => 'NavigationModule';
+
+  ///
+  @override
+  List get dependencies => const [AuthModule];
+
+  ///
+  @override
+  Future register() async {
+    di.registerLazySingleton(() => RouterCubit(di()));
+  }
+
+  ///
+  @override
+  Future dispose() async {
+    // No resources to dispose for this DI module yet.
+  }
+
+  //
+}
+
+
+
+final class OverlaysModule implements DIModule {
+  ///------------------------------------
+  //
+  @override
+  String get name => 'OverlaysModule';
+
+  ///
+  @override
+  List get dependencies => const [ThemeModule, NavigationModule];
+
+  ///
+  @override
+  Future register() async {
+    di
+      ..registerLazySingletonIfAbsent(() => OverlayStatusCubit())
+      ..registerLazySingletonIfAbsent(
+        () => OverlayDispatcher(
+          onOverlayStateChanged: di().updateStatus,
+        ),
+      );
+  }
+
+  ///
+  @override
+  Future dispose() async {
+    // No resources to dispose for this DI module yet.
+  }
+
+  //
+}
+
+
+
+///  🔐 Registers form validation service
+//
+final class FormFieldsModule implements DIModule {
+  ///------------------------------------
+  //
+  @override
+  String get name => 'FormFieldsModule';
+
+  ///
+  @override
+  List get dependencies => const [];
+
+  ///
+  @override
+  Future register() async {
+    di.registerLazySingleton(() => const FormValidationService());
+  }
+
+  ///
+  @override
+  Future dispose() async {
+    // No resources to dispose for this DI module yet.
+  }
+
+  //
+}
+
+ */
