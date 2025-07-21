@@ -11,7 +11,7 @@ import '../../../core/base_modules/localization/widgets/_toggle_button.dart';
 import '../../../core/base_modules/theme/ui_constants/_app_constants.dart';
 import '../../../core/shared_presentation_layer/widgets_shared/loaders/loader.dart';
 import '../../auth/presentation/sign_out/sign_out_widget.dart';
-import '../domain/shared_entities/_user.dart';
+import '../../../core/shared_domain_layer/shared_entities/_user.dart';
 import '../../../core/shared_presentation_layer/widgets_shared/app_bar.dart';
 import '../../../core/base_modules/localization/widgets/text_widget.dart';
 import '../../../core/base_modules/theme/widgets_and_utils/theme_picking_widgets/widget_for_theme_toggling.dart';

@@ -5,16 +5,16 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/fa
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/utils/for_bloc/consumable.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/utils/for_bloc/consumable_x.dart';
 import '../../domain/fetch_profile_use_case.dart';
-import '../../domain/shared_entities/_user.dart';
+import '../../../../core/shared_domain_layer/shared_entities/_user.dart';
 
 part 'profile_page_state.dart';
 
-/// 🧩 [ProfileCubit] — Manages profile loading state and side effects.
-/// ✅ Emits sealed [ProfileState] values following AZER + Clean Architecture.
-
+/// 🧩 [ProfileCubit] — State manager for profile loading and errors.
+/// ✅ Uses AZER (Async, Zero side effects, Error handling, Reactive) pattern.
+//
 final class ProfileCubit extends Cubit<ProfileState> {
   ///-----------------------------------------------
-
+  //
   final FetchProfileUseCase _loadProfile;
   ProfileCubit(this._loadProfile) : super(const ProfileInitial());
   //

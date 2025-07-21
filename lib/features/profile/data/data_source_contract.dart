@@ -1,15 +1,13 @@
-import '../../../core/utils_shared/typedef.dart';
-import '../../../core/shared_data_layer/shared_data_transfer_objects/_user_dto.dart';
-
-/// 📡 [IProfileRemoteDatabase] — Contract for accessing user data from remote source
+/// 📡 [IProfileRemoteDatabase] — Contract for any user profile remote source.
+/// ✅ Does not depend on specific database or DTO types.
 //
 abstract interface class IProfileRemoteDatabase {
   ///-------------------------------------------
   //
-  /// 🔍 Fetches [UserDTO] by UID from remote
-  ResultFuture<UserDTO> getUserDTO(String uid);
+  /// Fetches user as a raw [Map] by UID, or null if not exists.
+  Future<Map<String, dynamic>?> fetchUserMap(String uid);
   //
-  /// 🧱 Create profile if not exists in Firestore
-  ResultFuture<void> createUserProfile(String uid);
+  /// Creates a user profile from map for given UID.
+  Future<void> createUserMap(String uid, Map<String, dynamic> data);
   //
 }
