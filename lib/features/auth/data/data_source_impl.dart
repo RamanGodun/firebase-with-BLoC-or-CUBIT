@@ -1,94 +1,43 @@
-import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
-import 'package:firebase_with_bloc_or_cubit/core/shared_domain_layer/repo_contracts/base_repo.dart';
-import '../../../core/utils_shared/typedef.dart';
-import 'i_data_source.dart';
+import '../../../app_bootstrap_and_config/app_configs/firebase/data_source_constants.dart';
+import 'data_source_contract.dart';
 
-/// 🧩 [AuthRemoteDataSourceImpl] — concrete implementation using Firebase
-/// ✅ Handles auth & Firestore profile creation
+/// 🛠️ [AuthRemoteDataSourceImpl] — Firebase-powered remote data source.
+/// ✅ Implements low-level Firebase logic only.
 //
-final class AuthRemoteDataSourceImpl extends BaseRepository
-    implements AuthRemoteDataSource {
-  ///--------------------------------
+final class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
+  ///---------------------------------------------------------------
   //
-  final fb_auth.FirebaseAuth _firebaseAuth;
-  // final FirebaseFirestore _firestore;
-  const AuthRemoteDataSourceImpl(
-    this._firebaseAuth,
-    // this._firestore
-  );
-
-  /// 📡 Emits auth state changes
+  /// 🔐 Firebase sign-in
   @override
-  Stream<fb_auth.User?> get user => _firebaseAuth.userChanges();
+  Future<void> signIn({required String email, required String password}) async {
+    await DataSourceConstants.fbAuth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+  }
 
-  /// 🔐 Email/password sign in
+  /// 🆕 Firebase sign-up
   @override
-  ResultFuture<fb_auth.UserCredential> signIn({
+  Future<String> signUp({
     required String email,
     required String password,
-  }) {
-    return executeSafely(() {
-      return _firebaseAuth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    });
+  }) async {
+    final cred = await DataSourceConstants.fbAuth
+        .createUserWithEmailAndPassword(email: email, password: password);
+    // Return UID only (to stay generic)
+    return cred.user?.uid ?? '';
   }
 
-  /// 📝 Registers user in Firebase + creates Firestore profile
+  /// 💾 Save User in Firestore
   @override
-  ResultFuture<void> signUp({
-    required String name,
-    required String email,
-    required String password,
-  }) {
-    // !
-    /// !!!! migrate safeCallVoid ot REPO IMPLEMENTATION
-    return executeSafelyVoid(() async {
-      // final credential = await _firebaseAuth.createUserWithEmailAndPassword(
-      //   email: email,
-      //   password: password,
-      // );
-
-      // final user = credential.user!;
-      // final userDto = UserDTOFactories.newUser(
-      //   id: user.uid,
-      //   name: name,
-      //   email: email,
-      // );
-
-      // await _firestore
-      //     .collection(DataSourceConstants.usersCollection)
-      //     .doc(user.uid)
-      //     .set(userDto.toJsonMap());
-    });
+  Future<void> saveUserData(String uid, Map<String, dynamic> userData) async {
+    await DataSourceConstants.usersCollection.doc(uid).set(userData);
   }
 
-  /// 🧱 Ensures Firestore profile exists after login (e.g. from other providers)
+  /// 🔓 Firebase sign-out
   @override
-  ResultFuture<void> ensureUserProfileCreated(fb_auth.User user) {
-    return executeSafelyVoid(() async {
-      // final docRef = _firestore
-      //     .collection(DataSourceConstants.usersCollection)
-      //     .doc(user.uid);
-
-      // final doc = await docRef.get();
-
-      // if (!doc.exists) {
-      //   final userDto = UserDTOFactories.newUser(
-      //     id: user.uid,
-      //     name: user.displayName ?? '',
-      //     email: user.email ?? '',
-      //   );
-      //   await docRef.set(userDto.toJsonMap());
-      // }
-    });
-  }
-
-  /// 🚪 Signs out current Firebase user
-  @override
-  ResultFuture<void> signOut() {
-    return executeSafelyVoid(() => _firebaseAuth.signOut());
+  Future<void> signOut() async {
+    await DataSourceConstants.fbAuth.signOut();
   }
 
   //

@@ -32,7 +32,12 @@ final class ProfileRepoImpl implements IProfileRepo {
   @override
   ResultFuture<void> createUserProfile(String uid) =>
       () async {
-        final user = DataSourceConstants.fbAuth.currentUser;
+        final user =
+            DataSourceConstants
+                .fbAuth
+                .currentUser; //! depends on specific remote DB
+        // ? solution: inject _authDataLayerService with getCurrentUser() method
+
         if (user == null) throw FirebaseFailure(message: 'No authorized user!');
         final dto = UserDTOFactories.newUser(
           id: user.uid,

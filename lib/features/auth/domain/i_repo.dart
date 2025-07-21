@@ -1,33 +1,43 @@
-import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import '../../../core/utils_shared/typedef.dart';
 
-/// 🔐 [IAuthRepo] — Abstract contract for authentication-related operations
-/// Defines interaction points for remote auth layer (e.g., Firebase)
+/// 🔐 [ISignInRepo] — contract for signing in user with email/password
 //
-abstract interface class IAuthRepo {
-  ///---------------------------
+abstract interface class ISignInRepo {
+  ///---------------------------------
   //
-  /// 🔄 Stream of the currently authenticated Firebase user
-  Stream<fb_auth.User?> get user;
+  // 🔐 Signs user in using provided credentials
+  ResultFuture<void> signIn({required String email, required String password});
+  //
+}
 
-  /// 📝 Signs up a new user with [name], [email], and [password]
-  ResultFuture<void> signUp({
+////
+
+////
+
+/// 🔓 [ISignOutRepo] — contract for signing out the user
+//
+abstract interface class ISignOutRepo {
+  ///----------------------------------
+  //
+  // 🔓 Signs out the currently authenticated user
+  ResultFuture<void> signOut();
+  //
+}
+
+////
+
+////
+
+/// 🆕 [ISignUpRepo] — contract for user registration logic
+//
+abstract interface class ISignUpRepo {
+  ///--------------------------------
+  //
+  // 🆕 Creates a new user and stores additional info in Remote database
+  ResultFuture<void> signup({
     required String name,
     required String email,
     required String password,
   });
-
-  /// 🔓 Signs in an existing user using [email] and [password]
-  ResultFuture<fb_auth.UserCredential> signIn({
-    required String email,
-    required String password,
-  });
-
-  /// 🚪 Signs out the currently logged-in user
-  ResultFuture<void> signOut();
-
-  /// ✅ Ensures the user profile exists in the database (e.g. Firestore)
-  ResultFuture<void> ensureUserProfileCreated(fb_auth.User user);
-
   //
 }

@@ -99,4 +99,8 @@ final class SignInUseCase {
 
 
 
+!! Впровадьте Repository Pattern з cache layer для офлайн підтримки
+
+
+
  */

@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../app_bootstrap_and_config/di_container/di_container.dart';
 import '../../../form_fields/utils/_form_validation_service.dart';
-import '../../services/sign_in_service.dart';
 import '../../../form_fields/input_validation/formz_status_x.dart';
-import '../../domain/use_cases/ensure_profile_created.dart';
 import '../../domain/use_cases/sign_in.dart';
 import 'cubit/sign_in_page_cubit.dart';
 import 'sign_in_view.dart';
@@ -24,13 +22,7 @@ final class SignInPage extends StatelessWidget {
     //
     return BlocProvider(
       create:
-          (_) => SignInCubit(
-            SignInService(
-              di<SignInUseCase>(),
-              di<EnsureUserProfileCreatedUseCase>(),
-            ),
-            di<FormValidationService>(),
-          ),
+          (_) => SignInCubit(di<SignInUseCase>(), di<FormValidationService>()),
       child: const _SignInErrorsListener(),
     );
   }

@@ -11,8 +11,8 @@ import 'profile_view.dart';
 /// 👤 [ProfilePage] — Shows user profile details and allows sign-out
 /// ✅ Uses [AuthCubit] to obtain UID and loads profile via [ProfileCubit]
 /// ✅ Injects [SignOutCubit] to trigger logout
-
-class ProfilePage extends StatelessWidget {
+//
+final class ProfilePage extends StatelessWidget {
   ///------------------------------------
   const ProfilePage({super.key});
   //

@@ -1,23 +1,19 @@
 import '../../../../core/utils_shared/typedef.dart';
 import '../i_repo.dart';
 
-/// 📝 [SignUpUseCase]
-/// ✅ Handles user registration via [IAuthRepo]
+/// 📦 [SignUpUseCase] — Handles user registration via [ISignUpRepo]
 //
 final class SignUpUseCase {
-  ///--------------------
+  ///-------------------
   //
-  final IAuthRepo _repo;
-  const SignUpUseCase(this._repo);
-
-  /// 🔐 Registers a new user with [name], [email], and [password]
+  final ISignUpRepo repo;
+  const SignUpUseCase(this.repo);
+  //
+  /// 🔐 Register a new user and returns result
   ResultFuture<void> call({
     required String name,
     required String email,
     required String password,
-  }) {
-    return _repo.signUp(name: name, email: email, password: password);
-  }
-
+  }) => repo.signup(name: name, email: email, password: password);
   //
 }

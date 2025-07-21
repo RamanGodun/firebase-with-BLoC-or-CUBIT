@@ -19,13 +19,12 @@ part 'sign_up_state_validation_x.dart';
 
 /// 🧠 [SignUpCubit] — Handles logic for sign-up form: validation, debouncing, and submission.
 /// ✅ Delegates actual sign-up to [SignUpService]
-
+//
 final class SignUpCubit extends Cubit<SignUpState> {
-  //-----------------------------------------------
-
+  ///--------------------------------------------
+  //
   final SignUpUseCase _signUpUseCase;
   final FormValidationService _validation;
-
   final _debouncer = Debouncer(const Duration(milliseconds: 200));
   final _submitDebouncer = Debouncer(const Duration(milliseconds: 600));
 

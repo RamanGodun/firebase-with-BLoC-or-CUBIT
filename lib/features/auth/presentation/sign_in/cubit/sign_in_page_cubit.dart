@@ -9,8 +9,8 @@ import '../../../../../core/base_modules/errors_handling/failures/failure_ui_ent
 import '../../../../../core/base_modules/errors_handling/utils/for_bloc/result_handler_async.dart';
 import '../../../../form_fields/utils/_form_validation_service.dart';
 import '../../../../form_fields/input_validation/_validation_enums.dart';
-import '../../../services/sign_in_service.dart';
 import '../../../../../core/utils_shared/timing_control/debouncer.dart';
+import '../../../domain/use_cases/sign_in.dart';
 
 part 'sign_in_page_state.dart';
 part 'sign_in_state_validation_x.dart';
@@ -21,12 +21,12 @@ part 'sign_in_state_validation_x.dart';
 final class SignInCubit extends Cubit<SignInPageState> {
   ///-----------------------------------------
   //
-  final SignInService _signInService;
+  final SignInUseCase _signInUseCase;
   final FormValidationService _validationService;
   final _debouncer = Debouncer(const Duration(milliseconds: 200));
   final _submitDebouncer = Debouncer(const Duration(milliseconds: 600));
 
-  SignInCubit(this._signInService, this._validationService)
+  SignInCubit(this._signInUseCase, this._validationService)
     : super(const SignInPageState());
 
   ///
@@ -57,7 +57,7 @@ final class SignInCubit extends Cubit<SignInPageState> {
     _submitDebouncer.run(() async {
       emit(state._copyWith(status: FormzSubmissionStatus.inProgress));
 
-      final result = await _signInService.call(
+      final result = await _signInUseCase.call(
         email: state.email.value,
         password: state.password.value,
       );
