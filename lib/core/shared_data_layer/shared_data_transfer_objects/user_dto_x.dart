@@ -1,7 +1,7 @@
 import 'dart:convert';
-import '../../../../core/utils_shared/typedef.dart';
+import '../../utils_shared/typedef.dart';
 import '_user_dto.dart';
-import '../../domain/shared_entities/_user.dart';
+import '../../../features/profile/domain/shared_entities/_user.dart';
 
 /// 🔄 [UserDTOX] — Instance-level helpers for [UserDTO]
 /// ✅ Converts to entity or JSON (for logic or API usage)

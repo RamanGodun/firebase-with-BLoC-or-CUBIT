@@ -25,14 +25,14 @@ extension SignInStateValidationX on SignInPageState {
     final Consumable<FailureUIEntity>? failure,
     final bool? isPasswordObscure,
   }) {
-    final updated = copyWith(
+    final updated = _copyWith(
       email: email,
       password: password,
       status: status,
       failure: failure,
       isPasswordObscure: isPasswordObscure,
     );
-    return updated.copyWith(isValid: updated.validateWith());
+    return updated._copyWith(isValid: updated.validateWith());
   }
 
   //

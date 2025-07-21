@@ -47,7 +47,7 @@ final class SignInCubit extends Cubit<SignInPageState> {
 
   /// 👁️ Toggles password visibility flag
   void togglePasswordVisibility() {
-    emit(state.copyWith(isPasswordObscure: !state.isPasswordObscure));
+    emit(state._copyWith(isPasswordObscure: !state.isPasswordObscure));
   }
 
   /// 🚀 Triggers form submission via [SignInService]
@@ -55,7 +55,7 @@ final class SignInCubit extends Cubit<SignInPageState> {
     if (!state.isValid || isClosed) return;
 
     _submitDebouncer.run(() async {
-      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+      emit(state._copyWith(status: FormzSubmissionStatus.inProgress));
 
       final result = await _signInService.call(
         email: state.email.value,
@@ -67,7 +67,7 @@ final class SignInCubit extends Cubit<SignInPageState> {
       ResultHandlerAsync(result)
         ..onFailureAsync((f) {
           emit(
-            state.copyWith(
+            state._copyWith(
               status: FormzSubmissionStatus.failure,
               failure: f.asConsumableUIEntity(),
             ),
@@ -75,7 +75,7 @@ final class SignInCubit extends Cubit<SignInPageState> {
           f.log();
         })
         ..onSuccessAsync((_) {
-          emit(state.copyWith(status: FormzSubmissionStatus.success));
+          emit(state._copyWith(status: FormzSubmissionStatus.success));
         })
         ..logAsync();
     });
@@ -96,7 +96,7 @@ final class SignInCubit extends Cubit<SignInPageState> {
 
   /// 🔄 Resets only the submission status (used after dialogs)
   void resetStatus() =>
-      emit(state.copyWith(status: FormzSubmissionStatus.initial));
+      emit(state._copyWith(status: FormzSubmissionStatus.initial));
 
   /// 🧼 Resets the entire form to initial state
   void resetForm() {
@@ -106,7 +106,7 @@ final class SignInCubit extends Cubit<SignInPageState> {
   }
 
   /// 🧽 Resets failure after consumption
-  void clearFailure() => emit(state.copyWith(failure: null));
+  void clearFailure() => emit(state._copyWith(failure: null));
 
   ///
   @override

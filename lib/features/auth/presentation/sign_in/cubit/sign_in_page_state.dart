@@ -24,7 +24,8 @@ class SignInPageState extends Equatable {
   });
 
   // 🔁 Returns new instance with optional overridden fields
-  SignInPageState copyWith({
+  // ⚠️ Use only inside `updateWith(...)` to ensure validation is re-applied!
+  SignInPageState _copyWith({
     final EmailInputValidation? email,
     final PasswordInputValidation? password,
     final FormzSubmissionStatus? status,

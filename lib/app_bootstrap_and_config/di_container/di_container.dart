@@ -17,7 +17,7 @@ import '../../features/auth/presentation/sign_out/sign_out_cubit/sign_out_cubit.
 import '../../features/form_fields/utils/_form_validation_service.dart';
 import '../../features/profile/data/_profile_repo_impl.dart';
 import '../../features/profile/data/data_source_contract.dart';
-import '../../features/profile/data/impl_of_data_source_contract.dart';
+import '../../features/profile/data/data_source_imp.dart';
 import '../../features/profile/domain/fetch_profile_use_case.dart';
 import '../../features/profile/domain/i_repo.dart';
 import '../../core/shared_domain_layer/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
@@ -97,7 +97,10 @@ abstract final class DIContainer {
   static void _registerDataSources() {
     ///
     di.registerLazySingletonIfAbsent<AuthRemoteDataSource>(
-      () => AuthRemoteDataSourceImpl(di(), di()),
+      () => AuthRemoteDataSourceImpl(
+        di(),
+        //  di()
+      ),
     );
     di.registerLazySingletonIfAbsent<IProfileRemoteDatabase>(
       () => ProfileRemoteDataSourceImpl(di()),

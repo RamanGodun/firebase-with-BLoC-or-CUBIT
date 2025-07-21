@@ -35,7 +35,7 @@ extension SignUpStateValidationX on SignUpState {
     final bool? isPasswordObscure,
     final bool? isConfirmPasswordObscure,
   }) {
-    final updated = copyWith(
+    final updated = _copyWith(
       name: name,
       email: email,
       password: password,
@@ -45,7 +45,7 @@ extension SignUpStateValidationX on SignUpState {
       isPasswordObscure: isPasswordObscure,
       isConfirmPasswordObscure: isConfirmPasswordObscure,
     );
-    return updated.copyWith(isValid: updated.validateWith());
+    return updated._copyWith(isValid: updated.validateWith());
   }
 
   //

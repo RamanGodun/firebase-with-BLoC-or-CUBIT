@@ -1,10 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
-import 'package:firebase_with_bloc_or_cubit/features/profile/data/shared_data_transfer_objects/user_dto_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_domain_layer/repo_contracts/base_repo.dart';
 import '../../../core/utils_shared/typedef.dart';
-import '../../profile/data/shared_data_transfer_objects/user_dto_factories_x.dart';
-import '../../../app_bootstrap_and_config/app_configs/firebase/data_source_constants.dart';
 import 'i_data_source.dart';
 
 /// 🧩 [AuthRemoteDataSourceImpl] — concrete implementation using Firebase
@@ -15,8 +11,11 @@ final class AuthRemoteDataSourceImpl extends BaseRepository
   ///--------------------------------
   //
   final fb_auth.FirebaseAuth _firebaseAuth;
-  final FirebaseFirestore _firestore;
-  const AuthRemoteDataSourceImpl(this._firebaseAuth, this._firestore);
+  // final FirebaseFirestore _firestore;
+  const AuthRemoteDataSourceImpl(
+    this._firebaseAuth,
+    // this._firestore
+  );
 
   /// 📡 Emits auth state changes
   @override
@@ -46,22 +45,22 @@ final class AuthRemoteDataSourceImpl extends BaseRepository
     // !
     /// !!!! migrate safeCallVoid ot REPO IMPLEMENTATION
     return executeSafelyVoid(() async {
-      final credential = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      // final credential = await _firebaseAuth.createUserWithEmailAndPassword(
+      //   email: email,
+      //   password: password,
+      // );
 
-      final user = credential.user!;
-      final userDto = UserDTOFactories.newUser(
-        id: user.uid,
-        name: name,
-        email: email,
-      );
+      // final user = credential.user!;
+      // final userDto = UserDTOFactories.newUser(
+      //   id: user.uid,
+      //   name: name,
+      //   email: email,
+      // );
 
-      await _firestore
-          .collection(DataSourceConstants.usersCollection)
-          .doc(user.uid)
-          .set(userDto.toJsonMap());
+      // await _firestore
+      //     .collection(DataSourceConstants.usersCollection)
+      //     .doc(user.uid)
+      //     .set(userDto.toJsonMap());
     });
   }
 
@@ -69,20 +68,20 @@ final class AuthRemoteDataSourceImpl extends BaseRepository
   @override
   ResultFuture<void> ensureUserProfileCreated(fb_auth.User user) {
     return executeSafelyVoid(() async {
-      final docRef = _firestore
-          .collection(DataSourceConstants.usersCollection)
-          .doc(user.uid);
+      // final docRef = _firestore
+      //     .collection(DataSourceConstants.usersCollection)
+      //     .doc(user.uid);
 
-      final doc = await docRef.get();
+      // final doc = await docRef.get();
 
-      if (!doc.exists) {
-        final userDto = UserDTOFactories.newUser(
-          id: user.uid,
-          name: user.displayName ?? '',
-          email: user.email ?? '',
-        );
-        await docRef.set(userDto.toJsonMap());
-      }
+      // if (!doc.exists) {
+      //   final userDto = UserDTOFactories.newUser(
+      //     id: user.uid,
+      //     name: user.displayName ?? '',
+      //     email: user.email ?? '',
+      //   );
+      //   await docRef.set(userDto.toJsonMap());
+      // }
     });
   }
 

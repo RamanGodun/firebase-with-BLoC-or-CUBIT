@@ -1,6 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart' show User;
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/typedef.dart';
-import 'package:firebase_with_bloc_or_cubit/features/profile/data/shared_data_transfer_objects/user_dto_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_data_layer/shared_data_transfer_objects/user_dto_x.dart';
 import 'package:firebase_with_bloc_or_cubit/features/profile/domain/shared_entities/_user.dart';
 import 'package:firebase_with_bloc_or_cubit/features/profile/domain/i_repo.dart';
 
@@ -24,8 +23,8 @@ final class ProfileRepoImpl implements IProfileRepo {
 
   /// 👤 Ensures the user's profile exists in the database after sign-up
   @override
-  ResultFuture<void> ensureUserProfileCreated(User user) =>
-      _remoteDataSource.ensureUserProfileCreated(user);
+  ResultFuture<void> createUserProfile(String uid) =>
+      _remoteDataSource.createUserProfile(uid);
 
   //
 }

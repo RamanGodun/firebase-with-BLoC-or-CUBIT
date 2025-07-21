@@ -30,7 +30,8 @@ final class SignUpState extends Equatable {
   //
 
   /// 🧱 Clones current state with optional overrides
-  SignUpState copyWith({
+  // ⚠️ Use only inside `updateWith(...)` to ensure validation is re-applied!
+  SignUpState _copyWith({
     final NameInputValidation? name,
     final EmailInputValidation? email,
     final PasswordInputValidation? password,

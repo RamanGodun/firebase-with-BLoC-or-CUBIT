@@ -68,13 +68,15 @@ final class SignUpCubit extends Cubit<SignUpState> {
 
   /// 👁️ Toggles password field visibility
   void togglePasswordVisibility() {
-    emit(state.copyWith(isPasswordObscure: !state.isPasswordObscure));
+    emit(state._copyWith(isPasswordObscure: !state.isPasswordObscure));
   }
 
   /// 👁️🔁 Toggles confirm password visibility
   void toggleConfirmPasswordVisibility() {
     emit(
-      state.copyWith(isConfirmPasswordObscure: !state.isConfirmPasswordObscure),
+      state._copyWith(
+        isConfirmPasswordObscure: !state.isConfirmPasswordObscure,
+      ),
     );
   }
 
@@ -85,7 +87,7 @@ final class SignUpCubit extends Cubit<SignUpState> {
     }
 
     _submitDebouncer.run(() async {
-      emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+      emit(state._copyWith(status: FormzSubmissionStatus.inProgress));
 
       final result = await _signUpUseCase(
         name: state.name.value,
@@ -98,7 +100,7 @@ final class SignUpCubit extends Cubit<SignUpState> {
       ResultHandlerAsync(result)
         ..onFailureAsync((f) {
           emit(
-            state.copyWith(
+            state._copyWith(
               status: FormzSubmissionStatus.failure,
               failure: f.asConsumableUIEntity(),
             ),
@@ -106,7 +108,7 @@ final class SignUpCubit extends Cubit<SignUpState> {
           f.log();
         })
         ..onSuccessAsync((_) {
-          emit(state.copyWith(status: FormzSubmissionStatus.success));
+          emit(state._copyWith(status: FormzSubmissionStatus.success));
         })
         ..logAsync();
     });
@@ -129,7 +131,7 @@ final class SignUpCubit extends Cubit<SignUpState> {
 
   /// ♻️ Resets only submission status (e.g. after dialog)
   void resetStatus() {
-    emit(state.copyWith(status: FormzSubmissionStatus.initial));
+    emit(state._copyWith(status: FormzSubmissionStatus.initial));
   }
 
   /// 🧼 Fully resets form fields & validation
@@ -141,7 +143,7 @@ final class SignUpCubit extends Cubit<SignUpState> {
   }
 
   /// 🧽 Resets the failure after it’s been consumed
-  void clearFailure() => emit(state.copyWith(failure: null));
+  void clearFailure() => emit(state._copyWith(failure: null));
 
   //
 }

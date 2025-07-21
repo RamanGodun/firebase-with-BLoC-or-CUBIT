@@ -31,7 +31,7 @@ final class SignInPage extends StatelessWidget {
             ),
             di<FormValidationService>(),
           ),
-      child: const _SignInListenerWrapper(),
+      child: const _SignInErrorsListener(),
     );
   }
 }
@@ -40,12 +40,12 @@ final class SignInPage extends StatelessWidget {
 
 ////
 
-/// 🔄 [_SignInListenerWrapper] — Bloc listener for one-shot error feedback.
+/// 🔄 [_SignInErrorsListener] — Bloc listener for one-shot error feedback.
 /// ✅ Uses `Consumable<FailureUIModel>` for single-use error overlays.
 //
-final class _SignInListenerWrapper extends StatelessWidget {
+final class _SignInErrorsListener extends StatelessWidget {
   ///-----------------------------------------------------
-  const _SignInListenerWrapper();
+  const _SignInErrorsListener();
 
   @override
   Widget build(BuildContext context) {
