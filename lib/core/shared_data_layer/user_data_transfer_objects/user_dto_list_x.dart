@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/shared_data_layer/shared_data_transfer_objects/user_dto_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_data_layer/user_data_transfer_objects/user_dto_x.dart';
 import '../../shared_domain_layer/shared_entities/_user.dart';
 import '_user_dto.dart';
 

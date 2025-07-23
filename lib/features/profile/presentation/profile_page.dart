@@ -29,7 +29,7 @@ final class ProfilePage extends StatelessWidget {
       providers: [
         BlocProvider(
           create:
-              (_) => ProfileCubit(di<FetchProfileUseCase>())..loadProfile(uid),
+              (_) => ProfileCubit(di<GetProfileUseCase>())..loadProfile(uid),
         ),
         BlocProvider(create: (_) => di<SignOutCubit>()),
       ],

@@ -1,4 +1,4 @@
-import '../../../features/form_fields/utils/_form_validation_service.dart';
+import '../../../core/base_modules/form_fields/utils/_form_validation_service.dart';
 import '../core/di_module_interface.dart';
 import '../di_container.dart';
 

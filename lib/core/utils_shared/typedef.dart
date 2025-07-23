@@ -22,3 +22,7 @@ typedef SubmitCallback = void Function(BuildContext context);
 
 /// 📡 [ListenFailureCallback] — optional handler when failure is caught
 typedef ListenFailureCallback = void Function(Failure failure);
+
+///
+typedef UseCase<T, P> = ResultFuture<T> Function(P params);
+typedef UseCaseNoParams<T> = ResultFuture<T> Function();

@@ -1,6 +1,6 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/localization/extensions/string_x.dart';
 import 'package:flutter/material.dart';
-import '../../../core/base_modules/localization/app_localizer.dart';
+import '../../localization/app_localizer.dart';
 
 /// 🧱 [AppTextField] — Reusable, styled text input field used across the app.
 /// Supports:

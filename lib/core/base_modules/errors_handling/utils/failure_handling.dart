@@ -7,9 +7,10 @@ import 'observers/loggers/errors_log_util.dart';
 /// [WrapWithErrorHandling] - Abstract base class for use case implementations.
 /// Provides a consistent method to wrap any async domain logic
 /// and convert errors into [Failure] types for safe functional error handling.
+/// ✅ Eliminates boilerplate try-catch in concrete repositories
 //
-abstract class WrapWithErrorHandling {
-  /// ----------------------------
+abstract final class WrapWithErrorHandling {
+  ///------------------------------------
   //
   /// Executes a given async operation and returns an [Either] type.
   /// On success: returns [Right] with the result.

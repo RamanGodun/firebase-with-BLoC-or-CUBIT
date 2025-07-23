@@ -2,8 +2,8 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_con
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../app_bootstrap_and_config/di_container/di_container.dart';
-import '../../../form_fields/utils/_form_validation_service.dart';
-import '../../../form_fields/input_validation/formz_status_x.dart';
+import '../../../../core/base_modules/form_fields/utils/_form_validation_service.dart';
+import '../../../../core/base_modules/form_fields/input_validation/formz_status_x.dart';
 import '../../domain/use_cases/sign_up.dart';
 import 'cubit/sign_up_page_cubit.dart';
 import 'sign_up_view.dart';

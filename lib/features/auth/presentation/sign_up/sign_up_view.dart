@@ -1,5 +1,5 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/localization/generated/locale_keys.g.dart';
-import 'package:firebase_with_bloc_or_cubit/features/form_fields/input_validation/formz_status_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/form_fields/input_validation/formz_status_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/navigation/extensions/navigation_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x.dart';
@@ -11,11 +11,11 @@ import '../../../../core/utils_shared/spider/images_paths.dart';
 import '../../../../core/base_modules/theme/ui_constants/_app_constants.dart'
     show AppSpacing;
 import '../../../../core/shared_presentation_layer/widgets_shared/buttons/text_button.dart';
-import '../../../form_fields/input_validation/_validation_enums.dart';
-import '../../../form_fields/utils/use_auth_focus_nodes.dart';
-import '../../../form_fields/widgets/_fields_factory.dart';
+import '../../../../core/base_modules/form_fields/input_validation/_validation_enums.dart';
+import '../../../../core/base_modules/form_fields/utils/use_auth_focus_nodes.dart';
+import '../../../../core/base_modules/form_fields/widgets/_fields_factory.dart';
 import '../../../../core/shared_presentation_layer/widgets_shared/buttons/filled_button.dart';
-import '../../../form_fields/widgets/password_visibility_icon.dart';
+import '../../../../core/base_modules/form_fields/widgets/password_visibility_icon.dart';
 import '../../../../core/utils_shared/typedef.dart';
 import 'cubit/sign_up_page_cubit.dart';
 

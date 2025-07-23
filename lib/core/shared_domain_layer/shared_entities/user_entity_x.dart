@@ -1,5 +1,5 @@
 import '_user.dart';
-import '../../shared_data_layer/shared_data_transfer_objects/_user_dto.dart';
+import '../../shared_data_layer/user_data_transfer_objects/_user_dto.dart';
 
 /// 🔁 [UserEntityX] — Extension on [UserEntity] with transformation and utility methods
 

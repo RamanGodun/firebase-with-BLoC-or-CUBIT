@@ -15,7 +15,7 @@ part 'profile_page_state.dart';
 final class ProfileCubit extends Cubit<ProfileState> {
   ///-----------------------------------------------
   //
-  final FetchProfileUseCase _loadProfile;
+  final GetProfileUseCase _loadProfile;
   ProfileCubit(this._loadProfile) : super(const ProfileInitial());
   //
 

@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/utils/failure_handling.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_data_layer/shared_data_transfer_objects/user_dto_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_data_layer/user_data_transfer_objects/user_dto_x.dart';
 
-import '../../../../core/shared_data_layer/shared_data_transfer_objects/user_dto_factories_x.dart';
+import '../../../../core/shared_data_layer/user_data_transfer_objects/user_dto_factories_x.dart';
 import '../../../../core/utils_shared/typedef.dart';
 import '../../domain/i_repo.dart';
 import '../data_source_contract.dart';

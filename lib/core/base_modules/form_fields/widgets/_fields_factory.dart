@@ -1,6 +1,6 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import '../../../core/base_modules/theme/ui_constants/_app_constants.dart';
+import '../../theme/ui_constants/_app_constants.dart';
 import 'keys_for_widgets.dart';
 import '../input_validation/_validation_enums.dart';
 import 'app_text_field.dart';

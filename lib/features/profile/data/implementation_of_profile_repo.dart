@@ -1,12 +1,12 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/utils/failure_handling.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/typedef.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_data_layer/shared_data_transfer_objects/user_dto_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_data_layer/user_data_transfer_objects/user_dto_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_domain_layer/shared_entities/_user.dart';
-import 'package:firebase_with_bloc_or_cubit/features/profile/domain/i_repo.dart';
+import 'package:firebase_with_bloc_or_cubit/features/profile/domain/repo_contract.dart';
 import '../../../app_bootstrap_and_config/app_configs/firebase/data_source_constants.dart';
 import '../../../core/base_modules/errors_handling/failures/failure_entity.dart';
-import '../../../core/shared_data_layer/shared_data_transfer_objects/user_dto_factories_x.dart';
-import 'data_source_contract.dart';
+import '../../../core/shared_data_layer/user_data_transfer_objects/user_dto_factories_x.dart';
+import 'remote_database_contract.dart';
 
 /// 🧩 [ProfileRepoImpl] — Repository implementation for profile feature.
 /// ✅ Maps data between raw maps, DTOs, and domain entities.

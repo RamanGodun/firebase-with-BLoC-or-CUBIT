@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_domain_layer/repo_contracts/base_repo.dart';
-import 'data_source_contract.dart';
+import 'remote_database_contract.dart';
 
 /// 🧩 [ProfileRemoteDataSourceImpl] — Firestore data source for profile feature.
 //
-final class ProfileRemoteDataSourceImpl extends BaseRepository
-    implements IProfileRemoteDatabase {
+final class ProfileRemoteDataSourceImpl implements IProfileRemoteDatabase {
   ///---------------------------------------------------------------
   //
   final CollectionReference<Map<String, dynamic>> _usersCollection;
