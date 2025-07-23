@@ -1,12 +1,28 @@
+import 'package:cached_network_image/cached_network_image.dart' show CachedNetworkImage;
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_context_x_for_overlays.dart';
+import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../app_bootstrap_and_config/di_container/di_container.dart';
+import '../../../core/base_modules/localization/generated/locale_keys.g.dart';
+import '../../../core/base_modules/localization/widgets/_toggle_button.dart';
+import '../../../core/base_modules/localization/widgets/key_value_x_for_text_w.dart';
+import '../../../core/base_modules/localization/widgets/text_widget.dart';
+import '../../../core/base_modules/theme/ui_constants/_app_constants.dart';
+import '../../../core/base_modules/theme/widgets_and_utils/blur_wrapper.dart';
+import '../../../core/base_modules/theme/widgets_and_utils/theme_picking_widgets/theme_picker.dart';
+import '../../../core/base_modules/theme/widgets_and_utils/theme_picking_widgets/widget_for_theme_toggling.dart';
 import '../../../core/shared_domain_layer/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
+import '../../../core/shared_domain_layer/shared_entities/_user.dart';
+import '../../../core/shared_presentation_layer/widgets_shared/app_bar.dart';
+import '../../../core/shared_presentation_layer/widgets_shared/loaders/loader.dart';
+import '../../../core/utils_shared/spider/images_paths.dart';
 import '../../auth/presentation/sign_out/sign_out_cubit/sign_out_cubit.dart';
-import '../domain/fetch_profile_use_case.dart';
+import '../../auth/presentation/sign_out/sign_out_widget.dart';
 import 'cubit/profile_page_cubit.dart';
-import 'profile_view.dart';
+
+part 'widgets_for_profile_page.dart';
 
 /// 👤 [ProfilePage] — Shows user profile details and allows sign-out
 /// ✅ Uses [AuthCubit] to obtain UID and loads profile via [ProfileCubit]
@@ -24,16 +40,33 @@ final class ProfilePage extends StatelessWidget {
     // 🛑 Guard: If user is not available, return empty widget
     if (uid == null) return const SizedBox.shrink();
 
+    /// Profile loading if not have been done
+    context.read<ProfileCubit>().loadProfile(uid);
+
     /// 🧩♻️ Injects [ProfileCubit] and [SignOutCubit] with DI and loads profile on init
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create:
-              (_) => ProfileCubit(di<GetProfileUseCase>())..loadProfile(uid),
-        ),
-        BlocProvider(create: (_) => di<SignOutCubit>()),
-      ],
-      child: const _ProfileErrorListenerWrapper(),
+    return BlocProvider<SignOutCubit>(
+      create: (_) => di<SignOutCubit>(),
+
+      /// Bloc listener for one-shot error feedback.
+      /// Uses `Consumable<FailureUIModel>` for single-use error overlays.
+      child: BlocListener<ProfileCubit, ProfileState>(
+        listenWhen:
+            (prev, curr) => prev is! ProfileError && curr is ProfileError,
+
+        /// 📣 Show error once and reset failure
+        listener: (context, state) {
+          if (state is ProfileError) {
+            final model = state.failure.consume();
+            if (model != null) {
+              context.showError(model);
+              context.read<ProfileCubit>().clearFailure();
+            }
+          }
+        },
+
+        ///
+        child: const ProfileView(),
+      ),
     );
   }
 }
@@ -42,34 +75,32 @@ final class ProfilePage extends StatelessWidget {
 
 ////
 
-/// 🔄 [_ProfileErrorListenerWrapper] — Bloc listener for one-shot error feedback.
-/// ✅ Uses `Consumable<FailureUIModel>` for single-use error overlays.
+/// 📄 [ProfileView] — Handles state for loading, error, and loaded profile states
+/// ✅ Reacts to [ProfileCubit] and shows appropriate UI
 
-final class _ProfileErrorListenerWrapper extends StatelessWidget {
-  ///------------------------------------------------------
-  const _ProfileErrorListenerWrapper();
-  //
+final class ProfileView extends StatelessWidget {
+  ///------------------------------------------
+  const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
     //
-    return BlocListener<ProfileCubit, ProfileState>(
-      ///
-      listenWhen: (prev, curr) => prev is! ProfileError && curr is ProfileError,
+    return Scaffold(
+      appBar: const _ProfileAppBar(),
 
-      /// 📣 Show error once and reset failure
-      listener: (context, state) {
-        if (state is ProfileError) {
-          final model = state.failure.consume();
-          if (model != null) {
-            context.showError(model);
-            context.read<ProfileCubit>().clearFailure();
-          }
-        }
-      },
+      body: BlocBuilder<ProfileCubit, ProfileState>(
+        builder:
+            (context, state) => switch (state) {
+              ProfileInitial() => const SizedBox.shrink(),
+              ProfileLoaded(:final user) => _UserProfileCard(user: user),
 
-      ///
-      child: const ProfileView(),
+              ProfileLoading() =>
+                const AppLoader(), // Show loader while data is loading
+
+              ProfileError() =>
+                const SizedBox.shrink(), // Show nothing, as overlay handles errors
+            },
+      ),
     );
   }
 }

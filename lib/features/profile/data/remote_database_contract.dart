@@ -1,13 +1,17 @@
-/// 📡 [IProfileRemoteDatabase] — Contract for any user profile remote source.
-/// ✅ Does not depend on specific database or DTO types.
+/// 📡 [IProfileRemoteDatabase] — abstraction for remote user profile access
+/// 🧼 Defines contract for reading or creating user profile from database
 //
 abstract interface class IProfileRemoteDatabase {
-  ///-------------------------------------------
+  ///---------------------------------------------
   //
-  /// Fetches user as a raw [Map] by UID, or null if not exists.
+  /// 📥 Fetches user document by [uid], returns map or null if not found
   Future<Map<String, dynamic>?> fetchUserMap(String uid);
   //
-  /// Creates a user profile from map for given UID.
+  /// 🆕 Creates/updates user map in Firestore for given [uid]
   Future<void> createUserMap(String uid, Map<String, dynamic> data);
+  //
+  /// 🔐 Retrieves current authenticated user's basic info (for profile creation)
+  Future<Map<String, dynamic>?> getCurrentUserAuthData();
+
   //
 }

@@ -4,18 +4,16 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/ut
 import 'package:firebase_with_bloc_or_cubit/features/profile/domain/repo_contract.dart';
 import '../../../core/shared_domain_layer/shared_entities/_user.dart';
 
-//! SPLIT into 2 use cases
-
-/// 🧩 [GetProfileUseCase] — Loads profile or creates if missing.
-/// ✅ Orchestrates fetching and recovery flow with proper error logging.
+/// 🧩 [FetchProfileUseCase] — Encapsulates domain logic of
+//     loading profile (with "fetch-or-create" user logic)
 //
-final class GetProfileUseCase {
+final class FetchProfileUseCase {
   ///-----------------------------------------------
   //
   final IProfileRepo _repo;
-  const GetProfileUseCase(this._repo);
+  const FetchProfileUseCase(this._repo);
 
-  // 🚀 Loads user profile by UID; creates if missing, then reloads.
+  /// 🚀 Loads user profile by UID; creates if missing, then reloads.
   ResultFuture<UserEntity> call(String uid) async {
     // 1️⃣ Try to load profile
     final result = await _repo.getProfile(uid: uid);
@@ -27,7 +25,5 @@ final class GetProfileUseCase {
 
     // 3️⃣ Try again after creation
     return _repo.getProfile(uid: uid);
-
-    //
   }
 }

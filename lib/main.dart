@@ -5,6 +5,7 @@ import 'core/shared_domain_layer/auth_state_refresher/auth_state_cubit/auth_cubi
 import 'core/base_modules/navigation/core/router_cubit.dart';
 import 'core/base_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import 'core/base_modules/theme/theme_cubit.dart';
+import 'features/profile/presentation/cubit/profile_page_cubit.dart';
 import 'root_view_shell.dart';
 import 'app_bootstrap_and_config/app_bootstrap.dart';
 import 'app_bootstrap_and_config/di_container/di_container.dart';
@@ -62,6 +63,11 @@ final class GlobalProviders extends StatelessWidget {
         BlocProvider.value(value: di<RouterCubit>()),
         BlocProvider.value(value: di<AppThemeCubit>()),
         BlocProvider.value(value: di<OverlayStatusCubit>()),
+
+        BlocProvider.value(value: di<AuthCubit>()),
+        BlocProvider.value(value: di<ProfileCubit>()),
+
+        // others...
       ],
       child: const AppRootViewShell(),
     );
@@ -70,8 +76,6 @@ final class GlobalProviders extends StatelessWidget {
 
 
 /*
-
-видалити сервіси, логіка в UseCases, 
 
 
 2. 
@@ -96,10 +100,6 @@ final class SignInUseCase {
     return _ensure(user);
   }
 }
-
-
-
-!! Впровадьте Repository Pattern з cache layer для офлайн підтримки
 
 
 

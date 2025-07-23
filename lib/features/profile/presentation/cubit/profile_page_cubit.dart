@@ -15,8 +15,8 @@ part 'profile_page_state.dart';
 final class ProfileCubit extends Cubit<ProfileState> {
   ///-----------------------------------------------
   //
-  final GetProfileUseCase _loadProfile;
-  ProfileCubit(this._loadProfile) : super(const ProfileInitial());
+  final FetchProfileUseCase _fetchProfileUsecase;
+  ProfileCubit(this._fetchProfileUsecase) : super(const ProfileInitial());
   //
 
   /// 🚀 Loads user profile by UID
@@ -24,7 +24,7 @@ final class ProfileCubit extends Cubit<ProfileState> {
     //
     emit(const ProfileLoading());
 
-    final result = await _loadProfile(uid);
+    final result = await _fetchProfileUsecase(uid);
 
     result.fold(
       (f) => emit(ProfileError(f.toUIEntity().asConsumable())),

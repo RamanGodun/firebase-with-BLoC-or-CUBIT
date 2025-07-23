@@ -10,6 +10,7 @@ environment:
   sdk: ^3.7.2
 
 dependencies:
+  cached_network_image: ^3.4.1
   cloud_firestore: ^5.6.6
   cupertino_icons: ^1.0.8
   device_info_plus: ^11.5.0
@@ -98,4 +99,4 @@ spider:
   groups:
     - path: assets/images
       class_name: Images
-      types: [.png, .jpg, .jpeg, .webp, .webm, .bmp]
+      types: [ .png, .jpg, .jpeg, .webp, .webm, .bmp ]

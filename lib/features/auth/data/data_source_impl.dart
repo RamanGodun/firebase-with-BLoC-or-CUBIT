@@ -10,7 +10,7 @@ final class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
   /// 🔐 Firebase sign-in
   @override
   Future<void> signIn({required String email, required String password}) async {
-    await DataSourceConstants.fbAuth.signInWithEmailAndPassword(
+    await FirebaseConstants.fbAuth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -22,8 +22,10 @@ final class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
     required String email,
     required String password,
   }) async {
-    final cred = await DataSourceConstants.fbAuth
-        .createUserWithEmailAndPassword(email: email, password: password);
+    final cred = await FirebaseConstants.fbAuth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
     // Return UID only (to stay generic)
     return cred.user?.uid ?? '';
   }
@@ -31,13 +33,13 @@ final class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
   /// 💾 Save User in Firestore
   @override
   Future<void> saveUserData(String uid, Map<String, dynamic> userData) async {
-    await DataSourceConstants.usersCollection.doc(uid).set(userData);
+    await FirebaseConstants.usersCollection.doc(uid).set(userData);
   }
 
   /// 🔓 Firebase sign-out
   @override
   Future<void> signOut() async {
-    await DataSourceConstants.fbAuth.signOut();
+    await FirebaseConstants.fbAuth.signOut();
   }
 
   //

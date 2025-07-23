@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/base_modules/theme/ui_constants/_app_constants.dart';
 import 'sign_out_cubit/sign_out_cubit.dart';
 
-class SignOutWidget extends StatelessWidget {
+class SignOutIconButton extends StatelessWidget {
   ///--------------------------------------
-  const SignOutWidget({super.key});
+  const SignOutIconButton({super.key});
   //
 
   @override

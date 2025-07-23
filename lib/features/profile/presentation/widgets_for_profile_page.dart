@@ -1,4 +1,27 @@
-part of 'profile_view.dart';
+part of 'profile_page.dart';
+
+/// [_ProfileAppBar] — Top bar with profile title, language and sign-out actions.
+//
+final class _ProfileAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
+  ///----------------------------
+  const _ProfileAppBar();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  Widget build(BuildContext context) {
+    return const CustomAppBar(
+      title: LocaleKeys.pages_profile,
+      actionWidgets: [LanguageToggleButton(), SignOutIconButton()],
+    );
+  }
+}
+
+////
+
+////
 
 /// 🧾 [_UserProfileCard] — Displays user information after successful fetch.
 //
@@ -21,9 +44,16 @@ final class _UserProfileCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FadeInImage.assetNetwork(
-                placeholder: AppImagesPaths.loading,
-                image: user.profileImage,
+              CachedNetworkImage(
+                imageUrl: user.profileImage,
+                placeholder:
+                    (_, _) => Image.asset(
+                      AppImagesPaths.loading,
+                      width: double.infinity,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
+                errorWidget: (_, _, _) => const Icon(Icons.error, size: 48),
                 width: double.infinity,
                 height: 200,
                 fit: BoxFit.cover,
@@ -85,31 +115,6 @@ final class _UserProfileCard extends StatelessWidget {
           ),
         ),
       ).withPaddingOnly(bottom: AppSpacing.huge),
-    );
-  }
-}
-
-////
-
-////
-
-/// ⚠️ [_ErrorContent] — Shown when profile loading fails.
-
-final class _ErrorContent extends StatelessWidget {
-  ///--------------------------------------------
-  const _ErrorContent();
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Image(image: AssetImage(AppImagesPaths.error), width: 75),
-          SizedBox(height: AppSpacing.xxxs),
-          TextWidget(LocaleKeys.profile_error, TextType.error),
-        ],
-      ),
     );
   }
 }
