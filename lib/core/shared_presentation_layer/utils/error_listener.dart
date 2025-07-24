@@ -10,25 +10,24 @@ import '../../base_modules/localization/generated/locale_keys.g.dart';
 import '../../base_modules/overlays/core/enums_for_overlay_module.dart';
 import '../../base_modules/overlays/utils/overlay_utils.dart';
 
-/// [CustomErrorListener] — Universal BlocListener for error dialog+retry for forms
+/// [CustomErrorListener] — Generic BlocListener for displaying error dialogs with optional retry support.
+/// Use to DRY error handling across forms (SignIn/SignUp etc).
 //
 final class CustomErrorListener<
   TCubit extends Cubit<TState>,
   TState extends Object
 >
     extends StatelessWidget {
+  ///---------------------------
+  //
   final Widget child;
-
-  /// Стратегія отримання failure-об'єкта зі стейту (generic для SignUp/SignIn)
+  // Extracts a consumable failure from state (e.g., state.failure).
   final Consumable<dynamic>? Function(TState state) failureSelector;
-
-  /// Стратегія, коли в state показувати dialog (наприклад, статус submissionFailure)
+  // Decides when to trigger the error listener.
   final bool Function(TState prev, TState curr) listenWhen;
-
-  /// Retry callback для повтору дії
+  // Callback to execute retry logic (e.g., cubit.submit).
   final VoidCallback onRetry;
-
-  /// Опціональний хук для cleanup/reset після показу помилки
+  // Optional cleanup/reset callback after error is shown.
   final void Function(BuildContext context, TCubit cubit)? onReset;
 
   const CustomErrorListener({
@@ -45,6 +44,8 @@ final class CustomErrorListener<
     //
     return BlocListener<TCubit, TState>(
       listenWhen: listenWhen,
+
+      /// 📣 Show error once and reset failure + status
       listener: (context, state) {
         final cubit = context.read<TCubit>();
         final consumableError = failureSelector(state);
@@ -52,6 +53,8 @@ final class CustomErrorListener<
 
         if (error != null) {
           final isRetryable = (error is Failure && error.isRetryable);
+
+          /// Show retryable dialog if supported, otherwise info dialog.
           if (isRetryable) {
             context.showError(
               error.toUIEntity(),
@@ -64,9 +67,12 @@ final class CustomErrorListener<
           } else {
             context.showError(error.toUIEntity(), showAs: ShowAs.infoDialog);
           }
+
+          /// Run custom reset/cleanup if provided.
           onReset?.call(context, cubit);
         }
       },
+
       child: child,
     );
   }

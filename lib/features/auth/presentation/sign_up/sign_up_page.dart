@@ -57,7 +57,7 @@ final class SignUpPage extends StatelessWidget {
           if (error != null) {
             if (error.isRetryable) {
               //
-              // Show retryable dialig
+              // Show retryable dialog
               context.showError(
                 error.toUIEntity(),
                 showAs: ShowAs.dialog,
