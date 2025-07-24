@@ -3,9 +3,9 @@ part of '_exceptions_to_failures_mapper.dart';
 /// 🌍 [_handleDio] — maps Dio-specific exceptions to [Failure]s.
 /// ✅ Covers timeouts, client/server HTTP errors, and unknown types.
 /// ✅ Ensures uniform translation from Dio to domain layer.
-
+//
 Failure _handleDio(DioException error) => switch (error.type) {
-  /// ─────---------------------------------------------------
+  /// ──---------------------------------------------------
 
   //⏱️ Timeout-related Dio errors
   DioExceptionType.connectionTimeout ||

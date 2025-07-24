@@ -10,6 +10,7 @@ abstract class  LocaleKeys {
   static const buttons_sign_in = 'buttons.sign_in';
   static const buttons_sign_up = 'buttons.sign_up';
   static const buttons_submit_tag = 'buttons.submit_tag';
+  static const buttons_retry = 'buttons.retry';
   static const buttons_to_sign_in = 'buttons.to_sign_in';
   static const buttons_to_sign_up = 'buttons.to_sign_up';
   static const buttons = 'buttons';

@@ -31,7 +31,7 @@ extension SignUpStateValidationX on SignUpState {
     final PasswordInputValidation? password,
     final ConfirmPasswordInputValidation? confirmPassword,
     final FormzSubmissionStatus? status,
-    final Consumable<FailureUIEntity>? failure,
+    final Consumable<Failure>? failure,
     final bool? isPasswordObscure,
     final bool? isConfirmPasswordObscure,
   }) {

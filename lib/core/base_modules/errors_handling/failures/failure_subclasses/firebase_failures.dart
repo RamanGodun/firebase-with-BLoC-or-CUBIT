@@ -1,6 +1,7 @@
 part of '../failure_entity.dart';
 
 /// 🔥 [FirebaseFailure] — general firebase-related issues
+//
 final class FirebaseFailure extends Failure {
   ///---------------------------------------
   //
@@ -18,6 +19,7 @@ final class FirebaseFailure extends Failure {
 ////
 
 /// ❌ [FirebaseUserMissingFailure] — FirebaseAuth.currentUser is null
+//
 final class FirebaseUserMissingFailure extends FirebaseFailure {
   ///---------------------------------------
   //
@@ -32,6 +34,7 @@ final class FirebaseUserMissingFailure extends FirebaseFailure {
 ////
 
 /// 🔍 [FirestoreDocMissingFailure] — document exists but has wrong structure
+//
 final class FirestoreDocMissingFailure extends FirebaseFailure {
   ///---------------------------------------
   //

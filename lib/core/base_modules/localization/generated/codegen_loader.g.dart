@@ -24,6 +24,7 @@ class CodegenLoader extends AssetLoader{
     "sign_in": "Zaloguj się",
     "sign_up": "Zarejestruj się",
     "submit_tag": "Wyślij",
+    "retry": "Spróbuj ponownie",
     "to_sign_in": "Masz już konto? Zaloguj się!",
     "to_sign_up": "Nie masz konta? Zarejestruj się!"
   },
@@ -152,6 +153,7 @@ static const Map<String,dynamic> _uk = {
     "sign_in": "Увійти",
     "sign_up": "Зареєструватися",
     "submit_tag": "Відправити",
+    "retry": "Повторити",
     "to_sign_in": "Вже маєте акаунт?  Увійдіть!",
     "to_sign_up": "Ще не маєте акаунта?  Зареєструйтесь!"
   },
@@ -255,7 +257,7 @@ static const Map<String,dynamic> _uk = {
     "email": "📧 Пошта:  ",
     "points": "📊 Бали:     ",
     "rank": "🏆 Ранг:      ",
-    "error": "Ой!\nЩось пішло не так."
+    "error": "Ой! Щось пішло не так."
   },
   "routes": {
     "home": "/home"
@@ -280,6 +282,7 @@ static const Map<String,dynamic> _en = {
     "sign_in": "Sign In",
     "sign_up": "Sign Up",
     "submit_tag": "Submit",
+    "retry": "Retry",
     "to_sign_in": "Already a member? Sign In!",
     "to_sign_up": "Not a member? Sign Up!"
   },

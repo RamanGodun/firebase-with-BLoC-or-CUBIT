@@ -1,6 +1,7 @@
 part of '../failure_entity.dart';
 
 /// 🧠 [UseCaseFailure] — validation / business logic violation
+//
 final class UseCaseFailure extends Failure {
   ///---------------------------------------
   //
@@ -16,6 +17,7 @@ final class UseCaseFailure extends Failure {
 ////
 
 /// 🧊 [CacheFailure] — local storage, preferences, or disk read/write error
+//
 final class CacheFailure extends Failure {
   ///---------------------------------------
   //

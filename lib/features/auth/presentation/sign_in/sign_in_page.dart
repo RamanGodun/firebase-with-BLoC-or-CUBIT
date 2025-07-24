@@ -1,5 +1,5 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/failures/extensions/failure_led_retry_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/failures/extensions/to_ui_failures_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/failures/extensions/to_ui_failure_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/navigation/extensions/navigation_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_context_x_for_overlays.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/enums_for_overlay_module.dart';
@@ -15,9 +15,11 @@ import '../../../../core/base_modules/form_fields/input_validation/formz_status_
 import '../../../../core/base_modules/form_fields/utils/use_auth_focus_nodes.dart';
 import '../../../../core/base_modules/form_fields/widgets/_fields_factory.dart';
 import '../../../../core/base_modules/form_fields/widgets/password_visibility_icon.dart';
+import '../../../../core/base_modules/localization/app_localizer.dart';
 import '../../../../core/base_modules/localization/generated/locale_keys.g.dart';
 import '../../../../core/base_modules/navigation/app_routes/app_routes.dart';
 import '../../../../core/base_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
+import '../../../../core/base_modules/overlays/utils/overlay_utils.dart';
 import '../../../../core/base_modules/theme/ui_constants/_app_constants.dart';
 import '../../../../core/shared_presentation_layer/widgets_shared/buttons/filled_button.dart';
 import '../../../../core/shared_presentation_layer/widgets_shared/buttons/text_button.dart';
@@ -33,7 +35,6 @@ part 'sign_in_widgets.dart';
 final class SignInPage extends StatelessWidget {
   ///----------------------------------------
   const SignInPage({super.key});
-  //
 
   @override
   Widget build(BuildContext context) {
@@ -51,17 +52,23 @@ final class SignInPage extends StatelessWidget {
 
         /// 📣 Show error once and reset failure + status
         listener: (context, state) {
-          final model = state.failure?.consume();
-          if (model != null) {
-            if (model.isRetryable) {
+          final error = state.failure?.consume();
+          if (error != null) {
+            if (error.isRetryable) {
               context.showError(
-                model.toUIEntity(),
+                error.toUIEntity(),
                 showAs: ShowAs.dialog,
-                onConfirm: () => context.read<SignInCubit>().submit(),
+                onConfirm: OverlayUtils.dismissAndRun(
+                  () => context.read<SignInCubit>().submit(),
+                  context,
+                ),
+                confirmText: AppLocalizer.translateSafely(
+                  LocaleKeys.buttons_retry,
+                ),
               );
             } else {
               // Просто показати діалог
-              context.showError(model.toUIEntity(), showAs: ShowAs.infoDialog);
+              context.showError(error.toUIEntity(), showAs: ShowAs.infoDialog);
             }
             context.read<SignInCubit>()
               ..resetStatus()

@@ -12,7 +12,7 @@ final class SignUpState extends Equatable {
   final ConfirmPasswordInputValidation confirmPassword;
   final FormzSubmissionStatus status;
   final bool isValid;
-  final Consumable<FailureUIEntity>? failure;
+  final Consumable<Failure>? failure;
   final bool isPasswordObscure;
   final bool isConfirmPasswordObscure;
 
@@ -38,7 +38,7 @@ final class SignUpState extends Equatable {
     final ConfirmPasswordInputValidation? confirmPassword,
     final FormzSubmissionStatus? status,
     final bool? isValid,
-    final Consumable<FailureUIEntity>? failure,
+    final Consumable<Failure>? failure,
     final bool? isPasswordObscure,
     final bool? isConfirmPasswordObscure,
   }) {

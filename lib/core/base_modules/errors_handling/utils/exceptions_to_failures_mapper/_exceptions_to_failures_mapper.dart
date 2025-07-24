@@ -18,9 +18,9 @@ part 'domain_cases.dart';
 /// 🧰 [ExceptionToFailureMapper] — centralized converter for raw exceptions to domain-level [Failure].
 /// ✅ Converts ASTRODES into structured [Failure] types.
 /// ✅ Guarantees consistent mapping across Data → Domain → UI.
-
+//
 final class ExceptionToFailureMapper {
-  //---------------------------------
+  ///------------------------------
   const ExceptionToFailureMapper._();
   //
 
@@ -74,6 +74,8 @@ final class ExceptionToFailureMapper {
 
       //🧠 Invalid arguments
       ArgumentError _ => _handleArgument(error),
+
+      //
 
       //❓ Fallback for uncategorized
       _ => UnknownFailure(

@@ -12,11 +12,11 @@ part 'failure_subclasses/time_out_failure.dart';
 /// 🔥 [Failure] — Domain abstraction for all app-level errors
 /// ✅ Used throughout Either: [Either<Failure, T>]
 /// ✅ Base class for all typed error cases in the domain layer
-
+//
 @sealed
 abstract class Failure extends Equatable {
   ///-------------------------------------
-
+  //
   final String message; //📝 Human-readable error
   final String? translationKey; //🌐 Optional localization key
   final dynamic statusCode; //🔢 Optional HTTP or plugin code

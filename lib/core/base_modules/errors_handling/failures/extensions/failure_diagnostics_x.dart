@@ -4,12 +4,11 @@ import '../failure_entity.dart';
 /// 🧭 [FailureDiagnosticsX] — Diagnostic utilities for `Failure`
 /// ✅ Includes type checkers, casting, logging helpers, and fallback-safe metadata access.
 /// ✅ Used in logging, Crashlytics, result handlers, and advanced failure branching.
-
+//
 extension FailureDiagnosticsX on Failure {
-  // ────────────────────────────────────
+  /// ─────────────────────────────────
 
   /// 🔌 Source & Type Diagnostics
-
   /// Returns plugin source identifier (used in logs, analytics, crash reports)
   String get pluginSource => switch (this) {
     GenericFailure() => statusCode?.toString() ?? ErrorPlugins.unknown.code,

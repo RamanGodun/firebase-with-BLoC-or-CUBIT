@@ -1,4 +1,4 @@
-part of 'sign_up_view.dart';
+part of 'sign_up_page.dart';
 
 /// 🖼️ [_LogoImage] — Displays logo with hero animation
 
