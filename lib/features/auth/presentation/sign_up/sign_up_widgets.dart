@@ -1,7 +1,7 @@
 part of 'sign_up_page.dart';
 
 /// 🖼️ [_LogoImage] — Displays logo with hero animation
-
+//
 final class _LogoImage extends StatelessWidget {
   ///-----------------------------------------
   const _LogoImage();
@@ -21,10 +21,10 @@ final class _LogoImage extends StatelessWidget {
 ////
 
 /// 👤 [_NameField] — Handles name input with validation
-
+//
 final class _NameField extends StatelessWidget {
-  //-------------------------------------------
-
+  ///---------------------------------------
+  //
   final FocusNode focusNode;
   final FocusNode nextFocusNode;
   const _NameField({required this.focusNode, required this.nextFocusNode});
@@ -53,13 +53,12 @@ final class _NameField extends StatelessWidget {
 ////
 
 /// 📧 [_EmailField] — Handles email input with validation
-
+//
 final class _EmailField extends StatelessWidget {
-  //--------------------------------------------
-
+  ///-----------------------------------------
+  //
   final FocusNode focusNode;
   final FocusNode nextFocusNode;
-
   const _EmailField({required this.focusNode, required this.nextFocusNode});
 
   @override
@@ -85,13 +84,12 @@ final class _EmailField extends StatelessWidget {
 ////
 
 /// 🔒 [_PasswordField] — Handles password input with toggle visibility
-
+//
 final class _PasswordField extends StatelessWidget {
-  //-----------------------------------------------
-
+  ///--------------------------------------------
+  //
   final FocusNode focusNode;
   final FocusNode nextFocusNode;
-
   const _PasswordField({required this.focusNode, required this.nextFocusNode});
 
   @override
@@ -128,12 +126,11 @@ final class _PasswordField extends StatelessWidget {
 ////
 
 /// 🔐 [_ConfirmPasswordField] — Validates match with password
-
+//
 final class _ConfirmPasswordField extends StatelessWidget {
-  //-----------------------------------------------------
-
+  ///---------------------------------------------------
+  //
   final FocusNode focusNode;
-
   const _ConfirmPasswordField({required this.focusNode});
 
   @override
@@ -171,10 +168,9 @@ final class _ConfirmPasswordField extends StatelessWidget {
 ////
 
 /// 🚀 [_SubmitButton] — Validated submit with status feedback
-
+//
 final class _SubmitButton extends StatelessWidget {
-  //----------------------------------------------
-
+  ///-------------------------------------------
   const _SubmitButton();
 
   @override
@@ -197,10 +193,9 @@ final class _SubmitButton extends StatelessWidget {
 ////
 
 /// 🔁 [_RedirectToSignInButton] — Disabled if submitting or overlay active
-
+//
 final class _RedirectToSignInButton extends StatelessWidget {
-  //--------------------------------------------------------
-
+  ///-----------------------------------------------------
   const _RedirectToSignInButton();
 
   @override

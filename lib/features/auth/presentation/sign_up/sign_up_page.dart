@@ -32,7 +32,7 @@ part 'sign_up_widgets.dart';
 
 /// 🧾 [SignUpPage] — Entry point for the sign-up feature
 /// ✅ Provides scoped Cubit with injected service
-
+//
 final class SignUpPage extends StatelessWidget {
   ///-----------------------------------------
   const SignUpPage({super.key});
@@ -51,13 +51,12 @@ final class SignUpPage extends StatelessWidget {
             (prev, curr) =>
                 prev.status != curr.status && curr.status.isSubmissionFailure,
 
-        /// 📣 Show error once and reset failure + status
+        /// 📣 Show once retryable dialog if supported, otherwise info dialog
+        /// and then reset failure + status
         listener: (context, state) {
           final error = state.failure?.consume();
           if (error != null) {
             if (error.isRetryable) {
-              //
-              // Show retryable dialog
               context.showError(
                 error.toUIEntity(),
                 showAs: ShowAs.dialog,
@@ -70,10 +69,9 @@ final class SignUpPage extends StatelessWidget {
                 ),
               );
             } else {
-              //
-              // Simple info dialog
               context.showError(error.toUIEntity(), showAs: ShowAs.infoDialog);
             }
+
             context.read<SignUpCubit>()
               ..resetStatus()
               ..clearFailure();

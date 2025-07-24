@@ -118,11 +118,3 @@ final class SignInCubit extends Cubit<SignInPageState> {
 
   //
 }
-
-
-/*
-
-final _debouncer = Debouncer(const Duration(milliseconds: 200));
-Немає dispose() методу в Cubit для cleanup
-
- */

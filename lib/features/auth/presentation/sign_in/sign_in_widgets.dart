@@ -25,7 +25,7 @@ final class _LogoImage extends StatelessWidget {
 //
 final class _EmailField extends StatelessWidget {
   ///------------------------------------------
-
+  //
   final FocusNode focusNode;
   final FocusNode nextFocus;
   const _EmailField({required this.focusNode, required this.nextFocus});
@@ -58,10 +58,9 @@ final class _EmailField extends StatelessWidget {
 //
 final class _PasswordField extends StatelessWidget {
   ///---------------------------------------------
-
+  //
   final FocusNode focusNode;
   const _PasswordField({required this.focusNode});
-  //
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +105,6 @@ final class _PasswordField extends StatelessWidget {
 final class _SubmitButton extends StatelessWidget {
   ///--------------------------------------------
   const _SubmitButton();
-  //
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +131,6 @@ final class _SubmitButton extends StatelessWidget {
 final class _RedirectToSignUpButton extends StatelessWidget {
   ///------------------------------------------------------
   const _RedirectToSignUpButton();
-  //
 
   @override
   Widget build(BuildContext context) {

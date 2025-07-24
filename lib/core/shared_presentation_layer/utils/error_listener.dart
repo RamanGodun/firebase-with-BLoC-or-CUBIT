@@ -10,8 +10,8 @@ import '../../base_modules/localization/generated/locale_keys.g.dart';
 import '../../base_modules/overlays/core/enums_for_overlay_module.dart';
 import '../../base_modules/overlays/utils/overlay_utils.dart';
 
-/// [CustomErrorListener] — Generic BlocListener for displaying error dialogs with optional retry support.
-/// Use to DRY error handling across forms (SignIn/SignUp etc).
+/// [CustomErrorListener] — Generic BlocListener for showing error dialogs with optional retry.
+/// ✅ DRY error handling for forms (SignIn, SignUp, etc).
 //
 final class CustomErrorListener<
   TCubit extends Cubit<TState>,
