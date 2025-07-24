@@ -22,7 +22,7 @@ extension SignInStateValidationX on SignInPageState {
     final EmailInputValidation? email,
     final PasswordInputValidation? password,
     final FormzSubmissionStatus? status,
-    final Consumable<FailureUIEntity>? failure,
+    final Consumable<Failure>? failure,
     final bool? isPasswordObscure,
   }) {
     final updated = _copyWith(

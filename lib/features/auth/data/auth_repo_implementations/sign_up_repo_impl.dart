@@ -3,7 +3,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_data_layer/user_data_tra
 
 import '../../../../core/shared_data_layer/user_data_transfer_objects/user_dto_factories_x.dart';
 import '../../../../core/utils_shared/typedef.dart';
-import '../../domain/i_repo.dart';
+import '../../domain/repo_contracts.dart';
 import '../data_source_contract.dart';
 
 /// 🧩 [SignUpRepoImpl] — Repository for sign up feature.
@@ -12,7 +12,7 @@ import '../data_source_contract.dart';
 final class SignUpRepoImpl implements ISignUpRepo {
   ///---------------------------------------------
   //
-  final IAuthRemoteDataSource _remote;
+  final IAuthRemoteDatabase _remote;
   const SignUpRepoImpl(this._remote);
   //
 

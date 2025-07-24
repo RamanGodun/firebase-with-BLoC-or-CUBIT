@@ -7,6 +7,7 @@ part 'failure_subclasses/network_and_api_failures.dart';
 part 'failure_subclasses/usecase_and_cache_failures.dart';
 part 'failure_subclasses/generic_failure.dart';
 part 'failure_subclasses/unknown_failure.dart';
+part 'failure_subclasses/time_out_failure.dart';
 
 /// 🔥 [Failure] — Domain abstraction for all app-level errors
 /// ✅ Used throughout Either: [Either<Failure, T>]

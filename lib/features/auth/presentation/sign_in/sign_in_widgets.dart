@@ -1,4 +1,4 @@
-part of 'sign_in_view.dart';
+part of 'sign_in_page.dart';
 
 /// 🖼️ [_LogoImage] — Displays Flutter logo with hero animation
 //
@@ -22,7 +22,7 @@ final class _LogoImage extends StatelessWidget {
 
 /// 📧 [_EmailField] — Email input field with validation & focus handling
 /// ✅ Rebuilds only when `email.uiError` changes
-
+//
 final class _EmailField extends StatelessWidget {
   ///------------------------------------------
 
@@ -102,7 +102,7 @@ final class _PasswordField extends StatelessWidget {
 
 /// 🚀 [_SubmitButton] — Button for triggering sign-in logic
 /// ✅ Uses [FormSubmitButton] for automatic loading state binding
-
+//
 final class _SubmitButton extends StatelessWidget {
   ///--------------------------------------------
   const _SubmitButton();
@@ -129,7 +129,7 @@ final class _SubmitButton extends StatelessWidget {
 
 /// 🔁 [_RedirectToSignUpButton] — Button to navigate to the sign-up screen
 /// ✅ Disabled during form submission or overlay
-
+//
 final class _RedirectToSignUpButton extends StatelessWidget {
   ///------------------------------------------------------
   const _RedirectToSignUpButton();

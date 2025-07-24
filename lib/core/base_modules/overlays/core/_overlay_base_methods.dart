@@ -11,9 +11,9 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/animation/overlays
 
 /// 🎯 [OverlayBaseMethods] — Unified extension for low-level overlay
 ///  rendering methods (showBanner, showDialog, showSnackbar)
-
+//
 extension OverlayBaseMethods on BuildContext {
-  ///---------------------------------------
+  ///--------------------------------------
 
   /// 5️⃣  📥 Adds a new request to the [IOverlayDispatcher]
   void addOverlayRequest(OverlayUIEntry entry) {
@@ -161,5 +161,5 @@ extension OverlayBaseMethods on BuildContext {
     addOverlayRequest(entry);
   }
 
-  ///
+  //
 }

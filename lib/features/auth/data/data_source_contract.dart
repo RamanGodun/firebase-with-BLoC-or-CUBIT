@@ -1,7 +1,7 @@
-/// 🔐 [IAuthRemoteDataSource] — contract for auth operations
+/// 🔐 [IAuthRemoteDatabase] — contract for auth operations
 /// 🧼 Abstracts low-level Remote Database calls for sign-in / sign-up / sign-out
 //
-abstract interface class IAuthRemoteDataSource {
+abstract interface class IAuthRemoteDatabase {
   ///----------------------------------------
   //
   /// 🔐 Authenticates user by email and password.

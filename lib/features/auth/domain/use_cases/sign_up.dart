@@ -1,5 +1,5 @@
 import '../../../../core/utils_shared/typedef.dart';
-import '../i_repo.dart';
+import '../repo_contracts.dart';
 
 /// 📦 [SignUpUseCase] — Handles user registration via [ISignUpRepo]
 //

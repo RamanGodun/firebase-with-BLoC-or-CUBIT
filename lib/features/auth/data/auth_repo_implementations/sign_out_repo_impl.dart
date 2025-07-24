@@ -1,14 +1,14 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/utils/failure_handling.dart';
 import '../../../../core/utils_shared/typedef.dart';
-import '../../domain/i_repo.dart';
+import '../../domain/repo_contracts.dart';
 import '../data_source_contract.dart';
 
-/// 🧩 [SignOutRepoImpl] — sign-out from [IAuthRemoteDataSource] with errors mapping
+/// 🧩 [SignOutRepoImpl] — sign-out from [IAuthRemoteDatabase] with errors mapping
 //
 final class SignOutRepoImpl implements ISignOutRepo {
   ///-----------------------------------------------
   //
-  final IAuthRemoteDataSource _remote;
+  final IAuthRemoteDatabase _remote;
   const SignOutRepoImpl(this._remote);
   //
   @override

@@ -1,10 +1,10 @@
 import '../../../app_bootstrap_and_config/app_configs/firebase/data_source_constants.dart';
 import 'data_source_contract.dart';
 
-/// 🛠️ [AuthRemoteDataSourceImpl] — Firebase-powered remote data source.
+/// 🛠️ [AuthRemoteDatabaseImpl] — Firebase-powered remote data source.
 /// ✅ Implements low-level Firebase logic only.
 //
-final class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
+final class AuthRemoteDatabaseImpl implements IAuthRemoteDatabase {
   ///---------------------------------------------------------------
   //
   /// 🔐 Firebase sign-in

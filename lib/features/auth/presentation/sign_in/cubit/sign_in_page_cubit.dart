@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/failures/extensions/to_ui_failures_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/utils/for_bloc/consumable.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/utils/for_bloc/consumable_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/utils/observers/loggers/failure_logger_x.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import '../../../../../core/base_modules/errors_handling/failures/failure_ui_entity.dart';
+import '../../../../../core/base_modules/errors_handling/failures/failure_entity.dart';
 import '../../../../../core/base_modules/errors_handling/utils/for_bloc/result_handler_async.dart';
 import '../../../../../core/base_modules/form_fields/utils/_form_validation_service.dart';
 import '../../../../../core/base_modules/form_fields/input_validation/_validation_enums.dart';
@@ -69,7 +69,7 @@ final class SignInCubit extends Cubit<SignInPageState> {
           emit(
             state._copyWith(
               status: FormzSubmissionStatus.failure,
-              failure: f.asConsumableUIEntity(),
+              failure: f.asConsumable(),
             ),
           );
           f.log();

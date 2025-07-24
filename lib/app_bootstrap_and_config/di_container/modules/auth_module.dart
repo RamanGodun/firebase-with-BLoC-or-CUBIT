@@ -5,7 +5,7 @@ import '../../../features/auth/data/auth_repo_implementations/sign_out_repo_impl
 import '../../../features/auth/data/auth_repo_implementations/sign_up_repo_impl.dart';
 import '../../../features/auth/data/data_source_contract.dart';
 import '../../../features/auth/data/data_source_impl.dart';
-import '../../../features/auth/domain/i_repo.dart';
+import '../../../features/auth/domain/repo_contracts.dart';
 import '../../../features/auth/domain/use_cases/sign_in.dart';
 import '../../../features/auth/domain/use_cases/sign_out.dart';
 import '../../../features/auth/domain/use_cases/sign_up.dart';
@@ -30,8 +30,8 @@ final class AuthModule implements DIModule {
   Future<void> register() async {
     //
     // Data Sources
-    di.registerLazySingleton<IAuthRemoteDataSource>(
-      () => AuthRemoteDataSourceImpl(),
+    di.registerLazySingleton<IAuthRemoteDatabase>(
+      () => AuthRemoteDatabaseImpl(),
     );
 
     // Repositories

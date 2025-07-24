@@ -10,7 +10,7 @@ class SignInPageState extends Equatable {
   final PasswordInputValidation password;
   final FormzSubmissionStatus status;
   final bool isValid;
-  final Consumable<FailureUIEntity>? failure;
+  final Consumable<Failure>? failure;
   final bool isPasswordObscure;
 
   // 🧱 Initial constructor with default values
@@ -30,7 +30,7 @@ class SignInPageState extends Equatable {
     final PasswordInputValidation? password,
     final FormzSubmissionStatus? status,
     final bool? isValid,
-    final Consumable<FailureUIEntity>? failure,
+    final Consumable<Failure>? failure,
     final bool? isPasswordObscure,
   }) {
     return SignInPageState(
