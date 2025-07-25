@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/base_modules/localization/app_localization.dart';
 import 'core/shared_domain_layer/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
-import 'core/base_modules/navigation/core/router_cubit.dart';
 import 'core/base_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import 'core/base_modules/theme/theme_cubit.dart';
 import 'features/profile/presentation/cubit/profile_page_cubit.dart';
@@ -59,8 +58,6 @@ final class GlobalProviders extends StatelessWidget {
     //
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: di<AuthCubit>()),
-        BlocProvider.value(value: di<RouterCubit>()),
         BlocProvider.value(value: di<AppThemeCubit>()),
         BlocProvider.value(value: di<OverlayStatusCubit>()),
 

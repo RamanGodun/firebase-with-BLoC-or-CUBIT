@@ -3,12 +3,12 @@ import 'package:go_router/go_router.dart';
 import '../../../shared_domain_layer/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
 import '../app_routes/app_routes.dart';
 
-/// 🧭🚦 [RoutesRedirectionService] — Handles navigation redirects based on [AuthBloc] state.
-/// Used by GoRouter to:
-/// - 🧭 Route unauthenticated users to sign-in
-/// - 🧭 Prevent authenticated users from visiting auth pages
-/// - ⏳ Show splash screen while auth status is unknown
-
+/// 🧭🚦 [RoutesRedirectionService] — Centralized redirect logic based on [AuthState].
+/// ✅ Declaratively maps current router state + authState to needed redirect route.
+///   - 🧭 Route unauthenticated users to sign-in
+///   - 🧭 Prevent authenticated users from visiting auth pages
+///   - ⏳ Show splash screen while auth status is unknown
+//
 final class RoutesRedirectionService {
   ///-------------------------------
   RoutesRedirectionService._();

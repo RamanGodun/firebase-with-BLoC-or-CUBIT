@@ -5,11 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart' show GoRouter;
 import 'core/base_modules/localization/generated/locale_keys.g.dart';
 import 'core/base_modules/overlays/core/global_overlay_handler.dart';
-import 'core/base_modules/navigation/core/router_cubit.dart';
+import 'core/base_modules/navigation/core/router_factory.dart';
 import 'core/base_modules/theme/_theme_preferences.dart';
 import 'core/base_modules/theme/theme_cubit.dart';
+import 'core/shared_domain_layer/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
 
 /// 🌳🧩 [AppRootViewShell] — Top-level reactive widget listening to [AppThemeCubit].
+/// ✅ Rebuilds GoRouter reactively on any AuthState change.
 /// ✅ Delegates config creation to [AppRootConfig.from].
 
 final class AppRootViewShell extends StatelessWidget {
@@ -19,10 +21,11 @@ final class AppRootViewShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ///
-    // Listen to navigation state (GoRouter) from RouterCubit.
-    return BlocSelector<RouterCubit, GoRouter, GoRouter>(
-      selector: (router) => router,
-      builder: (context, router) {
+    // Listen to navigation state (GoRouter) from AuthCubit.
+    return BlocSelector<AuthCubit, AuthState, AuthState>(
+      selector: (state) => state,
+      builder: (context, authState) {
+        final router = buildGoRouter(authState);
         // Listen to current theme preferences from AppThemeCubit.
         return BlocSelector<AppThemeCubit, ThemePreferences, ThemePreferences>(
           selector: (config) => config,

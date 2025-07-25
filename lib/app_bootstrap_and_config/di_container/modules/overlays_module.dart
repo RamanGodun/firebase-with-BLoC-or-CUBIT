@@ -1,5 +1,4 @@
 import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/get_it_x.dart';
-import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/modules/navigation_module.dart';
 import '../../../core/base_modules/overlays/overlay_dispatcher/_overlay_dispatcher.dart';
 import '../../../core/base_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import '../core/di_module_interface.dart';
@@ -14,7 +13,7 @@ final class OverlaysModule implements DIModule {
 
   ///
   @override
-  List<Type> get dependencies => const [ThemeModule, NavigationModule];
+  List<Type> get dependencies => const [ThemeModule];
 
   ///
   @override

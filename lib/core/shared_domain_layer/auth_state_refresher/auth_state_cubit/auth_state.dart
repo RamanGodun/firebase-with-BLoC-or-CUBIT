@@ -1,17 +1,20 @@
 part of 'auth_cubit.dart';
 
+enum AuthStatus { unknown, authenticated, unauthenticated }
+
+////
+////
+
 /// 🔒 [AuthStatus] — Represents current authentication state
 /// - `unknown`: Initial state (e.g. splash screen)
 /// - `authenticated`: User is signed in
 /// - `unauthenticated`: User is signed out
-
-/// 🧾 [AuthState] — Cubit state that holds current auth status & user
-
+//
 final class AuthState extends Equatable {
   //------------------------------------
 
   final AuthStatus authStatus;
-  final fb_auth.User? user;
+  final User? user;
 
   /// ✅ Constructor for [AuthState]
   const AuthState({required this.authStatus, this.user});
@@ -21,7 +24,7 @@ final class AuthState extends Equatable {
       const AuthState(authStatus: AuthStatus.unknown);
 
   /// 🔁 Creates a new state with optional overrides
-  AuthState copyWith({AuthStatus? authStatus, fb_auth.User? user}) {
+  AuthState copyWith({AuthStatus? authStatus, User? user}) {
     return AuthState(
       authStatus: authStatus ?? this.authStatus,
       user: user ?? this.user,
@@ -38,7 +41,3 @@ final class AuthState extends Equatable {
 
   //
 }
-
-////
-
-enum AuthStatus { unknown, authenticated, unauthenticated }

@@ -4,7 +4,6 @@ import 'core/di_module_manager.dart';
 import 'modules/auth_module.dart';
 import 'modules/firebase_module.dart';
 import 'modules/form_fields_module.dart';
-import 'modules/navigation_module.dart';
 import 'modules/overlays_module.dart';
 import 'modules/profile_module.dart';
 import 'modules/theme_module.dart';
@@ -34,8 +33,6 @@ abstract final class DIContainer {
       FirebaseModule(),
       AuthModule(),
       ProfileModule(),
-
-      NavigationModule(),
 
       OverlaysModule(),
 
