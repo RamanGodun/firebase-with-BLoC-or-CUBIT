@@ -78,30 +78,5 @@ final class GlobalProviders extends StatelessWidget {
 /*
 
 
-2. 
-Вже є OverlayDispatcher, FailureUIEntity та Consumable. Це означає, що можна легко додати retry-флоу за аналогією з твоїм Riverpod-проєктом.
-
-final class SignInUseCase {
-  final IAuthRepo _repo;
-  final EnsureUserProfileCreatedUseCase _ensure;
-
-  const SignInUseCase(this._repo, this._ensure);
-
-  ResultFuture<void> call({
-    required String email,
-    required String password,
-  }) async {
-    final signInResult = await _repo.signIn(email: email, password: password);
-    if (signInResult.isLeft) return Left(signInResult.leftOrThrow());
-
-    final user = signInResult.rightOrThrow().user;
-    if (user == null) return Left(UnknownFailure(message: 'User is null'));
-
-    return _ensure(user);
-  }
-}
-
-
-
  */
 

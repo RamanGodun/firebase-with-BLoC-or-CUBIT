@@ -5,7 +5,6 @@ part of 'profile_page_cubit.dart';
 //
 sealed class ProfileState {
   ///--------------------
-  //
   const ProfileState();
   //
 }
