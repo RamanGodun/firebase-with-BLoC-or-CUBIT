@@ -1,0 +1,144 @@
+{
+  "app": {
+    "title": "Firebase with BLoC/Cubit"
+  },
+
+  "buttons": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "sign_in": "Sign In",
+    "sign_up": "Sign Up",
+    "submit_tag": "Submit",
+    "retry": "Retry",
+    "to_sign_in": "Already a member? Sign In!",
+    "to_sign_up": "Not a member? Sign Up!"
+  },
+
+  "errors": {
+    "unexpected": "Something went wrong",
+    "errors_general_title": "An error occurred",
+    "no_internet": "No internet connection",
+    "network": {
+      "no_connection": "No internet connection",
+      "timeout": "The connection timed out. Please try again later."
+    },
+    "auth": {
+      "unauthorized": "You are not authorized. Please log in."
+    },
+    "firebase": {
+      "generic": "A Firebase error occurred. Please try again."
+    },
+    "format": {
+      "error": "Invalid data format."
+    },
+    "unknown": "An unknown error occurred.",
+    "plugin": {
+      "missing": "A required plugin is missing or not initialized."
+    },
+    "timeout": "Request timeout. Try again."
+  },
+
+
+"failure": {
+  "firebase": {
+    "doc_missing": "User profile is missing.",
+    "wrong_password": "Wrong password.",
+    "user_not_found": "User not found.",
+    "invalid_credential": "Invalid credentials. Please check your input and try again.",
+    "generic": "A Firebase error occurred.",
+    "email_in_use": "Email is already in use.",
+    "invalid_email": "Invalid email format.",
+    "missing_email": "Missing email field.",
+    "no_current_user": "No current user signed in.",
+    "operation_not_allowed": "Operation not allowed by Firebase.",
+    "requires_recent_login": "Please reauthenticate to continue.",
+    "too_many_requests": "Too many attempts. Please try again later.",
+    "user_disabled": "This account is disabled.",
+    "weak_password": "Password is too weak."
+  },
+  "format": {
+    "error": "Invalid data format received."
+  },
+  "network": {
+    "no_connection": "No internet connection.",
+    "timeout": "Connection timed out. Please try again later."
+  },
+  "auth": {
+    "unauthorized": "Your session has expired. Please sign in again."
+  },
+  "plugin": {
+    "missing": "Missing plugin detected. Please contact support."
+  },
+  "unknown": "An unexpected error occurred. Please try again."
+},
+
+  "form": {
+    "name": "Name",
+    "name_is_empty": "field cannot be empty",
+    "name_is_too_short": "must be at least 3 characters",
+    "email": "Email",
+    "email_is_empty": "cannot be empty",
+    "email_is_invalid": "invalid email format",
+    "password": "Password",
+    "password_required": "password is required",
+    "password_too_short": "must be at least 6 characters",
+    "confirm_password": "Confirm Password",
+    "confirm_password_is_empty": "need to re-enter the password",
+    "confirm_password_mismatch": "passwords do not match"
+  },
+
+  "info": {
+   "home_page_info": "Welcome to the app! \n You can go to the profile settings page"
+  },
+
+  "languages": {
+    "switched_to_pl": "Language switched to 🇵🇱 Polish",
+    "switched_to_en": "Language switched to 🇬🇧 English",
+    "switched_to_ua": "Language switched to 🇺🇦 Ukrainian"
+  },
+
+  "overlays": {
+    "success": {
+      "saved": "Saved successfully",
+      "deleted": "Item deleted"
+    }
+  },
+
+  "pages": {
+    "change_password": "Change Password",
+    "error_dialog": "Error occurs",
+    "go_to_home": "To Home Page",
+    "home": "     Home Page",
+    "not_found_message": "Oops! The page you’re looking for does not exist.",
+    "not_found_title": "Page Not Found",
+    "profile": "Profile",
+    "reset_password": "Reset Password",
+    "verify_email": "Verify Email"
+  },
+
+  "profile": {
+    "name": "👤 Name:   ",
+    "id": "🆔 ID:         ",
+    "email": "📧 Email:    ",
+    "points": "📊 Points:  ",
+    "rank": "🏆 Rank:    ",
+    "error": "Oops!\nSomething went wrong."
+  },
+
+  "routes": {
+    "home": "/home"
+  },
+  
+
+  "theme": {
+    "light_enabled": "now is  \"Light Mode\"",
+    "dark_enabled": "now is  \"Dark Mode\"",
+    "amoled_enabled": "now is  \"Amoled Mode\"",
+    "light": "Light theme",
+    "dark": "Dark theme ",
+    "amoled": "Amoled theme",
+    "choose_theme": "Choose theme"
+     }
+
+
+}

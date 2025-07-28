@@ -145,7 +145,7 @@ final class _RedirectToSignUpButton extends StatelessWidget {
         final isEnabled = !isLoading && !isOverlayActive;
 
         return AppTextButton(
-          label: LocaleKeys.buttons_to_sign_up,
+          label: LocaleKeys.buttons_redirect_to_sign_up,
           isEnabled: isEnabled,
           onPressed: () => context.goPushTo(RoutesNames.signUp),
         );

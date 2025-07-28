@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart'
     show FirebaseFirestore, CollectionReference;
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
+import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/get_it_x.dart';
 import '../core/di_module_interface.dart';
 import '../di_container.dart';
 
@@ -17,11 +18,11 @@ final class FirebaseModule implements DIModule {
   ///
   @override
   Future<void> register() async {
-    di.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
-    di.registerLazySingleton<FirebaseFirestore>(
+    di.registerLazySingletonIfAbsent<FirebaseAuth>(() => FirebaseAuth.instance);
+    di.registerLazySingletonIfAbsent<FirebaseFirestore>(
       () => FirebaseFirestore.instance,
     );
-    di.registerLazySingleton<CollectionReference<Map<String, dynamic>>>(
+    di.registerLazySingletonIfAbsent<CollectionReference<Map<String, dynamic>>>(
       () => FirebaseFirestore.instance.collection('users'),
     );
     // di.registerLazySingleton<CollectionReference<Map<String, dynamic>>>(
@@ -38,3 +39,4 @@ final class FirebaseModule implements DIModule {
 
   //
 }
+

@@ -1,3 +1,4 @@
+import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/get_it_x.dart';
 import '../../../core/base_modules/theme/theme_cubit.dart';
 import '../core/di_module_interface.dart';
 import '../di_container.dart';
@@ -17,7 +18,7 @@ final class ThemeModule implements DIModule {
   ///
   @override
   Future<void> register() async {
-    di.registerLazySingleton(() => AppThemeCubit());
+    di.registerLazySingletonIfAbsent(() => AppThemeCubit());
   }
 
   ///

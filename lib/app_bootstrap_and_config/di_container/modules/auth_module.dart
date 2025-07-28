@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
-import '../../../core/shared_domain_layer/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
+import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/get_it_x.dart';
+import '../../../core/utils_shared/auth_state/auth_cubit.dart';
 import '../../../features/auth/data/auth_repo_implementations/sign_in_repo_impl.dart';
 import '../../../features/auth/data/auth_repo_implementations/sign_out_repo_impl.dart';
 import '../../../features/auth/data/auth_repo_implementations/sign_up_repo_impl.dart';
@@ -30,27 +31,28 @@ final class AuthModule implements DIModule {
   Future<void> register() async {
     //
     // Data Sources
-    di.registerLazySingleton<IAuthRemoteDatabase>(
+    di.registerLazySingletonIfAbsent<IAuthRemoteDatabase>(
       () => AuthRemoteDatabaseImpl(),
     );
 
     // Repositories
-    di.registerLazySingleton<ISignInRepo>(() => SignInRepoImpl(di()));
-    di.registerLazySingleton<ISignOutRepo>(() => SignOutRepoImpl(di()));
-    di.registerLazySingleton<ISignUpRepo>(() => SignUpRepoImpl(di()));
+    di.registerLazySingletonIfAbsent<ISignInRepo>(() => SignInRepoImpl(di()));
+    di.registerLazySingletonIfAbsent<ISignOutRepo>(() => SignOutRepoImpl(di()));
+    di.registerLazySingletonIfAbsent<ISignUpRepo>(() => SignUpRepoImpl(di()));
 
     // Use Cases
-    di.registerLazySingleton(() => SignInUseCase(di()));
-    di.registerLazySingleton(() => SignUpUseCase(di()));
-    di.registerLazySingleton(() => SignOutUseCase(di()));
+    di.registerLazySingletonIfAbsent(() => SignInUseCase(di()));
+    di.registerLazySingletonIfAbsent(() => SignUpUseCase(di()));
+    di.registerLazySingletonIfAbsent(() => SignOutUseCase(di()));
 
     // AuthStreamCubit
-    di.registerLazySingleton<AuthCubit>(
+    di.registerLazySingletonIfAbsent<AuthCubit>(
       () => AuthCubit(userStream: di<FirebaseAuth>().authStateChanges()),
     );
 
     // Sign out Cubit
     di.registerLazySingleton(() => SignOutCubit(di<SignOutUseCase>()));
+
     //
   }
 

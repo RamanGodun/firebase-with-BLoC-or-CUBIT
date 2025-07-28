@@ -13,7 +13,7 @@ import '../../../core/base_modules/theme/ui_constants/_app_constants.dart';
 import '../../../core/base_modules/theme/widgets_and_utils/blur_wrapper.dart';
 import '../../../core/base_modules/theme/widgets_and_utils/theme_picking_widgets/theme_picker.dart';
 import '../../../core/base_modules/theme/widgets_and_utils/theme_picking_widgets/widget_for_theme_toggling.dart';
-import '../../../core/shared_domain_layer/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
+import '../../../core/utils_shared/auth_state/auth_cubit.dart';
 import '../../../core/shared_domain_layer/shared_entities/_user.dart';
 import '../../../core/shared_presentation_layer/widgets_shared/app_bar.dart';
 import '../../../core/shared_presentation_layer/widgets_shared/loaders/loader.dart';

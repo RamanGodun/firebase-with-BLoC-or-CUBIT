@@ -1,0 +1,141 @@
+{
+  "app": {
+    "title": "Firebase z BLoC/Cubit"
+  },
+
+  "buttons": {
+    "ok": "OK",
+    "cancel": "Anuluj",
+    "sign_in": "Zaloguj się",
+    "sign_up": "Zarejestruj się",
+    "submit_tag": "Wyślij",
+    "retry": "Spróbuj ponownie",
+    "to_sign_in": "Masz już konto? Zaloguj się!",
+    "to_sign_up": "Nie masz konta? Zarejestruj się!"
+  },
+
+  "errors": {
+    "unexpected": "Coś poszło nie tak",
+    "errors_general_title": "Wystąpił błąd",
+    "no_internet": "Brak połączenia z internetem",
+    "network": {
+      "no_connection": "Brak połączenia z internetem",
+      "timeout": "Upłynął limit czasu połączenia. Spróbuj później."
+    },
+    "auth": {
+      "unauthorized": "Nie jesteś zalogowany. Zaloguj się."
+    },
+    "firebase": {
+      "generic": "Wystąpił błąd Firebase. Spróbuj ponownie."
+    },
+    "format": {
+      "error": "Nieprawidłowy format danych."
+    },
+    "unknown": "Wystąpił nieznany błąd.",
+    "plugin": {
+      "missing": "Wymagany plugin jest brakujący lub nie został zainicjalizowany."
+    },
+    "timeout": "Przekroczono limit czasu. Spróbuj ponownie."
+  },
+
+
+"failure": {
+  "firebase": {
+    "doc_missing": "Brak profilu użytkownika.",
+    "wrong_password": "Nieprawidłowe hasło.",
+    "user_not_found": "Użytkownik nie został znaleziony.",
+    "invalid_credential": "Nieprawidłowe dane logowania. Sprawdź poprawność i spróbuj ponownie.",
+    "generic": "Wystąpił błąd Firebase.",
+    "email_in_use": "Ten adres e-mail jest już używany.",
+    "invalid_email": "Nieprawidłowy format adresu e-mail.",
+    "missing_email": "Brak pola e-mail.",
+    "no_current_user": "Brak aktualnie zalogowanego użytkownika.",
+    "operation_not_allowed": "Ta operacja nie jest dozwolona przez Firebase.",
+    "requires_recent_login": "Aby kontynuować, musisz się ponownie zalogować.",
+    "too_many_requests": "Zbyt wiele prób. Spróbuj ponownie później.",
+    "user_disabled": "To konto zostało dezaktywowane.",
+    "weak_password": "Hasło jest zbyt słabe."
+  },
+  "format": {
+    "error": "Odebrano nieprawidłowy format danych."
+  },
+  "network": {
+    "no_connection": "Brak połączenia z Internetem.",
+    "timeout": "Limit czasu połączenia został przekroczony. Spróbuj ponownie później."
+  },
+  "auth": {
+    "unauthorized": "Twoja sesja wygasła. Zaloguj się ponownie."
+  },
+  "plugin": {
+    "missing": "Wykryto brakujący plugin. Skontaktuj się z pomocą techniczną."
+  },
+  "unknown": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie."
+},
+
+  "form": {
+     "name": "Imię",
+     "name_is_empty": "pole nie może być puste",
+     "name_is_too_short": "musi mieć co najmniej 3 znaki",
+     "email": "Email",
+     "email_is_empty": "nie może być puste",
+     "email_is_invalid": "nieprawidłowy format emaila",
+     "password": "Hasło",
+     "password_required": "wymagane jest hasło",
+     "password_too_short": "musi mieć co najmniej 6 znaków",
+     "confirm_password": "Potwierdź hasło",
+     "confirm_password_is_empty": "musisz ponownie wprowadzić hasło",
+     "confirm_password_mismatch": "hasła nie są zgodne"
+  },
+
+  "info": {
+    "home_page_info": "Witamy w aplikacji! \n Możesz przejść do strony ustawień profilu"
+  },
+
+  "languages": {
+    "switched_to_pl": "Język zmieniony na 🇵🇱 Polski",
+    "switched_to_en": "Język zmieniony na 🇬🇧 Angielski",
+    "switched_to_ua": "Język zmieniony na 🇺🇦 Ukraiński"
+  },
+
+  "overlays": {
+    "success": {
+      "saved": "Zapisano pomyślnie",
+      "deleted": "Element został usunięty"
+    }
+  },
+
+  "pages": {
+    "change_password": "Zmień hasło",
+    "error_dialog": "Wystąpił błąd",
+    "go_to_home": "Na stronę główną",
+    "home": "     Strona główna",
+    "not_found_message": "Ups! Strona, której szukasz, nie istnieje.",
+    "not_found_title": "Nie znaleziono strony",
+    "profile": "Profil",
+    "reset_password": "Zresetuj hasło",
+    "verify_email": "Zweryfikuj email"
+  },
+
+  "profile": {
+    "name": "👤 Imię:       ",
+    "id": "🆔 ID:           ",
+    "email": "📧 Email:     ",
+    "points": "📊 Punkty:   ",
+    "rank": "🏆 Ranga:    ",
+    "error": "Ups!\nCoś poszło nie tak."
+  },
+
+  "routes": {
+    "home": "/home"
+  },
+
+  "theme": {
+    "light_enabled": "Obecnie \"Tryb jasny\"",
+    "dark_enabled": "Obecnie \"Tryb ciemny\"",
+    "amoled_enabled": "Obecnie  \"Amoled Tryb\"",
+    "light": "Motyw jasny",
+    "dark": "Motyw ciemny",
+    "amoled": "Motyw AMOLED",
+    "choose_theme": "Wybierz motyw"
+  }
+}

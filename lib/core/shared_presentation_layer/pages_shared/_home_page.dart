@@ -27,7 +27,7 @@ final class HomePage extends StatelessWidget {
 
         body: Center(
           child: const TextWidget(
-            LocaleKeys.info_home_page_info,
+            LocaleKeys.pages_home_message,
             TextType.bodyLarge,
             isTextOnFewStrings: true,
           ).withPaddingHorizontal(AppSpacing.l),

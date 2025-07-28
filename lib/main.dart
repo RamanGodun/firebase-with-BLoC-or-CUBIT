@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/base_modules/localization/app_localization.dart';
-import 'core/shared_domain_layer/auth_state_refresher/auth_state_cubit/auth_cubit.dart';
+import 'core/utils_shared/auth_state/auth_cubit.dart';
 import 'core/base_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import 'core/base_modules/theme/theme_cubit.dart';
+import 'features/email_verification/presentation/email_verification_cubit/email_verification_cubit.dart';
 import 'features/profile/presentation/cubit/profile_page_cubit.dart';
 import 'root_view_shell.dart';
 import 'app_bootstrap_and_config/app_bootstrap.dart';
@@ -63,6 +64,8 @@ final class GlobalProviders extends StatelessWidget {
 
         BlocProvider.value(value: di<AuthCubit>()),
         BlocProvider.value(value: di<ProfileCubit>()),
+
+        BlocProvider.value(value: di<EmailVerificationCubit>()),
 
         // others...
       ],

@@ -16,40 +16,33 @@ class CodegenLoader extends AssetLoader{
 
   static const Map<String,dynamic> _pl = {
   "app": {
-    "title": "Firebase z BLoC/Cubit"
+    "title": "Firebase z Riverpod"
+  },
+  "languages": {
+    "switched_to_pl": "Język zmieniono na 🇵🇱 polski",
+    "switched_to_en": "Język zmieniono na 🇬🇧 angielski",
+    "switched_to_ua": "Język zmieniono na 🇺🇦 ukraiński"
   },
   "buttons": {
     "ok": "OK",
-    "cancel": "Anuluj",
     "sign_in": "Zaloguj się",
     "sign_up": "Zarejestruj się",
-    "submit_tag": "Wyślij",
+    "sign_out": "Log",
+    "submitting": "Wysyłanie...",
     "retry": "Spróbuj ponownie",
-    "to_sign_in": "Masz już konto? Zaloguj się!",
-    "to_sign_up": "Nie masz konta? Zarejestruj się!"
+    "redirect_to_sign_up": "Nie masz konta?   ",
+    "redirect_to_sign_in": "Masz już konto?   ",
+    "cancel": "Anuluj",
+    "go_to_home": "Na stronę główną",
+    "reset_password": "Zresetuj hasło"
   },
   "errors": {
-    "unexpected": "Coś poszło nie tak",
-    "errors_general_title": "Wystąpił błąd",
-    "no_internet": "Brak połączenia z internetem",
-    "network": {
-      "no_connection": "Brak połączenia z internetem",
-      "timeout": "Upłynął limit czasu połączenia. Spróbuj później."
-    },
-    "auth": {
-      "unauthorized": "Nie jesteś zalogowany. Zaloguj się."
-    },
-    "firebase": {
-      "generic": "Wystąpił błąd Firebase. Spróbuj ponownie."
-    },
-    "format": {
-      "error": "Nieprawidłowy format danych."
-    },
-    "unknown": "Wystąpił nieznany błąd.",
-    "plugin": {
-      "missing": "Wymagany plugin jest brakujący lub nie został zainicjalizowany."
-    },
-    "timeout": "Przekroczono limit czasu. Spróbuj ponownie."
+    "page_not_found_title": "Strony nie znaleziono",
+    "page_not_found_message": "Ups! Strona, której szukasz, nie istnieje.",
+    "error_dialog": "Wystąpił błąd",
+    "firebase_title": "Błąd połączenia z Firebase",
+    "firebase_message": "Spróbuj ponownie później!",
+    "errors_general_title": "Wystąpił błąd"
   },
   "failure": {
     "firebase": {
@@ -66,7 +59,8 @@ class CodegenLoader extends AssetLoader{
       "requires_recent_login": "Aby kontynuować, musisz się ponownie zalogować.",
       "too_many_requests": "Zbyt wiele prób. Spróbuj ponownie później.",
       "user_disabled": "To konto zostało dezaktywowane.",
-      "weak_password": "Hasło jest zbyt słabe."
+      "weak_password": "Hasło jest zbyt słabe.",
+      "timeout": "Limit czasu żądania został przekroczony. Spróbuj ponownie później."
     },
     "format": {
       "error": "Odebrano nieprawidłowy format danych."
@@ -77,6 +71,9 @@ class CodegenLoader extends AssetLoader{
     },
     "auth": {
       "unauthorized": "Twoja sesja wygasła. Zaloguj się ponownie."
+    },
+    "email_verification": {
+      "timeout": "Weryfikacja e-maila trwała zbyt długo. Spróbuj ponownie później."
     },
     "plugin": {
       "missing": "Wykryto brakujący plugin. Skontaktuj się z pomocą techniczną."
@@ -97,30 +94,16 @@ class CodegenLoader extends AssetLoader{
     "confirm_password_is_empty": "musisz ponownie wprowadzić hasło",
     "confirm_password_mismatch": "hasła nie są zgodne"
   },
-  "info": {
-    "home_page_info": "Witamy w aplikacji! \n Możesz przejść do strony ustawień profilu"
-  },
-  "languages": {
-    "switched_to_pl": "Język zmieniony na 🇵🇱 Polski",
-    "switched_to_en": "Język zmieniony na 🇬🇧 Angielski",
-    "switched_to_ua": "Język zmieniony na 🇺🇦 Ukraiński"
-  },
-  "overlays": {
-    "success": {
-      "saved": "Zapisano pomyślnie",
-      "deleted": "Element został usunięty"
-    }
-  },
   "pages": {
-    "change_password": "Zmień hasło",
-    "error_dialog": "Wystąpił błąd",
-    "go_to_home": "Na stronę główną",
     "home": "     Strona główna",
-    "not_found_message": "Ups! Strona, której szukasz, nie istnieje.",
-    "not_found_title": "Nie znaleziono strony",
+    "home_message": "Możesz przejść do profilu i zmienić ustawienia",
     "profile": "Profil",
+    "change_password": "Zmień hasło",
     "reset_password": "Zresetuj hasło",
-    "verify_email": "Zweryfikuj email"
+    "verify_email": "Weryfikacja e-maila",
+    "sign_in": "Zaloguj się do konta",
+    "sign_up": "Dołącz do nas!",
+    "reauthentication": "Ponowna autoryzacja"
   },
   "profile": {
     "name": "👤 Imię:       ",
@@ -130,8 +113,47 @@ class CodegenLoader extends AssetLoader{
     "rank": "🏆 Ranga:    ",
     "error": "Ups!\nCoś poszło nie tak."
   },
-  "routes": {
-    "home": "/home"
+  "reset_password": {
+    "header": "Zresetuj swoje hasło",
+    "sub_header": "Wyślemy Ci e-mail z linkiem do resetowania.",
+    "success": "E-mail resetujący hasło został wysłany",
+    "remember": "Pamiętasz hasło?   "
+  },
+  "change_password": {
+    "title": "Zmień hasło",
+    "warning": "Jeśli zmienisz hasło,",
+    "prefix": "zostaniesz ",
+    "signed_out": "wylogowany!",
+    "success": "Pomyślnie uwierzytelniono ponownie"
+  },
+  "sign_in": {
+    "header": "Witaj ponownie!",
+    "sub_header": "Zaloguj się, aby kontynuować.",
+    "forgot_password": "Nie pamiętasz hasła?",
+    "not_member": "Nie masz konta?",
+    "button": "Zaloguj się"
+  },
+  "sign_up": {
+    "sub_header": "Utwórz konto, aby rozpocząć.",
+    "already_have_account": "Masz już konto?",
+    "button": "Zarejestruj się"
+  },
+  "reauth": {
+    "label": "Ponowna autoryzacja",
+    "description": "To operacja wymagająca bezpieczeństwa — musisz być ostatnio zalogowany!",
+    "password_updated": "Hasło zostało zaktualizowane",
+    "redirect_note": "Lub możesz przejść do     ",
+    "page": "   strony"
+  },
+  "verify_email": {
+    "sent": "E-mail weryfikacyjny został wysłany do",
+    "not_found": "Jeśli nie widzisz wiadomości,",
+    "check_prefix": "Sprawdź folder ",
+    "spam": "SPAM",
+    "check_suffix": ".",
+    "ensure_correct": "Upewnij się, że Twój e-mail jest poprawny.",
+    "unknown": "Nieznany",
+    "or": "LUB"
   },
   "theme": {
     "light_enabled": "Obecnie \"Tryb jasny\"",
@@ -145,40 +167,33 @@ class CodegenLoader extends AssetLoader{
 };
 static const Map<String,dynamic> _uk = {
   "app": {
-    "title": "Firebase з BLoC/Cubit"
+    "title": "Файрбейс з Riverpod"
+  },
+  "languages": {
+    "switched_to_pl": "Мову змінено на 🇵🇱 польську",
+    "switched_to_en": "Мову змінено на 🇬🇧 англійську",
+    "switched_to_ua": "Мову змінено на 🇺🇦 українську"
   },
   "buttons": {
     "ok": "ОК",
-    "cancel": "Скасувати",
     "sign_in": "Увійти",
     "sign_up": "Зареєструватися",
-    "submit_tag": "Відправити",
+    "sign_out": "Входу",
+    "submitting": "Надсилання...",
     "retry": "Повторити",
-    "to_sign_in": "Вже маєте акаунт?  Увійдіть!",
-    "to_sign_up": "Ще не маєте акаунта?  Зареєструйтесь!"
+    "redirect_to_sign_up": "Ще не маєте акаунту?  ",
+    "redirect_to_sign_in": "Вже маєте акаунт?   ",
+    "cancel": "Скасувати",
+    "go_to_home": "На головну",
+    "reset_password": "Скинути пароль"
   },
   "errors": {
-    "unexpected": "Щось пішло не так",
-    "errors_general_title": "Виникла помилка",
-    "no_internet": "Немає підключення до інтернету",
-    "network": {
-      "no_connection": "Немає підключення до інтернету",
-      "timeout": "Час з'єднання вичерпано. Спробуйте пізніше."
-    },
-    "auth": {
-      "unauthorized": "Ви не авторизовані. Будь ласка, увійдіть."
-    },
-    "firebase": {
-      "generic": "Сталася помилка Firebase. Спробуйте ще раз."
-    },
-    "format": {
-      "error": "Невірний формат даних."
-    },
-    "unknown": "Сталася невідома помилка.",
-    "plugin": {
-      "missing": "Потрібний плагін відсутній або не ініціалізований."
-    },
-    "timeout": "Час очікування минув. Спробуйте ще раз."
+    "page_not_found_title": "Сторінку не знайдено",
+    "page_not_found_message": "Ой! Сторінка, яку ви шукаєте, не існує.",
+    "error_dialog": "Сталася помилка",
+    "firebase_title": "Помилка з'єднання з Firebase",
+    "firebase_message": "Будь ласка, спробуйте пізніше!",
+    "errors_general_title": "Виникла помилка"
   },
   "failure": {
     "firebase": {
@@ -195,7 +210,8 @@ static const Map<String,dynamic> _uk = {
       "requires_recent_login": "Для виконання цієї дії потрібно нещодавно увійти до системи.",
       "too_many_requests": "Забагато запитів. Спробуйте пізніше.",
       "user_disabled": "Обліковий запис деактивовано.",
-      "weak_password": "Пароль занадто слабкий."
+      "weak_password": "Пароль занадто слабкий.",
+      "timeout": "Час очікування запиту вичерпано. Спробуйте ще раз пізніше."
     },
     "format": {
       "error": "Отримано некоректний формат даних."
@@ -206,6 +222,9 @@ static const Map<String,dynamic> _uk = {
     },
     "auth": {
       "unauthorized": "Сесію завершено. Увійдіть знову."
+    },
+    "email_verification": {
+      "timeout": "Підтвердження електронної пошти зайняло надто багато часу. Спробуйте пізніше."
     },
     "plugin": {
       "missing": "Виявлено відсутній плагін. Зверніться до служби підтримки."
@@ -226,30 +245,16 @@ static const Map<String,dynamic> _uk = {
     "confirm_password_is_empty": "необхідно ще раз ввести пароль",
     "confirm_password_mismatch": "паролі не співпадають"
   },
-  "info": {
-    "home_page_info": "Вітаємо в додатку! \n Ви можете перейти на сторінку налаштування профілю"
-  },
-  "languages": {
-    "switched_to_pl": "Мову змінено на 🇵🇱 Польську",
-    "switched_to_en": "Мову змінено на 🇬🇧 Англійську",
-    "switched_to_ua": "Мову змінено на 🇺🇦 Українську"
-  },
-  "overlays": {
-    "success": {
-      "saved": "Успішно збережено",
-      "deleted": "Елемент видалено"
-    }
-  },
   "pages": {
-    "change_password": "Змінити пароль",
-    "error_dialog": "Сталася помилка",
-    "go_to_home": "На головну",
     "home": "     Головна сторінка",
-    "not_found_message": "Ой! Сторінку, яку ви шукаєте, не знайдено.",
-    "not_found_title": "Сторінку не знайдено",
+    "home_message": "Ви можете перейти на сторінку профілю і зробити налаштування",
     "profile": "Профіль",
+    "change_password": "Зміна пароля",
     "reset_password": "Скинути пароль",
-    "verify_email": "Підтвердити пошту"
+    "verify_email": "Підтвердження електронної пошти",
+    "sign_in": "Увійдіть до свого акаунту",
+    "sign_up": "Приєднуйтесь до нас!",
+    "reauthentication": "Повторна аутентифікація"
   },
   "profile": {
     "name": "👤 Ім'я:       ",
@@ -259,8 +264,47 @@ static const Map<String,dynamic> _uk = {
     "rank": "🏆 Ранг:      ",
     "error": "Ой! Щось пішло не так."
   },
-  "routes": {
-    "home": "/home"
+  "reset_password": {
+    "header": "Скидання пароля",
+    "sub_header": "Ми надішлемо вам лист для скидання пароля.",
+    "success": "Лист для скидання пароля надіслано",
+    "remember": "Згадали пароль?   "
+  },
+  "change_password": {
+    "title": "Зміна пароля",
+    "warning": "Якщо ви зміните пароль,",
+    "prefix": "ви будете ",
+    "signed_out": "вилогінені з системи!",
+    "success": "Успішна повторна аутентифікація"
+  },
+  "sign_in": {
+    "header": "З поверненням!",
+    "sub_header": "Увійдіть, щоб продовжити.",
+    "forgot_password": "Забули пароль?",
+    "not_member": "Ще не зареєстровані?",
+    "button": "Увійти"
+  },
+  "sign_up": {
+    "sub_header": "Створіть акаунт, щоб почати.",
+    "already_have_account": "Вже маєте акаунт?",
+    "button": "Зареєструватися"
+  },
+  "reauth": {
+    "label": "Повторна аутентифікація",
+    "description": "Це операція, чутлива до безпеки, ви повинні нещодавно увійти!",
+    "password_updated": "Пароль успішно оновлено",
+    "redirect_note": "Або ви можете перейти на     ",
+    "page": "   сторінку"
+  },
+  "verify_email": {
+    "sent": "Лист з підтвердженням надіслано на",
+    "not_found": "Якщо ви не знайшли листа,",
+    "check_prefix": "Перевірте папку ",
+    "spam": "СПАМ",
+    "check_suffix": " .",
+    "ensure_correct": "Переконайтесь, що електронна адреса правильна.",
+    "unknown": "Невідомо",
+    "or": "АБО"
   },
   "theme": {
     "light_enabled": "Зараз увімкнено \"Світлу тему\"",
@@ -274,40 +318,33 @@ static const Map<String,dynamic> _uk = {
 };
 static const Map<String,dynamic> _en = {
   "app": {
-    "title": "Firebase with BLoC/Cubit"
+    "title": "Firebase with Riverpod"
+  },
+  "languages": {
+    "switched_to_pl": "Language switched to 🇵🇱 Polish",
+    "switched_to_en": "Language switched to 🇬🇧 English",
+    "switched_to_ua": "Language switched to 🇺🇦 Ukrainian"
   },
   "buttons": {
     "ok": "OK",
-    "cancel": "Cancel",
     "sign_in": "Sign In",
     "sign_up": "Sign Up",
-    "submit_tag": "Submit",
+    "sign_out": "Sign in",
+    "submitting": "Submitting...",
     "retry": "Retry",
-    "to_sign_in": "Already a member? Sign In!",
-    "to_sign_up": "Not a member? Sign Up!"
+    "redirect_to_sign_up": "Not a member?   ",
+    "redirect_to_sign_in": "Already a member?  ",
+    "cancel": "Cancel",
+    "go_to_home": "To Home Page",
+    "reset_password": "Reset Password"
   },
   "errors": {
-    "unexpected": "Something went wrong",
-    "errors_general_title": "An error occurred",
-    "no_internet": "No internet connection",
-    "network": {
-      "no_connection": "No internet connection",
-      "timeout": "The connection timed out. Please try again later."
-    },
-    "auth": {
-      "unauthorized": "You are not authorized. Please log in."
-    },
-    "firebase": {
-      "generic": "A Firebase error occurred. Please try again."
-    },
-    "format": {
-      "error": "Invalid data format."
-    },
-    "unknown": "An unknown error occurred.",
-    "plugin": {
-      "missing": "A required plugin is missing or not initialized."
-    },
-    "timeout": "Request timeout. Try again."
+    "page_not_found_title": "Page Not Found",
+    "page_not_found_message": "Oops! The page you’re looking for does not exist.",
+    "error_dialog": "Error occurs",
+    "firebase_title": "Firebase Connection Error",
+    "firebase_message": "Please try again later!",
+    "errors_general_title": "An error occurred"
   },
   "failure": {
     "firebase": {
@@ -324,7 +361,8 @@ static const Map<String,dynamic> _en = {
       "requires_recent_login": "Please reauthenticate to continue.",
       "too_many_requests": "Too many attempts. Please try again later.",
       "user_disabled": "This account is disabled.",
-      "weak_password": "Password is too weak."
+      "weak_password": "Password is too weak.",
+      "timeout": "The request timed out. Please try again later."
     },
     "format": {
       "error": "Invalid data format received."
@@ -335,6 +373,9 @@ static const Map<String,dynamic> _en = {
     },
     "auth": {
       "unauthorized": "Your session has expired. Please sign in again."
+    },
+    "email_verification": {
+      "timeout": "Email verification took too long. Please try again later."
     },
     "plugin": {
       "missing": "Missing plugin detected. Please contact support."
@@ -355,30 +396,16 @@ static const Map<String,dynamic> _en = {
     "confirm_password_is_empty": "need to re-enter the password",
     "confirm_password_mismatch": "passwords do not match"
   },
-  "info": {
-    "home_page_info": "Welcome to the app! \n You can go to the profile settings page"
-  },
-  "languages": {
-    "switched_to_pl": "Language switched to 🇵🇱 Polish",
-    "switched_to_en": "Language switched to 🇬🇧 English",
-    "switched_to_ua": "Language switched to 🇺🇦 Ukrainian"
-  },
-  "overlays": {
-    "success": {
-      "saved": "Saved successfully",
-      "deleted": "Item deleted"
-    }
-  },
   "pages": {
-    "change_password": "Change Password",
-    "error_dialog": "Error occurs",
-    "go_to_home": "To Home Page",
     "home": "     Home Page",
-    "not_found_message": "Oops! The page you’re looking for does not exist.",
-    "not_found_title": "Page Not Found",
+    "home_message": "You can go to profile page and make some settings",
     "profile": "Profile",
+    "change_password": "Change Password",
     "reset_password": "Reset Password",
-    "verify_email": "Verify Email"
+    "verify_email": "Email Verification",
+    "sign_in": "Sign in to your account",
+    "sign_up": "Join Us!",
+    "reauthentication": "Reauthentication"
   },
   "profile": {
     "name": "👤 Name:   ",
@@ -388,8 +415,47 @@ static const Map<String,dynamic> _en = {
     "rank": "🏆 Rank:    ",
     "error": "Oops!\nSomething went wrong."
   },
-  "routes": {
-    "home": "/home"
+  "reset_password": {
+    "header": "Reset your password",
+    "sub_header": "We will send you an email to reset it.",
+    "success": "Password reset email has been sent",
+    "remember": "Remember password?    "
+  },
+  "change_password": {
+    "title": "Change Password",
+    "warning": "If you change your password,",
+    "prefix": "you will be ",
+    "signed_out": "signed out!",
+    "success": "Successfully reauthenticated"
+  },
+  "sign_in": {
+    "header": "Welcome Back!",
+    "sub_header": "Please sign in to continue.",
+    "forgot_password": "Forgot Password?",
+    "not_member": "Not a member?",
+    "button": "Sign In"
+  },
+  "sign_up": {
+    "sub_header": "Create an account to get started.",
+    "already_have_account": "Already have an account?",
+    "button": "Sign Up"
+  },
+  "reauth": {
+    "label": "Reauthenticate",
+    "description": "This is a security-sensitive operation, you must have recently signed in!",
+    "password_updated": "password updating succeed",
+    "redirect_note": "Or you can go     ",
+    "page": "   page"
+  },
+  "verify_email": {
+    "sent": "Verification email has been sent to",
+    "not_found": "If you cannot find the email,",
+    "check_prefix": "Please check ",
+    "spam": "SPAM",
+    "check_suffix": " folder.",
+    "ensure_correct": "Ensure your email is correct.",
+    "unknown": "Unknown",
+    "or": "OR"
   },
   "theme": {
     "light_enabled": "now is  \"Light Mode\"",

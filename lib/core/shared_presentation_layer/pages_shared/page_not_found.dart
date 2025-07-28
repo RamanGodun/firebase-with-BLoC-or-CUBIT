@@ -18,14 +18,14 @@ final class PageNotFound extends StatelessWidget {
   Widget build(BuildContext context) {
     //
     return Scaffold(
-      appBar: const CustomAppBar(title: LocaleKeys.pages_not_found_title),
+      appBar: const CustomAppBar(title: LocaleKeys.errors_page_not_found_title),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TextWidget(
             errorMessage.isNotEmpty
                 ? errorMessage
-                : LocaleKeys.pages_not_found_message,
+                : LocaleKeys.errors_page_not_found_message,
             TextType.error,
             alignment: TextAlign.center,
           ),

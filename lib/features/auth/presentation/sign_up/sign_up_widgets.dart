@@ -211,7 +211,7 @@ final class _RedirectToSignInButton extends StatelessWidget {
         final isEnabled = !isLoading && !isOverlayActive;
 
         return AppTextButton(
-          label: LocaleKeys.buttons_to_sign_in,
+          label: LocaleKeys.buttons_redirect_to_sign_in,
           isEnabled: isEnabled,
           onPressed: () => context.popView(),
         );

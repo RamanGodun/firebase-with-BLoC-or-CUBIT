@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:get_it/get_it.dart';
 import 'core/di_module_manager.dart';
 import 'modules/auth_module.dart';
+import 'modules/email_verification.dart';
 import 'modules/firebase_module.dart';
 import 'modules/form_fields_module.dart';
 import 'modules/overlays_module.dart';
@@ -33,6 +34,7 @@ abstract final class DIContainer {
       FirebaseModule(),
       AuthModule(),
       ProfileModule(),
+      EmailVerificationModule(),
 
       OverlaysModule(),
 

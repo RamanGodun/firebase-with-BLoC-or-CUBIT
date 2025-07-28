@@ -1,3 +1,5 @@
+import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/get_it_x.dart';
+
 import '../../../core/base_modules/form_fields/utils/_form_validation_service.dart';
 import '../core/di_module_interface.dart';
 import '../di_container.dart';
@@ -17,7 +19,7 @@ final class FormFieldsModule implements DIModule {
   ///
   @override
   Future<void> register() async {
-    di.registerLazySingleton(() => const FormValidationService());
+    di.registerLazySingletonIfAbsent(() => const FormValidationService());
   }
 
   ///

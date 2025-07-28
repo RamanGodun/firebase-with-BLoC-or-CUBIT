@@ -1,43 +1,36 @@
 {
   "app": {
-    "title": "Firebase z BLoC/Cubit"
+    "title": "Firebase z Riverpod"
+  },
+
+  "languages": {
+    "switched_to_pl": "Język zmieniono na 🇵🇱 polski",
+    "switched_to_en": "Język zmieniono na 🇬🇧 angielski",
+    "switched_to_ua": "Język zmieniono na 🇺🇦 ukraiński"
   },
 
   "buttons": {
     "ok": "OK",
-    "cancel": "Anuluj",
     "sign_in": "Zaloguj się",
     "sign_up": "Zarejestruj się",
-    "submit_tag": "Wyślij",
+    "sign_out": "Log",
+    "submitting": "Wysyłanie...",
     "retry": "Spróbuj ponownie",
-    "to_sign_in": "Masz już konto? Zaloguj się!",
-    "to_sign_up": "Nie masz konta? Zarejestruj się!"
+    "redirect_to_sign_up": "Nie masz konta?   ",
+    "redirect_to_sign_in": "Masz już konto?   ",
+    "cancel": "Anuluj",
+    "go_to_home": "Na stronę główną",
+    "reset_password": "Zresetuj hasło"
   },
 
   "errors": {
-    "unexpected": "Coś poszło nie tak",
-    "errors_general_title": "Wystąpił błąd",
-    "no_internet": "Brak połączenia z internetem",
-    "network": {
-      "no_connection": "Brak połączenia z internetem",
-      "timeout": "Upłynął limit czasu połączenia. Spróbuj później."
-    },
-    "auth": {
-      "unauthorized": "Nie jesteś zalogowany. Zaloguj się."
-    },
-    "firebase": {
-      "generic": "Wystąpił błąd Firebase. Spróbuj ponownie."
-    },
-    "format": {
-      "error": "Nieprawidłowy format danych."
-    },
-    "unknown": "Wystąpił nieznany błąd.",
-    "plugin": {
-      "missing": "Wymagany plugin jest brakujący lub nie został zainicjalizowany."
-    },
-    "timeout": "Przekroczono limit czasu. Spróbuj ponownie."
+    "page_not_found_title": "Strony nie znaleziono",
+    "page_not_found_message": "Ups! Strona, której szukasz, nie istnieje.",
+    "error_dialog": "Wystąpił błąd",
+    "firebase_title": "Błąd połączenia z Firebase",
+    "firebase_message": "Spróbuj ponownie później!",
+    "errors_general_title": "Wystąpił błąd"
   },
-
 
 "failure": {
   "firebase": {
@@ -54,7 +47,8 @@
     "requires_recent_login": "Aby kontynuować, musisz się ponownie zalogować.",
     "too_many_requests": "Zbyt wiele prób. Spróbuj ponownie później.",
     "user_disabled": "To konto zostało dezaktywowane.",
-    "weak_password": "Hasło jest zbyt słabe."
+    "weak_password": "Hasło jest zbyt słabe.",
+    "timeout": "Limit czasu żądania został przekroczony. Spróbuj ponownie później."
   },
   "format": {
     "error": "Odebrano nieprawidłowy format danych."
@@ -65,6 +59,9 @@
   },
   "auth": {
     "unauthorized": "Twoja sesja wygasła. Zaloguj się ponownie."
+  },
+  "email_verification": {
+  "timeout": "Weryfikacja e-maila trwała zbyt długo. Spróbuj ponownie później."
   },
   "plugin": {
     "missing": "Wykryto brakujący plugin. Skontaktuj się z pomocą techniczną."
@@ -87,33 +84,16 @@
      "confirm_password_mismatch": "hasła nie są zgodne"
   },
 
-  "info": {
-    "home_page_info": "Witamy w aplikacji! \n Możesz przejść do strony ustawień profilu"
-  },
-
-  "languages": {
-    "switched_to_pl": "Język zmieniony na 🇵🇱 Polski",
-    "switched_to_en": "Język zmieniony na 🇬🇧 Angielski",
-    "switched_to_ua": "Język zmieniony na 🇺🇦 Ukraiński"
-  },
-
-  "overlays": {
-    "success": {
-      "saved": "Zapisano pomyślnie",
-      "deleted": "Element został usunięty"
-    }
-  },
-
   "pages": {
-    "change_password": "Zmień hasło",
-    "error_dialog": "Wystąpił błąd",
-    "go_to_home": "Na stronę główną",
     "home": "     Strona główna",
-    "not_found_message": "Ups! Strona, której szukasz, nie istnieje.",
-    "not_found_title": "Nie znaleziono strony",
+    "home_message": "Możesz przejść do profilu i zmienić ustawienia",
     "profile": "Profil",
+    "change_password": "Zmień hasło",
     "reset_password": "Zresetuj hasło",
-    "verify_email": "Zweryfikuj email"
+    "verify_email": "Weryfikacja e-maila",
+    "sign_in": "Zaloguj się do konta",
+    "sign_up": "Dołącz do nas!",
+    "reauthentication": "Ponowna autoryzacja"
   },
 
   "profile": {
@@ -125,8 +105,52 @@
     "error": "Ups!\nCoś poszło nie tak."
   },
 
-  "routes": {
-    "home": "/home"
+  "reset_password": {
+    "header": "Zresetuj swoje hasło",
+    "sub_header": "Wyślemy Ci e-mail z linkiem do resetowania.",
+    "success": "E-mail resetujący hasło został wysłany",
+    "remember": "Pamiętasz hasło?   "
+  },
+
+  "change_password": {
+    "title": "Zmień hasło",
+    "warning": "Jeśli zmienisz hasło,",
+    "prefix": "zostaniesz ",
+    "signed_out": "wylogowany!",
+    "success": "Pomyślnie uwierzytelniono ponownie"
+  },
+
+  "sign_in": {
+    "header": "Witaj ponownie!",
+    "sub_header": "Zaloguj się, aby kontynuować.",
+    "forgot_password": "Nie pamiętasz hasła?",
+    "not_member": "Nie masz konta?",
+    "button": "Zaloguj się"
+  },
+
+  "sign_up": {
+    "sub_header": "Utwórz konto, aby rozpocząć.",
+    "already_have_account": "Masz już konto?",
+    "button": "Zarejestruj się"
+  },
+
+  "reauth": {
+    "label": "Ponowna autoryzacja",
+    "description": "To operacja wymagająca bezpieczeństwa — musisz być ostatnio zalogowany!",
+    "password_updated": "Hasło zostało zaktualizowane",
+    "redirect_note": "Lub możesz przejść do     ",
+    "page": "   strony"
+  },
+
+  "verify_email": {
+    "sent": "E-mail weryfikacyjny został wysłany do",
+    "not_found": "Jeśli nie widzisz wiadomości,",
+    "check_prefix": "Sprawdź folder ",
+    "spam": "SPAM",
+    "check_suffix": ".",
+    "ensure_correct": "Upewnij się, że Twój e-mail jest poprawny.",
+    "unknown": "Nieznany",
+    "or": "LUB"
   },
 
   "theme": {
@@ -138,4 +162,5 @@
     "amoled": "Motyw AMOLED",
     "choose_theme": "Wybierz motyw"
   }
+
 }
