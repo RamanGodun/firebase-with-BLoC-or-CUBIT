@@ -34,7 +34,8 @@ class CodegenLoader extends AssetLoader{
     "redirect_to_sign_in": "Masz już konto?   ",
     "cancel": "Anuluj",
     "go_to_home": "Na stronę główną",
-    "reset_password": "Zresetuj hasło"
+    "reset_password": "Zresetuj hasło",
+    "resend_email": "Wyślij ponownie e-mail weryfikacyjny"
   },
   "errors": {
     "page_not_found_title": "Strony nie znaleziono",
@@ -185,7 +186,8 @@ static const Map<String,dynamic> _uk = {
     "redirect_to_sign_in": "Вже маєте акаунт?   ",
     "cancel": "Скасувати",
     "go_to_home": "На головну",
-    "reset_password": "Скинути пароль"
+    "reset_password": "Скинути пароль",
+    "resend_email": "Повторно надіслати лист верефікації"
   },
   "errors": {
     "page_not_found_title": "Сторінку не знайдено",
@@ -336,7 +338,8 @@ static const Map<String,dynamic> _en = {
     "redirect_to_sign_in": "Already a member?  ",
     "cancel": "Cancel",
     "go_to_home": "To Home Page",
-    "reset_password": "Reset Password"
+    "reset_password": "Reset Password",
+    "resend_email": "Resend verification email"
   },
   "errors": {
     "page_not_found_title": "Page Not Found",

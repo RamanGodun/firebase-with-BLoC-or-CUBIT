@@ -20,6 +20,7 @@ abstract class  LocaleKeys {
   static const buttons_cancel = 'buttons.cancel';
   static const buttons_go_to_home = 'buttons.go_to_home';
   static const buttons_reset_password = 'buttons.reset_password';
+  static const buttons_resend_email = 'buttons.resend_email';
   static const buttons = 'buttons';
   static const errors_page_not_found_title = 'errors.page_not_found_title';
   static const errors_page_not_found_message = 'errors.page_not_found_message';

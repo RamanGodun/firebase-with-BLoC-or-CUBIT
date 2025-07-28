@@ -20,7 +20,8 @@
     "redirect_to_sign_in": "Вже маєте акаунт?   ",
     "cancel": "Скасувати",
     "go_to_home":"На головну",
-    "reset_password": "Скинути пароль" 
+    "reset_password": "Скинути пароль",
+    "resend_email": "Повторно надіслати лист верефікації" 
   },
 
   "errors": {

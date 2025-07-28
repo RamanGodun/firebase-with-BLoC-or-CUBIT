@@ -33,11 +33,12 @@ abstract interface class ISignOutRepo {
 abstract interface class ISignUpRepo {
   ///--------------------------------
   //
-  // 🆕 Creates a new user and stores additional info in Remote database
+  /// 🆕 Creates a new user and stores additional info in Remote database
   ResultFuture<void> signup({
     required String name,
     required String email,
     required String password,
   });
-  //
+
+    //
 }

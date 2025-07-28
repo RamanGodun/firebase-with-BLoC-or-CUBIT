@@ -14,6 +14,7 @@ import '../../../core/base_modules/localization/widgets/text_widget.dart';
 import '../../../core/base_modules/localization/generated/locale_keys.g.dart';
 import '../../../core/base_modules/theme/ui_constants/_app_constants.dart';
 import '../../../core/base_modules/theme/ui_constants/app_colors.dart';
+import '../../../core/shared_presentation_layer/widgets_shared/loaders/loader.dart';
 import '../../auth/presentation/sign_out/sign_out_cubit/sign_out_cubit.dart';
 import 'email_verification_cubit/email_verification_cubit.dart';
 
@@ -69,14 +70,10 @@ final class _VerifyEmailPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<EmailVerificationCubit>().resendEmail();
-    });
 
     return BlocBuilder<EmailVerificationCubit, EmailVerificationState>(
       builder: (context, state) {
         final status = state.status;
-        // final user = state.user;
         return Scaffold(
           body: Center(
             child: DecoratedBox(
@@ -96,24 +93,21 @@ final class _VerifyEmailPageView extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  //
                   const _VerifyEmailInfo(),
+                  //
                   AppTextButton(
-                    label: 'LocaleKeys.buttons_resend_email',
+                    label: LocaleKeys.buttons_resend_email,
                     onPressed:
                         () =>
                             context
                                 .read<EmailVerificationCubit>()
                                 .resendEmail(),
-                  ),
-                  if (status == EmailVerificationStatus.loading)
-                    const CircularProgressIndicator(),
-                  const VerifyEmailCancelButton(),
-                  if (status == EmailVerificationStatus.resent)
-                    const TextWidget(
-                      LocaleKeys.verify_email_sent,
-                      TextType.bodyMedium,
-                      color: AppColors.lightAccent,
-                    ),
+                  ).withPaddingBottom(AppSpacing.m),
+                  //
+                  (status == EmailVerificationStatus.loading)
+                      ? const AppLoader()
+                      : const VerifyEmailCancelButton(),
                 ],
               ).withPaddingAll(AppSpacing.l),
             ),

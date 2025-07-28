@@ -20,7 +20,8 @@
     "redirect_to_sign_in": "Already a member?  ",
     "cancel": "Cancel",
     "go_to_home": "To Home Page",
-    "reset_password": "Reset Password" 
+    "reset_password": "Reset Password",
+    "resend_email": "Resend verification email"  
   },
 
   "errors": {

@@ -36,13 +36,13 @@ final class AuthModule implements DIModule {
     );
 
     // Repositories
-    di.registerLazySingletonIfAbsent<ISignInRepo>(() => SignInRepoImpl(di()));
-    di.registerLazySingletonIfAbsent<ISignOutRepo>(() => SignOutRepoImpl(di()));
+    di.registerFactoryIfAbsent<ISignInRepo>(() => SignInRepoImpl(di()));
+    di.registerFactoryIfAbsent<ISignOutRepo>(() => SignOutRepoImpl(di()));
     di.registerLazySingletonIfAbsent<ISignUpRepo>(() => SignUpRepoImpl(di()));
 
     // Use Cases
-    di.registerLazySingletonIfAbsent(() => SignInUseCase(di()));
-    di.registerLazySingletonIfAbsent(() => SignUpUseCase(di()));
+    di.registerFactoryIfAbsent(() => SignInUseCase(di()));
+    di.registerFactoryIfAbsent(() => SignUpUseCase(di()));
     di.registerLazySingletonIfAbsent(() => SignOutUseCase(di()));
 
     // AuthStreamCubit
@@ -51,7 +51,7 @@ final class AuthModule implements DIModule {
     );
 
     // Sign out Cubit
-    di.registerLazySingleton(() => SignOutCubit(di<SignOutUseCase>()));
+    di.registerFactoryIfAbsent(() => SignOutCubit(di<SignOutUseCase>()));
 
     //
   }

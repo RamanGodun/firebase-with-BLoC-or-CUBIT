@@ -1,4 +1,5 @@
 import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/get_it_x.dart';
+import '../../../core/utils_shared/auth_state/auth_cubit.dart';
 import '../../../features/email_verification/data/email_verification_repo_impl.dart';
 import '../../../features/email_verification/data/remote_database_contract.dart';
 import '../../../features/email_verification/data/remote_database_impl.dart';
@@ -21,14 +22,19 @@ final class EmailVerificationModule implements DIModule {
 
   @override
   Future<void> register() async {
-    di.registerLazySingletonIfAbsent<IUserValidationRemoteDataSource>(
+    di.registerFactoryIfAbsent<IUserValidationRemoteDataSource>(
       () => IUserValidationRemoteDataSourceImpl(),
     );
-    di.registerLazySingletonIfAbsent<IUserValidationRepo>(
+    di.registerFactoryIfAbsent<IUserValidationRepo>(
       () => IUserValidationRepoImpl(di()),
     );
-    di.registerLazySingletonIfAbsent(() => EmailVerificationUseCase(di()));
-    di.registerLazySingletonIfAbsent(() => EmailVerificationCubit(di()));
+    di.registerFactoryIfAbsent(() => EmailVerificationUseCase(di()));
+    di.registerFactoryIfAbsent<EmailVerificationCubit>(
+      () => EmailVerificationCubit(
+        di<EmailVerificationUseCase>(),
+        di<AuthCubit>(),
+      ),
+    );
   }
 
   @override

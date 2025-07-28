@@ -25,5 +25,14 @@ abstract final class AuthUserUtils {
   /// 📬 Returns user email or throws
   static String get email => currentUserOrThrow.email ?? 'unknown';
 
+  /// 🔄 Reload current user (throw Exception if user == null)
+  static Future<void> reloadCurrentUser({Duration? delay}) async {
+    final user = currentUserOrThrow;
+    if (delay != null) {
+      await Future.delayed(delay);
+    }
+    await user.reload();
+  }
+
   // (here can be add methods, tokens, refresh ...)
 }
