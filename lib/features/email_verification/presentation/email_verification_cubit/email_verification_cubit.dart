@@ -20,6 +20,15 @@ final class EmailVerificationCubit extends Cubit<EmailVerificationState> {
   }
 
   Timer? _pollingTimer;
+  bool _started = false;
+
+  ///
+  Future<void> initVerificationFlow() async {
+    if (_started) return;
+    _started = true;
+    await sendVerificationEmail();
+    _startPolling();
+  }
 
   // Polling every 3 sec
   void _startPolling() {
@@ -56,7 +65,7 @@ final class EmailVerificationCubit extends Cubit<EmailVerificationState> {
   }
 
   ///
-  Future<void> resendEmail() async {
+  Future<void> sendVerificationEmail() async {
     emit(state.copyWith(status: EmailVerificationStatus.loading));
     final result = await _useCase.sendVerificationEmail();
     result.fold(

@@ -85,13 +85,11 @@ final class VerifyEmailCancelButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //
-    // ❗️ Shows (declarative) error state
-    // ref.listenFailure(signOutProvider, context);
-
     return BlocListener<SignOutCubit, SignOutState>(
       listenWhen:
           (prev, curr) =>
               prev.status != curr.status || curr.failure?.consume() != null,
+
       listener: (context, state) {
         if (state.status == SignOutStatus.success) {
           context.goTo(RoutesNames.signIn);

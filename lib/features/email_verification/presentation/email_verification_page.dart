@@ -20,57 +20,59 @@ import 'email_verification_cubit/email_verification_cubit.dart';
 
 part 'widgets_for_email_verification_page.dart';
 
+/// [VerifyEmailPage] — Entry point widget for email verification flow.
+/// Registers required cubits and handles error listening.
+//
 final class VerifyEmailPage extends StatelessWidget {
+  ///---------------------------------------------
   const VerifyEmailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // /
+    //
+    /// Register all the required cubits using MultiBlocProvider.
     return MultiBlocProvider(
       providers: [
         BlocProvider.value(value: di<EmailVerificationCubit>()),
         BlocProvider.value(value: di<SignOutCubit>()),
       ],
 
-      ///
+      /// Listen for any failures and show error overlay if needed.
       child: BlocListener<EmailVerificationCubit, EmailVerificationState>(
-        listenWhen:
-            (prev, curr) =>
-                prev.status != curr.status &&
-                curr.status == EmailVerificationStatus.verified,
+        listenWhen: (prev, curr) => curr.failure?.consume() != null,
         listener: (context, state) {
-          context.goTo(RoutesNames.home);
+          final error = state.failure?.consume();
+          if (error != null) {
+            context.showError(error.toUIEntity());
+          }
         },
 
-        ///
-        child: BlocListener<EmailVerificationCubit, EmailVerificationState>(
-          listenWhen: (prev, curr) => curr.failure?.consume() != null,
-          listener: (context, state) {
-            final error = state.failure?.consume();
-            if (error != null) {
-              // Показати діалог з помилкою
-              context.showError(error.toUIEntity());
-            }
-          },
-
-          child: const _VerifyEmailPageView(),
-        ),
+        child: const _VerifyEmailPageView(),
       ),
+      // ),
     );
   }
 }
 
-/// 🧼 [_VerifyEmailPageView] — screen that handles email verification polling
-/// Automatically redirects when email gets verified
+/// [_VerifyEmailPageView] — Main UI for the email verification process.
+/// Handles starting the verification polling and UI updates based on state.
 //
 final class _VerifyEmailPageView extends StatelessWidget {
-  ///--------------------------------------------
+  ///--------------------------------------------------
   const _VerifyEmailPageView();
 
   @override
   Widget build(BuildContext context) {
     //
+    /// Get reference to the cubit.
+    final emailVerificationCubit = context.read<EmailVerificationCubit>();
 
+    /// Ensure the verification flow is initialized only once after first frame.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      emailVerificationCubit.initVerificationFlow();
+    });
+
+    // Listen for cubit state changes and rebuild UI accordingly.
     return BlocBuilder<EmailVerificationCubit, EmailVerificationState>(
       builder: (context, state) {
         final status = state.status;
@@ -93,18 +95,9 @@ final class _VerifyEmailPageView extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  //
+                  // Main information/instructions for the user.
                   const _VerifyEmailInfo(),
-                  //
-                  AppTextButton(
-                    label: LocaleKeys.buttons_resend_email,
-                    onPressed:
-                        () =>
-                            context
-                                .read<EmailVerificationCubit>()
-                                .resendEmail(),
-                  ).withPaddingBottom(AppSpacing.m),
-                  //
+                  // Show loader while loading, else show cancel button
                   (status == EmailVerificationStatus.loading)
                       ? const AppLoader()
                       : const VerifyEmailCancelButton(),
