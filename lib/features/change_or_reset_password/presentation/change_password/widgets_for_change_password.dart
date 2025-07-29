@@ -48,95 +48,116 @@ final class _ChangePasswordInfo extends StatelessWidget {
 
 ////
 
-// /// 🧾 [_PasswordField] — input for the new password
-// //
-// final class _PasswordField extends StatelessWidget {
-//   ///-------------------------------------------
-//   //
-//   final ({FocusNode password, FocusNode confirmPassword}) focus;
-//   const _PasswordField({required this.focus});
+/// 🧾 [_PasswordField] — input for the new password
+//
+final class _PasswordField extends StatelessWidget {
+  ///-------------------------------------------
+  //
+  final ({FocusNode password, FocusNode confirmPassword}) focusNodes;
+  const _PasswordField({required this.focusNodes});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     //
-//     final form = ref.watch(changePasswordFormProvider);
-//     final notifier = ref.read(changePasswordFormProvider.notifier);
+  @override
+  Widget build(BuildContext context) {
+    //
+    final changePasswordCubit = context.read<ChangePasswordCubit>();
 
-//     return InputFieldFactory.create(
-//       type: InputFieldType.password,
-//       focusNode: focus.password,
-//       errorText: form.password.uiErrorKey,
-//       isObscure: form.isPasswordObscure,
-//       onChanged: notifier.passwordChanged,
-//       onSubmitted: () => focus.confirmPassword.requestFocus(),
-//       suffixIcon: ObscureToggleIcon(
-//         isObscure: form.isPasswordObscure,
-//         onPressed: notifier.togglePasswordVisibility,
-//       ),
-//     ).withPaddingBottom(AppSpacing.m);
-//   }
-// }
+    return BlocSelector<ChangePasswordCubit, ChangePasswordState, FieldUiState>(
+      selector:
+          (state) => (
+            errorText: state.password.uiErrorKey,
+            isObscure: state.isPasswordObscure,
+          ),
+      builder: (context, field) {
+        final (errorText: errorText, isObscure: isObscure) = field;
 
-// ////
+        return InputFieldFactory.create(
+          type: InputFieldType.password,
+          focusNode: focusNodes.password,
+          errorText: errorText,
+          //
+          isObscure: isObscure,
+          suffixIcon: ObscureToggleIcon(
+            isObscure: isObscure,
+            onPressed: changePasswordCubit.togglePasswordVisibility,
+          ),
+          //
+          onChanged: changePasswordCubit.onPasswordChanged,
+          onSubmitted: () => focusNodes.confirmPassword.requestFocus(),
+          //
+        ).withPaddingBottom(AppSpacing.m);
+      },
+    );
+  }
+}
 
-// ////
+////
 
-// /// 🧾 [_ConfirmPasswordField] — confirmation input
-// //
-// final class _ConfirmPasswordField extends StatelessWidget {
-//   ///---------------------------------------------------
-//   // /
-//   final ({FocusNode password, FocusNode confirmPassword}) focus;
-//   const _ConfirmPasswordField({required this.focus});
+////
 
-//   @override
-//   Widget build(BuildContext context) {
-//     //
-//     final form = ref.watch(changePasswordFormProvider);
-//     final notifier = ref.read(changePasswordFormProvider.notifier);
+/// 🧾 [_ConfirmPasswordField] — confirmation input
+//
+final class _ConfirmPasswordField extends StatelessWidget {
+  ///---------------------------------------------------
+  // /
+  final ({FocusNode password, FocusNode confirmPassword}) focusNodes;
+  const _ConfirmPasswordField({required this.focusNodes});
 
-//     return InputFieldFactory.create(
-//       type: InputFieldType.confirmPassword,
-//       focusNode: focus.confirmPassword,
-//       errorText: form.confirmPassword.uiErrorKey,
-//       isObscure: form.isConfirmPasswordObscure,
-//       onChanged: notifier.confirmPasswordChanged,
-//       onSubmitted: form.isValid ? () => ref.submitChangePassword() : null,
-//       suffixIcon: ObscureToggleIcon(
-//         isObscure: form.isConfirmPasswordObscure,
-//         onPressed: notifier.toggleConfirmPasswordVisibility,
-//       ),
-//     ).withPaddingBottom(AppSpacing.xxxl);
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    //
+    final changePasswordCubit = context.read<ChangePasswordCubit>();
 
-// ////
+    return BlocSelector<ChangePasswordCubit, ChangePasswordState, FieldUiState>(
+      selector:
+          (state) => (
+            errorText: state.confirmPassword.uiErrorKey,
+            isObscure: state.isConfirmPasswordObscure,
+          ),
+      builder: (context, field) {
+        final (errorText: errorText, isObscure: isObscure) = field;
 
-// ////
+        return InputFieldFactory.create(
+          type: InputFieldType.confirmPassword,
+          focusNode: focusNodes.confirmPassword,
+          errorText: errorText,
+          //
+          isObscure: isObscure,
+          suffixIcon: ObscureToggleIcon(
+            isObscure: isObscure,
+            onPressed: changePasswordCubit.toggleConfirmPasswordVisibility,
+          ),
+          //
+          onChanged: changePasswordCubit.onConfirmPasswordChanged,
+          onSubmitted: changePasswordCubit.submit,
+          //
+        ).withPaddingBottom(AppSpacing.xxxl);
+      },
+    );
+  }
+}
 
-// /// 🔐 [_ChangePasswordSubmitButton] — dispatches the password change request
-// /// 📤 Submits new password when form is valid
-// //
-// final class _ChangePasswordSubmitButton extends StatelessWidget {
-//   ///--------------------------------------------------------
-//   const _ChangePasswordSubmitButton();
+////
 
-//   @override
-//   Widget build(BuildContext context) {
-//     //
-//     final form = ref.watch(changePasswordFormProvider);
-//     final isOverlayActive = ref.isOverlayActive;
-//     final isLoading = ref.watch(changePasswordProvider).isLoading;
+////
 
-//     return CustomFilledButton(
-//       label:
-//           isLoading
-//               ? LocaleKeys.buttons_submitting
-//               : LocaleKeys.change_password_title,
-//       isLoading: isLoading,
-//       isEnabled: form.isValid && !isOverlayActive,
-//       onPressed:
-//           form.isValid && !isLoading ? () => ref.submitChangePassword() : null,
-//     );
-//   }
-// }
+/// 🔐 [_ChangePasswordSubmitButton] — dispatches the password change request
+/// 📤 Submits new password when form is valid
+//
+final class _ChangePasswordSubmitButton extends StatelessWidget {
+  ///--------------------------------------------------------
+  const _ChangePasswordSubmitButton();
+
+  @override
+  Widget build(BuildContext context) {
+    //
+    return FormSubmitButton<ChangePasswordCubit, ChangePasswordState>(
+      label: LocaleKeys.buttons_sign_up,
+      onPressed: (context) {
+        context.unfocusKeyboard;
+        context.read<ChangePasswordCubit>().submit();
+      },
+      statusSelector: (state) => state.status,
+      isValidatedSelector: (state) => state.isValid,
+    );
+  }
+}

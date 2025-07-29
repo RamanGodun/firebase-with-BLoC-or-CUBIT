@@ -26,6 +26,7 @@ import 'cubits/reset_password_cubit.dart';
 part 'widgets_for_reset_password_page.dart';
 
 /// 🔐 [ResetPasswordPage] — allows user to request password reset
+/// 🔁 Declarative side-effect for [ResetPasswordPage]
 //
 final class ResetPasswordPage extends StatelessWidget {
   ///---------------------------------------

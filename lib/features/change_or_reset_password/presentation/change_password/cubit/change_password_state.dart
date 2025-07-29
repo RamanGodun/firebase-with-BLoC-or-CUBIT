@@ -1,13 +1,11 @@
-part of 'sign_up_page_cubit.dart';
+part of 'change_password_cubit.dart';
 
-/// 🗞 [SignUpState] — Holds all field values and form status for [SignUpCubit]
+/// 📄 [ResetPasswordState] — Stores reset form values and validation status
 /// ✅ Centralized state object for validation, UI, and submission status
 //
-final class SignUpState extends Equatable {
-  ///-----------------------------------
+final class ChangePasswordState extends Equatable {
+  ///------------------------------------
   //
-  final NameInputValidation name;
-  final EmailInputValidation email;
   final PasswordInputValidation password;
   final ConfirmPasswordInputValidation confirmPassword;
   final FormzSubmissionStatus status;
@@ -16,9 +14,7 @@ final class SignUpState extends Equatable {
   final bool isPasswordObscure;
   final bool isConfirmPasswordObscure;
 
-  const SignUpState({
-    this.name = const NameInputValidation.pure(),
-    this.email = const EmailInputValidation.pure(),
+  const ChangePasswordState({
     this.password = const PasswordInputValidation.pure(),
     this.confirmPassword = const ConfirmPasswordInputValidation.pure(),
     this.status = FormzSubmissionStatus.initial,
@@ -27,13 +23,9 @@ final class SignUpState extends Equatable {
     this.isPasswordObscure = true,
     this.isConfirmPasswordObscure = true,
   });
-  //
 
-  /// 🧱 Clones current state with optional overrides
-  // ⚠️ Use only inside `updateWith(...)` to ensure validation is re-applied!
-  SignUpState _copyWith({
-    final NameInputValidation? name,
-    final EmailInputValidation? email,
+  /// 🔁 Returns new state with updated fields
+  ChangePasswordState _copyWith({
     final PasswordInputValidation? password,
     final ConfirmPasswordInputValidation? confirmPassword,
     final FormzSubmissionStatus? status,
@@ -42,9 +34,7 @@ final class SignUpState extends Equatable {
     final bool? isPasswordObscure,
     final bool? isConfirmPasswordObscure,
   }) {
-    return SignUpState(
-      name: name ?? this.name,
-      email: email ?? this.email,
+    return ChangePasswordState(
       password: password ?? this.password,
       confirmPassword: confirmPassword ?? this.confirmPassword,
       status: status ?? this.status,
@@ -58,8 +48,6 @@ final class SignUpState extends Equatable {
 
   @override
   List<Object?> get props => [
-    name,
-    email,
     password,
     confirmPassword,
     status,
@@ -75,24 +63,18 @@ final class SignUpState extends Equatable {
 ////
 ////
 
-/// 🥉 [SignUpStateValidationX] — Adds validation and update utilities to [SignUpState]
-/// ✅ Simplifies state mutation and ensures validation is always up-to-date
-/// 🔐 Used in `SignUpCubit` for field-level updates with validation
+/// 🧩 [ResetPasswordStateValidationX] — Adds validation/update logic to [ResetPasswordState]
+/// ✅ Ensures clean field validation and consistent `isValid` flag management
 //
-extension SignUpStateValidationX on SignUpState {
-  ///-----------------------------------------
-
+extension ChangePasswordStateValidationX on ChangePasswordState {
+  //
   /// ✅ Validates form fields using Formz
   /// 📅 Accepts optional overrides; falls back to current state values
   bool validateWith({
-    final NameInputValidation? name,
-    final EmailInputValidation? email,
     final PasswordInputValidation? password,
     final ConfirmPasswordInputValidation? confirmPassword,
   }) {
     return Formz.validate([
-      name ?? this.name,
-      email ?? this.email,
       password ?? this.password,
       confirmPassword ?? this.confirmPassword,
     ]);
@@ -100,9 +82,7 @@ extension SignUpStateValidationX on SignUpState {
 
   /// ➞ Returns a new state with updated values and revalidated form
   /// 📦 Supports field updates and UI controls like visibility or submission status
-  SignUpState updateWith({
-    final NameInputValidation? name,
-    final EmailInputValidation? email,
+  ChangePasswordState updateWith({
     final PasswordInputValidation? password,
     final ConfirmPasswordInputValidation? confirmPassword,
     final FormzSubmissionStatus? status,
@@ -111,8 +91,6 @@ extension SignUpStateValidationX on SignUpState {
     final bool? isConfirmPasswordObscure,
   }) {
     final updated = _copyWith(
-      name: name,
-      email: email,
       password: password,
       confirmPassword: confirmPassword,
       status: status,
@@ -120,6 +98,7 @@ extension SignUpStateValidationX on SignUpState {
       isPasswordObscure: isPasswordObscure,
       isConfirmPasswordObscure: isConfirmPasswordObscure,
     );
+
     return updated._copyWith(isValid: updated.validateWith());
   }
 

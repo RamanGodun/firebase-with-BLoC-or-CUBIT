@@ -129,10 +129,7 @@ final class SignUpView extends HookWidget {
                 const SizedBox(height: AppSpacing.l),
 
                 /// 🔒 Password input
-                _PasswordField(
-                  focusNode: focusNodes.password,
-                  nextFocusNode: focusNodes.confirmPassword,
-                ),
+                _PasswordField(focusNodes: focusNodes),
                 const SizedBox(height: AppSpacing.l),
 
                 /// 🔐 Confirm password input
