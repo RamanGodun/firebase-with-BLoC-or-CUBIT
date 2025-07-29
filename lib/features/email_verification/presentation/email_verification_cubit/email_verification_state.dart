@@ -9,7 +9,14 @@ enum EmailVerificationStatus {
   failure,
 }
 
-class EmailVerificationState extends Equatable {
+////
+
+/// Holds the state for email verification flow including
+/// current status, user info, and any occurred failure.
+//
+final class EmailVerificationState extends Equatable {
+  ///----------------------------------------------
+  //
   final EmailVerificationStatus status;
   final User? user;
   final Consumable<Failure>? failure;
@@ -20,6 +27,7 @@ class EmailVerificationState extends Equatable {
     this.failure,
   });
 
+  ///
   EmailVerificationState copyWith({
     EmailVerificationStatus? status,
     User? user,
@@ -32,6 +40,9 @@ class EmailVerificationState extends Equatable {
     );
   }
 
+  ///
   @override
   List<Object?> get props => [status, user, failure];
+
+  //
 }

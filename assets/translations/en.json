@@ -110,7 +110,8 @@
     "header": "Reset your password",
     "sub_header": "We will send you an email to reset it.",
     "success": "Password reset email has been sent",
-    "remember": "Remember password?    "
+    "remember": "Remember password?    ",
+    "success_message": "We’ve sent you a link to reset your password."
   },
 
   "change_password": {

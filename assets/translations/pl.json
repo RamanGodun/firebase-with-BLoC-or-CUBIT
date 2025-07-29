@@ -110,7 +110,8 @@
     "header": "Zresetuj swoje hasło",
     "sub_header": "Wyślemy Ci e-mail z linkiem do resetowania.",
     "success": "E-mail resetujący hasło został wysłany",
-    "remember": "Pamiętasz hasło?   "
+    "remember": "Pamiętasz hasło?   ", 
+    "success_message": "Wysłaliśmy Ci link do zresetowania hasła."
   },
 
   "change_password": {

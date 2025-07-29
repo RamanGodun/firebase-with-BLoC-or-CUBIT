@@ -92,6 +92,7 @@ abstract class  LocaleKeys {
   static const reset_password_sub_header = 'reset_password.sub_header';
   static const reset_password_success = 'reset_password.success';
   static const reset_password_remember = 'reset_password.remember';
+  static const reset_password_success_message = 'reset_password.success_message';
   static const reset_password = 'reset_password';
   static const change_password_title = 'change_password.title';
   static const change_password_warning = 'change_password.warning';

@@ -118,7 +118,8 @@ class CodegenLoader extends AssetLoader{
     "header": "Zresetuj swoje hasło",
     "sub_header": "Wyślemy Ci e-mail z linkiem do resetowania.",
     "success": "E-mail resetujący hasło został wysłany",
-    "remember": "Pamiętasz hasło?   "
+    "remember": "Pamiętasz hasło?   ",
+    "success_message": "Wysłaliśmy Ci link do zresetowania hasła."
   },
   "change_password": {
     "title": "Zmień hasło",
@@ -270,7 +271,8 @@ static const Map<String,dynamic> _uk = {
     "header": "Скидання пароля",
     "sub_header": "Ми надішлемо вам лист для скидання пароля.",
     "success": "Лист для скидання пароля надіслано",
-    "remember": "Згадали пароль?   "
+    "remember": "Згадали пароль?   ",
+    "success_message": "Ми відпрвили Вам на вказану пошту лист для скидання паролю."
   },
   "change_password": {
     "title": "Зміна пароля",
@@ -422,7 +424,8 @@ static const Map<String,dynamic> _en = {
     "header": "Reset your password",
     "sub_header": "We will send you an email to reset it.",
     "success": "Password reset email has been sent",
-    "remember": "Remember password?    "
+    "remember": "Remember password?    ",
+    "success_message": "We’ve sent you a link to reset your password."
   },
   "change_password": {
     "title": "Change Password",

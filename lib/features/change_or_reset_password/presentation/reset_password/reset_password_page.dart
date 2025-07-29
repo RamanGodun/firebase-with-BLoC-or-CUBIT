@@ -64,9 +64,7 @@ final class ResetPasswordPage extends StatelessWidget {
                     prev.status != curr.status &&
                     curr.status.isSubmissionSuccess,
             listener: (context, state) {
-              context.showBanner(
-                message: 'LocaleKeys.reset_password_success_message',
-              );
+              context.showSnackbar(message: LocaleKeys.reset_password_success);
               // 🧭 Navigation after success
               context.goTo(RoutesNames.signIn);
             },
