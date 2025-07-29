@@ -81,7 +81,7 @@ final class ResetPasswordPage extends StatelessWidget {
 /// 📩 Sends reset link to user's email using [ResetPasswordProvider]
 //
 final class _ResetPasswordView extends StatelessWidget {
-  ///------------------------------------------
+  ///------------------------------------------------
   const _ResetPasswordView();
 
   @override

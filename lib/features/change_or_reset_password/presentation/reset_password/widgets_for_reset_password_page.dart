@@ -31,7 +31,7 @@ final class _ResetPasswordHeader extends StatelessWidget {
 /// 🧾 [_ResetPasswordEmailInputField] — email input field for password reset
 //
 final class _ResetPasswordEmailInputField extends HookWidget {
-  ///--------------------------------------------------------------
+  ///------------------------------------------------------
   const _ResetPasswordEmailInputField();
 
   @override
@@ -61,7 +61,7 @@ final class _ResetPasswordEmailInputField extends HookWidget {
 /// 🔘 [_ResetPasswordSubmitButton] — confirms reset action
 //
 final class _ResetPasswordSubmitButton extends StatelessWidget {
-  ///-------------------------------------------------------
+  ///--------------------------------------------------------
   const _ResetPasswordSubmitButton();
 
   @override

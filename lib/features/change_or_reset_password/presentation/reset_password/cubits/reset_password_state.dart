@@ -1,5 +1,8 @@
 part of 'reset_password_cubit.dart';
 
+/// 📄 [ResetPasswordState] — Stores reset form values and validation status
+/// ✅ Used by [ResetPasswordCubit] to manage reactive UI state
+//
 final class ResetPasswordState extends Equatable {
   ///------------------------------------
   //
@@ -15,6 +18,7 @@ final class ResetPasswordState extends Equatable {
     this.failure,
   });
 
+  /// 🔁 Returns new state with updated fields
   ResetPasswordState _copyWith({
     final EmailInputValidation? email,
     final FormzSubmissionStatus? status,
@@ -36,12 +40,19 @@ final class ResetPasswordState extends Equatable {
 }
 
 ////
+////
 
+/// 🧩 [ResetPasswordStateValidationX] — Adds validation/update logic to [ResetPasswordState]
+/// ✅ Ensures clean field validation and consistent `isValid` flag management
+//
 extension ResetPasswordStateValidationX on ResetPasswordState {
+  //
+  /// ✅ Validates [email] using [Formz]
   bool validateWith({final EmailInputValidation? email}) {
     return Formz.validate([email ?? this.email]);
   }
 
+  /// 🔁 Returns updated state with revalidated `isValid` flag
   ResetPasswordState updateWith({
     final EmailInputValidation? email,
     final FormzSubmissionStatus? status,
@@ -50,4 +61,6 @@ extension ResetPasswordStateValidationX on ResetPasswordState {
     final updated = _copyWith(email: email, status: status, failure: failure);
     return updated._copyWith(isValid: updated.validateWith());
   }
+
+  //
 }

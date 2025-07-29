@@ -15,7 +15,6 @@ import '../../../../../core/utils_shared/timing_control/debouncer.dart';
 import '../../../../../core/base_modules/form_fields/input_validation/formz_status_x.dart';
 
 part 'sign_up_page_state.dart';
-part 'sign_up_state_validation_x.dart';
 
 /// 🧠 [SignUpCubit] — Handles logic for sign-up form: validation, debouncing, and submission.
 /// ✅ Delegates actual sign-up to [SignUpService]

@@ -1,13 +1,12 @@
 import 'package:go_router/go_router.dart';
 import '../../../../features/auth/presentation/sign_in/sign_in_page.dart';
 import '../../../../features/auth/presentation/sign_up/sign_up_page.dart';
+import '../../../../features/change_or_reset_password/presentation/change_password/change_password_page.dart';
 import '../../../../features/change_or_reset_password/presentation/reset_password/reset_password_page.dart';
 import '../../../../features/email_verification/presentation/email_verification_page.dart';
 import '../../../../features/profile/presentation/profile_page.dart';
 import '../../../shared_presentation_layer/pages_shared/_home_page.dart';
-import '../../../shared_presentation_layer/pages_shared/change_password_page.dart';
 import '../../../shared_presentation_layer/pages_shared/page_not_found.dart';
-import '../../../shared_presentation_layer/pages_shared/re_auth_page.dart';
 import '../../../shared_presentation_layer/pages_shared/splash_page.dart';
 import '../utils/page_transition.dart';
 
@@ -82,13 +81,6 @@ abstract final class AppRoutes {
       name: RoutesNames.verifyEmail,
       pageBuilder:
           (context, state) => AppTransitions.fade(const VerifyEmailPage()),
-    ),
-
-    GoRoute(
-      path: RoutesPaths.reAuthentication,
-      name: RoutesNames.reAuthentication,
-      pageBuilder:
-          (context, state) => AppTransitions.fade(const ReAuthenticationPage()),
     ),
 
     ///

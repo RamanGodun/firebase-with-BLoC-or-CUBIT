@@ -13,7 +13,6 @@ import '../../../../../core/utils_shared/timing_control/debouncer.dart';
 import '../../../domain/use_cases/sign_in.dart';
 
 part 'sign_in_page_state.dart';
-part 'sign_in_state_validation_x.dart';
 
 /// 🔐 [SignInCubit] — Manages Sign In logic, validation, submission.
 /// ✅ Leverages via DI [SignInService] and uses DSL-like result handler.

@@ -13,6 +13,9 @@ import '../../../../../core/utils_shared/timing_control/debouncer.dart';
 import '../../../domain/password_actions_use_case.dart';
 part 'reset_password_state.dart';
 
+/// 🔐 [ResetPasswordCubit] — Manages reset password logic, validation, submission.
+/// ✅ Leverages [PasswordRelatedUseCases] injected via DI and uses declarative state updates.
+//
 final class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   ///--------------------------------------------
   //
@@ -24,7 +27,7 @@ final class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   ResetPasswordCubit(this._useCases, this._validation)
     : super(const ResetPasswordState());
 
-  /// 📧 Handles email input with debounce
+  /// 📧 Handles email field changes with debounce and validation
   void onEmailChanged(String value) {
     _debouncer.run(() {
       final email = _validation.validateEmail(value.trim());
@@ -32,19 +35,20 @@ final class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     });
   }
 
-  /// 🚀 Submits reset password request if valid
+  ///
+
+  /// 🚀 Submits reset password request if form is valid
   Future<void> submit() async {
     if (!state.isValid || isClosed || state.status.isSubmissionInProgress) {
       return;
     }
-
+    //
     _submitDebouncer.run(() async {
       emit(state._copyWith(status: FormzSubmissionStatus.inProgress));
-
+      //
       final result = await _useCases.callResetPassword(state.email.value);
-
       if (isClosed) return;
-
+      //
       ResultHandlerAsync(result)
         ..onFailureAsync((f) {
           emit(
@@ -62,7 +66,9 @@ final class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     });
   }
 
-  /// ♻️ Resets only submission status (e.g. after dialog)
+  ///
+
+  /// 🔄 Resets only the submission status (used after dialogs)
   void resetStatus() {
     emit(state._copyWith(status: FormzSubmissionStatus.initial));
   }
@@ -70,10 +76,20 @@ final class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   /// 🧽 Resets the failure after it’s been consumed
   void clearFailure() => emit(state._copyWith(failure: null));
 
-  /// 🧼 Fully resets form state
+  /// 🧼 Resets the entire form to initial state
   void resetState() {
     _debouncer.cancel();
     _submitDebouncer.cancel();
     emit(const ResetPasswordState());
   }
+
+  ///
+  @override
+  Future<void> close() {
+    _debouncer.cancel();
+    _submitDebouncer.cancel();
+    return super.close();
+  }
+
+  //
 }
