@@ -50,6 +50,9 @@ final class ResetPasswordCubit extends Cubit<ResetPasswordState> {
       if (isClosed) return;
       //
       ResultHandlerAsync(result)
+        ..onSuccessAsync((_) {
+          emit(state._copyWith(status: FormzSubmissionStatus.success));
+        })
         ..onFailureAsync((f) {
           emit(
             state._copyWith(
@@ -58,9 +61,6 @@ final class ResetPasswordCubit extends Cubit<ResetPasswordState> {
             ),
           );
           f.log();
-        })
-        ..onSuccessAsync((_) {
-          emit(state._copyWith(status: FormzSubmissionStatus.success));
         })
         ..logAsync();
     });

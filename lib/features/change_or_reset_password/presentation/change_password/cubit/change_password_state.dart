@@ -1,6 +1,6 @@
 part of 'change_password_cubit.dart';
 
-/// 📄 [ResetPasswordState] — Stores reset form values and validation status
+/// 📄 [ChangePasswordState] — Stores reset form values and validation status
 /// ✅ Centralized state object for validation, UI, and submission status
 //
 final class ChangePasswordState extends Equatable {
@@ -63,7 +63,7 @@ final class ChangePasswordState extends Equatable {
 ////
 ////
 
-/// 🧩 [ResetPasswordStateValidationX] — Adds validation/update logic to [ResetPasswordState]
+/// 🧩 [ChangePasswordStateValidationX] — Adds validation/update logic to [ChangePasswordState]
 /// ✅ Ensures clean field validation and consistent `isValid` flag management
 //
 extension ChangePasswordStateValidationX on ChangePasswordState {

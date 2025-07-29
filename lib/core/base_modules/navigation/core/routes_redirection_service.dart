@@ -42,7 +42,7 @@ final class RoutesRedirectionService {
     final isEmailVerified = user?.emailVerified ?? false;
 
     // Current path
-    final currentPath = goRouterState.matchedLocation;
+    final currentPath = goRouterState.fullPath ?? '';
     final isOnPublicPages = _publicRoutes.contains(currentPath);
     final isOnVerifyPage = currentPath == RoutesPaths.verifyEmail;
     final isOnSplashPage = currentPath == RoutesPaths.splash;

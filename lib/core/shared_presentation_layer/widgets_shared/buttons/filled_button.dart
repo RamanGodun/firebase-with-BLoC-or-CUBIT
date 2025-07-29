@@ -32,34 +32,37 @@ final class CustomFilledButton extends StatelessWidget {
     //
     final colorScheme = context.colorScheme;
 
-    return Hero(
-      tag: 'filled_button',
-      child: FilledButton(
-        // 🚀 Only enabled when form is valid and not loading
-        onPressed: isEnabled ? onPressed : null,
+    return SizedBox(
+      width: double.infinity,
+      child: Hero(
+        tag: 'filled_button',
+        child: FilledButton(
+          // 🚀 Only enabled when form is valid and not loading
+          onPressed: isEnabled ? onPressed : null,
 
-        // 🔁 Animated loader or text label
-        child:
-            (isLoading
-                    ? AppLoader(
-                      size: 20,
-                      cupertinoRadius: 12,
-                      color: colorScheme.onSurface,
-                    )
-                    : TextWidget(
-                      label,
-                      TextType.titleMedium,
-                      fontWeight:
-                          !isEnabled ? FontWeight.w300 : FontWeight.w400,
-                      fontSize: 18,
-                      letterSpacing: 0.9,
-                      color:
-                          (isLoading || !isEnabled)
-                              ? colorScheme.inverseSurface
-                              : colorScheme.onPrimary,
-                    ))
-                .withAnimatedSwitcherSize(),
-      ).withPaddingTop(AppSpacing.l),
+          // 🔁 Animated loader or text label
+          child:
+              (isLoading
+                      ? AppLoader(
+                        size: 20,
+                        cupertinoRadius: 12,
+                        color: colorScheme.onSurface,
+                      )
+                      : TextWidget(
+                        label,
+                        TextType.titleMedium,
+                        fontWeight:
+                            !isEnabled ? FontWeight.w300 : FontWeight.w400,
+                        fontSize: 18,
+                        letterSpacing: 0.9,
+                        color:
+                            (isLoading || !isEnabled)
+                                ? colorScheme.inverseSurface
+                                : colorScheme.onPrimary,
+                      ))
+                  .withAnimatedSwitcherSize(),
+        ).withPaddingTop(AppSpacing.l),
+      ),
     );
   }
 }

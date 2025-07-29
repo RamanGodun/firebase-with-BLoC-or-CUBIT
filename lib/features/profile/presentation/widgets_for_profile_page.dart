@@ -106,7 +106,7 @@ final class _UserProfileCard extends StatelessWidget {
                     const _ThemeSection(),
                     const SizedBox(height: AppSpacing.xl),
 
-                    // const _ChangePasswordButton(),
+                    const _ChangePasswordButton(),
                     //
                   ],
                 ),
@@ -157,14 +157,14 @@ final class _ThemeSection extends StatelessWidget {
 
 /// 🔒 [_ChangePasswordButton] — Navigates user to Change Password screen.
 //
-// final class _ChangePasswordButton extends StatelessWidget {
-//   const _ChangePasswordButton();
+final class _ChangePasswordButton extends StatelessWidget {
+  const _ChangePasswordButton();
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return CustomFilledButton(
-//       onPressed: () => context.goTo(RoutesNames.changePassword),
-//       label: LocaleKeys.change_password_title,
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return CustomFilledButton(
+      onPressed: () => context.goTo(RoutesNames.changePassword),
+      label: LocaleKeys.change_password_title,
+    );
+  }
+}

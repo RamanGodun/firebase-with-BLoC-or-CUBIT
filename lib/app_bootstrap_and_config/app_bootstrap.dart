@@ -3,8 +3,10 @@ import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/local_stora
     show ILocalStorage, HydratedLocalStorage;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show debugRepaintRainbowEnabled;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_strategy/url_strategy.dart' show setPathUrlStrategy;
 import '../core/base_modules/localization/app_localizer.dart';
+import '../core/base_modules/logging/for_bloc/bloc_observer.dart';
 import 'remote_db_init.dart';
 import 'platform_validation.dart';
 import 'di_container/di_container.dart';
@@ -98,6 +100,9 @@ final class AppBootstrap implements IAppBootstrap {
     //
     /// Controls visual debugging options (e.g., repaint highlighting).
     debugRepaintRainbowEnabled = false;
+    //
+    /// Custom bloc observer
+    Bloc.observer = const AppBlocObserver();
     // ... (other debug tools)
     debugPrint('✅ [Startup] Flutter bindings and platform validation done.');
     //

@@ -66,7 +66,7 @@ final class ChangePasswordPage extends StatelessWidget {
                     prev.status != curr.status &&
                     curr.status.isSubmissionSuccess,
             listener: (context, state) {
-              context.showSnackbar(message: LocaleKeys.reset_password_success);
+              context.showSnackbar(message: LocaleKeys.change_password_success);
               // 🧭 Navigation after success
               context.goTo(RoutesNames.home);
             },
