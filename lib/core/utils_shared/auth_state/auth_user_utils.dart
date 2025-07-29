@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' show User;
-import '../../../app_bootstrap_and_config/app_configs/firebase/data_source_constants.dart';
+import '../../../app_bootstrap_and_config/app_configs/firebase/firebase_constants.dart';
 import '../../base_modules/errors_handling/failures/failure_entity.dart';
 
 /// 🧩 [AuthUserUtils] — centralized utils for accessing current user

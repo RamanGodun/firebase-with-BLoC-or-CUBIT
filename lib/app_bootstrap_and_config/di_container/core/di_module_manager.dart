@@ -84,4 +84,6 @@ final class ModuleManager {
       '✅ All modules registered successfully: ${_registered.join(', ')}',
     );
   }
+
+  //
 }

@@ -60,8 +60,8 @@ final class OverlayPolicyResolver {
   // ⏱️ Predefined debounce durations for categories
   // Banners/snackbars usually need small delays; dialogs — instant.
   static final _defaultDebounceDurations = {
-    OverlayCategory.banner: const Duration(milliseconds: 500),
-    OverlayCategory.snackbar: const Duration(milliseconds: 400),
+    OverlayCategory.banner: AppDurations.ms500,
+    OverlayCategory.snackbar: AppDurations.ms400,
     OverlayCategory.dialog: Duration.zero,
   };
 

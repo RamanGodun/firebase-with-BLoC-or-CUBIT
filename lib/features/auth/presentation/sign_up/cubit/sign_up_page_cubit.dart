@@ -6,6 +6,7 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/ut
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import '../../../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
 import '../../../../../core/base_modules/errors_handling/failures/failure_entity.dart';
 import '../../../../../core/base_modules/errors_handling/utils/for_bloc/result_handler_async.dart';
 import '../../../../../core/base_modules/form_fields/utils/_form_validation_service.dart';
@@ -24,8 +25,8 @@ final class SignUpCubit extends Cubit<SignUpState> {
   //
   final SignUpUseCase _signUpUseCase;
   final FormValidationService _validation;
-  final _debouncer = Debouncer(const Duration(milliseconds: 200));
-  final _submitDebouncer = Debouncer(const Duration(milliseconds: 600));
+  final _debouncer = Debouncer(AppDurations.ms180);
+  final _submitDebouncer = Debouncer(AppDurations.ms600);
 
   SignUpCubit(this._signUpUseCase, this._validation)
     : super(const SignUpState());
@@ -127,25 +128,31 @@ final class SignUpCubit extends Cubit<SignUpState> {
     ///
   }
 
+  /// 🧽 Resets the failure after it’s been consumed
+  void clearFailure() => emit(state._copyWith(failure: null));
+
   /// ♻️ Resets only submission status (e.g. after dialog)
   void resetStatus() {
     emit(state._copyWith(status: FormzSubmissionStatus.initial));
   }
 
+  /// 🧼 Cancels all pending debounce operations
+  void _cancelDebouncers() {
+    _debouncer.cancel(); // 🧯 prevent delayed emit from old email input
+    _submitDebouncer.cancel(); // 🧯 prevent accidental double submit
+  }
+
   /// 🧼 Fully resets form fields & validation
   void resetState() {
+    _cancelDebouncers();
     debugPrint('🧼 SignUpCubit → resetState()');
     emit(const SignUpState());
   }
 
-  /// 🧽 Resets the failure after it’s been consumed
-  void clearFailure() => emit(state._copyWith(failure: null));
-
-  ///
+  /// 🧼 Cleans up resources on close
   @override
   Future<void> close() {
-    _debouncer.cancel();
-    _submitDebouncer.cancel();
+    _cancelDebouncers();
     return super.close();
   }
 

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/theme/extensions/theme_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import '../../../../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
 import '../../../../localization/widgets/text_widget.dart';
 import '../../../../theme/ui_constants/app_colors.dart';
 
@@ -22,7 +23,7 @@ class OverlayNotificationService {
     required String message,
     required IconData icon,
     OverlayPosition position = OverlayPosition.center,
-    Duration duration = const Duration(seconds: 2),
+    Duration duration = AppDurations.sec2,
   }) {
     //
     final overlay = Overlay.of(context, rootOverlay: true);
@@ -42,7 +43,7 @@ class OverlayNotificationService {
     required String message,
     required IconData icon,
     OverlayPosition position = OverlayPosition.center,
-    Duration duration = const Duration(seconds: 2),
+    Duration duration = AppDurations.sec2,
   }) {
     //
     if (_isShowing) return;

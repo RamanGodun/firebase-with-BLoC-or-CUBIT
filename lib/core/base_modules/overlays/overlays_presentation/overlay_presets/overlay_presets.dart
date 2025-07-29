@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
 import 'overlay_preset_props.dart';
 
 /// 🎨 [OverlayUIPresets] — Abstract base for UI styling presets
@@ -57,7 +58,7 @@ final class OverlayInfoUIPreset extends OverlayUIPresets {
   static final OverlayUIPresetProps _resolved = const OverlayUIPresetProps(
     icon: Icons.info_outline,
     color: Colors.blueAccent,
-    duration: Duration(seconds: 3),
+    duration: AppDurations.sec3,
     margin: EdgeInsets.all(12),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(6)),
@@ -88,7 +89,7 @@ final class OverlayErrorUIPreset extends OverlayUIPresets {
   static final _resolved = const OverlayUIPresetProps(
     icon: Icons.error_outline,
     color: Colors.redAccent,
-    duration: Duration(seconds: 3),
+    duration: AppDurations.sec3,
     margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -119,7 +120,7 @@ final class OverlaySuccessUIPreset extends OverlayUIPresets {
   static final _resolved = const OverlayUIPresetProps(
     icon: Icons.check_circle_outline,
     color: Colors.green,
-    duration: Duration(seconds: 2),
+    duration: AppDurations.sec2,
     margin: EdgeInsets.fromLTRB(16, 0, 16, 16),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -150,7 +151,7 @@ final class OverlayWarningUIPreset extends OverlayUIPresets {
   static final _resolved = const OverlayUIPresetProps(
     icon: Icons.warning_amber_rounded,
     color: Colors.orangeAccent,
-    duration: Duration(seconds: 4),
+    duration: AppDurations.sec4,
     margin: EdgeInsets.all(16),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(10)),

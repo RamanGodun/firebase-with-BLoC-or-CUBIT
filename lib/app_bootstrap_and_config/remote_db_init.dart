@@ -1,12 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'app_configs/firebase/env.dart';
+import 'app_configs/firebase/env_config.dart';
 import 'app_configs/firebase/env_firebase_options.dart';
 import 'app_configs/firebase/firebase_utils.dart';
 
 /// 📦💾 [IRemoteDataBase] — Abstraction to decouple startup logic and enable mocking in tests.
-
+//
 abstract interface class IRemoteDataBase {
   ///---------------------------------
   //
@@ -20,7 +20,7 @@ abstract interface class IRemoteDataBase {
 ////
 
 /// 🔥🧩 [FirebaseRemoteDataBase] — Current implementation of [IRemoteDataBase], with Firebase+Env initialization logic
-
+//
 final class FirebaseRemoteDataBase implements IRemoteDataBase {
   ///----------------------------------------------------
   const FirebaseRemoteDataBase();

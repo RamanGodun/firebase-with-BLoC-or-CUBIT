@@ -7,13 +7,13 @@ import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 /// ✅ Use to avoid hardcoded strings throughout data layer
 //
 abstract final class FirebaseConstants {
-  ///----------------------------------
+  ///--------------------------------
   //
   @pragma('vm:prefer-inline')
   const FirebaseConstants._();
 
-  /// 🧩 [usersCollection] — Firestore collection reference for users.
-  /// ✅ Use directly (do not wrap with .collection() again).
+  /// 🧩 [usersCollection] — Firestore reference to the `users` collection
+  /// 📦 Used for fetching and storing user-specific data
   static final usersCollection = FirebaseFirestore.instance.collection('users');
 
   /// 🧩 [fbAuth] — Firebase Authentication instance

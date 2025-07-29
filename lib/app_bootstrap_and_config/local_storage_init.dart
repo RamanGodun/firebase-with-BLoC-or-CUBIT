@@ -6,23 +6,20 @@ import 'package:path_provider/path_provider.dart'
     show getApplicationDocumentsDirectory;
 
 /// 💾 [ILocalStorage] — Abstraction to decouple startup logic and enable mocking in tests.
-
+//
 abstract interface class ILocalStorage {
   ///--------------------------------
   //
   /// Initializes all local storage services
   Future<void> init();
   //
-  /// Initialize other storages (e.g., SharedPreferences, Isar, SecureStorage) here, if needed.
-  //
 }
 
 ////
-
 ////
 
 /// 🧩📦 [LocalStorage] — Current implementation of [ILocalStorage] with initialization logic.
-
+//
 final class HydratedLocalStorage implements ILocalStorage {
   ///------------------------------------------------------------
   const HydratedLocalStorage();
@@ -43,6 +40,9 @@ final class HydratedLocalStorage implements ILocalStorage {
     HydratedBloc.storage = storage;
     debugPrint('💾 HydratedBloc storage initialized.');
   }
+
+  /// Initialize other storages (e.g., SharedPreferences, Isar, SecureStorage) here, if needed.
+  //
 
   //
 }

@@ -1,27 +1,31 @@
+/*
+ * Copyright (c) 2025 Roman Godun
+ * All rights reserved, see [./LICENSE].
+ * This software is proprietary and confidential.
+ * Unauthorized copying, distribution, or use is strictly prohibited.
+  
+  For licensing inquiries, contact: 4l.roman.godun@gmail.com or godun.rm@gmail.com
+ */
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'app_bootstrap_and_config/di_container/global_di_containers.dart';
 import 'core/base_modules/localization/app_localization.dart';
-import 'core/utils_shared/auth_state/auth_cubit.dart';
-import 'core/base_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
-import 'core/base_modules/theme/theme_cubit.dart';
-import 'features/email_verification/presentation/email_verification_cubit/email_verification_cubit.dart';
-import 'features/profile/presentation/cubit/profile_page_cubit.dart';
 import 'root_view_shell.dart';
 import 'app_bootstrap_and_config/app_bootstrap.dart';
-import 'app_bootstrap_and_config/di_container/di_container.dart';
 
-/// 🏁 Entry point of the application
+/// 🏁 Application entry point
+//
 void main() async {
   ///
   final appBootstrap = const AppBootstrap(
     // ? Here can be plugged in custom dependencies (e.g.  "localStorage: IsarLocalStorage()," )
   );
 
-  /// 🚀 Runs all startup logic (localization, Firebase, full DI container, debug tools, local storage, etc).
+  /// 🚀 Runs all startup logic (localization, Firebase, DI container, debug tools, local storage, etc).
   await appBootstrap.initAllServices();
 
-  /// 🏁 Launches app
-  runApp(const AppLocalizationShell());
+  /// 🏁 Launches app with all global Cubits/Blocs from DI.
+  runApp(const GlobalProviders(child: AppLocalizationShell()));
   //
 }
 
@@ -30,7 +34,7 @@ void main() async {
 ////
 
 /// 🌍✅ [AppLocalizationShell] — Ensures the entire app tree is properly localized before rendering the root UI.
-
+//
 final class AppLocalizationShell extends StatelessWidget {
   ///----------------------------------------------
   const AppLocalizationShell({super.key});
@@ -38,45 +42,7 @@ final class AppLocalizationShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //
-    /// Injects localization context into the widget tree.
-    /// Provides all supported locales and translation assets to [child].
-    return AppLocalization.configure(const GlobalProviders());
+    /// Injects localization context into the widget tree (provides all supported locales and translation assets)
+    return LocalizationWrapper.configure(const AppRootViewShell());
   }
 }
-
-////
-
-////
-
-/// 📦 [GlobalProviders] — Wraps all global Blocs with providers for the app
-
-final class GlobalProviders extends StatelessWidget {
-  ///--------------------------------------------
-  const GlobalProviders({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    //
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider.value(value: di<AppThemeCubit>()),
-        BlocProvider.value(value: di<OverlayStatusCubit>()),
-
-        BlocProvider.value(value: di<AuthCubit>()),
-        BlocProvider.value(value: di<ProfileCubit>()),
-
-        BlocProvider.value(value: di<EmailVerificationCubit>()),
-
-        // others...
-      ],
-      child: const AppRootViewShell(),
-    );
-  }
-}
-
-
-/*
-
-
- */
-

@@ -5,7 +5,7 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_con
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../app_bootstrap_and_config/di_container/di_container.dart';
+import '../../../app_bootstrap_and_config/di_container/di_container_initializaion.dart';
 import '../../../core/base_modules/localization/generated/locale_keys.g.dart';
 import '../../../core/base_modules/localization/widgets/_toggle_button.dart';
 import '../../../core/base_modules/localization/widgets/key_value_x_for_text_w.dart';

@@ -9,46 +9,14 @@ import '../core/base_modules/localization/app_localizer.dart';
 import '../core/base_modules/logging/for_bloc/bloc_observer.dart';
 import 'remote_db_init.dart';
 import 'platform_validation.dart';
-import 'di_container/di_container.dart';
+import 'di_container/di_container_initializaion.dart';
 
-/// 🧰 [IAppBootstrap] — Abstract contract for app startup logic
-
-abstract interface class IAppBootstrap {
-  ///----------------------------------
-  const IAppBootstrap();
-  //
-  /// 🚀 Main initialization: all services and dependencies
-  Future<void> initAllServices();
-  //
-  /// Initializes Flutter bindings, platform validation and debug tools
-  Future<void> appStartUp();
-  //
-  /// Creates a global DI container accessible both outside and inside the widget tree.
-  Future<void> initGlobalDIContainer();
-  //
-  /// Initialize local storage  (currently, HydratedBloc storage)
-  Future<void> initLocalStorage();
-  //
-  /// Initializes remote database (currently, Firebase).
-  Future<void> initRemoteDataBase();
-
-  /// ? Why split initialization into several methods?
-  ///       Startup can be multi-phased:
-  ///         - **Minimal bootstrap** — For a custom splash/loader (e.g., show initial loader while others setup runs).
-  ///         -  **Full bootstrap** — For the complete initialization pipeline (all services/deps)
-  //
-  ///   This allows to display a loader/UI ASAP, while heavy initializations (services, Firebase, etc.) happen after.
-  //
-}
-
-////
-
-////
+part 'bootstrap_interface.dart';
 
 /// 🧰 [AppBootstrap] — Handles all critical bootstrapping (with injectable stacks for testing/mocks).
-
+//
 final class AppBootstrap implements IAppBootstrap {
-  ///-------------------------------------------------------
+  ///-------------------------------------------
   //
   final ILocalStorage _localStorage;
   final IRemoteDataBase _remoteDataBase;
@@ -103,7 +71,8 @@ final class AppBootstrap implements IAppBootstrap {
     //
     /// Custom bloc observer
     Bloc.observer = const AppBlocObserver();
-    // ... (other debug tools)
+    //
+    /// ... (other debug tools)
     debugPrint('✅ [Startup] Flutter bindings and platform validation done.');
     //
   }

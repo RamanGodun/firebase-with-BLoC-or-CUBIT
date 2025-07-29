@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart' show CollectionReference;
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
-import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/get_it_x.dart';
+import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/x_on_get_it.dart';
 import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/modules/auth_module.dart';
 import '../../../features/profile/data/implementation_of_profile_fetch_repo.dart';
 import '../../../features/profile/data/remote_database_contract.dart';
@@ -9,7 +9,7 @@ import '../../../features/profile/domain/fetch_profile_use_case.dart';
 import '../../../features/profile/domain/repo_contract.dart';
 import '../../../features/profile/presentation/cubit/profile_page_cubit.dart';
 import '../core/di_module_interface.dart';
-import '../di_container.dart';
+import '../di_container_initializaion.dart';
 import 'firebase_module.dart';
 
 final class ProfileModule implements DIModule {
@@ -48,8 +48,6 @@ final class ProfileModule implements DIModule {
 
     //
   }
-
-  ////
 
   ///
   @override

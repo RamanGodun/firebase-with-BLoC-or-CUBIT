@@ -9,7 +9,7 @@ import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extensi
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import '../../../../app_bootstrap_and_config/di_container/di_container.dart';
+import '../../../../app_bootstrap_and_config/di_container/di_container_initializaion.dart';
 import '../../../../core/base_modules/form_fields/input_validation/validation_enums.dart';
 import '../../../../core/base_modules/form_fields/utils/_form_validation_service.dart';
 import '../../../../core/base_modules/form_fields/utils/use_auth_focus_nodes.dart';
@@ -115,63 +115,3 @@ final class _ChangePasswordView extends HookWidget {
 
   //
 }
-
-////
-
-////
-/*
-
-
-
-/// 🛡️ [PasswordChangeRefX] — handles side-effects for Change Password flow.
-//
-extension PasswordChangeRefX on WidgetRef {
-  ///---------------------------------------------
-  //
-  /// Encapsulates success, error, and retry handling.
-  ///   - ✅ On success: shows success snackbar and navigates home.
-  ///   - ❌ On failure: shows localized error.
-  ///   - 🔄 On "requires-recent-login" error: triggers reauthentication flow and retries on success.
-  void listenToPasswordChange(BuildContext context) {
-    listen<ChangePasswordState>(changePasswordProvider, (prev, next) async {
-      switch (next) {
-        ///
-        // ✅ On success
-        case ChangePasswordSuccess(:final message):
-          context.showUserSnackbar(message: message);
-          context.goIfMounted(RoutesNames.home);
-
-        /// 🔄 On reauth
-        case ChangePasswordRequiresReauth():
-          final result = await context.pushTo<String>(const SignInPage());
-          if (result == 'success') {
-            read(changePasswordProvider.notifier).retryAfterReauth();
-          }
-
-        /// ❌ On error
-        case ChangePasswordError(:final failure):
-          context.showError(failure.toUIEntity());
-        default:
-          break;
-      }
-    });
-  }
-
-  ////
-
-  /// 📤 Submits the password change request (when the form is valid)
-  Future<void> submitChangePassword() async {
-    final form = watch(changePasswordFormProvider);
-    if (!form.isValid) return;
-
-    final notifier = read(changePasswordProvider.notifier);
-    await notifier.changePassword(form.password.value);
-  }
-
-  //
-}
-
-
-
-
- */

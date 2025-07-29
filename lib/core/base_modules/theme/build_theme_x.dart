@@ -54,7 +54,7 @@ extension ThemeVariantX on ThemeVariantsEnum {
           ),
           elevation: 0,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          animationDuration: const Duration(milliseconds: 250),
+          animationDuration: AppDurations.ms250,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           alignment: Alignment.center,
           enableFeedback: true,

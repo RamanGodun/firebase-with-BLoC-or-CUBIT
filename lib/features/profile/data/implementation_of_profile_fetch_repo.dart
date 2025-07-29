@@ -3,6 +3,7 @@ import 'package:firebase_with_bloc_or_cubit/core/utils_shared/type_definitions.d
 import 'package:firebase_with_bloc_or_cubit/core/shared_data_layer/user_data_transfer_objects/user_dto_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/shared_domain_layer/shared_entities/_user.dart';
 import 'package:firebase_with_bloc_or_cubit/features/profile/domain/repo_contract.dart';
+import '../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
 import '../../../core/base_modules/errors_handling/failures/failure_entity.dart';
 import '../../../core/shared_data_layer/user_data_transfer_objects/_user_dto.dart';
 import '../../../core/shared_data_layer/user_data_transfer_objects/user_dto_factories_x.dart';
@@ -23,7 +24,7 @@ final class ProfileRepoImpl implements IProfileRepo {
     CacheManager<UserEntity, String>? cacheManager,
   }) : _cacheManager =
            cacheManager ??
-           CacheManager<UserEntity, String>(ttl: const Duration(minutes: 5));
+           CacheManager<UserEntity, String>(ttl: AppDurations.min10);
   //
 
   ////

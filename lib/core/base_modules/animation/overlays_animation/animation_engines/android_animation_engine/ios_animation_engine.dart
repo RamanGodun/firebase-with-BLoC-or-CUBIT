@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
 import '../../../../overlays/core/enums_for_overlay_module.dart';
 import '../_animation_engine.dart';
 import '../engine_configs.dart';
@@ -28,32 +29,32 @@ final class IOSOverlayAnimationEngine extends BaseAnimationEngine {
     return switch (overlayType) {
       //
       ShowAs.banner => const IOSOverlayAnimationConfig(
-        duration: Duration(milliseconds: 500),
-        fastDuration: Duration(milliseconds: 180),
+        duration: AppDurations.ms500,
+        fastDuration: AppDurations.ms180,
         opacityCurve: Curves.easeInOut,
         scaleBegin: 0.9,
         scaleCurve: Curves.decelerate,
       ),
 
       ShowAs.dialog => const IOSOverlayAnimationConfig(
-        duration: Duration(milliseconds: 500),
-        fastDuration: Duration(milliseconds: 180),
+        duration: AppDurations.ms500,
+        fastDuration: AppDurations.ms180,
         opacityCurve: Curves.easeInOut,
         scaleBegin: 0.9,
         scaleCurve: Curves.decelerate,
       ),
 
       ShowAs.infoDialog => const IOSOverlayAnimationConfig(
-        duration: Duration(milliseconds: 500),
-        fastDuration: Duration(milliseconds: 160),
+        duration: AppDurations.ms500,
+        fastDuration: AppDurations.ms180,
         opacityCurve: Curves.easeOut,
         scaleBegin: 0.92,
         scaleCurve: Curves.easeOutBack,
       ),
 
       ShowAs.snackbar => const IOSOverlayAnimationConfig(
-        duration: Duration(milliseconds: 600),
-        fastDuration: Duration(milliseconds: 160),
+        duration: AppDurations.ms600,
+        fastDuration: AppDurations.ms180,
         opacityCurve: Curves.easeInOut,
         scaleBegin: 0.95,
         scaleCurve: Curves.decelerate,

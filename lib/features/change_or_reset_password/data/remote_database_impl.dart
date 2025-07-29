@@ -1,4 +1,4 @@
-import '../../../app_bootstrap_and_config/app_configs/firebase/data_source_constants.dart';
+import '../../../app_bootstrap_and_config/app_configs/firebase/firebase_constants.dart';
 import '../../../core/utils_shared/auth_state/auth_user_utils.dart';
 import 'remote_database_contract.dart';
 

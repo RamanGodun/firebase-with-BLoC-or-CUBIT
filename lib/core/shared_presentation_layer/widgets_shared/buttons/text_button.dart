@@ -1,6 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/theme/extensions/theme_x.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
 import '../../../base_modules/localization/widgets/text_widget.dart';
 
 /// 🔘 [AppTextButton] — minimal, animated text-only button with underline option
@@ -51,11 +52,11 @@ class AppTextButton extends StatelessWidget {
           visualDensity: VisualDensity.compact,
         ),
         child: AnimatedSize(
-          duration: const Duration(milliseconds: 250),
+          duration: AppDurations.ms250,
           curve: Curves.easeInOut,
           alignment: Alignment.center,
           child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 250),
+            duration: AppDurations.ms250,
             switchInCurve: Curves.easeOut,
             switchOutCurve: Curves.easeIn,
             layoutBuilder:

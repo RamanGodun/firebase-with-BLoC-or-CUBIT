@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 
 /// 🧩 [SafeRegistration] — Extension on [GetIt] for safe DI registration
 /// ✅ Prevents double registration crashes in shared or reloaded environments (like tests, hot reload)
-
+//
 extension SafeRegistration on GetIt {
   ///-------------------------------
 
@@ -28,13 +28,16 @@ extension SafeRegistration on GetIt {
   //
 }
 
+////
+////
+
 /// 🧩 [SafeDispose] — Extension on [GetIt] for safe disposal/unregistration
+/// Disposes and unregisters any registered singleton that implements [Closeable]
+///   - T: Type of singleton (Cubit, Bloc, StreamController, etc.)
+///   - If instance has .close(), calls it and unregisters
+///   - Safe to call even якщо не було реєстрації
+//
 extension SafeDispose on GetIt {
-  /// Disposes and unregisters any registered singleton that implements [Closeable]
-  ///
-  /// - T: Type of singleton (Cubit, Bloc, StreamController, etc.)
-  /// - If instance has .close(), calls it and unregisters
-  /// - Safe to call even якщо не було реєстрації
   Future<void> safeDispose<T extends Object>() async {
     if (isRegistered<T>()) {
       final instance = get<T>();

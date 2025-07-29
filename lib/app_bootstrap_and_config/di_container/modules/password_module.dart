@@ -1,5 +1,5 @@
 
-import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/get_it_x.dart';
+import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/x_on_get_it.dart';
 
 import '../../../features/change_or_reset_password/data/password_actions_repo_impl.dart';
 import '../../../features/change_or_reset_password/data/remote_database_contract.dart';
@@ -7,7 +7,7 @@ import '../../../features/change_or_reset_password/data/remote_database_impl.dar
 import '../../../features/change_or_reset_password/domain/password_actions_use_case.dart';
 import '../../../features/change_or_reset_password/domain/repo_contract.dart';
 import '../core/di_module_interface.dart';
-import '../di_container.dart';
+import '../di_container_initializaion.dart';
 
 /// 🔐 [PasswordModule] — Registers dependencies for password-related features
 /// ✅ Includes remote DB, repository, and use cases for reset/change password flows

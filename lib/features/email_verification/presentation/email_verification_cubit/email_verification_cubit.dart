@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import '../../../../../../core/base_modules/errors_handling/failures/failure_entity.dart';
 import '../../../../../../core/base_modules/errors_handling/utils/for_bloc/consumable.dart';
 import '../../../../../../core/base_modules/errors_handling/utils/for_bloc/consumable_x.dart';
+import '../../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
 import '../../../../core/utils_shared/auth_state/auth_cubit.dart';
 import '../../domain/email_verification_use_case.dart';
 
@@ -27,7 +28,7 @@ final class EmailVerificationCubit extends Cubit<EmailVerificationState> {
 
   Timer? _pollingTimer;
   final Stopwatch _stopwatch = Stopwatch();
-  static const _maxPollingDuration = Duration(seconds: 100);
+  static const _maxPollingDuration = AppDurations.min1;
   bool _started = false;
   //
 
@@ -46,7 +47,7 @@ final class EmailVerificationCubit extends Cubit<EmailVerificationState> {
     _stopwatch.reset();
     _stopwatch.start();
     //
-    _pollingTimer = Timer.periodic(const Duration(seconds: 3), (_) async {
+    _pollingTimer = Timer.periodic(AppDurations.sec3, (_) async {
       if (_stopwatch.elapsed >= _maxPollingDuration) {
         _stopPolling();
         emit(

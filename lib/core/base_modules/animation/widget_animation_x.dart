@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
+
 /// 🌀 [WidgetAnimationX] — Widget animation helpers
 /// ✅ Provides common animated entrance effects for widgets:
 /// - fadeIn, scaleIn, slideInFromBottom, etc.
 /// - Uses `TweenAnimationBuilder` / `AnimatedOpacity`
-
+//
 extension WidgetAnimationX on Widget {
   ///---------------------------------
 
   /// 🔶 Fades in the widget with opacity animation
   Widget fadeIn({
-    Duration duration = const Duration(milliseconds: 400),
+    Duration duration = AppDurations.ms350,
     Curve curve = Curves.easeIn,
   }) => AnimatedOpacity(
     opacity: 1,
@@ -21,7 +23,7 @@ extension WidgetAnimationX on Widget {
 
   /// 🔷 Scales in the widget with elastic entrance
   Widget scaleIn({
-    Duration duration = const Duration(milliseconds: 400),
+    Duration duration = AppDurations.ms350,
     Curve curve = Curves.easeOutBack,
     double begin = 0.8,
   }) => TweenAnimationBuilder<double>(
@@ -34,7 +36,7 @@ extension WidgetAnimationX on Widget {
 
   /// 🔽 Slides the widget in from the bottom
   Widget slideInFromBottom({
-    Duration duration = const Duration(milliseconds: 400),
+    Duration duration = AppDurations.ms350,
     Curve curve = Curves.easeOut,
     double offsetY = 50,
   }) => TweenAnimationBuilder<Offset>(
@@ -51,7 +53,7 @@ extension WidgetAnimationX on Widget {
 
   /// ◀️ Slides the widget in from the left
   Widget slideInFromLeft({
-    Duration duration = const Duration(milliseconds: 400),
+    Duration duration = AppDurations.ms350,
     Curve curve = Curves.easeOut,
     double offsetX = -50,
   }) => TweenAnimationBuilder<Offset>(
@@ -68,7 +70,7 @@ extension WidgetAnimationX on Widget {
 
   /// 🔁 Rotates the widget into place
   Widget rotateIn({
-    Duration duration = const Duration(milliseconds: 400),
+    Duration duration = AppDurations.ms350,
     Curve curve = Curves.easeInOut,
     double begin = -0.5,
   }) => TweenAnimationBuilder<double>(
@@ -81,7 +83,7 @@ extension WidgetAnimationX on Widget {
 
   /// 🎯 Bounces the widget in (scale)
   Widget bounceIn({
-    Duration duration = const Duration(milliseconds: 600),
+    Duration duration = AppDurations.ms350,
     Curve curve = Curves.elasticOut,
     double begin = 0.5,
   }) => TweenAnimationBuilder<double>(
@@ -94,7 +96,7 @@ extension WidgetAnimationX on Widget {
 
   /// 🔄 Wraps widget in [AnimatedSwitcher] with fade + scale transition
   Widget withAnimationSwitcher({
-    Duration duration = const Duration(milliseconds: 300),
+    Duration duration = AppDurations.ms350,
     Curve switchInCurve = Curves.easeIn,
     Curve switchOutCurve = Curves.easeOut,
     AnimatedSwitcherTransitionBuilder? transitionBuilder,
@@ -114,7 +116,7 @@ extension WidgetAnimationX on Widget {
   /// 🧩 Wraps widget in [AnimatedSize] + [AnimatedSwitcher]
   /// Good for smooth layout/child transitions
   Widget withAnimatedSwitcherSize({
-    Duration duration = const Duration(milliseconds: 250),
+    Duration duration = AppDurations.ms350,
     Curve sizeCurve = Curves.easeInOut,
     Curve switchInCurve = Curves.easeOut,
     Curve switchOutCurve = Curves.easeIn,
@@ -152,7 +154,7 @@ extension WidgetAnimationX on Widget {
   /// ✅ Simple `AnimatedSwitcher` with fade+scale
   /// Good for quick replacements without layout shifts
   Widget withSimpleSwitcher({
-    Duration duration = const Duration(milliseconds: 300),
+    Duration duration = AppDurations.ms350,
     Curve switchInCurve = Curves.easeOut,
     Curve switchOutCurve = Curves.easeIn,
     AnimatedSwitcherTransitionBuilder? transitionBuilder,

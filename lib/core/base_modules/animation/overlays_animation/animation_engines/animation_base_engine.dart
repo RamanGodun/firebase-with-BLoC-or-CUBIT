@@ -3,10 +3,10 @@ part of '_animation_engine.dart';
 /// ✅ \[BaseAnimationEngine] — General base realization  of Engine
 /// 🔁 Incapsulates logic of `initialize`, `play`, `reverse`, `dispose`
 /// 🔧 Allows  override  tween and through methods
-
+//
 abstract class BaseAnimationEngine extends AnimationEngine {
   ///-------------------------------------------------------
-
+  //
   AnimationController? _controller;
   bool _isInitialized = false;
 
@@ -60,7 +60,7 @@ abstract class BaseAnimationEngine extends AnimationEngine {
   Duration get defaultDuration;
 
   /// ⏩ Duration for fast reverse
-  Duration get fastReverseDuration => const Duration(milliseconds: 150);
+  Duration get fastReverseDuration => AppDurations.ms150;
 
   /// 🧼 Disposes the animation controller
   // Releases internal resources and resets state

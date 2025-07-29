@@ -21,7 +21,7 @@ class _AnimatedOverlayWidget extends HookWidget {
   Widget build(BuildContext context) {
     //
     final animationController = useAnimationController(
-      duration: const Duration(milliseconds: 600),
+      duration: AppDurations.ms600,
     )..forward();
 
     final opacity = animationController.drive(

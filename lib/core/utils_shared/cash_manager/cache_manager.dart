@@ -1,3 +1,5 @@
+import '../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
+
 part 'cache_items.dart';
 
 /// 🧩 [CacheManager] — Universal, type-safe in-memory cache for repositories
@@ -20,7 +22,7 @@ final class CacheManager<T, K> {
   final Duration _ttl;
 
   /// Creates cache manager with optional TTL (default: 5 min)
-  CacheManager({Duration? ttl}) : _ttl = ttl ?? const Duration(minutes: 5);
+  CacheManager({Duration? ttl}) : _ttl = ttl ?? AppDurations.min10;
   //
 
   /// 🚀 Runs async operation with full caching & in-flight protection

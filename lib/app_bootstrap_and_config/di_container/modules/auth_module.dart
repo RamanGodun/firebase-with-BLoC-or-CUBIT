@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
-import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/get_it_x.dart';
+import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/x_on_get_it.dart';
 import '../../../core/utils_shared/auth_state/auth_cubit.dart';
 import '../../../features/auth/data/auth_repo_implementations/sign_in_repo_impl.dart';
 import '../../../features/auth/data/auth_repo_implementations/sign_out_repo_impl.dart';
@@ -12,7 +12,7 @@ import '../../../features/auth/domain/use_cases/sign_out.dart';
 import '../../../features/auth/domain/use_cases/sign_up.dart';
 import '../../../features/auth/presentation/sign_out/sign_out_cubit/sign_out_cubit.dart';
 import '../core/di_module_interface.dart';
-import '../di_container.dart';
+import '../di_container_initializaion.dart';
 import 'firebase_module.dart';
 
 final class AuthModule implements DIModule {
@@ -24,7 +24,6 @@ final class AuthModule implements DIModule {
   ///
   @override
   List<Type> get dependencies => [FirebaseModule];
-  //
 
   ///
   @override

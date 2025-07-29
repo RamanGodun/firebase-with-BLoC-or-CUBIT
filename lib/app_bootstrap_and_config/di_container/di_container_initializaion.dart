@@ -11,6 +11,7 @@ import 'modules/profile_module.dart';
 import 'modules/theme_module.dart';
 
 /// 💠 Global [GetIt] instance used as service locator across the app
+// /
 final di = GetIt.instance;
 
 ////
@@ -31,16 +32,18 @@ abstract final class DIContainer {
     await ModuleManager.registerModules([
       //
       ThemeModule(),
-
+      //
       FirebaseModule(),
+      //
       AuthModule(),
-      ProfileModule(),
       EmailVerificationModule(),
-
+      //
+      ProfileModule(),
+      //
       PasswordModule(),
-
+      //
       OverlaysModule(),
-
+      //
       FormFieldsModule(),
 
       //

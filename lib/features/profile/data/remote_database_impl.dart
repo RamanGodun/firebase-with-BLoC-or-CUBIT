@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart' show CollectionReference;
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
-import '../../../app_bootstrap_and_config/app_configs/firebase/data_source_constants.dart';
+import '../../../app_bootstrap_and_config/app_configs/firebase/firebase_constants.dart';
 import 'remote_database_contract.dart';
 
 /// 🛠️ [ProfileRemoteDatabaseImpl] — Firestore implementation of [IProfileRemoteDatabase]

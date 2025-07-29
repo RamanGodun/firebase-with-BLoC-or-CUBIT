@@ -1,10 +1,11 @@
 library;
 
 /// 📱 Platform-specific requirements
-
+//
 final class PlatformConstants {
-  ///--------------------------
+  ///-----------------------
   PlatformConstants._();
+  //
 
   /// 📱 Minimum Android SDK version supported
   static const int minSdkVersion = 24;

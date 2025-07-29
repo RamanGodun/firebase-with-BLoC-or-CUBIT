@@ -1,7 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/utils/observers/loggers/failure_logger_x.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import '../../../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
 import '../../../../../core/base_modules/form_fields/input_validation/validation_enums.dart';
 import '../../../../../core/base_modules/form_fields/input_validation/formz_status_x.dart';
 import '../../../../../core/base_modules/errors_handling/failures/failure_entity.dart';
@@ -21,8 +23,8 @@ final class ResetPasswordCubit extends Cubit<ResetPasswordState> {
   //
   final PasswordRelatedUseCases _useCases;
   final FormValidationService _validation;
-  final _debouncer = Debouncer(const Duration(milliseconds: 200));
-  final _submitDebouncer = Debouncer(const Duration(milliseconds: 600));
+  final _debouncer = Debouncer(AppDurations.ms180);
+  final _submitDebouncer = Debouncer(AppDurations.ms600);
 
   ResetPasswordCubit(this._useCases, this._validation)
     : super(const ResetPasswordState());
@@ -51,9 +53,11 @@ final class ResetPasswordCubit extends Cubit<ResetPasswordState> {
       //
       ResultHandlerAsync(result)
         ..onSuccessAsync((_) {
+          debugPrint('✅ Reset password link sent');
           emit(state._copyWith(status: FormzSubmissionStatus.success));
         })
         ..onFailureAsync((f) {
+          debugPrint('❌ Reset password failed: ${f.runtimeType}');
           emit(
             state._copyWith(
               status: FormzSubmissionStatus.failure,
@@ -68,26 +72,30 @@ final class ResetPasswordCubit extends Cubit<ResetPasswordState> {
 
   ///
 
+  /// 🧽 Resets the failure after it’s been consumed
+  void clearFailure() => emit(state._copyWith(failure: null));
+
   /// 🔄 Resets only the submission status (used after dialogs)
   void resetStatus() {
     emit(state._copyWith(status: FormzSubmissionStatus.initial));
   }
 
-  /// 🧽 Resets the failure after it’s been consumed
-  void clearFailure() => emit(state._copyWith(failure: null));
+  /// 🧼 Cancels all pending debounce operations
+  void _cancelDebouncers() {
+    _debouncer.cancel(); // 🧯 prevent delayed emit from old email input
+    _submitDebouncer.cancel(); // 🧯 prevent accidental double submit
+  }
 
-  /// 🧼 Resets the entire form to initial state
+  /// ♻️ Resets the full state to initial
   void resetState() {
-    _debouncer.cancel();
-    _submitDebouncer.cancel();
+    _cancelDebouncers();
     emit(const ResetPasswordState());
   }
 
-  ///
+  /// 🧼 Cleans up resources on close
   @override
   Future<void> close() {
-    _debouncer.cancel();
-    _submitDebouncer.cancel();
+    _cancelDebouncers();
     return super.close();
   }
 
