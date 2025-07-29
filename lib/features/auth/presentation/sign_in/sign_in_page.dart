@@ -21,6 +21,7 @@ import '../../../../core/base_modules/overlays/core/enums_for_overlay_module.dar
 import '../../../../core/base_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import '../../../../core/base_modules/overlays/utils/overlay_utils.dart';
 import '../../../../core/base_modules/theme/ui_constants/_app_constants.dart';
+import '../../../../core/base_modules/theme/ui_constants/app_colors.dart';
 import '../../../../core/shared_presentation_layer/widgets_shared/buttons/form_submit_button.dart';
 import '../../../../core/shared_presentation_layer/widgets_shared/buttons/text_button.dart';
 import '../../../../core/utils_shared/spider/images_paths.dart';
@@ -136,7 +137,7 @@ final class SignInPageView extends HookWidget {
                       const SizedBox(height: AppSpacing.l),
 
                       /// 🔁 Link to redirect to sign-up screen
-                      const _RedirectToSignUpButton(),
+                      const _SignInFooter(),
                     ],
                   ).centered(),
             ),

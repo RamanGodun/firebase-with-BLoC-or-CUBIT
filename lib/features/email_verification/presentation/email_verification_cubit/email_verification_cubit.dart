@@ -34,7 +34,7 @@ final class EmailVerificationCubit extends Cubit<EmailVerificationState> {
   void _startPolling() {
     _pollingTimer?.cancel();
     _pollingTimer = Timer.periodic(
-      const Duration(seconds: 3),
+      const Duration(seconds: 300),
       (_) => checkVerified(),
     );
   }

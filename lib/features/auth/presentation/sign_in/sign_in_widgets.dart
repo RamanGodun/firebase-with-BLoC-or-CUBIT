@@ -125,12 +125,12 @@ final class _SubmitButton extends StatelessWidget {
 
 ////
 
-/// 🔁 [_RedirectToSignUpButton] — Button to navigate to the sign-up screen
+/// 🔁 [_SignInFooter] — Button to navigate to the sign-up screen
 /// ✅ Disabled during form submission or overlay
 //
-final class _RedirectToSignUpButton extends StatelessWidget {
+final class _SignInFooter extends StatelessWidget {
   ///------------------------------------------------------
-  const _RedirectToSignUpButton();
+  const _SignInFooter();
 
   @override
   Widget build(BuildContext context) {
@@ -144,10 +144,21 @@ final class _RedirectToSignUpButton extends StatelessWidget {
       builder: (context, isLoading) {
         final isEnabled = !isLoading && !isOverlayActive;
 
-        return AppTextButton(
-          label: LocaleKeys.buttons_redirect_to_sign_up,
-          isEnabled: isEnabled,
-          onPressed: () => context.goPushTo(RoutesNames.signUp),
+        return Column(
+          children: [
+            AppTextButton(
+              label: LocaleKeys.buttons_redirect_to_sign_up,
+              isEnabled: isEnabled,
+              onPressed: () => context.goPushTo(RoutesNames.signUp),
+            ),
+            const SizedBox(height: AppSpacing.l),
+
+            AppTextButton(
+              onPressed: () => context.goPushTo(RoutesNames.resetPassword),
+              label: LocaleKeys.sign_in_forgot_password,
+              foregroundColor: AppColors.forErrors,
+            ),
+          ],
         );
       },
     );

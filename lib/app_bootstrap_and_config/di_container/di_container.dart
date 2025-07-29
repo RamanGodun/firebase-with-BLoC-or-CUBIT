@@ -6,6 +6,7 @@ import 'modules/email_verification.dart';
 import 'modules/firebase_module.dart';
 import 'modules/form_fields_module.dart';
 import 'modules/overlays_module.dart';
+import 'modules/password_module.dart';
 import 'modules/profile_module.dart';
 import 'modules/theme_module.dart';
 
@@ -35,6 +36,8 @@ abstract final class DIContainer {
       AuthModule(),
       ProfileModule(),
       EmailVerificationModule(),
+
+      PasswordModule(),
 
       OverlaysModule(),
 

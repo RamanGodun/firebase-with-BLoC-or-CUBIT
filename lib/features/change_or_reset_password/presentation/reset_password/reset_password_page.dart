@@ -1,25 +1,94 @@
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/failures/extensions/to_ui_failure_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/form_fields/input_validation/formz_status_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/navigation/extensions/navigation_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_context_x_for_overlays.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_overlay_base_methods.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:formz/formz.dart' show FormzSubmissionStatus;
+import '../../../../app_bootstrap_and_config/di_container/di_container.dart';
+import '../../../../core/base_modules/form_fields/input_validation/validation_enums.dart';
+import '../../../../core/base_modules/form_fields/utils/_form_validation_service.dart';
+import '../../../../core/base_modules/form_fields/utils/use_auth_focus_nodes.dart';
+import '../../../../core/base_modules/form_fields/widgets/_fields_factory.dart';
 import '../../../../core/base_modules/localization/widgets/text_widget.dart';
+import '../../../../core/base_modules/navigation/app_routes/app_routes.dart';
 import '../../../../core/base_modules/theme/ui_constants/_app_constants.dart';
+import '../../../../core/shared_presentation_layer/widgets_shared/buttons/form_submit_button.dart';
+import '../../../../core/shared_presentation_layer/widgets_shared/buttons/text_button.dart';
 import '../../../../core/utils_shared/extensions/context_extensions/_context_extensions.dart';
 import '../../../../core/base_modules/localization/generated/locale_keys.g.dart';
+import '../../domain/password_actions_use_case.dart';
+import 'cubits/reset_password_cubit.dart';
 
 part 'widgets_for_reset_password_page.dart';
 
-/// 🔐 [ResetPasswordPage] — screen that allows user to request password reset
-/// 📩 Sends reset link to user's email using [ResetPasswordProvider]
+/// 🔐 [ResetPasswordPage] — allows user to request password reset
 //
 final class ResetPasswordPage extends StatelessWidget {
-  ///------------------------------------------
+  ///---------------------------------------
   const ResetPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     //
-    // 👂 Declarative listener for success/failure
-    // ref.listenToResetPassword(context);
+    return BlocProvider(
+      create:
+          (_) => ResetPasswordCubit(
+            di<PasswordRelatedUseCases>(),
+            di<FormValidationService>(),
+          ),
+      child: MultiBlocListener(
+        listeners: [
+          /// ❌ Error Listener
+          BlocListener<ResetPasswordCubit, ResetPasswordState>(
+            listenWhen:
+                (prev, curr) =>
+                    prev.status != curr.status &&
+                    curr.status.isSubmissionFailure,
+            listener: (context, state) {
+              final error = state.failure?.consume();
+              if (error != null) {
+                context.showError(error.toUIEntity());
+                context.read<ResetPasswordCubit>().clearFailure();
+              }
+            },
+          ),
 
+          /// ✅ Success Listener
+          BlocListener<ResetPasswordCubit, ResetPasswordState>(
+            listenWhen:
+                (prev, curr) =>
+                    prev.status != curr.status &&
+                    curr.status.isSubmissionSuccess,
+            listener: (context, state) {
+              context.showBanner(
+                message: 'LocaleKeys.reset_password_success_message',
+              );
+              // 🧭 Navigation after success
+              context.goTo(RoutesNames.signIn);
+            },
+          ),
+        ],
+
+        child: const _ResetPasswordView(),
+      ),
+    );
+  }
+}
+
+/// 🔐 [_ResetPasswordView] — screen that allows user to request password reset
+/// 📩 Sends reset link to user's email using [ResetPasswordProvider]
+//
+final class _ResetPasswordView extends StatelessWidget {
+  ///------------------------------------------
+  const _ResetPasswordView();
+
+  @override
+  Widget build(BuildContext context) {
+    //
     return Scaffold(
       body: SafeArea(
         child: GestureDetector(
@@ -30,13 +99,13 @@ final class ResetPasswordPage extends StatelessWidget {
               //
               _ResetPasswordHeader(),
 
-              // _ResetPasswordEmailInputField(),
+              _ResetPasswordEmailInputField(),
               SizedBox(height: AppSpacing.huge),
 
-              // _ResetPasswordSubmitButton(),
+              _ResetPasswordSubmitButton(),
               SizedBox(height: AppSpacing.xxxs),
 
-              // _ResetPasswordFooter(),
+              _ResetPasswordFooter(),
             ],
           ).withPaddingHorizontal(AppSpacing.l),
         ),
@@ -44,42 +113,3 @@ final class ResetPasswordPage extends StatelessWidget {
     );
   }
 }
-
-////
-
-////
-
-// /// 🛡️ [ResetPasswordRefX] — extension for WidgetRef to handle Reset Password side-effects.
-// /// Handles submission and listens for result feedback (success/error).
-// //
-// extension ResetPasswordRefX on WidgetRef {
-//   //
-//   /// Encapsulates success and error handling for the reset password process.
-//   ///   - ✅ On success: shows success snackbar and navigates to Sign In page.
-//   ///   - ❌ On failure: shows localized error.
-//   void listenToResetPassword(BuildContext context) {
-//     final showSnackbar = context.showUserSnackbar;
-
-//     listen<AsyncValue<void>>(resetPasswordProvider, (prev, next) {
-//       next.whenOrNull(
-//         // ✅ On success
-//         data: (_) {
-//           showSnackbar(message: LocaleKeys.reset_password_success.tr());
-//           context.goIfMounted(RoutesNames.signIn);
-//         },
-//         // ❌ On error
-//         error: (error, _) => context.showError((error as Failure).toUIEntity()),
-//       );
-//     });
-//   }
-
-//   ////
-
-//   /// 📤 Submits the password reset request using the current form state.
-//   void submitResetPassword() {
-//     final form = read(resetPasswordFormProvider);
-//     read(resetPasswordProvider.notifier).resetPassword(email: form.email.value);
-//   }
-
-//   //
-// }
