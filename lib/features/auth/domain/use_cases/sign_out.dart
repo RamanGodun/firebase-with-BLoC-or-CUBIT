@@ -1,4 +1,4 @@
-import '../../../../core/utils_shared/typedef.dart';
+import '../../../../core/utils_shared/type_definitions.dart';
 import '../repo_contracts.dart';
 
 /// 📦 [SignOutUseCase] — Handles sign-out logic via [ISignOutRepo]

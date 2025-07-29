@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 /// 🧠 [useSignUpFocusNodes] — Hook that returns a named record of [FocusNode]s
 /// for use in authentication forms (e.g. sign up, login).
 /// Ensures consistent focus handling across fields.
-
+//
 ({
   FocusNode name,
   FocusNode email,
@@ -26,7 +26,6 @@ useSignUpFocusNodes() {
 }
 
 ////
-
 ////
 
 ({FocusNode email, FocusNode password}) useSignInFocusNodes() {
@@ -34,4 +33,23 @@ useSignUpFocusNodes() {
   final password = useFocusNode();
 
   return (email: email, password: password);
+}
+
+////
+////
+
+({FocusNode password, FocusNode confirmPassword})
+useChangePasswordFocusNodes() {
+  final password = useFocusNode();
+  final confirmPassword = useFocusNode();
+
+  return (password: password, confirmPassword: confirmPassword);
+}
+
+////
+////
+
+({FocusNode email}) useResetPasswordFocusNodes() {
+  final email = useFocusNode();
+  return (email: email);
 }

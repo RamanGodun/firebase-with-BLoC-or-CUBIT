@@ -178,7 +178,7 @@ final class _SubmitButton extends StatelessWidget {
     //
     return FormSubmitButton<SignUpCubit, SignUpState>(
       label: LocaleKeys.buttons_sign_up,
-      onSubmit: (context) {
+      onPressed: (context) {
         context.unfocusKeyboard;
         context.read<SignUpCubit>().submit();
       },

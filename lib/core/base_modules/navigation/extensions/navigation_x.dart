@@ -58,5 +58,12 @@ extension NavigationX on BuildContext {
     ).pushReplacement<T, T>(MaterialPageRoute(builder: (_) => child));
   }
 
+  /// 🧭 Navigates to the given [route] only if [BuildContext] is still mounted.
+  /// - Prevents navigation errors after widget disposal (e.g., after async operations).
+  /// - Safe to call in any async callback or state listener.
+  void goIfMounted(String route) {
+    if (mounted) goTo(route);
+  }
+
   //
 }

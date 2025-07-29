@@ -1,4 +1,4 @@
-import '../../../core/utils_shared/typedef.dart';
+import '../../../core/utils_shared/type_definitions.dart';
 
 /// 🔐 [ISignInRepo] — contract for signing in user with email/password
 //

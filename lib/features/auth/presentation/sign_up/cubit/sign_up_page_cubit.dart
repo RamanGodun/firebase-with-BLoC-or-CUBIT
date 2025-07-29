@@ -9,7 +9,7 @@ import 'package:formz/formz.dart';
 import '../../../../../core/base_modules/errors_handling/failures/failure_entity.dart';
 import '../../../../../core/base_modules/errors_handling/utils/for_bloc/result_handler_async.dart';
 import '../../../../../core/base_modules/form_fields/utils/_form_validation_service.dart';
-import '../../../../../core/base_modules/form_fields/input_validation/_validation_enums.dart';
+import '../../../../../core/base_modules/form_fields/input_validation/validation_enums.dart';
 import '../../../domain/use_cases/sign_up.dart';
 import '../../../../../core/utils_shared/timing_control/debouncer.dart';
 import '../../../../../core/base_modules/form_fields/input_validation/formz_status_x.dart';

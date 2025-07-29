@@ -2,7 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/ut
 import 'package:firebase_with_bloc_or_cubit/core/shared_data_layer/user_data_transfer_objects/user_dto_x.dart';
 
 import '../../../../core/shared_data_layer/user_data_transfer_objects/user_dto_factories_x.dart';
-import '../../../../core/utils_shared/typedef.dart';
+import '../../../../core/utils_shared/type_definitions.dart';
 import '../../domain/repo_contracts.dart';
 import '../data_source_contract.dart';
 

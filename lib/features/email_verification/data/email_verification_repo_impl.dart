@@ -1,5 +1,5 @@
 import '../../../core/base_modules/errors_handling/utils/failure_handling.dart';
-import '../../../core/utils_shared/typedef.dart';
+import '../../../core/utils_shared/type_definitions.dart';
 import '../domain/repo_contract.dart';
 import 'remote_database_contract.dart';
 

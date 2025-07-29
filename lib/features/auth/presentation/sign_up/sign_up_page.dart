@@ -22,11 +22,11 @@ import '../../../../core/utils_shared/spider/images_paths.dart';
 import '../../../../core/base_modules/theme/ui_constants/_app_constants.dart'
     show AppSpacing;
 import '../../../../core/shared_presentation_layer/widgets_shared/buttons/text_button.dart';
-import '../../../../core/base_modules/form_fields/input_validation/_validation_enums.dart';
+import '../../../../core/base_modules/form_fields/input_validation/validation_enums.dart';
 import '../../../../core/base_modules/form_fields/widgets/_fields_factory.dart';
-import '../../../../core/shared_presentation_layer/widgets_shared/buttons/filled_button.dart';
+import '../../../../core/shared_presentation_layer/widgets_shared/buttons/form_submit_button.dart';
 import '../../../../core/base_modules/form_fields/widgets/password_visibility_icon.dart';
-import '../../../../core/utils_shared/typedef.dart';
+import '../../../../core/utils_shared/type_definitions.dart';
 
 part 'sign_up_widgets.dart';
 
