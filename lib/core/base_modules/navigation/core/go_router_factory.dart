@@ -5,8 +5,9 @@ import '../app_routes/app_routes.dart';
 import '../utils/overlays_cleaner_within_navigation.dart';
 import 'routes_redirection_service.dart';
 
-/// 🧭 [buildGoRouter] — Фабрика GoRouter. Створює роутер залежно від актуального [AuthState].
-/// ✅ Жодних refreshListenable. Все декларативно!
+/// 🧭🚦[buildGoRouter] — GoRouter factory. Returns fully constructed [GoRouter] instance
+/// ✅ Declaratively creates router in dependence of actual [authState].
+//
 GoRouter buildGoRouter(AuthState authState) {
   return GoRouter(
     /// 👁️ Observers — navigation side-effects (e.g., dismissing overlays)
@@ -14,6 +15,8 @@ GoRouter buildGoRouter(AuthState authState) {
 
     /// 🐞 Enable verbose logging for GoRouter (only active in debug mode)
     debugLogDiagnostics: true,
+
+    ////
 
     /// ⏳ Initial route shown on app launch (Splash Screen)
     initialLocation: RoutesPaths.splash,
@@ -24,9 +27,7 @@ GoRouter buildGoRouter(AuthState authState) {
     /// ❌ Fallback UI for unknown/unmatched routes
     errorBuilder:
         (context, state) => PageNotFound(errorMessage: state.error.toString()),
-
-    /// 🔁 Triggers route evaluation when `authState` changes
-    // refreshListenable: GoRouterRefresher(authCubit.stream),
+    //
 
     /// 🧭 Global redirect handler — routes user depending on auth state
     redirect:

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../base_modules/errors_handling/failures/failure_entity.dart';
 import '../../base_modules/errors_handling/utils/for_bloc/consumable.dart';
-import '../../base_modules/localization/app_localizer.dart';
+import '../../base_modules/localization/init_localization.dart';
 import '../../base_modules/localization/generated/locale_keys.g.dart';
 import '../../base_modules/overlays/core/enums_for_overlay_module.dart';
 import '../../base_modules/overlays/utils/overlay_utils.dart';

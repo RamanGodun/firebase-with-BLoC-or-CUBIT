@@ -1,14 +1,14 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/theme/extensions/theme_x.dart';
 import 'package:flutter/material.dart';
 import '../../theme/ui_constants/app_colors.dart';
-import '../app_localizer.dart';
+import '../init_localization.dart';
 
 /// 📝 [TextWidget] — Custom Text widget with dynamic styling options.
 /// Supports all native typography variants + additional decorations.
-
+//
 final class TextWidget extends StatelessWidget {
   ///------------------------------------------
-
+  //
   final String value;
   final TextType? textType;
   final String? fallback;
@@ -41,8 +41,7 @@ final class TextWidget extends StatelessWidget {
     this.isTextOnFewStrings,
     this.isUnderlined,
   });
-
-  ///
+  //
 
   @override
   Widget build(BuildContext context) {

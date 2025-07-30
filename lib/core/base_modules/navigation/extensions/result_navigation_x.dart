@@ -5,7 +5,7 @@ import '../../errors_handling/either/either.dart';
 
 /// 🚦 [ResultNavigationExt] — Provides `.redirectIfSuccess()` for sync and async results
 /// ✅ Helps trigger side effects like navigation in success flow
-
+//
 extension ResultNavigationExt<T> on Either<Failure, T> {
   ///---------------------------------------------------
   //

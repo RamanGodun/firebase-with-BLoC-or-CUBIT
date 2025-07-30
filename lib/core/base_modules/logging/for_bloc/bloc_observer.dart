@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 ///           - ➡️ onTransition (only for BLoC)
 ///           - ❌ onError
 ///           - 🔴 onClose
-
+//
 final class AppBlocObserver extends BlocObserver {
   ///--------------------------------------------
   const AppBlocObserver();

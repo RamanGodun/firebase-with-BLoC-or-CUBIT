@@ -1,5 +1,7 @@
 /// * 📄[AppStrings] centralized place for all app text constants.
+//
 abstract final class AppStrings {
+  ///-------------------------
   const AppStrings._();
 
   ///

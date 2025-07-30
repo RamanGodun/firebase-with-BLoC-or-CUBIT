@@ -15,7 +15,7 @@ part 'route_paths.dart';
 
 /// 🧭 [AppRoutes] — Centralized list of all GoRouter routes
 /// ✅ Used in [goRouter] and matches [RoutesNames]
-
+//
 abstract final class AppRoutes {
   ///-------------------------
   AppRoutes._();

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../ui_constants/_app_constants.dart' show AppIcons;
 import '../../../localization/generated/locale_keys.g.dart';
-import '../../../localization/app_localizer.dart';
+import '../../../localization/init_localization.dart';
 import '../../theme_cubit.dart' show AppThemeCubit;
 
 /// 🌗 [ThemeTogglerIcon] — toggles between light and dark mode and shows localized message.

@@ -4,9 +4,9 @@ import '../app_routes/app_routes.dart';
 
 /// 🧭 [NavigationX] — Adds concise navigation helpers for [GoRouter] & [Navigator]
 /// ✅ Improves DX with named routes, push/pop, and fallback handling
-
+//
 extension NavigationX on BuildContext {
-  //----------------------------------
+  ///-------------------------------
 
   /// 🚀 Go to a named route (replaces current stack)
   void goTo(

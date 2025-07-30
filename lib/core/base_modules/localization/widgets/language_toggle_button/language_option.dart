@@ -1,26 +1,28 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/localization/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-import '../../theme/ui_constants/app_colors.dart';
-import '../../theme/ui_constants/_app_constants.dart';
-import '../generated/locale_keys.g.dart';
+import '../../../theme/ui_constants/app_colors.dart';
+import '../../../theme/ui_constants/_app_constants.dart';
+import '../../generated/locale_keys.g.dart';
 
 /// 🌐🌍 Enum describing supported app languages with metadata
-
+//
 enum LanguageOption {
-  // ---------------
-
+  ///-------------
+  //
   en(
     Locale('en'),
     '🇬🇧',
     LocaleKeys.languages_switched_to_en,
     'Change to English',
   ),
+  //
   uk(
     Locale('uk'),
     '🇺🇦',
     LocaleKeys.languages_switched_to_ua,
     'Змінити на українську',
   ),
+  //
   pl(
     Locale('pl'),
     '🇵🇱',

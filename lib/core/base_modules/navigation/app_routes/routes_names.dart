@@ -2,7 +2,7 @@ part of 'app_routes.dart';
 
 /// 🏷️ [RoutesNames] — Centralized route name constants used across the app
 /// ✅ Used in GoRouter config, navigation logic, and redirection guards
-
+//
 abstract final class RoutesNames {
   ///----------------------------
   RoutesNames._();
@@ -31,9 +31,6 @@ abstract final class RoutesNames {
 
   /// 🛠 Change Password Page
   static const changePassword = 'changePassword';
-
-  /// 🔑 Re-authentication Page (e.g. before changing password)
-  static const String reAuthentication = 'reAuthenticationPage';
 
   /// ❌ Fallback Error Page (e.g. 404)
   static const pageNotFound = 'pageNotFound';

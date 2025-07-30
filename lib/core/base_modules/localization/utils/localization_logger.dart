@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 
 /// 🌐 [LocalizationLogger] – Utility logger for localization-related events.
 /// Used for logging missing keys, fallback resolutions, and i18n diagnostics.
-
+//
 abstract final class LocalizationLogger {
-  //------------------------------------
+  ///---------------------------------
   const LocalizationLogger._();
   //
 

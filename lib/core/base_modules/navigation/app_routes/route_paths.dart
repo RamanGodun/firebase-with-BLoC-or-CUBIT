@@ -2,9 +2,9 @@ part of 'app_routes.dart';
 
 /// 📍 [RoutesPaths] — Centralized absolute paths used in routing
 /// ✅ All paths are `/...` versions of [RoutesNames] and used in GoRouter config and redirects
-
+//
 abstract final class RoutesPaths {
-  //----------------------------
+  ///--------------------------
   RoutesPaths._();
   //
 
@@ -16,7 +16,6 @@ abstract final class RoutesPaths {
   static const signUp = '/${RoutesNames.signUp}';
   static const resetPassword = '/${RoutesNames.resetPassword}';
   static const verifyEmail = '/${RoutesNames.verifyEmail}';
-  static const reAuthentication = '/${RoutesNames.reAuthentication}';
 
   /// 🏠 Main App Route (root)
   static const home = '/${RoutesNames.home}';

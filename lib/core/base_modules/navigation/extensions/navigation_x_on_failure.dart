@@ -4,7 +4,7 @@ import '../../errors_handling/failures/failure_entity.dart';
 
 /// 🧭 [FailureNavigationX] — Handles redirection/navigation scenarios based on failure type
 /// ✅ Recommended for handling auth/navigation flows declaratively
-
+//
 extension FailureNavigationX on Failure {
   /// -----------------------------------
   //
