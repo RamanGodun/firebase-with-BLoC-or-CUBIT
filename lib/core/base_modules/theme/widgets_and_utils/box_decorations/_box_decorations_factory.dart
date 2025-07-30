@@ -12,7 +12,7 @@ part 'ios_buttons_bd.dart';
 /// 🧬 [BoxDecorationFactory] — Centralized entry point for theme-based [BoxDecoration]
 /// 📦 Provides access to iOS/Android-specific box decorations
 /// Used across overlay components and modals
-
+//
 sealed class BoxDecorationFactory {
   /// ────────────────────────────
   const BoxDecorationFactory._();

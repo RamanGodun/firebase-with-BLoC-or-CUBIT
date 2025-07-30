@@ -1,6 +1,6 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_overlay_base_methods.dart';
 import 'package:flutter/material.dart';
-import '../../../../app_bootstrap_and_config/di_container/di_container_initializaion.dart';
+import '../../../../app_bootstrap_and_config/di_container/di_container_init.dart';
 import '../../errors_handling/failures/failure_ui_model.dart';
 import '../../localization/app_localizer.dart';
 import '../../localization/generated/locale_keys.g.dart';
@@ -10,14 +10,13 @@ import 'enums_for_overlay_module.dart';
 
 /// 🎯 [ContextXForOverlays] — Unified extension for overlay DSL and dispatcher access
 /// ✅ Use `context.showSnackbar(...)` / `context.showBanner(...)` directly
-
+//
 extension ContextXForOverlays on BuildContext {
   ///----------------------------------------
-
+  //
   /// 🔌 Lazily access the shared [IOverlayDispatcher] via DI container
   OverlayDispatcher get dispatcher => di<OverlayDispatcher>();
-
-  ////
+  //
 
   /// 🧠 Handles displaying [FailureUIEntity] as banner/snackbar/dialog
   /// 📌 Uses [OverlayUIPresets] and [ShowAs] to configure appearance and behavior

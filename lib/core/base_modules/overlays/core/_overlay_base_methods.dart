@@ -8,7 +8,7 @@ import '../overlay_dispatcher/overlay_entries/_overlay_entries_registry.dart';
 import 'enums_for_overlay_module.dart';
 import 'platform_mapper.dart';
 import '../overlays_presentation/overlay_presets/overlay_presets.dart';
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/animation/overlays_animation/animation_engines/android_animation_engine/_get_engine_context_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/animation/overlays_animation/animation_engines/android_animation_engine/_engine_mapper_x_on_context.dart';
 
 /// 🎯 [OverlayBaseMethods] — Unified extension for low-level overlay
 ///  rendering methods (showBanner, showDialog, showSnackbar)

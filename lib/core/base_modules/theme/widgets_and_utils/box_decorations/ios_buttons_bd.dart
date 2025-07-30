@@ -2,6 +2,7 @@ part of '_box_decorations_factory.dart';
 
 /// 🍏 [IOSButtonsDecoration] — Apple-style filled buttons with blur + glass effect
 /// Used for CustomFilledButton or similar adaptive elements
+//
 final class IOSButtonsDecoration {
   /// ───────────────────────────────
   const IOSButtonsDecoration._();

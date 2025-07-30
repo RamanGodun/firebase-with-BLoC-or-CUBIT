@@ -9,7 +9,7 @@ import '../../core/base_modules/localization/app_localizer.dart';
 import '../../core/base_modules/logging/for_bloc/bloc_observer.dart';
 import 'remote_db_init.dart';
 import 'platform_validation.dart';
-import '../di_container/di_container_initializaion.dart';
+import '../di_container/di_container_init.dart';
 
 part 'bootstrap_interface.dart';
 

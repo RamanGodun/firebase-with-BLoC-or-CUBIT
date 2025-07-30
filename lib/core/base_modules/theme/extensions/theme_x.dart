@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 /// 🎨 [ThemeXOnContext] — Theme-related extensions on [BuildContext]
 /// ✅ Simplifies access to [ThemeData], [ColorScheme], [TextTheme], and brightness
-
+//
 extension ThemeXOnContext on BuildContext {
-  //-----------------------------------
+  ///------------------------------------
 
   /// 🎨 Full [ThemeData] object
   ThemeData get theme => Theme.of(this);
@@ -21,8 +21,5 @@ extension ThemeXOnContext on BuildContext {
   /// 📱 Short-hand platform access for UI entries
   TargetPlatform get platform => theme.platform;
 
-  /// 🔘 Access to current [FilledButtonThemeData]
-  FilledButtonThemeData get filledButtonTheme =>
-      Theme.of(this).filledButtonTheme;
   //
 }

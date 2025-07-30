@@ -4,13 +4,13 @@ import 'text_theme/text_theme_factory.dart';
 import 'ui_constants/_app_constants.dart';
 import 'ui_constants/app_colors.dart';
 
-part 'build_theme_x.dart';
+part 'theme_builder_x.dart';
 
 /// 🎨 [ThemeVariantsEnum] — Enhanced enum that defines full theme variants
 /// ✅ Used to generate [ThemeData] dynamically
-
+//
 enum ThemeVariantsEnum {
-  //---------------
+  ///-----------------
 
   light(
     brightness: Brightness.light,
@@ -72,8 +72,7 @@ enum ThemeVariantsEnum {
     font: AppFontFamily.sfPro,
   );
 
-  ////
-
+  ///
   final Brightness brightness;
   final Color background;
   final Color primaryColor;
@@ -91,6 +90,7 @@ enum ThemeVariantsEnum {
     required this.colorScheme,
     required this.font,
   });
+  //
 
   /// 🔘 True getter if dark theme
   bool get isDark => brightness == Brightness.dark;
@@ -103,7 +103,3 @@ enum ThemeVariantsEnum {
 
   //
 }
-
-////
-
-////

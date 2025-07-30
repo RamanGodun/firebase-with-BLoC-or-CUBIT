@@ -2,7 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_containe
 
 import '../../../core/base_modules/form_fields/utils/_form_validation_service.dart';
 import '../core/di_module_interface.dart';
-import '../di_container_initializaion.dart';
+import '../di_container_init.dart';
 
 ///  🔐 Registers form validation service
 //

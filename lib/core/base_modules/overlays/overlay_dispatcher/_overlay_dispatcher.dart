@@ -15,42 +15,37 @@ part 'policy_resolver.dart';
 /// - Resolving conflicts
 /// - Managing overlay insertion & dismissal
 /// - Centralized logging
-
+//
 final class OverlayDispatcher {
   ///------------------------
-
+  //
   final void Function(bool isActive)? onOverlayStateChanged;
   OverlayDispatcher({this.onOverlayStateChanged});
-
-  ///
+  ////
 
   // 📦 Queue to hold pending overlay requests
   final Queue<OverlayQueueItem> _queue = Queue();
-
   // 🎯 Currently visible overlay entry in the widget tree
   OverlayEntry? _activeEntry;
-
   // 📄 Metadata of the currently shown overlay (used for decisions)
   OverlayUIEntry? _activeRequest;
-
   // 🚦 Whether an overlay is currently being inserted
   bool _isProcessing = false;
-
   // 🔓 Whether the current overlay can be dismissed externally.
   bool get canBeDismissedExternally =>
       _activeRequest?.dismissPolicy == OverlayDismissPolicy.dismissible;
-
-  ///
+  //
 
   /// 📥 Adds a new request to the queue, resolves replacement/drop strategy
   void enqueueRequest(BuildContext context, OverlayUIEntry request) async {
     if (!context.mounted) return; // ✅ avoid insertion if context is dead
     OverlayLogger.show(request);
     final overlay = Overlay.of(context, rootOverlay: true);
-
+    //
     if (_activeRequest != null) {
       OverlayLogger.activeExists(_activeRequest);
-      // 🚫 Drop if strategy disallows same-type duplicates
+
+      /// 🚫 Drop if strategy disallows same-type duplicates
       final isSameType =
           request.runtimeType == _activeRequest.runtimeType &&
           request.strategy.policy == OverlayReplacePolicy.dropIfSameType;
@@ -58,8 +53,8 @@ final class OverlayDispatcher {
         OverlayLogger.droppedSameType();
         return;
       }
-
-      // 🔁 Replace if conflict strategy allows
+      //
+      /// 🔁 Replace if conflict strategy allows
       final shouldReplace = OverlayPolicyResolver.shouldReplaceCurrent(
         request,
         _activeRequest!,
@@ -73,11 +68,11 @@ final class OverlayDispatcher {
         return;
       }
     }
-
+    //
     _finalizeEnqueue(overlay, request);
   }
 
-  ///
+  ////
 
   /// 🧱 Finalizes the enqueue logic after replacement/drop resolution
   void _finalizeEnqueue(OverlayState overlay, OverlayUIEntry request) {
@@ -86,21 +81,22 @@ final class OverlayDispatcher {
     OverlayLogger.addedToQueue(_queue.length);
     _tryProcessQueue();
   }
+  //
 
   /// ▶️ Processes the first item in queue if no active entry.
   void _tryProcessQueue() {
     if (_isProcessing || _queue.isEmpty) return;
     _isProcessing = true;
-
+    //
     final item = _queue.removeFirst();
     _activeRequest = item.request;
-
-    // 🧠 Notify listeners overlay is shown
+    //
+    /// 🧠 Notify listeners overlay is shown
     onOverlayStateChanged?.call(true);
-
+    //
     final widget = item.request.buildWidget();
-
-    // 🧠 Apply centralized dismiss handling if AnimatedOverlayWrapper is used
+    //
+    /// 🧠 Apply centralized dismiss handling if AnimatedOverlayWrapper is used
     final processedWidget = widget.withDispatcherOverlayControl(
       onDismiss: () async {
         OverlayLogger.autoDismissed(_activeRequest);
@@ -110,8 +106,8 @@ final class OverlayDispatcher {
         _tryProcessQueue();
       },
     );
-
-    // Inserts new OverlayEntry with tap-through barrier.
+    //
+    /// Inserts new OverlayEntry with tap-through barrier.
     _activeEntry = OverlayEntry(
       builder:
           (ctx) => TapThroughOverlayBarrier(
@@ -125,10 +121,11 @@ final class OverlayDispatcher {
             child: processedWidget,
           ),
     );
-
+    //
     item.overlay.insert(_activeEntry!);
     OverlayLogger.inserted(_activeRequest);
   }
+  //
 
   /// ❌ Dismisses current overlay and clears queue if needed.
   Future<void> dismissCurrent({
@@ -151,7 +148,8 @@ final class OverlayDispatcher {
     }
     _activeEntry = null;
     _activeRequest = null;
-    // 🧠 Notify listeners overlay was dismissed
+    //
+    /// 🧠 Notify listeners overlay was dismissed
     onOverlayStateChanged?.call(false);
   }
 

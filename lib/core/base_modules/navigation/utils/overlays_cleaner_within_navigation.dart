@@ -1,18 +1,17 @@
 import 'package:flutter/widgets.dart';
-import '../../../../app_bootstrap_and_config/di_container/di_container_initializaion.dart';
+import '../../../../app_bootstrap_and_config/di_container/di_container_init.dart';
 import '../../overlays/overlay_dispatcher/_overlay_dispatcher.dart';
 
-/// 🧭 [OverlayNavigatorObserver] — Clears all overlays on navigation events
+/// 🧭 [OverlaysCleanerWithinNavigation] — Clears all overlays on navigation events
 /// ✅ Ensures that overlays (banners, snackbars, dialogs) do not persist
 /// ✅ Works with GoRouter, Navigator 2.0, or traditional Navigator
-
-final class OverlayNavigatorObserver extends NavigatorObserver {
+//
+final class OverlaysCleanerWithinNavigation extends NavigatorObserver {
   ///----------------------------------------------------------
 
   /// 📦 Reference to the overlay dispatcher (via GetIt)
   OverlayDispatcher get overlaysDispatcher => di<OverlayDispatcher>();
-
-  ///
+  //
 
   /// 🔁 Called when a new route is pushed onto the navigator
   @override

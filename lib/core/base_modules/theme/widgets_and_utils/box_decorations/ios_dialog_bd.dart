@@ -3,7 +3,7 @@ part of '_box_decorations_factory.dart';
 /// 🧊 [IOSDialogsDecoration] — Cupertino-style alert/dialog box
 /// 🍏 Soft glass appearance with themed border and shadow
 /// Optimized for fast retrieval via theme-based caching
-
+//
 final class IOSDialogsDecoration {
   /// ───────────────────────────
   const IOSDialogsDecoration._();

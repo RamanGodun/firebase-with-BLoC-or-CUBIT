@@ -7,7 +7,7 @@ import '../../../features/email_verification/domain/email_verification_use_case.
 import '../../../features/email_verification/domain/repo_contract.dart';
 import '../../../features/email_verification/presentation/email_verification_cubit/email_verification_cubit.dart';
 import '../core/di_module_interface.dart';
-import '../di_container_initializaion.dart';
+import '../di_container_init.dart';
 import 'auth_module.dart';
 import 'firebase_module.dart';
 

@@ -8,12 +8,11 @@ import 'android_animation_engine.dart';
 /// 🎯 [OverlayEngineX] — resolves the correct animation engine
 /// based on overlay category and platform.
 /// Clean, centralized switch logic for easy extendability.
-
+//
 extension OverlayEngineX on BuildContext {
   ///------------------------------------
 
   AnimationEngine getEngine(OverlayCategory type) {
-    //
     return switch ((type, platform)) {
       //
       // 🍎 iOS: use shared configurable engine

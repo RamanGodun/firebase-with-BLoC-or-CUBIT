@@ -2,9 +2,9 @@ part of 'overlay_service.dart';
 
 /// 🎭 [_AnimatedOverlayWidget] — fading & scaling animation for overlay content
 /// 🧼 Responsive, theme-aware, adaptive presentation
-
-class _AnimatedOverlayWidget extends HookWidget {
-  //---------------------------------------------
+// /
+final class _AnimatedOverlayWidget extends HookWidget {
+  ///-----------------------------------------------
 
   final String message;
   final IconData icon;

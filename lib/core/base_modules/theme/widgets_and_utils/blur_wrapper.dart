@@ -8,10 +8,10 @@ import '../ui_constants/_app_constants.dart';
 /// - Wraps child with ClipRRect + BackdropFilter
 /// - Uses `ShowAs` to resolve σX/σY or accepts direct override
 /// - Rounded by default to 14 (DLS-consistent)
-
+//
 final class BlurContainer extends StatelessWidget {
-  /// ────────────────────────────────────────────
-
+  ///──────────────────────────────────────────
+  //
   final Widget child;
   final BorderRadius borderRadius;
   // Optional override blur strength

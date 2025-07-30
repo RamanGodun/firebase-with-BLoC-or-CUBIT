@@ -2,9 +2,9 @@ part of '_overlay_entries_registry.dart';
 
 /// 💬 [DialogOverlayEntry] — DTO for Info/Error dialogs in state-driven flows
 /// ✅ Used by [OverlayDispatcher] to build animated platform dialogs
-
+//
 final class DialogOverlayEntry extends OverlayUIEntry {
-  // -------------------------------------------------
+  ///-----------------------------------------------
 
   final Widget widget;
   final bool isError; // ❗ Marks as an error (affects strategy and priority)

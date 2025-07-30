@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart'
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/x_on_get_it.dart';
 import '../core/di_module_interface.dart';
-import '../di_container_initializaion.dart';
+import '../di_container_init.dart';
 
 final class FirebaseModule implements DIModule {
   ///----------------------------------------

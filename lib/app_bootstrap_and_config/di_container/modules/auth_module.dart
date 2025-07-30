@@ -12,7 +12,7 @@ import '../../../features/auth/domain/use_cases/sign_out.dart';
 import '../../../features/auth/domain/use_cases/sign_up.dart';
 import '../../../features/auth/presentation/sign_out/sign_out_cubit/sign_out_cubit.dart';
 import '../core/di_module_interface.dart';
-import '../di_container_initializaion.dart';
+import '../di_container_init.dart';
 import 'firebase_module.dart';
 
 final class AuthModule implements DIModule {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// 🎨 [TextStyleX] — Utilities to modify [TextStyle] fluently
 /// ✅ Enables fluent, chainable style adjustments:
-
+//
 extension TextStyleX on TextStyle {
   ///-----------------------------
 

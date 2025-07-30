@@ -2,7 +2,7 @@ part of '_overlay_dispatcher.dart';
 
 /// 🎯 [OverlayPolicyResolver] — Static resolver for overlay conflict and dismiss policies
 /// ✅ Centralizes logic for priority-based replacement and dismissibility behavior
-
+//
 final class OverlayPolicyResolver {
   //-----------------------------
   const OverlayPolicyResolver._();
@@ -18,8 +18,7 @@ final class OverlayPolicyResolver {
     ///
     final n = next.strategy;
     final c = current.strategy;
-
-    ///
+    //
     return switch (n.policy) {
       //
       // Always replace current overlay, regardless of type or category
@@ -41,10 +40,14 @@ final class OverlayPolicyResolver {
     };
   }
 
+  ////
+
   /// ⏳ Determines if the incoming overlay should wait instead of showing immediately
   /// Relevant for [OverlayReplacePolicy.waitQueue].
   static bool shouldWait(OverlayUIEntry entry) =>
       entry.strategy.policy == OverlayReplacePolicy.waitQueue;
+
+  ////
 
   /// 📌 Maps a `bool` flag to corresponding [OverlayDismissPolicy].
   /// Returns [dismissible] if `true`, otherwise [persistent].
@@ -53,17 +56,23 @@ final class OverlayPolicyResolver {
           ? OverlayDismissPolicy.dismissible
           : OverlayDismissPolicy.persistent;
 
+  ////
+
   // 🔁 Map of debounce instances by overlay category
   // Ensures that banners/snackbars/dialogs debounce independently.
   static final Map<OverlayCategory, Debouncer> _categoryDebouncers = {};
+
+  ////
 
   // ⏱️ Predefined debounce durations for categories
   // Banners/snackbars usually need small delays; dialogs — instant.
   static final _defaultDebounceDurations = {
     OverlayCategory.banner: AppDurations.ms500,
-    OverlayCategory.snackbar: AppDurations.ms400,
+    OverlayCategory.snackbar: AppDurations.ms500,
     OverlayCategory.dialog: Duration.zero,
   };
+
+  ////
 
   // 🔁 Retrieves or creates a debouncer for given overlay category.
   // Used to prevent rapid re-triggering of overlays like banners/snackbars.
@@ -85,7 +94,7 @@ final class OverlayPolicyResolver {
 
 /// 📦 [OverlayQueueItem] — Internal holder for enqueued overlays.
 /// ✅ Binds [OverlayState] with a specific [OverlayUIEntry] for insertion.
-
+//
 final class OverlayQueueItem {
   ///-----------------------
   //

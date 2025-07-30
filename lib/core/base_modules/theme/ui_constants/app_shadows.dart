@@ -1,11 +1,15 @@
 part of '_app_constants.dart';
 
+/// 🎨 [AppShadows] — Centralized shadow presets for dialogs, cards, and buttons.
+///   ✅ Ensures consistent elevation and shadow across iOS, Android, and themes.
+///   ✅ Used in all major UI components for visual depth and modern look.
+//
 abstract final class AppShadows {
   ///----------------------------
   const AppShadows._();
   //
 
-  /// 🍏 Dialog-specific shadows
+  /// 🍏 [forIOSLightThemeDialog] — Shadow preset for dialogs on iOS (light theme).
   static const List<BoxShadow> forIOSLightThemeDialog = [
     BoxShadow(
       color: AppColors.overlayLightShadow,
@@ -15,6 +19,7 @@ abstract final class AppShadows {
     ),
   ];
 
+  /// 🍏 [forIOSDarkThemeDialog] — Shadow preset for dialogs on iOS (dark theme).
   static const List<BoxShadow> forIOSDarkThemeDialog = [
     BoxShadow(
       color: AppColors.overlayDarkShadow,
@@ -24,7 +29,7 @@ abstract final class AppShadows {
     ),
   ];
 
-  /// 📦 Shadows for Android dialog
+  /// 🤖 [forAndroidDarkThemeDialog] — Shadow preset for dialogs on Android (dark theme).
   static const List<BoxShadow> forAndroidDarkThemeDialog = [
     BoxShadow(
       color: AppColors.androidDialogShadowDark,
@@ -34,6 +39,7 @@ abstract final class AppShadows {
     ),
   ];
 
+  /// 🤖 [forAndroidLightThemeDialog] — Shadow preset for dialogs on Android (light theme).
   static const List<BoxShadow> forAndroidLightThemeDialog = [
     BoxShadow(
       color: AppColors.androidDialogShadowLight,
@@ -43,7 +49,7 @@ abstract final class AppShadows {
     ),
   ];
 
-  /// 🍏 Card-specific shadows
+  /// 🍏 [forLightThemeCard] — Card shadow for light theme (iOS/macOS style).
   static const List<BoxShadow> forLightThemeCard = [
     BoxShadow(
       color: AppColors.overlayLightShadow,
@@ -53,6 +59,7 @@ abstract final class AppShadows {
     ),
   ];
 
+  /// 🍏 [forDarkThemeCard] — Card shadow for dark theme (iOS/macOS style).
   static const List<BoxShadow> forDarkThemeCard = [
     BoxShadow(
       color: AppColors.overlayDarkShadow,
@@ -62,11 +69,12 @@ abstract final class AppShadows {
     ),
   ];
 
-  /// 🍏 Button-specific double shadows for iOS/macOS (modern style)
+  /// 🍏 [forIOSLightThemeButton] — Double shadow for buttons on iOS/macOS (light theme, modern style).
   static const List<BoxShadow> forIOSLightThemeButton = [
     BoxShadow(color: AppColors.black5, blurRadius: 20, offset: Offset(0, 2)),
   ];
 
+  /// 🍏 [forIOSDarkThemeButton] — Double shadow for buttons on iOS/macOS (dark theme, modern style).
   static const List<BoxShadow> forIOSDarkThemeButton = [
     BoxShadow(color: AppColors.shadow, blurRadius: 20, offset: Offset(0, 2)),
   ];

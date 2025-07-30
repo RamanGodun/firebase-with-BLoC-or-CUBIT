@@ -6,7 +6,7 @@ import '../ui_constants/app_colors.dart';
 /// 🧊 [OverlayBarrierFilter] — Consistent blurred overlay backgrounds
 /// - Used in: dialogs, banners, snackbars (iOS + Android)
 /// - Supports [ShowAs] or override with [OverlayBlurLevel]
-
+//
 final class OverlayBarrierFilter {
   /// ───────────────────────────
   const OverlayBarrierFilter._();

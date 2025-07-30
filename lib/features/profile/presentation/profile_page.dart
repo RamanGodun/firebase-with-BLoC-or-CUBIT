@@ -1,11 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart' show CachedNetworkImage;
+import 'package:cached_network_image/cached_network_image.dart'
+    show CachedNetworkImage;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/navigation/extensions/navigation_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_context_x_for_overlays.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../app_bootstrap_and_config/di_container/di_container_initializaion.dart';
+import '../../../app_bootstrap_and_config/di_container/di_container_init.dart';
 import '../../../core/base_modules/localization/generated/locale_keys.g.dart';
 import '../../../core/base_modules/localization/widgets/_toggle_button.dart';
 import '../../../core/base_modules/localization/widgets/key_value_x_for_text_w.dart';
@@ -80,7 +81,7 @@ final class ProfilePage extends StatelessWidget {
 
 /// 📄 [ProfileView] — Handles state for loading, error, and loaded profile states
 /// ✅ Reacts to [ProfileCubit] and shows appropriate UI
-
+//
 final class ProfileView extends StatelessWidget {
   ///------------------------------------------
   const ProfileView({super.key});

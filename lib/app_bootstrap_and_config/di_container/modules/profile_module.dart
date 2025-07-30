@@ -9,7 +9,7 @@ import '../../../features/profile/domain/fetch_profile_use_case.dart';
 import '../../../features/profile/domain/repo_contract.dart';
 import '../../../features/profile/presentation/cubit/profile_page_cubit.dart';
 import '../core/di_module_interface.dart';
-import '../di_container_initializaion.dart';
+import '../di_container_init.dart';
 import 'firebase_module.dart';
 
 final class ProfileModule implements DIModule {

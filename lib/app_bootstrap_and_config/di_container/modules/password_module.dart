@@ -7,7 +7,7 @@ import '../../../features/change_or_reset_password/data/remote_database_impl.dar
 import '../../../features/change_or_reset_password/domain/password_actions_use_case.dart';
 import '../../../features/change_or_reset_password/domain/repo_contract.dart';
 import '../core/di_module_interface.dart';
-import '../di_container_initializaion.dart';
+import '../di_container_init.dart';
 
 /// 🔐 [PasswordModule] — Registers dependencies for password-related features
 /// ✅ Includes remote DB, repository, and use cases for reset/change password flows

@@ -1,14 +1,14 @@
 part of '_overlay_entries_registry.dart';
 
 /// 🪧 [BannerOverlayEntry] — State-driven platform-aware banner
-/// - Used by [OverlayDispatcher] for automatic banner rendering
-/// - Defines conflict strategy, priority, and dismissibility
-/// - Renders animated [AppBanner] via [AnimationHost]
-/// - Called by Dispatcher during overlay insertion
-
+///   - Used by [OverlayDispatcher] for automatic banner rendering
+///   - Defines conflict strategy, priority, and dismissibility
+///   - Renders animated [AppBanner] via [AnimationHost]
+///   - Called by Dispatcher during overlay insertion
+//
 final class BannerOverlayEntry extends OverlayUIEntry {
-  // -------------------------------------------------
-
+  ///-----------------------------------------------
+  //
   final Widget widget;
   final bool isError; // ❗ Marks as an error (affects priority & category)
   final OverlayPriority priority;

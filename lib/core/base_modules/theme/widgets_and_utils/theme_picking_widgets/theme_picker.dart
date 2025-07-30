@@ -7,6 +7,8 @@ import '../../_theme_preferences.dart';
 import '../../theme_cubit.dart';
 import '../../app_theme_variants.dart';
 
+/// 🌗 [ThemePicker] — Allows to pick the theme mode and shows overlay notification
+//
 final class ThemePicker extends StatelessWidget {
   ///--------------------------------------
   const ThemePicker({super.key});
@@ -52,6 +54,10 @@ final class ThemePicker extends StatelessWidget {
     );
   }
 
+  ////
+  ////
+
+  /// 🏷️ Returns localized label for a given theme type
   String _themeLabel(BuildContext context, ThemeVariantsEnum type) {
     switch (type) {
       case ThemeVariantsEnum.light:
@@ -63,6 +69,9 @@ final class ThemePicker extends StatelessWidget {
     }
   }
 
+  ////
+
+  /// 🏷️ Returns localized label for a given theme type
   String _chosenThemeLabel(BuildContext context, ThemeVariantsEnum type) {
     switch (type) {
       case ThemeVariantsEnum.light:
@@ -73,4 +82,6 @@ final class ThemePicker extends StatelessWidget {
         return AppLocalizer.translateSafely(LocaleKeys.theme_amoled_enabled);
     }
   }
+
+  //
 }

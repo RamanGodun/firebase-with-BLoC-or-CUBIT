@@ -3,7 +3,7 @@ part of '_box_decorations_factory.dart';
 /// 🎨 [IOSCardsDecoration] — iOS/macOS card/banner glass style
 /// 🍏 Glassmorphic style: blurred background, semi-transparent fill, border & shadow
 /// Optimized for fast retrieval via theme-based caching
-
+//
 final class IOSCardsDecoration {
   /// ─────────────────────────
   const IOSCardsDecoration._();

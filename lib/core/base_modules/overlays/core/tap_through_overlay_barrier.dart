@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 /// - 🫥 Tap-through passthrough (e.g. for banners, loaders)
 /// - ❌ Dismiss trigger via [onTapOverlay] callback
 /// - ✅ Guarantees proper UX for overlays that allow interaction below
-
+//
 final class TapThroughOverlayBarrier extends StatelessWidget {
   ///-------------------------------------------------------
-
-  /// 🧩 The widget to display inside the overlay
+  //
+  // 🧩 The widget to display inside the overlay
   final Widget child;
   // 🫥 If `true`, allows taps to pass through the overlay
   final bool enablePassthrough;

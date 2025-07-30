@@ -1,9 +1,13 @@
 part of '_app_constants.dart';
 
+/// 🖼️ [AppIcons] — Centralized collection of app-wide icon constants.
+///   ✅ Provides all commonly used [IconData] for themes, actions, profiles, and languages.
+///   ✅ Ensures consistency and easy refactoring of UI icons across the app.
+///   Should be used everywhere instead of raw [Icons.*] for maintainability.
+//
 abstract final class AppIcons {
   /// ──────────────-----------
   const AppIcons._();
-  //
 
   // 🌤 Theme & UI
   static const IconData sun = Icons.sunny;
@@ -37,7 +41,13 @@ abstract final class AppIcons {
 
 ////
 
+/// 🌓 [ThemeIconX] — Extension for easily toggling between dark/light mode icons.
+///   Useful for building dynamic theme toggles in the UI.
+//
 extension ThemeIconX on IconData {
+  /// Returns the opposite theme icon:
+  /// - [AppIcons.darkMode] -> [AppIcons.lightMode]
+  /// - [AppIcons.lightMode] (or any other) -> [AppIcons.darkMode]
   IconData get toggled =>
       this == AppIcons.darkMode ? AppIcons.lightMode : AppIcons.darkMode;
 }

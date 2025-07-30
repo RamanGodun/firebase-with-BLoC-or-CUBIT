@@ -7,7 +7,7 @@ import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extensi
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../app_bootstrap_and_config/firebase_config/firebase_constants.dart';
-import '../../../app_bootstrap_and_config/di_container/di_container_initializaion.dart';
+import '../../../app_bootstrap_and_config/di_container/di_container_init.dart';
 import '../../../core/base_modules/navigation/app_routes/app_routes.dart';
 import '../../../core/shared_presentation_layer/shared_widgets/buttons/text_button.dart';
 import '../../../core/base_modules/localization/widgets/text_widget.dart';

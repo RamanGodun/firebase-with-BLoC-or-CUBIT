@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart' show Color, Colors;
 
-final class AppColors {
-  ///------------------
+/// 🎨 [AppColors] — Centralized color palette for the entire app.
+///   ✅ All theme, overlay, and component colors are defined here.
+///   ✅ Ensures design consistency across dark/light themes, overlays, and widgets.
+//
+abstract final class AppColors {
+  ///------------------------
   const AppColors._();
-  //
 
   /// ────────────────────
   /// 🚨 Common Colors

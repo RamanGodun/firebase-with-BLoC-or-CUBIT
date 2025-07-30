@@ -4,13 +4,13 @@ import 'widgets_and_utils/theme_cache_mixin.dart';
 import 'app_theme_variants.dart';
 
 /// 🎨 [ThemePreferences] — Lightweight configuration for theme and font
-/// ✅ Contains only enums: [ThemeVariantsEnum] and [AppFontFamily]
+/// ✅ Contains only enums: [ThemeVariantsEnum] and [FontFamily]
 /// 🚫 Does not hold ThemeData directly to prevent unnecessary rebuilds
-
+//
 @immutable
 final class ThemePreferences with ThemeCacheMixin {
   ///---------------------------------------
-
+  //
   // Selected theme variant (light, dark, glass, amoled)
   final ThemeVariantsEnum theme;
   // Selected font family (e.g., SF Pro, Aeonik)
@@ -54,4 +54,6 @@ final class ThemePreferences with ThemeCacheMixin {
 
   @override
   int get hashCode => Object.hash(theme, font);
+
+  //
 }

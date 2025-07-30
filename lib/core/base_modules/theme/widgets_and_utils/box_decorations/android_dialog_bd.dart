@@ -3,7 +3,7 @@ part of '_box_decorations_factory.dart';
 /// 🧱 [AndroidDialogsDecoration] — Material 3-style dialogs
 /// 🟤 Light/dark themed with shadows and rounded corners
 /// Cached internally for fast access
-
+//
 final class AndroidDialogsDecoration {
   /// ──────────────────────────────--
   const AndroidDialogsDecoration._();

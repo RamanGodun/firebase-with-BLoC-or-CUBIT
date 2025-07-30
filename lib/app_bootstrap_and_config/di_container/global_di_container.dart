@@ -6,7 +6,7 @@ import '../../core/base_modules/theme/theme_cubit.dart';
 import '../firebase_config/user_auth_cubit/auth_cubit.dart';
 import '../../features/email_verification/presentation/email_verification_cubit/email_verification_cubit.dart';
 import '../../features/profile/presentation/cubit/profile_page_cubit.dart';
-import 'di_container_initializaion.dart';
+import 'di_container_init.dart';
 
 /// 📦 [GlobalProviders] — Wraps all global Blocs with providers for the app
 //

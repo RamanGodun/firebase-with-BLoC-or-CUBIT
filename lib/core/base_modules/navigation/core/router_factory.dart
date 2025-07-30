@@ -2,7 +2,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../app_bootstrap_and_config/firebase_config/user_auth_cubit/auth_cubit.dart';
 import '../../../shared_presentation_layer/pages_shared/page_not_found.dart';
 import '../app_routes/app_routes.dart';
-import '../utils/overlay_navigation_observer.dart';
+import '../utils/overlays_cleaner_within_navigation.dart';
 import 'routes_redirection_service.dart';
 
 /// 🧭 [buildGoRouter] — Фабрика GoRouter. Створює роутер залежно від актуального [AuthState].
@@ -10,7 +10,7 @@ import 'routes_redirection_service.dart';
 GoRouter buildGoRouter(AuthState authState) {
   return GoRouter(
     /// 👁️ Observers — navigation side-effects (e.g., dismissing overlays)
-    observers: [OverlayNavigatorObserver()],
+    observers: [OverlaysCleanerWithinNavigation()],
 
     /// 🐞 Enable verbose logging for GoRouter (only active in debug mode)
     debugLogDiagnostics: true,

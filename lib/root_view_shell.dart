@@ -13,7 +13,7 @@ import 'app_bootstrap_and_config/firebase_config/user_auth_cubit/auth_cubit.dart
 /// 🌳🧩 [AppRootViewShell] — Top-level reactive widget listening to [AppThemeCubit].
 /// ✅ Rebuilds GoRouter reactively on any AuthState change.
 /// ✅ Delegates config creation to [AppRootConfig.from].
-
+//
 final class AppRootViewShell extends StatelessWidget {
   ///------------------------------------------------
   const AppRootViewShell({super.key});
@@ -50,10 +50,10 @@ final class AppRootViewShell extends StatelessWidget {
 
 /// 📱🧱 [_AppRootView] — Final stateless [MaterialApp.router] widget.
 /// ✅ Receives fully resolved config: theme + router + localization.
-
+//
 final class _AppRootView extends StatelessWidget {
   ///----------------------------------------------
-
+  //
   final GoRouter router;
   final ThemeData lightTheme;
   final ThemeData darkTheme;
