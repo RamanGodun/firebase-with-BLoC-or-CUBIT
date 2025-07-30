@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/form_fields/input_validation/formz_status_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/form_fields/input_validation/x_on_forms_submition_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';

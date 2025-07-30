@@ -7,9 +7,9 @@ import 'app_text_field.dart';
 
 /// 🏗️ Factory method that returns a themed [AppTextField], based on the [InputFieldType].
 /// Ensures consistent look & feel across forms (SignUp/Login).
-
+//
 abstract final class InputFieldFactory {
-  //-------------------------
+  ///--------------------------------
   InputFieldFactory._();
 
   ///

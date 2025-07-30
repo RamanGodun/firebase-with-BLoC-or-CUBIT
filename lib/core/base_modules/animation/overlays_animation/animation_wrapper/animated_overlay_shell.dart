@@ -6,10 +6,10 @@ import '../animation_engines/_animation_engine.dart';
 /// - Wraps child with Slide (optional) + Fade + Scale transitions
 /// - Used in: banners, dialogs, snackbars (Android/iOS)
 /// - Accepts [AnimationEngine] with configured transitions
-
+//
 final class AnimatedOverlayShell extends StatelessWidget {
   /// ──────────────────────────────────────────────────
-
+  //
   final AnimationEngine engine;
   final Widget child;
 

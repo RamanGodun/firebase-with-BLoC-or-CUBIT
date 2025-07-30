@@ -2,10 +2,10 @@ import 'package:flutter/material.dart' show Curve, Offset;
 
 /// 🌟 [AndroidOverlayAnimationConfig] — defines animation presets for Android overlays
 /// ✅ Used internally by [AndroidOverlayAnimationEngine] to unify animation logic
-
+//
 final class AndroidOverlayAnimationConfig {
-  ///-------------------------------------
-
+  ///-----------------------------------
+  //
   final Duration duration;
   final Duration fastDuration;
   final Curve opacityCurve;
@@ -33,10 +33,10 @@ final class AndroidOverlayAnimationConfig {
 
 /// 🍎 Configuration class for iOS overlay animations
 /// ✅ Defines durations, curves, and scale parameters for each overlay type
-
+//
 final class IOSOverlayAnimationConfig {
-  ///---------------------------------
-
+  ///-------------------------------
+  //
   final Duration duration;
   final Duration fastDuration;
   final Curve opacityCurve;

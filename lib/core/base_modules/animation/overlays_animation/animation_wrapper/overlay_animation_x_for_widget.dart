@@ -8,7 +8,7 @@ import 'animated_overlay_wrapper.dart';
 /// with the same [engine], [builder], and [displayDuration], but overrides the [onDismiss] callback.
 /// Useful for injecting lifecycle control at runtime (e.g., in overlay dispatchers).
 /// Returns [this] if the widget is not an [AnimatedOverlayWrapper].
-
+//
 extension OverlayWidgetX on Widget {
   ///------------------------------
   //

@@ -1,6 +1,5 @@
 import 'package:formz/formz.dart';
 import 'package:validators/validators.dart';
-
 import '../../localization/generated/locale_keys.g.dart';
 
 part 'email_input.dart';
@@ -9,26 +8,22 @@ part 'password__input.dart';
 part 'password_confirm.dart';
 
 /// 📧 [EmailValidationError] — Enum representing email-specific validation failures.
-
+//
 enum EmailValidationError {
   ///--------------------
-
-  /// 🔠 Email is empty
+  // 🔠 Email is empty
   empty,
-
-  /// ❌ Email format is invalid
+  // ❌ Email format is invalid
   invalid,
 }
 
 ////
-
 ////
 
 /// 🧾 [NameValidationError] — Enum representing possible name input errors.
-
+//
 enum NameValidationError {
   ///-------------------
-
   // 🟥 Field is empty
   empty,
   // 🔡 Name is too short (less than 2 characters)
@@ -36,14 +31,12 @@ enum NameValidationError {
 }
 
 ////
-
 ////
 
 /// 🔐 [PasswordValidationError] — Describes password validation issues.
-
+//
 enum PasswordValidationError {
   ///-----------------------
-
   // 🟥 Field is empty
   empty,
   // 🔡 Less than 6 characters
@@ -55,25 +48,22 @@ enum PasswordValidationError {
 ////
 
 /// 🔒 [ConfirmPasswordValidationError] — Represents possible validation failures.
-
+//
 enum ConfirmPasswordValidationError {
   ///------------------------------
-
-  /// 🟥 Field is empty
+  // 🟥 Field is empty
   empty,
-
-  /// 🔁 Passwords do not match
+  // 🔁 Passwords do not match
   mismatch,
 }
 
 ////
-
 ////
 
 /// 🔠 Supported input types for signup & login forms
+//
 enum InputFieldType {
   ///--------------
-
   // 👤 User's display name. Used for user registration.
   name,
   // 📧 Email address. Used for login and registration.

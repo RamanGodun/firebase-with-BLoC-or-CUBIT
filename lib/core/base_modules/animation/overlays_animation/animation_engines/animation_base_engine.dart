@@ -5,7 +5,7 @@ part of '_animation_engine.dart';
 /// 🔧 Allows  override  tween and through methods
 //
 abstract class BaseAnimationEngine extends AnimationEngine {
-  ///-------------------------------------------------------
+  ///----------------------------------------------------
   //
   AnimationController? _controller;
   bool _isInitialized = false;

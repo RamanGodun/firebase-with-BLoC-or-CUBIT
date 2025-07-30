@@ -5,13 +5,12 @@ import '../_animation_engine.dart';
 import 'ios_animation_engine.dart';
 import 'android_animation_engine.dart';
 
-/// 🎯 [OverlayEngineX] — resolves the correct animation engine
-/// based on overlay category and platform.
-/// Clean, centralized switch logic for easy extendability.
+/// 🎯 [OverlayAnimationEngineMapperX] — resolves the animation engine,
+///     based on overlay category and platform.
 //
-extension OverlayEngineX on BuildContext {
-  ///------------------------------------
-
+extension OverlayAnimationEngineMapperX on BuildContext {
+  ///------------------------------------------------
+  //
   AnimationEngine getEngine(OverlayCategory type) {
     return switch ((type, platform)) {
       //
@@ -27,7 +26,7 @@ extension OverlayEngineX on BuildContext {
       (OverlayCategory.snackbar, TargetPlatform.iOS) =>
         IOSOverlayAnimationEngine(ShowAs.snackbar),
 
-      ///
+      ////
 
       // 🤖 Android: use shared configurable engine
       (OverlayCategory.dialog, TargetPlatform.android) =>
@@ -39,7 +38,7 @@ extension OverlayEngineX on BuildContext {
       (OverlayCategory.snackbar, TargetPlatform.android) =>
         AndroidOverlayAnimationEngine(ShowAs.snackbar),
 
-      ///
+      ////
 
       // 🛑 Default fallback
       _ => FallbackAnimationEngine(),

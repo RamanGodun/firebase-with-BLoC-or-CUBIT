@@ -2,13 +2,12 @@ part of 'validation_enums.dart';
 
 /// 🔐 [ConfirmPasswordInputValidation] — Formz input that validates password confirmation.
 /// Ensures the value is non-empty and matches the original password.
-
+//
 final class ConfirmPasswordInputValidation
     extends FormzInput<String, ConfirmPasswordValidationError> {
   ///------------------------------------------------------------------------
-
+  //
   final String password;
-
   const ConfirmPasswordInputValidation.pure({this.password = ''})
     : super.pure('');
   const ConfirmPasswordInputValidation.dirty({

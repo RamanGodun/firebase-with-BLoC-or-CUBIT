@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../animation_engines/_animation_engine.dart';
 
 /// 🧱 [AnimatedOverlayWrapper] — Universal animation container for overlay widgets.
-/// ✅ Safely initializes the animation engine with [TickerProvider].
-/// ✅ Automatically triggers the forward animation on mount.
-/// ✅ Optionally auto-dismisses after [displayDuration].
-/// ✅ Invokes [onDismiss] callback after reverse animation completes.
-
+///    ✅ Safely initializes the animation engine with [TickerProvider].
+///    ✅ Automatically triggers the forward animation on mount.
+///    ✅ Optionally auto-dismisses after [displayDuration].
+///    ✅ Invokes [onDismiss] callback after reverse animation completes.
+//
 final class AnimatedOverlayWrapper extends StatefulWidget {
   ///-----------------------------------------------------
-
+  //
   final AnimationEngine engine;
   final Widget Function(AnimationEngine engine) builder;
   final Duration displayDuration;

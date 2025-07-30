@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget;
 import '../../../../app_bootstrap_and_config/di_container/di_container_init.dart';
 import '../../../../core/base_modules/form_fields/utils/_form_validation_service.dart';
-import '../../../../core/base_modules/form_fields/input_validation/formz_status_x.dart';
+import '../../../../core/base_modules/form_fields/input_validation/x_on_forms_submition_status.dart';
 import '../../../../core/base_modules/form_fields/utils/use_auth_focus_nodes.dart';
 import '../../../../core/base_modules/localization/init_localization.dart';
 import '../../../../core/base_modules/overlays/core/enums_for_overlay_module.dart';
