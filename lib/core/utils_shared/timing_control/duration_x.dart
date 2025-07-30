@@ -1,10 +1,8 @@
-part of '_general_extensions.dart';
-
 /// ⏱️ [DurationX] — Extension for formatting [Duration] objects
 /// ✅ Useful for timers, clocks, video playback UI, etc.
-
+//
 extension DurationX on Duration {
-  //----------------------------
+  ///-------------------------
 
   /// 🕒 Formats as MM:SS → `03:45`
   String formatAsTimer() {

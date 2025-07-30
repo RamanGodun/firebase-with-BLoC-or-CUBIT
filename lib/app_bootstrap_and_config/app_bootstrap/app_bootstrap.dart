@@ -1,15 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/local_storage_init.dart'
+import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/app_bootstrap/local_storage_init.dart'
     show ILocalStorage, HydratedLocalStorage;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show debugRepaintRainbowEnabled;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_strategy/url_strategy.dart' show setPathUrlStrategy;
-import '../core/base_modules/localization/app_localizer.dart';
-import '../core/base_modules/logging/for_bloc/bloc_observer.dart';
+import '../../core/base_modules/localization/app_localizer.dart';
+import '../../core/base_modules/logging/for_bloc/bloc_observer.dart';
 import 'remote_db_init.dart';
 import 'platform_validation.dart';
-import 'di_container/di_container_initializaion.dart';
+import '../di_container/di_container_initializaion.dart';
 
 part 'bootstrap_interface.dart';
 

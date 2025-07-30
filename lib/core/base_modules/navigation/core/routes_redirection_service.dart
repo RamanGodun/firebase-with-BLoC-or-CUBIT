@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import '../../../utils_shared/auth_state/auth_cubit.dart';
+import '../../../../app_bootstrap_and_config/firebase_config/user_auth_cubit/auth_cubit.dart';
 import '../app_routes/app_routes.dart';
 
 /// 🧭🚦 [RoutesRedirectionService] — Centralized redirect logic based on [AuthState].

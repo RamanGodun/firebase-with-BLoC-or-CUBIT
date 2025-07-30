@@ -2,9 +2,9 @@ part of '_context_extensions.dart';
 
 /// 📏 [ContextMediaX] — MediaQuery-based extensions for screen sizing & scaling
 /// ✅ Provides shorthand access to screen dimensions, padding, and scale factors
-
+//
 extension ContextMediaX on BuildContext {
-  //------------------------------------
+  ///---------------------------------
 
   /// 📐 Full [MediaQueryData]
   MediaQueryData get mediaQuery => MediaQuery.of(this);

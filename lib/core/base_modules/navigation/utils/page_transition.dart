@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
+import '../../../utils_shared/timing_control/timing_config.dart';
 
 /// 🚀 [AppTransitions] — Centralized transitions for GoRouter navigation
 //

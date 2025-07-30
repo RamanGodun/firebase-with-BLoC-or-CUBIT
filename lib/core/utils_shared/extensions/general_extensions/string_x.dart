@@ -1,9 +1,9 @@
-part of '_general_extensions.dart';
+part of '_general_extensions_barrel.dart';
 
 /// 🔤 [StringX] — Utility extensions for string formatting & casing
-
+//
 extension StringX on String {
-  //------------------------
+  ///---------------------
 
   /// 🔠 Capitalizes the first letter of the string
   String capitalize() =>

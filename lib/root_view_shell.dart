@@ -8,7 +8,7 @@ import 'core/base_modules/overlays/core/global_overlay_handler.dart';
 import 'core/base_modules/navigation/core/router_factory.dart';
 import 'core/base_modules/theme/_theme_preferences.dart';
 import 'core/base_modules/theme/theme_cubit.dart';
-import 'core/utils_shared/auth_state/auth_cubit.dart';
+import 'app_bootstrap_and_config/firebase_config/user_auth_cubit/auth_cubit.dart';
 
 /// 🌳🧩 [AppRootViewShell] — Top-level reactive widget listening to [AppThemeCubit].
 /// ✅ Rebuilds GoRouter reactively on any AuthState change.

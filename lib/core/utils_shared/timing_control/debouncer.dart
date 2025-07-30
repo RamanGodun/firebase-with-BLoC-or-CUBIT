@@ -1,7 +1,7 @@
 import 'dart:async';
 
 /// ⏱️ [Debouncer] — Utility to delay execution until a pause in user input
-
+//
 final class Debouncer {
   ///-----------------
 

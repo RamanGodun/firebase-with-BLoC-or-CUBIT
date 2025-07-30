@@ -1,4 +1,4 @@
-import '../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
+import '../timing_control/timing_config.dart';
 
 part 'cache_items.dart';
 
@@ -14,16 +14,17 @@ final class CacheManager<T, K> {
   //
   /// Storage for cached values
   final Map<K, _CacheEntry<T>> _storage = {};
-
+  //
   /// Tracks in-progress async operations to avoid duplication
   final Map<K, Future<T>> _inFlightRequests = {};
-
+  //
   /// Cache expiration duration
   final Duration _ttl;
 
   /// Creates cache manager with optional TTL (default: 5 min)
   CacheManager({Duration? ttl}) : _ttl = ttl ?? AppDurations.min10;
-  //
+
+  ////
 
   /// 🚀 Runs async operation with full caching & in-flight protection
   /// - Returns cached value if still valid
@@ -39,16 +40,16 @@ final class CacheManager<T, K> {
       _storage.remove(key);
       _inFlightRequests.remove(key);
     }
-
+    //
     final cached = _getCachedValue(key);
     if (cached != null) return cached;
-
+    //
     final inFlight = _inFlightRequests[key];
     if (inFlight != null) return await inFlight;
-
+    //
     final future = operation();
     _inFlightRequests[key] = future;
-
+    //
     try {
       final result = await future;
       _storage[key] = _CacheEntry(result, DateTime.now());
@@ -58,11 +59,13 @@ final class CacheManager<T, K> {
     }
   }
 
+  ////
+
   /// 🕓 Returns cached value for [key] if not expired, else null
   T? _getCachedValue(K key) {
     final entry = _storage[key];
     if (entry == null) return null;
-
+    //
     final isExpired = DateTime.now().difference(entry.timestamp) > _ttl;
     if (isExpired) {
       _storage.remove(key);
@@ -70,6 +73,8 @@ final class CacheManager<T, K> {
     }
     return entry.value;
   }
+
+  ////
 
   /// 🛠️ Puts value to cache for [key] (manual)
   void put(K key, T value) =>

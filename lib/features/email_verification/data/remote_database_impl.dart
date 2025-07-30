@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart' show debugPrint;
 
-import '../../../core/utils_shared/auth_state/auth_user_utils.dart';
+import '../../../app_bootstrap_and_config/firebase_config/auth_user_utils.dart';
 import 'remote_database_contract.dart';
 
 /// 🛠️ [IUserValidationRemoteDataSourceImpl] — Firebase-powered implementation

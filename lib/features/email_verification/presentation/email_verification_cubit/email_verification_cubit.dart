@@ -5,8 +5,8 @@ import 'package:equatable/equatable.dart';
 import '../../../../../../core/base_modules/errors_handling/failures/failure_entity.dart';
 import '../../../../../../core/base_modules/errors_handling/utils/for_bloc/consumable.dart';
 import '../../../../../../core/base_modules/errors_handling/utils/for_bloc/consumable_x.dart';
-import '../../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
-import '../../../../core/utils_shared/auth_state/auth_cubit.dart';
+import '../../../../core/utils_shared/timing_control/timing_config.dart';
+import '../../../../app_bootstrap_and_config/firebase_config/user_auth_cubit/auth_cubit.dart';
 import '../../domain/email_verification_use_case.dart';
 
 part 'email_verification_state.dart';

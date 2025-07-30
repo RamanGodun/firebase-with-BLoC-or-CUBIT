@@ -35,7 +35,7 @@ extension SafeRegistration on GetIt {
 /// Disposes and unregisters any registered singleton that implements [Closeable]
 ///   - T: Type of singleton (Cubit, Bloc, StreamController, etc.)
 ///   - If instance has .close(), calls it and unregisters
-///   - Safe to call even якщо не було реєстрації
+///   - Safe to call even there was no registration
 //
 extension SafeDispose on GetIt {
   Future<void> safeDispose<T extends Object>() async {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
+import '../../../../utils_shared/timing_control/timing_config.dart';
 import 'overlay_preset_props.dart';
 
 /// 🎨 [OverlayUIPresets] — Abstract base for UI styling presets

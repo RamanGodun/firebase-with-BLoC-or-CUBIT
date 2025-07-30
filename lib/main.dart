@@ -8,10 +8,10 @@
  */
 
 import 'package:flutter/material.dart';
-import 'app_bootstrap_and_config/di_container/global_di_containers.dart';
+import 'app_bootstrap_and_config/di_container/global_di_container.dart';
 import 'core/base_modules/localization/app_localization.dart';
 import 'root_view_shell.dart';
-import 'app_bootstrap_and_config/app_bootstrap.dart';
+import 'app_bootstrap_and_config/app_bootstrap/app_bootstrap.dart';
 
 /// 🏁 Application entry point
 //

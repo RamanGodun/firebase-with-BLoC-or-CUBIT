@@ -3,7 +3,7 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/ut
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import '../../../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
+import '../../../../../core/utils_shared/timing_control/timing_config.dart';
 import '../../../../../core/base_modules/form_fields/input_validation/validation_enums.dart';
 import '../../../../../core/base_modules/form_fields/input_validation/formz_status_x.dart';
 import '../../../../../core/base_modules/errors_handling/failures/failure_entity.dart';

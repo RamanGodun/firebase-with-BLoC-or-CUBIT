@@ -3,7 +3,7 @@ import 'dart:async' show Timer;
 /// ⏱️ [Throttler] — Utility that ensures action is triggered at most once within the specified [duration].
 /// ✅ Ignores all calls made during the throttle window.
 /// ✅ Useful for preventing spamming of buttons or repeated API calls.
-
+//
 final class Throttler {
   ///----------------
 

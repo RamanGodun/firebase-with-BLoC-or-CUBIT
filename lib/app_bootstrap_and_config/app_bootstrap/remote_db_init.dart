@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'app_configs/firebase/env_config.dart';
-import 'app_configs/firebase/env_firebase_options.dart';
-import 'app_configs/firebase/firebase_utils.dart';
+import '../firebase_config/env_config.dart';
+import '../firebase_config/env_firebase_options.dart';
+import '../firebase_config/firebase_utils.dart';
 
 /// 📦💾 [IRemoteDataBase] — Abstraction to decouple startup logic and enable mocking in tests.
 //

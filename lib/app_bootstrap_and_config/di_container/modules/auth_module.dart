@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuth;
 import 'package:firebase_with_bloc_or_cubit/app_bootstrap_and_config/di_container/x_on_get_it.dart';
-import '../../../core/utils_shared/auth_state/auth_cubit.dart';
+import '../../firebase_config/user_auth_cubit/auth_cubit.dart';
 import '../../../features/auth/data/auth_repo_implementations/sign_in_repo_impl.dart';
 import '../../../features/auth/data/auth_repo_implementations/sign_out_repo_impl.dart';
 import '../../../features/auth/data/auth_repo_implementations/sign_up_repo_impl.dart';

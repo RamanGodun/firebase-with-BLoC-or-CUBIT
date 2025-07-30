@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
+import '../../../../utils_shared/timing_control/timing_config.dart';
 
 part 'animation_base_engine.dart';
 part 'fallback_engine.dart';

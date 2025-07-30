@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
+import '../../../../../utils_shared/timing_control/timing_config.dart';
 import '../../../../overlays/core/enums_for_overlay_module.dart';
 import '../_animation_engine.dart';
 import '../engine_configs.dart';

@@ -1,7 +1,7 @@
 import 'dart:async' show FutureOr;
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/either/either_extensions/either_getters_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
-import '../../../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
+import '../../../../utils_shared/timing_control/timing_config.dart';
 import '../../utils/observers/loggers/errors_log_util.dart';
 import '../../utils/for_bloc/result_handler_async.dart';
 import '../either.dart';

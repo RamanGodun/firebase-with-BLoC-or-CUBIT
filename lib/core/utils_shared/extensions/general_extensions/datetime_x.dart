@@ -1,10 +1,10 @@
-part of '_general_extensions.dart';
+part of '_general_extensions_barrel.dart';
 
 /// 🕓 [DateTimeX] — Extension for formatting `DateTime` objects
 /// ✅ Provides common human-readable formats and ISO-friendly string output
-
+//
 extension DateTimeX on DateTime {
-  //----------------------------
+  ///-------------------------
 
   /// 📅 ISO-like default format (yyyy-MM-dd)
   String toFormatted([String pattern = 'yyyy-MM-dd']) =>

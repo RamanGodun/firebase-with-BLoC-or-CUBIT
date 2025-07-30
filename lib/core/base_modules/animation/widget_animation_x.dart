@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../app_bootstrap_and_config/app_configs/constants/timing_config.dart';
+import '../../utils_shared/timing_control/timing_config.dart';
 
 /// 🌀 [WidgetAnimationX] — Widget animation helpers
 /// ✅ Provides common animated entrance effects for widgets:

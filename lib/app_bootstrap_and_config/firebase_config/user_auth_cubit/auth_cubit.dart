@@ -9,10 +9,10 @@ part 'auth_state.dart';
 /// 🔐 [AuthCubit] — Manages authentication state using Firebase [userStream].
 /// ✅ Emits `authenticated` / `unauthenticated` states reactively (SRP)
 /// ✅ signOut logic is in separate [SignOutCubit]
-
+//
 final class AuthCubit extends Cubit<AuthState> {
   ///------------------------------------------
-
+  //
   final Stream<User?> userStream;
   late final StreamSubscription<User?> _authSubscription;
 
@@ -21,7 +21,8 @@ final class AuthCubit extends Cubit<AuthState> {
   AuthCubit({required this.userStream}) : super(AuthState.unknown()) {
     _authSubscription = userStream.listen(_onAuthStateChanged);
   }
-  //
+
+  ///
 
   /// 🔁 Handles Firebase user changes → updates [AuthState]
   void _onAuthStateChanged(User? user) {
@@ -35,9 +36,8 @@ final class AuthCubit extends Cubit<AuthState> {
     //
     emit(state.copyWith(authStatus: newStatus, user: user));
   }
-  //
 
-  /// 🔄 Перезавантажує поточного користувача з Firebase
+  /// 🔄 Reload current user from Firebase
   Future<void> reloadUser() async {
     try {
       final currentUser = FirebaseAuth.instance.currentUser;
