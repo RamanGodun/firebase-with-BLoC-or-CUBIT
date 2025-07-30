@@ -22,8 +22,8 @@ import '../../../../core/base_modules/overlays/overlay_dispatcher/overlay_status
 import '../../../../core/base_modules/overlays/utils/overlay_utils.dart';
 import '../../../../core/base_modules/theme/ui_constants/_app_constants.dart';
 import '../../../../core/base_modules/theme/ui_constants/app_colors.dart';
-import '../../../../core/shared_presentation_layer/widgets_shared/buttons/form_submit_button.dart';
-import '../../../../core/shared_presentation_layer/widgets_shared/buttons/text_button.dart';
+import '../../../../core/shared_presentation_layer/shared_widgets/buttons/form_submit_button.dart';
+import '../../../../core/shared_presentation_layer/shared_widgets/buttons/text_button.dart';
 import '../../../../core/utils_shared/spider/images_paths.dart';
 import '../../domain/use_cases/sign_in.dart';
 import 'cubit/sign_in_page_cubit.dart';

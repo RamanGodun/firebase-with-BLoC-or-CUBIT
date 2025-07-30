@@ -1,10 +1,10 @@
 import '../../shared_data_layer/user_data_transfer_objects/_user_dto.dart';
-import '_user.dart';
+import '_user_entity.dart';
 
 /// 🧩 [UserEntityFactories] — Static-like utilities related to [UserEntity] creation
-
+//
 extension UserEntityFactories on UserEntity {
-  ///--------------------------------------
+  ///-------------------------------------
 
   /// 🔰 Returns a predefined empty [UserEntity] placeholder
   static UserEntity empty() => const UserEntity(

@@ -1,8 +1,8 @@
-import '_user.dart';
 import '../../shared_data_layer/user_data_transfer_objects/_user_dto.dart';
+import '_user_entity.dart';
 
 /// 🔁 [UserEntityX] — Extension on [UserEntity] with transformation and utility methods
-
+//
 extension UserEntityX on UserEntity {
   ///------------------------------
 

@@ -151,7 +151,7 @@ final class _ChangePasswordSubmitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     //
     return FormSubmitButton<ChangePasswordCubit, ChangePasswordState>(
-      label: LocaleKeys.buttons_sign_up,
+      label: LocaleKeys.buttons_change_password,
       onPressed: (context) {
         context.unfocusKeyboard;
         context.read<ChangePasswordCubit>().submit();

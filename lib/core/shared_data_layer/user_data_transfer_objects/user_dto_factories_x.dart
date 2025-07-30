@@ -4,20 +4,28 @@ import '_user_dto.dart';
 
 /// 🧰 [UserDTOFactories] — Static utilities for creating [UserDTO]
 /// ✅ Use case: Firestore mapping, default user creation
-
+//
 extension UserDTOFactories on UserDTO {
   ///--------------------------------
 
   /// 🔄 Creates [UserDTO] from Firestore document snapshot
+  /// ❗️ Throws [FormatException] if document is missing
   static UserDTO fromDoc(DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data();
-    if (data == null) throw Exception('No user data found in document');
+    if (data == null) {
+      throw const FormatException('No user data found in document');
+    }
+
     return UserDTO(
       id: doc.id,
       name: data['name'] ?? '',
       email: data['email'] ?? '',
       profileImage: data['profileImage'] ?? '',
-      point: data['point'] ?? 0,
+      point: switch (data['point']) {
+        int p => p,
+        String s => int.tryParse(s) ?? 0,
+        _ => 0,
+      },
       rank: data['rank'] ?? '',
     );
   }

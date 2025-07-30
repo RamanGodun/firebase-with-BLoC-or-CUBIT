@@ -1,5 +1,5 @@
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/type_definitions.dart';
-import 'package:firebase_with_bloc_or_cubit/core/shared_domain_layer/shared_entities/_user.dart';
+import 'package:firebase_with_bloc_or_cubit/core/shared_domain_layer/shared_entities/_user_entity.dart';
 
 /// 📦 [IProfileRepo] — Contract for [FetchProfileUseCase] repo
 //

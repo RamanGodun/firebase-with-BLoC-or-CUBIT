@@ -9,12 +9,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../app_bootstrap_and_config/firebase_config/firebase_constants.dart';
 import '../../../app_bootstrap_and_config/di_container/di_container_initializaion.dart';
 import '../../../core/base_modules/navigation/app_routes/app_routes.dart';
-import '../../../core/shared_presentation_layer/widgets_shared/buttons/text_button.dart';
+import '../../../core/shared_presentation_layer/shared_widgets/buttons/text_button.dart';
 import '../../../core/base_modules/localization/widgets/text_widget.dart';
 import '../../../core/base_modules/localization/generated/locale_keys.g.dart';
 import '../../../core/base_modules/theme/ui_constants/_app_constants.dart';
 import '../../../core/base_modules/theme/ui_constants/app_colors.dart';
-import '../../../core/shared_presentation_layer/widgets_shared/loaders/loader.dart';
+import '../../../core/shared_presentation_layer/shared_widgets/loader.dart';
 import '../../auth/presentation/sign_out/sign_out_cubit/sign_out_cubit.dart';
 import 'email_verification_cubit/email_verification_cubit.dart';
 

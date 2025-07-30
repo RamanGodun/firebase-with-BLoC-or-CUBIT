@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app_bootstrap_and_config/firebase_config/user_auth_cubit/auth_cubit.dart';
@@ -29,7 +30,6 @@ final class RoutesRedirectionService {
     GoRouterState goRouterState,
     AuthState authState,
   ) {
-    // -----------------------
     /// 🔍 Auth status flags
     final status = authState.authStatus;
     final user = authState.user;
@@ -42,7 +42,10 @@ final class RoutesRedirectionService {
     final isEmailVerified = user?.emailVerified ?? false;
 
     // Current path
-    final currentPath = goRouterState.fullPath ?? '';
+    final currentPath =
+        goRouterState.matchedLocation.isNotEmpty
+            ? goRouterState.matchedLocation
+            : goRouterState.uri.toString();
     final isOnPublicPages = _publicRoutes.contains(currentPath);
     final isOnVerifyPage = currentPath == RoutesPaths.verifyEmail;
     final isOnSplashPage = currentPath == RoutesPaths.splash;
@@ -61,10 +64,25 @@ final class RoutesRedirectionService {
       return isOnVerifyPage ? null : RoutesPaths.verifyEmail;
     }
 
+    // ✅ List of pages, that restricted to redirection
+    const Set<String> restrictedToRedirect = {
+      RoutesPaths.splash,
+      RoutesPaths.verifyEmail,
+      ..._publicRoutes,
+    };
+
     // ✅ Redirect to /home if already authenticated and on splash/public/verify
-    if (isAuthenticated &&
-        isEmailVerified &&
-        (isOnPublicPages || isOnSplashPage || isOnVerifyPage)) {
+    final shouldRedirectHome =
+        restrictedToRedirect.contains(currentPath) &&
+        isAuthenticated &&
+        isEmailVerified;
+
+    if (shouldRedirectHome && currentPath != RoutesPaths.home) {
+      if (kDebugMode) {
+        debugPrint(
+          '[🔁 Redirect] currentPath: $currentPath | status: $status | verified: $isEmailVerified',
+        );
+      }
       return RoutesPaths.home;
     }
 
@@ -74,86 +92,6 @@ final class RoutesRedirectionService {
 }
 
 /*
-
-
-
-
-
-
-
-
-
-
-/// 🧭🚦 [RoutesRedirectionService] — Centralized redirect logic based on [AuthState].
-/// ✅ Declaratively maps current router state + authState to needed redirect route.
-///   - 🚪 `/signin` if unauthenticated
-///   - 🧪 `/verifyEmail` if email is not verified
-///   - 🧯 `/firebaseError` if an auth error occurs
-///   - ⏳ `/splash` while loading
-///   - ✅ `/home` if fully authenticated and verified
-//
-final class RoutesRedirectionService {
-  ///-------------------------------
-  RoutesRedirectionService._();
-  //
-
-  /// 🗝️ Publicly accessible routes (no authentication required)
-  static const Set<String> _publicRoutes = {
-    RoutesPaths.signIn,
-    RoutesPaths.signUp,
-    RoutesPaths.resetPassword,
-  };
-
-  ///
-  static String? from(
-    BuildContext context,
-    GoRouterState goRouterState,
-    AuthState authState,
-  ) {
-    //
-    /// 🔍 Auth status flags
-    final authStatus = authState.authStatus;
-    final isAuthenticated = authStatus == AuthStatus.authenticated;
-    final isUnauthenticated = authStatus == AuthStatus.unauthenticated;
-    final isUnknown = authStatus == AuthStatus.unknown;
-
-    // 🔄 CurrentPath
-    final currentPath = goRouterState.matchedLocation;
-
-    // 📍 Route flags
-    final isOnPublicPages = _publicRoutes.contains(currentPath);
-    final isOnSplashPage = currentPath == RoutesPaths.splash;
-
-    /// ⏳ Still determining auth state → redirect to Splash
-    if (isUnknown) {
-      return isOnSplashPage ? null : RoutesPaths.splash;
-    }
-
-    /// ❌ Unauthenticated → force sign-in (unless already on auth page)
-    if (isUnauthenticated) {
-      return isOnPublicPages ? null : RoutesPaths.signIn;
-    }
-
-    /// ✅ Authenticated → prevent access to splash/auth routes
-    if (isAuthenticated && (isOnSplashPage || isOnPublicPages)) {
-      return RoutesPaths.home;
-    }
-
-    /// ✅ No redirect needed
-    return null;
-
-    //
-  }
-}
-
-
-
-
-
-
-
-
-
 for debugging:
 
     if (kDebugMode) {

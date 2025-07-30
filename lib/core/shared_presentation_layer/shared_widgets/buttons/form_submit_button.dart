@@ -6,13 +6,22 @@ import '../../../base_modules/overlays/overlay_dispatcher/overlay_status_cubit.d
 import '../../../utils_shared/type_definitions.dart';
 import 'filled_button.dart';
 
-/// 🧩 [FormSubmitButton] — Generic submit button with validation/loader.
-/// Used inside forms with Bloc/Cubit. Handles enabling/disabling logic.
+/// 🚀 [FormSubmitButton] — Bloc-aware smart submit button for forms.
+///
+/// 🧠 This widget acts as a **behavioral adapter** around [CustomFilledButton].
+/// It listens to the given Bloc/Cubit and automatically:
+///   - shows a loader during form submission
+///   - disables itself if form is invalid or submission in progress
+///   - respects overlay state (to avoid multiple submissions)
+///
+/// ✅ Common use case:
+///   - Place at bottom of forms (SignIn, SignUp, ResetPassword, etc)
+///   - Controlled declaratively using status and validation selectors
 //
 final class FormSubmitButton<Cubit extends StateStreamable<State>, State>
     extends StatelessWidget {
-  //---------------------------------------------------
-
+  ///--------------------------------------------------
+  //
   final String label;
   final SubmitCallback onPressed;
   final FormzSubmissionStatus Function(State) statusSelector;
@@ -25,8 +34,7 @@ final class FormSubmitButton<Cubit extends StateStreamable<State>, State>
     required this.statusSelector,
     required this.isValidatedSelector,
   });
-
-  ///
+  //
 
   @override
   Widget build(BuildContext context) {

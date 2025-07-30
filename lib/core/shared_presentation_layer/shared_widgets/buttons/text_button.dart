@@ -5,9 +5,10 @@ import '../../../utils_shared/timing_control/timing_config.dart';
 import '../../../base_modules/localization/widgets/text_widget.dart';
 
 /// 🔘 [AppTextButton] — minimal, animated text-only button with underline option
-class AppTextButton extends StatelessWidget {
+//
+final class AppTextButton extends StatelessWidget {
   ///--------------------------------------
-
+  //
   final String label;
   final VoidCallback? onPressed;
   final bool isLoading;
@@ -28,6 +29,7 @@ class AppTextButton extends StatelessWidget {
     this.fontWeight = FontWeight.w200,
     this.isUnderlined = true,
   });
+  //
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +57,12 @@ class AppTextButton extends StatelessWidget {
           duration: AppDurations.ms250,
           curve: Curves.easeInOut,
           alignment: Alignment.center,
+
           child: AnimatedSwitcher(
             duration: AppDurations.ms250,
             switchInCurve: Curves.easeOut,
             switchOutCurve: Curves.easeIn,
+
             layoutBuilder:
                 (currentChild, previousChildren) => Stack(
                   alignment: Alignment.center,
@@ -67,11 +71,13 @@ class AppTextButton extends StatelessWidget {
                     ...previousChildren,
                   ],
                 ),
+
             transitionBuilder:
                 (child, animation) => FadeTransition(
                   opacity: animation,
                   child: ScaleTransition(scale: animation, child: child),
                 ),
+
             child:
                 isLoading
                     ? const CupertinoActivityIndicator(radius: 10)

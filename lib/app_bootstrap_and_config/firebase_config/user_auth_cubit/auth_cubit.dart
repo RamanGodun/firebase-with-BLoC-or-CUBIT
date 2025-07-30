@@ -29,11 +29,15 @@ final class AuthCubit extends Cubit<AuthState> {
     final newStatus =
         user != null ? AuthStatus.authenticated : AuthStatus.unauthenticated;
     //
+    if (state.authStatus == newStatus && state.user?.uid == user?.uid) {
+      return; // 🛑 No actual change — skip emit
+    }
+    //
     debugPrint(
       '🟡 [AuthCubit] FirebaseAuth stream event received.\n'
       'User: ${user?.uid ?? "null"} | Verified: ${user?.emailVerified} | NewStatus: $newStatus',
     );
-    //
+
     emit(state.copyWith(authStatus: newStatus, user: user));
   }
 
@@ -61,14 +65,25 @@ final class AuthCubit extends Cubit<AuthState> {
               ? AuthStatus.authenticated
               : AuthStatus.unauthenticated;
       //
+      // 🛑 Skip emit if no actual changes
+      final nothingChanged =
+          state.authStatus == newStatus &&
+          state.user?.uid == updatedUser.uid &&
+          state.user?.emailVerified == updatedUser.emailVerified;
+      //
+      if (nothingChanged) {
+        debugPrint('🟢 [AuthCubit] reloadUser skipped: no state changes');
+        return;
+      }
+      //
       debugPrint(
         '🔄 [AuthCubit] reloadUser completed.\n'
         'User: ${updatedUser.uid} | Verified: ${updatedUser.emailVerified} | NewStatus: $newStatus',
       );
       //
       emit(state.copyWith(user: updatedUser, authStatus: newStatus));
-    } catch (e) {
-      debugPrint('❌ [AuthCubit] reloadUser error: $e');
+    } catch (e, st) {
+      debugPrint('❌ [AuthCubit] reloadUser error: $e\n$st');
     }
   }
 

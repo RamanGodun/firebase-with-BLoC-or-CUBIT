@@ -5,7 +5,7 @@ import '../../../../features/change_or_reset_password/presentation/change_passwo
 import '../../../../features/change_or_reset_password/presentation/reset_password/reset_password_page.dart';
 import '../../../../features/email_verification/presentation/email_verification_page.dart';
 import '../../../../features/profile/presentation/profile_page.dart';
-import '../../../shared_presentation_layer/pages_shared/_home_page.dart';
+import '../../../shared_presentation_layer/pages_shared/home_page.dart';
 import '../../../shared_presentation_layer/pages_shared/page_not_found.dart';
 import '../../../shared_presentation_layer/pages_shared/splash_page.dart';
 import '../utils/page_transition.dart';

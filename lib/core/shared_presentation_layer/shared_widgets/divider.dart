@@ -6,7 +6,7 @@ import '../../base_modules/theme/ui_constants/_app_constants.dart'
 
 /// 🧊 [GlassTileDivider] — Subtle glass-style divider between dialog content and buttons.
 /// Used in dialogs with translucent backgrounds and blurred layers.
-
+//
 final class GlassTileDivider extends StatelessWidget {
   /// ─────────────────────────────────────────────
   const GlassTileDivider({super.key});

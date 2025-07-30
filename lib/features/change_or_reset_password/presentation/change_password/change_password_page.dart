@@ -19,7 +19,7 @@ import '../../../../core/base_modules/localization/generated/locale_keys.g.dart'
 import '../../../../core/base_modules/localization/widgets/text_widget.dart';
 import '../../../../core/base_modules/navigation/app_routes/app_routes.dart';
 import '../../../../core/base_modules/theme/ui_constants/_app_constants.dart';
-import '../../../../core/shared_presentation_layer/widgets_shared/buttons/form_submit_button.dart';
+import '../../../../core/shared_presentation_layer/shared_widgets/buttons/form_submit_button.dart';
 import '../../../../core/utils_shared/type_definitions.dart';
 import '../../domain/password_actions_use_case.dart';
 import 'cubit/change_password_cubit.dart';

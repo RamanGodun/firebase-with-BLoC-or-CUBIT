@@ -2,12 +2,12 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart' show immutable;
 
 /// 👤 [UserEntity] — Domain Entity representing a user in the system
-/// ✅ Immutable, comparable via [Equatable], used only in domain layer
-
+/// ✅ Immutable, comparable via [Equatable], used only in domain logic
+//
 @immutable
-class UserEntity extends Equatable {
-  //------------------------------
-
+final class UserEntity extends Equatable {
+  ///-----------------------------
+  //
   final String id;
   final String name;
   final String email;
@@ -24,11 +24,12 @@ class UserEntity extends Equatable {
     required this.point,
     required this.rank,
   });
-  //
 
+  ///
   @override
   List<Object?> get props => [id, name, email, profileImage, point, rank];
 
+  ///
   @override
   String toString() =>
       'User(id: $id, name: $name, email: $email, point: $point, rank: $rank)';

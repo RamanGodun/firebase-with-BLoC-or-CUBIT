@@ -5,7 +5,7 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/ut
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/utils/for_bloc/consumable_x.dart';
 import '../../../../core/base_modules/errors_handling/failures/failure_ui_model.dart';
 import '../../domain/fetch_profile_use_case.dart';
-import '../../../../core/shared_domain_layer/shared_entities/_user.dart';
+import '../../../../core/shared_domain_layer/shared_entities/_user_entity.dart';
 
 part 'profile_page_state.dart';
 

@@ -3,10 +3,11 @@ import '../../base_modules/localization/widgets/text_widget.dart';
 import '../../base_modules/theme/ui_constants/_app_constants.dart';
 
 /// 🎨 CustomAppBar with flexible icon/widgets in actions
+//
 final class CustomAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   ///-----------------------------------------
-
+  // /
   final String title;
   final IconData? leadingIcon;
   final VoidCallback? onLeadingPressed;

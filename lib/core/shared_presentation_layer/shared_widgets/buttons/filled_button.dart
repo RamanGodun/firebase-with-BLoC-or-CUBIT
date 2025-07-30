@@ -4,7 +4,7 @@ import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extensi
 import 'package:flutter/material.dart';
 import '../../../base_modules/localization/widgets/text_widget.dart';
 import '../../../base_modules/theme/ui_constants/_app_constants.dart';
-import '../loaders/loader.dart';
+import '../loader.dart';
 
 /// 🧩 [CustomFilledButton] — Animated filled button with loader/text switch.
 /// UI-only (no business logic), uses Hero for smooth transitions.
