@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart' show sealed;
-import '../enums/error_plugins.dart';
+import 'plugins.dart';
 
 part 'failure_subclasses/firebase_failures.dart';
 part 'failure_subclasses/network_and_api_failures.dart';

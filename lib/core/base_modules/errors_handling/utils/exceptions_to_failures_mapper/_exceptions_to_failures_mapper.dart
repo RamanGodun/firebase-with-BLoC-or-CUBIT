@@ -6,8 +6,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
 import '../observers/loggers/errors_log_util.dart';
-import '../../enums/error_plugins.dart';
-import '../../failures/failure_entity.dart';
+import '../../failures/plugins.dart';
+import '../../failures/failure__entity.dart';
 
 part 'dio_cases.dart';
 part 'firebase_cases.dart';

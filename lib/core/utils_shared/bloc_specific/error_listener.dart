@@ -3,7 +3,7 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/fa
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_context_x_for_overlays.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../base_modules/errors_handling/failures/failure_entity.dart';
+import '../../base_modules/errors_handling/failures/failure__entity.dart';
 import '../../base_modules/errors_handling/utils/for_bloc/consumable.dart';
 import '../../base_modules/localization/init_localization.dart';
 import '../../base_modules/localization/generated/locale_keys.g.dart';

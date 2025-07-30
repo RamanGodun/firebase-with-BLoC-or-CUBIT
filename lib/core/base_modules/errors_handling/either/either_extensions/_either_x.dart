@@ -1,14 +1,14 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/failures/extensions/failure_diagnostics_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
-import '../../failures/failure_entity.dart';
+import '../../failures/failure__entity.dart';
 import '../../utils/observers/loggers/errors_log_util.dart';
 import '__eithers_facade.dart';
 
 /// 🧩 [ResultX<T>] — Sync sugar for `Either<Failure, T>`
 /// ✅ Enables fallback values, failure access, and folding logic
-
+//
 extension ResultX<T> on Either<Failure, T> {
-  //---------------------------------------
+  ///------------------------------------
 
   /// 🔁 Match (fold) sync logic — now chainable
   /// ✅ Auto-logs failure and tracks success

@@ -1,6 +1,6 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/failures/extensions/failure_diagnostics_x.dart';
 import 'package:flutter/material.dart';
-import '../../errors_handling/failures/failure_entity.dart';
+import '../../errors_handling/failures/failure__entity.dart';
 
 /// 🧭 [FailureNavigationX] — Handles redirection/navigation scenarios based on failure type
 /// ✅ Recommended for handling auth/navigation flows declaratively

@@ -2,10 +2,10 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/fa
 import 'package:flutter/material.dart';
 import '../../../localization/init_localization.dart';
 import '../../utils/observers/loggers/errors_log_util.dart';
-import '../../enums/error_plugins.dart';
-import '../failure_entity.dart';
+import '../plugins.dart';
+import '../failure__entity.dart';
 import '../../utils/for_bloc/consumable.dart';
-import '../failure_ui_model.dart';
+import '../failure__ui_model.dart';
 
 /// ✅ [FailureToUIEntityX] — Maps [Failure] to [FailureUIEntity] without localization context
 //
@@ -26,11 +26,11 @@ extension FailureToUIEntityX on Failure {
       (true, false) => AppLocalizer.translateSafely(translationKey!),
       _ => message,
     };
-
+    //
     if (translationKey != null && resolvedText == message) {
       ErrorsLogger.failure(this, StackTrace.current);
     }
-
+    //
     return FailureUIEntity(
       localizedMessage: resolvedText,
       formattedCode: safeCode,
@@ -38,7 +38,9 @@ extension FailureToUIEntityX on Failure {
     );
   }
 
-  // 🖼️ Icon depending on failure type
+  ////
+
+  /// 🖼️ Icon depending on failure type
   IconData _resolveIcon() => switch (this) {
     ApiFailure() => Icons.cloud_off,
     FirebaseFailure() => Icons.fireplace,
@@ -55,7 +57,9 @@ extension FailureToUIEntityX on Failure {
     _ => Icons.error_outline,
   };
 
-  // 🎯 Wrapper for "one-shot" state management
+  ////
+
+  /// 🎯 Wrapper for "one-shot" state management
   Consumable<FailureUIEntity> asConsumableUIEntity() =>
       Consumable(toUIEntity());
 

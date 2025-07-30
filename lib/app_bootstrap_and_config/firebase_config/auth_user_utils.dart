@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' show User;
 import 'firebase_constants.dart';
-import '../../core/base_modules/errors_handling/failures/failure_entity.dart';
+import '../../core/base_modules/errors_handling/failures/failure__entity.dart';
 
 /// 🧩 [AuthUserUtils] — centralized utils for accessing current user
 /// 🛡️ Guarantees null-safe usage of FirebaseAuth.currentUser

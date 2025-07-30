@@ -6,7 +6,7 @@ import 'package:formz/formz.dart';
 import '../../../../../core/utils_shared/timing_control/timing_config.dart';
 import '../../../../../core/base_modules/form_fields/input_validation/validation_enums.dart';
 import '../../../../../core/base_modules/form_fields/input_validation/x_on_forms_submition_status.dart';
-import '../../../../../core/base_modules/errors_handling/failures/failure_entity.dart';
+import '../../../../../core/base_modules/errors_handling/failures/failure__entity.dart';
 import '../../../../../core/base_modules/errors_handling/utils/for_bloc/result_handler_async.dart';
 import '../../../../../core/base_modules/errors_handling/utils/for_bloc/consumable.dart';
 import '../../../../../core/base_modules/errors_handling/utils/for_bloc/consumable_x.dart';

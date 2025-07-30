@@ -4,7 +4,7 @@ import 'package:firebase_with_bloc_or_cubit/core/shared_data_layer/user_data_tra
 import 'package:firebase_with_bloc_or_cubit/core/shared_domain_layer/shared_entities/_user_entity.dart';
 import 'package:firebase_with_bloc_or_cubit/features/profile/domain/repo_contract.dart';
 import '../../../core/utils_shared/timing_control/timing_config.dart';
-import '../../../core/base_modules/errors_handling/failures/failure_entity.dart';
+import '../../../core/base_modules/errors_handling/failures/failure__entity.dart';
 import '../../../core/shared_data_layer/user_data_transfer_objects/_user_dto.dart';
 import '../../../core/shared_data_layer/user_data_transfer_objects/user_dto_factories_x.dart';
 import '../../../core/utils_shared/cash_manager/cache_manager.dart';

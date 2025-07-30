@@ -1,6 +1,6 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_context_x_for_overlays.dart';
 import 'package:flutter/material.dart' show BuildContext;
-import '../../failures/failure_ui_model.dart';
+import '../../failures/failure__ui_model.dart';
 import 'consumable.dart';
 
 /// 📦 Extension to wrap any object in a [Consumable]

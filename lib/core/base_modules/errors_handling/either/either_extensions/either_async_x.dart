@@ -5,13 +5,13 @@ import '../../../../utils_shared/timing_control/timing_config.dart';
 import '../../utils/observers/loggers/errors_log_util.dart';
 import '../../utils/for_bloc/result_handler_async.dart';
 import '../either.dart';
-import '../../failures/failure_entity.dart';
+import '../../failures/failure__entity.dart';
 
 /// 🧩 [ResultFutureX<T>] — Async sugar for `Future<Either<Failure, T>>`
 /// ✅ Unified access to async chaining, fallback and message handling
-
+//
 extension ResultFutureX<T> on Future<Either<Failure, T>> {
-  //-----------------------------------------------------
+  ///--------------------------------------------------
 
   /// 🔁 Match with async callbacks — auto-logs failure and tracks success
   Future<void> matchAsync({

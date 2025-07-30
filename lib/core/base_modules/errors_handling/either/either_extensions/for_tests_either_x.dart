@@ -1,10 +1,10 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/either/either_extensions/either_getters_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/failures/extensions/failure_diagnostics_x.dart';
-import '../../failures/failure_entity.dart';
+import '../../failures/failure__entity.dart';
 import '../either.dart';
 
 /// 🧪 [ResultFutureTestX] — Fluent test helpers for async Either
-
+//
 extension ResultFutureTestX<T> on Future<Either<Failure, T>> {
   ///--------------------------------------------------------
 

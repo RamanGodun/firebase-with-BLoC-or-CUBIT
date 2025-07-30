@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../../../../../../core/base_modules/errors_handling/failures/failure_entity.dart';
+import '../../../../core/base_modules/errors_handling/failures/failure__entity.dart';
 import '../../../../../../core/base_modules/errors_handling/utils/for_bloc/consumable.dart';
 import '../../../../../../core/base_modules/errors_handling/utils/for_bloc/consumable_x.dart';
 import '../../../../core/utils_shared/timing_control/timing_config.dart';

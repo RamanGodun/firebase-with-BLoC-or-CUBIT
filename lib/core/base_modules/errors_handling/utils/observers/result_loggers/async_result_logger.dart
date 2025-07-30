@@ -1,7 +1,7 @@
 part of 'result_logger_x.dart';
 
 extension FutureResultLoggerExt<T> on Future<Either<Failure, T>> {
-  ///-------------------------------------------------------------
+  ///----------------------------------------------------------
 
   /// 🪵 Logs failure if result is Left
   Future<Either<Failure, T>> log([StackTrace? stack]) async {

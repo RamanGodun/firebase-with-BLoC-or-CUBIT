@@ -1,4 +1,4 @@
-import '../../failures/failure_entity.dart';
+import '../../failures/failure__entity.dart';
 import '../exceptions_to_failures_mapper/_exceptions_to_failures_mapper.dart';
 import '../../either/either.dart';
 

@@ -3,10 +3,10 @@ import 'package:meta/meta.dart' show immutable;
 /// 🎯 [Either] — Functional construct for wrapping a result:
 /// ✅ [Left] for failure, [Right] for success
 /// ✅ Immutable, composable, and testable
-
+//
 @immutable
 sealed class Either<L, R> {
-  //---------------------
+  ///-------------------
   const Either();
   //
 
@@ -61,19 +61,24 @@ sealed class Either<L, R> {
 ////
 
 /// 📦 [Left] — Represents failure value of [Either]
+//
 @immutable
 final class Left<L, R> extends Either<L, R> {
-  const Left(this.value);
+  ///--------------------------------------
+  //
   final L value;
+  const Left(this.value);
 }
 
 ////
-
 ////
 
 /// 📦 [Right] — Represents success value of [Either]
+//
 @immutable
 final class Right<L, R> extends Either<L, R> {
-  const Right(this.value);
+  ///--------------------------------------
+  //
   final R value;
+  const Right(this.value);
 }

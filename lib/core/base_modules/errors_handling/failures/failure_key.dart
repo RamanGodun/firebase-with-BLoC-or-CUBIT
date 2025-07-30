@@ -1,4 +1,4 @@
-part of 'error_plugins.dart';
+part of 'plugins.dart';
 
 /// 🗝️ [FailureKeys] — Localizable error keys for [Failure]
 /// 🧩 Used with i18n and [AppLocalizer] to resolve messages
@@ -79,4 +79,6 @@ enum FailureKeys {
     unknown => 'failure.unknown',
     missingPlugin => 'failure.plugin.missing',
   };
+
+  //
 }

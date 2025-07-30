@@ -2,7 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/ut
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/utils/for_bloc/result_handler.dart';
-import '../../../../../core/base_modules/errors_handling/failures/failure_entity.dart';
+import '../../../../../core/base_modules/errors_handling/failures/failure__entity.dart';
 import '../../../../../core/base_modules/errors_handling/utils/for_bloc/consumable.dart';
 import '../../../domain/use_cases/sign_out.dart';
 

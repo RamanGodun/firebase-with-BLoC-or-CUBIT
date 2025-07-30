@@ -1,4 +1,4 @@
-part of '../failure_entity.dart';
+part of '../failure__entity.dart';
 
 /// 🔥 [FirebaseFailure] — general firebase-related issues
 //
@@ -48,9 +48,11 @@ final class FirestoreDocMissingFailure extends FirebaseFailure {
 
 ////
 
+/// Failure, when email verification polling time is expired
+//
 final class EmailVerificationFailure extends Failure {
   ///--------------------------------------------
-
+  //
   EmailVerificationFailure.timeoutExceeded()
     : super._(
         message: 'Email verification polling timed out.',

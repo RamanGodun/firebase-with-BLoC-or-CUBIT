@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../base_modules/errors_handling/either/either.dart';
-import '../base_modules/errors_handling/failures/failure_entity.dart';
+import '../base_modules/errors_handling/failures/failure__entity.dart';
 
 /// 🧩 [ResultFuture] — Represents async result with [Either<Failure, T>]
 typedef ResultFuture<T> = Future<Either<Failure, T>>;

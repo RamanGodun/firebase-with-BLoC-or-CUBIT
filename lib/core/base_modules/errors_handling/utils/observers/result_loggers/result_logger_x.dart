@@ -1,15 +1,15 @@
 import 'package:flutter/foundation.dart' show debugPrint;
 import '../../../either/either_extensions/__eithers_facade.dart';
-import '../../../failures/failure_entity.dart';
+import '../../../failures/failure__entity.dart';
 import '../loggers/errors_log_util.dart';
 
 part 'async_result_logger.dart';
 
 /// 📦 [ResultLoggerExt<T>] — Unified logging extensions for Either and [Future<Either>]
 /// ✅ Supports logging, tracking, and success/failure diagnostics
-
+//
 extension ResultLoggerExt<T> on Either<Failure, T> {
-  //-------------------------------------------------
+  ///---------------------------------------------
 
   /// 🪵 Logs failure if result is Left
   Either<Failure, T> log([StackTrace? stack]) {
