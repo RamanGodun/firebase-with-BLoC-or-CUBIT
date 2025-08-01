@@ -166,12 +166,16 @@ dart run easy_localization:generate \
 
 - Use only generated keys — never hardcode translation keys or locale codes in the UI/business logic.
 
+---
+
 ### Accessing Translations
 
 ```dart
 Text(LocaleKeys.profile_username.tr()),
 Text(LocaleKeys.welcome_message.tr(args: [userName])),
 ```
+
+---
 
 ### Switching Languages
 
@@ -180,12 +184,16 @@ Text(LocaleKeys.welcome_message.tr(args: [userName])),
 context.setLocale(const Locale('uk', 'UA'));
 ```
 
+---
+
 ### Pluralization & Contextualization
 
 ```dart
 LocaleKeys.items_count.trPlural(count),
 LocaleKeys.welcome_gender.tr(gender: user.gender),
 ```
+
+---
 
 ### ✅ Shared Pattern: `_resolveText()` or `_resolveLabel()`
 
@@ -200,6 +208,8 @@ All UI components MUST use this pattern for safe localization fallback:
     return raw;
   }
 ```
+
+---
 
 ### 🔤 `TextWidget`
 
@@ -216,6 +226,103 @@ AppTextField(label: LocaleKeys.form_email, fallback: 'Email', ...)
 ```
 
 - Uses `_resolveLabel()` internally for label safety
+
+---
+
+### 🧾 Localizing Form Validation
+
+Your form inputs (email, name, password, etc.) can expose **localization-ready validation keys**,
+which are resolved into readable messages only at the UI level.
+
+---
+
+#### 🔁 Key Strategy
+
+- Each `FormzInput` (e.g. `EmailInputValidation`) contains a computed field:
+
+```dart
+String? get uiErrorKey => isPure || isValid ? null : errorKey;
+```
+
+- The `errorKey` returns a constant from `LocaleKeys`, based on the input error enum.
+
+```dart
+String? get errorKey => switch (error) {
+  EmailValidationError.empty => LocaleKeys.form_email_is_empty,
+  EmailValidationError.invalid => LocaleKeys.form_email_is_invalid,
+  _ => null,
+};
+```
+
+---
+
+#### 🌐 UI-Level Localization
+
+In UI widgets such as `AppTextField`, this key is converted to a readable string:
+
+```dart
+final String message = AppLocalizer.translateSafely(uiErrorKey, fallback: fallback);
+```
+
+Or using `_resolveText()` pattern:
+
+```dart
+String _resolveText(String? key, String fallback) {
+  if (key != null && AppLocalizer.isInitialized) {
+    return AppLocalizer.translateSafely(key, fallback: fallback);
+  }
+  return fallback;
+}
+```
+
+---
+
+#### 🧪 No-Context Support
+
+Because the key is passed as a string constant, validation logic and `FormzInput` classes:
+
+- ✅ Do not depend on `BuildContext`
+- ✅ Are usable in pure Dart tests, CLI, or headless logic
+
+---
+
+#### 🛡️ Best Practices
+
+- Always pass localization keys instead of raw error messages.
+- Convert to localized string only in widgets or overlay builders.
+- Always provide a `fallback:` in `AppLocalizer.translateSafely(...)` to ensure graceful degradation.
+
+> ✅ This approach keeps your validation logic clean, testable, and localization-aware without tight UI coupling.
+
+---
+
+### 🔥 Localizing of Errors Overlays
+
+In addition to regular UI strings, this module supports full localization of error messages coming from
+your app’s failure-handling system. All domain or infrastructure errors (e.g. Firebase, HTTP)
+can be automatically translated via their `translationKey`.
+
+---
+
+#### 💡 How it works
+
+- All errors are wrapped in a `Failure` model.
+- Each `Failure` can include an optional `translationKey`.
+- A `FailureToUIEntityX` extension maps a `Failure` to a `FailureUIEntity`, including localized message via `AppLocalizer.translateSafely(...)`.
+- This UI entity is then passed to overlay utilities such as `context.showError(...)`.
+
+```dart
+final uiText = AppLocalizer.t(failure.translationKey!, fallback: failure.message);
+```
+
+> Fallback mechanism ensures that even if the key is missing or not found, the raw `message` is displayed instead.
+
+#### 🛡️ Best Practices for Error Localization
+
+- Always assign `translationKey` inside domain or data layer when throwing a `Failure`.
+- Use fallback `message` to show something meaningful if localization fails.
+- Group all error-related keys under a namespace like `errors_`.
+- Keep overlay and errors handling logic fully decoupled from localization.
 
 ---
 
