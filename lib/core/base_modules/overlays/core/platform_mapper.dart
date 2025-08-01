@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../animation/overlays_animation/animation_engines/_animation_engine.dart';
+import '../../animations/module_core/_animation_engine.dart';
 import '../overlays_presentation/overlay_presets/overlay_preset_props.dart';
 import '../overlays_presentation/widgets/android/android_banner.dart';
 import '../overlays_presentation/widgets/android/android_dialog.dart';
