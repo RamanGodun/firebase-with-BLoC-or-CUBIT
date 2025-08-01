@@ -15,7 +15,7 @@ import '../../../../core/base_modules/overlays/utils/overlay_utils.dart';
 import '../../domain/use_cases/sign_up.dart';
 import 'cubit/sign_up_page_cubit.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/localization/generated/locale_keys.g.dart';
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/navigation/extensions/navigation_x_on_context.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/navigation/utils/extensions/navigation_x_on_context.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x_barrel.dart';
 import '../../../../core/base_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import '../../../../core/utils_shared/spider/images_paths.dart';

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart'
     show CachedNetworkImage;
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/navigation/extensions/navigation_x_on_context.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/navigation/utils/extensions/navigation_x_on_context.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_context_x_for_overlays.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x_barrel.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ import '../../../core/base_modules/localization/generated/locale_keys.g.dart';
 import '../../../core/base_modules/localization/widgets/language_toggle_button/toggle_button.dart';
 import '../../../core/base_modules/localization/widgets/key_value_x_for_text_w.dart';
 import '../../../core/base_modules/localization/widgets/text_widget.dart';
-import '../../../core/base_modules/navigation/app_routes/app_routes.dart';
+import '../../../core/base_modules/navigation/routes/app_routes.dart';
 import '../../../core/base_modules/theme/ui_constants/_app_constants.dart';
 import '../../../core/base_modules/theme/widgets_and_utils/blur_wrapper.dart';
 import '../../../core/base_modules/theme/widgets_and_utils/theme_picking_widgets/theme_picker.dart';

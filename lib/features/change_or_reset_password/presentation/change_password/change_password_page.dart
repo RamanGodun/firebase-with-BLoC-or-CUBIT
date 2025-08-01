@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/failures/extensions/to_ui_failure_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/form_fields/input_validation/x_on_forms_submition_status.dart';
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/navigation/extensions/navigation_x_on_context.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/navigation/utils/extensions/navigation_x_on_context.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_context_x_for_overlays.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_overlay_base_methods.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/context_extensions/_context_extensions.dart';
@@ -17,7 +17,7 @@ import '../../../../core/base_modules/form_fields/widgets/_fields_factory.dart';
 import '../../../../core/base_modules/form_fields/widgets/password_visibility_icon.dart';
 import '../../../../core/base_modules/localization/generated/locale_keys.g.dart';
 import '../../../../core/base_modules/localization/widgets/text_widget.dart';
-import '../../../../core/base_modules/navigation/app_routes/app_routes.dart';
+import '../../../../core/base_modules/navigation/routes/app_routes.dart';
 import '../../../../core/base_modules/theme/ui_constants/_app_constants.dart';
 import '../../../../core/shared_presentation_layer/shared_widgets/buttons/form_submit_button.dart';
 import '../../../../core/utils_shared/type_definitions.dart';

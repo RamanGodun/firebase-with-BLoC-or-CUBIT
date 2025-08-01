@@ -1,6 +1,6 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/failures/extensions/failure_led_retry_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/failures/extensions/to_ui_failure_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/navigation/extensions/navigation_x_on_context.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/navigation/utils/extensions/navigation_x_on_context.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_context_x_for_overlays.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/context_extensions/_context_extensions.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x_barrel.dart';
@@ -16,7 +16,7 @@ import '../../../../core/base_modules/form_fields/widgets/_fields_factory.dart';
 import '../../../../core/base_modules/form_fields/widgets/password_visibility_icon.dart';
 import '../../../../core/base_modules/localization/init_localization.dart';
 import '../../../../core/base_modules/localization/generated/locale_keys.g.dart';
-import '../../../../core/base_modules/navigation/app_routes/app_routes.dart';
+import '../../../../core/base_modules/navigation/routes/app_routes.dart';
 import '../../../../core/base_modules/overlays/core/enums_for_overlay_module.dart';
 import '../../../../core/base_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
 import '../../../../core/base_modules/overlays/utils/overlay_utils.dart';

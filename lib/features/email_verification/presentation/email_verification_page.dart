@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/failures/extensions/to_ui_failure_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/navigation/extensions/navigation_x_on_context.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/navigation/utils/extensions/navigation_x_on_context.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_context_x_for_overlays.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/theme/widgets_and_utils/extensions/theme_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x_barrel.dart';
@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../app_bootstrap_and_config/firebase_config/firebase_constants.dart';
 import '../../../app_bootstrap_and_config/di_container/di_container_init.dart';
-import '../../../core/base_modules/navigation/app_routes/app_routes.dart';
+import '../../../core/base_modules/navigation/routes/app_routes.dart';
 import '../../../core/shared_presentation_layer/shared_widgets/buttons/text_button.dart';
 import '../../../core/base_modules/localization/widgets/text_widget.dart';
 import '../../../core/base_modules/localization/generated/locale_keys.g.dart';
