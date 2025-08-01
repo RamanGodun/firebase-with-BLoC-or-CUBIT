@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../base_modules/localization/widgets/text_widget.dart';
+import '../../base_modules/localization/module_widgets/text_widget.dart';
 import '../../base_modules/theme/ui_constants/_app_constants.dart';
 
 /// 🎨 CustomAppBar with flexible icon/widgets in actions

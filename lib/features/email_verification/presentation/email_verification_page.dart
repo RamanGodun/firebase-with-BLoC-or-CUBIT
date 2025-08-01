@@ -10,7 +10,7 @@ import '../../../app_bootstrap_and_config/firebase_config/firebase_constants.dar
 import '../../../app_bootstrap_and_config/di_container/di_container_init.dart';
 import '../../../core/base_modules/navigation/routes/app_routes.dart';
 import '../../../core/shared_presentation_layer/shared_widgets/buttons/text_button.dart';
-import '../../../core/base_modules/localization/widgets/text_widget.dart';
+import '../../../core/base_modules/localization/module_widgets/text_widget.dart';
 import '../../../core/base_modules/localization/generated/locale_keys.g.dart';
 import '../../../core/base_modules/theme/ui_constants/_app_constants.dart';
 import '../../../core/base_modules/theme/ui_constants/app_colors.dart';

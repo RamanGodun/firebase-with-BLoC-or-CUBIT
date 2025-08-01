@@ -2,7 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/animations/widget_
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/theme/widgets_and_utils/extensions/theme_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x_barrel.dart';
 import 'package:flutter/material.dart';
-import '../../../base_modules/localization/widgets/text_widget.dart';
+import '../../../base_modules/localization/module_widgets/text_widget.dart';
 import '../../../base_modules/theme/ui_constants/_app_constants.dart';
 import '../loader.dart';
 

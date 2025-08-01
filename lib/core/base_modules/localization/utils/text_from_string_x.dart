@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/text_widget.dart';
+import '../module_widgets/text_widget.dart';
 
 /// 📜 Extension for fast TextWidget creation from string
 

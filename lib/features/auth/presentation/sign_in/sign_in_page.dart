@@ -14,7 +14,7 @@ import '../../../../core/base_modules/form_fields/input_validation/x_on_forms_su
 import '../../../../core/base_modules/form_fields/utils/use_auth_focus_nodes.dart';
 import '../../../../core/base_modules/form_fields/widgets/_fields_factory.dart';
 import '../../../../core/base_modules/form_fields/widgets/password_visibility_icon.dart';
-import '../../../../core/base_modules/localization/init_localization.dart';
+import '../../../../core/base_modules/localization/core_of_module/init_localization.dart';
 import '../../../../core/base_modules/localization/generated/locale_keys.g.dart';
 import '../../../../core/base_modules/navigation/routes/app_routes.dart';
 import '../../../../core/base_modules/overlays/core/enums_for_overlay_module.dart';

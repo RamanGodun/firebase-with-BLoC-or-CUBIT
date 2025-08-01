@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart' show debugRepaintRainbowEnabled;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_strategy/url_strategy.dart' show setPathUrlStrategy;
-import '../../core/base_modules/localization/init_localization.dart';
+import '../../core/base_modules/localization/core_of_module/init_localization.dart';
 import '../../core/base_modules/logging/for_bloc/bloc_observer.dart';
 import 'remote_db_init.dart';
 import 'platform_validation.dart';

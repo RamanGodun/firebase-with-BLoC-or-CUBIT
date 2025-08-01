@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../localization/init_localization.dart';
+import '../../../localization/core_of_module/init_localization.dart';
 import '../../../localization/generated/locale_keys.g.dart';
 import '../../../overlays/core/_context_x_for_overlays.dart';
 import '../../module_core/app_theme_preferences.dart';

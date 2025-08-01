@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'generated/codegen_loader.g.dart';
+import '../generated/codegen_loader.g.dart';
 
 /// 🌍 [LocalizationWrapper] — Static utility for configuring app-wide localization with EasyLocalization.
 ///     ✅ Injects all required locale and translation settings.

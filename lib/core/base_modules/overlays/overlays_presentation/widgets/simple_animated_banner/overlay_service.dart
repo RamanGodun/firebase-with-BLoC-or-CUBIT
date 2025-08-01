@@ -3,7 +3,7 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/theme/widgets_and_
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import '../../../../../utils_shared/timing_control/timing_config.dart';
-import '../../../../localization/widgets/text_widget.dart';
+import '../../../../localization/module_widgets/text_widget.dart';
 import '../../../../theme/ui_constants/app_colors.dart';
 
 part 'overlay_widget.dart';

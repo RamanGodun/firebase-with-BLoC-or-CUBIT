@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'text_widget.dart';
+import '../../base_modules/localization/module_widgets/text_widget.dart';
 
 /// 🔑 [KeyValueTextWidget] — Combines a localized key with a dynamic value in a single line,
 /// with baseline alignment and columnar spacing for visual consistency.

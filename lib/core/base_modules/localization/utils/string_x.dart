@@ -1,4 +1,4 @@
-import '../init_localization.dart';
+import '../core_of_module/init_localization.dart';
 
 /// 🌐 Extension method on nullable [String] to safely translate localization keys.
 /// ✅ Returns `null` if the key is null, otherwise uses [AppLocalizer.translateSafely].

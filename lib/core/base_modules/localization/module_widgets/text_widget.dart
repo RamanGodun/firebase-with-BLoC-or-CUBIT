@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/theme/widgets_and_utils/extensions/theme_x.dart';
 import 'package:flutter/material.dart';
 import '../../theme/ui_constants/app_colors.dart';
-import '../init_localization.dart';
+import '../core_of_module/init_localization.dart';
 
 /// 📝 [TextWidget] — Custom Text widget with dynamic styling options.
 /// Supports all native typography variants + additional decorations.

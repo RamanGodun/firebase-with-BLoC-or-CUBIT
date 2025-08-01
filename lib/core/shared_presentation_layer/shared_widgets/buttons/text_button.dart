@@ -2,7 +2,7 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/theme/widgets_and_
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../utils_shared/timing_control/timing_config.dart';
-import '../../../base_modules/localization/widgets/text_widget.dart';
+import '../../../base_modules/localization/module_widgets/text_widget.dart';
 
 /// 🔘 [AppTextButton] — minimal, animated text-only button with underline option
 //
