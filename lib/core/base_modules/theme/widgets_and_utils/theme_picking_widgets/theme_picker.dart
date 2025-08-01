@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../localization/init_localization.dart';
 import '../../../localization/generated/locale_keys.g.dart';
 import '../../../overlays/core/_context_x_for_overlays.dart';
-import '../../_theme_preferences.dart';
+import '../../module_core/app_theme_preferences.dart';
 import '../../theme_providers_or_cubits/theme_cubit.dart';
-import '../../app_theme_variants.dart';
+import '../../module_core/theme_variants.dart';
 
 /// 🌗 [ThemePicker] — Allows to pick the theme mode and shows overlay notification
 //

@@ -1,7 +1,7 @@
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
-import '../_theme_preferences.dart';
-import '../app_theme_variants.dart';
+import '../module_core/app_theme_preferences.dart';
+import '../module_core/theme_variants.dart';
 import '../text_theme/text_theme_factory.dart';
 
 /// 🎨 [AppThemeCubit] — manages [ThemePreferences] (theme variant + font)

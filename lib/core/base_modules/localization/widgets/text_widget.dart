@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/theme/extensions/theme_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/theme/widgets_and_utils/extensions/theme_x.dart';
 import 'package:flutter/material.dart';
 import '../../theme/ui_constants/app_colors.dart';
 import '../init_localization.dart';

@@ -1,4 +1,4 @@
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/theme/extensions/theme_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/theme/widgets_and_utils/extensions/theme_x.dart';
 import 'package:flutter/material.dart';
 import '../../overlays/core/enums_for_overlay_module.dart';
 import '../module_core/_animation_engine.dart';

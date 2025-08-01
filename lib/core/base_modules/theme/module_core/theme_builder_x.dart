@@ -1,4 +1,4 @@
-part of 'app_theme_variants.dart';
+part of 'theme_variants.dart';
 
 /// 🎨 [ThemeVariantX] — Extension for [ThemeVariantsEnum] to generate ThemeData.
 ///   - Provides a factory method for building fully customized [ThemeData]
