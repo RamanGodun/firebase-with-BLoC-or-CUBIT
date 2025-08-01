@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/base_modules/overlays/overlay_dispatcher/overlay_status_cubit.dart';
-import '../../core/base_modules/theme/theme_cubit.dart';
+import '../../core/base_modules/theme/theme_providers_or_cubits/theme_cubit.dart';
 import '../firebase_config/user_auth_cubit/auth_cubit.dart';
 import '../../features/email_verification/presentation/email_verification_cubit/email_verification_cubit.dart';
 import '../../features/profile/presentation/cubit/profile_page_cubit.dart';

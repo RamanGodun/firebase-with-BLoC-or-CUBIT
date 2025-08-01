@@ -1,5 +1,3 @@
-Ось фінальний варіант
-
 # Overlay & Widget Animation Module Guide
 
 _Last updated: 2025-07-31_

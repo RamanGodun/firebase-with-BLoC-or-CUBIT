@@ -7,7 +7,7 @@ import 'core/base_modules/localization/generated/locale_keys.g.dart';
 import 'core/base_modules/overlays/core/global_overlay_handler.dart';
 import 'core/base_modules/navigation/core/go_router_factory.dart';
 import 'core/base_modules/theme/_theme_preferences.dart';
-import 'core/base_modules/theme/theme_cubit.dart';
+import 'core/base_modules/theme/theme_providers_or_cubits/theme_cubit.dart';
 import 'app_bootstrap_and_config/firebase_config/user_auth_cubit/auth_cubit.dart';
 
 /// 🌳🧩 [AppRootViewShell] — Top-level reactive widget listening to [AppThemeCubit].
