@@ -1,3 +1,4 @@
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/utils/observers/result_loggers/result_logger_x.dart';
 import '../../../../core/utils_shared/type_definitions.dart';
 import '../repo_contracts.dart';
 
@@ -9,6 +10,9 @@ final class SignOutUseCase {
   final ISignOutRepo repo;
   const SignOutUseCase(this.repo);
   //
-  ResultFuture<void> call() => repo.signOut();
+  ResultFuture<void> call() =>
+      repo.signOut()
+        ..log()
+        ..logSuccess('SignOutUseCase success');
   //
 }
