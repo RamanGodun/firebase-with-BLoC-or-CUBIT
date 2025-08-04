@@ -1,7 +1,7 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_overlay_base_methods.dart';
 import 'package:flutter/material.dart';
 import '../../../../app_bootstrap_and_config/di_container/di_container_init.dart';
-import '../../errors_handling/failures/failure__ui_model.dart';
+import '../../errors_handling/core_of_module/failure_ui_entity.dart';
 import '../../localization/core_of_module/init_localization.dart';
 import '../../localization/generated/locale_keys.g.dart';
 import '../overlay_dispatcher/_overlay_dispatcher.dart';
@@ -58,9 +58,7 @@ extension ContextXForOverlays on BuildContext {
       //
       case ShowAs.dialog:
         showAppDialog(
-          title: AppLocalizer.translateSafely(
-            LocaleKeys.errors_errors_general_title,
-          ),
+          title: AppLocalizer.translateSafely(LocaleKeys.errors_error_dialog),
           content: model.localizedMessage,
           confirmText:
               confirmText ??
@@ -80,9 +78,7 @@ extension ContextXForOverlays on BuildContext {
       case ShowAs.infoDialog:
         showAppDialog(
           isInfoDialog: true,
-          title: AppLocalizer.translateSafely(
-            LocaleKeys.errors_errors_general_title,
-          ),
+          title: AppLocalizer.translateSafely(LocaleKeys.errors_error_dialog),
           content: model.localizedMessage,
           confirmText: AppLocalizer.translateSafely(LocaleKeys.buttons_ok),
           cancelText: AppLocalizer.translateSafely(LocaleKeys.buttons_cancel),

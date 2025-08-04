@@ -25,52 +25,7 @@
     "change_password": "Zmienić hasło"  
   },
 
-  "errors": {
-    "page_not_found_title": "Strony nie znaleziono",
-    "page_not_found_message": "Ups! Strona, której szukasz, nie istnieje.",
-    "error_dialog": "Wystąpił błąd",
-    "firebase_title": "Błąd połączenia z Firebase",
-    "firebase_message": "Spróbuj ponownie później!",
-    "errors_general_title": "Wystąpił błąd"
-  },
-
-"failure": {
-  "firebase": {
-    "doc_missing": "Brak profilu użytkownika.",
-    "wrong_password": "Nieprawidłowe hasło.",
-    "user_not_found": "Użytkownik nie został znaleziony.",
-    "invalid_credential": "Nieprawidłowe dane logowania. Sprawdź poprawność i spróbuj ponownie.",
-    "generic": "Wystąpił błąd Firebase.",
-    "email_in_use": "Ten adres e-mail jest już używany.",
-    "invalid_email": "Nieprawidłowy format adresu e-mail.",
-    "missing_email": "Brak pola e-mail.",
-    "no_current_user": "Brak aktualnie zalogowanego użytkownika.",
-    "operation_not_allowed": "Ta operacja nie jest dozwolona przez Firebase.",
-    "requires_recent_login": "Aby kontynuować, musisz się ponownie zalogować.",
-    "too_many_requests": "Zbyt wiele prób. Spróbuj ponownie później.",
-    "user_disabled": "To konto zostało dezaktywowane.",
-    "weak_password": "Hasło jest zbyt słabe.",
-    "timeout": "Limit czasu żądania został przekroczony. Spróbuj ponownie później."
-  },
-  "format": {
-    "error": "Odebrano nieprawidłowy format danych."
-  },
-  "network": {
-    "no_connection": "Brak połączenia z Internetem.",
-    "timeout": "Limit czasu połączenia został przekroczony. Spróbuj ponownie później."
-  },
-  "auth": {
-    "unauthorized": "Twoja sesja wygasła. Zaloguj się ponownie."
-  },
-  "email_verification": {
-  "timeout": "Weryfikacja e-maila trwała zbyt długo. Spróbuj ponownie później."
-  },
-  "plugin": {
-    "missing": "Wykryto brakujący plugin. Skontaktuj się z pomocą techniczną."
-  },
-  "unknown": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie."
-},
-
+  
   "form": {
      "name": "Imię",
      "name_is_empty": "pole nie może być puste",
@@ -164,6 +119,52 @@
     "dark": "Motyw ciemny",
     "amoled": "Motyw AMOLED",
     "choose_theme": "Wybierz motyw"
-  }
+  },
+
+
+
+
+
+
+    "errors": {
+      "page_not_found_title": "Strony nie znaleziono",
+      "page_not_found_message": "Ups! Strona, której szukasz, nie istnieje.",
+      "error_dialog": "Wystąpił błąd"
+    },
+
+    "failures": {
+      "firebase": {
+        "generic": "Wystąpił błąd Firebase.",
+        "unauthorized": "Nie jesteś autoryzowany. Zaloguj się, proszę.",
+        "invalid_credential": "Nieprawidłowe dane logowania. Sprawdź poprawność i spróbuj ponownie.",
+        "account_exists_with_different_credential": "Konto z tym adresem e-mail już istnieje, ale z innymi danymi logowania.",
+        "email_already_in_use": "Ten adres e-mail jest już używany.",
+        "email_verification_timeout": "Weryfikacja e-maila trwała zbyt długo. Spróbuj ponownie później.",
+        "user_not_found": "Użytkownik nie został znaleziony.",
+        "no_current_user": "Brak aktualnie zalogowanego użytkownika.",
+        "doc_missing": "Brak profilu użytkownika.",
+        "user_disabled": "Konto zostało dezaktywowane.",
+        "operation_not_allowed": "Ta operacja nie jest dozwolona przez Firebase.",
+        "requires_recent_login": "Aby wykonać tę operację, musisz się ponownie zalogować.",
+        "too_many_requests": "Zbyt wiele żądań. Spróbuj ponownie później." 
+      },
+
+      "network": {
+        "no_connection": "Brak połączenia z Internetem.",
+        "timeout": "Limit czasu połączenia został przekroczony. Spróbuj ponownie później."
+      },
+
+      "api": {
+        "generic": "API error occurred."
+      },
+
+      "plugin_missing": "Wykryto brakujący plugin. Skontaktuj się z pomocą techniczną.",
+      "format_error": "Otrzymano nieprawidłowy format danych.",
+      "cache_error": "Wystąpił błąd pamięci podręcznej.",
+      "timeout": "Limit czasu żądania został przekroczony. Spróbuj ponownie później.", 
+      "unknown": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie."
+    }
+
+
 
 }

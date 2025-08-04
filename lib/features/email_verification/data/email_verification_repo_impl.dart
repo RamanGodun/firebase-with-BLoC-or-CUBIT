@@ -1,4 +1,4 @@
-import '../../../core/base_modules/errors_handling/utils/failure_handling.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/_run_errors_handling.dart';
 import '../../../core/utils_shared/type_definitions.dart';
 import '../domain/repo_contract.dart';
 import 'remote_database_contract.dart';

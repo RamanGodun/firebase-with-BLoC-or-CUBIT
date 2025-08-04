@@ -38,50 +38,6 @@ class CodegenLoader extends AssetLoader{
     "resend_email": "Wyślij ponownie e-mail weryfikacyjny",
     "change_password": "Zmienić hasło"
   },
-  "errors": {
-    "page_not_found_title": "Strony nie znaleziono",
-    "page_not_found_message": "Ups! Strona, której szukasz, nie istnieje.",
-    "error_dialog": "Wystąpił błąd",
-    "firebase_title": "Błąd połączenia z Firebase",
-    "firebase_message": "Spróbuj ponownie później!",
-    "errors_general_title": "Wystąpił błąd"
-  },
-  "failure": {
-    "firebase": {
-      "doc_missing": "Brak profilu użytkownika.",
-      "wrong_password": "Nieprawidłowe hasło.",
-      "user_not_found": "Użytkownik nie został znaleziony.",
-      "invalid_credential": "Nieprawidłowe dane logowania. Sprawdź poprawność i spróbuj ponownie.",
-      "generic": "Wystąpił błąd Firebase.",
-      "email_in_use": "Ten adres e-mail jest już używany.",
-      "invalid_email": "Nieprawidłowy format adresu e-mail.",
-      "missing_email": "Brak pola e-mail.",
-      "no_current_user": "Brak aktualnie zalogowanego użytkownika.",
-      "operation_not_allowed": "Ta operacja nie jest dozwolona przez Firebase.",
-      "requires_recent_login": "Aby kontynuować, musisz się ponownie zalogować.",
-      "too_many_requests": "Zbyt wiele prób. Spróbuj ponownie później.",
-      "user_disabled": "To konto zostało dezaktywowane.",
-      "weak_password": "Hasło jest zbyt słabe.",
-      "timeout": "Limit czasu żądania został przekroczony. Spróbuj ponownie później."
-    },
-    "format": {
-      "error": "Odebrano nieprawidłowy format danych."
-    },
-    "network": {
-      "no_connection": "Brak połączenia z Internetem.",
-      "timeout": "Limit czasu połączenia został przekroczony. Spróbuj ponownie później."
-    },
-    "auth": {
-      "unauthorized": "Twoja sesja wygasła. Zaloguj się ponownie."
-    },
-    "email_verification": {
-      "timeout": "Weryfikacja e-maila trwała zbyt długo. Spróbuj ponownie później."
-    },
-    "plugin": {
-      "missing": "Wykryto brakujący plugin. Skontaktuj się z pomocą techniczną."
-    },
-    "unknown": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie."
-  },
   "form": {
     "name": "Imię",
     "name_is_empty": "pole nie może być puste",
@@ -166,6 +122,40 @@ class CodegenLoader extends AssetLoader{
     "dark": "Motyw ciemny",
     "amoled": "Motyw AMOLED",
     "choose_theme": "Wybierz motyw"
+  },
+  "errors": {
+    "page_not_found_title": "Strony nie znaleziono",
+    "page_not_found_message": "Ups! Strona, której szukasz, nie istnieje.",
+    "error_dialog": "Wystąpił błąd"
+  },
+  "failures": {
+    "firebase": {
+      "generic": "Wystąpił błąd Firebase.",
+      "unauthorized": "Nie jesteś autoryzowany. Zaloguj się, proszę.",
+      "invalid_credential": "Nieprawidłowe dane logowania. Sprawdź poprawność i spróbuj ponownie.",
+      "account_exists_with_different_credential": "Konto z tym adresem e-mail już istnieje, ale z innymi danymi logowania.",
+      "email_already_in_use": "Ten adres e-mail jest już używany.",
+      "email_verification_timeout": "Weryfikacja e-maila trwała zbyt długo. Spróbuj ponownie później.",
+      "user_not_found": "Użytkownik nie został znaleziony.",
+      "no_current_user": "Brak aktualnie zalogowanego użytkownika.",
+      "doc_missing": "Brak profilu użytkownika.",
+      "user_disabled": "Konto zostało dezaktywowane.",
+      "operation_not_allowed": "Ta operacja nie jest dozwolona przez Firebase.",
+      "requires_recent_login": "Aby wykonać tę operację, musisz się ponownie zalogować.",
+      "too_many_requests": "Zbyt wiele żądań. Spróbuj ponownie później."
+    },
+    "network": {
+      "no_connection": "Brak połączenia z Internetem.",
+      "timeout": "Limit czasu połączenia został przekroczony. Spróbuj ponownie później."
+    },
+    "api": {
+      "generic": "API error occurred."
+    },
+    "plugin_missing": "Wykryto brakujący plugin. Skontaktuj się z pomocą techniczną.",
+    "format_error": "Otrzymano nieprawidłowy format danych.",
+    "cache_error": "Wystąpił błąd pamięci podręcznej.",
+    "timeout": "Limit czasu żądania został przekroczony. Spróbuj ponownie później.",
+    "unknown": "Wystąpił nieoczekiwany błąd. Spróbuj ponownie."
   }
 };
 static const Map<String,dynamic> _uk = {
@@ -191,50 +181,6 @@ static const Map<String,dynamic> _uk = {
     "reset_password": "Скинути пароль",
     "resend_email": "Повторно надіслати лист верефікації",
     "change_password": "Змінити пароль"
-  },
-  "errors": {
-    "page_not_found_title": "Сторінку не знайдено",
-    "page_not_found_message": "Ой! Сторінка, яку ви шукаєте, не існує.",
-    "error_dialog": "Сталася помилка",
-    "firebase_title": "Помилка з'єднання з Firebase",
-    "firebase_message": "Будь ласка, спробуйте пізніше!",
-    "errors_general_title": "Виникла помилка"
-  },
-  "failure": {
-    "firebase": {
-      "doc_missing": "Профіль користувача відсутній.",
-      "wrong_password": "Неправильний пароль.",
-      "user_not_found": "Користувача не знайдено.",
-      "invalid_credential": "Некоректні облікові дані. Будь ласка, перевірте введене і спробуйте ще раз.",
-      "generic": "Сталася помилка Firebase.",
-      "email_in_use": "Ця електронна адреса вже використовується.",
-      "invalid_email": "Некоректний формат електронної пошти.",
-      "missing_email": "Поле електронної пошти відсутнє.",
-      "no_current_user": "Немає поточного авторизованого користувача.",
-      "operation_not_allowed": "Цю дію заборонено налаштуваннями Firebase.",
-      "requires_recent_login": "Для виконання цієї дії потрібно нещодавно увійти до системи.",
-      "too_many_requests": "Забагато запитів. Спробуйте пізніше.",
-      "user_disabled": "Обліковий запис деактивовано.",
-      "weak_password": "Пароль занадто слабкий.",
-      "timeout": "Час очікування запиту вичерпано. Спробуйте ще раз пізніше."
-    },
-    "format": {
-      "error": "Отримано некоректний формат даних."
-    },
-    "network": {
-      "no_connection": "Немає підключення до Інтернету.",
-      "timeout": "Час очікування перевищено. Спробуйте пізніше."
-    },
-    "auth": {
-      "unauthorized": "Сесію завершено. Увійдіть знову."
-    },
-    "email_verification": {
-      "timeout": "Підтвердження електронної пошти зайняло надто багато часу. Спробуйте пізніше."
-    },
-    "plugin": {
-      "missing": "Виявлено відсутній плагін. Зверніться до служби підтримки."
-    },
-    "unknown": "Сталася непередбачувана помилка. Спробуйте пізніше."
   },
   "form": {
     "name": "Ім'я",
@@ -320,6 +266,40 @@ static const Map<String,dynamic> _uk = {
     "dark": "Темна тема",
     "amoled": "AMOLED тема",
     "choose_theme": "Оберіть тему"
+  },
+  "errors": {
+    "page_not_found_title": "Сторінку не знайдено",
+    "page_not_found_message": "Ой! Сторінка, яку ви шукаєте, не існує.",
+    "error_dialog": "Сталася помилка"
+  },
+  "failures": {
+    "firebase": {
+      "generic": "Сталася помилка Firebase.",
+      "unauthorized": "Ви не авторизовані. Будь ласка, увійдіть.",
+      "invalid_credential": "Некоректні облікові дані. Будь ласка, перевірте введене і спробуйте ще раз.",
+      "account_exists_with_different_credential": "Обліковий запис з цією поштою вже існує, але з іншими обліковими даними.",
+      "email_already_in_use": "Ця електронна адреса вже використовується.",
+      "email_verification_timeout": "Підтвердження електронної пошти зайняло надто багато часу. Спробуйте пізніше.",
+      "user_not_found": "Користувача не знайдено.",
+      "no_current_user": "Немає поточного авторизованого користувача.",
+      "doc_missing": "Профіль користувача відсутній.",
+      "user_disabled": "Обліковий запис деактивовано.",
+      "operation_not_allowed": "Цю дію заборонено налаштуваннями Firebase.",
+      "requires_recent_login": "Для виконання цієї дії потрібно нещодавно увійти до системи.",
+      "too_many_requests": "Забагато запитів. Спробуйте пізніше."
+    },
+    "network": {
+      "no_connection": "Немає підключення до Інтернету.",
+      "timeout": "Час очікування перевищено. Спробуйте пізніше."
+    },
+    "api": {
+      "generic": "API error occurred."
+    },
+    "plugin_missing": "Виявлено відсутній плагін. Зверніться до підтримки.",
+    "format_error": "Отримано некоректний формат даних.",
+    "cache_error": "Виникла помилка кешування.",
+    "timeout": "Час очікування запиту вичерпано. Спробуйте ще раз пізніше.",
+    "unknown": "Сталася непередбачувана помилка. Спробуйте пізніше."
   }
 };
 static const Map<String,dynamic> _en = {
@@ -345,50 +325,6 @@ static const Map<String,dynamic> _en = {
     "reset_password": "Reset Password",
     "resend_email": "Resend verification email",
     "change_password": "Change password"
-  },
-  "errors": {
-    "page_not_found_title": "Page Not Found",
-    "page_not_found_message": "Oops! The page you’re looking for does not exist.",
-    "error_dialog": "Error occurs",
-    "firebase_title": "Firebase Connection Error",
-    "firebase_message": "Please try again later!",
-    "errors_general_title": "An error occurred"
-  },
-  "failure": {
-    "firebase": {
-      "doc_missing": "User profile is missing.",
-      "wrong_password": "Wrong password.",
-      "user_not_found": "User not found.",
-      "invalid_credential": "Invalid credentials. Please check your input and try again.",
-      "generic": "A Firebase error occurred.",
-      "email_in_use": "Email is already in use.",
-      "invalid_email": "Invalid email format.",
-      "missing_email": "Missing email field.",
-      "no_current_user": "No current user signed in.",
-      "operation_not_allowed": "Operation not allowed by Firebase.",
-      "requires_recent_login": "Please reauthenticate to continue.",
-      "too_many_requests": "Too many attempts. Please try again later.",
-      "user_disabled": "This account is disabled.",
-      "weak_password": "Password is too weak.",
-      "timeout": "The request timed out. Please try again later."
-    },
-    "format": {
-      "error": "Invalid data format received."
-    },
-    "network": {
-      "no_connection": "No internet connection.",
-      "timeout": "Connection timed out. Please try again later."
-    },
-    "auth": {
-      "unauthorized": "Your session has expired. Please sign in again."
-    },
-    "email_verification": {
-      "timeout": "Email verification took too long. Please try again later."
-    },
-    "plugin": {
-      "missing": "Missing plugin detected. Please contact support."
-    },
-    "unknown": "An unexpected error occurred. Please try again."
   },
   "form": {
     "name": "Name",
@@ -474,6 +410,40 @@ static const Map<String,dynamic> _en = {
     "dark": "Dark theme ",
     "amoled": "Amoled theme",
     "choose_theme": "Choose theme"
+  },
+  "errors": {
+    "page_not_found_title": "Page Not Found",
+    "page_not_found_message": "Oops! The page you’re looking for does not exist.",
+    "error_dialog": "An error occurred"
+  },
+  "failures": {
+    "firebase": {
+      "generic": "A Firebase error occurred.",
+      "unauthorized": "You are not authorized. Please sign in.",
+      "invalid_credential": "Invalid credentials. Please check your input and try again.",
+      "account_exists_with_different_credential": "An account with this email already exists but with different credentials.",
+      "email_already_in_use": "This email address is already in use.",
+      "email_verification_timeout": "Email verification took too long. Please try again later.",
+      "user_not_found": "User not found.",
+      "no_current_user": "No current user signed in.",
+      "doc_missing": "User profile is missing.",
+      "user_disabled": "Account has been disabled.",
+      "operation_not_allowed": "Operation not allowed by Firebase.",
+      "requires_recent_login": "You need to reauthenticate to perform this action.",
+      "too_many_requests": "Too many requests. Please try again later."
+    },
+    "network": {
+      "no_connection": "No internet connection.",
+      "timeout": "Connection timed out. Please try again later."
+    },
+    "api": {
+      "generic": "API error occurred."
+    },
+    "plugin_missing": "Missing plugin detected. Please contact support.",
+    "format_error": "Invalid data format received.",
+    "cache_error": "A cache error occurred.",
+    "timeout": "The request timed out. Please try again later.",
+    "unknown": "An unexpected error occurred. Please try again."
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"pl": _pl, "uk": _uk, "en": _en};

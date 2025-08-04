@@ -25,52 +25,7 @@
     "change_password": "Change password"   
   },
 
-  "errors": {
-    "page_not_found_title": "Page Not Found",
-    "page_not_found_message": "Oops! The page you’re looking for does not exist.",
-    "error_dialog": "Error occurs",
-    "firebase_title": "Firebase Connection Error",
-    "firebase_message": "Please try again later!",
-    "errors_general_title": "An error occurred"
-  },
-
-"failure": {
-  "firebase": {
-    "doc_missing": "User profile is missing.",
-    "wrong_password": "Wrong password.",
-    "user_not_found": "User not found.",
-    "invalid_credential": "Invalid credentials. Please check your input and try again.",
-    "generic": "A Firebase error occurred.",
-    "email_in_use": "Email is already in use.",
-    "invalid_email": "Invalid email format.",
-    "missing_email": "Missing email field.",
-    "no_current_user": "No current user signed in.",
-    "operation_not_allowed": "Operation not allowed by Firebase.",
-    "requires_recent_login": "Please reauthenticate to continue.",
-    "too_many_requests": "Too many attempts. Please try again later.",
-    "user_disabled": "This account is disabled.",
-    "weak_password": "Password is too weak.",
-    "timeout": "The request timed out. Please try again later."
-  },
-  "format": {
-    "error": "Invalid data format received."
-  },
-  "network": {
-    "no_connection": "No internet connection.",
-    "timeout": "Connection timed out. Please try again later."
-  },
-  "auth": {
-    "unauthorized": "Your session has expired. Please sign in again."
-  },
-  "email_verification": {
-  "timeout": "Email verification took too long. Please try again later."
-  },
-  "plugin": {
-    "missing": "Missing plugin detected. Please contact support."
-  },
-  "unknown": "An unexpected error occurred. Please try again."
-},
-
+ 
   "form": {
     "name": "Name",
     "name_is_empty": "field cannot be empty",
@@ -164,6 +119,53 @@
     "dark": "Dark theme ",
     "amoled": "Amoled theme",
     "choose_theme": "Choose theme"
-  }
+  },
+
+
+
+
+
+    
+    "errors": {
+      "page_not_found_title": "Page Not Found",
+      "page_not_found_message": "Oops! The page you’re looking for does not exist.",
+      "error_dialog": "An error occurred"
+    },
+
+    "failures": {
+      "firebase": {
+        "generic": "A Firebase error occurred.",
+        "unauthorized": "You are not authorized. Please sign in.",
+        "invalid_credential": "Invalid credentials. Please check your input and try again.",
+        "account_exists_with_different_credential": "An account with this email already exists but with different credentials.",
+        "email_already_in_use": "This email address is already in use.",
+        "email_verification_timeout": "Email verification took too long. Please try again later.",
+        "user_not_found": "User not found.",
+        "no_current_user": "No current user signed in.",
+        "doc_missing": "User profile is missing.",
+        "user_disabled": "Account has been disabled.",
+        "operation_not_allowed": "Operation not allowed by Firebase.",
+        "requires_recent_login": "You need to reauthenticate to perform this action.",
+        "too_many_requests": "Too many requests. Please try again later."          
+      },
+ 
+      "network": {
+        "no_connection": "No internet connection.",
+        "timeout": "Connection timed out. Please try again later."
+      },
+
+      "api": {
+        "generic": "API error occurred."
+      },
+
+      "plugin_missing": "Missing plugin detected. Please contact support.",
+      "format_error": "Invalid data format received.",
+      "cache_error": "A cache error occurred.",
+      "timeout": "The request timed out. Please try again later." ,
+      "unknown": "An unexpected error occurred. Please try again."
+    }
+
+
+
 
 }

@@ -1,10 +1,10 @@
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/failures/extensions/failure_led_retry_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/failures/extensions/to_ui_failure_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/failure_ui_mapper.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/extensible_part/failure_extensions/failure_led_retry_x.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_context_x_for_overlays.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../base_modules/errors_handling/failures/failure__entity.dart';
-import '../../base_modules/errors_handling/utils/for_bloc/consumable.dart';
+import '../../base_modules/errors_handling/core_of_module/failure_entity.dart';
+import '../../base_modules/errors_handling/core_of_module/utils/specific_for_bloc/consumable.dart';
 import '../../base_modules/localization/core_of_module/init_localization.dart';
 import '../../base_modules/localization/generated/locale_keys.g.dart';
 import '../../base_modules/overlays/core/enums_for_overlay_module.dart';
