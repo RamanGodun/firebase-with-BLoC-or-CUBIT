@@ -1,5 +1,5 @@
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/utils/errors_observing/loggers/failure_logger_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/utils/extensions_on_failure/failure_to_either_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/core_utils/errors_observing/loggers/failure_logger_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/core_utils/extensions_on_failure/failure_to_either_x.dart';
 import 'either.dart';
 import 'failure_entity.dart';
 import 'dart:async' show TimeoutException;
@@ -10,7 +10,7 @@ import 'package:firebase_core/firebase_core.dart' show FirebaseException;
 import 'package:flutter/services.dart'
     show MissingPluginException, PlatformException;
 import 'failure_type.dart';
-import 'utils/errors_observing/loggers/errors_log_util.dart';
+import 'core_utils/errors_observing/loggers/errors_log_util.dart';
 
 part '../extensible_part/exceptions_to_failure_mapping/_exceptions_to_failures_mapper_x.dart';
 part '../extensible_part/exceptions_to_failure_mapping/firebase_exceptions_mapper.dart';

@@ -31,6 +31,6 @@ final class ProfileLoaded extends ProfileState {
 ////
 
 final class ProfileError extends ProfileState {
-  final Consumable<FailureUIEntity> failure;
+  final Consumable<Failure> failure;
   const ProfileError(this.failure);
 }

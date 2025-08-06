@@ -1,9 +1,9 @@
 import 'dart:async' show FutureOr;
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/utils/extensions_on_either/either_getters_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/core_utils/extensions_on_either/either_getters_x.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import '../../../../../utils_shared/timing_control/timing_config.dart';
 import '../errors_observing/loggers/errors_log_util.dart';
-import '../specific_for_bloc/result_handler_async.dart';
+import '../result_handler_async.dart';
 import '../../either.dart';
 import '../../failure_entity.dart';
 

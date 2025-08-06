@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/utils/errors_observing/loggers/failure_logger_x.dart';
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/utils/specific_for_bloc/consumable_extensions.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/core_utils/errors_observing/loggers/failure_logger_x.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/core_utils/specific_for_bloc/consumable_extensions.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import '../../../../../core/base_modules/errors_handling/core_of_module/failure_entity.dart';
-import '../../../../../core/base_modules/errors_handling/core_of_module/utils/specific_for_bloc/consumable.dart';
-import '../../../../../core/base_modules/errors_handling/core_of_module/utils/specific_for_bloc/result_handler_async.dart';
+import '../../../../../core/base_modules/errors_handling/core_of_module/core_utils/specific_for_bloc/consumable.dart';
+import '../../../../../core/base_modules/errors_handling/core_of_module/core_utils/result_handler_async.dart';
 import '../../../../../core/utils_shared/timing_control/timing_config.dart';
 import '../../../../../core/base_modules/form_fields/utils/_form_validation_service.dart';
 import '../../../../../core/base_modules/form_fields/input_validation/validation_enums.dart';

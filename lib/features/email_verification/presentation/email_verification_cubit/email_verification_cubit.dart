@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/utils/specific_for_bloc/consumable_extensions.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/core_utils/specific_for_bloc/consumable_extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import '../../../../core/base_modules/errors_handling/core_of_module/failure_entity.dart';
 import '../../../../core/base_modules/errors_handling/core_of_module/failure_type.dart';
-import '../../../../core/base_modules/errors_handling/core_of_module/utils/specific_for_bloc/consumable.dart';
+import '../../../../core/base_modules/errors_handling/core_of_module/core_utils/specific_for_bloc/consumable.dart';
 import '../../../../core/utils_shared/timing_control/timing_config.dart';
 import '../../../../app_bootstrap_and_config/firebase_config/user_auth_cubit/auth_cubit.dart';
 import '../../domain/email_verification_use_case.dart';

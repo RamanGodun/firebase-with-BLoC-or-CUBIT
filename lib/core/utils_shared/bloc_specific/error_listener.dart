@@ -4,7 +4,7 @@ import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_con
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../base_modules/errors_handling/core_of_module/failure_entity.dart';
-import '../../base_modules/errors_handling/core_of_module/utils/specific_for_bloc/consumable.dart';
+import '../../base_modules/errors_handling/core_of_module/core_utils/specific_for_bloc/consumable.dart';
 import '../../base_modules/localization/core_of_module/init_localization.dart';
 import '../../base_modules/localization/generated/locale_keys.g.dart';
 import '../../base_modules/overlays/core/enums_for_overlay_module.dart';

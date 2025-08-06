@@ -1,7 +1,7 @@
 import 'dart:async' show FutureOr;
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/utils/errors_observing/loggers/failure_logger_x.dart';
-import '../extensions_on_either/either__facade.dart';
-import '../../failure_entity.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/core_utils/errors_observing/loggers/failure_logger_x.dart';
+import 'extensions_on_either/either__facade.dart';
+import '../failure_entity.dart';
 
 /// 🧩 [ResultHandlerAsync<T>] — async wrapper around `Either<Failure, T>`
 /// ✅ Provides clean async result handling with chainable syntax.

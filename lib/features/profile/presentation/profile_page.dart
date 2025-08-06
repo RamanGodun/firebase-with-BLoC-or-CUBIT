@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart'
     show CachedNetworkImage;
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/failure_ui_mapper.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/navigation/utils/extensions/navigation_x_on_context.dart';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/core/_context_x_for_overlays.dart';
 import 'package:firebase_with_bloc_or_cubit/core/utils_shared/extensions/extension_on_widget/_widget_x_barrel.dart';
@@ -60,9 +61,10 @@ final class ProfilePage extends StatelessWidget {
         /// 📣 Show error once and reset failure
         listener: (context, state) {
           if (state is ProfileError) {
-            final model = state.failure.consume();
-            if (model != null) {
-              context.showError(model);
+            final failure = state.failure.consume();
+            if (failure != null) {
+              final failureUIEntity = failure.toUIEntity();
+              context.showError(failureUIEntity);
               context.read<ProfileCubit>().clearFailure();
             }
           }

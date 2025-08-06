@@ -1,9 +1,8 @@
 import 'dart:async';
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/failure_ui_mapper.dart';
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/utils/specific_for_bloc/consumable_extensions.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/core_of_module/core_utils/specific_for_bloc/consumable_extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/base_modules/errors_handling/core_of_module/failure_ui_entity.dart';
-import '../../../../core/base_modules/errors_handling/core_of_module/utils/specific_for_bloc/consumable.dart';
+import '../../../../core/base_modules/errors_handling/core_of_module/failure_entity.dart';
+import '../../../../core/base_modules/errors_handling/core_of_module/core_utils/specific_for_bloc/consumable.dart';
 import '../../domain/fetch_profile_use_case.dart';
 import '../../../../core/shared_domain_layer/shared_entities/_user_entity.dart';
 
@@ -27,7 +26,7 @@ final class ProfileCubit extends Cubit<ProfileState> {
     final result = await _fetchProfileUsecase(uid);
 
     result.fold(
-      (f) => emit(ProfileError(f.toUIEntity().asConsumable())),
+      (f) => emit(ProfileError(f.asConsumable())),
       (u) => emit(ProfileLoaded(u)),
     );
   }
