@@ -1,6 +1,20 @@
 /*
 
 
+
+
+import 'package:firebase_with_riverpod/core/base_modules/errors_handling/extensible_part/failure_extensions/failure_led_retry_x.dart';
+import 'package:firebase_with_riverpod/core/base_modules/errors_handling/core_of_module/failure_ui_mapper.dart';
+import 'package:firebase_with_riverpod/core/base_modules/overlays/core/_context_x_for_overlays.dart';
+import 'package:flutter/material.dart' show BuildContext, VoidCallback;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../../utils_shared/type_definitions.dart';
+import '../../../../localization/core_of_module/init_localization.dart';
+import '../../../../localization/generated/locale_keys.g.dart';
+import '../../../../overlays/core/enums_for_overlay_module.dart';
+import '../../../../overlays/utils/overlay_utils.dart';
+import '../../failure_entity.dart';
+
 /// 🧩 [ContextAsyncValueX] — extension for showing [Failure]s from [AsyncValue]
 //
 extension FailureListenerRefX on WidgetRef {
@@ -70,7 +84,7 @@ extension FailureListenerRefX on WidgetRef {
           confirmText: AppLocalizer.translateSafely(LocaleKeys.buttons_retry),
         );
       }
-      // ❌ Otherwise — just show passive error info dialof
+      // ❌ Otherwise — just show passive error info dialog
       else {
         context.showError(failure.toUIEntity());
       }
@@ -103,4 +117,7 @@ extension AsyncValueX<T> on AsyncValue<T> {
 }
 
 
-*/
+
+
+
+ */

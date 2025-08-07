@@ -19,7 +19,7 @@ extension ConsumableX<T> on T {
 extension FailureUIContextX on BuildContext {
   ///---------------------------------------
   //
-  void consumeAndShowDialog(FailureUIEntity? model) {
-    if (model != null) showError(model);
+  void consumeAndShowDialog(FailureUIEntity? uiFailure) {
+    if (uiFailure != null) showError(uiFailure);
   }
 }

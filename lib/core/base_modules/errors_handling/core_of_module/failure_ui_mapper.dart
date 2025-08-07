@@ -1,5 +1,4 @@
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/errors_handling/extensible_part/failure_extensions/failure_icons_x.dart';
-
 import '../../localization/core_of_module/init_localization.dart';
 import '../../localization/utils/localization_logger.dart';
 import 'failure_entity.dart';

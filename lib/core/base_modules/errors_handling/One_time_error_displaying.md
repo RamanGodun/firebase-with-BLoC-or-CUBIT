@@ -1,16 +1,17 @@
 # 🧯 One-Time Error Feedback in Cubit — Clean & Reliable
 
----
-
+----------------------------------------------------------------
 ## 🎯 Purpose
+----------------------------------------------------------------
 
 Ensure error feedback (dialogs, banners, snackbars) is **shown only once**, even if the UI rebuilds or user returns to the screen.
 
 > ✅ Fully aligned with the [`Either`](./README.md#📦-overview) error strategy, Clean Architecture, and stateless UI principles.
 
----
 
+----------------------------------------------------------------
 ## 🧩 Problem
+----------------------------------------------------------------
 
 In `Cubit`/`Bloc`, emitting a `Failure` or `FailureUIModel` can cause:
 
@@ -22,9 +23,11 @@ To avoid that, we implement **one-shot UI signaling**, using either:
 1. **Ephemeral status-based strategy** — via temporary state emission
 2. **Consumable model strategy** — via one-time wrappers (`Consumable<T>`) in state
 
----
 
+
+----------------------------------------------------------------
 ## 1️⃣ Ephemeral Status Pattern (Stateless)
+----------------------------------------------------------------
 
 ### 🧠 Idea
 
@@ -39,7 +42,7 @@ Great for simple forms using `.status` as a change notifier.
 ```dart
 emit(state.copyWith(
   status: FormzSubmissionStatus.failure,
-  failure: f.asConsumableUIModel(),
+  failure: f.asConsumable(),
 ));
 
 Future.microtask(() {
@@ -54,15 +57,16 @@ BlocListener<MyCubit, MyState>(
   listenWhen: (prev, curr) =>
     prev.status != curr.status && curr.status.isSubmissionFailure,
   listener: (context, state) {
-    final model = state.failure?.consume();
-    if (model != null) context.overlay.showError(model);
+    final failure = state.failure?.consume();
+    if (failure != null) context.overlay.showError(failure.toUIEntity);
   },
 );
 ```
 
----
 
+----------------------------------------------------------------
 ## 2️⃣ Consumable Wrapper Pattern (Stateful)
+----------------------------------------------------------------
 
 ### 🧠 Idea
 
@@ -97,7 +101,7 @@ final class Consumable<T> {
 result.fold(
   (f) => emit(state.copyWith(
     status: FormzSubmissionStatus.failure,
-    failure: f.asConsumableUIModel(),
+    failure: f.asConsumable(),
   )),
   (_) => emit(state.copyWith(status: FormzSubmissionStatus.success)),
 );
@@ -110,9 +114,9 @@ BlocListener<MyCubit, MyState>(
   listenWhen: (prev, curr) =>
     prev.status != curr.status && curr.status.isSubmissionFailure,
   listener: (context, state) {
-    final model = state.failure?.consume();
-    if (model != null) {
-      context.overlay.showError(model);
+    final failure = state.failure?.consume();
+    if (failure != null) {
+      context.overlay.showError(failure.toUIEntity());
       context.read<MyCubit>()
         ..resetStatus()
         ..clearFailure();
@@ -121,16 +125,17 @@ BlocListener<MyCubit, MyState>(
 );
 ```
 
----
-
+----------------------------------------------------------------
 ## 🧪 Testing Tips
+----------------------------------------------------------------
 
 * `Consumable` is testable: check `.isConsumed` or use `.consume()`
 * Your UI tests can assert dialog shows once, based on a `failure?.consume()` result
 
----
 
+----------------------------------------------------------------
 ## ✅ Strategy Matrix
+----------------------------------------------------------------
 
 | Pattern            | When to Use                                                        |
 | ------------------ | ------------------------------------------------------------------ |
@@ -139,11 +144,12 @@ BlocListener<MyCubit, MyState>(
 
 > 💡 Use both together: `FormzSubmissionStatus.failure` + `Consumable<FailureUIModel>`
 
----
 
+----------------------------------------------------------------
 ## 🛡️ Aligned With:
+----------------------------------------------------------------
 
 * ✅ Either: Domain-level `Failure` returned as `Either<Failure, T>`
-* ✅ Failure Mapping: `.toUIModel()` for consistent overlays
-* ✅ Clean Presentation: `Consumable<FailureUIModel>` in `Cubit`, no business logic in UI
+* ✅ Failure Mapping: `.toUIEntity()` for consistent overlays
+* ✅ Clean Presentation: `Consumable<FailureUIEntity>` in `Cubit`, no business logic in UI
 * ✅ Stateless Feedback: UI reads + consumes, never stores failure logic
