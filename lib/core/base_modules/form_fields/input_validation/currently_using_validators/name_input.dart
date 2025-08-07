@@ -1,4 +1,4 @@
-part of 'validation_enums.dart';
+part of '../validation_enums.dart';
 
 /// 👤 [NameInputValidation] — Formz input for validating user's full name.
 /// Ensures non-empty input and minimum character length.
@@ -10,7 +10,8 @@ final class NameInputValidation
   const NameInputValidation.pure() : super.pure('');
   const NameInputValidation.dirty([super.value = '']) : super.dirty();
 
-  ///
+  /// 🧪 [validator] — core validation logic for name input.
+  ///    Called internally by Formz every time the input changes,
   @override
   NameValidationError? validator(String value) {
     final trimmed = value.trim();

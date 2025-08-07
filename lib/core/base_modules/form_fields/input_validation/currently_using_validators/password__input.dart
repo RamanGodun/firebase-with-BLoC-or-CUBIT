@@ -1,4 +1,4 @@
-part of 'validation_enums.dart';
+part of '../validation_enums.dart';
 
 /// 🔒 [PasswordInputValidation] — Validates presence and minimum password length.
 //
@@ -9,7 +9,8 @@ final class PasswordInputValidation
   const PasswordInputValidation.pure() : super.pure('');
   const PasswordInputValidation.dirty([super.value = '']) : super.dirty();
 
-  ///
+  /// 🧪 [validator] — core validation logic for password input.
+  ///    Called internally by Formz every time the input changes,
   @override
   PasswordValidationError? validator(String value) {
     final trimmed = value.trim();

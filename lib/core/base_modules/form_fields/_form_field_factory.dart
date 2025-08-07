@@ -1,9 +1,9 @@
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/localization/generated/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import '../../theme/ui_constants/_app_constants.dart';
+import '../localization/generated/locale_keys.g.dart';
+import '../theme/ui_constants/_app_constants.dart';
 import 'keys_for_widgets.dart';
-import '../input_validation/validation_enums.dart';
-import 'app_text_field.dart';
+import 'input_validation/validation_enums.dart';
+import 'widgets/app_text_field.dart';
 
 /// 🏗️ Factory method that returns a themed [AppTextField], based on the [InputFieldType].
 /// Ensures consistent look & feel across forms (SignUp/Login).

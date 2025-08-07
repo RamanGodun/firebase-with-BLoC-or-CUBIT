@@ -1,4 +1,4 @@
-part of 'validation_enums.dart';
+part of '../validation_enums.dart';
 
 /// 🔐 [ConfirmPasswordInputValidation] — Formz input that validates password confirmation.
 /// Ensures the value is non-empty and matches the original password.
@@ -15,7 +15,8 @@ final class ConfirmPasswordInputValidation
     String value = '',
   }) : super.dirty(value);
 
-  ///
+  /// 🧪 [validator] — core validation logic for password confirm input.
+  ///    Called internally by Formz every time the input changes,
   @override
   ConfirmPasswordValidationError? validator(String value) {
     final trimmed = value.trim();

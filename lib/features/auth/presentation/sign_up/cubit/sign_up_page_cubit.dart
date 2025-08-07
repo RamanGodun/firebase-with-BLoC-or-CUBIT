@@ -8,12 +8,12 @@ import 'package:formz/formz.dart';
 import '../../../../../core/base_modules/errors_handling/core_of_module/failure_entity.dart';
 import '../../../../../core/base_modules/errors_handling/core_of_module/core_utils/specific_for_bloc/consumable.dart';
 import '../../../../../core/base_modules/errors_handling/core_of_module/core_utils/result_handler_async.dart';
+import '../../../../../core/base_modules/form_fields/utils/form_validation_service.dart';
 import '../../../../../core/utils_shared/timing_control/timing_config.dart';
-import '../../../../../core/base_modules/form_fields/utils/_form_validation_service.dart';
 import '../../../../../core/base_modules/form_fields/input_validation/validation_enums.dart';
 import '../../../domain/use_cases/sign_up.dart';
 import '../../../../../core/utils_shared/timing_control/debouncer.dart';
-import '../../../../../core/base_modules/form_fields/input_validation/x_on_forms_submition_status.dart';
+import '../../../../../core/base_modules/form_fields/input_validation/x_on_forms_submission_status.dart';
 
 part 'sign_up_page_state.dart';
 

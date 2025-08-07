@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// Centralized for testability, clarity, and consistency.
 //
 abstract final class AppKeys {
-  // ──────────────---------
+  ///──────────────--------
   const AppKeys._();
 
   /// 👤 Signup fields

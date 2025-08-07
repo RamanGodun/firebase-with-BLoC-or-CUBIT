@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 /// 👁️ Shared password visibility icon
 //
-class ObscureToggleIcon extends StatelessWidget {
-  ///-----------------------------------------
+final class ObscureToggleIcon extends StatelessWidget {
+  ///-----------------------------------------------
   //
   final bool isObscure;
   final VoidCallback onPressed;
