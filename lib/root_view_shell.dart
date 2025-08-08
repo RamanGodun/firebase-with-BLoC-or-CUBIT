@@ -88,7 +88,7 @@ final class _AppRootView extends StatelessWidget {
       /// 🔁 Router setup for declarative navigation
       routerConfig: router,
 
-      /// 🧩 Overlay handler for global overlays
+      // 🧩 Gesture handler to dismiss overlays and keyboard
       builder: (context, child) => GlobalOverlayHandler(child: child!),
 
       //

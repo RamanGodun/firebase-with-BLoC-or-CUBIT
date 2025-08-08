@@ -2,7 +2,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../app_bootstrap_and_config/firebase_config/user_auth_cubit/auth_cubit.dart';
 import '../../../shared_presentation_layer/pages_shared/page_not_found.dart';
 import '../routes/app_routes.dart';
-import '../utils/overlays_cleaner_within_navigation.dart';
+import '../../overlays/utils/overlays_cleaner_within_navigation.dart';
 import 'routes_redirection_service.dart';
 
 /// 🧭🚦[buildGoRouter] — GoRouter factory. Returns fully constructed [GoRouter] instance

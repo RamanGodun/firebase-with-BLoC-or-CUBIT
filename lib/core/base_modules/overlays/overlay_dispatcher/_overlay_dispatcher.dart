@@ -1,6 +1,6 @@
 import 'dart:collection';
 import 'package:firebase_with_bloc_or_cubit/core/base_modules/animations/overlays_animation/animation_wrapper/overlay_animation_x_for_widget.dart';
-import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/overlay_dispatcher/overlay_logger.dart';
+import 'package:firebase_with_bloc_or_cubit/core/base_modules/overlays/utils/overlay_logger.dart';
 import 'package:flutter/material.dart';
 import '../../../utils_shared/timing_control/timing_config.dart';
 import '../../../utils_shared/timing_control/debouncer.dart';
